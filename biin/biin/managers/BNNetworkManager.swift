@@ -303,10 +303,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         for var j = 0; j < sites?.count; j++ {
                             
                             var siteData = sites!.objectAtIndex(j) as NSDictionary
-                            var site = BNSite()
-                            site.identifier = self.findString("identifier", dictionary: siteData)
-                            site.jsonUrl = self.findString("jsonUrl", dictionary: siteData)
-                            category.sites.append(site)
+
+                            //TODO: Add site details to category here.
+                            var siteDetails = BNCategorySiteDetails()
+                            siteDetails.identifier = self.findString("identifier", dictionary: siteData)
+                            siteDetails.json = self.findString("jsonUrl", dictionary: siteData)
+                            category.sitesDetails.append(siteDetails)
+                            
+                            //var site = BNSite()
+                            //site.identifier = self.findString("identifier", dictionary: siteData)
+                            //site.jsonUrl = self.findString("jsonUrl", dictionary: siteData)
+                            //category.sites.append(site)
                         }
                         
                         categories.append(category)

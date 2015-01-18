@@ -27,8 +27,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //var showcasesIdentifiersToRequest:Dictionary<String, String> = Dictionary<String, String>()
     var sharedBiins = Dictionary<String, BNBiin>()
     
-    var categories = Dictionary<String, BNCategory>()
-    var sections:Array<BNSection> = Array<BNSection>()
+    //var categories = Dictionary<String, BNCategory>()
+    //var sections:Array<BNSection> = Array<BNSection>()
     
     var currentRegionIdentifier:String?
     
@@ -40,7 +40,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         super.init()
         
-        loadCategories()
+        //loadCategories()
 
         
     }
@@ -68,6 +68,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         delegateNM!.manager!(self, requestCategoriesData:bnUser!)
     }
     
+    /*
     ///Loads all user categories data into sections to display in main view.
     func loadUserSections(){
         
@@ -112,10 +113,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 //        }
     }
     
+    */
+    
     
     /**
     Loads all categories available on the categories array.
     */
+    /*
     func loadCategories() {
         categories["My Biins"] = BNCategory(identifier: "My Biins")
         categories["Personal Care"] = BNCategory(identifier: "Personal Care")
@@ -134,6 +138,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         categories["Entertaiment"]  = BNCategory(identifier: "Entertaiment")
         categories["Travel"]        = BNCategory(identifier: "Travel")
     }
+    */
     
     
     
@@ -185,13 +190,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         for category in bnUser!.categories {
             
-            println("Category received: \(category.identifier!) sites:\(category.sites.count)")
+            println("Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
             
-            for site in category.sites {
+            for siteDetails in category.sitesDetails {
                 //Check if site exist.
-                if self.sites[site.identifier!] == nil {
+                if self.sites[siteDetails.identifier!] == nil {
                     
-                    sites[site.identifier!] = site
+                    var site = BNSite()
+                    site.identifier = siteDetails.identifier!
+                    site.jsonUrl = siteDetails.json!
+                    sites[siteDetails.identifier!] = site
                     //Site does not exist, store it and request it's data.
                     delegateNM!.manager!(self, requestSiteData: site)
                 }
@@ -209,7 +217,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
-            println("ERROR: Site was requested but not added to sites list.")
+            println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
         }
         
         for biin in sites[site.identifier!]!.biins {

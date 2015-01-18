@@ -5,10 +5,16 @@
 
 import Foundation
 
+struct BNCategorySiteDetails {
+    init(){ }
+    var identifier:String?
+    var json:String?
+}
+
 class BNCategory:NSObject {
     
     var identifier:String?
-    var sites:Array<BNSite> = Array<BNSite>()
+    var sitesDetails:Array<BNCategorySiteDetails> = Array<BNCategorySiteDetails>()
     
     override init(){
         super.init()

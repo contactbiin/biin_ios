@@ -12,25 +12,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var appManager = BNAppSharedManager.instance
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization after application launch.
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
-        self.window!.backgroundColor = UIColor.whiteColor()
+        self.window!.backgroundColor = UIColor.blackColor()
         self.window!.makeKeyAndVisible()
         
         //TODO temporal
         //self.appManager.networkManager.requestRegions()
         
-        println("screen width: \(window!.screen.bounds.width)")
-        println("screen height: \(window!.screen.bounds.height)")
+        setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
-        appManager.screenWidth = window!.screen.bounds.width
-        appManager.screenHeight = window!.screen.bounds.height
-        
-        var viewController = ViewController()
-        self.window!.rootViewController = viewController
-        
+        var lvc = LoadingViewController()
+        self.window!.rootViewController = lvc
+        appManager.networkManager.delegateVC = lvc
         return true
     }
 
@@ -120,6 +116,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    //App methods
+    func setDeviceType(screenWidth:CGFloat, screenHeight:CGFloat){
+        
+        println("screen width: \(screenWidth)")
+        println("screen height: \(screenHeight)")
+        
+        var uiManager = SharedUIManager.instance
+        
+        uiManager.screenWidth = screenWidth
+        uiManager.screenHeight = screenHeight
+        
+        switch screenWidth {
+        case 320.0:
+            if screenHeight == 480.0 {
+                uiManager.deviceType = BNDeviceType.iphone4s
+            } else if screenHeight == 568.0 {
+                uiManager.deviceType = BNDeviceType.iphone5
+            }
+            break
+        case 375.0:
+            uiManager.deviceType = BNDeviceType.iphone6
+            break
+        case 414:
+            uiManager.deviceType = BNDeviceType.iphone6Plus
+            break
+        case 768:
+            uiManager.deviceType = BNDeviceType.ipad
+            break
+        default:
+            break
+        }
+    }
 }
 
