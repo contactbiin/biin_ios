@@ -195,7 +195,7 @@ extension UIColor {
     }
     
     //UI Colors
-    class func menuColor()  -> UIColor! {
+    class func appMainColor()  -> UIColor! {
         return UIColor.whiteColor()
     }
     
@@ -203,16 +203,20 @@ extension UIColor {
         return UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
     }
     
-    class func appForeground() -> UIColor {
-        return UIColor(red: 167/255, green: 169/255, blue: 171/255, alpha: 1)
+    class func appIconColor() -> UIColor {
+        return UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 1)
     }
     
     class func appTextColor() -> UIColor {
-        return UIColor(red: 209/255, green: 210/255, blue: 212/255, alpha: 1)
+        return UIColor(red: 89/255, green: 89/255, blue: 89/255, alpha: 1)
     }
     
     class func appButtonColor() -> UIColor {
-        return UIColor(red: 209/255, green: 210/255, blue: 212/255, alpha: 1)
+        return UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1)
+    }
+    
+    class func appNotificationRedColor() -> UIColor {
+        return UIColor(red: 237/255, green: 28/255, blue: 36/255, alpha: 1)
     }
 }
 

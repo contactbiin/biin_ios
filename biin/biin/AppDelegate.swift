@@ -124,30 +124,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         println("screen height: \(screenHeight)")
         
         var uiManager = SharedUIManager.instance
-        
         uiManager.screenWidth = screenWidth
         uiManager.screenHeight = screenHeight
-        
-        switch screenWidth {
-        case 320.0:
-            if screenHeight == 480.0 {
-                uiManager.deviceType = BNDeviceType.iphone4s
-            } else if screenHeight == 568.0 {
-                uiManager.deviceType = BNDeviceType.iphone5
-            }
-            break
-        case 375.0:
-            uiManager.deviceType = BNDeviceType.iphone6
-            break
-        case 414:
-            uiManager.deviceType = BNDeviceType.iphone6Plus
-            break
-        case 768:
-            uiManager.deviceType = BNDeviceType.ipad
-            break
-        default:
-            break
-        }
+        uiManager.setDeviceVariables()
     }
+    
+
 }
 

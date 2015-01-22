@@ -8,6 +8,8 @@ import UIKit
 
 class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
+    var headerDelegate:BiinieCategoriesView_Delegate?
+    
     //var container:CategoriesView_Container?
     var header:BiinieCategoriesView_Header?
     var categorySitesContainers:Array <BiinieCategoriesView_SitesContainer>?
@@ -47,6 +49,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         addCategoriesSitesContainers()
         
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
+        headerDelegate = header
         self.addSubview(header!)
     }
     
@@ -125,13 +128,17 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         scroll!.contentSize = CGSizeMake(xpos, 316)
         scroll!.pagingEnabled = true
         
+        if categorySitesContainers!.count > 0 {
+            categorySitesContainers![0].getToWork()
+            categorySitesContainers![0].manageSitesImageRequest()
+        }
         
     }
     
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView!) {
-        //update header
-        
+        //update header delegate categories control.
+        headerDelegate!.updateCategoriesControl!(self, position: scrollView.contentOffset.x)
     }// any offset changes
     
     // called on start of dragging (may require some time and or distance to move)
@@ -168,8 +175,16 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         scroll!.setContentOffset(position, animated: true)
         
         if page != panIndex {
+            
             panIndex = page
             println("change categories to \(panIndex)")
+            
+            for container in categorySitesContainers! {
+                container.getToRest()
+            }
+            
+            categorySitesContainers![panIndex].getToWork()
+            headerDelegate!.updateCategoriesPoints!(self, index:panIndex)
 //            self.bottomViewDelegate!.changedSection!(self, sectionIndex:self.panIndex)
 //            self.sectionsViewDelegate!.changedPoint!(self, pointIndex: self.panIndex)
             
@@ -190,4 +205,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         //println("scrollViewDidScrollToTops")
     }// called when scrolling animation finished. may be called immediately if already at top
 
+}
+
+@objc protocol BiinieCategoriesView_Delegate:NSObjectProtocol {
+    ///Update categories icons on header
+    optional func updateCategoriesPoints(view:BiinieCategoriesView, index:Int)
+    optional func updateCategoriesControl(view:BiinieCategoriesView,  position:CGFloat)
 }

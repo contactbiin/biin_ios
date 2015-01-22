@@ -1,4 +1,4 @@
-//  PointView.swift
+//  BNUIPointView.swift
 //  Biin
 //  Created by Esteban Padilla on 7/18/14.
 //  Copyright (c) 2014 Biin. All rights reserved.
@@ -6,10 +6,10 @@
 import Foundation
 import UIKit
 
-class PointView:UIView {
+class BNUIPointView:UIView {
 
     var icon:BNIcon?
-    var iconView:BNIconView?
+    //var iconView:BNIconView?
     var color = UIColor.appButtonColor()
     var isActive = false
     
@@ -54,20 +54,16 @@ class PointView:UIView {
         
         if isActive {
             var ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 10, 10))
-            self.color.setFill()
+            UIColor.biinColor().setFill()
             ovalPath.fill()
-            
-            UIColor.orangeColor().setStroke()
-            ovalPath.lineWidth = 2
-            ovalPath.stroke()
-            
-            
-            
+//            UIColor.orangeColor().setStroke()
+//            ovalPath.lineWidth = 2
+//            ovalPath.stroke()
+
         }else{
             var ovalPath = UIBezierPath(ovalInRect: CGRectMake(3, 3, 6, 6))
             self.color.setFill()
             ovalPath.fill()
-            
         }
     }
     
@@ -76,7 +72,7 @@ class PointView:UIView {
         UIView.animateWithDuration(0.5, animations: {() -> Void in
             self.alpha = 1.0
             self.label?.alpha = 0.0
-            self.iconView?.alpha = 0.0
+            //self.iconView?.alpha = 0.0
         })
         
         setNeedsDisplay()
@@ -88,8 +84,8 @@ class PointView:UIView {
         isActive = true
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             self.alpha = 1.0
-            self.label?.alpha = 1.0
-            self.iconView?.alpha = 1.0
+            //self.label?.alpha = 1.0
+            //self.iconView?.alpha = 1.0
         })
         
         setNeedsDisplay()
@@ -106,7 +102,7 @@ class PointView:UIView {
     }
     
     func createIcon(sectionIdentifier:String){
-        
+        /*
         var position:CGRect?
         
         switch sectionIdentifier {
@@ -130,10 +126,11 @@ class PointView:UIView {
             break
         }
         
-        iconView = BNIconView(frame:position!, icon: icon!)
-        iconView!.backgroundColor = UIColor.clearColor();
-        iconView!.alpha = 0
-        self.addSubview(iconView!)
+        //iconView = BNIconView(frame:position!, icon: icon!)
+        //iconView!.backgroundColor = UIColor.clearColor();
+        //iconView!.alpha = 0
+        //self.addSubview(iconView!)
+        */
     }
 }
 

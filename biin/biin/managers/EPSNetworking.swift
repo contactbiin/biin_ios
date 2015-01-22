@@ -8,7 +8,7 @@ import UIKit
 import SystemConfiguration
 
 struct RequetingImage {
-    var image:UIImageView
+    var image:BNUIImageView
     var imageUrl:String
 }
 
@@ -171,7 +171,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         }
     }
     
-    func getImage(urlString:NSString, image:UIImageView, callback:(NSError?) -> Void) {
+    func getImage(urlString:NSString, image:BNUIImageView, callback:(NSError?) -> Void) {
 
         //add requesting image to queue
         
@@ -195,7 +195,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
 //                loader.backgroundColor = UIColor.redColor()
 //                image.superview?.addSubview(loader)
                 
-                println("requesting image: \(urlString)")
+                //println("requesting image: \(urlString)")
                 
                 ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString))
                 
@@ -216,7 +216,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                         
                         
                         
-                        println("Store image: \(urlString)")
+                        //println("Store image: \(urlString)")
                         ShareEPSNetworking.cacheImages[urlString] = UIImage(data: data)
 //                        image.image = UIImage(data: data)
                         
@@ -237,6 +237,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
                 if let cacheImage = ShareEPSNetworking.cacheImages[imageUrl] {
                     ShareEPSNetworking.requestingImages[i].image.image = cacheImage
+                    ShareEPSNetworking.requestingImages[i].image.showAfterDownload()
                 }
             }
         }

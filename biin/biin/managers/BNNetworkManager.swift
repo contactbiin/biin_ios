@@ -366,13 +366,21 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     site.title = self.findString("title", dictionary: dataData)
                     site.subTitle = self.findString("subTitle", dictionary: dataData)
                     site.titleColor = self.findUIColor("titleColor", dictionary: dataData)
-                    site.subTitleColor = self.findUIColor("subTitleColor", dictionary: dataData)
                     site.country = self.findString("country", dictionary: dataData)
                     site.state = self.findString("state", dictionary: dataData)
                     site.city = self.findString("city", dictionary: dataData)
                     site.zipCode = self.findString("zipCode", dictionary: dataData)
                     site.streetAddress1 = self.findString("streetAddress1", dictionary: dataData)
                     site.streetAddress2 = self.findString("streetAddress2", dictionary: dataData)
+                    
+                    site.biinedCount = self.findInt("biinedCount", dictionary: dataData)!
+                    site.comments = self.findInt("comments", dictionary: dataData)!
+                    site.userBiined = self.findBool("userBiined", dictionary: dataData)
+                    site.userCommented = self.findBool("userCommented", dictionary: dataData)
+                    site.userShared = self.findBool("userShared", dictionary: dataData)
+                    
+                    site.latitude = self.findFloat("latitude", dictionary:dataData)
+                    site.longitude = self.findFloat("longitude", dictionary:dataData)
                     
                     var mediaArray = self.findNSArray("media", dictionary: dataData)
                     
@@ -484,7 +492,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 self.removeRequestOnCompleted(request.identifier)
 //                self.requests.removeValueForKey(request.identifier)
 //                self.requestAttempts = 0
-                
             }
         }
     }
@@ -619,10 +626,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 //                    element.showNotification = self.findBool("showNotification", dictionary: elementData)
 //                    element.hasNotification = self.findBool("hasNotification", dictionary: elementData)
                     element.biins = self.findInt("biins", dictionary: elementData)!
-                    element.likes = self.findInt("likes", dictionary: elementData)!
                     element.comments = self.findInt("comments", dictionary: elementData)!
                     element.userBiined = self.findBool("userBiined", dictionary: elementData)
-                    element.userLiked = self.findBool("userLiked", dictionary: elementData)
+                    element.userShared = self.findBool("userShared", dictionary: elementData)
                     element.userCommented = self.findBool("userCommented", dictionary: elementData)
                     element.userViewed = self.findBool("userViewed", dictionary: elementData)
                     
@@ -872,7 +878,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     
     
-    func manager(manager:BNDataManager!, requestImageData stringUrl:String, image:UIImageView) {
+    func manager(manager:BNDataManager!, requestImageData stringUrl:String, image:BNUIImageView) {
         
         var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
         self.requests[request.identifier] = request
@@ -889,7 +895,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         })
     }
     
-    func requestImageData(stringUrl:String, image:UIImageView!) {
+    func requestImageData(stringUrl:String, image:BNUIImageView!) {
 
         println("image url:\(stringUrl)")
         

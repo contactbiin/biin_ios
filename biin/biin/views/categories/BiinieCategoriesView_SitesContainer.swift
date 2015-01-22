@@ -8,10 +8,23 @@ import UIKit
 
 class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
-    var isPaused = true
+    var delegate:BiinieCategoriesView_SiteContainer_Delegate?
+    
+    var isWorking = false
     var category:BNCategory?
     var sites:Array<SiteMiniView>?
     var scroll:UIScrollView?
+    var isScrollDecelerating = false
+    
+    var siteViewHeight:CGFloat = 0
+    var siteViewWidth:CGFloat = 0
+    var siteSpacer:CGFloat = 10.0
+    var columns:Int = 2
+//    var siteRequestIndex:Int = 0
+    var siteRequestPreviousLimit:Int = 0
+    
+    
+    var lastRowRequested:Int = 0
     
     override init() {
         super.init()
@@ -44,14 +57,10 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.delegate = self
-        
         self.addSubview(scroll!)
         
-        
         addSites()
-            
     }
-    
     
     override func transitionIn() {
         println("trasition in on BiinieCategoriesView_SitesContainer")
@@ -85,40 +94,40 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     //instance methods
     //Start all category work, download etc.
     func getToWork(){
-        isPaused = false
+        isWorking = true
+        println("\(category!.identifier!) is working")
     }
     
     //Stop all category work, download etc.
     func getToRest(){
-        isPaused = true
+        isWorking = false
+        println("\(category!.identifier!) is resting")
     }
     
     func addSites() {
         
-        var width:CGFloat = 0
-        var height:CGFloat = 240
         var xpos:CGFloat = 0
-        var ypos:CGFloat = 10.0
+        var ypos:CGFloat = siteSpacer
         
-        var colunmCounter = 1
-        var colunms = 2
-        var spacer:CGFloat = 10.0
+        var columnCounter = 0
         
         sites = Array<SiteMiniView>()
         
         switch SharedUIManager.instance.deviceType {
         case .iphone4s, .iphone5, .iphone6:
-            width = (SharedUIManager.instance.screenWidth - 30) / 2
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
+            siteViewHeight = 240.0
+            columns = 2
             break
         case .iphone6Plus:
-            width = (SharedUIManager.instance.screenWidth - 40) / 3
-            height = SharedUIManager.instance.screenHeight / 4
-            colunms = 3
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+            siteViewHeight = SharedUIManager.instance.screenHeight / 4
+            columns = 3
             break
         case .ipad:
-            width = (SharedUIManager.instance.screenWidth - 40) / 3
-            height = SharedUIManager.instance.screenHeight / 3
-            colunms = 3
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+            siteViewHeight = SharedUIManager.instance.screenHeight / 3
+            columns = 3
             break
         default:
             break
@@ -127,38 +136,35 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         for var i = 0; i < category?.sitesDetails.count; i++ {
             
-            
-            if colunmCounter <= colunms {
-                colunmCounter++
-                xpos = xpos + spacer
+            if columnCounter < columns {
+                columnCounter++
+                xpos = xpos + siteSpacer
                 
             } else {
-                ypos = ypos + height + spacer
-                xpos = spacer
-                colunmCounter = 1
+                ypos = ypos + siteViewHeight + siteSpacer
+                xpos = siteSpacer
+                columnCounter = 1
             }
             
-            
-            println("site name for miniview: \(category?.sitesDetails[i].identifier!)")
             var siteIdentifier = category?.sitesDetails[i].identifier!
             var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier! ]
             
-            var siteView = SiteMiniView(frame: CGRectMake(xpos, ypos, width, height), father: self, site:site)
+            var siteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
             
             sites!.append(siteView)
             scroll!.addSubview(siteView)
             
-            xpos = xpos + width
+            xpos = xpos + siteViewWidth
         }
         
-        ypos = ypos + height + spacer
-        println("\(ypos)")
+        ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
     }
     
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView!) {
         //        println("scrollViewDidScroll")
+        manageSitesImageRequest()
     }// any offset changes
     
     // called on start of dragging (may require some time and or distance to move)
@@ -171,12 +177,12 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
     // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
     func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        //        println("scrollViewWillEndDragging")
+        //println("scrollViewWillEndDragging")
     }
     
     // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
     func scrollViewDidEndDragging(scrollView: UIScrollView!, willDecelerate decelerate: Bool) {
-        //        println("scrollViewDidEndDragging")
+//        println("scrollViewDidEndDragging \(decelerate)")
     }
     
     func scrollViewWillBeginDecelerating(scrollView: UIScrollView!) {
@@ -184,7 +190,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     }// called on finger up as we are moving
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
-        //println("scrollViewDidEndDecelerating")
+//        println("scrollViewDidEndDecelerating")
     }// called when scroll view grinds to a halt
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView!) {
@@ -200,4 +206,34 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         //println("scrollViewDidScrollToTops")
     }// called when scrolling animation finished. may be called immediately if already at top
     
+    func manageSitesImageRequest(){
+        
+        if !isWorking { return }
+        
+        var height = siteViewHeight + siteSpacer
+        var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
+
+        if lastRowRequested < row {
+            
+            lastRowRequested = row
+            var requestLimit = (lastRowRequested + columns) * columns
+
+            if requestLimit > sites?.count {
+                requestLimit = sites!.count - 1
+            }
+            
+            for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
+                //println("requesting for  \(i)")
+                var siteView = sites![i] as SiteMiniView
+                siteView.requestImage()
+            }
+            
+            siteRequestPreviousLimit = requestLimit + 1
+        }
+    }
+}
+
+@objc protocol BiinieCategoriesView_SiteContainer_Delegate:NSObjectProtocol {
+    ///Update categories icons on header
+    //optional func updateCategorControl(view:BiinieCategoriesView_Header,  position:CGFloat)
 }

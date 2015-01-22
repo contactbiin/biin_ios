@@ -15,15 +15,23 @@ class UIManager {
     
     var deviceType = BNDeviceType.none
     
-    var screenWidth:CGFloat = 0.0
-    var screenHeight:CGFloat = 0.0
+    var screenWidth:CGFloat = 0
+    var screenHeight:CGFloat = 0
     
     //Menu variables
-    var menuWidth:CGFloat = 220.0
+    var menuWidth:CGFloat = 220
     
     //Categories (sections) variables
-    var categoriesHeaderHeight:CGFloat = 60.0
+    var categoriesHeaderHeight:CGFloat = 60
     var spacer:CGFloat = 1.0
+    
+    
+    //MiniView sizes
+    var miniView_headerHeight:CGFloat = 55
+    
+    //Font sizes
+    var miniView_titleSize:CGFloat = 0
+    var miniView_subTittleSize:CGFloat = 0
     
     //Showcase and Main view positions
     var titleTop        = CGRectMake(5, 20, 0, 0)
@@ -43,6 +51,54 @@ class UIManager {
     var elementPointsView = CGRectMake(0, 302, 320, 20)
     var elementStickerView = CGRectMake(260, 255, 50, 50)
     
+    
+    func setDeviceVariables(){
+        
+        switch screenWidth {
+        case 320.0:
+            if screenHeight == 480.0 {
+                deviceType = BNDeviceType.iphone4s
+            } else if screenHeight == 568.0 {
+                deviceType = BNDeviceType.iphone5
+            }
+            setIPhone5Variables()
+            break
+        case 375.0:
+            setIPhone6Variables()
+            break
+        case 414:
+            setIPhone6PlusVariables()
+            break
+        case 768:
+            setIPadVariables()
+            break
+        default:
+            break
+        }
+    }
+    
+    func setIPhone5Variables(){
+        miniView_titleSize = 15
+        miniView_subTittleSize = 10
+    }
+    
+    func setIPhone6Variables() {
+        deviceType = BNDeviceType.iphone6
+        miniView_titleSize = 15
+        miniView_subTittleSize = 10
+    }
+    
+    func setIPhone6PlusVariables() {
+        deviceType = BNDeviceType.iphone6Plus
+        miniView_titleSize = 15
+        miniView_subTittleSize = 10
+    }
+    
+    func setIPadVariables() {
+        deviceType = BNDeviceType.ipad
+        miniView_titleSize = 15
+        miniView_subTittleSize = 10
+    }
     
 }
 

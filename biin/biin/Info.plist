@@ -4,10 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Lato-Regular.ttf</string>
 		<string>Lato-Light.ttf</string>
 	</array>
-	<key>CFBundleDisplayName</key>
-	<string>Lato-Regular.ttf</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>It tracks you.  That&apos;s the point</string>
 	<key>NSLocationAlwaysUsageDescription</key>

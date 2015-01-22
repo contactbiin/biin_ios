@@ -65,13 +65,12 @@ class BNElement:NSObject {
     
     //Social interaction
     var biins:Int = 0       //How many time users have biined this element.
-    var likes:Int = 0       //How many time users have like this element.
     var comments:Int = 0    //How many time users have commented this element.
     
     var userBiined = false
-    var userLiked = false
     var userCommented = false
     var userViewed = false
+    var userShared = false
     
     //Download management
     var isDownloadCompleted = false
@@ -117,10 +116,9 @@ class BNElement:NSObject {
         clone.activateNotification = self.activateNotification
         clone.notifications = self.notifications?
         clone.biins = self.biins
-        clone.likes = self.likes
         clone.comments = self.comments
         clone.userBiined = self.userBiined
-        clone.userLiked = self.userLiked
+        clone.userShared = self.userShared
         clone.userCommented = self.userCommented
         clone.userViewed = self.userViewed
         return clone

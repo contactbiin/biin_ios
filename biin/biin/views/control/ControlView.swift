@@ -12,13 +12,13 @@ class ControlView:BNView {
     var centerView:UIView?
     var controlOrientation = ControlOrientation.None
     var isTransitioning = false
-    
+    /*
     var awareBtn:BNUICircleButton?
     var likeBtn:BNUICircleButton?
     var commentBtn:BNUICircleButton?
     var sendBtn:BNUICircleButton?
     var removeBtn:BNUICircleButton?
-    
+    */
     var initialBtnPosition = CGPointMake(-18, -18)
 
     var likeBtnRightPosition = CGPointMake(-78, -106)
@@ -33,7 +33,7 @@ class ControlView:BNView {
     var removeBtnRightPosition = CGPointMake(-94, 49)
     var removeBtnLeftPosition = CGPointMake(49, 49)
     
-    var buttons = Array<BNUICircleButton>()
+    //var buttons = Array<BNUICircleButton>()
     var currentButtonIndex = -1
     
     weak var currentView:BNView?
@@ -54,7 +54,7 @@ class ControlView:BNView {
     
     override init(frame: CGRect, father: BNView?) {
         super.init(frame: frame, father: father)
-        
+        /*
         centerView = UIView(frame:CGRectMake(-25, -25, 50, 50))
         centerView!.layer.cornerRadius = 25
         centerView!.layer.borderWidth = 2
@@ -96,7 +96,7 @@ class ControlView:BNView {
         buttonsLbl!.sizeToFit()
         buttonsLbl!.frame = CGRectMake(-20, -143, (buttonsLbl!.frame.width + 20), (buttonsLbl!.frame.height + 1))
         self.addSubview(buttonsLbl!)
-        
+        */
         hideUserControl()
     }
     
@@ -143,7 +143,7 @@ class ControlView:BNView {
     
     func showUserControlForLeftOrientation() {
 
-        
+        /*
         UIView.animateWithDuration(0.3, animations: {()->Void in
             
             self.awareBtn!.alpha = 1
@@ -182,10 +182,12 @@ class ControlView:BNView {
             self.removeBtn!.frame.origin = self.removeBtnLeftPosition
             
             }, completion: nil)
+
+        */
     }
     
     func showUserControlForRightOrientation() {
-
+/*
         UIView.animateWithDuration(0.3, animations: {()->Void in
             
             self.awareBtn!.alpha = 1
@@ -225,10 +227,11 @@ class ControlView:BNView {
             self.removeBtn!.frame.origin = self.removeBtnRightPosition
             
             }, completion: nil)
+*/
     }
     
     func hideUserControl() {
-        
+        /*
         buttonsLbl!.alpha = 0
         
         awareBtn!.alpha = 0
@@ -242,6 +245,7 @@ class ControlView:BNView {
         commentBtn!.frame.origin = initialBtnPosition
         sendBtn!.frame.origin = initialBtnPosition
         removeBtn!.frame.origin = initialBtnPosition
+        */
     }
     
     override func setNextState(option:Int){
@@ -285,7 +289,7 @@ class ControlView:BNView {
     }
     
     override func updateUserControl(position:CGPoint){
-
+/*
         for var i = 0; i < buttons.count; i++ {
             
             var point = buttons[i].convertPoint(position, fromView:father!)
@@ -318,10 +322,12 @@ class ControlView:BNView {
         resetButtons()
         
         currentButtonIndex = -1
+
+*/
     }
     
     func resetButtons() {
-        
+        /*
         buttonsLbl!.alpha = 0
         
         for var i = 0; i < buttons.count; i++ {
@@ -330,7 +336,7 @@ class ControlView:BNView {
                 self.buttons[i].transform = CGAffineTransformMakeScale(1, 1)
             })
         }
-
+        */
     }
     
     func adjustButtonLbl(index:Int){

@@ -8,9 +8,11 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUISocialButton:BNUIButton {
+class BNUISocialButton:UIButton {
     
-    var borderColor:UIColor?
+    var icon:BNIcon?
+    var iconType:BNIconType = BNIconType.none
+    var label:UILabel?
     
     override init() {
         super.init()
@@ -24,31 +26,57 @@ class BNUISocialButton:BNUIButton {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, color:UIColor, iconColor:UIColor, iconStroke:CGFloat, iconType:BNUIIConType, iconAlignment:BNUIIconAlignment, isIconFilled:Bool, fontSize:CGFloat, hasLabel:Bool, alpha:CGFloat, hasBorder:Bool, borderWidth:CGFloat, borderColor:UIColor, hasShadow:Bool) {
+    convenience init(frame: CGRect, text:String, activate:Bool, iconType:BNIconType) {
         
-        self.init(frame:frame, color:color, iconColor:iconColor, iconStroke:iconStroke, iconType:iconType, iconAlignment:iconAlignment, isIconFilled:isIconFilled, fontSize:fontSize, hasLabel:hasLabel)
+        self.init(frame:frame)
+        
+        if activate {
+            self.backgroundColor = UIColor.biinColor()
+        } else {
+            self.backgroundColor = UIColor.appButtonColor()
+        }
+        
+        self.iconType = iconType
+        createIcon()
         
         self.layer.cornerRadius  = 3
-        self.layer.backgroundColor = UIColor.clearColor().CGColor
+        self.layer.masksToBounds = true
         
-        self.borderColor = borderColor
+        var iconWidth:CGFloat = 10
+        var xSpace:CGFloat = 6
+        var ypos:CGFloat = 1
+        var xpos:CGFloat = xSpace + iconWidth
         
-        if hasBorder {
-            self.layer.borderColor = self.borderColor!.CGColor
-            self.layer.borderWidth = borderWidth
-            
-            if hasShadow {
-                self.layer.shadowColor = UIColor.blackColor().CGColor
-                self.layer.shadowOffset = CGSizeMake(0, 0)
-                self.layer.shadowOpacity = 0.6
-                self.layer.shadowRadius = 2
-            }
-        }
+        label = UILabel(frame: CGRectMake(xpos, ypos, 200, 10))
+        label!.text = text
+        label!.textColor = UIColor.appMainColor()
+        label!.font = UIFont(name: "Lato-Regular", size: 10)
+        label!.sizeToFit()
+        self.addSubview(label!)
+        
+        var width:CGFloat = label!.frame.width + xpos + xSpace
+        self.frame = CGRectMake(frame.origin.x, frame.origin.y, width, 15)
     }
     
     override func drawRect(rect: CGRect) {
-        if iconType != BNUIIConType.None {
+        if iconType != BNIconType.none {
             icon?.drawCanvas()
+        }
+    }
+    
+    func createIcon(){
+        switch iconType {
+        case .biinSmall:
+            icon = BNIcon_BiinSmall(color: UIColor.appMainColor(), position: CGPointMake(4, 3))
+            break
+        case .commentSmall:
+            icon = BNIcon_CommentSmall(color: UIColor.appMainColor(), position: CGPointMake(3, 3))
+            break
+        case .shareSmall:
+            icon = BNIcon_ShareSmall(color: UIColor.appMainColor(), position: CGPointMake(6, 3.5))
+            break
+        default:
+            break
         }
     }
 }

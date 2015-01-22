@@ -21,7 +21,6 @@ class BNSite:NSObject {
     
     //Color
     var titleColor:UIColor?
-    var subTitleColor:UIColor?
     
     //Location
     var country:String?
@@ -40,6 +39,17 @@ class BNSite:NSObject {
     
     //Loyalty
     var loyalty:BNLoyalty?
+
+    //Social interaction
+    var biinedCount:Int = 0   //How many time users have biined this element.
+    var comments:Int = 0    //How many time users have commented this element.
+    
+    var userBiined = false
+    var userCommented = false
+    var userShared = false
+    
+    var latitude:Float?
+    var longitude:Float?
     
     override init(){
         super.init()

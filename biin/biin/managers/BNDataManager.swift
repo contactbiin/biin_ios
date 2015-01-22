@@ -590,7 +590,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         iconSite.title =  "iCon"
         iconSite.subTitle = "Multiplaza del Este"
         iconSite.titleColor = UIColor.bnRed()
-        iconSite.subTitleColor = UIColor.whiteColor()
         sites[iconSite.identifier!] = iconSite
         
         var iconShowcase = BNShowcase()

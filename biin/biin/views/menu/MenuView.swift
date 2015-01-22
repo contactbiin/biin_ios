@@ -10,7 +10,7 @@ class MenuView:UIView {
     
     var delegate:MenuViewDelegate?
     var isHidden = true
-    
+    /*
     var homeBtn:BNButton?
     var searchBtn:BNButton?
     var settingsBtn:BNButton?
@@ -18,7 +18,7 @@ class MenuView:UIView {
     var profileBtn:BNButton?
     var boardsBtn:BNButton?
     var buttons = Array<BNButton>()
-    
+    */
     override init() {
         super.init()
     }
@@ -33,7 +33,7 @@ class MenuView:UIView {
         self.backgroundColor = UIColor.blackColor()
         
         var ypos:CGFloat = 0
-        
+        /*
         homeBtn = BNButton(frame:CGRectMake(40, ypos, 100, 100), icon: HomeIcon(color: UIColor.whiteColor(), scale:1, position:CGPointMake(35, 25), stroke: 1, isFilled: false), text:"Home")
         homeBtn!.addTarget(self, action: "homeBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         homeBtn!.setButtonSelected(true)
@@ -69,6 +69,7 @@ class MenuView:UIView {
         boardsBtn!.addTarget(self, action: "boardsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         addSubview(boardsBtn!)
         buttons.append(boardsBtn!)
+        */
     }
     
     func homeBtnActon(sender:BNUIButton) {
@@ -102,6 +103,7 @@ class MenuView:UIView {
     }
     
     func disableButton(index:Int) {
+        /*
         for var i = 0; i < buttons.count; i++ {
             if i == index {
                 buttons[i].setButtonSelected(true)
@@ -109,6 +111,7 @@ class MenuView:UIView {
                 buttons[i].setButtonSelected(false)
             }
         }
+        */
     }
 }
 

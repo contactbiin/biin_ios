@@ -10,13 +10,29 @@ import QuartzCore
 class BNIcon {
     
     var color:UIColor?
-    var scale:CGFloat = 1.0
     var position:CGPoint = CGPoint.zeroPoint
-    var stroke:CGFloat = 1.0
-    var isFilled:Bool = false
     
     init(){ }
     
     func drawCanvas() { }
     func iconPath() -> UIBezierPath { return UIBezierPath() }
+}
+
+enum BNIconType {
+    case none
+    case biinSmall //done
+    case biinMedium
+    case biinLarge
+    case commentSmall //done
+    case commentMedium
+    case commentLarge
+    case shareSmall //done
+    case shareMedium
+    case shareLarge
+    case searchSmall
+    case searchMedium
+    case searchLarge
+    case notificationSmall
+    case notificationMedium
+    case notificationLarge
 }

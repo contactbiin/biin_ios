@@ -8,7 +8,11 @@ import UIKit
 
 class SiteMiniView: BNView {
     
-    weak var site:BNSite?
+    var site:BNSite?
+    var image:BNUIImageView?
+    var header:SiteMiniView_Header?
+    var imageRequested = false
+    
     
     override init() {
         super.init()
@@ -29,8 +33,8 @@ class SiteMiniView: BNView {
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
         self.init(frame: frame, father:father )
         
-        self.layer.borderColor = UIColor.whiteColor().colorWithAlphaComponent(0.25).CGColor
-        self.layer.borderWidth = 0.5
+        self.layer.borderColor = UIColor.appMainColor().CGColor
+        self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
@@ -39,19 +43,31 @@ class SiteMiniView: BNView {
         //self.layer.shadowOpacity = 0.25
         
         self.site = site
-        self.backgroundColor = site!.media[0].domainColor!
-        var nameLbl = UILabel(frame: CGRectMake(5, 5, 100, 15))
-        nameLbl.font = UIFont(name: "Lato-Regular", size:14)
-        nameLbl.text = self.site!.identifier!
-        self.addSubview(nameLbl)
+        
+        if let color = site!.media[0].domainColor? {
+            self.backgroundColor = color
+        } else {
+            self.backgroundColor = UIColor.appMainColor()
+        }
+
+
+        //Positioning image
+        var imageSize = frame.height - SharedUIManager.instance.miniView_headerHeight
+        var xpos = ((imageSize - frame.width) / 2 ) * -1
+        image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize))
+        image!.alpha = 0
+        self.addSubview(image!)
+        
+        header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, site: site)
+        self.addSubview(header!)        
     }
     
     override func transitionIn() {
-        println("trasition in on CategoriesView_Header")
+        println("trasition in on SiteMiniView")
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on CategoriesView_Header")
+        println("trasition out on SiteMiniView")
     }
     
     override func setNextState(option:Int){
@@ -61,7 +77,7 @@ class SiteMiniView: BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: CategoriesView_Header")
+            println("showUserControl: SiteMiniView")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -69,9 +85,17 @@ class SiteMiniView: BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: CategoriesView_Header")
+            println("updateUserControl: SiteMiniView")
         }else{
             father!.updateUserControl(position)
         }
+    }
+    
+    func requestImage(){
+        
+        if imageRequested { return }
+
+        imageRequested = true
+        BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: image)
     }
 }
