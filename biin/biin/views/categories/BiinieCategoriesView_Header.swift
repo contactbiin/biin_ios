@@ -13,6 +13,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     var icons = Array<UIView>()
     var previousPoint:Int = 0
     
+    var categoryNameLbl:UILabel?
     var notificationBtn:BNUIButton?
     var notificationRedCircle:BNUINotificationView_RedCircle?
     var searchBtn:BNUIButton?
@@ -32,11 +33,24 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.appMainColor()
+        
         self.layer.masksToBounds = false
         self.layer.shadowOffset = CGSizeMake(0, 3)
         self.layer.shadowRadius = 2
         self.layer.shadowOpacity = 0.25
+        /*
+        var blur:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.ExtraLight)
+        var effectView:UIVisualEffectView = UIVisualEffectView (effect: blur)
+        effectView.frame = frame
+        addSubview(effectView)
+        */
+        
+        categoryNameLbl = UILabel(frame: CGRectMake(0, 2, SharedUIManager.instance.screenWidth, 14))
+        categoryNameLbl!.font = UIFont(name: "Lato-Regular", size: 12)
+        categoryNameLbl!.textColor = UIColor.appTextColor()
+        categoryNameLbl!.textAlignment = NSTextAlignment.Center
+        self.addSubview(categoryNameLbl!)
 
         addButtons()
         addCategoriesPoints()
@@ -95,15 +109,25 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
         var xpos:CGFloat = (space - 5)
         
+        categoryNameLbl!.text = BNAppSharedManager.instance.dataManager.bnUser!.categories[0].name!
+
+        
         for var i:Int = 0; i < BNAppSharedManager.instance.dataManager.bnUser!.categories.count; i++ {
             
             var point = BNUIPointView(frame: CGRectMake((xpos), 45, 14, 14), sectionIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!)
             self.points.append(point)
             self.addSubview(point)
             
-            var icon = UIView(frame: CGRectMake((xpos + 5), 22, 25, 25))
-            icon.backgroundColor = UIColor.redColor()
-            icon.layer.cornerRadius = 5
+            var icon = BiinieCategoriesView_Icon(frame: CGRectMake((xpos), 22, 25, 25), categoryType: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].categoryType!)
+            
+            if i != 0 {
+                icon.transform = CGAffineTransformMakeScale(0.7, 0.7)
+                icon.alpha = 0.5
+            } else {
+                icon.frame.origin.x = point.frame.origin.x - 6
+                icon.frame.origin.y = 18
+            }
+            
             self.icons.append(icon)
             self.addSubview(icon)
             
@@ -134,29 +158,21 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     }
     
     func updateCategoriesPoints(view: BiinieCategoriesView, index: Int) {
-
-//        for var i = 0; i < points.count; i++ {
-//            if i == index {
-//                points[i].setActive()
-//                UIView.animateWithDuration(0.25, animations: {()->Void in
-//                    self.icons[i].transform = CGAffineTransformMakeScale(0.5, 0.5)
-//                })
-//            } else {
-//                points[i].setInactive()
-//            }
-//        }
         
+        categoryNameLbl!.alpha = 0
         
         points[previousPoint].setInactive()
+        
         UIView.animateWithDuration(0.25, animations: {()->Void in
-            self.icons[self.previousPoint].transform = CGAffineTransformMakeScale(0.75, 0.75)
+            self.icons[self.previousPoint].transform = CGAffineTransformMakeScale(0.7, 0.7)
+            self.icons[self.previousPoint].alpha = 0.5
             
             if index < self.previousPoint {
-                self.icons[self.previousPoint].frame.origin.x = (self.points[self.previousPoint].frame.origin.x + 4)
-                self.icons[self.previousPoint].frame.origin.y = 25
+                self.icons[self.previousPoint].frame.origin.x = (self.points[self.previousPoint].frame.origin.x + 3)
+                self.icons[self.previousPoint].frame.origin.y = 26
             } else {
-                self.icons[self.previousPoint].frame.origin.x = (self.points[self.previousPoint].frame.origin.x - 10)
-                self.icons[self.previousPoint].frame.origin.y = 25
+                self.icons[self.previousPoint].frame.origin.x = (self.points[self.previousPoint].frame.origin.x - 8)
+                self.icons[self.previousPoint].frame.origin.y = 26
             }
         })
         
@@ -166,23 +182,21 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
             self.icons[index].transform = CGAffineTransformMakeScale(1, 1)
             self.icons[index].frame.origin.x = (self.points[index].frame.origin.x - 6)
             self.icons[index].frame.origin.y = 18
-//            if self.previousPoint < index {
+            self.icons[index].alpha = 1
+        })
+        
+        categoryNameLbl!.text = BNAppSharedManager.instance.dataManager.bnUser!.categories[index].name!
+        categoryNameLbl!.sizeToFit()
+        self.categoryNameLbl!.frame.origin.x = self.points[index].frame.origin.x - (self.categoryNameLbl!.frame.width / 2) + 7
+        
+        UIView.animateWithDuration(0.3, animations: {()->Void in
 
-//            }else {
-//                self.icons[index].frame.origin.x = (self.icons[index].frame.origin.x - 10 )
-//            }
-            
-//            if index > (self.icons.count - 1) {
-//                self.icons[self.previousPoint].frame.origin.x = (self.icons[self.previousPoint].frame.origin.x - 10 )
-//            }
-            
-//            if index < (self.icons.count - 1) {
-//                self.icons[(index + 1)].frame.origin.x = (self.icons[index + 1].frame.origin.x + 10 )
-//            }
-            
+            self.categoryNameLbl!.alpha = 1
         })
         
         previousPoint = index
+        
+        
     }
 
 }

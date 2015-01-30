@@ -23,6 +23,9 @@ enum BNIconType {
     case biinSmall //done
     case biinMedium
     case biinLarge
+    case burgerSmall
+    case burgerMedium //done
+    case burgerLarge
     case commentSmall //done
     case commentMedium
     case commentLarge
@@ -32,6 +35,9 @@ enum BNIconType {
     case searchSmall
     case searchMedium
     case searchLarge
+    case smileSmall
+    case smileMedium //done
+    case smileLarge
     case notificationSmall
     case notificationMedium
     case notificationLarge

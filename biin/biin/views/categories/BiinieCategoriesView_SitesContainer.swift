@@ -153,12 +153,13 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
             
             sites!.append(siteView)
             scroll!.addSubview(siteView)
-            
+
             xpos = xpos + siteViewWidth
         }
         
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+
     }
     
     /* UIScrollViewDelegate Methods */
@@ -218,10 +219,10 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
             lastRowRequested = row
             var requestLimit = (lastRowRequested + columns) * columns
 
-            if requestLimit > sites?.count {
+            if requestLimit >= sites?.count {
                 requestLimit = sites!.count - 1
             }
-            
+
             for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
                 //println("requesting for  \(i)")
                 var siteView = sites![i] as SiteMiniView

@@ -14,6 +14,8 @@ struct BNCategorySiteDetails {
 class BNCategory:NSObject {
     
     var identifier:String?
+    var name:String?
+    var categoryType:BNCategoryType?
     var sitesDetails:Array<BNCategorySiteDetails> = Array<BNCategorySiteDetails>()
     
     override init(){
@@ -23,10 +25,67 @@ class BNCategory:NSObject {
     convenience init(identifier:String) {
         self.init()
         self.identifier = identifier
+        addIconType()
     }
     
-    deinit {
-        
-    }
+    deinit { }
 
+    func addIconType(){
+        
+        if identifier == "category1" {
+            categoryType = BNCategoryType.personalcare
+        } else if identifier == "category2" {
+            categoryType = BNCategoryType.vacations
+        } else if identifier == "category3" {
+            categoryType = BNCategoryType.shoes
+        } else if identifier == "category4" {
+            categoryType = BNCategoryType.game
+        } else if identifier == "category5" {
+            categoryType = BNCategoryType.outdoors
+        } else if identifier == "category6" {
+            categoryType = BNCategoryType.health
+        } else if identifier == "category7" {
+            categoryType = BNCategoryType.food
+        } else if identifier == "category8" {
+            categoryType = BNCategoryType.sports
+        } else if identifier == "category9" {
+            categoryType = BNCategoryType.education
+        } else if identifier == "category10" {
+            categoryType = BNCategoryType.fashion
+        } else if identifier == "category11" {
+            categoryType = BNCategoryType.music
+        } else if identifier == "category12" {
+            categoryType = BNCategoryType.movies
+        } else if identifier == "category13" {
+            categoryType = BNCategoryType.technology
+        } else if identifier == "category14" {
+            categoryType = BNCategoryType.entertaiment
+        } else if identifier == "category15" {
+            categoryType = BNCategoryType.travel
+        } else if identifier == "general"{
+            categoryType = BNCategoryType.general
+        } else {
+            categoryType = BNCategoryType.none
+        }
+    }
+}
+
+enum BNCategoryType {
+    case none
+    case general
+    case personalcare
+    case vacations
+    case shoes
+    case game
+    case outdoors
+    case health
+    case food
+    case sports
+    case education
+    case fashion
+    case music
+    case movies
+    case technology
+    case entertaiment
+    case travel
 }

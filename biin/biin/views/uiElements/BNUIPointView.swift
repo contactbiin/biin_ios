@@ -53,7 +53,7 @@ class BNUIPointView:UIView {
     override func drawRect(rect:CGRect){
         
         if isActive {
-            var ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 10, 10))
+            var ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 8, 8))
             UIColor.biinColor().setFill()
             ovalPath.fill()
 //            UIColor.orangeColor().setStroke()

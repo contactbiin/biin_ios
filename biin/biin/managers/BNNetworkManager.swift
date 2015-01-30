@@ -298,6 +298,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
                         var categoryData = categoriesData!.objectAtIndex(i) as NSDictionary
                         var category = BNCategory(identifier: self.findString("identifier", dictionary: categoryData)!)
+
+                        category.name = self.findString("name", dictionary: categoryData)
+                        
                         var sites = self.findNSArray("sites", dictionary: categoryData)
 
                         for var j = 0; j < sites?.count; j++ {
@@ -1132,7 +1135,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             return BNBiinType.Beacon
         }
     }
-
+    
     func findBNElementType(name:String, dictionary:NSDictionary) -> BNElementType {
         var value = self.findInt(name, dictionary: dictionary)
 
