@@ -35,6 +35,7 @@ class BNState {
 
 enum BNStateType {
     case BiinieCategoriesState
+    case SiteState
     case SectionState
     case ShowcaseState
     case SearchState

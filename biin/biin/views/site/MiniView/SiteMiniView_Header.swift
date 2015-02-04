@@ -30,7 +30,7 @@ class SiteMiniView_Header:BNView {
         self.init(frame: frame, father:father )
         self.backgroundColor = UIColor.appMainColor()
         
-        var ypos:CGFloat = 3
+        var ypos:CGFloat = 4
         buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, site: site)
         self.addSubview(buttonsView!)
         
@@ -78,5 +78,10 @@ class SiteMiniView_Header:BNView {
         }else{
             father!.updateUserControl(position)
         }
+    }
+    
+    //Instance methods
+    func updateSocialButtonsForSite(site: BNSite?){
+        buttonsView!.updateSocialButtonsForSite(site)
     }
 }

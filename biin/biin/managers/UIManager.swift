@@ -25,13 +25,25 @@ class UIManager {
     var categoriesHeaderHeight:CGFloat = 60
     var spacer:CGFloat = 1.0
     
-    
-    //MiniView sizes
+    //MiniView
+    //Sites MiniView sizes
     var miniView_headerHeight:CGFloat = 55
     
     //Font sizes
     var miniView_titleSize:CGFloat = 0
     var miniView_subTittleSize:CGFloat = 0
+    var miniView_height:CGFloat = 0
+    var miniView_width:CGFloat = 0
+    
+    
+    //Sites View sizes
+    var siteView_headerHeight:CGFloat = 65
+    var siteView_bottomHeight:CGFloat = 30
+    var siteView_showcaseHeight:CGFloat = 335
+    var siteView_showcaseScrollHeight:CGFloat = 255
+    var siteView_titleSize:CGFloat = 0
+    var siteView_subTittleSize:CGFloat = 0
+    
     
     //Showcase and Main view positions
     var titleTop        = CGRectMake(5, 20, 0, 0)
@@ -80,24 +92,32 @@ class UIManager {
     func setIPhone5Variables(){
         miniView_titleSize = 15
         miniView_subTittleSize = 10
+        siteView_titleSize = 20
+        siteView_subTittleSize = 12
     }
     
     func setIPhone6Variables() {
         deviceType = BNDeviceType.iphone6
         miniView_titleSize = 15
         miniView_subTittleSize = 10
+        siteView_titleSize = 20
+        siteView_subTittleSize = 12
     }
     
     func setIPhone6PlusVariables() {
         deviceType = BNDeviceType.iphone6Plus
         miniView_titleSize = 15
         miniView_subTittleSize = 10
+        siteView_titleSize = 20
+        siteView_subTittleSize = 12
     }
     
     func setIPadVariables() {
         deviceType = BNDeviceType.ipad
         miniView_titleSize = 15
         miniView_subTittleSize = 10
+        siteView_titleSize = 20
+        siteView_subTittleSize = 12
     }
     
 }

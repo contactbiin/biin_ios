@@ -8,7 +8,7 @@ import UIKit
 
 class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
-    var delegate:BiinieCategoriesView_SiteContainer_Delegate?
+    //var delegate:BiinieCategoriesView_SiteContainer_Delegate?
     
     var isWorking = false
     var category:BNCategory?
@@ -149,10 +149,12 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
             var siteIdentifier = category?.sitesDetails[i].identifier!
             var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier! ]
             
-            var siteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+            var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
             
-            sites!.append(siteView)
-            scroll!.addSubview(siteView)
+            miniSiteView.delegate = father?.father! as MainView
+            
+            sites!.append(miniSiteView)
+            scroll!.addSubview(miniSiteView)
 
             xpos = xpos + siteViewWidth
         }
@@ -160,6 +162,8 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
 
+        SharedUIManager.instance.miniView_height = siteViewHeight
+        SharedUIManager.instance.miniView_width = siteViewWidth
     }
     
     /* UIScrollViewDelegate Methods */
@@ -211,30 +215,48 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         if !isWorking { return }
         
-        var height = siteViewHeight + siteSpacer
+        var height = self.siteViewHeight + self.siteSpacer
         var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
 
         if lastRowRequested < row {
             
             lastRowRequested = row
-            var requestLimit = (lastRowRequested + columns) * columns
+            var requestLimit:Int = Int((lastRowRequested + columns) * columns)
 
             if requestLimit >= sites?.count {
                 requestLimit = sites!.count - 1
             }
+            
 
+            var i:Int = requestLimit
+            var stop:Bool = false
+            
+            while !stop {
+
+                if i >= siteRequestPreviousLimit {
+                    var siteView = sites![i] as SiteMiniView
+                    siteView.requestImage()
+                    i--
+                } else  {
+                    stop = true
+                }
+            }
+            
+            //Error when archiving: command failed due to signal: segmentation fault: 11
+            /*
             for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
                 //println("requesting for  \(i)")
                 var siteView = sites![i] as SiteMiniView
                 siteView.requestImage()
             }
+            */
             
             siteRequestPreviousLimit = requestLimit + 1
         }
     }
 }
 
-@objc protocol BiinieCategoriesView_SiteContainer_Delegate:NSObjectProtocol {
+//@objc protocol BiinieCategoriesView_SiteContainer_Delegate:NSObjectProtocol {
     ///Update categories icons on header
     //optional func updateCategorControl(view:BiinieCategoriesView_Header,  position:CGFloat)
-}
+//}

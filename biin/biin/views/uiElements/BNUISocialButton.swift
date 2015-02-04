@@ -79,4 +79,27 @@ class BNUISocialButton:UIButton {
             break
         }
     }
+    
+    func setActive(){
+        
+        
+        UIView.animateWithDuration(0.2, animations: {()-> Void in
+            self.backgroundColor = UIColor.biinColor()
+        })
+    }
+    
+    func updateText(text:String) {
+        
+        var iconWidth:CGFloat = 10
+        var xSpace:CGFloat = 6
+        var xpos:CGFloat = xSpace + iconWidth
+        
+        label!.text = text
+        label!.sizeToFit()
+        
+        var width:CGFloat = label!.frame.width + xpos + xSpace
+        self.frame = CGRectMake(frame.origin.x, frame.origin.y, width, 15)
+        
+        setNeedsDisplay()
+    }
 }

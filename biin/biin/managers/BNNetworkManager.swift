@@ -472,7 +472,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     showcase.lastUpdate = self.findNSDate("lastUpdate", dictionary: showcaseData)
                     showcase.theme = self.findBNShowcaseTheme("theme", dictionary: showcaseData)
                     showcase.showcaseType = self.findBNShowcaseType("showcaseType", dictionary: showcaseData)
-                
+                    showcase.title = self.findString("title", dictionary: showcaseData)
+                    showcase.subTitle = self.findString("subTitle", dictionary: showcaseData)
+                    showcase.titleColor = self.findUIColor("titleColor", dictionary: showcaseData)!
+                    
                     var elements = self.findNSArray("elements", dictionary: showcaseData)
 
                     for var i = 0; i < elements?.count; i++ {

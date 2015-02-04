@@ -18,6 +18,8 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     var scroll:UIScrollView?
     
+    var fade:UIView?
+    
     override init() {
         super.init()
     }
@@ -51,14 +53,29 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         headerDelegate = header
         self.addSubview(header!)
+        
+        fade = UIView(frame: frame)
+        fade!.backgroundColor = UIColor.blackColor()
+        fade!.alpha = 0
+        self.addSubview(fade!)
     }
     
     override func transitionIn() {
-        println("trasition in on CategoriesView")
+        println("trasition in on BiinieCategoriesView")
+        
+        UIView.animateWithDuration(0.4, animations: {()->Void in
+            self.fade!.alpha = 0
+        })
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on CategoriesView")
+        println("trasition out on BiinieCategoriesView")
+        
+        UIView.animateWithDuration(0.2, animations: {()->Void in
+            self.fade!.alpha = 0.25
+        })
+        
+        state!.action()
     }
     
     override func setNextState(option:Int){
@@ -68,7 +85,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: CategoriesView")
+            println("showUserControl: BiinieCategoriesView")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -76,7 +93,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: ProfileView")
+            println("updateUserControl: BiinieCategoriesView")
         }else{
             father!.updateUserControl(position)
         }

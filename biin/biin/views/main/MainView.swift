@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
     
     var delegate:MainViewDelegate?
     
@@ -19,6 +19,7 @@ class MainView:BNView {
     
     //states
     var biinieCategoriesState:BiinieCategoriesState?
+    var siteState:SiteState?
 //    var sectionState:SectionsState?
     var showcaseState:ShowcaseState?
     var searchState:SearchState?
@@ -52,8 +53,15 @@ class MainView:BNView {
         
         //Create views
         var categoriesView = BiinieCategoriesView(frame: frame, father: self)
+        biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView)
         self.addSubview(categoriesView)
+        state = biinieCategoriesState!
         
+        
+        var siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        siteState = SiteState(context: self, view: siteView)
+        siteView.delegate = self
+        self.addSubview(siteView)
         
         /*
         //Create views
@@ -152,14 +160,17 @@ class MainView:BNView {
         
         switch (option) {
         case 1:
-            
+           
+            /*
             state!.next( self.showcaseState )
             isSectionsLast = false
             isSectionOrShowcase = true
-            
+            */
+            state!.next(self.biinieCategoriesState)
             break
         case 2:
-            
+            state!.next(self.siteState)
+            /*
             if !isSectionOrShowcase && !isSectionsLast {
                 state!.next( self.showcaseState )
                 isSectionsLast = false
@@ -170,7 +181,7 @@ class MainView:BNView {
                 isSectionsLast = true
                 isSectionOrShowcase = true
             }
-            
+            */
             break
         case 3:
             state!.next(self.searchState)
@@ -224,6 +235,19 @@ class MainView:BNView {
         }else{
             father!.updateUserControl(position)
         }
+    }
+    
+    //SiteMiniView_Delegate Methods
+    func showSiteView(view: SiteMiniView, site: BNSite?, position: CGRect) {
+        println("site to show: \(site!.identifier) xpos: \(position.origin.x) ypos: \(position.origin.y)")
+        (siteState!.view as SiteView).updateSiteData(site)
+        setNextState(2)
+        
+    }
+    
+    //SiteView_Delegate Methods
+    func showCategoriesView(view: SiteView) {
+        setNextState(1)
     }
 }
 

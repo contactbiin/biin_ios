@@ -16,6 +16,13 @@ class BNShowcase:NSObject {
     var isRequestPending = true
     var lastUpdate:NSDate?
     
+    //Details
+    var title:String?
+    var subTitle:String?
+    
+    //Color
+    var titleColor:UIColor?
+    
     //Type
     var showcaseType = BNShowcaseType.SimpleProduct
     

@@ -30,11 +30,43 @@ class SocialButtonsView:BNView {
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
         self.init(frame: frame, father:father )
-        addSocialButtonsForSite(site)
+        
+        //Social buttons
+        var xSpace:CGFloat = 2
+        var xpos:CGFloat = 4
+        var ypos:CGFloat = 0.0
+        var buttonWidth:CGFloat = 43.0
+        var buttonHeight:CGFloat = 18.0
+        
+        biinBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
+        self.addSubview(biinBtn!)
+        
+        xpos += biinBtn!.frame.width + xSpace
+        commentBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
+        self.addSubview(commentBtn!)
+        
+        xpos += commentBtn!.frame.width + xSpace
+        shareBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"", activate:false, iconType:BNIconType.shareSmall)
+        self.addSubview(shareBtn!)
+        
     }
     
     convenience init(frame: CGRect, father: BNView?, element:BNElement?) {
         self.init(frame: frame, father:father )
+        
+        //Social buttons
+        var xSpace:CGFloat = 2
+        var xpos:CGFloat = 4
+        var ypos:CGFloat = 0.0
+        var buttonWidth:CGFloat = 43.0
+        var buttonHeight:CGFloat = 18.0
+        
+        biinBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
+        self.addSubview(biinBtn!)
+        
+        xpos += biinBtn!.frame.width + xSpace
+        commentBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
+        self.addSubview(commentBtn!)
     }
     
     override func transitionIn() {
@@ -66,25 +98,49 @@ class SocialButtonsView:BNView {
         }
     }
     
-    func addSocialButtonsForSite(site:BNSite?){
-        
+    func updateSocialButtonsForSite(site:BNSite?){
         //Social buttons
         var xSpace:CGFloat = 2
-        var xpos:CGFloat = 3
-        var ypos:CGFloat = 0.0
-        var buttonWidth:CGFloat = 43.0
-        var buttonHeight:CGFloat = 18.0
+        var xpos:CGFloat = 4
+        
 
-        biinBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"\(site!.biinedCount)", activate:site!.userBiined, iconType:BNIconType.biinSmall)
-        self.addSubview(biinBtn!)
+        biinBtn!.updateText("\(site!.biinedCount)")
+        
+        if site!.userBiined {
+            (biinBtn! as BNUISocialButton).setActive()
+        }
         
         xpos += biinBtn!.frame.width + xSpace
-        commentBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"\(site!.comments)", activate:site!.userCommented, iconType:BNIconType.commentSmall)
-        self.addSubview(commentBtn!)
-        
+        commentBtn!.frame.origin.x = xpos
+        commentBtn!.updateText("\(site!.comments)")
+        if site!.userCommented {
+            (commentBtn! as BNUISocialButton).setActive()
+        }
+
         xpos += commentBtn!.frame.width + xSpace
-        shareBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"", activate:site!.userShared, iconType:BNIconType.shareSmall)
-        self.addSubview(shareBtn!)
+        shareBtn!.frame.origin.x = xpos
+        if site!.userShared {
+            (shareBtn! as BNUISocialButton).setActive()
+        }
+    }
+    
+    func updateSocialButtonsForElement(element:BNElement?){
+        //Social buttons
+        var xSpace:CGFloat = 2
+        var xpos:CGFloat = 4
         
+        
+        biinBtn!.updateText("\(element!.biins)")
+        
+        if element!.userBiined {
+            (biinBtn! as BNUISocialButton).setActive()
+        }
+        
+        xpos += biinBtn!.frame.width + xSpace
+        commentBtn!.frame.origin.x = xpos
+        commentBtn!.updateText("\(element!.comments)")
+        if element!.userCommented {
+            (commentBtn! as BNUISocialButton).setActive()
+        }
     }
 }

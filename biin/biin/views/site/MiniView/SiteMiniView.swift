@@ -8,6 +8,7 @@ import UIKit
 
 class SiteMiniView: BNView {
     
+    var delegate:SiteMiniView_Delegate?
     var site:BNSite?
     var image:BNUIImageView?
     var header:SiteMiniView_Header?
@@ -59,7 +60,13 @@ class SiteMiniView: BNView {
         self.addSubview(image!)
         
         header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, site: site)
-        self.addSubview(header!)        
+        self.addSubview(header!)
+        header!.updateSocialButtonsForSite(site)
+        
+        var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        tap.numberOfTapsRequired = 1
+        self.addGestureRecognizer(tap)
+        self.isFirstResponder()
     }
     
     override func transitionIn() {
@@ -98,4 +105,26 @@ class SiteMiniView: BNView {
         imageRequested = true
         BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: image)
     }
+    
+    /* Gesture hadlers */
+    func handleTap(sender:UITapGestureRecognizer) {
+        
+        var siteContainer = father as BiinieCategoriesView_SitesContainer
+        var position = father!.father!.convertRect(self.frame, fromView: siteContainer.scroll!)
+        delegate!.showSiteView!(self, site: site, position:position)
+        
+        //Trigered transition to showcase view.
+        //var view = sender.view as SectionBotomView
+        
+        //Get the bottomView's position
+        //var position = father!.convertRect(view.frame, fromView: scroll!)
+        
+        //tappedIndex = getSectionBotomViewIndex(view)
+        //sectionsViewDelegate!.showShowcaseFromBottom!(self, position:position, showcaseKey:view.showcaseKey)
+        
+    }
+}
+
+@objc protocol SiteMiniView_Delegate:NSObjectProtocol {
+    optional func showSiteView(view:SiteMiniView, site:BNSite?, position:CGRect)
 }
