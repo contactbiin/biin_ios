@@ -13,6 +13,9 @@
 		5B047D641A816B3F00281B17 /* SiteView_Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D631A816B3F00281B17 /* SiteView_Information.swift */; };
 		5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */; };
 		5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */; };
+		5B1E2C1E1A830B2400633C46 /* SiteView_Showcase_Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */; };
+		5B1E2C201A830DEE00633C46 /* BNUIJoinGameIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C1F1A830DEE00633C46 /* BNUIJoinGameIconView.swift */; };
+		5B1E2C221A830EBF00633C46 /* BNIcon_JoinGameIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */; };
 		5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */; };
 		5B2907811A687A9E0000658A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2907801A687A9E0000658A /* MainViewController.swift */; };
 		5B2907831A687B070000658A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2907821A687B070000658A /* MainView.swift */; };
@@ -21,6 +24,10 @@
 		5B2907B01A687C040000658A /* BNUIPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B29079A1A687C040000658A /* BNUIPointView.swift */; };
 		5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2907BB1A687C0C0000658A /* BNIcon.swift */; };
 		5B2908081A687C590000658A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2908071A687C590000658A /* MenuView.swift */; };
+		5B2E3C851A83A95E0008EA10 /* ElementView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C841A83A95E0008EA10 /* ElementView_Header.swift */; };
+		5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C861A83BCB50008EA10 /* ElementView_Details.swift */; };
+		5B2E3C891A83D4750008EA10 /* BNUIBiinItLargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C881A83D4750008EA10 /* BNUIBiinItLargeButton.swift */; };
+		5B2E3C8B1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */; };
 		5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75901A67052100CB0D1C /* AppDelegate.swift */; };
 		5B3D75941A67052100CB0D1C /* biin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75921A67052100CB0D1C /* biin.xcdatamodeld */; };
 		5B3D759B1A67052100CB0D1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D759A1A67052100CB0D1C /* Images.xcassets */; };
@@ -90,6 +97,10 @@
 		5B64D46B1A7195FD0082B9EA /* BNIcon_WeightMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B64D46A1A7195FD0082B9EA /* BNIcon_WeightMedium.swift */; };
 		5B67B5E51A716A31009937C5 /* BNIcon_BurgerMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */; };
 		5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E61A716B52009937C5 /* BNUIIconView.swift */; };
+		5B7036921A840AF100C01BF9 /* BNIcon_PigSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */; };
+		5B7036941A84197700C01BF9 /* BNIcon_RedX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */; };
+		5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7453BE1A829E6500D656D8 /* BNUICircle.swift */; };
+		5B7453C11A829F8E00D656D8 /* BNUICircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7453C01A829F8E00D656D8 /* BNUICircleLabel.swift */; };
 		5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75E24F1A7FD889005FF629 /* SiteView_Header.swift */; };
 		5B75E2521A8010B7005FF629 /* BNUIBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75E2511A8010B7005FF629 /* BNUIBackButton.swift */; };
 		5B75E2541A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75E2531A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift */; };
@@ -112,6 +123,19 @@
 		5BA0B7941A686A6700DBEB74 /* ShowcaseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B78C1A686A6700DBEB74 /* ShowcaseState.swift */; };
 		5BA0B7961A686AF400DBEB74 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B7951A686AF400DBEB74 /* LoadingView.swift */; };
 		5BA0B7991A686B4600DBEB74 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */; };
+		5BA46FAB1A83F90B006C685D /* BNUIStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA46FAA1A83F90B006C685D /* BNUIStickerView.swift */; };
+		5BA46FAD1A84074E006C685D /* BNUIDiscountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */; };
+		5BA46FAF1A840776006C685D /* BNUIPricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA46FAE1A840776006C685D /* BNUIPricesView.swift */; };
+		5BA538991A82AA4900E0015F /* SiteView_Showcase_Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA538981A82AA4900E0015F /* SiteView_Showcase_Game.swift */; };
+		5BA5389B1A82AB2000E0015F /* BNUICompletedGameIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5389A1A82AB2000E0015F /* BNUICompletedGameIconView.swift */; };
+		5BA5389D1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5389C1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift */; };
+		5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD31A828B9F0081B335 /* BNIcon_BiinItButton.swift */; };
+		5BAD8AD61A828BAA0081B335 /* BNIcon_ShareItButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD51A828BAA0081B335 /* BNIcon_ShareItButton.swift */; };
+		5BAD8AD81A828C480081B335 /* BNUIBiinItButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD71A828C480081B335 /* BNUIBiinItButton.swift */; };
+		5BAD8ADA1A828C530081B335 /* BNUIShareItButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD91A828C530081B335 /* BNUIShareItButton.swift */; };
+		5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */; };
+		5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1CE1A83DB3800C3FB43 /* BNUIDetailView_Price.swift */; };
+		5BB5D1D11A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1D01A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift */; };
 		5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */; };
 		5BDB05541A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05531A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift */; };
 		5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */; };
@@ -139,6 +163,9 @@
 		5B047D631A816B3F00281B17 /* SiteView_Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Information.swift; sourceTree = "<group>"; };
 		5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialButtonsView.swift; sourceTree = "<group>"; };
 		5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton.swift; sourceTree = "<group>"; };
+		5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase_Join.swift; sourceTree = "<group>"; };
+		5B1E2C1F1A830DEE00633C46 /* BNUIJoinGameIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIJoinGameIconView.swift; sourceTree = "<group>"; };
+		5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_JoinGameIcon.swift; sourceTree = "<group>"; };
 		5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIScrollView.swift; sourceTree = "<group>"; };
 		5B2907801A687A9E0000658A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5B2907821A687B070000658A /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -147,6 +174,10 @@
 		5B29079A1A687C040000658A /* BNUIPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIPointView.swift; sourceTree = "<group>"; };
 		5B2907BB1A687C0C0000658A /* BNIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon.swift; sourceTree = "<group>"; };
 		5B2908071A687C590000658A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		5B2E3C841A83A95E0008EA10 /* ElementView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementView_Header.swift; sourceTree = "<group>"; };
+		5B2E3C861A83BCB50008EA10 /* ElementView_Details.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementView_Details.swift; sourceTree = "<group>"; };
+		5B2E3C881A83D4750008EA10 /* BNUIBiinItLargeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBiinItLargeButton.swift; sourceTree = "<group>"; };
+		5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BiinItLargeButton.swift; sourceTree = "<group>"; };
 		5B3D758B1A67052100CB0D1C /* biin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = biin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3D758F1A67052100CB0D1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B3D75901A67052100CB0D1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -220,6 +251,10 @@
 		5B64D46A1A7195FD0082B9EA /* BNIcon_WeightMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_WeightMedium.swift; sourceTree = "<group>"; };
 		5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BurgerMedium.swift; sourceTree = "<group>"; };
 		5B67B5E61A716B52009937C5 /* BNUIIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIIconView.swift; sourceTree = "<group>"; };
+		5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_PigSmall.swift; sourceTree = "<group>"; };
+		5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_RedX.swift; sourceTree = "<group>"; };
+		5B7453BE1A829E6500D656D8 /* BNUICircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUICircle.swift; sourceTree = "<group>"; };
+		5B7453C01A829F8E00D656D8 /* BNUICircleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUICircleLabel.swift; sourceTree = "<group>"; };
 		5B75E24F1A7FD889005FF629 /* SiteView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Header.swift; sourceTree = "<group>"; };
 		5B75E2511A8010B7005FF629 /* BNUIBackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBackButton.swift; sourceTree = "<group>"; };
 		5B75E2531A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LeftArrowSmall.swift; sourceTree = "<group>"; };
@@ -242,6 +277,19 @@
 		5BA0B78C1A686A6700DBEB74 /* ShowcaseState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseState.swift; sourceTree = "<group>"; };
 		5BA0B7951A686AF400DBEB74 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		5BA46FAA1A83F90B006C685D /* BNUIStickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIStickerView.swift; sourceTree = "<group>"; };
+		5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDiscountView.swift; sourceTree = "<group>"; };
+		5BA46FAE1A840776006C685D /* BNUIPricesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIPricesView.swift; sourceTree = "<group>"; };
+		5BA538981A82AA4900E0015F /* SiteView_Showcase_Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase_Game.swift; sourceTree = "<group>"; };
+		5BA5389A1A82AB2000E0015F /* BNUICompletedGameIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUICompletedGameIconView.swift; sourceTree = "<group>"; };
+		5BA5389C1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_CompletedGameIcon.swift; sourceTree = "<group>"; };
+		5BAD8AD31A828B9F0081B335 /* BNIcon_BiinItButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BiinItButton.swift; sourceTree = "<group>"; };
+		5BAD8AD51A828BAA0081B335 /* BNIcon_ShareItButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_ShareItButton.swift; sourceTree = "<group>"; };
+		5BAD8AD71A828C480081B335 /* BNUIBiinItButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBiinItButton.swift; sourceTree = "<group>"; };
+		5BAD8AD91A828C530081B335 /* BNUIShareItButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIShareItButton.swift; sourceTree = "<group>"; };
+		5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Time.swift; sourceTree = "<group>"; };
+		5BB5D1CE1A83DB3800C3FB43 /* BNUIDetailView_Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Price.swift; sourceTree = "<group>"; };
+		5BB5D1D01A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Quantity.swift; sourceTree = "<group>"; };
 		5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView.swift; sourceTree = "<group>"; };
 		5BDB05531A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_SitesContainer.swift; sourceTree = "<group>"; };
 		5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Header.swift; sourceTree = "<group>"; };
@@ -288,8 +336,21 @@
 				5B48C8281A700992009FC4D4 /* BNUINotificationView_RedCircle.swift */,
 				5B67B5E61A716B52009937C5 /* BNUIIconView.swift */,
 				5B75E2511A8010B7005FF629 /* BNUIBackButton.swift */,
+				5BAD8AD71A828C480081B335 /* BNUIBiinItButton.swift */,
+				5B2E3C881A83D4750008EA10 /* BNUIBiinItLargeButton.swift */,
+				5BAD8AD91A828C530081B335 /* BNUIShareItButton.swift */,
 				5B047D5F1A81604600281B17 /* BNUIInformationButton.swift */,
 				5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */,
+				5B7453BE1A829E6500D656D8 /* BNUICircle.swift */,
+				5B7453C01A829F8E00D656D8 /* BNUICircleLabel.swift */,
+				5BA5389A1A82AB2000E0015F /* BNUICompletedGameIconView.swift */,
+				5B1E2C1F1A830DEE00633C46 /* BNUIJoinGameIconView.swift */,
+				5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */,
+				5BB5D1CE1A83DB3800C3FB43 /* BNUIDetailView_Price.swift */,
+				5BB5D1D01A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift */,
+				5BA46FAA1A83F90B006C685D /* BNUIStickerView.swift */,
+				5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */,
+				5BA46FAE1A840776006C685D /* BNUIPricesView.swift */,
 			);
 			path = uiElements;
 			sourceTree = "<group>";
@@ -299,6 +360,10 @@
 			children = (
 				5B2907BB1A687C0C0000658A /* BNIcon.swift */,
 				5B8B075D1A6F143400780F74 /* BNIcon_BiinSmall.swift */,
+				5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */,
+				5BAD8AD31A828B9F0081B335 /* BNIcon_BiinItButton.swift */,
+				5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */,
+				5BAD8AD51A828BAA0081B335 /* BNIcon_ShareItButton.swift */,
 				5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */,
 				5B8B075F1A6F144B00780F74 /* BNIcon_CommentSmall.swift */,
 				5B48C8261A6FFFA6009FC4D4 /* BNIcon_NotificationMedium.swift */,
@@ -311,6 +376,9 @@
 				5B64D4661A718F580082B9EA /* BNIcon_TVMedium.swift */,
 				5B75E2531A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift */,
 				5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */,
+				5BA5389C1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift */,
+				5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */,
+				5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */,
 			);
 			path = uiIcons;
 			sourceTree = "<group>";
@@ -538,6 +606,8 @@
 				5B5F325A1A69868F006070AB /* ElementView.swift */,
 				5B5F325C1A69869F006070AB /* ElementMiniView.swift */,
 				5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */,
+				5B2E3C841A83A95E0008EA10 /* ElementView_Header.swift */,
+				5B2E3C861A83BCB50008EA10 /* ElementView_Details.swift */,
 			);
 			path = element;
 			sourceTree = "<group>";
@@ -618,6 +688,8 @@
 				5B047D5D1A815B8F00281B17 /* SiteView_Bottom.swift */,
 				5B047D631A816B3F00281B17 /* SiteView_Information.swift */,
 				5B44C5BF1A816FC700E5AC68 /* SiteView_Showcase.swift */,
+				5BA538981A82AA4900E0015F /* SiteView_Showcase_Game.swift */,
+				5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */,
 			);
 			path = site;
 			sourceTree = "<group>";
@@ -783,6 +855,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B3D76081A6816B300CB0D1C /* BNSite.swift in Sources */,
+				5B1E2C221A830EBF00633C46 /* BNIcon_JoinGameIcon.swift in Sources */,
 				5B2907831A687B070000658A /* MainView.swift in Sources */,
 				5B3D76001A6816B300CB0D1C /* BNLoyalty.swift in Sources */,
 				5B2907AC1A687C040000658A /* BNUISocialButton.swift in Sources */,
@@ -797,12 +870,15 @@
 				5B9AD3571A7BF6B8001C9B5A /* SiteMiniView.swift in Sources */,
 				5B3D75EE1A6816B300CB0D1C /* BNAppManager.swift in Sources */,
 				5B9AD35C1A7C15A8001C9B5A /* SiteState.swift in Sources */,
+				5B1E2C1E1A830B2400633C46 /* SiteView_Showcase_Join.swift in Sources */,
 				5B3D76051A6816B300CB0D1C /* BNRequest.swift in Sources */,
 				5B3D75FB1A6816B300CB0D1C /* BNColor.swift in Sources */,
 				5B3D75FA1A6816B300CB0D1C /* BNCategory.swift in Sources */,
 				5B3D75F21A6816B300CB0D1C /* BNPositionManager.swift in Sources */,
 				5B3D75FD1A6816B300CB0D1C /* BNElement.swift in Sources */,
 				5B3D75F01A6816B300CB0D1C /* BNErrorManager.swift in Sources */,
+				5B7453C11A829F8E00D656D8 /* BNUICircleLabel.swift in Sources */,
+				5B2E3C851A83A95E0008EA10 /* ElementView_Header.swift in Sources */,
 				5B48C8271A6FFFA6009FC4D4 /* BNIcon_NotificationMedium.swift in Sources */,
 				5BA0B7961A686AF400DBEB74 /* LoadingView.swift in Sources */,
 				5B8B075C1A6F141A00780F74 /* BNIcon_ShareSmall.swift in Sources */,
@@ -811,22 +887,30 @@
 				5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */,
 				5BA0B7921A686A6700DBEB74 /* SectionsState.swift in Sources */,
 				5B2907861A687B400000658A /* ControlView.swift in Sources */,
+				5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */,
 				5B3D75F81A6816B300CB0D1C /* BNBiin.swift in Sources */,
+				5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */,
 				5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */,
 				5B3D75FC1A6816B300CB0D1C /* BNCoordinates.swift in Sources */,
 				5B3D76071A6816B300CB0D1C /* BNShowcase.swift in Sources */,
 				5BA0B78E1A686A6700DBEB74 /* BoardsState.swift in Sources */,
 				5B48C8251A6FFF97009FC4D4 /* BNIcon_SearchMedium.swift in Sources */,
+				5B7036921A840AF100C01BF9 /* BNIcon_PigSmall.swift in Sources */,
 				5B8B075E1A6F143400780F74 /* BNIcon_BiinSmall.swift in Sources */,
 				5B3D76021A6816B300CB0D1C /* BNNotification.swift in Sources */,
 				5B3D76041A6816B300CB0D1C /* BNRegion.swift in Sources */,
 				5B5606CF1A818C0E00DAEB88 /* ElementMiniView_Header.swift in Sources */,
 				5B3D75F71A6816B300CB0D1C /* BNBadge.swift in Sources */,
 				5B3D75F41A6816B300CB0D1C /* EPSNetworking.swift in Sources */,
+				5BA46FAB1A83F90B006C685D /* BNUIStickerView.swift in Sources */,
+				5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */,
+				5BAD8AD81A828C480081B335 /* BNUIBiinItButton.swift in Sources */,
 				5B64D46B1A7195FD0082B9EA /* BNIcon_WeightMedium.swift in Sources */,
 				5B3D76011A6816B300CB0D1C /* BNMedia.swift in Sources */,
 				5BEA2D1D1A68834B00AB65AB /* UIManager.swift in Sources */,
+				5B7036941A84197700C01BF9 /* BNIcon_RedX.swift in Sources */,
 				5B3D75FE1A6816B300CB0D1C /* BNElementDetail.swift in Sources */,
+				5BB5D1D11A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift in Sources */,
 				5B2907B01A687C040000658A /* BNUIPointView.swift in Sources */,
 				5B3D75941A67052100CB0D1C /* biin.xcdatamodeld in Sources */,
 				5B75E2521A8010B7005FF629 /* BNUIBackButton.swift in Sources */,
@@ -834,8 +918,12 @@
 				5BA0B7991A686B4600DBEB74 /* LoadingViewController.swift in Sources */,
 				5B3D75F91A6816B300CB0D1C /* BNBoard.swift in Sources */,
 				5B5F325B1A69868F006070AB /* ElementView.swift in Sources */,
+				5BAD8ADA1A828C530081B335 /* BNUIShareItButton.swift in Sources */,
+				5BA46FAD1A84074E006C685D /* BNUIDiscountView.swift in Sources */,
 				5B67B5E51A716A31009937C5 /* BNIcon_BurgerMedium.swift in Sources */,
+				5BA5389D1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift in Sources */,
 				5B3D76031A6816B300CB0D1C /* BNObject.swift in Sources */,
+				5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */,
 				5BA0B78D1A686A6700DBEB74 /* BNState.swift in Sources */,
 				5B44C5C01A816FC700E5AC68 /* SiteView_Showcase.swift in Sources */,
 				5BDB05581A697788006EBB1E /* BiinieCategoriesState.swift in Sources */,
@@ -845,15 +933,21 @@
 				5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */,
 				5B871B0E1A71893C0064714B /* BNIcon_ShoeMedium.swift in Sources */,
 				5B3D75F11A6816B300CB0D1C /* BNNetworkManager.swift in Sources */,
+				5BA538991A82AA4900E0015F /* SiteView_Showcase_Game.swift in Sources */,
 				5B5F325D1A69869F006070AB /* ElementMiniView.swift in Sources */,
 				5B3D75FF1A6816B300CB0D1C /* BNError.swift in Sources */,
 				5B2907811A687A9E0000658A /* MainViewController.swift in Sources */,
 				5B9AD35A1A7BF706001C9B5A /* SiteView.swift in Sources */,
+				5BA5389B1A82AB2000E0015F /* BNUICompletedGameIconView.swift in Sources */,
+				5BA46FAF1A840776006C685D /* BNUIPricesView.swift in Sources */,
 				5B3D75EF1A6816B300CB0D1C /* BNDataManager.swift in Sources */,
 				5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */,
 				5B75E2541A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift in Sources */,
 				5B047D601A81604600281B17 /* BNUIInformationButton.swift in Sources */,
+				5B2E3C891A83D4750008EA10 /* BNUIBiinItLargeButton.swift in Sources */,
+				5B2E3C8B1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift in Sources */,
 				5B047D621A8160B500281B17 /* BNIcon_InformationSmall.swift in Sources */,
+				5B1E2C201A830DEE00633C46 /* BNUIJoinGameIconView.swift in Sources */,
 				5B64D4691A71929F0082B9EA /* BNIcon_UmbrellaMedium.swift in Sources */,
 				5BA0B7941A686A6700DBEB74 /* ShowcaseState.swift in Sources */,
 				5BA0B7901A686A6700DBEB74 /* ProfileState.swift in Sources */,
@@ -861,8 +955,10 @@
 				5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */,
 				5B3D76061A6816B300CB0D1C /* BNSection.swift in Sources */,
 				5BDB05541A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift in Sources */,
+				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B3D760A1A6816B300CB0D1C /* BNUser.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,
+				5BAD8AD61A828BAA0081B335 /* BNIcon_ShareItButton.swift in Sources */,
 				5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */,
 				5B3D76091A6816B300CB0D1C /* BNSticker.swift in Sources */,
 				5B48C8291A700992009FC4D4 /* BNUINotificationView_RedCircle.swift in Sources */,

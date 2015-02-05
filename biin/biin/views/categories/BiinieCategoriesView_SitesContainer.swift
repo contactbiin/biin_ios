@@ -164,6 +164,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
 
         SharedUIManager.instance.miniView_height = siteViewHeight
         SharedUIManager.instance.miniView_width = siteViewWidth
+        SharedUIManager.instance.miniView_columns = columns
     }
     
     /* UIScrollViewDelegate Methods */

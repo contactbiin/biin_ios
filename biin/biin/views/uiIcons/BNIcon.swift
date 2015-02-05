@@ -11,6 +11,7 @@ class BNIcon {
     
     var color:UIColor?
     var position:CGPoint = CGPoint.zeroPoint
+    var width:CGFloat = 0
     
     init(){ }
     
@@ -23,6 +24,7 @@ enum BNIconType {
     case biinSmall //done
     case biinMedium
     case biinLarge
+    case biinItButton
     case burgerSmall
     case burgerMedium //done
     case burgerLarge
@@ -35,6 +37,7 @@ enum BNIconType {
     case informationSmall//done
     case informationMedium
     case informationLarge
+    case shareItButton
     case shareSmall //done
     case shareMedium
     case shareLarge

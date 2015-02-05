@@ -9,6 +9,7 @@ import UIKit
 class ElementMiniView_Header:BNView {
     
     var buttonsView:SocialButtonsView?
+    var circleLabel:BNUICircleLabel?
     
     override init() {
         super.init()
@@ -26,7 +27,7 @@ class ElementMiniView_Header:BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?){
+    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int){
         self.init(frame: frame, father:father )
         self.backgroundColor = UIColor.appMainColor()
         
@@ -34,9 +35,16 @@ class ElementMiniView_Header:BNView {
         buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, element: element)
         self.addSubview(buttonsView!)
         
-        ypos += 16
+        ypos += 17
         
-        var title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 2)))
+        circleLabel = BNUICircleLabel(frame: CGRectMake(4, 24, 25, 25), color:element!.textColor!, text: "\(elementPosition)", textSize: 14, isFilled: false)
+        self.addSubview(circleLabel!)
+        
+        if element!.userViewed {
+            circleLabel!.animateCircleIn()
+        }
+        
+        var title = UILabel(frame: CGRectMake(32, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 2)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = element!.textColor!
         title.text = element!.title!
@@ -44,7 +52,7 @@ class ElementMiniView_Header:BNView {
         
         ypos += SharedUIManager.instance.miniView_titleSize + 2
         
-        var subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
+        var subTitle = UILabel(frame: CGRectMake(32, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 2)))
         subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = element!.subTitle!
@@ -80,8 +88,12 @@ class ElementMiniView_Header:BNView {
         }
     }
     
-    //Instance methods
+    //Instance methods    
     func updateSocialButtonsForElement(element: BNElement?){
         buttonsView!.updateSocialButtonsForElement(element)
+    }
+    
+    func activateCircle(){
+        circleLabel!.animateCircleIn()
     }
 }

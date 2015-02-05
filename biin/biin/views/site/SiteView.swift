@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class SiteView:BNView, UIScrollViewDelegate {
+class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
  
     var delegate:SiteView_Delegate?
     var site:BNSite?
@@ -21,6 +21,9 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var fade:UIView?
     var informationView:SiteView_Information?
+    
+    var elementView:ElementView?
+    var isShowingElementView = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,7 +45,6 @@ class SiteView:BNView, UIScrollViewDelegate {
         //Add here any other heights for site view.
         
         scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.siteView_headerHeight, screenWidth, scrollHeight))
-        scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -69,28 +71,20 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         informationView = SiteView_Information(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self)
         self.addSubview(informationView!)
+        
+        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self)
+        elementView!.delegate = self
+        self.addSubview(elementView!)
     }
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
         self.init(frame: frame, father:father )
-        
-        
-        //self.layer.borderColor = UIColor.appMainColor().CGColor
-        //self.layer.borderWidth = 1
-        //self.layer.cornerRadius = 5
-        //self.layer.masksToBounds = true
-        
-        //self.layer.shadowOffset = CGSizeMake(0, 0.5)
-        //self.layer.shadowRadius = 1
-        //self.layer.shadowOpacity = 0.25
-        
-        self.site = site
     }
     
     override func transitionIn() {
         println("trasition in on SiteView")
         
-        UIView.animateWithDuration(0.25, animations: {()->Void in
+        UIView.animateWithDuration(0.3, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }
@@ -98,7 +92,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     override func transitionOut( state:BNState? ) {
         println("trasition out on SiteView")
         state!.action()
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
+        UIView.animateWithDuration(0.4, animations: {()-> Void in
             self.frame.origin.x = SharedUIManager.instance.screenWidth
         })
     }
@@ -106,11 +100,6 @@ class SiteView:BNView, UIScrollViewDelegate {
     override func setNextState(option:Int){
         //Start transition on root view controller
         father!.setNextState(option)
-        
-  
-        
-        
-        
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -135,6 +124,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     func updateSiteData(site:BNSite?) {
+        self.site = site
         header!.updateForSite(site)
         bottom!.updateForSite(site)
         imagesScrollView!.updateImages(site!.media)
@@ -143,7 +133,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func showInformationView(sender:BNUIInformationButton){
         println("show site information window")
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
+        UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.informationView!.frame.origin.x = 0
             self.fade!.alpha = 0.25
         })
@@ -156,6 +146,31 @@ class SiteView:BNView, UIScrollViewDelegate {
         })
     }
     
+    func showElementView(elementMiniView:ElementMiniView?){
+        println("show elementView window")
+        
+        elementView!.updateElementData(elementMiniView)
+        
+        UIView.animateWithDuration(0.3, animations: {()-> Void in
+            self.elementView!.frame.origin.x = 0
+            self.fade!.alpha = 0.25
+        })
+    }
+    
+    func hideElementView(view:ElementMiniView?) {        
+        UIView.animateWithDuration(0.4, animations: {() -> Void in
+            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
+            self.fade!.alpha = 0
+            }, completion: {(completed:Bool)-> Void in
+                
+                if !view!.element!.userViewed {
+                    view!.userViewedElement()
+                }
+                
+                self.elementView!.clean()
+        })
+    }
+
     func updateShowcases(site:BNSite?){
         
         //clean()
@@ -173,7 +188,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         for biin in site!.biins {
             
-            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, showcase:biin.showcase)
+            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, showcase:biin.showcase, site:site)
             scroll!.addSubview(showcaseView)
             showcases!.append(showcaseView)
             ypos += height
@@ -187,13 +202,15 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     func clean(){
-        
         for view in self.scroll!.subviews {
             if view.isKindOfClass(SiteView_Showcase) {
                 view.removeFromSuperview()
             }
         }
+    }
     
+    func updateLoyaltyPoints(){
+        bottom!.updateForSite(site)
     }
 }
 

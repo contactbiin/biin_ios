@@ -11,7 +11,7 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 class BNAppManager {
     
     var counter = 0
-    var version = "0.1.7"
+    var version = "0.1.7b"
     
     var dataManager:BNDataManager
     var positionManager:BNPositionManager
@@ -37,4 +37,19 @@ class BNAppManager {
         
     
     }
+    
+    func biinit(identifier:String){
+        println("Biinit: \(identifier)")
+    
+    }
+    
+    func shareit(identifier:String){
+        println("Shareit: \(identifier)")
+    }
+    
+    func commentit(identifier:String, comment:String){
+        println("Commentit: \(identifier) comment: \(comment)")
+    }
+    
+    
 }
