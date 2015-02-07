@@ -89,7 +89,15 @@
 		5B48C8251A6FFF97009FC4D4 /* BNIcon_SearchMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B48C8241A6FFF97009FC4D4 /* BNIcon_SearchMedium.swift */; };
 		5B48C8271A6FFFA6009FC4D4 /* BNIcon_NotificationMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B48C8261A6FFFA6009FC4D4 /* BNIcon_NotificationMedium.swift */; };
 		5B48C8291A700992009FC4D4 /* BNUINotificationView_RedCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B48C8281A700992009FC4D4 /* BNUINotificationView_RedCircle.swift */; };
+		5B53395F1A8512950049FB00 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B53395E1A8512950049FB00 /* LoginView.swift */; };
+		5B5339611A8512A00049FB00 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5339601A8512A00049FB00 /* SignupView.swift */; };
+		5B5339631A8514910049FB00 /* BNIcon_Biin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5339621A8514910049FB00 /* BNIcon_Biin.swift */; };
+		5B5339651A85188C0049FB00 /* SingupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5339641A85188C0049FB00 /* SingupViewController.swift */; };
+		5B5339671A85189F0049FB00 /* UserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */; };
 		5B5606CF1A818C0E00DAEB88 /* ElementMiniView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */; };
+		5B5BE71E1A855D9800DB5996 /* BNUITexfield_Bottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */; };
+		5B5BE7201A855E9100DB5996 /* BNUILogingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE71F1A855E9100DB5996 /* BNUILogingButton.swift */; };
+		5B5BE7221A8580B700DB5996 /* BNUITexfield_Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */; };
 		5B5F325B1A69868F006070AB /* ElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5F325A1A69868F006070AB /* ElementView.swift */; };
 		5B5F325D1A69869F006070AB /* ElementMiniView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5F325C1A69869F006070AB /* ElementMiniView.swift */; };
 		5B64D4671A718F590082B9EA /* BNIcon_TVMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B64D4661A718F580082B9EA /* BNIcon_TVMedium.swift */; };
@@ -144,6 +152,8 @@
 		5BEA2D1D1A68834B00AB65AB /* UIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA2D1C1A68834B00AB65AB /* UIManager.swift */; };
 		5BEAE5E91A71770500F884D9 /* BiinieCategoriesView_Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */; };
 		5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE5EA1A717ABC00F884D9 /* BNIcon_SmileMedium.swift */; };
+		5BED8A2F1A853321003B812A /* BNUITexfield_Top.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED8A2E1A853321003B812A /* BNUITexfield_Top.swift */; };
+		5BF2B5AC1A852A0800598FB7 /* BNUIBiinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -243,7 +253,15 @@
 		5B48C8241A6FFF97009FC4D4 /* BNIcon_SearchMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SearchMedium.swift; sourceTree = "<group>"; };
 		5B48C8261A6FFFA6009FC4D4 /* BNIcon_NotificationMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NotificationMedium.swift; sourceTree = "<group>"; };
 		5B48C8281A700992009FC4D4 /* BNUINotificationView_RedCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUINotificationView_RedCircle.swift; sourceTree = "<group>"; };
+		5B53395E1A8512950049FB00 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5B5339601A8512A00049FB00 /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		5B5339621A8514910049FB00 /* BNIcon_Biin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Biin.swift; sourceTree = "<group>"; };
+		5B5339641A85188C0049FB00 /* SingupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingupViewController.swift; sourceTree = "<group>"; };
+		5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingViewController.swift; sourceTree = "<group>"; };
 		5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView_Header.swift; sourceTree = "<group>"; };
+		5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Bottom.swift; sourceTree = "<group>"; };
+		5B5BE71F1A855E9100DB5996 /* BNUILogingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUILogingButton.swift; sourceTree = "<group>"; };
+		5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Center.swift; sourceTree = "<group>"; };
 		5B5F325A1A69868F006070AB /* ElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementView.swift; sourceTree = "<group>"; };
 		5B5F325C1A69869F006070AB /* ElementMiniView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView.swift; sourceTree = "<group>"; };
 		5B64D4661A718F580082B9EA /* BNIcon_TVMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_TVMedium.swift; sourceTree = "<group>"; };
@@ -298,6 +316,8 @@
 		5BEA2D1C1A68834B00AB65AB /* UIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIManager.swift; sourceTree = "<group>"; };
 		5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Icon.swift; sourceTree = "<group>"; };
 		5BEAE5EA1A717ABC00F884D9 /* BNIcon_SmileMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SmileMedium.swift; sourceTree = "<group>"; };
+		5BED8A2E1A853321003B812A /* BNUITexfield_Top.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Top.swift; sourceTree = "<group>"; };
+		5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBiinView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +371,11 @@
 				5BA46FAA1A83F90B006C685D /* BNUIStickerView.swift */,
 				5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */,
 				5BA46FAE1A840776006C685D /* BNUIPricesView.swift */,
+				5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */,
+				5BED8A2E1A853321003B812A /* BNUITexfield_Top.swift */,
+				5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */,
+				5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */,
+				5B5BE71F1A855E9100DB5996 /* BNUILogingButton.swift */,
 			);
 			path = uiElements;
 			sourceTree = "<group>";
@@ -379,6 +404,7 @@
 				5BA5389C1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift */,
 				5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */,
 				5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */,
+				5B5339621A8514910049FB00 /* BNIcon_Biin.swift */,
 			);
 			path = uiIcons;
 			sourceTree = "<group>";
@@ -554,8 +580,19 @@
 			children = (
 				5B2907801A687A9E0000658A /* MainViewController.swift */,
 				5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */,
+				5B5339641A85188C0049FB00 /* SingupViewController.swift */,
+				5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */,
 			);
 			path = viewControllers;
+			sourceTree = "<group>";
+		};
+		5B53395D1A85127D0049FB00 /* singup */ = {
+			isa = PBXGroup;
+			children = (
+				5B53395E1A8512950049FB00 /* LoginView.swift */,
+				5B5339601A8512A00049FB00 /* SignupView.swift */,
+			);
+			path = singup;
 			sourceTree = "<group>";
 		};
 		5B9AD3541A7BF6B8001C9B5A /* MiniView */ = {
@@ -570,6 +607,7 @@
 		5BA0B7711A68696E00DBEB74 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5B53395D1A85127D0049FB00 /* singup */,
 				5B2907B41A687C0C0000658A /* uiIcons */,
 				5B2907871A687C040000658A /* uiElements */,
 				5B2907841A687B400000658A /* control */,
@@ -862,6 +900,7 @@
 				5B047D5E1A815B8F00281B17 /* SiteView_Bottom.swift in Sources */,
 				5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */,
 				5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */,
+				5B53395F1A8512950049FB00 /* LoginView.swift in Sources */,
 				5BA0B7911A686A6700DBEB74 /* SearchState.swift in Sources */,
 				5BE96EFE1A6D585100929236 /* BNUIImageView.swift in Sources */,
 				5B2908081A687C590000658A /* MenuView.swift in Sources */,
@@ -887,10 +926,12 @@
 				5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */,
 				5BA0B7921A686A6700DBEB74 /* SectionsState.swift in Sources */,
 				5B2907861A687B400000658A /* ControlView.swift in Sources */,
+				5BED8A2F1A853321003B812A /* BNUITexfield_Top.swift in Sources */,
 				5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */,
 				5B3D75F81A6816B300CB0D1C /* BNBiin.swift in Sources */,
 				5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */,
 				5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */,
+				5B5339631A8514910049FB00 /* BNIcon_Biin.swift in Sources */,
 				5B3D75FC1A6816B300CB0D1C /* BNCoordinates.swift in Sources */,
 				5B3D76071A6816B300CB0D1C /* BNShowcase.swift in Sources */,
 				5BA0B78E1A686A6700DBEB74 /* BoardsState.swift in Sources */,
@@ -914,11 +955,15 @@
 				5B2907B01A687C040000658A /* BNUIPointView.swift in Sources */,
 				5B3D75941A67052100CB0D1C /* biin.xcdatamodeld in Sources */,
 				5B75E2521A8010B7005FF629 /* BNUIBackButton.swift in Sources */,
+				5B5339671A85189F0049FB00 /* UserOnboardingViewController.swift in Sources */,
 				5BA0B7831A686A0F00DBEB74 /* BNView.swift in Sources */,
 				5BA0B7991A686B4600DBEB74 /* LoadingViewController.swift in Sources */,
+				5BF2B5AC1A852A0800598FB7 /* BNUIBiinView.swift in Sources */,
 				5B3D75F91A6816B300CB0D1C /* BNBoard.swift in Sources */,
 				5B5F325B1A69868F006070AB /* ElementView.swift in Sources */,
 				5BAD8ADA1A828C530081B335 /* BNUIShareItButton.swift in Sources */,
+				5B5339611A8512A00049FB00 /* SignupView.swift in Sources */,
+				5B5339651A85188C0049FB00 /* SingupViewController.swift in Sources */,
 				5BA46FAD1A84074E006C685D /* BNUIDiscountView.swift in Sources */,
 				5B67B5E51A716A31009937C5 /* BNIcon_BurgerMedium.swift in Sources */,
 				5BA5389D1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift in Sources */,
@@ -933,6 +978,7 @@
 				5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */,
 				5B871B0E1A71893C0064714B /* BNIcon_ShoeMedium.swift in Sources */,
 				5B3D75F11A6816B300CB0D1C /* BNNetworkManager.swift in Sources */,
+				5B5BE71E1A855D9800DB5996 /* BNUITexfield_Bottom.swift in Sources */,
 				5BA538991A82AA4900E0015F /* SiteView_Showcase_Game.swift in Sources */,
 				5B5F325D1A69869F006070AB /* ElementMiniView.swift in Sources */,
 				5B3D75FF1A6816B300CB0D1C /* BNError.swift in Sources */,
@@ -944,6 +990,7 @@
 				5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */,
 				5B75E2541A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift in Sources */,
 				5B047D601A81604600281B17 /* BNUIInformationButton.swift in Sources */,
+				5B5BE7221A8580B700DB5996 /* BNUITexfield_Center.swift in Sources */,
 				5B2E3C891A83D4750008EA10 /* BNUIBiinItLargeButton.swift in Sources */,
 				5B2E3C8B1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift in Sources */,
 				5B047D621A8160B500281B17 /* BNIcon_InformationSmall.swift in Sources */,
@@ -955,6 +1002,7 @@
 				5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */,
 				5B3D76061A6816B300CB0D1C /* BNSection.swift in Sources */,
 				5BDB05541A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift in Sources */,
+				5B5BE7201A855E9100DB5996 /* BNUILogingButton.swift in Sources */,
 				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B3D760A1A6816B300CB0D1C /* BNUser.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,

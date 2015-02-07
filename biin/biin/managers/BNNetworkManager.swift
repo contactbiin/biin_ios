@@ -48,7 +48,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     func checkConnectivity() {
         
         println("checkConnectivity()")
-        var request = BNRequest(requestString:connectibityUrl, dataIdentifier: "", requestType:.Regions)
+        var request = BNRequest(requestString:connectibityUrl, dataIdentifier: "", requestType:.ConnectivityCheck)
         self.requests[request.identifier] = request
         
         epsNetwork!.getJson(request.requestString) {

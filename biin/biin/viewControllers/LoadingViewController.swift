@@ -52,7 +52,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     
     func enterBtnAction(sender: UIButton!){
         
-        var vc = MainViewController()
+        var vc = SingupViewController()
         vc.initViewController(self.view.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)

@@ -150,7 +150,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
         if status {
-            requestInitialData()
+            
+            //TODO: changing flow, if user is register or loged in reques data.
+            //requestInitialData()
         }
     }
     

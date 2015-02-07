@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
-        var lvc = LoadingViewController()
+        var lvc = SingupViewController()
+//        var lvc = LoadingViewController()
         self.window!.rootViewController = lvc
         appManager.networkManager.delegateVC = lvc
         return true
