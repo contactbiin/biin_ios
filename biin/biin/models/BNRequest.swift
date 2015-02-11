@@ -13,7 +13,10 @@ struct BNRequestData
 enum BNRequestType
 {
     case None
+    case Login
+    case Register
     case ConnectivityCheck
+    case CheckIsEmailVerified
     case TimeNone
     case Network
     case Regions                //request regions on BNNetworkManager

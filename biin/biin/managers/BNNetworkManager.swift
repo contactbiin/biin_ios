@@ -45,6 +45,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         epsNetwork = EPSNetworking()
     }
     
+    
+    //Saving data
+    func manager(manager: BNDataManager!, saveUserCategories user: BNUser) {
+        
+    }
+    
+    
     func checkConnectivity() {
         
         println("checkConnectivity()")
@@ -73,6 +80,107 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             }
         }
     }
+    
+    func login(email:String, password:String){
+        println("Trying login for (\(email))")
+        
+        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/binnies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+        self.requests[request.identifier] = request
+        
+        var response:BNResponse?
+        
+        epsNetwork!.getJson(request.requestString) {
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("Error on regions data")
+                self.handleFailedRequest(request, error: error? )
+                
+                response = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
+                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+                println("*** Register for user \(email) SUCK - FAILED!")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    var identifier = self.findString("identifier", dictionary: dataData)
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Login for user \(email) COOL!")
+                        self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** Login for user \(email) SUCK - NO USER!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+                    //self.delegateDM!.manager!(self, didReceivedRegions: regions)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request.identifier)
+                
+            }
+        }
+
+    }
+    
+    func register(user:BNUser) {
+        
+        println("login(\(user.email))")
+        
+        var request = BNRequest(requestString:"http://www.biinapp.com/mobile/binnies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+        self.requests[request.identifier] = request
+        
+        var response:BNResponse?
+        
+        epsNetwork!.getJson(request.requestString) {
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("Error on regions data")
+                self.handleFailedRequest(request, error: error? )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** Register for user \(user.email!) SUCK - FAILED!")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    var identifier = self.findString("identifier", dictionary: dataData)
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Register for user \(user.email!) COOL!")
+                        self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** Register for user \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedRegisterConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request.identifier)
+                
+            }
+        }
+    }
+    
     
 //    func requestInitialData() {
     
@@ -135,9 +243,49 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         
     }
     
-    
-    
-    
+    func manager(manager:BNDataManager!, checkIsEmailVerified identifier:String) {
+
+        println("checkIsEmailVerified")
+        
+        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/binnies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+        self.requests[request.identifier] = request
+        
+        if !isRequestTimerAllow {
+            self.requestRegions(request)
+        }
+        
+        epsNetwork!.getJson(request.requestString) {
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("Error on regions data")
+                self.handleFailedRequest(request, error: error? )
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    
+                    if result {
+                        println("*** the email for \(identifier) IS verified!")
+                    } else {
+                        println("*** the email for \(identifier) IS NOT verified!")
+                    }
+                    
+                    self.delegateDM!.manager!(self, didReceivedEmailVerification: result)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request.identifier)
+
+            }
+        }
+    }
+
     
     
     //BNDataManagerDelegate - Methods to conform on BNNetworkManager
@@ -265,7 +413,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
     
-    
+
     ///Conforms optional func manager(manager:BNDataManager!, requestUserCategoriesData user:BNUser) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestCategoriesData user:BNUser) {
         var request = BNRequest(requestString:categoriesUrl, dataIdentifier:"userCategories", requestType:.UserCategories)
@@ -749,10 +897,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             var owner = BNUser()
                             var ownerData = boardData["owner"] as NSDictionary
                             owner.identifier = self.findString("identifier", dictionary: ownerData)
-                            owner.name = self.findString("name", dictionary: ownerData)
+                            owner.firstName = self.findString("firstName", dictionary: ownerData)
                             owner.lastName = self.findString("lastName", dictionary: ownerData)
                             owner.email = self.findString("email", dictionary: ownerData)
-                            owner.avatarUrl = self.findString("avatarUrl", dictionary: ownerData)
+                            owner.imgUrl = self.findString("imgUrl", dictionary: ownerData)
                             board.owner = owner
                         }
                         
@@ -781,15 +929,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                 var biinieData = biinies!.objectAtIndex(k) as NSDictionary
                                 var biinie = BNUser()
                                 biinie.identifier = self.findString("identifier", dictionary: biinieData)
-                                biinie.biinName = self.findString("biinName", dictionary: biinieData)
-                                biinie.name = self.findString("name", dictionary: biinieData)
+                                //biinie.biinName = self.findString("biinName", dictionary: biinieData)
+                                biinie.firstName = self.findString("firstName", dictionary: biinieData)
                                 biinie.lastName = self.findString("lastName", dictionary: biinieData)
                                 biinie.email = self.findString("email", dictionary: biinieData)
-                                biinie.avatarUrl = self.findString("avatarUrl", dictionary: biinieData)
-                                biinie.biins = self.findInt("biins", dictionary: biinieData)
-                                biinie.following = self.findInt("following", dictionary: biinieData)
-                                biinie.followers = self.findInt("followers", dictionary: biinieData)
-                                board.biinies!.append(biinie)
+                                biinie.imgUrl = self.findString("imgUrl", dictionary: biinieData)
+                                //biinie.biins = self.findInt("biins", dictionary: biinieData)
+                                //biinie.following = self.findInt("following", dictionary: biinieData)
+                                //biinie.followers = self.findInt("followers", dictionary: biinieData)
+                                //board.biinies!.append(biinie)
                             }
                         }
                         
@@ -862,28 +1010,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func manager(manager:BNDataManager!, requestImageData stringUrl:String, image:BNUIImageView) {
         
         var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
@@ -942,7 +1068,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     func manager(manager:BNDataManager!, requestBiinieData biinie:BNUser) {
-        var request = BNRequest(requestString:biinie.jsonUrl!, dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/binnies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
         self.requests[request.identifier] = request
         self.requestBiinieData(request)
     }
@@ -962,16 +1088,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         var biinie = BNUser()
                         biinie.identifier = self.findString("identifier", dictionary:biinieData)
                         biinie.biinName = self.findString("biinName", dictionary: biinieData)
-                        biinie.name = self.findString("name", dictionary: biinieData)
+                        biinie.firstName = self.findString("firstName", dictionary: biinieData)
                         biinie.lastName = self.findString("lastName", dictionary: biinieData)
                         biinie.email = self.findString("email", dictionary: biinieData)
-                        biinie.avatarUrl = self.findString("avatarUrl", dictionary: biinieData)
-                        biinie.biins = self.findInt("biins", dictionary: biinieData)
-                        biinie.following = self.findInt("following", dictionary: biinieData)
-                        biinie.followers = self.findInt("followers", dictionary: biinieData)
+                        biinie.imgUrl = self.findString("imgUrl", dictionary: biinieData)
+                        //biinie.biins = self.findInt("biins", dictionary: biinieData)
+                        //biinie.following = self.findInt("following", dictionary: biinieData)
+                        //biinie.followers = self.findInt("followers", dictionary: biinieData)
                     
                         var friends = self.findNSArray("friends", dictionary: biinieData)
-                        
+                        /*
                         if friends?.count > 0 {
                             
                             biinie.friends = Array<BNUser>()
@@ -988,7 +1114,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                 biinie.friends!.append(friend)
                             }
                         }
-                        
+                        */
                         self.delegateDM!.manager!(self, didReceivedBiinieData: biinie)
                    // }
                 }
@@ -1288,7 +1414,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
 @objc protocol BNNetworkManagerDelegate:NSObjectProtocol {
     
+    optional func manager(manager:BNNetworkManager!, didReceivedLoginValidation response:BNResponse?)
+    optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)
+    optional func manager(manager:BNNetworkManager!, didReceivedEmailVerification value:Bool)
+    optional func manager(manager:BNNetworkManager!, didReceivedRegisterConfirmation response:BNResponse?)
+
     optional func manager(manager:BNNetworkManager!, didReceivedInitialData biins:Array<BNBiin>?)
+    
     optional func manager(manager:BNNetworkManager!, didReceivedRegions regions:Array<BNRegion>)
 
     ///Takes connection status and start initial requests

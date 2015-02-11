@@ -19,15 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.backgroundColor = UIColor.blackColor()
         self.window!.makeKeyAndVisible()
         
-        //TODO temporal
-        //self.appManager.networkManager.requestRegions()
-        
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
-        var lvc = SingupViewController()
-//        var lvc = LoadingViewController()
-        self.window!.rootViewController = lvc
-        appManager.networkManager.delegateVC = lvc
+        if BNAppSharedManager.instance.dataManager.isUserLoaded {
+            var lvc = LoadingViewController()
+            self.window!.rootViewController = lvc
+            //appManager.networkManager.delegateVC = lvc
+        } else {
+            var lvc = SingupViewController()
+            self.window!.rootViewController = lvc
+            //appManager.networkManager.delegateVC = lvc
+        }
         return true
     }
 

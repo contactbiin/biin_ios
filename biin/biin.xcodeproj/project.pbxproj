@@ -28,6 +28,9 @@
 		5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C861A83BCB50008EA10 /* ElementView_Details.swift */; };
 		5B2E3C891A83D4750008EA10 /* BNUIBiinItLargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C881A83D4750008EA10 /* BNUIBiinItLargeButton.swift */; };
 		5B2E3C8B1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */; };
+		5B2F5B901A8BAA84004133D4 /* BNUIButton_CloseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F5B8F1A8BAA84004133D4 /* BNUIButton_CloseAlert.swift */; };
+		5B2F5B921A8BAADC004133D4 /* BNIcon_CloseSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F5B911A8BAADC004133D4 /* BNIcon_CloseSmall.swift */; };
+		5B2F5B941A8BAF78004133D4 /* BNIcon_SmileFace1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F5B931A8BAF78004133D4 /* BNIcon_SmileFace1.swift */; };
 		5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75901A67052100CB0D1C /* AppDelegate.swift */; };
 		5B3D75941A67052100CB0D1C /* biin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75921A67052100CB0D1C /* biin.xcdatamodeld */; };
 		5B3D759B1A67052100CB0D1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D759A1A67052100CB0D1C /* Images.xcassets */; };
@@ -96,7 +99,7 @@
 		5B5339671A85189F0049FB00 /* UserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */; };
 		5B5606CF1A818C0E00DAEB88 /* ElementMiniView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */; };
 		5B5BE71E1A855D9800DB5996 /* BNUITexfield_Bottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */; };
-		5B5BE7201A855E9100DB5996 /* BNUILogingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE71F1A855E9100DB5996 /* BNUILogingButton.swift */; };
+		5B5BE7201A855E9100DB5996 /* BNUIButton_Loging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE71F1A855E9100DB5996 /* BNUIButton_Loging.swift */; };
 		5B5BE7221A8580B700DB5996 /* BNUITexfield_Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */; };
 		5B5F325B1A69868F006070AB /* ElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5F325A1A69868F006070AB /* ElementView.swift */; };
 		5B5F325D1A69869F006070AB /* ElementMiniView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5F325C1A69869F006070AB /* ElementMiniView.swift */; };
@@ -105,6 +108,7 @@
 		5B64D46B1A7195FD0082B9EA /* BNIcon_WeightMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B64D46A1A7195FD0082B9EA /* BNIcon_WeightMedium.swift */; };
 		5B67B5E51A716A31009937C5 /* BNIcon_BurgerMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */; };
 		5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E61A716B52009937C5 /* BNUIIconView.swift */; };
+		5B6B886B1A8BE45000F21E4A /* BNUIAlertView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6B886A1A8BE45000F21E4A /* BNUIAlertView_Header.swift */; };
 		5B7036921A840AF100C01BF9 /* BNIcon_PigSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */; };
 		5B7036941A84197700C01BF9 /* BNIcon_RedX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */; };
 		5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7453BE1A829E6500D656D8 /* BNUICircle.swift */; };
@@ -144,6 +148,11 @@
 		5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */; };
 		5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1CE1A83DB3800C3FB43 /* BNUIDetailView_Price.swift */; };
 		5BB5D1D11A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1D01A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift */; };
+		5BB917DB1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB917DA1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift */; };
+		5BB917DD1A8A61AA007BDEEC /* BNUIBackButton_SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB917DC1A8A61AA007BDEEC /* BNUIBackButton_SignupView.swift */; };
+		5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */; };
+		5BB99B5F1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */; };
+		5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD342771A8AA95300A8984E /* BNResponse.swift */; };
 		5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */; };
 		5BDB05541A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05531A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift */; };
 		5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */; };
@@ -188,6 +197,9 @@
 		5B2E3C861A83BCB50008EA10 /* ElementView_Details.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementView_Details.swift; sourceTree = "<group>"; };
 		5B2E3C881A83D4750008EA10 /* BNUIBiinItLargeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBiinItLargeButton.swift; sourceTree = "<group>"; };
 		5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BiinItLargeButton.swift; sourceTree = "<group>"; };
+		5B2F5B8F1A8BAA84004133D4 /* BNUIButton_CloseAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_CloseAlert.swift; sourceTree = "<group>"; };
+		5B2F5B911A8BAADC004133D4 /* BNIcon_CloseSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_CloseSmall.swift; sourceTree = "<group>"; };
+		5B2F5B931A8BAF78004133D4 /* BNIcon_SmileFace1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SmileFace1.swift; sourceTree = "<group>"; };
 		5B3D758B1A67052100CB0D1C /* biin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = biin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3D758F1A67052100CB0D1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B3D75901A67052100CB0D1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -260,7 +272,7 @@
 		5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingViewController.swift; sourceTree = "<group>"; };
 		5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView_Header.swift; sourceTree = "<group>"; };
 		5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Bottom.swift; sourceTree = "<group>"; };
-		5B5BE71F1A855E9100DB5996 /* BNUILogingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUILogingButton.swift; sourceTree = "<group>"; };
+		5B5BE71F1A855E9100DB5996 /* BNUIButton_Loging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Loging.swift; sourceTree = "<group>"; };
 		5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Center.swift; sourceTree = "<group>"; };
 		5B5F325A1A69868F006070AB /* ElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementView.swift; sourceTree = "<group>"; };
 		5B5F325C1A69869F006070AB /* ElementMiniView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView.swift; sourceTree = "<group>"; };
@@ -269,6 +281,7 @@
 		5B64D46A1A7195FD0082B9EA /* BNIcon_WeightMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_WeightMedium.swift; sourceTree = "<group>"; };
 		5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BurgerMedium.swift; sourceTree = "<group>"; };
 		5B67B5E61A716B52009937C5 /* BNUIIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIIconView.swift; sourceTree = "<group>"; };
+		5B6B886A1A8BE45000F21E4A /* BNUIAlertView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIAlertView_Header.swift; sourceTree = "<group>"; };
 		5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_PigSmall.swift; sourceTree = "<group>"; };
 		5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_RedX.swift; sourceTree = "<group>"; };
 		5B7453BE1A829E6500D656D8 /* BNUICircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUICircle.swift; sourceTree = "<group>"; };
@@ -308,6 +321,11 @@
 		5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Time.swift; sourceTree = "<group>"; };
 		5BB5D1CE1A83DB3800C3FB43 /* BNUIDetailView_Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Price.swift; sourceTree = "<group>"; };
 		5BB5D1D01A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Quantity.swift; sourceTree = "<group>"; };
+		5BB917DA1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LeftArrowMedium.swift; sourceTree = "<group>"; };
+		5BB917DC1A8A61AA007BDEEC /* BNUIBackButton_SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBackButton_SignupView.swift; sourceTree = "<group>"; };
+		5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIAlertView.swift; sourceTree = "<group>"; };
+		5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_KeyholeSmall.swift; sourceTree = "<group>"; };
+		5BD342771A8AA95300A8984E /* BNResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNResponse.swift; sourceTree = "<group>"; };
 		5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView.swift; sourceTree = "<group>"; };
 		5BDB05531A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_SitesContainer.swift; sourceTree = "<group>"; };
 		5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Header.swift; sourceTree = "<group>"; };
@@ -356,6 +374,8 @@
 				5B48C8281A700992009FC4D4 /* BNUINotificationView_RedCircle.swift */,
 				5B67B5E61A716B52009937C5 /* BNUIIconView.swift */,
 				5B75E2511A8010B7005FF629 /* BNUIBackButton.swift */,
+				5B2F5B8F1A8BAA84004133D4 /* BNUIButton_CloseAlert.swift */,
+				5B5BE71F1A855E9100DB5996 /* BNUIButton_Loging.swift */,
 				5BAD8AD71A828C480081B335 /* BNUIBiinItButton.swift */,
 				5B2E3C881A83D4750008EA10 /* BNUIBiinItLargeButton.swift */,
 				5BAD8AD91A828C530081B335 /* BNUIShareItButton.swift */,
@@ -375,7 +395,9 @@
 				5BED8A2E1A853321003B812A /* BNUITexfield_Top.swift */,
 				5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */,
 				5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */,
-				5B5BE71F1A855E9100DB5996 /* BNUILogingButton.swift */,
+				5BB917DC1A8A61AA007BDEEC /* BNUIBackButton_SignupView.swift */,
+				5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */,
+				5B6B886A1A8BE45000F21E4A /* BNUIAlertView_Header.swift */,
 			);
 			path = uiElements;
 			sourceTree = "<group>";
@@ -385,6 +407,9 @@
 			children = (
 				5B2907BB1A687C0C0000658A /* BNIcon.swift */,
 				5B8B075D1A6F143400780F74 /* BNIcon_BiinSmall.swift */,
+				5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */,
+				5B2F5B911A8BAADC004133D4 /* BNIcon_CloseSmall.swift */,
+				5B2F5B931A8BAF78004133D4 /* BNIcon_SmileFace1.swift */,
 				5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */,
 				5BAD8AD31A828B9F0081B335 /* BNIcon_BiinItButton.swift */,
 				5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */,
@@ -400,6 +425,7 @@
 				5B871B0D1A71893C0064714B /* BNIcon_ShoeMedium.swift */,
 				5B64D4661A718F580082B9EA /* BNIcon_TVMedium.swift */,
 				5B75E2531A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift */,
+				5BB917DA1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift */,
 				5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */,
 				5BA5389C1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift */,
 				5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */,
@@ -509,6 +535,7 @@
 				5B3D75CF1A6816B300CB0D1C /* BNSite.swift */,
 				5B3D75D01A6816B300CB0D1C /* BNSticker.swift */,
 				5B3D75D11A6816B300CB0D1C /* BNUser.swift */,
+				5BD342771A8AA95300A8984E /* BNResponse.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -901,7 +928,9 @@
 				5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */,
 				5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */,
 				5B53395F1A8512950049FB00 /* LoginView.swift in Sources */,
+				5B2F5B901A8BAA84004133D4 /* BNUIButton_CloseAlert.swift in Sources */,
 				5BA0B7911A686A6700DBEB74 /* SearchState.swift in Sources */,
+				5BB99B5F1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift in Sources */,
 				5BE96EFE1A6D585100929236 /* BNUIImageView.swift in Sources */,
 				5B2908081A687C590000658A /* MenuView.swift in Sources */,
 				5BA0B7931A686A6700DBEB74 /* SettingsState.swift in Sources */,
@@ -923,6 +952,7 @@
 				5B8B075C1A6F141A00780F74 /* BNIcon_ShareSmall.swift in Sources */,
 				5B64D4671A718F590082B9EA /* BNIcon_TVMedium.swift in Sources */,
 				5B9AD3581A7BF6B8001C9B5A /* SiteMiniView_Header.swift in Sources */,
+				5B2F5B921A8BAADC004133D4 /* BNIcon_CloseSmall.swift in Sources */,
 				5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */,
 				5BA0B7921A686A6700DBEB74 /* SectionsState.swift in Sources */,
 				5B2907861A687B400000658A /* ControlView.swift in Sources */,
@@ -930,6 +960,7 @@
 				5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */,
 				5B3D75F81A6816B300CB0D1C /* BNBiin.swift in Sources */,
 				5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */,
+				5B2F5B941A8BAF78004133D4 /* BNIcon_SmileFace1.swift in Sources */,
 				5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */,
 				5B5339631A8514910049FB00 /* BNIcon_Biin.swift in Sources */,
 				5B3D75FC1A6816B300CB0D1C /* BNCoordinates.swift in Sources */,
@@ -940,6 +971,7 @@
 				5B8B075E1A6F143400780F74 /* BNIcon_BiinSmall.swift in Sources */,
 				5B3D76021A6816B300CB0D1C /* BNNotification.swift in Sources */,
 				5B3D76041A6816B300CB0D1C /* BNRegion.swift in Sources */,
+				5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */,
 				5B5606CF1A818C0E00DAEB88 /* ElementMiniView_Header.swift in Sources */,
 				5B3D75F71A6816B300CB0D1C /* BNBadge.swift in Sources */,
 				5B3D75F41A6816B300CB0D1C /* EPSNetworking.swift in Sources */,
@@ -962,8 +994,11 @@
 				5B3D75F91A6816B300CB0D1C /* BNBoard.swift in Sources */,
 				5B5F325B1A69868F006070AB /* ElementView.swift in Sources */,
 				5BAD8ADA1A828C530081B335 /* BNUIShareItButton.swift in Sources */,
+				5BB917DB1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift in Sources */,
 				5B5339611A8512A00049FB00 /* SignupView.swift in Sources */,
+				5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */,
 				5B5339651A85188C0049FB00 /* SingupViewController.swift in Sources */,
+				5BB917DD1A8A61AA007BDEEC /* BNUIBackButton_SignupView.swift in Sources */,
 				5BA46FAD1A84074E006C685D /* BNUIDiscountView.swift in Sources */,
 				5B67B5E51A716A31009937C5 /* BNIcon_BurgerMedium.swift in Sources */,
 				5BA5389D1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift in Sources */,
@@ -978,6 +1013,7 @@
 				5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */,
 				5B871B0E1A71893C0064714B /* BNIcon_ShoeMedium.swift in Sources */,
 				5B3D75F11A6816B300CB0D1C /* BNNetworkManager.swift in Sources */,
+				5B6B886B1A8BE45000F21E4A /* BNUIAlertView_Header.swift in Sources */,
 				5B5BE71E1A855D9800DB5996 /* BNUITexfield_Bottom.swift in Sources */,
 				5BA538991A82AA4900E0015F /* SiteView_Showcase_Game.swift in Sources */,
 				5B5F325D1A69869F006070AB /* ElementMiniView.swift in Sources */,
@@ -1002,7 +1038,7 @@
 				5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */,
 				5B3D76061A6816B300CB0D1C /* BNSection.swift in Sources */,
 				5BDB05541A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift in Sources */,
-				5B5BE7201A855E9100DB5996 /* BNUILogingButton.swift in Sources */,
+				5B5BE7201A855E9100DB5996 /* BNUIButton_Loging.swift in Sources */,
 				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B3D760A1A6816B300CB0D1C /* BNUser.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,

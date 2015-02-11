@@ -16,6 +16,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     //User data
     var bnUser:BNUser?
+    var isUserLoaded = false
+    var isEmailVerified = false
     
     var regions = Dictionary<String, BNRegion>()
     var sites = Dictionary<String, BNSite>()
@@ -41,8 +43,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         super.init()
         
         //loadCategories()
-
         
+        // Try loading a saved version first
+        if let user = BNUser.loadSaved() {
+            println("Loading bnUser:")
+            bnUser = user
+            isUserLoaded = true
+            bnUser!.clear()
+        } else {
+            // Create a new Course List
+            println("Not user available")
+            isUserLoaded = false
+            bnUser = BNUser(identifier:"", firstName: "guess", lastName:"guess", email: "guess@biinapp.com")
+            bnUser!.isEmailVerified = false
+            bnUser!.biinName = ""
+            bnUser!.clear()
+        }
     }
     
     deinit {
@@ -51,12 +67,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestInitialData(){
         
+        
+        //Verified email
+        if !bnUser!.isEmailVerified! {
+            delegateNM!.manager!(self, checkIsEmailVerified: bnUser!.identifier!)
+        }
+        
         //Request regions
         BNAppSharedManager.instance.networkManager.requestRegions()
         
         //TODO: temporal data
-        bnUser = BNUser(identifier:"@epadilla", name: "Esteban", lastName: "Padilla", email: "epadilla@somemail.com")
-        bnUser!.jsonUrl = "http://s3-us-west-2.amazonaws.com/biintest/BiinFakeJsons/biinies/@epadilla.json"
+        //bnUser!.jsonUrl = "http://s3-us-west-2.amazonaws.com/biintest/BiinFakeJsons/biinies/@epadilla.json"
         
         //1. Request user biined data
         delegateNM!.manager!(self, requestBiinieData: bnUser!)
@@ -66,6 +87,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         //2. Request user categories data.
         delegateNM!.manager!(self, requestCategoriesData:bnUser!)
+        
+        //Check if email is verified
+        delegateNM!.manager!(self, checkIsEmailVerified: "epadilla")
     }
     
     /*
@@ -152,8 +176,19 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if status {
             
             //TODO: changing flow, if user is register or loged in reques data.
-            //requestInitialData()
+            if isUserLoaded {
+                requestInitialData()
+            }
         }
+    }
+    
+    func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
+        bnUser!.identifier = idetifier
+    }
+    
+    func manager(manager: BNNetworkManager!, didReceivedEmailVerification value: Bool) {
+        bnUser!.isEmailVerified = value
+        bnUser!.save()
     }
     
 
@@ -523,13 +558,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
     
     func manager(manager:BNNetworkManager!, didReceivedBiinieData user:BNUser) {
-
+        
         if self.bnUser != nil {
-
             self.bnUser = user
         }
         
-        println("user friends: \(bnUser!.friends!.count)")
+        //println("user friends: \(bnUser!.friends!.count)")
         
         //for friend in self.bnUser!.friends! {
         //    self.delegateNM!.manager!(self, requestImageData:friend.avatarUrl!, image: friend.avatarImage!)
@@ -627,7 +661,18 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
 @objc protocol BNDataManagerDelegate:NSObjectProtocol {
     
+    
+    //Saving user data
+    optional func manager(manager:BNDataManager!, saveUserCategories user:BNUser)
+    
+    
     //Methods to conform on BNNetworkManager
+    
+    ///Checks is biinies email is verified.
+    ///
+    ///:param: BNDataManager that store all data.
+    ///:param: Biinie's identifier.
+    optional func manager(manager:BNDataManager!, checkIsEmailVerified identifier:String)
     
     ///Request a region's data.
     ///

@@ -31,6 +31,9 @@ enum BNIconType {
     case commentSmall //done
     case commentMedium
     case commentLarge
+    case keyholeSmall//done
+    case keyholeMedium
+    case keyholeLarge
     case leftArrowSmall//done
     case leftArrowMedium
     case leftArrowLarge

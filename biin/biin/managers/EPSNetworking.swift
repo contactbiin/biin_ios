@@ -39,7 +39,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         return true
     }
-    
+    /*
     func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential!) -> Void){
         println("willSendRequestForAuthenticationChallenge")
         
@@ -108,6 +108,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
 //        
 //        task.resume()
     }
+    */
+    
     
     func getWithConnection(request: NSURLRequest, callback: (String, NSError?) -> Void) {
         
@@ -144,7 +146,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 
                 //println("------------------------------------------------------------")
                 //println("------------------------------------------------------------")
-                //println("jsonString received: \(data)")
+                println("jsonString received: \(data)")
                 
                 var jsonData = self.parseJson(data)
                 callback(jsonData, nil)
@@ -250,6 +252,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         println("pending: \(ShareEPSNetworking.requestingImages.count) ")
     }
+    
+    
     
     
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {

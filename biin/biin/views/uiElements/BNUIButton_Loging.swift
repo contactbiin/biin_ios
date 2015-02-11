@@ -1,20 +1,16 @@
-//
-//  BNUILogingButton.swift
+//  BNUIButton_Loging.swift
 //  biin
-//
 //  Created by Esteban Padilla on 2/6/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
-//
 
 import Foundation
 import UIKit
-class BNUILogingButton:UIButton {
+class BNUIButton_Loging:UIButton {
     
     var position:CGPoint?
     var size:CGSize?
     var radius:CGFloat?
     var color:UIColor?
-    
     
     override init() {
         super.init()
@@ -45,10 +41,9 @@ class BNUILogingButton:UIButton {
     }
 
     override func drawRect(rect: CGRect) {
-
+        
         //// Frames
         let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
-        
         
         //// back Drawing
         let backPath = UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), cornerRadius: radius!)
@@ -57,6 +52,22 @@ class BNUILogingButton:UIButton {
         UIColor.whiteColor().setStroke()
         backPath.lineWidth = 3
         backPath.stroke()
+    }
+    
+    func showDisable(){
+        if self.enabled {
+            color = UIColor.bnGray()
+            self.enabled = false
+            setNeedsDisplay()
+        }
+    }
+    
+    func showEnable(){
+        if !self.enabled {
+            color = UIColor.bnGreen()
+            self.enabled = true
+            setNeedsDisplay()
+        }
     }
     
 

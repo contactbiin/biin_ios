@@ -14,6 +14,9 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         super.viewDidLoad()
         
         println("LoadingViewController - viewDidLoad()")
+        BNAppSharedManager.instance.networkManager.delegateVC = self
+        BNAppSharedManager.instance.dataManager.requestInitialData()
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.whiteColor()
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
@@ -52,7 +55,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     
     func enterBtnAction(sender: UIButton!){
         
-        var vc = SingupViewController()
+        var vc = MainViewController()
         vc.initViewController(self.view.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)
@@ -70,6 +73,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
             self.enterBtn!.alpha = 1
         })
     }
+    
+    
 
 }
 

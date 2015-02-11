@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -33,6 +33,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate {
     
     func initViewController(frame:CGRect){
     
+        BNAppSharedManager.instance.networkManager.delegateVC = self
+        
         mainView = MainView(frame: frame, father:nil, rootViewController: self)
         mainView!.delegate = self
         self.view.addSubview(self.mainView!)
@@ -168,6 +170,11 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate {
     
     func mainView(mainView: MainView!, showMenu value: Bool) {
         self.showMenu(UIScreenEdgePanGestureRecognizer())
+    }
+    
+    //BNNetworkManagerDelegate Methods
+    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
+
     }
 
     

@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class UserOnboardingViewController:UIViewController, UIPopoverPresentationControllerDelegate {
+class UserOnboardingViewController:UIViewController, UIPopoverPresentationControllerDelegate, BNNetworkManagerDelegate {
     
     var fadeView:UIView?
     
@@ -14,6 +14,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         super.viewDidLoad()
         
         println("SingupViewController - viewDidLoad()")
+        BNAppSharedManager.instance.networkManager.delegateVC = self
         
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
@@ -63,4 +64,12 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.Popover
     }
+    
+    //BNNetworkManagerDelegate Methods
+    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
+
+    }
+    
+    
+
 }
