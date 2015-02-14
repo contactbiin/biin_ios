@@ -8,10 +8,7 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_CloseAlert:UIButton {
-    
-    var icon:BNIcon?
-    var iconType:BNIconType = BNIconType.leftArrowSmall
+class BNUIButton_CloseAlert:BNUIButton {
     
     override init() {
         super.init()
@@ -24,10 +21,5 @@ class BNUIButton_CloseAlert:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_CloseSmall(color: UIColor.redColor(), position: CGPoint(x: 1, y: 1))
-    }
-    
-    
-    override func drawRect(rect: CGRect) {
-        icon?.drawCanvas()
     }
 }

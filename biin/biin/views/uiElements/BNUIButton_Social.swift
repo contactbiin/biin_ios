@@ -8,10 +8,9 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUISocialButton:UIButton {
+class BNUIButton_Social:BNUIButton {
     
-    var icon:BNIcon?
-    var iconType:BNIconType = BNIconType.none
+
     var label:UILabel?
     
     override init() {
@@ -58,13 +57,7 @@ class BNUISocialButton:UIButton {
         self.frame = CGRectMake(frame.origin.x, frame.origin.y, width, 15)
     }
     
-    override func drawRect(rect: CGRect) {
-        if iconType != BNIconType.none {
-            icon?.drawCanvas()
-        }
-    }
-    
-    func createIcon(){
+    override func createIcon(){
         switch iconType {
         case .biinSmall:
             icon = BNIcon_BiinSmall(color: UIColor.appMainColor(), position: CGPointMake(4, 3))

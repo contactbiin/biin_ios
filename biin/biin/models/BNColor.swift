@@ -215,6 +215,14 @@ extension UIColor {
         return UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1)
     }
     
+    class func appButtonColor_Selected() -> UIColor {
+        return UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 1)
+    }
+    
+    class func appButtonColor_Disable() -> UIColor {
+        return UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+    }
+    
     class func appNotificationRedColor() -> UIColor {
         return UIColor(red: 237/255, green: 28/255, blue: 36/255, alpha: 1)
     }

@@ -14,8 +14,8 @@ class ElementMiniView: BNView {
     var header:ElementMiniView_Header?
     var imageRequested = false
     
-    var biinItButton:BNUIBiinItButton?
-    var shareItButton:BNUIShareItButton?
+    var biinItButton:BNUIButton_BiinIt?
+    var shareItButton:BNUIButton_ShareIt?
     var stickerView:BNUIStickerView?
     var discountView:BNUIDiscountView?
     var priceView:BNUIPricesView?
@@ -66,11 +66,11 @@ class ElementMiniView: BNView {
         self.addSubview(header!)
         header!.updateSocialButtonsForElement(self.element)
         
-        biinItButton = BNUIBiinItButton(frame: CGRectMake(5, (frame.height - 42), 37, 37))
+        biinItButton = BNUIButton_BiinIt(frame: CGRectMake(5, (frame.height - 42), 37, 37))
         biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(biinItButton!)
         
-        shareItButton = BNUIShareItButton(frame: CGRectMake(42, (frame.height - 42), 37, 37))
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake(42, (frame.height - 42), 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(shareItButton!)
         
@@ -145,7 +145,7 @@ class ElementMiniView: BNView {
         header!.circleLabel!.animateCircleIn()
     }
     
-    func biinit(sender:BNUIBiinItButton){
+    func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.biinit(element!._id!)
         println("Show biinit options")
         element!.biins++
@@ -153,7 +153,7 @@ class ElementMiniView: BNView {
         header!.updateSocialButtonsForElement(element!)
     }
     
-    func shareit(sender:BNUIShareItButton){
+    func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareit(element!._id!)
         println("Show shareit options")
         element!.userShared = true

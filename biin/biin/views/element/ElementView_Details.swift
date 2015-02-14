@@ -182,12 +182,10 @@ class ElementView_Details:BNView {
             default:
                 break
             }
-            
-            
         }
         
         ypos += 40 //space
-        var biinitBtn = BNUIBiinItLargeButton(frame: CGRectMake(((SharedUIManager.instance.screenWidth / 2) - 42), ypos, 84, 84))
+        var biinitBtn = BNUIButton_BiinItLarge(frame: CGRectMake(((SharedUIManager.instance.screenWidth / 2) - 42), ypos, 84, 84))
         biinitBtn.addTarget(self, action: "biinIt:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(biinitBtn)
         
@@ -236,7 +234,7 @@ class ElementView_Details:BNView {
         }
     }
     
-    func biinIt(sender:BNUIBiinItLargeButton) {
+    func biinIt(sender:BNUIButton_BiinItLarge) {
         BNAppSharedManager.instance.biinit(elementIdentifier!)
     }
 }

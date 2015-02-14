@@ -11,7 +11,7 @@ class SignupView:UIView, UITextFieldDelegate {
     var delegate:SignupView_Delegate?
     
     var biinLogo:BNUIBiinView?
-    var backBtn:BNUIBackButton_SignupView?
+    var backBtn:BNUIButton_Back_SignupView?
     
     var firstNameTxt:BNUITexfield_Top?
     var lastNameTxt:BNUITexfield_Center?
@@ -24,6 +24,10 @@ class SignupView:UIView, UITextFieldDelegate {
     var welcomeLbl:UILabel?
     
     var isKeyboardUp = false
+    
+    var femaleBtn:BNUIButton_Gender?
+    var maleBtn:BNUIButton_Gender?
+    var genderStr:String?
     
     override init() {
         super.init()
@@ -68,15 +72,25 @@ class SignupView:UIView, UITextFieldDelegate {
         
         ypos += (2 + lastNameTxt!.frame.height)
         genderTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"I am ...")
+        genderTxt!.textField!.enabled = false
         genderTxt!.textField!.delegate = self
         self.addSubview(genderTxt!)
+        
+        femaleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 90, 5, 30, 30), iconType: BNIconType.femaleSmall)
+        femaleBtn!.addTarget(self, action: "femaleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        genderTxt!.addSubview(femaleBtn!)
+        genderStr = ""
+        
+        maleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 55, 5, 30, 30), iconType: BNIconType.maleSmall)
+        maleBtn!.addTarget(self, action: "maleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        genderTxt!.addSubview(maleBtn!)
         
         ypos += (2 + genderTxt!.frame.height)
         emailTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"Email")
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         self.addSubview(emailTxt!)
-
+        
         
         ypos += (2 + emailTxt!.frame.height)
         passwordTxt = BNUITexfield_Bottom(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"Password")
@@ -101,14 +115,34 @@ class SignupView:UIView, UITextFieldDelegate {
         signupLbl!.sizeToFit()
         self.addSubview(signupLbl!)
         
-        backBtn = BNUIBackButton_SignupView(frame: CGRect(x: 10, y: 10, width: 20, height: 25))
+        backBtn = BNUIButton_Back_SignupView(frame: CGRect(x: 10, y: 10, width: 20, height: 25))
         backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
-        
+
+    }
+    
+
+    
+    func femaleBtnAction(sender:BNUIButton_Gender){
+        genderTxt!.textField!.text = "I am a female."
+        genderTxt!.textField!.textColor = UIColor.appTextColor()
+        genderStr = "female"
+        femaleBtn!.showSelected()
+        maleBtn!.showEnable()
+        genderTxt!.hideError()
+    }
+
+    func maleBtnAction(sender:BNUIButton_Gender){
+        genderTxt!.textField!.text = "I am a male."
+        genderTxt!.textField!.textColor = UIColor.appTextColor()
+        genderStr = "male"
+        maleBtn!.showSelected()
+        femaleBtn!.showEnable()
+        genderTxt!.hideError()
     }
     
     func singup(sender:BNUIButton_Loging){
@@ -116,16 +150,38 @@ class SignupView:UIView, UITextFieldDelegate {
         //2. disable buttons
         //3. send request
         
-        var user = BNUser(identifier:emailTxt!.textField!.text, firstName: firstNameTxt!.textField!.text, lastName: lastNameTxt!.textField!.text, email: emailTxt!.textField!.text, gender:genderTxt!.textField!.text)
-        user.password = passwordTxt!.textField!.text
-        BNAppSharedManager.instance.networkManager.register(user)
         
-        delegate!.showProgress!(self)
-        self.endEditing(true)
-        singupBtn!.showDisable()
+        var ready = false
+        
+        if firstNameTxt!.isValid() &&
+           lastNameTxt!.isValid() &&
+            emailTxt!.isValid() &&
+            passwordTxt!.isValid() {
+                
+            if genderStr!.isEmpty {
+                genderTxt!.showError()
+            }
+                
+            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text) {
+                ready = true
+            }else{
+                emailTxt!.showError()
+            }
+        }
+        
+        
+        if ready {
+            var user = BNUser(identifier:emailTxt!.textField!.text, firstName: firstNameTxt!.textField!.text, lastName: lastNameTxt!.textField!.text, email: emailTxt!.textField!.text, gender:genderStr!)
+            user.password = passwordTxt!.textField!.text
+            BNAppSharedManager.instance.networkManager.register(user)
+            
+            delegate!.showProgress!(self)
+            self.endEditing(true)
+            //singupBtn!.showDisable()
+        }
     }
     
-    func back(sender:BNUIBackButton_SignupView){
+    func back(sender:BNUIButton_Back_SignupView){
         delegate!.showLoginView!(self)
     }
     
@@ -208,11 +264,11 @@ class SignupView:UIView, UITextFieldDelegate {
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         println("textFieldShouldEndEditing")
         
-        if textField.placeholder == "Password" {
-            if countElements(textField.text) <= 7 {
-                passwordTxt!.showError()
-            }
-        }
+//        if textField.placeholder == "Password" {
+//            if countElements(textField.text) <= 7 {
+//                passwordTxt!.showError()
+//            }
+//        }
         
         return true
     }// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
@@ -249,65 +305,11 @@ class SignupView:UIView, UITextFieldDelegate {
             
             textField.text = SharedUIManager.instance.removeSpecielCharacter(textField.text)
             
-            if  !firstNameTxt!.textField!.text.isEmpty &&
-                !lastNameTxt!.textField!.text.isEmpty &&
-                !genderTxt!.textField!.text.isEmpty &&
-                !emailTxt!.textField!.text.isEmpty &&
-                !passwordTxt!.textField!.text.isEmpty {
-                    
-                singupBtn!.showEnable()
-                    
-            }else{
-                singupBtn!.showDisable()
-            }
-            
-            
-            if firstNameTxt!.isShowingError {
-                if textField.placeholder == "Name" {
-                    firstNameTxt!.hideError()
-                }
-            }
-            
-            if lastNameTxt!.isShowingError {
-                if textField.placeholder == "Last name" {
-                    lastNameTxt!.hideError()
-                }
-            }
-            
-            if genderTxt!.isShowingError {
-                if textField.placeholder == "I am ..." {
-                    genderTxt!.hideError()
-                }
-            }
-            
-            if emailTxt!.isShowingError {
-                if textField.placeholder == "Email" {
-                    emailTxt!.hideError()
-                }
-            }
-            
-            if passwordTxt!.isShowingError {
-                if textField.placeholder == "Password" {
-                    passwordTxt!.hideError()
-                }
-            }
-            
-            if textField.placeholder == "Email" {
-                if SharedUIManager.instance.isValidEmail(textField.text) {
-                    singupBtn!.showEnable()
-                }else{
-                    singupBtn!.showDisable()
-                    emailTxt!.showError()
-                }
-            }
-            
-            if textField.placeholder == "Password" {
-                if countElements(textField.text) >= 7 {
-                    singupBtn!.showEnable()
-                } else  {
-                    singupBtn!.showDisable()
-                }
-            }
+//            if !passwordTxt!.textField!.text.isEmpty {
+//                singupBtn!.showEnable()
+//            }else{
+//                singupBtn!.showDisable()
+//            }
         }
         
         return true
@@ -315,33 +317,13 @@ class SignupView:UIView, UITextFieldDelegate {
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
         println("textFieldShouldClear")
-        singupBtn!.showDisable()
-        return true
+        //singupBtn!.showDisable()
+        return false
     }// called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         println("textFieldShouldReturn")
     
-        if firstNameTxt!.isValid() {
-            
-        }
-        
-        if lastNameTxt!.isValid() {
-            
-        }
-        
-        if genderTxt!.isValid() {
-            
-        }
-        
-        if emailTxt!.isValid() {
-            
-        }
-    
-        if passwordTxt!.isValid() {
-            self.endEditing(true)
-        }
-        
         return false
     }// called when 'return' key pressed. return NO to ignore.
 }

@@ -8,9 +8,9 @@ import UIKit
 
 class SocialButtonsView:BNView {
     
-    var biinBtn:BNUISocialButton?
-    var commentBtn:BNUISocialButton?
-    var shareBtn:BNUISocialButton?
+    var biinBtn:BNUIButton_Social?
+    var commentBtn:BNUIButton_Social?
+    var shareBtn:BNUIButton_Social?
 
     override init() {
         super.init()
@@ -38,15 +38,15 @@ class SocialButtonsView:BNView {
         var buttonWidth:CGFloat = 43.0
         var buttonHeight:CGFloat = 18.0
         
-        biinBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
+        biinBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
         self.addSubview(biinBtn!)
         
         xpos += biinBtn!.frame.width + xSpace
-        commentBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
+        commentBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
         self.addSubview(commentBtn!)
         
         xpos += commentBtn!.frame.width + xSpace
-        shareBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"", activate:false, iconType:BNIconType.shareSmall)
+        shareBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"", activate:false, iconType:BNIconType.shareSmall)
         self.addSubview(shareBtn!)
         
     }
@@ -61,11 +61,11 @@ class SocialButtonsView:BNView {
         var buttonWidth:CGFloat = 43.0
         var buttonHeight:CGFloat = 18.0
         
-        biinBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
+        biinBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
         self.addSubview(biinBtn!)
         
         xpos += biinBtn!.frame.width + xSpace
-        commentBtn = BNUISocialButton(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
+        commentBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
         self.addSubview(commentBtn!)
     }
     
@@ -107,20 +107,20 @@ class SocialButtonsView:BNView {
         biinBtn!.updateText("\(site!.biinedCount)")
         
         if site!.userBiined {
-            (biinBtn! as BNUISocialButton).setActive()
+            (biinBtn! as BNUIButton_Social).setActive()
         }
         
         xpos += biinBtn!.frame.width + xSpace
         commentBtn!.frame.origin.x = xpos
         commentBtn!.updateText("\(site!.comments)")
         if site!.userCommented {
-            (commentBtn! as BNUISocialButton).setActive()
+            (commentBtn! as BNUIButton_Social).setActive()
         }
 
         xpos += commentBtn!.frame.width + xSpace
         shareBtn!.frame.origin.x = xpos
         if site!.userShared {
-            (shareBtn! as BNUISocialButton).setActive()
+            (shareBtn! as BNUIButton_Social).setActive()
         }
     }
     
@@ -133,14 +133,14 @@ class SocialButtonsView:BNView {
         biinBtn!.updateText("\(element!.biins)")
         
         if element!.userBiined {
-            (biinBtn! as BNUISocialButton).setActive()
+            (biinBtn! as BNUIButton_Social).setActive()
         }
         
         xpos += biinBtn!.frame.width + xSpace
         commentBtn!.frame.origin.x = xpos
         commentBtn!.updateText("\(element!.comments)")
         if element!.userCommented {
-            (commentBtn! as BNUISocialButton).setActive()
+            (commentBtn! as BNUIButton_Social).setActive()
         }
     }
 }

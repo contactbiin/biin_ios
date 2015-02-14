@@ -5,12 +5,11 @@
 
 import Foundation
 import UIKit
-class BNUIButton_Loging:UIButton {
+class BNUIButton_Loging:BNUIButton {
     
     var position:CGPoint?
     var size:CGSize?
     var radius:CGFloat?
-    var color:UIColor?
     
     override init() {
         super.init()
@@ -27,7 +26,13 @@ class BNUIButton_Loging:UIButton {
     convenience init(frame:CGRect, color:UIColor, text:String){
         self.init(frame:frame)
         
-        radius = 25
+        self.backgroundColor = color
+        
+        self.layer.cornerRadius = 25
+        self.layer.borderWidth = 3
+        self.layer.borderColor = UIColor.appMainColor().CGColor
+        self.layer.masksToBounds = true
+
         self.color = color
         self.position = CGPoint(x:3, y:3 )
         self.size = CGSize(width: (frame.width - 5), height: (frame.height - 5))
@@ -39,36 +44,22 @@ class BNUIButton_Loging:UIButton {
         label.textAlignment = NSTextAlignment.Center
         self.addSubview(label)
     }
-
-    override func drawRect(rect: CGRect) {
-        
-        //// Frames
-        let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
-        
-        //// back Drawing
-        let backPath = UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), cornerRadius: radius!)
-        color!.setFill()
-        backPath.fill()
-        UIColor.whiteColor().setStroke()
-        backPath.lineWidth = 3
-        backPath.stroke()
-    }
     
-    func showDisable(){
-        if self.enabled {
-            color = UIColor.bnGray()
-            self.enabled = false
-            setNeedsDisplay()
-        }
-    }
-    
-    func showEnable(){
-        if !self.enabled {
-            color = UIColor.bnGreen()
-            self.enabled = true
-            setNeedsDisplay()
-        }
-    }
-    
+//    override func showDisable(){
+//        if self.enabled {
+//            color = UIColor.bnGray()
+//            self.enabled = false
+//            setNeedsDisplay()
+//        }
+//    }
+//    
+//    override func showEnable(){
+//        if !self.enabled {
+//            color = UIColor.bnGreen()
+//            self.enabled = true
+//            setNeedsDisplay()
+//        }
+//    }
+//    
 
 }

@@ -10,7 +10,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
  
     var delegate:SiteView_Delegate?
     var site:BNSite?
-    var backBtn:BNUIBackButton?
+    var backBtn:BNUIButton_Back?
     var header:SiteView_Header?
     var bottom:SiteView_Bottom?
     
@@ -57,7 +57,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIBackButton(frame: CGRectMake(2, 5, 30, 15))
+        backBtn = BNUIButton_Back(frame: CGRectMake(2, 5, 30, 15))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -131,7 +131,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         updateShowcases(site)
     }
     
-    func showInformationView(sender:BNUIInformationButton){
+    func showInformationView(sender:BNUIButton_Information){
         println("show site information window")
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.informationView!.frame.origin.x = 0

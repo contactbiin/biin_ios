@@ -8,11 +8,8 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIBackButton:UIButton {
+class BNUIButton_Back:BNUIButton {
     
-    var icon:BNIcon?
-    var iconType:BNIconType = BNIconType.leftArrowSmall
-
     override init() {
         super.init()
     }
@@ -24,12 +21,5 @@ class BNUIBackButton:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_LeftArrowSmall(color: UIColor.appButtonColor(), position: CGPointMake(12, 3))
-    }
-
-    
-    override func drawRect(rect: CGRect) {
-        if iconType != BNIconType.none {
-            icon?.drawCanvas()
-        }
     }
 }

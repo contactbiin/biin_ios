@@ -89,15 +89,15 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     func addButtons(){
         
         notificationRedCircle = BNUINotificationView_RedCircle(position: CGPoint(x: 22, y: 14))
-        notificationBtn = BNUIButton(position: CGPoint(x:2, y: 10), text: "", iconType: BNIconType.notificationMedium, hasLabel: false)
+        notificationBtn = BNUIButton_WithLabel(position: CGPoint(x:2, y: 10), text: "", iconType: BNIconType.notificationMedium, hasLabel: false)
         notificationBtn!.addTarget(self, action: "showNotification:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        searchBtn = BNUIButton(position: CGPoint(x: (SharedUIManager.instance.screenWidth - 45), y: 10), text: "", iconType: BNIconType.searchMedium, hasLabel: false)
-        searchBtn!.addTarget(self, action: "showSearchView:", forControlEvents: UIControlEvents.TouchUpInside)
+//        searchBtn = BNUIButton(position: CGPoint(x: (SharedUIManager.instance.screenWidth - 45), y: 10), iconType: BNIconType.searchMedium)
+//        searchBtn!.addTarget(self, action: "showSearchView:", forControlEvents: UIControlEvents.TouchUpInside)
 
         self.addSubview(notificationBtn!)
         self.addSubview(notificationRedCircle!)
-        self.addSubview(searchBtn!)
+        //self.addSubview(searchBtn!)
         
         notificationRedCircle!.setNotifitionNumber(23)
         

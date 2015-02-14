@@ -145,6 +145,104 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
+                self.handleFailedRequest(request, error: error? )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** Register for user \(user.email!) SUCK - FAILED!")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    var identifier = self.findString("identifier", dictionary: dataData)
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Register for user \(user.email!) COOL!")
+                        self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** Register for user \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedRegisterConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request.identifier)
+                
+            }
+        }
+    }
+    
+    
+    func sendBiinieCategories(user:BNUser, categories:Dictionary<String, String>) {
+
+        println("losendBiinieCategoriesgin(\(user.email))")
+        
+        var request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.Register)
+        self.requests[request.identifier] = request
+        
+        var response:BNResponse?
+        
+        //var categoriesDic = Dictionary<String, String>()
+        
+//        for category in categories {
+//            categoriesDic[category] = category
+//        }
+        
+        epsNetwork!.postJson("", httpParams: categories, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("Error on posting categoies")
+                self.handleFailedRequest(request, error: error? )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** Posting categories for user \(user.email!) SUCK - FAILED!")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    //var identifier = self.findString("identifier", dictionary: dataData)
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Register categproes for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** Register categories for user \(user.email!) SUCK!")
+                    }
+                    
+                    //self.delegateVC!.manager!(self, didReceivedCategoriesSavedConfirmation: response)
+//                    self.delegateVC!.manager!(self, didReceivedRegisterConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request.identifier)
+                
+            }
+        
+        })
+        
+        /*
+        epsNetwork!.getJson(request.requestString) {
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
                 println("Error on regions data")
                 self.handleFailedRequest(request, error: error? )
                 
@@ -179,6 +277,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 
             }
         }
+*/
     }
     
     
@@ -1418,7 +1517,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)
     optional func manager(manager:BNNetworkManager!, didReceivedEmailVerification value:Bool)
     optional func manager(manager:BNNetworkManager!, didReceivedRegisterConfirmation response:BNResponse?)
-
+    optional func manager(manager:BNNetworkManager!, didReceivedCategoriesSavedConfirmation response:BNResponse?)
+    
     optional func manager(manager:BNNetworkManager!, didReceivedInitialData biins:Array<BNBiin>?)
     
     optional func manager(manager:BNNetworkManager!, didReceivedRegions regions:Array<BNRegion>)

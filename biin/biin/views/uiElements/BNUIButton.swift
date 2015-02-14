@@ -6,10 +6,11 @@
 import Foundation
 import UIKit
 class BNUIButton:UIButton {
-    
+
+    var color:UIColor?
     var icon:BNIcon?
     var iconType:BNIconType = BNIconType.none
-    var label:UILabel?
+    var isSelected = false
     
     override init() {
         super.init()
@@ -21,40 +22,23 @@ class BNUIButton:UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.addTarget(self, action: "showPressed:", forControlEvents: UIControlEvents.TouchDown)
+        
     }
     
-    convenience init(position: CGPoint, text:String, iconType:BNIconType, hasLabel:Bool) {
-        
-        self.init(frame:CGRectMake(position.x, position.y, 40, 40))
-        
-        self.iconType = iconType
-        createIcon()
-        
-        self.layer.cornerRadius  = 3
-        self.layer.masksToBounds = true
-        
-        if hasLabel {
-            var iconWidth:CGFloat = 10
-            var xSpace:CGFloat = 6
-            var ypos:CGFloat = 1
-            var xpos:CGFloat = xSpace + iconWidth
-
-            label = UILabel(frame: CGRectMake(xpos, ypos, 200, 10))
-            label!.text = text
-            label!.textColor = UIColor.appMainColor()
-            label!.font = UIFont(name: "Lato-Regular", size: 10)
-            label!.sizeToFit()
-            self.addSubview(label!)
-            
-            var width:CGFloat = label!.frame.width + xpos + xSpace
-            self.frame = CGRectMake(frame.origin.x, frame.origin.y, width, 15)
-        }
-    }
+//    convenience init(position:CGPoint, iconType:BNIconType) {
+//        
+//        self.init(frame:CGRectMake(position.x, position.y, 40, 40))
+//        
+//        self.iconType = iconType
+//        createIcon()
+//        
+//        self.layer.cornerRadius  = 3
+//        self.layer.masksToBounds = true
+//    }
     
     override func drawRect(rect: CGRect) {
-        if iconType != BNIconType.none {
-            icon?.drawCanvas()
-        }
+        icon?.drawCanvas()
     }
     
     func createIcon(){
@@ -68,5 +52,21 @@ class BNUIButton:UIButton {
         default:
             break
         }
+    }
+    
+    func showPressed(sender:BNUIButton){
+        
+    }
+    
+    func showSelected(){
+        self.backgroundColor = UIColor.bnGrayLight()
+    }
+    
+    func showEnable(){
+        self.backgroundColor = UIColor.appButtonColor()
+    }
+    
+    func showDisable(){
+        self.backgroundColor = UIColor.appBackground()
     }
 }

@@ -6,8 +6,9 @@
 import Foundation
 import UIKit
 
-class UserOnboardingViewController:UIViewController, UIPopoverPresentationControllerDelegate, BNNetworkManagerDelegate {
+class UserOnboardingViewController:UIViewController, UIPopoverPresentationControllerDelegate, BNNetworkManagerDelegate, UserOnboardingView_Categories_Delegate {
     
+    var categoriesView:UserOnboardingView_Categories?
     var fadeView:UIView?
     
     override func viewDidLoad() {
@@ -19,6 +20,11 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
+        
+        categoriesView = UserOnboardingView_Categories(frame:self.view.frame)
+        categoriesView!.delegate = self
+        self.view.addSubview(categoriesView!)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,14 +58,6 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         
     }
     
-    func enterBtnAction(sender: UIButton!){
-        
-        var vc = MainViewController()
-        vc.initViewController(self.view.frame)
-        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
     //UIPopoverPresentationControllerDelegate Methods
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.Popover
@@ -70,6 +68,19 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
 
     }
     
+    func showProgress(view: UIView) {
+        
+    }
     
+    func showSelectCategories(view: UIView) {
+        
+    }
+    
+    func startOnBiin(view: UIView) {
+        var vc = MainViewController()
+        vc.initViewController(self.view.frame)
+        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
 
 }

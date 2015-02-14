@@ -8,10 +8,7 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIInformationButton:UIButton {
-    
-    var icon:BNIcon?
-    var iconType:BNIconType = BNIconType.informationSmall
+class BNUIButton_Information:BNUIButton {
     
     override init() {
         super.init()
@@ -24,12 +21,5 @@ class BNUIInformationButton:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_InformationSmall(color: UIColor.appButtonColor(), position: CGPointMake(3, 3))
-    }
-    
-    
-    override func drawRect(rect: CGRect) {
-        if iconType != BNIconType.none {
-            icon?.drawCanvas()
-        }
     }
 }

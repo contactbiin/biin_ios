@@ -11,10 +11,7 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIBackButton_SignupView:UIButton {
-    
-    var icon:BNIcon?
-    var iconType:BNIconType = BNIconType.leftArrowSmall
+class BNUIButton_Back_SignupView:BNUIButton {
     
     override init() {
         super.init()
@@ -27,13 +24,6 @@ class BNUIBackButton_SignupView:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_LeftArrowMedium(color: UIColor.appMainColor(), position: CGPoint(x:5, y: 2))
-    }
-    
-    
-    override func drawRect(rect: CGRect) {
-        if iconType != BNIconType.none {
-            icon?.drawCanvas()
-        }
     }
 }
 

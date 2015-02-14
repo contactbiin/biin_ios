@@ -10,7 +10,7 @@ class ElementView: BNView {
     
     var delegate:ElementView_Delegate?
     var elementMiniView:ElementMiniView?
-    var backBtn:BNUIBackButton?
+    var backBtn:BNUIButton_Back?
     var header:ElementView_Header?
     
     var scroll:UIScrollView?
@@ -19,8 +19,8 @@ class ElementView: BNView {
     
     var fade:UIView?
     
-    var biinItButton:BNUIBiinItButton?
-    var shareItButton:BNUIShareItButton?
+    var biinItButton:BNUIButton_BiinIt?
+    var shareItButton:BNUIButton_ShareIt?
     
     var detailsView:ElementView_Details?
     var stickerView:BNUIStickerView?
@@ -56,7 +56,7 @@ class ElementView: BNView {
         header = ElementView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIBackButton(frame: CGRectMake(2, 5, 30, 15))
+        backBtn = BNUIButton_Back(frame: CGRectMake(2, 5, 30, 15))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -65,11 +65,11 @@ class ElementView: BNView {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        biinItButton = BNUIBiinItButton(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
+        biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
         biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(biinItButton!)
         
-        shareItButton = BNUIShareItButton(frame: CGRectMake((screenWidth - 41), 4, 37, 37))
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - 41), 4, 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(shareItButton!)
         
@@ -190,7 +190,7 @@ class ElementView: BNView {
         }
     }
     
-    func biinit(sender:BNUIBiinItButton){
+    func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!)
         println("Show biinit options")
         elementMiniView!.element!.biins++
@@ -198,7 +198,7 @@ class ElementView: BNView {
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
     }
     
-    func shareit(sender:BNUIShareItButton){
+    func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareit(elementMiniView!.element!._id!)
         println("Show shareit options")
         elementMiniView!.element!.userShared = true

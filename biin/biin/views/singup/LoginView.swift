@@ -20,6 +20,8 @@ class LoginView:UIView, UITextFieldDelegate {
     
     var isKeyboardUp = false
     
+    var testBtn:UIButton?
+    
     override init() {
         super.init()
     }
@@ -63,12 +65,10 @@ class LoginView:UIView, UITextFieldDelegate {
         passwordTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         self.addSubview(passwordTxt!)
         
-        
         ypos += (40 + passwordTxt!.frame.height)
         loginBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnGreen(), text:"Log in")
         loginBtn!.addTarget(self, action: "login:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(loginBtn!)
-        loginBtn!.showDisable()
 
         ypos += (10 + loginBtn!.frame.height)
         singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:"I’m new here!")
@@ -87,6 +87,17 @@ class LoginView:UIView, UITextFieldDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
         
+        //TODO: remove after testing
+        testBtn = UIButton(frame: CGRectMake(10, (SharedUIManager.instance.screenHeight - 40), 80, 30))
+        testBtn!.titleLabel!.text = "TEST"
+        //testBtn!.titleLabel!.textColor = UIColor.whiteColor()
+        testBtn!.backgroundColor = UIColor.bnOrange()
+        testBtn!.addTarget(self, action: "test:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(testBtn!)
+    }
+    
+    func test(sender:UIButton){
+        delegate!.test!(self)
     }
     
     func keyboardDidShow() {
@@ -139,19 +150,35 @@ class LoginView:UIView, UITextFieldDelegate {
     
     func login(sender:BNUIButton_Loging){
         
-        var password = passwordTxt!.textField!.text.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        var email = emailTxt!.textField!.text.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var ready = false
         
-        BNAppSharedManager.instance.networkManager.login(email, password: password)
-        
-        delegate!.showProgress!(self)
-        self.endEditing(true)
-        loginBtn!.showDisable()
+        if  emailTxt!.isValid() &&
+            passwordTxt!.isValid() {
+            
+            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text) {
+                ready = true
+            }else{
+                emailTxt!.showError()
+            }
+        }
+
+        if ready {
+            
+            var password = passwordTxt!.textField!.text.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var email = emailTxt!.textField!.text.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
+            BNAppSharedManager.instance.networkManager.login(email, password: password)
+            
+            delegate!.showProgress!(self)
+            self.endEditing(true)
+            loginBtn!.showDisable()
+        }
     }
     
     func clean(){
-        emailTxt!.textField!.text = ""
-        passwordTxt!.textField!.text = ""
+        //emailTxt!.textField!.text = ""
+        //passwordTxt!.textField!.text = ""
+        loginBtn!.showEnable()
     }
     
     func signup(sender:BNUIButton_Loging) {
@@ -194,43 +221,7 @@ class LoginView:UIView, UITextFieldDelegate {
         
         if !textField.text.isEmpty {
             
-            if !emailTxt!.textField!.text.isEmpty &&
-                !passwordTxt!.textField!.text.isEmpty {
-                loginBtn!.showEnable()
-            }else{
-                loginBtn!.showDisable()
-            }
-            
             textField.text = SharedUIManager.instance.removeSpecielCharacter(textField.text)
-            
-            if emailTxt!.isShowingError {
-                if textField.placeholder == "Email" {
-                    emailTxt!.hideError()
-                }
-            }
-            
-            if passwordTxt!.isShowingError {
-                if textField.placeholder == "Password" {
-                    passwordTxt!.hideError()
-                }
-            }
-            
-            if textField.placeholder == "Email" {
-                if SharedUIManager.instance.isValidEmail(textField.text) {
-                    singupBtn!.showEnable()
-                }else{
-                    singupBtn!.showDisable()
-                    emailTxt!.showError()
-                }
-            }
-            
-            if textField.placeholder == "Password" {
-                if countElements(textField.text) >= 7 {
-                    singupBtn!.showEnable()
-                } else  {
-                    singupBtn!.showDisable()
-                }
-            }
             
         }
         
@@ -239,24 +230,12 @@ class LoginView:UIView, UITextFieldDelegate {
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
         println("textFieldShouldClear")
-        
-        
-        //if emailTxt!.textField!.text.isEmpty && passwordTxt!.textField!.text.isEmpty {
-            loginBtn!.showDisable()
-        //}
-        
-        return true
+
+        return false
     }// called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         println("textFieldShouldReturn")
-        
-        if emailTxt!.isValid() {
-        }
-        
-        if passwordTxt!.isValid() {
-            self.endEditing(true)
-        }
         
         return false
     }// called when 'return' key pressed. return NO to ignore.
@@ -265,4 +244,5 @@ class LoginView:UIView, UITextFieldDelegate {
 @objc protocol LoginView_Delegate:NSObjectProtocol {
     optional func showSignupView(view:UIView)
     optional func showProgress(view:UIView)
+    optional func test(view:UIView)
 }

@@ -14,6 +14,8 @@ class BNUITexfield_Center:UIView {
     var radius:CGFloat?
     var color:UIColor?
     
+    var point:UIView?
+    
     override init() {
         super.init()
     }
@@ -44,6 +46,11 @@ class BNUITexfield_Center:UIView {
         self.color = UIColor.appMainColor()
         self.position = CGPoint(x:0, y:0 )
         self.size = CGSize(width: frame.width, height: frame.height)
+        
+        point = UIView(frame: CGRectMake((self.frame.width - 15), 5, 10, 10))
+        point!.backgroundColor = UIColor.appMainColor()
+        point!.layer.cornerRadius = 5
+        self.addSubview(point!)
     }
     
     override func drawRect(rect: CGRect) {
@@ -60,13 +67,13 @@ class BNUITexfield_Center:UIView {
     }
     
     func showError(){
-        color = UIColor.bnOrange()
+        point!.backgroundColor = UIColor.redColor()
         isShowingError = true
         setNeedsDisplay()
     }
     
     func hideError(){
-        color = UIColor.appMainColor()
+        point!.backgroundColor = UIColor.appMainColor()
         isShowingError = false
         setNeedsDisplay()
     }

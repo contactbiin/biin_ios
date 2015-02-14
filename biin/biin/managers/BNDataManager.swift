@@ -29,7 +29,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //var showcasesIdentifiersToRequest:Dictionary<String, String> = Dictionary<String, String>()
     var sharedBiins = Dictionary<String, BNBiin>()
     
-    //var categories = Dictionary<String, BNCategory>()
+    var categories:Array<BNCategory>?/// = Dictionary<String, BNCategory>()
     //var sections:Array<BNSection> = Array<BNSection>()
     
     var currentRegionIdentifier:String?
@@ -58,6 +58,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             bnUser!.isEmailVerified = false
             bnUser!.biinName = ""
             bnUser!.clear()
+            loadCategories()
         }
     }
     
@@ -66,7 +67,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func requestInitialData(){
-        
         
         //Verified email
         if !bnUser!.isEmailVerified! {
@@ -143,26 +143,26 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     /**
     Loads all categories available on the categories array.
     */
-    /*
     func loadCategories() {
-        categories["My Biins"] = BNCategory(identifier: "My Biins")
-        categories["Personal Care"] = BNCategory(identifier: "Personal Care")
-        categories["Vacation"]      = BNCategory(identifier: "Vacation")
-        categories["Shoes"]         = BNCategory(identifier: "Shoes")
-        categories["Games"]         = BNCategory(identifier: "Games")
-        categories["Outdoors"]      = BNCategory(identifier: "Outdoors")
-        categories["Health"]        = BNCategory(identifier: "Health")
-        categories["Food"]          = BNCategory(identifier: "Food")
-        categories["Sports"]        = BNCategory(identifier: "Sports")
-        categories["Education"]     = BNCategory(identifier: "Education")
-        categories["Fashion"]       = BNCategory(identifier: "Fashion")
-        categories["Music"]         = BNCategory(identifier: "Music")
-        categories["Movies"]        = BNCategory(identifier: "Movies")
-        categories["Technology"]    = BNCategory(identifier: "Technology")
-        categories["Entertaiment"]  = BNCategory(identifier: "Entertaiment")
-        categories["Travel"]        = BNCategory(identifier: "Travel")
+        categories = Array<BNCategory>()
+        categories!.append(BNCategory(identifier: "Personal Care"))
+        categories!.append(BNCategory(identifier: "Shoes"))
+        categories!.append(BNCategory(identifier: "Games"))
+        categories!.append(BNCategory(identifier: "Outdoors"))
+        categories!.append(BNCategory(identifier: "Health"))
+        categories!.append(BNCategory(identifier: "Food"))
+        categories!.append(BNCategory(identifier: "Sports"))
+        categories!.append(BNCategory(identifier: "Education"))
+        categories!.append(BNCategory(identifier: "Fashion"))
+        categories!.append(BNCategory(identifier: "Music"))
+        categories!.append(BNCategory(identifier: "Movies"))
+        categories!.append(BNCategory(identifier: "Technology"))
+        categories!.append(BNCategory(identifier: "Cars"))
+        categories!.append(BNCategory(identifier: "Entertaiment"))
+        categories!.append(BNCategory(identifier: "Travel"))
+        categories!.append(BNCategory(identifier: "Bars"))
     }
-    */
+
     
     
     
@@ -752,17 +752,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     
     
-    
-    
     optional func manager(manager:BNDataManager!, requestImageData stringUrl:String, image:UIImageView!)
     
-    
-    
     optional func manager(manager:BNDataManager!, requestBiinieAvatar stringUrl:String, image:UIImageView)
-    
-    
-    
-    
     
     //Methods to conform on BNPositionManager
     optional func manager(manager:BNDataManager!, startRegionsMonitoring regions:Array<BNRegion>)

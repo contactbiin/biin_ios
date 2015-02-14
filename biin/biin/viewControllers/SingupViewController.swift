@@ -126,6 +126,12 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
 //        self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    func test(view: UIView) {
+        var vc = UserOnboardingViewController()
+        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
     func enableSignup(view: UIView) {
         var vc = UserOnboardingViewController()
         vc.initViewController(self.view.frame)

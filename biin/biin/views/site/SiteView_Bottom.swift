@@ -9,7 +9,7 @@ import UIKit
 class SiteView_Bottom:BNView {
     
     var pointsLbl:UILabel?
-    var informationBtn:BNUIInformationButton?
+    var informationBtn:BNUIButton_Information?
     
     override init() {
         super.init()
@@ -39,7 +39,7 @@ class SiteView_Bottom:BNView {
         pointsLbl!.textColor = UIColor.appTextColor()
         self.addSubview(pointsLbl!)
         
-        informationBtn = BNUIInformationButton(frame: CGRectMake(5, 2, 26, 26))
+        informationBtn = BNUIButton_Information(frame: CGRectMake(5, 2, 26, 26))
         informationBtn!.addTarget(father, action: "showInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(informationBtn!)
 

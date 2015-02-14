@@ -8,10 +8,7 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIShareItButton:UIButton {
-    
-    var icon:BNIcon?
-    var iconType:BNIconType = BNIconType.leftArrowSmall
+class BNUIButton_ShareIt:BNUIButton {
     
     override init() {
         super.init()
@@ -24,12 +21,5 @@ class BNUIShareItButton:UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
-    }
-    
-    
-    override func drawRect(rect: CGRect) {
-        if iconType != BNIconType.none {
-            icon?.drawCanvas()
-        }
     }
 }

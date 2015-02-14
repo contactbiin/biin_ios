@@ -46,7 +46,7 @@ class BiinieCategoriesView_Icon:UIView {
             icon = BNIcon_UmbrellaMedium(color: color!, position: CGPoint(x: 1, y: 1))
             break
         case .shoes:
-            icon = BNIcon_ShoeMedium(color:color!, position:CGPoint(x:2, y:5))
+            icon = BNIcon_ShoeSmall(color:color!, position:CGPoint(x:2, y:5))
             break
         case .game:
             break

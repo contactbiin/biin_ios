@@ -134,7 +134,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     func getJson( url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
         var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
-        
+
 //        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
 //        request.setValue("application/json", forHTTPHeaderField:"Accept")
         
@@ -153,6 +153,42 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             }
         })
     }
+    
+    
+    func postJson(url: String, httpParams:Dictionary<String, String>, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
+        
+        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
+        
+        //        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
+        //        request.setValue("application/json", forHTTPHeaderField:"Accept")
+        
+        var params = ["games":"games", "music":"music"] as Dictionary<String, String>
+        
+        var err: NSError?
+        request.HTTPMethod = "POST"
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        println("HTTPBody: \(request.HTTPBody)")
+        
+        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
+            
+            if error != nil {
+                callback(Dictionary<String, AnyObject>(), error)
+            } else {
+                
+                //println("------------------------------------------------------------")
+                //println("------------------------------------------------------------")
+                println("jsonString received: \(data)")
+                
+                var jsonData = self.parseJson(data)
+                callback(jsonData, nil)
+            }
+        })
+    }
+    
+    
     
     func parseJson(jsonString:String) -> Dictionary<String, AnyObject> {
         
