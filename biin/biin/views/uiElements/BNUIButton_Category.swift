@@ -9,6 +9,7 @@ import UIKit
 class BNUIButton_Category:BNUIButton {
     
     var categoryIdentifier:String?
+    var categoryName:String?
     var label:UILabel?
     
     override init() {
@@ -27,6 +28,7 @@ class BNUIButton_Category:BNUIButton {
         
         self.init(frame:frame)
         self.categoryIdentifier = categoryIdentifier
+        self.categoryName = text
         self.iconType = iconType
         createIcon()
         
@@ -69,7 +71,7 @@ class BNUIButton_Category:BNUIButton {
     categories!.append(BNCategory(identifier: "Bars"))
     */
     override func createIcon(){
-        switch categoryIdentifier! {
+        switch categoryName! {
         case "Personal Care":
             icon = BNIcon_PersonalCareMedium(color: UIColor.appMainColor(), position: CGPointMake(14, 12))
             break

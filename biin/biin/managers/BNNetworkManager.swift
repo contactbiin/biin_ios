@@ -20,11 +20,20 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
     
     //URL requests
-    let connectibityUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
-    let regionsUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getRegions.json"
+    //let connectibityUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
+    //let regionsUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getRegions.json"
     let categoriesUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getCategories.json"
     let biinedElements = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBiinedElements.json"
     let boards = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBoards.json"
+
+    
+    //URL requests
+    let connectibityUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
+    let regionsUrl = "https://www.biinapp.com/mobile/regions"
+    //let categoriesUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getCategories.json"
+    //let biinedElements = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBiinedElements.json"
+    //let boards = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBoards.json"
+    
     
 //    let manager = AFHTTPRequestOperationManager()
     var errorManager:BNErrorManager?
@@ -84,7 +93,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     func login(email:String, password:String){
         println("Trying login for (\(email))")
         
-        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/binnies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
         self.requests[request.identifier] = request
         
         var response:BNResponse?
@@ -136,7 +145,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         
         println("login(\(user.email))")
         
-        var request = BNRequest(requestString:"http://www.biinapp.com/mobile/binnies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+        var request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
         self.requests[request.identifier] = request
         
         var response:BNResponse?
@@ -183,20 +192,23 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     func sendBiinieCategories(user:BNUser, categories:Dictionary<String, String>) {
 
-        println("losendBiinieCategoriesgin(\(user.email))")
+        println("sendBiinieCategories(\(user.email))")
         
-        var request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.Register)
+        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.Register)
         self.requests[request.identifier] = request
+        
+        println("url: \(request.requestString)")
+        println("\(categories)")
+        
+        var model = ["model":Array<Dictionary <String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
+        
+        for (key, value) in categories {
+            model["model"]?.append(["identifier":value])
+        }
         
         var response:BNResponse?
         
-        //var categoriesDic = Dictionary<String, String>()
-        
-//        for category in categories {
-//            categoriesDic[category] = category
-//        }
-        
-        epsNetwork!.postJson("", httpParams: categories, callback: {
+        epsNetwork!.postJson(request.requestString, httpParams: model, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
@@ -206,7 +218,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** Posting categories for user \(user.email!) SUCK - FAILED!")
-                
+                println("*** data \(data)")
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -224,7 +236,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         println("*** Register categories for user \(user.email!) SUCK!")
                     }
                     
-                    //self.delegateVC!.manager!(self, didReceivedCategoriesSavedConfirmation: response)
+                    self.delegateVC!.manager!(self, didReceivedCategoriesSavedConfirmation: response)
 //                    self.delegateVC!.manager!(self, didReceivedRegisterConfirmation: response)
                     
                     if self.isRequestTimerAllow {
@@ -344,14 +356,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     func manager(manager:BNDataManager!, checkIsEmailVerified identifier:String) {
 
-        println("checkIsEmailVerified")
+        println("checkIsEmailVerified for identifier: \(identifier)")
         
-        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/binnies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
         self.requests[request.identifier] = request
         
-        if !isRequestTimerAllow {
-            self.requestRegions(request)
-        }
+        println("\(request.requestString)")
+        
+//        if !isRequestTimerAllow {
+//            self.requestRegions(request)
+//        }
         
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -1167,7 +1181,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     func manager(manager:BNDataManager!, requestBiinieData biinie:BNUser) {
-        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/binnies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
         self.requests[request.identifier] = request
         self.requestBiinieData(request)
     }

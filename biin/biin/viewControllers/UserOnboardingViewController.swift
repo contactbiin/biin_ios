@@ -8,8 +8,14 @@ import UIKit
 
 class UserOnboardingViewController:UIViewController, UIPopoverPresentationControllerDelegate, BNNetworkManagerDelegate, UserOnboardingView_Categories_Delegate {
     
+    var slide1:UserOnboardingView_Slide?
+    var slide2:UserOnboardingView_Slide?
+    var slide3:UserOnboardingView_Slide?
     var categoriesView:UserOnboardingView_Categories?
+    var scroll:UIScrollView?
     var fadeView:UIView?
+    
+    var alert:BNUIAlertView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +27,33 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         
-        categoriesView = UserOnboardingView_Categories(frame:self.view.frame)
+        var xpos:CGFloat = 0
+        var screenWidth = SharedUIManager.instance.screenWidth
+        var screenHeight = SharedUIManager.instance.screenHeight
+
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+        scroll!.pagingEnabled = true
+        scroll!.bounces = false
+        self.view.addSubview(scroll!)
+        
+        slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title: "PAGE 1")
+        scroll!.addSubview(slide1!)
+        xpos += screenWidth
+        
+        slide2 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title: "PAGE 2")
+        scroll!.addSubview(slide2!)
+        xpos += screenWidth
+        
+        slide3 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title: "PAGE 3")
+        scroll!.addSubview(slide3!)
+        xpos += screenWidth
+        
+        categoriesView = UserOnboardingView_Categories(frame:CGRectMake(xpos, 0, screenWidth, screenHeight))
+        scroll!.addSubview(categoriesView!)
         categoriesView!.delegate = self
-        self.view.addSubview(categoriesView!)
+        xpos += screenWidth
+        
+        scroll!.contentSize = CGSize(width: xpos, height: screenHeight)
         
     }
     
@@ -69,7 +99,17 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     }
     
     func showProgress(view: UIView) {
+        if (alert?.isOn != nil) {
+            alert!.hide()
+        }
         
+        showProgressView()
+    }
+    
+    func showProgressView(){
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:"Please wait a moment!")
+        self.view.addSubview(alert!)
+        alert!.show()
     }
     
     func showSelectCategories(view: UIView) {
@@ -77,10 +117,32 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     }
     
     func startOnBiin(view: UIView) {
-        var vc = MainViewController()
-        vc.initViewController(self.view.frame)
-        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-        self.presentViewController(vc, animated: true, completion: nil)
+//        var vc = MainViewController()
+//        vc.initViewController(self.view.frame)
+//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
+        if response!.code == 0 {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    var vc = LoadingViewController()
+                    vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+                    self.presentViewController(vc, animated: true, completion: nil)
+                })
+            }
+            
+        } else {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.view.addSubview(self.alert!)
+                    self.alert!.show()
+                })
+            }
+        }
+
     }
 
 }

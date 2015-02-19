@@ -75,21 +75,18 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         //Request regions
         BNAppSharedManager.instance.networkManager.requestRegions()
-        
-        //TODO: temporal data
-        //bnUser!.jsonUrl = "http://s3-us-west-2.amazonaws.com/biintest/BiinFakeJsons/biinies/@epadilla.json"
-        
+
         //1. Request user biined data
         delegateNM!.manager!(self, requestBiinieData: bnUser!)
         
         //delegateNM!.manager!(self, requestBiinedElementListForBNUser: bnUser!)
-        delegateNM!.manager!(self, requestBoardsForBNUser:bnUser!)
+        //delegateNM!.manager!(self, requestBoardsForBNUser:bnUser!)
         
         //2. Request user categories data.
         delegateNM!.manager!(self, requestCategoriesData:bnUser!)
         
         //Check if email is verified
-        delegateNM!.manager!(self, checkIsEmailVerified: "epadilla")
+        //delegateNM!.manager!(self, checkIsEmailVerified: "epadilla")
     }
     
     /*
@@ -145,22 +142,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func loadCategories() {
         categories = Array<BNCategory>()
-        categories!.append(BNCategory(identifier: "Personal Care"))
-        categories!.append(BNCategory(identifier: "Shoes"))
-        categories!.append(BNCategory(identifier: "Games"))
-        categories!.append(BNCategory(identifier: "Outdoors"))
-        categories!.append(BNCategory(identifier: "Health"))
-        categories!.append(BNCategory(identifier: "Food"))
-        categories!.append(BNCategory(identifier: "Sports"))
-        categories!.append(BNCategory(identifier: "Education"))
-        categories!.append(BNCategory(identifier: "Fashion"))
-        categories!.append(BNCategory(identifier: "Music"))
-        categories!.append(BNCategory(identifier: "Movies"))
-        categories!.append(BNCategory(identifier: "Technology"))
-        categories!.append(BNCategory(identifier: "Cars"))
-        categories!.append(BNCategory(identifier: "Entertaiment"))
-        categories!.append(BNCategory(identifier: "Travel"))
-        categories!.append(BNCategory(identifier: "Bars"))
+        categories!.append(BNCategory(identifier: "category1", name: "Personal Care"))
+        categories!.append(BNCategory(identifier: "category2", name: "Cars"))
+        categories!.append(BNCategory(identifier: "category3", name: "Shoes"))
+        categories!.append(BNCategory(identifier: "category4", name: "Games"))
+        categories!.append(BNCategory(identifier: "category5", name: "Outdoors"))
+        categories!.append(BNCategory(identifier: "category6", name: "Health"))
+        categories!.append(BNCategory(identifier: "category7", name: "Food"))
+        categories!.append(BNCategory(identifier: "category8", name: "Sports"))
+        categories!.append(BNCategory(identifier: "category9", name: "Education"))
+        categories!.append(BNCategory(identifier: "category10", name: "Fashion"))
+        categories!.append(BNCategory(identifier: "category11", name: "Music"))
+        categories!.append(BNCategory(identifier: "category12", name: "Movies"))
+        categories!.append(BNCategory(identifier: "category13", name: "Technology"))
+        categories!.append(BNCategory(identifier: "category14", name: "Entertaiment"))
+        categories!.append(BNCategory(identifier: "category15", name: "Travel"))
+        categories!.append(BNCategory(identifier: "category16", name: "Bars"))
     }
 
     
@@ -183,6 +180,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
+        println("didReceivedUserIdentifier \(idetifier!)")
         bnUser!.identifier = idetifier
     }
     
@@ -242,6 +240,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
         }
+    }
+    
+    func findCategoryNameByIdentifier(identifier:String) -> String {
+        return ""
     }
     
     

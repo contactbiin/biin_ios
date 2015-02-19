@@ -28,6 +28,13 @@ class BNCategory:NSObject {
         addIconType()
     }
     
+    convenience init(identifier:String, name:String) {
+        self.init()
+        self.identifier = identifier
+        self.name = name
+        addIconType()
+    }
+    
     deinit { }
 
     func addIconType(){

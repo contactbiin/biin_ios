@@ -53,7 +53,7 @@ class UserOnboardingView_Categories:UIView {
         
         for category in BNAppSharedManager.instance.dataManager.categories! {
             
-            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.identifier!)
+            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!)
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(button)
             buttonCounter++
@@ -84,7 +84,8 @@ class UserOnboardingView_Categories:UIView {
     }
     
     func startBtnAction(sender:BNUIButton_Loging){
-//        delegate!.startOnBiin!(self)
+        
+        delegate!.showProgress!(self)
         
         BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
     }
