@@ -10,6 +10,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     var enterBtn:UIButton?
     var loadingView:LoadingView?
     
+    var clearUserBtn:UIButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +37,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         version.text = "Version \(BNAppSharedManager.instance.version)"
         self.view.addSubview(version)
         
-        enterBtn = UIButton(frame: CGRectMake(0, (screenHeight - 150), screenWidth, 60))
+        enterBtn = UIButton(frame: CGRectMake(0, (screenHeight - 175), screenWidth, 60))
         enterBtn!.backgroundColor = UIColor.biinColor()
         enterBtn!.setTitle("Enter", forState: UIControlState.Normal)
         enterBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -44,6 +46,16 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         enterBtn!.alpha = 0
         self.view.addSubview(enterBtn!)
         
+        
+        clearUserBtn = UIButton(frame: CGRectMake(0, (screenHeight - 110), screenWidth, 60))
+        clearUserBtn!.backgroundColor = UIColor.bnRed()
+        clearUserBtn!.setTitle("Clear user", forState: UIControlState.Normal)
+        clearUserBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        clearUserBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 20)
+        clearUserBtn!.addTarget(self, action: "clearUserBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        clearUserBtn!.alpha = 1
+        self.view.addSubview(clearUserBtn!)
+        
         loadingView = LoadingView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         self.view.addSubview(loadingView!)
     }
@@ -51,6 +63,10 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func clearUserBtnAction(sender:UIButton){
+        BNAppSharedManager.instance.dataManager.bnUser!.clear()
     }
     
     func enterBtnAction(sender: UIButton!){

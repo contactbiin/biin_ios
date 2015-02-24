@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -16,14 +16,18 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     var fadeView:UIView?
     
+    var alert:BNUIAlertView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         println("MainViewController - viewDidLoad()")
         
+        self.view.backgroundColor = UIColor.appMainColor()
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,19 +46,23 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         fadeView = UIView(frame: frame)
         fadeView!.backgroundColor = UIColor.blackColor()
         fadeView!.alpha = 0
-        fadeView!.userInteractionEnabled = false
+        //fadeView!.userInteractionEnabled = false
         self.view.addSubview(fadeView!)
+        
+        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
+        hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
+        fadeView!.addGestureRecognizer(hideMenuSwipe)
         
         menuView = MenuView(frame: CGRectMake(-140, 0, 140, frame.height))
         menuView!.delegate = self
         self.view.addSubview(menuView!)
         
-        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
+        hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         menuView!.addGestureRecognizer(hideMenuSwipe)
         
         showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
-        showMenuSwipe!.edges = UIRectEdge.Bottom
+        showMenuSwipe!.edges = UIRectEdge.Left
         self.view.addGestureRecognizer(showMenuSwipe!)
 
     }
@@ -62,6 +70,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
         if menuView!.isHidden {
             showMenuSwipe!.enabled = false
+            fadeView!.becomeFirstResponder()
 
             UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity:10.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {() -> Void in
                 self.menuView!.frame.origin.x = -40
@@ -113,17 +122,19 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func hideMenuOnChange(){
         showMenuSwipe!.enabled = true
-
+        hideMenu(UIGestureRecognizer())
+        
+        /*
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             self.menuView!.frame.origin.x = -140
             self.mainView!.frame.origin.x = 0
-            self.fadeView!.frame.origin.x = 320
+//            self.fadeView!.frame.origin.x = 320
+            self.fadeView!.alpha = 0
             }, completion: {(completed:Bool) -> Void in
-                
                 self.menuView!.isHidden = true
                 self.fadeView!.frame.origin.x = 0
-                self.fadeView!.alpha = 0
         })
+        */
     }
     
     func tap(sender:UITapGestureRecognizer){
@@ -135,28 +146,36 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     //MenuViewDelegate
-    func menuView(menuView: MenuView!, showHome value: Bool) {
-        mainView!.setNextState(2)
-    }
-    
-    func menuView(menuView: MenuView!, showSearch value: Bool) {
+    func menuView(menuView: MenuView!, showProfile value: Bool) {
         mainView!.setNextState(3)
     }
     
-    func menuView(menuView: MenuView!, showSettings value: Bool) {
-        mainView!.setNextState(4)
+    func menuView(menuView: MenuView!, showHome value: Bool) {
+        mainView!.setNextState(0)
     }
     
     func menuView(menuView: MenuView!, showCollections value: Bool) {
+        mainView!.setNextState(4)
+    }
+    
+    func menuView(menuView: MenuView!, showLoyalty value: Bool) {
         mainView!.setNextState(5)
     }
     
-    func menuView(menuView: MenuView!, showProfile value: Bool) {
+    func menuView(menuView: MenuView!, showNotifications value: Bool) {
         mainView!.setNextState(6)
     }
     
-    func menuView(menuView: MenuView!, showBoards value: Bool) {
+    func menuView(menuView: MenuView!, showInviteFriends value: Bool) {
         mainView!.setNextState(7)
+    }
+    
+    func menuView(menuView: MenuView!, showSettings value: Bool) {
+        mainView!.setNextState(8)
+    }
+    
+    func menuView(menuView: MenuView!, showSearch value: Bool) {
+        mainView!.setNextState(9)
     }
     
     //MainViewDelegate
@@ -164,7 +183,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.hideMenu(UIGestureRecognizer())
     }
     
-    func mainView(mainView: MainView!, hideMenuOnChange value: Bool) {
+    func mainView(mainView: MainView!, hideMenuOnChange value: Bool, index:Int) {
+        menuView!.disableButton(index)
         self.hideMenuOnChange()
     }
     
@@ -176,6 +196,67 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
 
     }
+    
+    func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
+        if response!.code == 0 {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    //var vc = LoadingViewController()
+                    //vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+                    //self.presentViewController(vc, animated: true, completion: nil)
+                })
+            }
+            
+        } else {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.view.addSubview(self.alert!)
+                    self.alert!.show()
+                })
+            }
+        }
+        
+    }
+    
+    func manager(manager: BNNetworkManager!, didReceivedUpdateConfirmation response: BNResponse?) {
+        if response!.code == 0 {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Saved, text:"Changes saved!")
+                    self.view.addSubview(self.alert!)
+                    self.alert!.show()
+                })
+            }
 
+            
+        } else {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.view.addSubview(self.alert!)
+                    self.alert!.show()
+                })
+            }
+        }
+    }
+    
+
+    //ProfileView_Delegate
+    func showProgress(view: UIView) {
+        if (alert?.isOn != nil) {
+            alert!.hide()
+        }
+        
+        showProgressView()
+    }
+    
+    func showProgressView(){
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:"Please wait a moment!")
+        self.view.addSubview(alert!)
+        alert!.show()
+    }
+    
+    
     
 }

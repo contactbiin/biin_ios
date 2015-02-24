@@ -74,8 +74,6 @@ class BNUIButton_Social:BNUIButton {
     }
     
     func setActive(){
-        
-        
         UIView.animateWithDuration(0.2, animations: {()-> Void in
             self.backgroundColor = UIColor.biinColor()
         })

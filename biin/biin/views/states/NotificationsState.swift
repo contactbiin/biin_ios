@@ -1,16 +1,16 @@
-//  ShowcaseState.swift
-//  Biin
-//  Created by Esteban Padilla on 7/25/14.
-//  Copyright (c) 2014 Biin. All rights reserved.
+//  NotificationsState.swift
+//  biin
+//  Created by Esteban Padilla on 2/20/15.
+//  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class ShowcaseState:BNState {
-
+class NotificationsState:BNState {
+    
     override init(context:BNView, view:BNView){
         super.init(context:context, view: view)
-        //self.stateType = BNStateType.ShowcaseState
+        self.stateType = BNStateType.Notifications
     }
     
     override init(context: BNView, view: BNView, stateType: BNStateType) {

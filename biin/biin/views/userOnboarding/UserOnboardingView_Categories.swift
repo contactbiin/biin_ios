@@ -25,9 +25,9 @@ class UserOnboardingView_Categories:UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.biinColor()
         
-        var width = SharedUIManager.instance.screenWidth
+        var screenWidth = SharedUIManager.instance.screenWidth
         
-        title = UILabel(frame:CGRectMake(0, 30, (width / 2), 45))
+        title = UILabel(frame:CGRectMake(0, 30, (screenWidth / 2), 45))
         title!.textColor = UIColor.appMainColor()
         title!.font = UIFont(name: "Lato-Regular", size: 20)
         title!.text = "What are you interested in?"
@@ -37,10 +37,8 @@ class UserOnboardingView_Categories:UIView {
         title!.sizeToFit()
         self.addSubview(title!)
         
-        var screenWidth = SharedUIManager.instance.screenWidth
         var xpos:CGFloat = (screenWidth - title!.frame.width) / 2
         title!.frame.origin.x = xpos
-        
         
         var buttonCounter:Int = 1
         xpos = (screenWidth - 295) / 2
@@ -53,7 +51,7 @@ class UserOnboardingView_Categories:UIView {
         
         for category in BNAppSharedManager.instance.dataManager.categories! {
             
-            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!)
+            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.bnGrayDark(), unSelectedColor:UIColor.appMainColor())
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(button)
             buttonCounter++

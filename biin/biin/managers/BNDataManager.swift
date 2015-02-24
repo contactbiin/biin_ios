@@ -42,14 +42,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         super.init()
         
-        //loadCategories()
+        loadCategories()
         
         // Try loading a saved version first
         if let user = BNUser.loadSaved() {
             println("Loading bnUser:")
             bnUser = user
             isUserLoaded = true
-            bnUser!.clear()
+            //bnUser!.clear()
         } else {
             // Create a new Course List
             println("Not user available")
@@ -57,8 +57,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             bnUser = BNUser(identifier:"", firstName: "guess", lastName:"guess", email: "guess@biinapp.com")
             bnUser!.isEmailVerified = false
             bnUser!.biinName = ""
-            bnUser!.clear()
-            loadCategories()
+            //bnUser!.clear()
         }
     }
     
@@ -68,10 +67,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestInitialData(){
         
+        println("****   requestInitialData")
+        
         //Verified email
-        if !bnUser!.isEmailVerified! {
-            delegateNM!.manager!(self, checkIsEmailVerified: bnUser!.identifier!)
-        }
+        //if !bnUser!.isEmailVerified! {
+            //delegateNM!.manager!(self, checkIsEmailVerified: bnUser!.identifier!)
+        //}
         
         //Request regions
         BNAppSharedManager.instance.networkManager.requestRegions()
@@ -173,15 +174,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if status {
             
             //TODO: changing flow, if user is register or loged in reques data.
-            if isUserLoaded {
-                requestInitialData()
-            }
+//            if isUserLoaded {
+//                requestInitialData()
+//            }
         }
     }
     
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
         println("didReceivedUserIdentifier \(idetifier!)")
         bnUser!.identifier = idetifier
+        bnUser!.save()
     }
     
     func manager(manager: BNNetworkManager!, didReceivedEmailVerification value: Bool) {
@@ -226,6 +228,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         for category in bnUser!.categories {
             
             println("Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+
+            category.name = findCategoryNameByIdentifier(category.identifier!)
             
             for siteDetails in category.sitesDetails {
                 //Check if site exist.
@@ -243,7 +247,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func findCategoryNameByIdentifier(identifier:String) -> String {
-        return ""
+        
+        var name = ""
+        
+        for category in self.categories! {
+            if category.identifier! == identifier {
+                name = category.name!
+                return name
+            }
+        }
+        return name
     }
     
     
@@ -275,7 +288,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNShowcase received from web service in json format already parse in an showcase object.
     func manager(manager:BNNetworkManager!, didReceivedShowcase showcase:BNShowcase) {
 
-        ///println("Received showcase: \(showcase.identifier!)")
+        //println("Received showcase: \(showcase.identifier!)")
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
         
@@ -369,7 +382,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: Network manager that handled the request.
     ///:param: BNElement received from web service in json format already parse in an element object.
     func manager(manager: BNNetworkManager!, didReceivedElement element: BNElement) {
-        //println("Received element: \(element.identifier!) id:\(element._id?) media \(element.media.count)")
+        println("Received element: \(element.identifier!) id:\(element._id?) media \(element.media.count)")
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
@@ -563,6 +576,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         if self.bnUser != nil {
             self.bnUser = user
+            self.bnUser!.save()
         }
         
         //println("user friends: \(bnUser!.friends!.count)")

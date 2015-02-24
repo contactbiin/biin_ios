@@ -13,6 +13,7 @@ class BNUser:NSObject, NSCoding {
     var firstName:String?
     var lastName:String?
     var email:String?
+    var birthDate:NSDate?
     var password:String?
     var gender:String?
     var friends:Array<BNUser>?
@@ -55,6 +56,7 @@ class BNUser:NSObject, NSCoding {
         self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
         self.lastName  = aDecoder.decodeObjectForKey("lastName") as? String
         self.email  = aDecoder.decodeObjectForKey("email") as? String
+        self.birthDate = aDecoder.decodeObjectForKey("birthDate") as? NSDate
         self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
     }
     
@@ -77,6 +79,10 @@ class BNUser:NSObject, NSCoding {
         
         if let email = self.email {
             aCoder.encodeObject(email, forKey: "email")
+        }
+        
+        if let birthDate = self.birthDate {
+            aCoder.encodeObject(birthDate, forKey: "birthDate")
         }
         
         if let email = self.email {

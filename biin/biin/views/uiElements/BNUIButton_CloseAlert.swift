@@ -22,4 +22,9 @@ class BNUIButton_CloseAlert:BNUIButton {
         super.init(frame: frame)
         icon = BNIcon_CloseSmall(color: UIColor.redColor(), position: CGPoint(x: 1, y: 1))
     }
+    
+    convenience init(frame:CGRect, iconColor:UIColor){
+        self.init(frame: frame)
+        icon = BNIcon_CloseSmall(color:iconColor, position: CGPoint(x: 1, y: 1))
+    }
 }

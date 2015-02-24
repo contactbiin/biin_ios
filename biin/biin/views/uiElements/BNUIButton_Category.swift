@@ -11,6 +11,8 @@ class BNUIButton_Category:BNUIButton {
     var categoryIdentifier:String?
     var categoryName:String?
     var label:UILabel?
+    var selectedColor:UIColor?
+    var unSelectedColor:UIColor?
     
     override init() {
         super.init()
@@ -24,17 +26,21 @@ class BNUIButton_Category:BNUIButton {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, categoryIdentifier:String?, iconType:BNIconType, text:String) {
+    convenience init(frame: CGRect, categoryIdentifier:String?, iconType:BNIconType, text:String, selectedColor:UIColor, unSelectedColor:UIColor) {
         
         self.init(frame:frame)
         self.categoryIdentifier = categoryIdentifier
         self.categoryName = text
         self.iconType = iconType
+        
+        self.selectedColor = selectedColor
+        self.unSelectedColor = unSelectedColor
+        
         createIcon()
         
         self.layer.cornerRadius  = frame.width / 3
         self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.appMainColor().CGColor
+        self.layer.borderColor = self.unSelectedColor!.CGColor
         self.layer.masksToBounds = true
         
         var iconWidth:CGFloat = 10
@@ -43,7 +49,7 @@ class BNUIButton_Category:BNUIButton {
         var xpos:CGFloat = 0
         
         label = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), 24))
-        label!.textColor = UIColor.appMainColor()
+        label!.textColor = self.unSelectedColor!
         label!.font = UIFont(name: "Lato-Regular", size: 10)
         label!.textAlignment  = NSTextAlignment.Center
         label!.lineBreakMode = NSLineBreakMode.ByWordWrapping
@@ -73,52 +79,52 @@ class BNUIButton_Category:BNUIButton {
     override func createIcon(){
         switch categoryName! {
         case "Personal Care":
-            icon = BNIcon_PersonalCareMedium(color: UIColor.appMainColor(), position: CGPointMake(14, 12))
+            icon = BNIcon_PersonalCareMedium(color: self.unSelectedColor!, position: CGPointMake(14, 12))
             break
         case "Shoes":
-            icon = BNIcon_ShoeMedium(color: UIColor.appMainColor(), position: CGPointMake(20, 14))
+            icon = BNIcon_ShoeMedium(color: self.unSelectedColor!, position: CGPointMake(20, 14))
             break
         case "Games":
-            icon = BNIcon_GamesMedium(color: UIColor.appMainColor(), position: CGPointMake(18, 15))
+            icon = BNIcon_GamesMedium(color: self.unSelectedColor!, position: CGPointMake(18, 15))
             break
         case "Outdoors":
-            icon = BNIcon_OutdoorsMedium(color: UIColor.appMainColor(), position: CGPointMake(25, 14))
+            icon = BNIcon_OutdoorsMedium(color: self.unSelectedColor!, position: CGPointMake(25, 14))
             break
         case "Health":
-            icon = BNIcon_HealthMedium(color: UIColor.appMainColor(), position: CGPointMake(23, 15))
+            icon = BNIcon_HealthMedium(color: self.unSelectedColor!, position: CGPointMake(23, 15))
             break
         case "Food":
-            icon = BNIcon_FoodMedium(color: UIColor.appMainColor(), position: CGPointMake(22, 15))
+            icon = BNIcon_FoodMedium(color: self.unSelectedColor!, position: CGPointMake(22, 15))
             break
         case "Sports":
-            icon = BNIcon_SportMedium(color: UIColor.appMainColor(), position: CGPointMake(24, 15))
+            icon = BNIcon_SportMedium(color: self.unSelectedColor!, position: CGPointMake(24, 15))
             break
         case "Education":
-            icon = BNIcon_EducationMedium(color: UIColor.appMainColor(), position: CGPointMake(18, 15))
+            icon = BNIcon_EducationMedium(color: self.unSelectedColor!, position: CGPointMake(18, 15))
             break
         case "Fashion":
-            icon = BNIcon_FashionMedium(color: UIColor.appMainColor(), position: CGPointMake(17, 13))
+            icon = BNIcon_FashionMedium(color: self.unSelectedColor!, position: CGPointMake(17, 13))
             break
         case "Music":
-            icon = BNIcon_MusicMedium(color: UIColor.appMainColor(), position: CGPointMake(23, 13))
+            icon = BNIcon_MusicMedium(color: self.unSelectedColor!, position: CGPointMake(23, 13))
             break
         case "Movies":
-            icon = BNIcon_MoviesMedium(color: UIColor.appMainColor(), position: CGPointMake(22, 13))
+            icon = BNIcon_MoviesMedium(color: self.unSelectedColor!, position: CGPointMake(22, 13))
             break
         case "Technology":
-            icon = BNIcon_TechnologyMedium(color: UIColor.appMainColor(), position: CGPointMake(27, 13))
+            icon = BNIcon_TechnologyMedium(color: self.unSelectedColor!, position: CGPointMake(27, 13))
             break
         case "Cars":
-            icon = BNIcon_CarsMedium(color: UIColor.appMainColor(), position: CGPointMake(18, 16))
+            icon = BNIcon_CarsMedium(color: self.unSelectedColor!, position: CGPointMake(18, 16))
             break
         case "Entertaiment":
-            icon = BNIcon_EntertaimentMedium(color: UIColor.appMainColor(), position: CGPointMake(23, 14))
+            icon = BNIcon_EntertaimentMedium(color: self.unSelectedColor!, position: CGPointMake(23, 14))
             break
         case "Travel":
-            icon = BNIcon_TravelMedium(color: UIColor.appMainColor(), position: CGPointMake(25, 14))
+            icon = BNIcon_TravelMedium(color: self.unSelectedColor!, position: CGPointMake(25, 14))
             break
         case "Bars":
-            icon = BNIcon_BarMedium(color: UIColor.appMainColor(), position: CGPointMake(24, 14))
+            icon = BNIcon_BarMedium(color: self.unSelectedColor!, position: CGPointMake(24, 14))
             break
         default:
             break
@@ -128,14 +134,19 @@ class BNUIButton_Category:BNUIButton {
     override func showSelected() {
         
         if isSelected {
-            UIView.animateWithDuration(0.3, animations: {()-> Void in
-                self.backgroundColor = UIColor.clearColor()
-            })
+            self.layer.borderColor = self.unSelectedColor!.CGColor
+            self.label!.textColor = self.unSelectedColor!
+            self.icon!.color = self.unSelectedColor!
+            setNeedsDisplay()
         } else {
-            UIView.animateWithDuration(0.3, animations: {()-> Void in
-                self.backgroundColor = UIColor.appButtonColor_Selected()
-            })
+            self.layer.borderColor = self.selectedColor!.CGColor
+            self.label!.textColor = self.selectedColor!
+            self.icon!.color = self.selectedColor!
+            setNeedsDisplay()
+      
         }
+        
+        
         
         isSelected = !isSelected
     }

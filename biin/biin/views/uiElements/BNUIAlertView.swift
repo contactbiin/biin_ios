@@ -44,7 +44,7 @@ class BNUIAlertView:UIView {
     
     func show(){
         isOn = true
-        UIView.animateWithDuration(0.25, delay: 0.25, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
+        UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
                 self.header!.frame = CGRectMake(self.frame.origin.x, -50, self.frame.width, self.frame.height)
                 self.fade!.alpha = 0.3
             }, completion: {(completed:Bool)-> Void in
@@ -65,7 +65,7 @@ class BNUIAlertView:UIView {
     func hideWithCallback(callback:() -> Void) {
         isOn = false
         
-        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
+        UIView.animateWithDuration(0.2, delay: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
                 self.header!.frame = CGRectMake(self.frame.origin.x, -110, self.frame.width, self.frame.height)
             }, completion: {(completed:Bool)->Void in
                 callback()
@@ -81,4 +81,6 @@ class BNUIAlertView:UIView {
 enum BNUIAlertView_Type {
     case Bad_credentials
     case Please_wait
+    case Cool
+    case Saved
 }

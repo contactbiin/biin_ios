@@ -26,7 +26,7 @@ extension UIColor {
     }
 
     class func bnGrayDark() -> UIColor! {
-        return UIColor(red: 88/255, green: 88/255, blue: 91/255, alpha: 1)
+        return UIColor(red: 110/255, green: 110/255, blue: 100/255, alpha: 1)
     }
 
     class func bnBlueDark() -> UIColor! {
@@ -182,10 +182,6 @@ extension UIColor {
         return UIColor(red: 0, green: 173/255, blue: 239/255, alpha: 1)
     }
     
-    class func biinColor() -> UIColor! {
-        return UIColor(red:0, green: 185/255, blue: 241/199, alpha: 1)
-    }
-    
     class func darkThemeBg() -> UIColor! {
         return UIColor(red: 66/255, green: 66/255, blue: 65/255, alpha: 1)
     }
@@ -216,15 +212,19 @@ extension UIColor {
     }
     
     class func appButtonColor_Selected() -> UIColor {
-        return UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 1)
+        return UIColor(red:71/255, green: 198/255, blue: 242/199, alpha: 1)
     }
     
     class func appButtonColor_Disable() -> UIColor {
-        return UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+        return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
     }
     
     class func appNotificationRedColor() -> UIColor {
         return UIColor(red: 237/255, green: 28/255, blue: 36/255, alpha: 1)
+    }
+    
+    class func biinColor() -> UIColor! {
+        return UIColor(red:71/255, green: 198/255, blue: 242/199, alpha: 1)
     }
 }
 

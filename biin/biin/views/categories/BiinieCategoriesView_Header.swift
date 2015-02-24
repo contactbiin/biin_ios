@@ -111,7 +111,6 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         
         categoryNameLbl!.text = BNAppSharedManager.instance.dataManager.bnUser!.categories[0].name!
 
-        
         for var i:Int = 0; i < BNAppSharedManager.instance.dataManager.bnUser!.categories.count; i++ {
             
             var point = BNUIPointView(frame: CGRectMake((xpos), 45, 14, 14), sectionIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!)

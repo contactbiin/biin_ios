@@ -18,6 +18,8 @@ class BNAppManager {
     var networkManager:BNNetworkManager
     var errorManager:BNErrorManager
     
+    var IS_PRODUCTION_RELEASE = false
+    
     init(){
         self.counter++
 

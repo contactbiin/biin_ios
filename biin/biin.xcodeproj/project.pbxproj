@@ -181,11 +181,29 @@
 		5BDB05581A697788006EBB1E /* BiinieCategoriesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05571A697788006EBB1E /* BiinieCategoriesState.swift */; };
 		5BE96EFE1A6D585100929236 /* BNUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE96EFD1A6D585100929236 /* BNUIImageView.swift */; };
 		5BEA2D1D1A68834B00AB65AB /* UIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA2D1C1A68834B00AB65AB /* UIManager.swift */; };
+		5BEA778F1A978DAA00F6D1F5 /* BNUIButton_Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA778E1A978DAA00F6D1F5 /* BNUIButton_Menu.swift */; };
+		5BEA77911A97903A00F6D1F5 /* BNIcon_ProfileMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA77901A97903A00F6D1F5 /* BNIcon_ProfileMedium.swift */; };
+		5BEA77931A97934E00F6D1F5 /* BNIcon_HomeMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA77921A97934E00F6D1F5 /* BNIcon_HomeMedium.swift */; };
+		5BEA77951A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA77941A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift */; };
+		5BEA77971A97937400F6D1F5 /* BNIcon_LoyaltiesMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA77961A97937400F6D1F5 /* BNIcon_LoyaltiesMedium.swift */; };
+		5BEA77991A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA77981A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift */; };
+		5BEA779B1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA779A1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift */; };
+		5BEA779D1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA779C1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift */; };
 		5BEAE5E91A71770500F884D9 /* BiinieCategoriesView_Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */; };
 		5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE5EA1A717ABC00F884D9 /* BNIcon_SmileMedium.swift */; };
 		5BED8A2F1A853321003B812A /* BNUITexfield_Top.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED8A2E1A853321003B812A /* BNUITexfield_Top.swift */; };
+		5BEE61311A97C15500DE334E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61301A97C15500DE334E /* ProfileView.swift */; };
+		5BEE61331A97C23800DE334E /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61321A97C23800DE334E /* ProfileImageView.swift */; };
+		5BEE61351A97E59300DE334E /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61341A97E59300DE334E /* NotificationsView.swift */; };
+		5BEE61371A97E5A400DE334E /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61361A97E5A400DE334E /* CollectionsView.swift */; };
+		5BEE61391A97E8CE00DE334E /* NotificationsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61381A97E8CE00DE334E /* NotificationsState.swift */; };
+		5BEE613B1A97EEB900DE334E /* LoyaltiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE613A1A97EEB900DE334E /* LoyaltiesView.swift */; };
+		5BEE61401A97EF3A00DE334E /* InviteFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE613F1A97EF3A00DE334E /* InviteFriendsView.swift */; };
+		5BEE61421A97EF4500DE334E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61411A97EF4500DE334E /* SearchView.swift */; };
+		5BEE61441A97EF6100DE334E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61431A97EF6100DE334E /* SettingsView.swift */; };
 		5BF2B5AC1A852A0800598FB7 /* BNUIBiinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */; };
 		5BF60D6E1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF60D6D1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift */; };
+		5BF78A6A1A9BCDB200F9E7AD /* BNUITexfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF78A691A9BCDB200F9E7AD /* BNUITexfield.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,11 +395,29 @@
 		5BDB05571A697788006EBB1E /* BiinieCategoriesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesState.swift; sourceTree = "<group>"; };
 		5BE96EFD1A6D585100929236 /* BNUIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIImageView.swift; sourceTree = "<group>"; };
 		5BEA2D1C1A68834B00AB65AB /* UIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIManager.swift; sourceTree = "<group>"; };
+		5BEA778E1A978DAA00F6D1F5 /* BNUIButton_Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Menu.swift; sourceTree = "<group>"; };
+		5BEA77901A97903A00F6D1F5 /* BNIcon_ProfileMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_ProfileMedium.swift; sourceTree = "<group>"; };
+		5BEA77921A97934E00F6D1F5 /* BNIcon_HomeMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_HomeMedium.swift; sourceTree = "<group>"; };
+		5BEA77941A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_CollectionsMedium.swift; sourceTree = "<group>"; };
+		5BEA77961A97937400F6D1F5 /* BNIcon_LoyaltiesMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LoyaltiesMedium.swift; sourceTree = "<group>"; };
+		5BEA77981A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NotificationsMedium.swift; sourceTree = "<group>"; };
+		5BEA779A1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_FriendsMedium.swift; sourceTree = "<group>"; };
+		5BEA779C1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SettingsMedium.swift; sourceTree = "<group>"; };
 		5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Icon.swift; sourceTree = "<group>"; };
 		5BEAE5EA1A717ABC00F884D9 /* BNIcon_SmileMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SmileMedium.swift; sourceTree = "<group>"; };
 		5BED8A2E1A853321003B812A /* BNUITexfield_Top.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Top.swift; sourceTree = "<group>"; };
+		5BEE61301A97C15500DE334E /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5BEE61321A97C23800DE334E /* ProfileImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		5BEE61341A97E59300DE334E /* NotificationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		5BEE61361A97E5A400DE334E /* CollectionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
+		5BEE61381A97E8CE00DE334E /* NotificationsState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsState.swift; sourceTree = "<group>"; };
+		5BEE613A1A97EEB900DE334E /* LoyaltiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltiesView.swift; sourceTree = "<group>"; };
+		5BEE613F1A97EF3A00DE334E /* InviteFriendsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsView.swift; sourceTree = "<group>"; };
+		5BEE61411A97EF4500DE334E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		5BEE61431A97EF6100DE334E /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBiinView.swift; sourceTree = "<group>"; };
 		5BF60D6D1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingView_Categories.swift; sourceTree = "<group>"; };
+		5BF78A691A9BCDB200F9E7AD /* BNUITexfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +470,7 @@
 				5B2E3C881A83D4750008EA10 /* BNUIButton_BiinItLarge.swift */,
 				5B047D5F1A81604600281B17 /* BNUIButton_Information.swift */,
 				5BAD8AD91A828C530081B335 /* BNUIButton_ShareIt.swift */,
+				5BEA778E1A978DAA00F6D1F5 /* BNUIButton_Menu.swift */,
 				5BB917DC1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift */,
 				5B29079A1A687C040000658A /* BNUIPointView.swift */,
 				5BE96EFD1A6D585100929236 /* BNUIImageView.swift */,
@@ -451,6 +488,7 @@
 				5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */,
 				5BA46FAE1A840776006C685D /* BNUIPricesView.swift */,
 				5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */,
+				5BF78A691A9BCDB200F9E7AD /* BNUITexfield.swift */,
 				5BED8A2E1A853321003B812A /* BNUITexfield_Top.swift */,
 				5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */,
 				5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */,
@@ -465,6 +503,13 @@
 			children = (
 				5B2907BB1A687C0C0000658A /* BNIcon.swift */,
 				5B8B075D1A6F143400780F74 /* BNIcon_BiinSmall.swift */,
+				5BEA77901A97903A00F6D1F5 /* BNIcon_ProfileMedium.swift */,
+				5BEA77921A97934E00F6D1F5 /* BNIcon_HomeMedium.swift */,
+				5BEA77941A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift */,
+				5BEA77961A97937400F6D1F5 /* BNIcon_LoyaltiesMedium.swift */,
+				5BEA77981A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift */,
+				5BEA779A1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift */,
+				5BEA779C1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift */,
 				5B5D77E31A8E737B001C4A34 /* BNIcon_SportMedium.swift */,
 				5B5D77E51A8E7582001C4A34 /* BNIcon_EducationMedium.swift */,
 				5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */,
@@ -710,6 +755,9 @@
 		5BA0B7711A68696E00DBEB74 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5BEE613C1A97EF2A00DE334E /* inviteFriends */,
+				5BEE613D1A97EF2A00DE334E /* search */,
+				5BEE613E1A97EF2A00DE334E /* settings */,
 				5B285B4B1A8D3EF700A2356B /* userOnboarding */,
 				5B53395D1A85127D0049FB00 /* singup */,
 				5B2907B41A687C0C0000658A /* uiIcons */,
@@ -738,6 +786,7 @@
 		5BA0B7731A68696E00DBEB74 /* collections */ = {
 			isa = PBXGroup;
 			children = (
+				5BEE61361A97E5A400DE334E /* CollectionsView.swift */,
 			);
 			path = collections;
 			sourceTree = "<group>";
@@ -765,6 +814,7 @@
 		5BA0B7761A68696E00DBEB74 /* loyalties */ = {
 			isa = PBXGroup;
 			children = (
+				5BEE613A1A97EEB900DE334E /* LoyaltiesView.swift */,
 			);
 			path = loyalties;
 			sourceTree = "<group>";
@@ -788,6 +838,7 @@
 		5BA0B7791A68696E00DBEB74 /* notification */ = {
 			isa = PBXGroup;
 			children = (
+				5BEE61341A97E59300DE334E /* NotificationsView.swift */,
 			);
 			path = notification;
 			sourceTree = "<group>";
@@ -795,6 +846,8 @@
 		5BA0B77A1A68696E00DBEB74 /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				5BEE61301A97C15500DE334E /* ProfileView.swift */,
+				5BEE61321A97C23800DE334E /* ProfileImageView.swift */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -856,6 +909,7 @@
 				5BA0B78B1A686A6700DBEB74 /* SettingsState.swift */,
 				5BA0B78C1A686A6700DBEB74 /* ShowcaseState.swift */,
 				5B9AD35B1A7C15A8001C9B5A /* SiteState.swift */,
+				5BEE61381A97E8CE00DE334E /* NotificationsState.swift */,
 			);
 			path = states;
 			sourceTree = "<group>";
@@ -869,6 +923,30 @@
 				5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */,
 			);
 			path = categories;
+			sourceTree = "<group>";
+		};
+		5BEE613C1A97EF2A00DE334E /* inviteFriends */ = {
+			isa = PBXGroup;
+			children = (
+				5BEE613F1A97EF3A00DE334E /* InviteFriendsView.swift */,
+			);
+			path = inviteFriends;
+			sourceTree = "<group>";
+		};
+		5BEE613D1A97EF2A00DE334E /* search */ = {
+			isa = PBXGroup;
+			children = (
+				5BEE61411A97EF4500DE334E /* SearchView.swift */,
+			);
+			path = search;
+			sourceTree = "<group>";
+		};
+		5BEE613E1A97EF2A00DE334E /* settings */ = {
+			isa = PBXGroup;
+			children = (
+				5BEE61431A97EF6100DE334E /* SettingsView.swift */,
+			);
+			path = settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1010,6 +1088,7 @@
 				5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */,
 				5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */,
 				5B8905D21A8E4CC500637869 /* BNIcon_ShoeSmall.swift in Sources */,
+				5BEA77951A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift in Sources */,
 				5B53395F1A8512950049FB00 /* LoginView.swift in Sources */,
 				5B2F5B901A8BAA84004133D4 /* BNUIButton_CloseAlert.swift in Sources */,
 				5BA0B7911A686A6700DBEB74 /* SearchState.swift in Sources */,
@@ -1037,12 +1116,14 @@
 				5B9AD3581A7BF6B8001C9B5A /* SiteMiniView_Header.swift in Sources */,
 				5B2F5B921A8BAADC004133D4 /* BNIcon_CloseSmall.swift in Sources */,
 				5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */,
+				5BEA77991A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift in Sources */,
 				5BA0B7921A686A6700DBEB74 /* SectionsState.swift in Sources */,
 				5B2907861A687B400000658A /* ControlView.swift in Sources */,
 				5BED8A2F1A853321003B812A /* BNUITexfield_Top.swift in Sources */,
 				5B5D77F21A8E7DE0001C4A34 /* BNIcon_EntertaimentMedium.swift in Sources */,
 				5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */,
 				5B3D75F81A6816B300CB0D1C /* BNBiin.swift in Sources */,
+				5BEA779B1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift in Sources */,
 				5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */,
 				5B2F5B941A8BAF78004133D4 /* BNIcon_SmileFace1.swift in Sources */,
 				5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */,
@@ -1055,6 +1136,8 @@
 				5B7036921A840AF100C01BF9 /* BNIcon_PigSmall.swift in Sources */,
 				5B8B075E1A6F143400780F74 /* BNIcon_BiinSmall.swift in Sources */,
 				5BAA81551A8D5E000098FA11 /* BNUIButton_Category.swift in Sources */,
+				5BEE61371A97E5A400DE334E /* CollectionsView.swift in Sources */,
+				5BEA77911A97903A00F6D1F5 /* BNIcon_ProfileMedium.swift in Sources */,
 				5B3D76021A6816B300CB0D1C /* BNNotification.swift in Sources */,
 				5B3D76041A6816B300CB0D1C /* BNRegion.swift in Sources */,
 				5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */,
@@ -1063,6 +1146,7 @@
 				5B3D75F71A6816B300CB0D1C /* BNBadge.swift in Sources */,
 				5B3D75F41A6816B300CB0D1C /* EPSNetworking.swift in Sources */,
 				5BA46FAB1A83F90B006C685D /* BNUIStickerView.swift in Sources */,
+				5BEE61351A97E59300DE334E /* NotificationsView.swift in Sources */,
 				5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */,
 				5BAD8AD81A828C480081B335 /* BNUIButton_BiinIt.swift in Sources */,
 				5B64D46B1A7195FD0082B9EA /* BNIcon_WeightMedium.swift in Sources */,
@@ -1077,12 +1161,14 @@
 				5B5D77DE1A8E6F0A001C4A34 /* BNIcon_OutdoorsMedium.swift in Sources */,
 				5B5339671A85189F0049FB00 /* UserOnboardingViewController.swift in Sources */,
 				5BA0B7831A686A0F00DBEB74 /* BNView.swift in Sources */,
+				5BEE61331A97C23800DE334E /* ProfileImageView.swift in Sources */,
 				5BA0B7991A686B4600DBEB74 /* LoadingViewController.swift in Sources */,
 				5BF2B5AC1A852A0800598FB7 /* BNUIBiinView.swift in Sources */,
 				5B3D75F91A6816B300CB0D1C /* BNBoard.swift in Sources */,
 				5B5F325B1A69868F006070AB /* ElementView.swift in Sources */,
 				5BAD8ADA1A828C530081B335 /* BNUIButton_ShareIt.swift in Sources */,
 				5BB917DB1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift in Sources */,
+				5BEE61391A97E8CE00DE334E /* NotificationsState.swift in Sources */,
 				5B5339611A8512A00049FB00 /* SignupView.swift in Sources */,
 				5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */,
 				5B5339651A85188C0049FB00 /* SingupViewController.swift in Sources */,
@@ -1093,10 +1179,12 @@
 				5B5D77E21A8E722E001C4A34 /* BNIcon_FoodMedium.swift in Sources */,
 				5BA5389D1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift in Sources */,
 				5B3D76031A6816B300CB0D1C /* BNObject.swift in Sources */,
+				5BEE61441A97EF6100DE334E /* SettingsView.swift in Sources */,
 				5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */,
 				5BA0B78D1A686A6700DBEB74 /* BNState.swift in Sources */,
 				5B44C5C01A816FC700E5AC68 /* SiteView_Showcase.swift in Sources */,
 				5BDB05581A697788006EBB1E /* BiinieCategoriesState.swift in Sources */,
+				5BF78A6A1A9BCDB200F9E7AD /* BNUITexfield.swift in Sources */,
 				5BA0B78F1A686A6700DBEB74 /* CollectionsState.swift in Sources */,
 				5BEAE5E91A71770500F884D9 /* BiinieCategoriesView_Icon.swift in Sources */,
 				5B8B07601A6F144B00780F74 /* BNIcon_CommentSmall.swift in Sources */,
@@ -1109,10 +1197,12 @@
 				5BA538991A82AA4900E0015F /* SiteView_Showcase_Game.swift in Sources */,
 				5B5F325D1A69869F006070AB /* ElementMiniView.swift in Sources */,
 				5B3D75FF1A6816B300CB0D1C /* BNError.swift in Sources */,
+				5BEE61421A97EF4500DE334E /* SearchView.swift in Sources */,
 				5B2907811A687A9E0000658A /* MainViewController.swift in Sources */,
 				5B9AD35A1A7BF706001C9B5A /* SiteView.swift in Sources */,
 				5B285B4F1A8D3F6800A2356B /* BNUIButton_WithLabel.swift in Sources */,
 				5BA5389B1A82AB2000E0015F /* BNUICompletedGameIconView.swift in Sources */,
+				5BEE613B1A97EEB900DE334E /* LoyaltiesView.swift in Sources */,
 				5BA46FAF1A840776006C685D /* BNUIPricesView.swift in Sources */,
 				5B3D75EF1A6816B300CB0D1C /* BNDataManager.swift in Sources */,
 				5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */,
@@ -1120,6 +1210,8 @@
 				5B047D601A81604600281B17 /* BNUIButton_Information.swift in Sources */,
 				5B5BE7221A8580B700DB5996 /* BNUITexfield_Center.swift in Sources */,
 				5B2E3C891A83D4750008EA10 /* BNUIButton_BiinItLarge.swift in Sources */,
+				5BEA77971A97937400F6D1F5 /* BNIcon_LoyaltiesMedium.swift in Sources */,
+				5BEA779D1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift in Sources */,
 				5B2E3C8B1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift in Sources */,
 				5B047D621A8160B500281B17 /* BNIcon_InformationSmall.swift in Sources */,
 				5B1E2C201A830DEE00633C46 /* BNUIJoinGameIconView.swift in Sources */,
@@ -1140,12 +1232,16 @@
 				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */,
 				5B3D760A1A6816B300CB0D1C /* BNUser.swift in Sources */,
+				5BEE61401A97EF3A00DE334E /* InviteFriendsView.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,
 				5BAD8AD61A828BAA0081B335 /* BNIcon_ShareItButton.swift in Sources */,
+				5BEE61311A97C15500DE334E /* ProfileView.swift in Sources */,
 				5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */,
 				5B3D76091A6816B300CB0D1C /* BNSticker.swift in Sources */,
 				5B48C8291A700992009FC4D4 /* BNUINotificationView_RedCircle.swift in Sources */,
+				5BEA77931A97934E00F6D1F5 /* BNIcon_HomeMedium.swift in Sources */,
 				5B047D641A816B3F00281B17 /* SiteView_Information.swift in Sources */,
+				5BEA778F1A978DAA00F6D1F5 /* BNUIButton_Menu.swift in Sources */,
 				5B5D77EE1A8E7AFA001C4A34 /* BNIcon_TechnologyMedium.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -5,6 +5,7 @@
 
 import Foundation
 import UIKit
+import SystemConfiguration
 
 class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
@@ -92,18 +93,28 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     func login(email:String, password:String){
         println("Trying login for (\(email))")
+
+        var request:BNRequest?
         
-        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
-        self.requests[request.identifier] = request
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
         
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+            
+        } else  {
+
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+        
+        }
+        
+        self.requests[request!.identifier] = request
         var response:BNResponse?
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(request!.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
                 println("Error on regions data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request!, error: error? )
                 
                 response = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
                 self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
@@ -134,7 +145,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     }
                 }
                 
-                self.removeRequestOnCompleted(request.identifier)
+                self.removeRequestOnCompleted(request!.identifier)
                 
             }
         }
@@ -144,17 +155,26 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     func register(user:BNUser) {
         
         println("login(\(user.email))")
+
+        var request:BNRequest?
         
-        var request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
-        self.requests[request.identifier] = request
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+        } else  {
+            
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+        }
+        
+            
+        self.requests[request!.identifier] = request
         
         var response:BNResponse?
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(request!.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request!, error: error? )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** Register for user \(user.email!) SUCK - FAILED!")
@@ -183,22 +203,25 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     }
                 }
                 
-                self.removeRequestOnCompleted(request.identifier)
+                self.removeRequestOnCompleted(request!.identifier)
                 
             }
         }
     }
     
-    
     func sendBiinieCategories(user:BNUser, categories:Dictionary<String, String>) {
 
         println("sendBiinieCategories(\(user.email))")
         
-        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.Register)
-        self.requests[request.identifier] = request
+        var request:BNRequest?
         
-        println("url: \(request.requestString)")
-        println("\(categories)")
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+        }
+        
+        self.requests[request!.identifier] = request
         
         var model = ["model":Array<Dictionary <String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
         
@@ -206,19 +229,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             model["model"]?.append(["identifier":value])
         }
         
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
         var response:BNResponse?
         
-        epsNetwork!.postJson(request.requestString, httpParams: model, callback: {
+        epsNetwork!.post(request!.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
                 println("Error on posting categoies")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request!, error: error? )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** Posting categories for user \(user.email!) SUCK - FAILED!")
                 println("*** data \(data)")
+                
+                
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -244,22 +272,58 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     }
                 }
                 
-                self.removeRequestOnCompleted(request.identifier)
+                self.removeRequestOnCompleted(request!.identifier)
                 
             }
         
         })
+    }
+    
+    
+    func sendBiinie(user:BNUser) {
         
-        /*
-        epsNetwork!.getJson(request.requestString) {
+        println("sendBiinie(\(user.email))")
+        
+        //{"model":{"firstName":"Luis","lastName":"Bonilla","email":"luisbonillah@gmail.com","gender":"test Male"}}
+
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        var model = Dictionary<String, Dictionary <String, String>>()
+        
+        //for (key, value) in categories {
+        var modelContent = Dictionary<String, String>()
+        modelContent["firstName"] = user.firstName!
+        modelContent["lastName"] = user.lastName!
+        modelContent["email"] = user.email!
+        modelContent["gender"] = user.gender!
+        modelContent["birthDate"] = user.birthDate!.bnDateFormatt()
+        
+        model["model"] = modelContent
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+
+        var response:BNResponse?
+        
+        epsNetwork!.post(request!.requestString, htttpBody:htttpBody, callback: {
+            
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("Error on regions data")
-                self.handleFailedRequest(request, error: error? )
+                println("ERROR on sendBiinie()")
+                self.handleFailedRequest(request!, error: error? )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
-                println("*** Register for user \(user.email!) SUCK - FAILED!")
+                println("*** sendBiinie() for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
                 
             } else {
                 
@@ -267,30 +331,32 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     
                     var status = self.findInt("status", dictionary: dataData)
                     var result = self.findBool("result", dictionary: dataData)
-                    var identifier = self.findString("identifier", dictionary: dataData)
+                    //var identifier = self.findString("identifier", dictionary: dataData)
+                    println("*** data \(data)")
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                        println("*** Register for user \(user.email!) COOL!")
-                        self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                        println("*** sendBiinie() for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                        println("*** Register for user \(user.email!) SUCK!")
+                        println("*** sendBiinie() for user \(user.email!) SUCK!")
                     }
                     
-                    self.delegateVC!.manager!(self, didReceivedRegisterConfirmation: response)
+                    self.delegateVC!.manager!(self, didReceivedUpdateConfirmation: response)
                     
                     if self.isRequestTimerAllow {
                         self.runRequest()
                     }
                 }
                 
-                self.removeRequestOnCompleted(request.identifier)
+                self.removeRequestOnCompleted(request!.identifier)
                 
             }
-        }
-*/
+            
+        })
     }
+
     
     
 //    func requestInitialData() {
@@ -358,21 +424,28 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
         println("checkIsEmailVerified for identifier: \(identifier)")
         
-        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
-        self.requests[request.identifier] = request
+        var request:BNRequest?
         
-        println("\(request.requestString)")
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+        } else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        println("\(request!.requestString)")
         
 //        if !isRequestTimerAllow {
 //            self.requestRegions(request)
 //        }
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(request!.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
                 println("Error on regions data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request!, error: error? )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -393,7 +466,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     }
                 }
                 
-                self.removeRequestOnCompleted(request.identifier)
+                self.removeRequestOnCompleted(request!.identifier)
 
             }
         }
@@ -535,6 +608,21 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         if !isRequestTimerAllow {
             self.requestUserCategoriesData(request)
         }
+        
+        
+        /*
+        var request:BNRequest?
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/\(user.identifier!)/\(10)/\(10)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+        } else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/\(user.identifier!)/\(10)/\(10)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+        }
+        self.requests[request!.identifier] = request
+        
+        if !isRequestTimerAllow {
+            self.requestUserCategoriesData(request!)
+        }
+        */
     }
     
     ///Handles the request for a user categories data and packs the information on an array of BNCategory.
@@ -589,6 +677,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         self.runRequest()
                     }
                 }
+                
                 self.removeRequestOnCompleted(request.identifier)
 //                self.requests.removeValueForKey(request.identifier)
 //                self.requestAttempts = 0
@@ -1181,9 +1270,18 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     func manager(manager:BNDataManager!, requestBiinieData biinie:BNUser) {
-        var request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
-        self.requests[request.identifier] = request
-        self.requestBiinieData(request)
+    
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+        } else  {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+        }
+        
+        self.requests[request!.identifier] = request
+        self.requestBiinieData(request!)
+        println("\(request!.requestString)")
     }
 
     func requestBiinieData(request:BNRequest) {
@@ -1197,7 +1295,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 
                 if let biinieData = data["data"] as? NSDictionary {
                     //if let biinieData = dataData["biinie"] as? NSDictionary {
-                        
+                        //{"data":{"status":"0","result":{"_id":"54e73260a159220300e63ac4","identifier":"4479187b-cd61-4be2-a24d-a30e925c1edc","firstName":"e","lastName":"e","biinName":"e@e.com","friends":[],"followers":"0","following":"0","imgUrl":""}}}
+                    
                         var biinie = BNUser()
                         biinie.identifier = self.findString("identifier", dictionary:biinieData)
                         biinie.biinName = self.findString("biinName", dictionary: biinieData)
@@ -1205,9 +1304,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         biinie.lastName = self.findString("lastName", dictionary: biinieData)
                         biinie.email = self.findString("email", dictionary: biinieData)
                         biinie.imgUrl = self.findString("imgUrl", dictionary: biinieData)
+                        biinie.gender = self.findString("gender", dictionary: biinieData)
+                        biinie.isEmailVerified = self.findBool("isEmailVerified", dictionary: biinieData)
+                        biinie.birthDate = self.findNSDate("birthDate", dictionary: biinieData)
                         //biinie.biins = self.findInt("biins", dictionary: biinieData)
                         //biinie.following = self.findInt("following", dictionary: biinieData)
                         //biinie.followers = self.findInt("followers", dictionary: biinieData)
+                    
+                        println("\(biinie.firstName)")
+                        println("\(biinie.lastName)")
                     
                         var friends = self.findNSArray("friends", dictionary: biinieData)
                         /*
@@ -1314,10 +1419,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     func removeRequestOnCompleted(identifier:Int){
+        println("Remove requests \(identifier)")
         requests.removeValueForKey(identifier)
         requestAttempts = 0
         
-        if requests.count == 0 {
+        
+        println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier)")
+        
+        if requests.count == 1 {
             println("NOT requests pending: \(self.requests.count)")
             self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
         }
@@ -1531,6 +1640,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)
     optional func manager(manager:BNNetworkManager!, didReceivedEmailVerification value:Bool)
     optional func manager(manager:BNNetworkManager!, didReceivedRegisterConfirmation response:BNResponse?)
+    optional func manager(manager:BNNetworkManager!, didReceivedUpdateConfirmation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedCategoriesSavedConfirmation response:BNResponse?)
     
     optional func manager(manager:BNNetworkManager!, didReceivedInitialData biins:Array<BNBiin>?)
@@ -1615,11 +1725,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
 extension NSDate {
     convenience init(dateString:String) {
-        let dateStringFormatter = NSDateFormatter()
-        dateStringFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        dateStringFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        let d = dateStringFormatter.dateFromString(dateString)
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        let d = formatter.dateFromString(dateString)
         self.init(timeInterval:0, sinceDate:d!)
+    }
+    
+    func bnDateFormatt()->String{
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        return formatter.stringFromDate(self)
+    }
+    
+    func bnDisplayDateFormatt()->String{
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "dd MMM yyyy"
+        return formatter.stringFromDate(self)
     }
     
     func isBefore(date:NSDate) -> Bool {

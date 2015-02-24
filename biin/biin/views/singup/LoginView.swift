@@ -40,6 +40,7 @@ class LoginView:UIView, UITextFieldDelegate {
         
         var screenWidth = SharedUIManager.instance.screenWidth
         var ypos:CGFloat = 40
+        
         biinLogo = BNUIBiinView(frame: CGRectMake(((screenWidth - 110) / 2), ypos, 110, 65))
         self.addSubview(biinLogo!)
         

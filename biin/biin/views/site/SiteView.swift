@@ -75,6 +75,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self)
         elementView!.delegate = self
         self.addSubview(elementView!)
+        
+        var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
+        showMenuSwipe.edges = UIRectEdge.Left
+        elementView!.scroll!.addGestureRecognizer(showMenuSwipe)
     }
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
@@ -92,9 +96,12 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     override func transitionOut( state:BNState? ) {
         println("trasition out on SiteView")
         state!.action()
-        UIView.animateWithDuration(0.4, animations: {()-> Void in
-            self.frame.origin.x = SharedUIManager.instance.screenWidth
-        })
+        
+        if state!.stateType == BNStateType.BiinieCategoriesState {
+            UIView.animateWithDuration(0.4, animations: {()-> Void in
+                self.frame.origin.x = SharedUIManager.instance.screenWidth
+            })
+        }
     }
     
     override func setNextState(option:Int){

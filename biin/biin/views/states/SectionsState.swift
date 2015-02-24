@@ -10,7 +10,7 @@ class SectionsState:BNState {
 
     override init(context:BNView, view:BNView){
         super.init(context:context, view: view)
-        self.stateType = BNStateType.SectionState
+//        self.stateType = BNStateType.SectionState
     }
     
     override init(context: BNView, view: BNView, stateType: BNStateType) {

@@ -86,6 +86,16 @@ class BNUIAlertView_Header:UIView {
             self.color = UIColor.bnGrayDark()
             self.label!.text = text!
             break
+        case .Saved:
+            icon = BNIcon_SmileFace1(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 61))
+            self.color = UIColor.bnGreen()
+            self.label!.text = text!
+            
+            var closeBtn = BNUIButton_CloseAlert(frame: CGRectMake((SharedUIManager.instance.screenWidth - 50), 61, 30, 30), iconColor:self.color!)
+            closeBtn.addTarget(father!, action: "closeBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.addSubview(closeBtn)
+            
+            break
         default:
             break
         }

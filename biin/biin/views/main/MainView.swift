@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate {
     
     var delegate:MainViewDelegate?
     
@@ -14,19 +14,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
     var fade:UIView?
     var userControl:ControlView?
     
-    var isSectionsLast = true
-    var isSectionOrShowcase = false
+    //var isSectionsLast = true
+    //var isSectionOrShowcase = false
+    var lastOption = 1
+    
     
     //states
     var biinieCategoriesState:BiinieCategoriesState?
     var siteState:SiteState?
-//    var sectionState:SectionsState?
-    var showcaseState:ShowcaseState?
+    var profileState:ProfileState?
+    var collectionsState:CollectionsState?    
+    var notificationsState:NotificationsState?
+    
+
     var searchState:SearchState?
     var settingsState:SettingsState?
-    var collectionsState:CollectionsState?
-    var profileState:ProfileState?
-    var boardsState:BoardsState?
     
     override init() {
         super.init()
@@ -53,15 +55,33 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
         
         //Create views
         var categoriesView = BiinieCategoriesView(frame: frame, father: self)
-        biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView)
+        biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
         self.addSubview(categoriesView)
         state = biinieCategoriesState!
         
         
         var siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        siteState = SiteState(context: self, view: siteView)
+        siteState = SiteState(context: self, view: siteView, stateType: BNStateType.SiteState)
         siteView.delegate = self
         self.addSubview(siteView)
+        
+        var profileView = ProfileView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        profileState = ProfileState(context: self, view: profileView, stateType: BNStateType.ProfileState)
+        profileView.delegate = rootViewController!
+        profileView.delegateFather = self
+        self.addSubview(profileView)
+        
+        
+        var collectionsView = CollectionsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        collectionsState = CollectionsState(context: self, view: collectionsView)
+        collectionsView.delegate = self
+        self.addSubview(collectionsView)
+        
+        
+        var notificationsView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        notificationsState = NotificationsState(context: self, view: notificationsView)
+        notificationsView.delegate = self
+        self.addSubview(notificationsView)
         
         /*
         //Create views
@@ -105,15 +125,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
         
         userControl = UserControlView(frame:CGRectZero, father: self)
         self.addSubview(userControl!)
-        
+        */
         var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         showMenuSwipe.edges = UIRectEdge.Left
-        sectionsView.top!.scroll!.addGestureRecognizer(showMenuSwipe)
+        categoriesView.scroll!.addGestureRecognizer(showMenuSwipe)
         
         showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         showMenuSwipe.edges = UIRectEdge.Left
-        sectionsView.bottom!.scroll!.addGestureRecognizer(showMenuSwipe)
-        
+        siteView.scroll!.addGestureRecognizer(showMenuSwipe)
+
+        /*
         showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         showMenuSwipe.edges = UIRectEdge.Left
         showcaseView.addGestureRecognizer(showMenuSwipe)
@@ -141,6 +162,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
+        println("Showmain Menu")
         self.delegate!.mainView!(self, showMenu: true)
     }
     
@@ -156,7 +178,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
         //Start transition on root view controller
 //        self.rootViewController!.setNextState(option)
         //delegate!.mainView!(self, hideMenu: false)
-        delegate!.mainView!(self, hideMenuOnChange: false)
+        delegate!.mainView!(self, hideMenuOnChange: false, index:option)
         
         switch (option) {
         case 1:
@@ -167,9 +189,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
             isSectionOrShowcase = true
             */
             state!.next(self.biinieCategoriesState)
+            lastOption = option
             break
         case 2:
             state!.next(self.siteState)
+            lastOption = option
             /*
             if !isSectionOrShowcase && !isSectionsLast {
                 state!.next( self.showcaseState )
@@ -184,25 +208,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
             */
             break
         case 3:
-            state!.next(self.searchState)
-            isSectionOrShowcase = false
+            state!.next(self.profileState)
+            self.bringSubviewToFront(state!.view!)
             break
         case 4:
-            state!.next(self.settingsState)
-            isSectionOrShowcase = false
+            state!.next(self.collectionsState)
+            self.bringSubviewToFront(state!.view!)
             break
         case 5:
-            state!.next(self.collectionsState)
-            isSectionOrShowcase = false
             break
         case 6:
-            state!.next(self.profileState)
-            rootViewController!.disableMenuButton(4)//Profile index on menu
-            isSectionOrShowcase = false
+            state!.next(self.notificationsState)
+            self.bringSubviewToFront(state!.view!)
             break
         case 7:
-            state!.next(self.boardsState)
-            isSectionOrShowcase = false
+
             break
         default:
             break
@@ -239,7 +259,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
     
     //SiteMiniView_Delegate Methods
     func showSiteView(view: SiteMiniView, site: BNSite?, position: CGRect) {
-        println("site to show: \(site!.identifier) xpos: \(position.origin.x) ypos: \(position.origin.y)")
+        //println("site to show: \(site!.identifier) xpos: \(position.origin.x) ypos: \(position.origin.y)")
         (siteState!.view as SiteView).updateSiteData(site)
         setNextState(2)
         
@@ -248,6 +268,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
     //SiteView_Delegate Methods
     func showCategoriesView(view: SiteView) {
         setNextState(1)
+    }
+    
+    func hideProfileView(view: ProfileView) {
+         setNextState(lastOption)
+    }
+    
+    func hideCollectionsView(view: CollectionsView) {
+        setNextState(lastOption)
+    }
+    
+    func hideNotificationsView(view: NotificationsView) {
+        setNextState(lastOption)
     }
 }
 
@@ -261,7 +293,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate {
     ///:param: BNDataManager that store all data.
     ///:param: Region's identifier requesting the data.
     optional func mainView(mainView:MainView!, hideMenu value:Bool)
-    optional func mainView(mainView:MainView!, hideMenuOnChange value:Bool)
+    optional func mainView(mainView:MainView!, hideMenuOnChange value:Bool, index:Int)
     
     optional func mainView(mainView:MainView!, showMenu value:Bool)
 }

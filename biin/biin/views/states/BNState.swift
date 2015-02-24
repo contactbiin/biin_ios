@@ -36,11 +36,10 @@ class BNState {
 enum BNStateType {
     case BiinieCategoriesState
     case SiteState
-    case SectionState
-    case ShowcaseState
+    case ProfileState
+    case CollectionState
+    case Notifications
     case SearchState
     case SettingsState
-    case CollectionState
-    case ProfileState
     case BoardsState
 }

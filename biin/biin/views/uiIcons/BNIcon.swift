@@ -28,20 +28,28 @@ enum BNIconType {
     case burgerSmall
     case burgerMedium //done
     case burgerLarge
+    case collectionMedium
     case commentSmall //done
     case commentMedium
     case commentLarge
     case femaleSmall
+    case friendsMedium
+    case homeMedium
+    case informationSmall//done
+    case informationMedium
+    case informationLarge
     case keyholeSmall//done
     case keyholeMedium
     case keyholeLarge
     case leftArrowSmall//done
     case leftArrowMedium
     case leftArrowLarge
+    case loyaltyMedium
     case maleSmall
-    case informationSmall//done
-    case informationMedium
-    case informationLarge
+    case notificationSmall
+    case notificationMedium
+    case notificationLarge
+    case profileMedium//Done
     case shareItButton
     case shareSmall //done
     case shareMedium
@@ -49,10 +57,9 @@ enum BNIconType {
     case searchSmall
     case searchMedium
     case searchLarge
+    case settingsMedium
     case smileSmall
     case smileMedium //done
     case smileLarge
-    case notificationSmall
-    case notificationMedium
-    case notificationLarge
+
 }
