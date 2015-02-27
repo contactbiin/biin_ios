@@ -17,7 +17,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //User data
     var bnUser:BNUser?
     var isUserLoaded = false
-    var isEmailVerified = false
     
     var regions = Dictionary<String, BNRegion>()
     var sites = Dictionary<String, BNSite>()
@@ -85,9 +84,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         //2. Request user categories data.
         delegateNM!.manager!(self, requestCategoriesData:bnUser!)
-        
-        //Check if email is verified
-        //delegateNM!.manager!(self, checkIsEmailVerified: "epadilla")
+
     }
     
     /*
@@ -324,7 +321,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
-        requestElements(elementList)
+        
+        //TODO: Remove this call temparary
+        //requestElements(elementList)
+        
+        
+        
         /*
         for element in elementList {
             
@@ -410,30 +412,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
     }
     
-    
-    func manager(manager: BNNetworkManager!, didReceivedBoards boardsList: Array<BNBoard>) {
-        println("Received boards: \(boardsList.count)")
-        
-        if boardsList.count > 0 {
-            
-            bnUser!.boards = Dictionary<String, BNBoard>()
-            
-            for board in boardsList {
-                
-                if bnUser!.boards![board.identifier!] == nil {
-                    bnUser!.boards![board.identifier!] = board
-                }
-                
-                for element in board.elements! {
-                    if elementsBiined[element._id!] == nil {
-                        elementsBiined[element._id!] = element._id!
-                    }
-                }
-                
-                requestElements(board.elements!)
-            }
-        }
-    }
     
     ///Receives a notification for a element.
     func manager(manager:BNNetworkManager!, didReceivedElementNotification notification:String, element:BNElement) {
@@ -578,15 +556,48 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             self.bnUser = user
             self.bnUser!.save()
         }
+        /*
+        //Add a temporal BNCollection
+        bnUser!.collections = Dictionary<String, BNCollection>()
+        var collection = BNCollection()
+        collection.identifier = "temporalCollection01"
+        collection.name = "Biined element and sites."
+        collection.collectionDescription = "This is a list of all your biined element and sites."
+        bnUser!.collections![collection.identifier!] = collection
+        */
         
-        //println("user friends: \(bnUser!.friends!.count)")
-        
-        //for friend in self.bnUser!.friends! {
-        //    self.delegateNM!.manager!(self, requestImageData:friend.avatarUrl!, image: friend.avatarImage!)
-        //}
+        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
-        func manager(manager:BNNetworkManager!, removeShowcaseRelationShips identifier:String) {
+    func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
+        
+        println("Received collections: \(collectionList.count)")
+        
+        if collectionList.count > 0 {
+            
+            bnUser!.collections = Dictionary<String, BNCollection>()
+            
+            for collection in collectionList {
+                
+                if bnUser!.collections![collection.identifier!] == nil {
+                    bnUser!.collections![collection.identifier!] = collection
+                    bnUser!.temporalCollectionIdentifier = collection.identifier!
+                }
+                
+                /*
+                for element in collection.elements {
+                    if elementsBiined[element._id!] == nil {
+                    elementsBiined[element._id!] = element._id!
+                    }
+                }
+                */
+                //TODO: Remove this call temporary
+                //requestElements(collection.elements)
+            }
+        }
+    }
+    
+    func manager(manager:BNNetworkManager!, removeShowcaseRelationShips identifier:String) {
     
         /*
         for (key, value) in self.regions["bnHome"]!.biins {
@@ -734,8 +745,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///
     ///:param: BNDataManager that store all data.
     ///:param: BNUser requesting the element's data.
-    optional func manager(manager:BNDataManager!, requestBoardsForBNUser user:BNUser)
+    optional func manager(manager:BNDataManager!, requestCollectionsForBNUser user:BNUser)
+
+    //optional func manager(manager:BNDataManager!, sendBiinedElement user:BNUser, element:BNElement, collection:BNCollection)
     
+    //optional func manager(manager:BNDataManager!, deleteBiinedElement user:BNUser, element:BNElement, collection:BNCollection)
     
     ///Request user (biinie) data
     ///

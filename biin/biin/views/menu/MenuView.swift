@@ -82,11 +82,24 @@ class MenuView:UIView {
         buttons.append(profileBtn!)
         buttons.append(homeBtn!)
         buttons.append(collectionsBtn!)
-        buttons.append(loyaltyBtn!)
-        buttons.append(notificationsBtn!)
-        buttons.append(inviteFriendsBtn!)
-        buttons.append(settingsBtn!)
-        buttons.append(searchBtn!)
+        //buttons.append(loyaltyBtn!)
+        //buttons.append(notificationsBtn!)
+        //buttons.append(inviteFriendsBtn!)
+        //buttons.append(settingsBtn!)
+        //buttons.append(searchBtn!)
+        
+        //TODO:Disable buttons for version 0.1.8
+        loyaltyBtn!.enabled = false
+        notificationsBtn!.enabled = false
+        inviteFriendsBtn!.enabled = false
+        settingsBtn!.enabled = false
+        searchBtn!.enabled = false
+        
+        loyaltyBtn!.showDisable()
+        notificationsBtn!.showDisable()
+        inviteFriendsBtn!.showDisable()
+        settingsBtn!.showDisable()
+        searchBtn!.showDisable()
     }
     
     func profileBtnActon(sender:BNUIButton) {
@@ -135,8 +148,10 @@ class MenuView:UIView {
                 buttons[i].showSelected()
                 buttons[i].enabled = false
             } else {
+
                 buttons[i].showEnable()
                 buttons[i].enabled = true
+
             }
         }
     }

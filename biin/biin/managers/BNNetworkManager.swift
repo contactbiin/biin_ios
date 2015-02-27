@@ -1063,65 +1063,91 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     ///Conforms optional func manager(manager: BNDataManager!, requestBoardsForBNUser user: BNUser) of BNDataManagerDelegate.
-    func manager(manager: BNDataManager!, requestBoardsForBNUser user: BNUser) {
-        var request = BNRequest(requestString:boards, dataIdentifier:user.email!, requestType:.Boards)
-        self.requests[request.identifier] = request
+    func manager(manager: BNDataManager!, requestCollectionsForBNUser user: BNUser) {
+        
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
+        } else  {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
+        }
+        
+        
+        //var request = BNRequest(requestString:boards, dataIdentifier:user.email!, requestType:.Boards)
+        self.requests[request!.identifier] = request
         
         if !isRequestTimerAllow {
-            self.requestBoardsForBNUser(request)
+            self.requestCollectionsForBNUser(request!)
         }
     }
     
-    func requestBoardsForBNUser(request:BNRequest) {
+    func requestCollectionsForBNUser(request:BNRequest) {
         
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                println("Error on user boards data")
+                println("Error on user colletion data")
                 self.handleFailedRequest(request, error: error? )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var boardsList = Array<BNBoard>()
-                    var boards = self.findNSArray("boards", dictionary: dataData)
+                    var collectionList = Array<BNCollection>()
+                    var collections = self.findNSArray("biinieCollections", dictionary: dataData)
 //                    
-                    for var i = 0; i < boards?.count; i++ {
+                    for var i = 0; i < collections?.count; i++ {
                         
-                        var boardData = boards!.objectAtIndex(i) as NSDictionary
-                        var board = BNBoard()
-                        board.identifier = self.findString("identifier", dictionary: boardData)
-                        board.boardDescription = self.findString("boardDescription", dictionary: boardData)
-                        board.name = self.findString("name", dictionary: boardData)
-                        board.isMine = self.findBool("isMine", dictionary: boardData)
+                        var collectionData = collections!.objectAtIndex(i) as NSDictionary
+                        var collection = BNCollection()
+                        collection.identifier = self.findString("identifier", dictionary: collectionData)
+                        collection.title = self.findString("title", dictionary: collectionData)
+                        collection.subTitle = self.findString("subTitle", dictionary: collectionData)
+
+                        //board.isMine = self.findBool("isMine", dictionary: boardData)
                     
-                        if !board.isMine {
-                            var owner = BNUser()
-                            var ownerData = boardData["owner"] as NSDictionary
-                            owner.identifier = self.findString("identifier", dictionary: ownerData)
-                            owner.firstName = self.findString("firstName", dictionary: ownerData)
-                            owner.lastName = self.findString("lastName", dictionary: ownerData)
-                            owner.email = self.findString("email", dictionary: ownerData)
-                            owner.imgUrl = self.findString("imgUrl", dictionary: ownerData)
-                            board.owner = owner
-                        }
+//                        if !board.isMine {
+//                            var owner = BNUser()
+//                            var ownerData = boardData["owner"] as NSDictionary
+//                            owner.identifier = self.findString("identifier", dictionary: ownerData)
+//                            owner.firstName = self.findString("firstName", dictionary: ownerData)
+//                            owner.lastName = self.findString("lastName", dictionary: ownerData)
+//                            owner.email = self.findString("email", dictionary: ownerData)
+//                            owner.imgUrl = self.findString("imgUrl", dictionary: ownerData)
+//                            board.owner = owner
+//                        }
                         
-                        var elements = self.findNSArray("elements", dictionary: boardData)
+                        var elements = self.findNSArray("elements", dictionary: collectionData)
                         
                         if elements?.count > 0 {
 
-                            board.elements = Array<BNElement>()
+                            collection.elements = Array<BNElement>()
                             
                             for ( var j = 0; j < elements?.count; j++ ) {
                                 var elementData = elements!.objectAtIndex(j) as NSDictionary
                                 var element = BNElement()
                                 element.identifier = self.findString("identifier", dictionary: elementData)
                                 element._id = self.findString("_id", dictionary: elementData)
-                                element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
-                                board.elements!.append(element)
+                                collection.elements.append(element)
                             }
                         }
                         
+                        var sites = self.findNSArray("sites", dictionary: collectionData)
+                        
+                        if sites?.count > 0 {
+                            
+                            collection.sites = Array<BNSite>()
+                            
+                            for ( var i = 0; i < sites?.count; i++ ) {
+                                var siteData = sites!.objectAtIndex(i) as NSDictionary
+                                var site = BNSite()
+                                site.identifier = self.findString("identifier", dictionary: siteData)
+                                collection.sites.append(site)
+                            }
+                        }
+                        
+                        
+                        /*
                         var biinies = self.findNSArray("biinies", dictionary: boardData)
                         
                         if biinies?.count > 0 {
@@ -1142,12 +1168,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                 //board.biinies!.append(biinie)
                             }
                         }
+                        */
                         
-                        boardsList.append(board)
+                        collectionList.append(collection)
 
                     }
                     
-                    self.delegateDM!.manager!(self, didReceivedBoards: boardsList)
+                    self.delegateDM!.manager!(self, didReceivedCollections: collectionList)
                 }
                 
                 self.removeRequestOnCompleted(request.identifier)
@@ -1156,13 +1183,142 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     
+    func sendBiinedElement(user: BNUser, element: BNElement, collectionIdentifier:String) {
+        
+        println("saveBiinedElement(\(user.email)) element: \(element._id!)")
+        
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        var model = Dictionary<String, Dictionary <String, String>>()
+
+        var modelContent = Dictionary<String, String>()
+        modelContent["identifier"] = element.identifier!
+        modelContent["_id"] = element._id!
+        modelContent["type"] = "element" //"site"
+        model["model"] = modelContent
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
+        var response:BNResponse?
+        
+        epsNetwork!.put(request!.requestString, htttpBody:htttpBody, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("ERROR on sendBiinedElement()")
+                self.handleFailedRequest(request!, error: error? )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** sendBiinedElement() for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+
+                    println("*** data \(data)")
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** sendBiinedElement() for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** sendBiinedElement() for user \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedUpdateConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request!.identifier)
+            }
+        })
+    }
     
+    func sendBiinedSite(user: BNUser, site: BNSite, collectionIdentifier:String) {
+        
+        println("saveBiinedSite(\(user.email)) site: \(site.identifier!)")
     
-    
-    
-    
-    
-    
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        var model = Dictionary<String, Dictionary <String, String>>()
+        
+        var modelContent = Dictionary<String, String>()
+        modelContent["identifier"] = site.identifier!
+        modelContent["type"] = "site"
+        model["model"] = modelContent
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
+        var response:BNResponse?
+        
+        epsNetwork!.put(request!.requestString, htttpBody:htttpBody, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("ERROR on sendBiinedSite()")
+                self.handleFailedRequest(request!, error: error? )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** sendBiinedSite() for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    //var identifier = self.findString("identifier", dictionary: dataData)
+                    println("*** data \(data)")
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** sendBiinedSite() for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** sendBiinedSite() for user \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedUpdateConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request!.identifier)
+            }
+        })
+    }
     
     //TODO: Impelement later.
     ///Conforms optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
@@ -1689,7 +1845,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///
     ///:param: BNNetworkManager.
     ///:param: User boards.
-    optional func manager(manager:BNNetworkManager!, didReceivedBoards boardsList:Array<BNBoard>)
+    optional func manager(manager:BNNetworkManager!, didReceivedCollections collectionList:Array<BNCollection>)
     
     
     

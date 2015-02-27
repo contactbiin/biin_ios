@@ -214,6 +214,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         case 4:
             state!.next(self.collectionsState)
             self.bringSubviewToFront(state!.view!)
+            self.collectionsState!.view!.refresh()
             break
         case 5:
             break

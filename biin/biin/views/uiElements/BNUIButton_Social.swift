@@ -79,6 +79,12 @@ class BNUIButton_Social:BNUIButton {
         })
     }
     
+    func setInactive(){
+        UIView.animateWithDuration(0.2, animations: {()-> Void in
+            self.backgroundColor = UIColor.appButtonColor()
+        })
+    }
+    
     func updateText(text:String) {
         
         var iconWidth:CGFloat = 10

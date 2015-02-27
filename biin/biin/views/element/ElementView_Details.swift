@@ -9,6 +9,7 @@ import UIKit
 class ElementView_Details:BNView {
 
     var elementIdentifier:String?
+    var biinitBtn:BNUIButton_BiinItLarge?
     
     override init() {
         super.init()
@@ -185,9 +186,9 @@ class ElementView_Details:BNView {
         }
         
         ypos += 40 //space
-        var biinitBtn = BNUIButton_BiinItLarge(frame: CGRectMake(((SharedUIManager.instance.screenWidth / 2) - 42), ypos, 84, 84))
-        biinitBtn.addTarget(self, action: "biinIt:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(biinitBtn)
+        biinitBtn = BNUIButton_BiinItLarge(frame: CGRectMake(((SharedUIManager.instance.screenWidth / 2) - 42), ypos, 84, 84))
+        biinitBtn!.addTarget(self, action: "biinIt:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(biinitBtn!)
         
         ypos += 90
         
@@ -235,7 +236,8 @@ class ElementView_Details:BNView {
     }
     
     func biinIt(sender:BNUIButton_BiinItLarge) {
-        BNAppSharedManager.instance.biinit(elementIdentifier!)
+        BNAppSharedManager.instance.biinit(elementIdentifier!, isElement:true)
+        biinitBtn!.showDisable()
     }
 }
 

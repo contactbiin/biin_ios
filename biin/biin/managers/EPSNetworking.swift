@@ -271,6 +271,36 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         })
     }
     
+    func put(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
+        
+        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
+        
+        var err: NSError?
+        request.HTTPMethod = "PUT"
+        request.HTTPBody = htttpBody
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        var httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+        println("HTTPBody: \(httpString)")
+        
+        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
+            
+            if error != nil {
+                callback(Dictionary<String, AnyObject>(), error)
+            } else {
+                
+                //println("------------------------------------------------------------")
+                //println("------------------------------------------------------------")
+                //println("jsonString received: \(data)")
+                
+                var jsonData = self.parseJson(data)
+                callback(jsonData, nil)
+            }
+        })
+    }
+
+    
     func parseJson(jsonString:String) -> Dictionary<String, AnyObject> {
         
         var options = NSJSONReadingOptions.AllowFragments

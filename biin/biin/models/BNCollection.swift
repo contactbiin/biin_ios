@@ -5,15 +5,17 @@
 
 import Foundation
 
-class BNBoard:NSObject {
+class BNCollection:NSObject {
     
     var identifier:String?
-    var boardDescription:String?
-    var name:String?
-    var elements:Array<BNElement>?// = Array<BNElement>()
-    var isMine:Bool = true
-    var owner:BNUser?
-    var biinies:Array<BNUser>?
+    var subTitle:String?
+    var title:String?
+    var elements = Array<BNElement>()
+    var sites = Array<BNSite>()
+    
+//    var isMine:Bool = true
+//    var owner:BNUser?
+//    var biinies:Array<BNUser>?
     
     override init(){
         super.init()

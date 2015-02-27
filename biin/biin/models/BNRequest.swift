@@ -34,7 +34,9 @@ enum BNRequestType
     case BiinieData
     case SharedBiins
     case BiinedElements //Elements biined by user
-    case Boards //User boards
+    case Collections //User collections
+    case SendBiinedElement
+    case SendBiinedSite
 }
 
 class BNRequest:NSObject {

@@ -10,6 +10,7 @@ class ElementMiniView_Header:BNView {
     
     var buttonsView:SocialButtonsView?
     var circleLabel:BNUICircleLabel?
+    var elementPosition:Int?
     
     override init() {
         super.init()
@@ -27,24 +28,29 @@ class ElementMiniView_Header:BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int){
+    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showCircle:Bool){
         self.init(frame: frame, father:father )
         self.backgroundColor = UIColor.appMainColor()
+        self.elementPosition = elementPosition
         
         var ypos:CGFloat = 4
+        var xpos:CGFloat = 4
         buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, element: element)
         self.addSubview(buttonsView!)
         
         ypos += 17
         
-        circleLabel = BNUICircleLabel(frame: CGRectMake(4, 24, 25, 25), color:element!.textColor!, text: "\(elementPosition)", textSize: 14, isFilled: false)
-        self.addSubview(circleLabel!)
-        
-        if element!.userViewed {
-            circleLabel!.animateCircleIn()
+        if showCircle {
+            circleLabel = BNUICircleLabel(frame: CGRectMake(xpos, 24, 25, 25), color:element!.textColor!, text: "\(elementPosition)", textSize: 14, isFilled: false)
+            self.addSubview(circleLabel!)
+            xpos += 28
+            
+            if element!.userViewed {
+                circleLabel!.animateCircleIn()
+            }
         }
         
-        var title = UILabel(frame: CGRectMake(32, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 2)))
+        var title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 2)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = element!.textColor!
         title.text = element!.title!
@@ -52,7 +58,7 @@ class ElementMiniView_Header:BNView {
         
         ypos += SharedUIManager.instance.miniView_titleSize + 2
         
-        var subTitle = UILabel(frame: CGRectMake(32, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 2)))
+        var subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 2)))
         subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = element!.subTitle!

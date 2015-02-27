@@ -33,7 +33,15 @@ class ElementView: BNView {
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
+    }
+    
+    convenience init(frame:CGRect, father:BNView?, site:BNSite?){
+        self.init(frame: frame, father:father )
+    }
+
+    convenience init(frame: CGRect, father: BNView?, showBiinItBtn:Bool) {
         
+        self.init(frame: frame, father:father )
         self.backgroundColor = UIColor.appMainColor()
         
         var screenWidth = SharedUIManager.instance.screenWidth
@@ -65,25 +73,17 @@ class ElementView: BNView {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
-        biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(biinItButton!)
+        if showBiinItBtn {
+            biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
+            biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
+            scroll!.addSubview(biinItButton!)
+        }
         
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - 41), 4, 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(shareItButton!)
-        
-//        detailsView = ElementView_Details(frame: CGRectMake(0, screenWidth, screenWidth, screenWidth), father: self)
-//        scroll!.addSubview(detailsView!)
-//        scrollHeight += screenWidth
-//        scroll!.contentSize = CGSizeMake(screenWidth, scrollHeight)
-        
     }
     
-    convenience init(frame:CGRect, father:BNView?, site:BNSite?){
-        self.init(frame: frame, father:father )
-    }
-
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -132,10 +132,11 @@ class ElementView: BNView {
         scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
         delegate!.hideElementView!(elementMiniView)
         
-  
+        self.elementMiniView!.refresh()
     }
     
     func updateElementData(elementMiniView:ElementMiniView?) {
+        
         self.elementMiniView = elementMiniView
         header!.updateForElement(elementMiniView!.element!)
         imagesScrollView!.updateImages(elementMiniView!.element!.media)
@@ -164,8 +165,11 @@ class ElementView: BNView {
             hasSticker = true
         }
         
-
-        
+        if elementMiniView!.element!.userBiined {
+            biinItButton?.showDisable()
+        }else {
+            biinItButton?.showEnable()
+        }
         
         detailsView = ElementView_Details(frame: CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
         scroll!.addSubview(detailsView!)
@@ -191,11 +195,13 @@ class ElementView: BNView {
     }
     
     func biinit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!)
+        BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
         println("Show biinit options")
-        elementMiniView!.element!.biins++
-        elementMiniView!.element!.userBiined = true
+//        elementMiniView!.element!.biins++
+//        elementMiniView!.element!.userBiined = true
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
+        
+        biinItButton!.showDisable()
     }
     
     func shareit(sender:BNUIButton_ShareIt){

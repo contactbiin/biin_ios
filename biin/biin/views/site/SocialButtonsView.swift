@@ -11,7 +11,7 @@ class SocialButtonsView:BNView {
     var biinBtn:BNUIButton_Social?
     var commentBtn:BNUIButton_Social?
     var shareBtn:BNUIButton_Social?
-
+    
     override init() {
         super.init()
     }
@@ -134,6 +134,8 @@ class SocialButtonsView:BNView {
         
         if element!.userBiined {
             (biinBtn! as BNUIButton_Social).setActive()
+        } else {
+            (biinBtn! as BNUIButton_Social).setInactive()
         }
         
         xpos += biinBtn!.frame.width + xSpace

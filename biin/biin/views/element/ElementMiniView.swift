@@ -16,6 +16,7 @@ class ElementMiniView: BNView {
     
     var biinItButton:BNUIButton_BiinIt?
     var shareItButton:BNUIButton_ShareIt?
+    var removeItButton:BNUIButton_RemoveIt?
     var stickerView:BNUIStickerView?
     var discountView:BNUIDiscountView?
     var priceView:BNUIPricesView?
@@ -36,7 +37,7 @@ class ElementMiniView: BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int){
+    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool){
         self.init(frame: frame, father:father )
         
         self.layer.borderColor = UIColor.appMainColor().CGColor
@@ -62,15 +63,28 @@ class ElementMiniView: BNView {
         image!.alpha = 0
         self.addSubview(image!)
         
-        header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition)
+        header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
         self.addSubview(header!)
         header!.updateSocialButtonsForElement(self.element)
         
-        biinItButton = BNUIButton_BiinIt(frame: CGRectMake(5, (frame.height - 42), 37, 37))
-        biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(biinItButton!)
+        xpos = 5
+        if showRemoveBtn {
+            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
+            removeItButton!.addTarget(self, action: "unBiinit:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.addSubview(removeItButton!)
+        } else {
+            
+            biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
+            biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.addSubview(biinItButton!)
+            xpos += 37
+            
+            if self.element!.userBiined {
+                biinItButton!.showDisable()
+            }
+        }
         
-        shareItButton = BNUIButton_ShareIt(frame: CGRectMake(42, (frame.height - 42), 37, 37))
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(shareItButton!)
         
@@ -142,15 +156,17 @@ class ElementMiniView: BNView {
     
     func userViewedElement(){
         element!.userViewed  = true
-        header!.circleLabel!.animateCircleIn()
+        header!.circleLabel?.animateCircleIn()
     }
     
     func biinit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.biinit(element!._id!)
+        BNAppSharedManager.instance.biinit(element!._id!, isElement:true)
         println("Show biinit options")
-        element!.biins++
-        element!.userBiined = true
+//        element!.biins++
+//        element!.userBiined = true
         header!.updateSocialButtonsForElement(element!)
+        
+        biinItButton!.showDisable()
     }
     
     func shareit(sender:BNUIButton_ShareIt){
@@ -159,8 +175,30 @@ class ElementMiniView: BNView {
         element!.userShared = true
         header!.updateSocialButtonsForElement(element!)
     }
+    
+    func unBiinit(sender:BNUIButton_ShareIt){
+        println("Remove from collection")
+        
+        UIView.animateWithDuration(0.1, animations: {()->Void in
+                self.alpha = 0
+            }, completion: {(completed:Bool)->Void in
+                self.delegate!.resizeScrollOnRemoved!(self)
+                BNAppSharedManager.instance.unBiinit(self.element!._id!, isElement:true)
+                self.removeFromSuperview()
+        })
+
+    }
+    
+    override func refresh() {
+        
+        if element!.userBiined {
+            header!.updateSocialButtonsForElement(element!)
+            biinItButton!.showDisable()
+        }
+    }
 }
 
 @objc protocol ElementMiniView_Delegate:NSObjectProtocol {
     optional func showElementView(view:ElementMiniView, position:CGRect)
+    optional func resizeScrollOnRemoved(view:ElementMiniView)
 }

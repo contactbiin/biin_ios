@@ -22,4 +22,16 @@ class BNUIButton_BiinIt:BNUIButton {
         super.init(frame: frame)
         icon = BNIcon_BiinItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
     }
+    
+    override func showDisable() {
+        self.enabled = false
+        self.icon!.color = UIColor.appButtonColor_Disable()//.colorWithAlphaComponent(0.75)
+        self.setNeedsDisplay()
+    }
+    
+    override func showEnable() {
+        self.enabled = true
+        self.icon!.color = UIColor.biinColor()
+        self.setNeedsDisplay()
+    }
 }

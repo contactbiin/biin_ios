@@ -20,15 +20,12 @@ class BNIcon_ShareItButton:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let color0 = UIColor(red: 0.237, green: 0.727, blue: 0.935, alpha: 1.000)
-        let color1 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        let logoColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
         
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+ 
         //// back Drawing
         var backPath = UIBezierPath()
         backPath.moveToPoint(CGPointMake(24, 35))
@@ -43,7 +40,7 @@ class BNIcon_ShareItButton:BNIcon {
         backPath.closePath()
         backPath.miterLimit = 4;
         
-        color0.setFill()
+        color!.setFill()
         backPath.fill()
         
         
@@ -64,7 +61,7 @@ class BNIcon_ShareItButton:BNIcon {
         logoPath.closePath()
         logoPath.miterLimit = 4;
         
-        color1.setStroke()
+        logoColor.setStroke()
         logoPath.lineWidth = 2.5
         logoPath.stroke()
         

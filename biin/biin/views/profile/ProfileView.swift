@@ -22,8 +22,8 @@ class ProfileView: BNView, UITextFieldDelegate {
     var biinieNameLbl:UILabel?
     var biinieUserNameLbl:UILabel?
     
-    var nameTitleLbl:UILabel?
-    var lastNameTitleLbl:UILabel?
+//    var nameTitleLbl:UILabel?
+//    var lastNameTitleLbl:UILabel?
     
     var femaleBtn:BNUIButton_Gender?
     var maleBtn:BNUIButton_Gender?
@@ -52,7 +52,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        title = UILabel(frame: CGRectMake(0, 2, screenWidth, 12))
+        title = UILabel(frame: CGRectMake(0, 3, screenWidth, 12))
         title!.text = "Profile"
         title!.textColor = UIColor.appTextColor()
         title!.font = UIFont(name: "Lato-Light", size: 10)
@@ -65,18 +65,20 @@ class ProfileView: BNView, UITextFieldDelegate {
 
         var headerWidth = screenWidth - 60
         var xpos:CGFloat = (screenWidth - headerWidth) / 2
-        var ypos:CGFloat = 30
+        var ypos:CGFloat = 25
         
-        var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 90, 90))
-        biinieAvatarView.layer.cornerRadius = 30
+        var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
+        biinieAvatarView.layer.cornerRadius = 35
         biinieAvatarView.layer.borderColor = UIColor.appBackground().CGColor
-        biinieAvatarView.layer.borderWidth = 5
+        biinieAvatarView.layer.borderWidth = 6
         biinieAvatarView.layer.masksToBounds = true
         self.addSubview(biinieAvatarView)
         
         if BNAppSharedManager.instance.dataManager.bnUser!.imgUrl != "" {
-            biinieAvatar = BNUIImageView(frame: CGRectMake(xpos, ypos, 90, 90))
+            biinieAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
             biinieAvatar!.alpha = 0
+            biinieAvatar!.layer.cornerRadius = 30
+            biinieAvatar!.layer.masksToBounds = true
             biinieAvatarView.addSubview(biinieAvatar!)
             BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: biinieAvatar)
         } else  {
@@ -89,21 +91,21 @@ class ProfileView: BNView, UITextFieldDelegate {
             biinieAvatarView.backgroundColor = UIColor.biinColor()
         }
         
-        biinieNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 20), (headerWidth - 95), 20))
+        biinieNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 30), (headerWidth - 95), 20))
         biinieNameLbl!.font = UIFont(name: "Lato-Regular", size: 22)
         biinieNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)"
         biinieNameLbl!.textColor = UIColor.biinColor()
         self.addSubview(biinieNameLbl!)
         
-        biinieUserNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 45), (headerWidth - 95), 14))
-        biinieUserNameLbl!.font = UIFont(name: "Lato-Regular", size: 12)
+        biinieUserNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 50), (headerWidth - 95), 14))
+        biinieUserNameLbl!.font = UIFont(name: "Lato-Light", size: 12)
         biinieUserNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.biinName!)"
         biinieUserNameLbl!.textColor = UIColor.appTextColor()
         self.addSubview(biinieUserNameLbl!)
         
         ypos += 100
-        var line = UIView(frame: CGRectMake(5, ypos, (screenWidth - 10), 0.5))
-        line.backgroundColor = UIColor.appBackground()
+        var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        line.backgroundColor = UIColor.appButtonColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
         self.addSubview(scroll!)
@@ -315,7 +317,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColor
         scroll!.addSubview(saveBtn!)
         
-        ypos += 80
+        ypos += 75
         scroll!.contentSize = CGSizeMake(screenWidth, ypos)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))

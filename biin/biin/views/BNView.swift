@@ -40,6 +40,7 @@ class BNView:UIView {
     func showUserControl(value:Bool, son:BNView, point:CGPoint){ }
     func updateUserControl(position:CGPoint){ }
     func changeJoinBtnText(text:String){ }
+    func refresh(){}
     
     //Social functions
     func awareBtnAction() { }

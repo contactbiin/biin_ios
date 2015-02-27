@@ -57,6 +57,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.delegate = self
+        scroll!.bounces = false
         self.addSubview(scroll!)
         
         addSites()

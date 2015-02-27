@@ -6,12 +6,22 @@
 import Foundation
 import UIKit
 
-class CollectionsView: BNView {
+class CollectionsView: BNView, ElementView_Delegate {
     
     var delegate:CollectionsView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
     var fade:UIView?
+    
+    var biinieAvatar:BNUIImageView?
+    var biinieNameLbl:UILabel?
+    var biinieUserNameLbl:UILabel?
+    
+    var scroll:UIScrollView?
+    var collections:Array<CollectionsView_Collection>?
+    
+    var elementView:ElementView?
+    var isShowingElementView = false
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
@@ -21,7 +31,7 @@ class CollectionsView: BNView {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        title = UILabel(frame: CGRectMake(0, 2, screenWidth, 12))
+        title = UILabel(frame: CGRectMake(0, 3, screenWidth, 12))
         title!.text = "Collections"
         title!.textColor = UIColor.appTextColor()
         title!.font = UIFont(name: "Lato-Light", size: 10)
@@ -32,10 +42,69 @@ class CollectionsView: BNView {
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
+        var headerWidth = screenWidth - 60
+        var xpos:CGFloat = (screenWidth - headerWidth) / 2
+        var ypos:CGFloat = 25
+        
+        var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
+        biinieAvatarView.layer.cornerRadius = 35
+        biinieAvatarView.layer.borderColor = UIColor.appBackground().CGColor
+        biinieAvatarView.layer.borderWidth = 6
+        biinieAvatarView.layer.masksToBounds = true
+        self.addSubview(biinieAvatarView)
+        
+        if BNAppSharedManager.instance.dataManager.bnUser!.imgUrl != "" {
+            biinieAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
+            biinieAvatar!.alpha = 0
+            biinieAvatar!.layer.cornerRadius = 30
+            biinieAvatar!.layer.masksToBounds = true
+            biinieAvatarView.addSubview(biinieAvatar!)
+            BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: biinieAvatar)
+        } else  {
+            var initials = UILabel(frame: CGRectMake(0, 25, 90, 40))
+            initials.font = UIFont(name: "Lato-Light", size: 38)
+            initials.textColor = UIColor.appMainColor()
+            initials.textAlignment = NSTextAlignment.Center
+            initials.text = "\(first(BNAppSharedManager.instance.dataManager.bnUser!.firstName!)!)\(first(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)!)"
+            biinieAvatarView.addSubview(initials)
+            biinieAvatarView.backgroundColor = UIColor.biinColor()
+        }
+        
+        biinieNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 20), (headerWidth - 95), 20))
+        biinieNameLbl!.font = UIFont(name: "Lato-Regular", size: 22)
+        biinieNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)"
+        biinieNameLbl!.textColor = UIColor.biinColor()
+        self.addSubview(biinieNameLbl!)
+        
+        biinieUserNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 45), (headerWidth - 95), 14))
+        biinieUserNameLbl!.font = UIFont(name: "Lato-Regular", size: 12)
+        biinieUserNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.biinName!)"
+        biinieUserNameLbl!.textColor = UIColor.appTextColor()
+        self.addSubview(biinieUserNameLbl!)
+        
+        ypos += 100
+        var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        line.backgroundColor = UIColor.appButtonColor()
+        
+        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
+        self.addSubview(scroll!)
+        self.addSubview(line)
+        
+        //Add collections here.
+        addCollections()
+        
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
+        
+        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:false)
+        elementView!.delegate = self
+        self.addSubview(elementView!)
+        
+        var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
+        showMenuSwipe.edges = UIRectEdge.Left
+        elementView!.scroll!.addGestureRecognizer(showMenuSwipe)
     }
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
@@ -105,6 +174,65 @@ class CollectionsView: BNView {
     func backBtnAction(sender:UIButton) {
         delegate!.hideCollectionsView!(self)
         //delegate!.hideElementView!(elementMiniView)
+    }
+    
+    func addCollections(){
+        
+        //clean()
+        if collections?.count > 0 {
+            collections!.removeAll(keepCapacity: false)
+        }
+        
+        collections = Array<CollectionsView_Collection>()
+        
+        var height:CGFloat = SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.miniView_height + 15
+        var ypos:CGFloat = 0
+        
+        for (key, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
+            
+            var collectionView = CollectionsView_Collection(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, collection: collection)
+            
+            collections!.append(collectionView)
+            scroll!.addSubview(collectionView)
+            ypos += height
+            ypos += 1
+        }
+        
+        scroll!.contentSize = CGSizeMake(0, ypos)
+        scroll!.setContentOffset(CGPointZero, animated: false)
+        scroll!.bounces = false
+        scroll!.pagingEnabled = false
+    }
+    
+    override func refresh(){
+        for collectionView in self.collections! {
+            collectionView.refresh()
+        }
+    }
+    
+    func showElementView(elementMiniView:ElementMiniView?){
+        println("show elementView window")
+        
+        elementView!.updateElementData(elementMiniView)
+        
+        UIView.animateWithDuration(0.3, animations: {()-> Void in
+            self.elementView!.frame.origin.x = 0
+            self.fade!.alpha = 0.25
+        })
+    }
+    
+    func hideElementView(view:ElementMiniView?) {
+        UIView.animateWithDuration(0.4, animations: {() -> Void in
+            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
+            self.fade!.alpha = 0
+            }, completion: {(completed:Bool)-> Void in
+                
+                if !view!.element!.userViewed {
+                    view!.userViewedElement()
+                }
+                
+                self.elementView!.clean()
+        })
     }
 }
 

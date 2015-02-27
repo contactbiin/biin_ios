@@ -1,18 +1,18 @@
-//  SiteView_Showcase.swift
+//  CollectionsView_Collection.swift
 //  biin
-//  Created by Esteban Padilla on 2/3/15.
+//  Created by Esteban Padilla on 2/25/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, SiteView_Delegate {
+class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, SiteView_Delegate {
     
     var title:UILabel?
     var subTitle:UILabel?
     var scroll:UIScrollView?
     var showcase:BNShowcase?
-
+    
     var isWorking = true
     var spacer:CGFloat = 5
     var columns:Int = 1
@@ -20,12 +20,12 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     var elementRequestPreviousLimit:Int = 0
     
     var elements:Array<ElementMiniView>?
-    var gameView:SiteView_Showcase_Game?
-    var joinView:SiteView_Showcase_Join?
+    var sites:Array<SiteMiniView>?
     
-    weak var site:BNSite?
     var currentPoints = 0
     var timer:NSTimer?
+    
+    weak var collection:BNCollection?
     
     override init() {
         super.init()
@@ -43,13 +43,13 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame: CGRect, father:BNView?, showcase:BNShowcase?, site:BNSite?) {
+    convenience init(frame: CGRect, father:BNView?, collection:BNCollection?) {
         self.init(frame: frame, father:father )
         
-        self.site = site
+        self.collection = collection
         
         self.backgroundColor = UIColor.appMainColor()
-        self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
+        //self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         //TODO: Add all showcase data here
         
         var ypos:CGFloat = 5
@@ -57,16 +57,17 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 2)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
-        title!.text = self.showcase!.title
-        title!.textColor = self.showcase!.titleColor!
+        title!.text = self.collection!.title!
+        title!.textColor = UIColor.appTextColor()
         self.addSubview(title!)
+        
         
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         
         subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_subTittleSize)
+        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.appTextColor()
-        subTitle!.text = self.showcase!.subTitle!
+        subTitle!.text = self.collection!.subTitle!
         self.addSubview(subTitle!)
         
         var screenWidth = SharedUIManager.instance.screenWidth
@@ -81,8 +82,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         scroll!.scrollsToTop = false
         scroll!.backgroundColor = UIColor.appBackground()
         self.addSubview(scroll!)
-    
-        addElementViews()
+        
+        //addElementAndSitesViews()
         
         columns = SharedUIManager.instance.miniView_columns
         
@@ -119,17 +120,26 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     //Instance methods
     func updateForSite(site: BNSite?){
-     
+        
     }
     
-    func addElementViews(){
+    func addElementAndSitesViews(){
+
+        if let elementsList = self.elements {
+            for elementView in elements! {
+                elementView.removeFromSuperview()
+            }
+            
+            elements!.removeAll(keepCapacity: false)
+        }
+        
         
         var elementPosition:Int = 1
         var xpos:CGFloat = spacer
         elements = Array<ElementMiniView>()
         
-        for element in showcase!.elements {
-            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false)
+        for element in collection!.elements {
+            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:true)
             xpos += SharedUIManager.instance.miniView_width + spacer
             elementView.delegate = self
             scroll!.addSubview(elementView)
@@ -139,21 +149,25 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         xpos += spacer
         
-        if site!.loyalty!.isSubscribed {
-            //Add game view
-            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
-            scroll!.addSubview(gameView!)
-            xpos += SharedUIManager.instance.screenWidth
-        } else  {
-            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!)
-            scroll!.addSubview(joinView!)
-            xpos += SharedUIManager.instance.screenWidth
-        }
+//        if site!.loyalty!.isSubscribed {
+//            //Add game view
+//            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
+//            scroll!.addSubview(gameView!)
+//            xpos += SharedUIManager.instance.screenWidth
+//        } else  {
+//            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!)
+//            scroll!.addSubview(joinView!)
+//            xpos += SharedUIManager.instance.screenWidth
+//        }
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.bounces = false
         scroll!.pagingEnabled = false
+    }
+    
+    override func refresh(){
+        addElementAndSitesViews()
     }
     
     /* UIScrollViewDelegate Methods */
@@ -186,7 +200,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
         println("scrollViewDidEndDecelerating")
-        
+        /*
         if showcase!.isShowcaseGameCompleted {
             return
         }
@@ -230,8 +244,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                 }
             }
         }
+        */
     }// called when scroll view grinds to a halt
     
+    /*
     func updatePointCounter() {
         timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:"updatePoints:", userInfo: nil, repeats: true)
     }
@@ -250,7 +266,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             gameView!.startToAnimateCirclesOnCompleted()
         }
     }
-    
+    */
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView!) {
         //println("scrollViewDidEndScrollingAnimation")
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
@@ -277,7 +293,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             
             lastColumnRequested = column
             var requestLimit:Int = Int(lastColumnRequested + columns)
-
+            
             if requestLimit >= elements?.count {
                 requestLimit = elements!.count - 1
                 isWorking = false //reach the limit of requests
@@ -304,8 +320,48 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     //ElementMiniView_Delegate
     func showElementView(view:ElementMiniView, position: CGRect) {
-        (father! as SiteView).showElementView(view)
+        (father! as CollectionsView).showElementView(view)
     }
-}
+    
+    func resizeScrollOnRemoved(view: ElementMiniView) {
+        var startPosition = 0
+        for var i = 0; i < elements!.count; i++ {
+            if elements![i].header!.elementPosition! == view.header!.elementPosition! {
+                startPosition = i
+                elements!.removeAtIndex(i)
+            }
+        }
+        
+        var width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
+        var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
+        
+        for var i = startPosition; i < elements!.count; i++ {
+            UIView.animateWithDuration(0.2, animations: {()->Void in
+                self.elements![i].frame.origin.x = xpos
+            })
+            
+            xpos += SharedUIManager.instance.miniView_width + spacer
+        }
+        
+        xpos += spacer
+        
+        //        if site!.loyalty!.isSubscribed {
+        //            //Add game view
+        //            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
+        //            scroll!.addSubview(gameView!)
+        //            xpos += SharedUIManager.instance.screenWidth
+        //        } else  {
+        //            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!)
+        //            scroll!.addSubview(joinView!)
+        //            xpos += SharedUIManager.instance.screenWidth
+        //        }
+        
+        scroll!.contentSize = CGSizeMake(xpos, 0)
+        //scroll!.setContentOffset(CGPointZero, animated: false)
+        //scroll!.bounces = false
+        //scroll!.pagingEnabled = false
+        
+    }
 
+}
 

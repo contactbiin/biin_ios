@@ -19,6 +19,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     var imagesScrollView:BNUIScrollView?
     
+    var location:SiteView_Location?
+    
     var fade:UIView?
     var informationView:SiteView_Information?
     
@@ -54,6 +56,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
+        location = SiteView_Location(frame: CGRectMake(0, screenWidth, screenHeight, 200), father: self)
+        scroll!.addSubview(location!)
+        
         header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
@@ -72,7 +77,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         informationView = SiteView_Information(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self)
         self.addSubview(informationView!)
         
-        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self)
+        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
         elementView!.delegate = self
         self.addSubview(elementView!)
         
@@ -136,6 +141,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         bottom!.updateForSite(site)
         imagesScrollView!.updateImages(site!.media)
         updateShowcases(site)
+        location!.updateForSite(site)
     }
     
     func showInformationView(sender:BNUIButton_Information){
@@ -189,9 +195,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         var height:CGFloat = SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.miniView_height + 15
 
-        scroll!.addSubview(imagesScrollView!)
+        //scroll!.addSubview(imagesScrollView!)
         
         var ypos:CGFloat = SharedUIManager.instance.screenWidth
+        ypos += 200 //200 for location View
         
         for biin in site!.biins {
             

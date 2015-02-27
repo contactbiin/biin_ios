@@ -25,7 +25,8 @@ class BNUser:NSObject, NSCoding {
     var jsonUrl:String?
     
     var categories = Array<BNCategory>()
-    var boards:Dictionary<String, BNBoard>?
+    var collections:Dictionary<String, BNCollection>?
+    var temporalCollectionIdentifier:String?
     
     var isEmailVerified:Bool?
     
@@ -85,14 +86,9 @@ class BNUser:NSObject, NSCoding {
             aCoder.encodeObject(birthDate, forKey: "birthDate")
         }
         
-        if let email = self.email {
-            aCoder.encodeObject(email, forKey: "email")
-        }
-        
         if let isEmailVerified = self.isEmailVerified {
             aCoder.encodeBool(isEmailVerified, forKey: "isEmailVerified")
         }
-        
     }
     
     deinit {

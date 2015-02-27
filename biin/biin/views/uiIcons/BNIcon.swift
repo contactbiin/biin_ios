@@ -61,5 +61,6 @@ enum BNIconType {
     case smileSmall
     case smileMedium //done
     case smileLarge
+    case x_small
 
 }
