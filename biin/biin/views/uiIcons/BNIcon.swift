@@ -32,6 +32,8 @@ enum BNIconType {
     case commentSmall //done
     case commentMedium
     case commentLarge
+    case emailSmall
+    case emailMedium
     case femaleSmall
     case friendsMedium
     case homeMedium
@@ -49,6 +51,7 @@ enum BNIconType {
     case notificationSmall
     case notificationMedium
     case notificationLarge
+    case phoneMedium
     case profileMedium//Done
     case shareItButton
     case shareSmall //done

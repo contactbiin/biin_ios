@@ -5,19 +5,28 @@
 
 import Foundation
 import UIKit
+import MapKit
+import MessageUI
 
-class SiteView_Location:BNView {
+class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDelegate {
 
     var siteAvatarView:UIView?
     var siteAvatar:BNUIImageView?
     var title:UILabel?
-    var subTitle:UILabel?
     
     var streetAddress1:UILabel?
     var streetAddress2:UILabel?
-    var stateLbl:UILabel?//state, city, zipcode
-    var country:UILabel?
+    var phoneNumber:UILabel?
+    var email:UILabel?
     
+    var map:MKMapView?
+    
+    var site_email:String?
+    var site_phoneNumber:String?
+    
+    var emailBtn:BNUIButton_Contact?
+    var callBtn:BNUIButton_Contact?
+    var commentBtn:BNUIButton_Contact?
     
     override init() {
         super.init()
@@ -36,12 +45,15 @@ class SiteView_Location:BNView {
         
         self.backgroundColor = UIColor.appMainColor()
 
+        site_phoneNumber = ""
+        site_email = ""
+        
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
         var headerWidth = screenWidth - 30
         var xpos:CGFloat = (screenWidth - headerWidth) / 2
-        var ypos:CGFloat = 15
+        var ypos:CGFloat = 10
     
         //var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         //line.backgroundColor = UIColor.appButtonColor()
@@ -61,18 +73,68 @@ class SiteView_Location:BNView {
         siteAvatarView!.addSubview(siteAvatar!)
         BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: siteAvatar)
 
+        xpos += 100
+        ypos += 10
         
-        title = UILabel(frame: CGRectMake((xpos + 100), (ypos + 30), (headerWidth - 95), 20))
+        title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 20))
         title!.font = UIFont(name: "Lato-Regular", size: 22)
         title!.text = ""
         title!.textColor = UIColor.biinColor()
         self.addSubview(title!)
         
-        subTitle = UILabel(frame: CGRectMake((xpos + 100), (ypos + 50), (headerWidth - 95), 14))
-        subTitle!.font = UIFont(name: "Lato-Light", size: 12)
-        subTitle!.text = ""
-        subTitle!.textColor = UIColor.appTextColor()
-        self.addSubview(subTitle!)
+        ypos += 22
+        streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
+        streetAddress1!.font = UIFont(name: "Lato-Light", size: 10)
+        streetAddress1!.text = "Address"
+        streetAddress1!.textColor = UIColor.appTextColor()
+        streetAddress1!.numberOfLines = 0
+        self.addSubview(streetAddress1!)
+
+        ypos += 13
+        streetAddress2 = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
+        streetAddress2!.font = UIFont(name: "Lato-Light", size: 10)
+        streetAddress2!.text = ""
+        streetAddress2!.textColor = UIColor.appTextColor()
+        self.addSubview(streetAddress2!)
+        
+        ypos += 13
+        phoneNumber = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
+        phoneNumber!.font = UIFont(name: "Lato-Light", size: 10)
+        phoneNumber!.text = ""
+        phoneNumber!.textColor = UIColor.appTextColor()
+        self.addSubview(phoneNumber!)
+        
+        ypos += 13
+        email = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
+        email!.font = UIFont(name: "Lato-Light", size: 10)
+        email!.text = ""
+        email!.textColor = UIColor.appTextColor()
+        self.addSubview(email!)
+        
+        ypos += 30
+        map = MKMapView(frame:CGRectMake(0, ypos, screenWidth, 160))
+        map!.userInteractionEnabled = false
+        map!.delegate = self
+        self.addSubview(map!)
+        
+        ypos += 165
+        xpos = (screenWidth - 170) / 2
+        emailBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Email us", iconType: BNIconType.emailMedium)
+        emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(emailBtn!)
+        
+        xpos += 60
+        callBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Call us", iconType: BNIconType.phoneMedium)
+        callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(callBtn!)
+        
+        xpos += 60
+        commentBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Call us", iconType: BNIconType.commentMedium)
+        self.addSubview(commentBtn!)
+        
+        var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
+        line.backgroundColor = UIColor.appButtonColor()
+        self.addSubview(line)
         
     }
     /*
@@ -133,9 +195,98 @@ class SiteView_Location:BNView {
     //Instance methods
     //Instance methods
     func updateForSite(site: BNSite?){
+        
         title!.textColor = site!.titleColor
         title!.text = site!.title
-        subTitle!.text = site!.subTitle
+        streetAddress1!.text = "\(site!.streetAddress1!)"
+        streetAddress1!.sizeToFit()
+        
+        var ypos:CGFloat = streetAddress1!.frame.origin.y
+        ypos += streetAddress1!.frame.height
+        
+        streetAddress2!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
+        streetAddress2!.frame.origin.y = ypos
+        ypos += 13
+        
+        
+        if site!.phoneNumber! != "" {
+            site_phoneNumber = site!.phoneNumber!
+            phoneNumber!.text = "Phone: \(site!.phoneNumber!)"
+            phoneNumber!.frame.origin.y = ypos
+            ypos += 13
+            
+            callBtn!.icon!.color = site!.titleColor!
+            callBtn!.showEnable()
+            
+        }else {
+            callBtn!.showDisable()
+        }
+ 
+        if site!.email! != "" {
+            site_email = site!.email!
+            email!.text = "email: \(site!.email!)"
+            email!.frame.origin.y = ypos
+            
+            emailBtn!.icon!.color = site!.titleColor!
+            emailBtn!.showEnable()
+            
+        } else {
+            emailBtn!.showDisable()
+            
+        }
+
+        commentBtn!.icon!.color = site!.titleColor!
+        commentBtn!.showDisable()
+        
+        let location = CLLocationCoordinate2D(
+            latitude: CLLocationDegrees(site!.latitude!),
+            longitude: CLLocationDegrees(site!.longitude!)
+        )
+        
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegion(center: location, span: span)
+        map!.setRegion(region, animated: false)
+        
+        //3
+        let annotation = MKPointAnnotation()
+        annotation.setCoordinate(location)
+        annotation.title = site!.title
+        annotation.subtitle = site!.city!
+        map!.addAnnotation(annotation)
+        
+        BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)
     }
+    
+    func call(sender:BNUIButton_Contact){
+        
+        println("call \(site_phoneNumber!)")
+        
+        if site_phoneNumber! != "" {
+            var url:NSURL = NSURL(string:"tel://\(site_phoneNumber!)")!
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    func sendMail(sender: BNUIButton_Contact) {
+        var picker = MFMailComposeViewController()
+        var toRecipents = [site_email!]
+        picker.setToRecipients(toRecipents)
+        picker.mailComposeDelegate = self
+        picker.setSubject("Hello there!")
+        picker.setMessageBody("", isHTML: true)
+        
+        (father!.father! as? MainView)?.rootViewController!.presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        (father!.father! as? MainView)?.rootViewController!.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    //MKMapViewDelegate
+    //func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        //var ann = BNMKAnnotationView(annotation:annotation, reuseIdentifier: "annotation")
+      //  return ann
+    //}
 }
 

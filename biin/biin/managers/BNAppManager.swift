@@ -44,7 +44,7 @@ class BNAppManager {
         
         if isElement {
             dataManager.elements[identifier]?.userBiined = true
-            dataManager.elements[identifier]?.biins++
+            dataManager.elements[identifier]?.biinedCount++
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements.append(dataManager.elements[identifier]!)
         
             networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)

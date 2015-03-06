@@ -10,12 +10,20 @@ class BNBiin:NSObject
 {
     var identifier:String?
     var minor:Int?
-    var bnBiinType = BNBiinType.Web
+
     var isBiinDataCorrupted:Bool = false
     var isBiinDetected:Bool = false
     
     weak var site:BNSite?
     var showcase:BNShowcase?
+
+    
+    var isWebBiin = false
+    
+    //TODO: Remove biin type and
+    var bnBiinType = BNBiinType.Web
+    
+    var state:Biin_State?
     
     override init() {
         super.init()

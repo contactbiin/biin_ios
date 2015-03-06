@@ -76,6 +76,6 @@ class SiteView_Bottom:BNView {
     
     //Instance methods
     func updateForSite(site: BNSite?){
-        pointsLbl!.text = "Points: \(site!.loyalty!.points)"
+        //pointsLbl!.text = "Points: \(site!.loyalty!.points)"
     }
 }

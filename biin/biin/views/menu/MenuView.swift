@@ -83,20 +83,20 @@ class MenuView:UIView {
         buttons.append(homeBtn!)
         buttons.append(collectionsBtn!)
         //buttons.append(loyaltyBtn!)
-        //buttons.append(notificationsBtn!)
+        buttons.append(notificationsBtn!)
         //buttons.append(inviteFriendsBtn!)
         //buttons.append(settingsBtn!)
         //buttons.append(searchBtn!)
         
         //TODO:Disable buttons for version 0.1.8
         loyaltyBtn!.enabled = false
-        notificationsBtn!.enabled = false
+        //notificationsBtn!.enabled = false
         inviteFriendsBtn!.enabled = false
         settingsBtn!.enabled = false
         searchBtn!.enabled = false
         
         loyaltyBtn!.showDisable()
-        notificationsBtn!.showDisable()
+        //notificationsBtn!.showDisable()
         inviteFriendsBtn!.showDisable()
         settingsBtn!.showDisable()
         searchBtn!.showDisable()

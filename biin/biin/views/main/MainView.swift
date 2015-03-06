@@ -59,7 +59,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         self.addSubview(categoriesView)
         state = biinieCategoriesState!
         
-        
         var siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         siteState = SiteState(context: self, view: siteView, stateType: BNStateType.SiteState)
         siteView.delegate = self

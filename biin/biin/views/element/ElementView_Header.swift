@@ -88,7 +88,7 @@ class ElementView_Header:BNView {
     //Instance methods
     func updateForElement(element:BNElement?) {
         buttonsView!.updateSocialButtonsForElement(element)
-        title!.textColor = element!.textColor
+        title!.textColor = element!.titleColor!
         title!.text = element!.title
         subTitle!.text = element!.subTitle
     }

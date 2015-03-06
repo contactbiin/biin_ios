@@ -25,7 +25,7 @@ class BNElement:NSObject {
     var nutshellDescription:String?
     
     //Colours
-    var textColor:UIColor?
+    var titleColor:UIColor?
 //    var socialButtonsColor = UIColor.whiteColor()
     
     //Hightlights - Price
@@ -64,8 +64,8 @@ class BNElement:NSObject {
     var notifications:Array<BNNotification>?
     
     //Social interaction
-    var biins:Int = 0       //How many time users have biined this element.
-    var comments:Int = 0    //How many time users have commented this element.
+    var biinedCount:Int = 0       //How many time users have biined this element.
+    var commentedCount:Int = 0    //How many time users have commented this element.
     
     var userBiined = false
     var userCommented = false
@@ -94,7 +94,7 @@ class BNElement:NSObject {
         clone.subTitle = self.subTitle?
         clone.nutshellDescriptionTitle = self.nutshellDescriptionTitle?
         clone.nutshellDescription = self.nutshellDescription?
-        clone.textColor = self.textColor?
+        clone.titleColor = self.titleColor?
         clone.hasListPrice = self.hasListPrice
         clone.listPrice = self.listPrice?
         clone.hasDiscount = self.hasDiscount
@@ -115,8 +115,8 @@ class BNElement:NSObject {
         clone.sticker = self.sticker?
         clone.activateNotification = self.activateNotification
         clone.notifications = self.notifications?
-        clone.biins = self.biins
-        clone.comments = self.comments
+        clone.biinedCount = self.biinedCount
+        clone.commentedCount = self.commentedCount
         clone.userBiined = self.userBiined
         clone.userShared = self.userShared
         clone.userCommented = self.userCommented

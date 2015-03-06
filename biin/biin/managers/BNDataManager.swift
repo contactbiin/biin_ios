@@ -25,6 +25,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var elementsRequested = Dictionary<String, BNElement>()
     var elementsBiined = Dictionary<String, String>()
     
+    var notifications = Dictionary<String, BNNotification>()
+    
     //var showcasesIdentifiersToRequest:Dictionary<String, String> = Dictionary<String, String>()
     var sharedBiins = Dictionary<String, BNBiin>()
     
@@ -56,7 +58,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             bnUser = BNUser(identifier:"", firstName: "guess", lastName:"guess", email: "guess@biinapp.com")
             bnUser!.isEmailVerified = false
             bnUser!.biinName = ""
-            //bnUser!.clear()
         }
     }
     
@@ -224,7 +225,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         for category in bnUser!.categories {
             
-            println("Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
 
             category.name = findCategoryNameByIdentifier(category.identifier!)
             
@@ -234,10 +235,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     
                     var site = BNSite()
                     site.identifier = siteDetails.identifier!
-                    site.jsonUrl = siteDetails.json!
+                    //site.jsonUrl = siteDetails.json!
                     sites[siteDetails.identifier!] = site
                     //Site does not exist, store it and request it's data.
-                    delegateNM!.manager!(self, requestSiteData: site)
+                    delegateNM!.manager!(self, requestSiteData: site, user:bnUser!)
                 }
             }
         }
@@ -263,7 +264,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedSite site: BNSite) {
         
         sites[site.identifier!] = site
-        //println("site:\(site.identifier!) biins: \(site.biins.count)")
+        println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
             println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
@@ -355,7 +356,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 var newElement = BNElement()
                 newElement.identifier = element.identifier!
                 newElement._id = element._id
-                newElement.jsonUrl = element.jsonUrl!
+                //newElement.jsonUrl = element.jsonUrl!
                 elements[newElement._id!] = newElement
                 
                 //Check is element is has been requested by it's identifier
@@ -677,9 +678,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if elementsBiined[_id] == nil {
             elementsBiined[_id] = _id
             elements[_id]!.userBiined = true
-            elements[_id]!.biins++
-            println("\(elements[_id]!.biins)")
-            return elements[_id]!.biins
+            elements[_id]!.biinedCount++
+            println("\(elements[_id]!.biinedCount)")
+            return elements[_id]!.biinedCount
             //TODO: Post user just biined an element
         }
         return 0
@@ -719,7 +720,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///
     ///:param: BNDataManager that store all data.
     ///:param: BNSite requesting the data.
-    optional func manager(manager:BNDataManager!, requestSiteData site:BNSite)
+    optional func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:BNUser)
     
     ///Request showcase's data
     ///
@@ -776,11 +777,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNElement requesting the data.
     ///:param: BNUser requesting the element's data.
     optional func manager(manager:BNDataManager!, requestElementNotificationForBNUser element:BNElement, user:BNUser)
-    
-
-
-    
-    
     
     optional func manager(manager:BNDataManager!, requestImageData stringUrl:String, image:UIImageView!)
     

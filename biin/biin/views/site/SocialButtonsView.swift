@@ -112,7 +112,7 @@ class SocialButtonsView:BNView {
         
         xpos += biinBtn!.frame.width + xSpace
         commentBtn!.frame.origin.x = xpos
-        commentBtn!.updateText("\(site!.comments)")
+        commentBtn!.updateText("\(site!.commentedCount)")
         if site!.userCommented {
             (commentBtn! as BNUIButton_Social).setActive()
         }
@@ -130,7 +130,7 @@ class SocialButtonsView:BNView {
         var xpos:CGFloat = 4
         
         
-        biinBtn!.updateText("\(element!.biins)")
+        biinBtn!.updateText("\(element!.biinedCount)")
         
         if element!.userBiined {
             (biinBtn! as BNUIButton_Social).setActive()
@@ -140,7 +140,7 @@ class SocialButtonsView:BNView {
         
         xpos += biinBtn!.frame.width + xSpace
         commentBtn!.frame.origin.x = xpos
-        commentBtn!.updateText("\(element!.comments)")
+        commentBtn!.updateText("\(element!.commentedCount)")
         if element!.userCommented {
             (commentBtn! as BNUIButton_Social).setActive()
         }

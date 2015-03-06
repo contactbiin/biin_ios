@@ -92,7 +92,7 @@ class SiteView_Showcase_Game:BNView {
                 
                 weak var element = BNAppSharedManager.instance.dataManager.elements[showcase.elements[i]._id!]
                 
-                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 35, 35), color:element!.textColor!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
+                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 35, 35), color:element!.titleColor!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
                 self.circles.append(circle)
                 self.addSubview(circle)
             }

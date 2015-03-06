@@ -41,7 +41,7 @@ class ElementMiniView_Header:BNView {
         ypos += 17
         
         if showCircle {
-            circleLabel = BNUICircleLabel(frame: CGRectMake(xpos, 24, 25, 25), color:element!.textColor!, text: "\(elementPosition)", textSize: 14, isFilled: false)
+            circleLabel = BNUICircleLabel(frame: CGRectMake(xpos, 24, 25, 25), color:element!.titleColor!, text: "\(elementPosition)", textSize: 14, isFilled: false)
             self.addSubview(circleLabel!)
             xpos += 28
             
@@ -52,7 +52,7 @@ class ElementMiniView_Header:BNView {
         
         var title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 2)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-        title.textColor = element!.textColor!
+        title.textColor = element!.titleColor!
         title.text = element!.title!
         self.addSubview(title)
         

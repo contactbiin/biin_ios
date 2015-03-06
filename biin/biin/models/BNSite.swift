@@ -29,6 +29,8 @@ class BNSite:NSObject {
     var zipCode:String?
     var streetAddress1:String?
     var streetAddress2:String?
+    var phoneNumber:String?
+    var email:String?
     
     //Gallery
     var media:Array<BNMedia> = Array<BNMedia>()
@@ -42,7 +44,7 @@ class BNSite:NSObject {
 
     //Social interaction
     var biinedCount:Int = 0   //How many time users have biined this element.
-    var comments:Int = 0    //How many time users have commented this element.
+    var commentedCount:Int = 0    //How many time users have commented this element.
     
     var userBiined = false
     var userCommented = false

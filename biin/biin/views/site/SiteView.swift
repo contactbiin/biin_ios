@@ -27,6 +27,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var elementView:ElementView?
     var isShowingElementView = false
     
+    var biinItButton:BNUIButton_BiinIt?
+    var shareItButton:BNUIButton_ShareIt?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -56,7 +59,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
-        location = SiteView_Location(frame: CGRectMake(0, screenWidth, screenHeight, 200), father: self)
+        location = SiteView_Location(frame: CGRectMake(0, screenWidth, screenHeight, 350), father: self)
         scroll!.addSubview(location!)
         
         header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
@@ -77,9 +80,20 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         informationView = SiteView_Information(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self)
         self.addSubview(informationView!)
         
+        biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
+        biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
+        scroll!.addSubview(biinItButton!)
+
+        
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - 41), 4, 37, 37))
+        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        scroll!.addSubview(shareItButton!)
+        
         elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
         elementView!.delegate = self
         self.addSubview(elementView!)
+        
+        
         
         var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
         showMenuSwipe.edges = UIRectEdge.Left
@@ -142,6 +156,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         imagesScrollView!.updateImages(site!.media)
         updateShowcases(site)
         location!.updateForSite(site)
+        
+        if site!.userBiined {
+            biinItButton!.showDisable()
+        }
     }
     
     func showInformationView(sender:BNUIButton_Information){
@@ -198,8 +216,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         //scroll!.addSubview(imagesScrollView!)
         
         var ypos:CGFloat = SharedUIManager.instance.screenWidth
-        ypos += 200 //200 for location View
-        
+
         for biin in site!.biins {
             
             var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, showcase:biin.showcase, site:site)
@@ -208,6 +225,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
             ypos += height
             ypos += 1
         }
+        
+        location!.frame.origin.y = ypos
+        ypos += 350 //200 for location View
         
         scroll!.contentSize = CGSizeMake(0, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
@@ -225,6 +245,20 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func updateLoyaltyPoints(){
         bottom!.updateForSite(site)
+    }
+    
+    func biinit(sender:BNUIButton_BiinIt){
+        println("User biined site!")
+        BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
+        header!.updateForSite(site!)
+        biinItButton!.showDisable()
+    }
+    
+    func shareit(sender:BNUIButton_ShareIt){
+        BNAppSharedManager.instance.shareit(site!.identifier!)
+        println("Show shareit options")
+        //elementMiniView!.element!.userShared = true
+        //header!.updateSocialButtonsForElement(elementMiniView!.element!)
     }
 }
 
