@@ -1043,7 +1043,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 //                        
 //                        BNAppSharedManager.instance.networkManager.requestImageData(url, image:image)
                     }
-                    
+                    /*
                     element.activateNotification = self.findBool("activateNotification", dictionary: elementData)
 
                     if (element.activateNotification){
@@ -1065,6 +1065,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     }
 //                    element.showNotification = self.findBool("showNotification", dictionary: elementData)
 //                    element.hasNotification = self.findBool("hasNotification", dictionary: elementData)
+                    */
                     element.biinedCount = self.findInt("biinedCount", dictionary: elementData)!
                     element.commentedCount = self.findInt("commentedCount", dictionary: elementData)!
                     element.userBiined = self.findBool("userBiined", dictionary: elementData)
@@ -1831,8 +1832,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     func colorFromString(color:String?)->UIColor? {
         
-        if color == nil {
-            return nil
+        if color == nil || color == "" {
+            return UIColor.appTextColor()
         }
         
         var r = ""

@@ -136,10 +136,14 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         points[0].setActive()
     }
     
-    func showNotification(quantity:Int){
+    func showNotification(){
         
-        notificationRedCircle!.setNotifitionNumber(quantity)
+        notificationRedCircle!.setNotifitionNumber(BNAppSharedManager.instance.dataManager.bnUser!.newNotificationCount!)
         //TODO: animate button and circle here
+    }
+    
+    func hideNotification(){
+        //TODO: Hide notifications here on main view
     }
     
     func showSearchView(sender:BNUIButton){

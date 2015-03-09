@@ -13,12 +13,18 @@ class BNAppManager {
     var counter = 0
     var version = "0.1.8"
     
+    var delegate:BNAppManager_Delegate?
+    
     var dataManager:BNDataManager
     var positionManager:BNPositionManager
     var networkManager:BNNetworkManager
     var errorManager:BNErrorManager
     
     var IS_PRODUCTION_RELEASE = false
+    
+    var areNewNotificationsPendingToShow = false
+    
+    var mainViewController:MainViewController?
     
     init(){
         self.counter++
@@ -99,4 +105,19 @@ class BNAppManager {
         }
         //TODO: inform backend the user remove biined element
     }
+    
+    func processNotification(notification:BNNotification){
+        areNewNotificationsPendingToShow = true
+        dataManager.bnUser!.newNotificationCount!++
+        dataManager.bnUser!.notificationIndex! = notification.identifier
+        dataManager.notifications.append(notification)
+
+        //Notify main view to show circle
+        delegate!.manager!(showNotifications: true)
+    }
+}
+
+@objc protocol BNAppManager_Delegate:NSObjectProtocol {
+    optional func manager(showNotifications value:Bool)
+    optional func manager(hideNotifications value:Bool)
 }

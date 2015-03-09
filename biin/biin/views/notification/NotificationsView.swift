@@ -19,8 +19,8 @@ class NotificationsView: BNView {
     
     var scroll:UIScrollView?
     
-    
-    
+    var notifications = Array<NotificationsView_Notification>()
+
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
@@ -160,9 +160,78 @@ class NotificationsView: BNView {
         //delegate!.hideElementView!(elementMiniView)
     }
     
-    func showNotifications(){
+    func addNotifications(){
+        
+        if notifications.count > 0 {
+            for value in notifications {
+                value.removeFromSuperview()
+            }
+            
+            notifications.removeAll(keepCapacity: false)
+        }
+
+        var ypos:CGFloat = 5
+        var height:CGFloat = 60
+        
+        BNAppSharedManager.instance.dataManager.notifications = sorted(BNAppSharedManager.instance.dataManager.notifications){ $0.identifier > $1.identifier }
+        
+        
+        for value in BNAppSharedManager.instance.dataManager.notifications {
+            
+            //if notifications[key] == nil {
+                var notification = NotificationsView_Notification(frame: CGRectMake(5, ypos, (SharedUIManager.instance.screenWidth - 10), height), father: self, notification: value)
+                self.scroll!.addSubview(notification)
+                self.notifications.append(notification)
+                
+                ypos += height
+                ypos += 5
+            //}
+        }
+        
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+    }
+    
+    func resizeScrollOnRemoved(view: ElementMiniView) {
+       /*
+        var startPosition = 0
+        
+        for var i = 0; i < elements!.count; i++ {
+            if elements![i].header!.elementPosition! == view.header!.elementPosition! {
+                startPosition = i
+                elements!.removeAtIndex(i)
+            }
+        }
+        
+        var width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
+        var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
+        
+        for var i = startPosition; i < elements!.count; i++ {
+            UIView.animateWithDuration(0.2, animations: {()->Void in
+                self.elements![i].frame.origin.x = xpos
+            })
+            
+            xpos += SharedUIManager.instance.miniView_width + spacer
+        }
+        
+        xpos += spacer
+        */
+        //        if site!.loyalty!.isSubscribed {
+        //            //Add game view
+        //            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
+        //            scroll!.addSubview(gameView!)
+        //            xpos += SharedUIManager.instance.screenWidth
+        //        } else  {
+        //            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!)
+        //            scroll!.addSubview(joinView!)
+        //            xpos += SharedUIManager.instance.screenWidth
+        //        }
+        
+//        scroll!.contentSize = CGSizeMake(xpos, 0)
+
         
     }
+
+    
 }
 
 @objc protocol NotificationsView_Delegate:NSObjectProtocol {

@@ -30,8 +30,14 @@ class BNUser:NSObject, NSCoding {
     
     var isEmailVerified:Bool?
     
+    var newNotificationCount:Int?
+    var notificationIndex:Int?
+    
     override init() {
         super.init()
+        
+        self.newNotificationCount = 0
+        self.notificationIndex = 0
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String) {
@@ -40,14 +46,14 @@ class BNUser:NSObject, NSCoding {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
+        newNotificationCount = 0
+        notificationIndex = 0
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String, gender:String) {
-        self.init()
-        self.identifier = identifier
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
+
+        self.init(identifier:identifier, firstName:firstName, lastName:lastName, email:email)
+        
         self.gender = gender
     }
     
@@ -59,6 +65,9 @@ class BNUser:NSObject, NSCoding {
         self.email  = aDecoder.decodeObjectForKey("email") as? String
         self.birthDate = aDecoder.decodeObjectForKey("birthDate") as? NSDate
         self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
+        
+        self.newNotificationCount = 0
+        self.notificationIndex = 0
     }
     
     func encodeWithCoder(aCoder: NSCoder) {

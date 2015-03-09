@@ -219,7 +219,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
 
         for biin in site!.biins {
             
-            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, showcase:biin.showcase, site:site)
+            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, biin:biin)
             scroll!.addSubview(showcaseView)
             showcases!.append(showcaseView)
             ypos += height

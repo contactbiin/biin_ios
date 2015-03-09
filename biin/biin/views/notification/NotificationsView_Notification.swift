@@ -8,12 +8,14 @@ import UIKit
 
 class NotificationsView_Notification: BNView {
     
-    var image:BNUIImageView?
+    var notificationAvatarView:UIView?
+    var notificationAvatar:BNUIImageView?
+    
     var title:UILabel?
     var text:UILabel?
+    var removeBtn:BNUIButton_RemoveIt?
     
-    weak var site:BNSite?
-    weak var element:BNElement?
+    weak var notification:BNNotification?
     
     override init() {
         super.init()
@@ -30,28 +32,59 @@ class NotificationsView_Notification: BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame)
         self.father = father
+    }
+    
+    convenience init(frame: CGRect, father: BNView?, notification:BNNotification?) {
+        self.init(frame:frame, father:father)
+        //self.site = site
+        self.notification = notification
         
         self.backgroundColor = UIColor.appMainColor()
+        self.layer.borderColor = UIColor.appButtonColor().CGColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
         
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
+        var xpos:CGFloat = ((screenHeight) / 2)
+        var ypos:CGFloat = 10
         
-        title = UILabel(frame: CGRectMake(0, 3, screenWidth, 12))
-        title!.text = "Profile"
-        title!.textColor = UIColor.appTextColor()
-        title!.font = UIFont(name: "Lato-Light", size: 10)
-        title!.textAlignment = NSTextAlignment.Center
+        notificationAvatarView = UIView(frame: CGRectMake(10, ypos, 40, 40))
+        notificationAvatarView!.layer.cornerRadius = 15
+        notificationAvatarView!.layer.borderColor = UIColor.appBackground().CGColor
+        notificationAvatarView!.layer.borderWidth = 3
+        notificationAvatarView!.layer.masksToBounds = true
+        self.addSubview(notificationAvatarView!)
+        
+        notificationAvatar = BNUIImageView(frame: CGRectMake(1, 1, 38, 38))
+        notificationAvatar!.alpha = 0
+        notificationAvatarView!.addSubview(notificationAvatar!)
+    
+        BNAppSharedManager.instance.networkManager.requestImageData(notification!.biin!.site!.media[0].url!, image: notificationAvatar)
+        
+        title = UILabel(frame: CGRectMake(55, 15, (screenWidth - 90), 14))
+        title!.text = self.notification!.title!
+        title!.textColor = notification!.biin!.site!.titleColor!
+        title!.font = UIFont(name: "Lato-Regular", size: 12)
+        title!.textAlignment = NSTextAlignment.Left
         self.addSubview(title!)
+        
+        text = UILabel(frame: CGRectMake(55, 28, (screenWidth - 90), 12))
+        text!.font = UIFont(name: "Lato-Light", size: 10)
+        text!.text = self.notification!.text!
+        text!.textColor = UIColor.appTextColor()
+        text!.numberOfLines = 0
+        self.addSubview(text!)
+        
+        text = UILabel(frame:CGRectMake((screenWidth - 30), 25, 15, 15))
+        text!.font = UIFont(name: "Lato-Light", size: 10)
+        text!.text = "\(self.notification!.identifier)"
+        text!.textColor = UIColor.bnRed()
+        self.addSubview(text!)
+        
+        removeBtn = BNUIButton_RemoveIt(frame:CGRectMake((screenWidth - 30), 5, 15, 15))
+        self.addSubview(removeBtn!)
+        
     }
-    
-    convenience init(frame: CGRect, father: BNView?, site:BNSite?) {
-        self.init(frame:frame, father:father)
-        self.site = site
-    }
-
-    convenience init(frame: CGRect, father: BNView?, element:BNElement?) {
-        self.init(frame:frame, father:father)
-        self.element = element
-    }
-    
 }

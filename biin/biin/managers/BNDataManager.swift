@@ -25,7 +25,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var elementsRequested = Dictionary<String, BNElement>()
     var elementsBiined = Dictionary<String, String>()
     
-    var notifications = Dictionary<String, BNNotification>()
+    var notifications = Array<BNNotification>()
     
     //var showcasesIdentifiersToRequest:Dictionary<String, String> = Dictionary<String, String>()
     var sharedBiins = Dictionary<String, BNBiin>()
@@ -59,6 +59,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             bnUser!.isEmailVerified = false
             bnUser!.biinName = ""
         }
+        
+        
     }
     
     deinit {

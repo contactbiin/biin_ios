@@ -152,6 +152,14 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         
     }
     
+    func showNotification(){
+        header!.showNotification()
+    }
+    
+    func hideNotification(){
+        header!.hideNotification()
+    }
+    
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView!) {
         //update header delegate categories control.

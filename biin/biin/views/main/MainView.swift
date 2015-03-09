@@ -281,6 +281,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideNotificationsView(view: NotificationsView) {
         setNextState(lastOption)
     }
+    
+    
+    func showNotification(){
+        //header!.showNotification(quantity)
+        (biinieCategoriesState!.view as BiinieCategoriesView).showNotification()
+        (notificationsState!.view as NotificationsView).addNotifications()
+    }
+    
+    func hideNotification(){
+        //header!.hideNotification()
+        (biinieCategoriesState!.view as BiinieCategoriesView).hideNotification()
+    }
 }
 
 

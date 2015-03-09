@@ -5,21 +5,35 @@
 
 import Foundation
 
+struct BNNotificationData
+{
+    static var notificationCounter = 1
+}
+
 class BNNotification:NSObject {
-    
-    var isActive:Bool?
-    var notificationType:BNNotificationType?
+
+    var identifier:Int = 1
+    var title:String?
     var text:String?
- 
+    weak var biin:BNBiin?
+    var notificationType:BNNotificationType?
+    var time:NSDate?
+
     override init(){
         super.init()
     }
     
-    convenience init(isActive:Bool, notificationType:BNNotificationType, text:String){
+    convenience init(title:String, text:String, biin:BNBiin, notificationType:BNNotificationType, time:NSDate){
         self.init()
-        self.isActive = isActive
-        self.notificationType = notificationType
+        self.identifier = BNNotificationData.notificationCounter++
+        self.title = title
         self.text = text
+        self.biin = biin
+        self.notificationType = notificationType
+        self.time = time
+        
+        let timestamp = NSDateFormatter.localizedStringFromDate(time, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
+        println("---- Notification at: \(timestamp)")
     }
     
     deinit {

@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -38,6 +38,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     func initViewController(frame:CGRect){
     
         BNAppSharedManager.instance.networkManager.delegateVC = self
+        BNAppSharedManager.instance.delegate = self
         
         mainView = MainView(frame: frame, father:nil, rootViewController: self)
         mainView!.delegate = self
@@ -257,8 +258,12 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         alert!.show()
     }
     
+    //BNAppManager_Delegate Methods
+    func manager(showNotifications value: Bool) {
+        mainView!.showNotification()
+    }
     
-    
-    
-    
+    func manager(hideNotifications value: Bool) {
+        mainView!.hideNotification()
+    }
 }
