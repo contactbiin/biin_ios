@@ -62,4 +62,14 @@ class BNUIButton_WithLabel:BNUIButton {
             break
         }
     }
+    
+    override func showEnable() {
+        icon!.color = UIColor.appIconColor()
+        self.enabled = true
+    }
+    
+    override func showDisable() {
+        icon!.color = UIColor.appButtonColor_Disable()
+        self.enabled = false
+    }
 }

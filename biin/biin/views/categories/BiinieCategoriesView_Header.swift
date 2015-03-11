@@ -90,7 +90,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         
         notificationRedCircle = BNUINotificationView_RedCircle(position: CGPoint(x: 22, y: 14))
         notificationBtn = BNUIButton_WithLabel(position: CGPoint(x:2, y: 10), text: "", iconType: BNIconType.notificationMedium, hasLabel: false)
-        notificationBtn!.addTarget(self, action: "showNotification:", forControlEvents: UIControlEvents.TouchUpInside)
+        notificationBtn!.addTarget(self, action: "showNotificationsView:", forControlEvents: UIControlEvents.TouchUpInside)
         
 //        searchBtn = BNUIButton(position: CGPoint(x: (SharedUIManager.instance.screenWidth - 45), y: 10), iconType: BNIconType.searchMedium)
 //        searchBtn!.addTarget(self, action: "showSearchView:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -99,8 +99,8 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         self.addSubview(notificationRedCircle!)
         //self.addSubview(searchBtn!)
         
-        notificationRedCircle!.setNotifitionNumber(23)
-        
+        //notificationRedCircle!.setNotifitionNumber(23)
+        hideNotification()
     }
     
     func addCategoriesPoints(){
@@ -138,12 +138,15 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     
     func showNotification(){
         
-        notificationRedCircle!.setNotifitionNumber(BNAppSharedManager.instance.dataManager.bnUser!.newNotificationCount!)
+        notificationRedCircle!.show(BNAppSharedManager.instance.dataManager.bnUser!.newNotificationCount!)
+        notificationBtn!.showEnable()
         //TODO: animate button and circle here
     }
     
     func hideNotification(){
         //TODO: Hide notifications here on main view
+        notificationBtn!.showDisable()
+        notificationRedCircle!.hide()
     }
     
     func showSearchView(sender:BNUIButton){

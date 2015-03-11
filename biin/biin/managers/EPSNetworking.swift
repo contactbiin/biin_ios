@@ -313,7 +313,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         //println("------------------------------------------------------------")
         //println("------------------------------------------------------------")
         //println("jsonString received: \(json)")
-        
+        //println("json cound: \(json!.count)")
         
         if error != nil {
             return Dictionary<String, AnyObject>()

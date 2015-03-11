@@ -62,6 +62,7 @@ class BiinieCategoriesView_Icon:UIView {
         case .education:
             break
         case .fashion:
+            icon = BNIcon_FashionSmall(color:color!, position:CGPoint(x:1, y:6))
             break
         case .music:
             break

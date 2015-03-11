@@ -108,6 +108,8 @@ class SocialButtonsView:BNView {
         
         if site!.userBiined {
             (biinBtn! as BNUIButton_Social).setActive()
+        } else {
+            (biinBtn! as BNUIButton_Social).setInactive()
         }
         
         xpos += biinBtn!.frame.width + xSpace
@@ -115,12 +117,16 @@ class SocialButtonsView:BNView {
         commentBtn!.updateText("\(site!.commentedCount)")
         if site!.userCommented {
             (commentBtn! as BNUIButton_Social).setActive()
+        } else {
+            (commentBtn! as BNUIButton_Social).setInactive()
         }
 
         xpos += commentBtn!.frame.width + xSpace
         shareBtn!.frame.origin.x = xpos
         if site!.userShared {
             (shareBtn! as BNUIButton_Social).setActive()
+        } else {
+            (shareBtn! as BNUIButton_Social).setInactive()
         }
     }
     
@@ -141,8 +147,11 @@ class SocialButtonsView:BNView {
         xpos += biinBtn!.frame.width + xSpace
         commentBtn!.frame.origin.x = xpos
         commentBtn!.updateText("\(element!.commentedCount)")
+        
         if element!.userCommented {
             (commentBtn! as BNUIButton_Social).setActive()
+        } else {
+            (commentBtn! as BNUIButton_Social).setInactive()
         }
     }
 }

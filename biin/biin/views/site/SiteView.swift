@@ -30,6 +30,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var biinItButton:BNUIButton_BiinIt?
     var shareItButton:BNUIButton_ShareIt?
     
+    var locationViewHeigh:CGFloat = 380
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -42,6 +44,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         super.init(frame: frame, father:father )
         
         self.backgroundColor = UIColor.appMainColor()
+
+        showcases = Array<SiteView_Showcase>()
         
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
@@ -59,7 +63,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
-        location = SiteView_Location(frame: CGRectMake(0, screenWidth, screenHeight, 350), father: self)
+        location = SiteView_Location(frame: CGRectMake(0, screenWidth, screenHeight, locationViewHeigh), father: self)
         scroll!.addSubview(location!)
         
         header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
@@ -159,6 +163,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         if site!.userBiined {
             biinItButton!.showDisable()
+        } else {
+            biinItButton!.showEnable()
         }
     }
     
@@ -206,10 +212,13 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         //clean()
         if showcases?.count > 0 {
+            
+            for view in showcases! {
+                view.removeFromSuperview()
+            }
+            
             showcases!.removeAll(keepCapacity: false)
         }
-        
-        showcases = Array<SiteView_Showcase>()
         
         var height:CGFloat = SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.miniView_height + 15
 
@@ -227,7 +236,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         }
         
         location!.frame.origin.y = ypos
-        ypos += 350 //200 for location View
+        ypos += locationViewHeigh //200 for location View
         
         scroll!.contentSize = CGSizeMake(0, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)

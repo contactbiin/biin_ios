@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class NotificationsView: BNView {
+class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     
     var delegate:NotificationsView_Delegate?
     var title:UILabel?
@@ -180,6 +180,7 @@ class NotificationsView: BNView {
             
             //if notifications[key] == nil {
                 var notification = NotificationsView_Notification(frame: CGRectMake(5, ypos, (SharedUIManager.instance.screenWidth - 10), height), father: self, notification: value)
+                notification.delegate = self
                 self.scroll!.addSubview(notification)
                 self.notifications.append(notification)
                 
@@ -191,7 +192,39 @@ class NotificationsView: BNView {
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
     }
     
-    func resizeScrollOnRemoved(view: ElementMiniView) {
+    
+    func resizeScrollOnRemoved(identifier: Int) {
+        
+        BNAppSharedManager.instance.dataManager.removeNotification(identifier)
+        
+        var startPosition = 0
+        for var i = 0; i < notifications.count; i++ {
+            if notifications[i].notification!.identifier == identifier {
+                startPosition = i
+                notifications[i].removeFromSuperview()
+                notifications.removeAtIndex(i)
+            }
+        }
+        
+        var width:CGFloat = (SharedUIManager.instance.screenWidth - 10)
+        var height:CGFloat = 65
+        var ypos:CGFloat = (height * CGFloat(startPosition)) + 5
+        
+        for var i = startPosition; i < notifications.count; i++ {
+            UIView.animateWithDuration(0.2, animations: {()->Void in
+                self.notifications[i].frame.origin.y = ypos
+            })
+            
+            ypos += height
+        }
+        
+        ypos += 5
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+
+    }
+    
+    
+    //func resizeScrollOnRemoved(identifier:Int) {
        /*
         var startPosition = 0
         
@@ -229,7 +262,7 @@ class NotificationsView: BNView {
 //        scroll!.contentSize = CGSizeMake(xpos, 0)
 
         
-    }
+    //}
 
     
 }

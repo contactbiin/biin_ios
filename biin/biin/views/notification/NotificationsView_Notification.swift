@@ -8,6 +8,8 @@ import UIKit
 
 class NotificationsView_Notification: BNView {
     
+    var delegate:NotificationsView_Notification_Delegate?
+    
     var notificationAvatarView:UIView?
     var notificationAvatar:BNUIImageView?
     
@@ -70,7 +72,7 @@ class NotificationsView_Notification: BNView {
         title!.textAlignment = NSTextAlignment.Left
         self.addSubview(title!)
         
-        text = UILabel(frame: CGRectMake(55, 28, (screenWidth - 90), 12))
+        text = UILabel(frame: CGRectMake(55, 29, (screenWidth - 90), 12))
         text!.font = UIFont(name: "Lato-Light", size: 10)
         text!.text = self.notification!.text!
         text!.textColor = UIColor.appTextColor()
@@ -84,7 +86,25 @@ class NotificationsView_Notification: BNView {
         self.addSubview(text!)
         
         removeBtn = BNUIButton_RemoveIt(frame:CGRectMake((screenWidth - 30), 5, 15, 15))
+        removeBtn!.addTarget(self, action: "remove:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(removeBtn!)
         
+        var tap = UITapGestureRecognizer(target: self, action: "tap:")
+        self.addGestureRecognizer(tap)
     }
+    
+    func remove(sender:BNUIButton_RemoveIt){
+        delegate!.resizeScrollOnRemoved!(notification!.identifier)
+    }
+    
+    func tap(sender:UITapGestureRecognizer){
+        println("Tap on notification: \(notification!.identifier)")
+        println("Biin: \(notification!.biin!.identifier!)")
+        println("Site: \(notification!.biin!.site!.identifier!)")
+        println("Showcase: \(notification!.biin!.showcase!.identifier!)")
+    }
+}
+
+@objc protocol NotificationsView_Notification_Delegate:NSObjectProtocol {
+    optional func resizeScrollOnRemoved(identifier:Int)
 }

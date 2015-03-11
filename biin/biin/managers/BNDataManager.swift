@@ -162,6 +162,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
 
     
+    func removeNotification(identifier:Int){
+        for var i = 0; i < notifications.count; i++ {
+            if notifications[i].identifier == identifier {
+                notifications.removeAtIndex(i)
+                return
+            }
+        }
+    }
     
     
     //BNNetworkManagerDelegate

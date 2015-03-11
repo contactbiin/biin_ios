@@ -18,7 +18,8 @@ class BNNotification:NSObject {
     weak var biin:BNBiin?
     var notificationType:BNNotificationType?
     var time:NSDate?
-
+    var isViewed = false
+    
     override init(){
         super.init()
     }

@@ -84,10 +84,15 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.loadingView!.alpha = 0
-            self.enterBtn!.alpha = 1
-        })
+        
+        if value {
+            UIView.animateWithDuration(0.5, animations: {()-> Void in
+                self.loadingView!.alpha = 0
+                self.enterBtn!.alpha = 1
+            })
+        } else {
+             self.enterBtn!.alpha = 0
+        }
     }
     
     

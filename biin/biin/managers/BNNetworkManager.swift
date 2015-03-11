@@ -1667,9 +1667,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         
         println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier)")
         
-        if requests.count == 1 {
+        if requests.count == 0 {
             println("NOT requests pending: \(self.requests.count)")
             self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
+        } else {
+            self.delegateVC!.manager!(self, didReceivedAllInitialData: false)
         }
         
     }

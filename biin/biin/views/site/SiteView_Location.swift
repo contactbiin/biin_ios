@@ -71,10 +71,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         siteAvatar!.layer.cornerRadius = 30
         siteAvatar!.layer.masksToBounds = true
         siteAvatarView!.addSubview(siteAvatar!)
-        BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: siteAvatar)
+        
+        //BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: siteAvatar)
 
         xpos += 100
-        ypos += 10
+        ypos += 5
         
         title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 20))
         title!.font = UIFont(name: "Lato-Regular", size: 22)
@@ -111,13 +112,16 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         email!.textColor = UIColor.appTextColor()
         self.addSubview(email!)
         
-        ypos += 30
-        map = MKMapView(frame:CGRectMake(0, ypos, screenWidth, 160))
+        ypos += 35
+        map = MKMapView(frame:CGRectMake(10, ypos, (screenWidth - 20), 160))
         map!.userInteractionEnabled = false
+        map!.layer.cornerRadius = 3
+        map!.layer.borderColor = UIColor.appBackground().CGColor
+        map!.layer.borderWidth = 1
         map!.delegate = self
         self.addSubview(map!)
         
-        ypos += 165
+        ypos += 180
         xpos = (screenWidth - 170) / 2
         emailBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Email us", iconType: BNIconType.emailMedium)
         emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -135,6 +139,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         self.addSubview(line)
+        
+        println("\(ypos)")
         
     }
     /*
@@ -197,8 +203,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     func updateForSite(site: BNSite?){
         
         title!.textColor = site!.titleColor
-        title!.text = site!.title
+        title!.text = site!.title!
+
         streetAddress1!.text = "\(site!.streetAddress1!)"
+        streetAddress1!.numberOfLines = 0
         streetAddress1!.sizeToFit()
         
         var ypos:CGFloat = streetAddress1!.frame.origin.y
@@ -206,6 +214,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         streetAddress2!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
         streetAddress2!.frame.origin.y = ypos
+        
         ypos += 13
         
         
