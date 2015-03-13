@@ -66,11 +66,11 @@ class ElementMiniView_Header:BNView {
     }
     
     override func transitionIn() {
-        println("trasition in on ElementMiniView_Header")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on ElementMiniView_Header")
+
     }
     
     override func setNextState(option:Int){
@@ -80,7 +80,7 @@ class ElementMiniView_Header:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: ElementMiniView_Header")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -88,7 +88,7 @@ class ElementMiniView_Header:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: ElementMiniView_Header")
+
         }else{
             father!.updateUserControl(position)
         }

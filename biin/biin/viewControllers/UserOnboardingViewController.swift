@@ -19,8 +19,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        println("SingupViewController - viewDidLoad()")
+    
         BNAppSharedManager.instance.networkManager.delegateVC = self
         
         self.view.layer.cornerRadius = 5

@@ -106,7 +106,6 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     }
     
     override func transitionIn() {
-        println("trasition in on NotificationsView")
         
         UIView.animateWithDuration(0.25, animations: {()->Void in
             self.frame.origin.x = 0
@@ -114,7 +113,6 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on NotificationsView")
         state!.action()
         
         if state!.stateType == BNStateType.BiinieCategoriesState
@@ -140,7 +138,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: NotificationsView")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -148,7 +146,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: NotificationsView")
+
         }else{
             father!.updateUserControl(position)
         }

@@ -25,6 +25,26 @@ class BNUIPricesView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
+
+    convenience init(frame: CGRect, listPrice:String ) {
+        self.init(frame: frame)
+        
+        self.backgroundColor = UIColor.appMainColor()
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
+        
+        self.oldPrice = UILabel(frame: CGRectMake(10, 5, self.frame.width, 12))
+        self.oldPrice!.textColor = UIColor.appTextColor()
+        self.oldPrice!.textAlignment = NSTextAlignment.Left
+        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:10)
+        self.oldPrice!.text = listPrice
+        self.oldPrice!.sizeToFit()
+        self.addSubview(self.oldPrice!)
+        
+        var width:CGFloat = self.oldPrice!.frame.width + 15
+        
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
+    }
     
     convenience init(frame: CGRect, oldPrice:String, newPrice:String) {
         self.init(frame: frame)
@@ -56,8 +76,6 @@ class BNUIPricesView:UIView {
             width = self.oldPrice!.frame.width + 15
 
         }
-        
-        println("\(self.oldPrice!.frame.width)")
         
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
         

@@ -28,6 +28,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var callBtn:BNUIButton_Contact?
     var commentBtn:BNUIButton_Contact?
     
+    var siteLocation:CLLocationCoordinate2D?
+    var annotation:MKPointAnnotation?
+
     override init() {
         super.init()
     }
@@ -121,6 +124,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         map!.delegate = self
         self.addSubview(map!)
         
+        siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
+    
+        annotation = MKPointAnnotation()
+        annotation!.setCoordinate(siteLocation!)
+        annotation!.title = "Annotation title"
+        annotation!.subtitle = "Annotation subtitle"
+        
+        map!.addAnnotation(annotation!)
+        
         ypos += 180
         xpos = (screenWidth - 170) / 2
         emailBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Email us", iconType: BNIconType.emailMedium)
@@ -139,8 +151,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         self.addSubview(line)
-        
-        println("\(ypos)")
         
     }
     /*
@@ -170,11 +180,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     }
     */
     override func transitionIn() {
-        println("trasition in on SiteView_Location")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView_Location")
+
     }
     
     override func setNextState(option:Int){
@@ -184,7 +194,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteView_Location")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -192,7 +202,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteView_Location")
+
         }else{
             father!.updateUserControl(position)
         }
@@ -205,6 +215,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         title!.textColor = site!.titleColor
         title!.text = site!.title!
 
+        var headerWidth = SharedUIManager.instance.screenWidth - 30
+        streetAddress1!.frame = CGRectMake(streetAddress1!.frame.origin.x, streetAddress1!.frame.origin.y, (headerWidth - 95), 12)
         streetAddress1!.text = "\(site!.streetAddress1!)"
         streetAddress1!.numberOfLines = 0
         streetAddress1!.sizeToFit()
@@ -246,29 +258,21 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 
         commentBtn!.icon!.color = site!.titleColor!
         commentBtn!.showDisable()
+       
         
-        let location = CLLocationCoordinate2D(
-            latitude: CLLocationDegrees(site!.latitude!),
-            longitude: CLLocationDegrees(site!.longitude!)
-        )
+        siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
         
         let span = MKCoordinateSpanMake(0.1, 0.1)
-        let region = MKCoordinateRegion(center: location, span: span)
+        let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
         
-        //3
-        let annotation = MKPointAnnotation()
-        annotation.setCoordinate(location)
-        annotation.title = site!.title
-        annotation.subtitle = site!.city!
-        map!.addAnnotation(annotation)
+        
+        annotation!.setCoordinate(siteLocation!)
         
         BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)
     }
     
     func call(sender:BNUIButton_Contact){
-        
-        println("call \(site_phoneNumber!)")
         
         if site_phoneNumber! != "" {
             var url:NSURL = NSURL(string:"tel://\(site_phoneNumber!)")!
@@ -293,9 +297,23 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     
     //MKMapViewDelegate
-    //func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        //var ann = BNMKAnnotationView(annotation:annotation, reuseIdentifier: "annotation")
-      //  return ann
-    //}
+    /*
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        var dequeedAnnotation = mapView.dequeueReusableAnnotationViewWithIdentifier("sitePin")
+        println("\(dequeedAnnotation.reuseIdentifier!)")
+        
+        
+        if dequeedAnnotation != nil {
+            dequeedAnnotation.annotation = annotation
+            return dequeedAnnotation
+        }else {
+            dequeedAnnotation = MKAnnotationView(annotation:annotation, reuseIdentifier: "sitePin")
+            dequeedAnnotation.canShowCallout = false
+            dequeedAnnotation.image = UIImage(named: "mapIcon.png")
+        }
+       return dequeedAnnotation
+    }
+    */
 }
 

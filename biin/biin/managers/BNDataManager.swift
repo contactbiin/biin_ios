@@ -69,8 +69,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestInitialData(){
         
-        println("****   requestInitialData")
-        
         //Verified email
         //if !bnUser!.isEmailVerified! {
             //delegateNM!.manager!(self, checkIsEmailVerified: bnUser!.identifier!)
@@ -86,7 +84,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //delegateNM!.manager!(self, requestBoardsForBNUser:bnUser!)
         
         //2. Request user categories data.
-        delegateNM!.manager!(self, requestCategoriesData:bnUser!)
+        //delegateNM!.manager!(self, requestCategoriesData:bnUser!)
+        
+//        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:         regions["bnHome"]!)
 
     }
     
@@ -189,7 +189,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
-        println("didReceivedUserIdentifier \(idetifier!)")
         bnUser!.identifier = idetifier
         bnUser!.save()
     }
@@ -213,7 +212,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
+        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:         self.regions["bnHome"]!)
+        
         if self.regions.count > 0 {
+            //TESTING
+        
+            
             self.delegatePM!.manager!(self, startRegionsMonitoring:Array(self.regions.values))
         }
 
@@ -235,7 +239,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         for category in bnUser!.categories {
             
-            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            //println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
 
             category.name = findCategoryNameByIdentifier(category.identifier!)
             
@@ -274,7 +278,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedSite site: BNSite) {
         
         sites[site.identifier!] = site
-        println("site:\(site.identifier!) biins: \(site.biins.count)")
+        //println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
             println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
@@ -395,7 +399,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: Network manager that handled the request.
     ///:param: BNElement received from web service in json format already parse in an element object.
     func manager(manager: BNNetworkManager!, didReceivedElement element: BNElement) {
-        println("Received element: \(element.identifier!) id:\(element._id?) media \(element.media.count)")
+        //println("Received element: \(element.identifier!) id:\(element._id?) media \(element.media.count)")
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
@@ -426,7 +430,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     ///Receives a notification for a element.
     func manager(manager:BNNetworkManager!, didReceivedElementNotification notification:String, element:BNElement) {
-        println("Received element notification update: \(element.identifier)")
+        //println("Received element notification update: \(element.identifier)")
     }
     
     
@@ -582,7 +586,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
         
-        println("Received collections: \(collectionList.count)")
+        //println("Received collections: \(collectionList.count)")
         
         if collectionList.count > 0 {
             
@@ -634,12 +638,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manager(manager:BNPositionManager!, startEnterRegionProcessWithIdentifier identifier:String)
     {
-        println("** Requesting data for region: \(identifier)")
+        //println("** Requesting data for region: \(identifier)")
         
         if self.delegateNM is BNNetworkManagerDelegate
         {
             
-            println("Requesting data for region: \(identifier)")
+            //println("Requesting data for region: \(identifier)")
             self.delegateNM!.manager!(self, requestRegionData: identifier)
             self.currentRegionIdentifier = identifier
 //            self.viewController?.reloadTable(self.regions[identifier]?.biins, dataManager:self)
@@ -689,7 +693,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             elementsBiined[_id] = _id
             elements[_id]!.userBiined = true
             elements[_id]!.biinedCount++
-            println("\(elements[_id]!.biinedCount)")
             return elements[_id]!.biinedCount
             //TODO: Post user just biined an element
         }
@@ -725,6 +728,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNUser requesting the data.
     optional func manager(manager:BNDataManager!, requestCategoriesData user:BNUser)
     
+    
+    ///Request user categories.
+    ///
+    ///:param: BNDataManager that store all data.
+    ///:param: BNUser requesting the data.
+    optional func manager(manager:BNDataManager!, requestCategoriesDataByBiinieAndRegion user:BNUser, region:BNRegion)
     
     ///Request a site's data
     ///

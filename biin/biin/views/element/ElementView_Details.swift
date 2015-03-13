@@ -68,12 +68,28 @@ class ElementView_Details:BNView {
             showBenefitDescription = true
         }
         
+        
+        var ySpacer:CGFloat = 20
         //Pricing Stickers
-        if element!.hasListPrice {
+        if element!.hasListPrice && !element!.hasDiscount {
+            //TODO
             ypos += 32
+            ySpacer = 57
+            
+            var priceStickerView = BNUIDetailView_Price(position: CGPointMake(5, ypos), listPrice:element!.listPrice, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            self.addSubview(priceStickerView)
+
+            
+        } else if element!.hasListPrice {
+            
+            ypos += 32
+            ySpacer = 92
+            
             var priceStickerView = BNUIDetailView_Price(position: CGPointMake(5, ypos), price:element!.price, listPrice:element!.listPrice, discount:element!.discount, savings: element!.savings, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(priceStickerView)
+            
             showBenefitDescription = true
+            
             if !element!.hasQuantity {
                 ypos += 50
             }
@@ -81,11 +97,13 @@ class ElementView_Details:BNView {
         
         //Quantity Stickers
         if element!.hasQuantity {
-            if element!.hasListPrice {
-                ypos += 92
-            } else {
-                ypos += 20
-            }
+//            if element!.hasListPrice {
+//                ypos += 92
+//            } else {
+//                ypos += 20
+//            }
+            
+            ypos += ySpacer
             
             var boxWidth = (SharedUIManager.instance.screenWidth - 14) / 3
             var quantityStickerView = BNUIDetailView_Quantity(position: CGPointMake(5, ypos), title:"QUANTITY", value:element!.quantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
@@ -207,11 +225,11 @@ class ElementView_Details:BNView {
     }
     
     override func transitionIn() {
-        println("trasition in on ElementView_Details")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on ElementView_Details")
+
     }
     
     override func setNextState(option:Int){
@@ -221,7 +239,7 @@ class ElementView_Details:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: ElementView_Details")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -229,7 +247,7 @@ class ElementView_Details:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: ElementView_Details")
+
         }else{
             father!.updateUserControl(position)
         }

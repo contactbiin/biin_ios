@@ -21,7 +21,6 @@ class SiteView_Showcase_Game:BNView {
     
     deinit {
         circles.removeAll(keepCapacity: false)
-        println("deinit on elementView")
     }
     
     override init(frame: CGRect) {
@@ -180,12 +179,12 @@ class SiteView_Showcase_Game:BNView {
     
     /* Overide methods from BNView */
     override func transitionIn() {
-        println("trasition in on ElementView")
+
         
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on ElementView")
+
     }
     
     override func setNextState(option:Int){

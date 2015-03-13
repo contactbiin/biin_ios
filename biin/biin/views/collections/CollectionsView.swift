@@ -116,15 +116,12 @@ class CollectionsView: BNView, ElementView_Delegate {
     }
     
     override func transitionIn() {
-        println("trasition in on CollectionsView")
-        
         UIView.animateWithDuration(0.25, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on CollectionsView")
         state!.action()
         
         if state!.stateType == BNStateType.BiinieCategoriesState
@@ -156,7 +153,7 @@ class CollectionsView: BNView, ElementView_Delegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: CollectionsView")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -164,7 +161,7 @@ class CollectionsView: BNView, ElementView_Delegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: CollectionsView")
+
         }else{
             father!.updateUserControl(position)
         }
@@ -211,7 +208,6 @@ class CollectionsView: BNView, ElementView_Delegate {
     }
     
     func showElementView(elementMiniView:ElementMiniView?){
-        println("show elementView window")
         
         elementView!.updateElementData(elementMiniView)
         

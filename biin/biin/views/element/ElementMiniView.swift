@@ -88,7 +88,7 @@ class ElementMiniView: BNView {
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(shareItButton!)
         
-        var ypos = SharedUIManager.instance.siteView_headerHeight + 5
+        var ypos:CGFloat = SharedUIManager.instance.siteView_headerHeight - 5
         
         if self.element!.hasDiscount {
             discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
@@ -96,7 +96,12 @@ class ElementMiniView: BNView {
             ypos += 40
         }
         
-        if self.element!.hasListPrice  {
+        if self.element!.hasListPrice && !self.element!.hasDiscount {
+            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: self.element!.listPrice!)
+            self.addSubview(priceView!)
+
+        } else if self.element!.hasListPrice {
+            
             priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: self.element!.listPrice!, newPrice: self.element!.price!)
             self.addSubview(priceView!)
         }
@@ -113,11 +118,11 @@ class ElementMiniView: BNView {
     }
     
     override func transitionIn() {
-        println("trasition in on SiteMiniView")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteMiniView")
+
     }
     
     override func setNextState(option:Int){
@@ -127,7 +132,7 @@ class ElementMiniView: BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteMiniView")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -135,7 +140,7 @@ class ElementMiniView: BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteMiniView")
+
         }else{
             father!.updateUserControl(position)
         }
@@ -161,23 +166,17 @@ class ElementMiniView: BNView {
     
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.biinit(element!._id!, isElement:true)
-        println("Show biinit options")
-//        element!.biins++
-//        element!.userBiined = true
-        header!.updateSocialButtonsForElement(element!)
-        
+        header!.updateSocialButtonsForElement(element!)        
         biinItButton!.showDisable()
     }
     
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareit(element!._id!)
-        println("Show shareit options")
         element!.userShared = true
         header!.updateSocialButtonsForElement(element!)
     }
     
     func unBiinit(sender:BNUIButton_ShareIt){
-        println("Remove from collection")
         
         UIView.animateWithDuration(0.1, animations: {()->Void in
                 self.alpha = 0

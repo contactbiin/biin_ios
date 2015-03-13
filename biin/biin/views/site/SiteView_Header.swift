@@ -81,11 +81,11 @@ class SiteView_Header:BNView {
     }
     */
     override func transitionIn() {
-        println("trasition in on SiteView_Header")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView_Header")
+
     }
     
     override func setNextState(option:Int){
@@ -95,7 +95,7 @@ class SiteView_Header:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteView_Header")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -103,7 +103,7 @@ class SiteView_Header:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteView_Header")
+
         }else{
             father!.updateUserControl(position)
         }

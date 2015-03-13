@@ -57,11 +57,11 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     }
     
     override func transitionIn() {
-        println("trasition in on CategoriesView_Header")
+        
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on CategoriesView_Header")
+        
     }
     
     override func setNextState(option:Int){
@@ -71,7 +71,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: CategoriesView_Header")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -79,7 +79,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: CategoriesView_Header")
+
         }else{
             father!.updateUserControl(position)
         }
@@ -159,7 +159,6 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     
     func updateCategoriesControl(view: BiinieCategoriesView, position: CGFloat) {
         //TODO: update categories control here.
-        //println("position: \(position)")
         //aView!.frame.origin.x = position
     }
     

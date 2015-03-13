@@ -92,7 +92,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     func login(email:String, password:String){
-        println("Trying login for (\(email))")
 
         var request:BNRequest?
         
@@ -599,6 +598,28 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
     
+    
+    func manager(manager: BNDataManager!, requestCategoriesDataByBiinieAndRegion user: BNUser, region: BNRegion) {
+        
+        //https://biin-qa.herokuapp.com/mobile/biinies/0742cc4b-cc5e-48cb-ab86-9acbc2577548/bnHome/categories
+        
+        var request:BNRequest?
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+        } else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+        }
+        self.requests[request!.identifier] = request
+        
+        if !isRequestTimerAllow {
+            self.requestUserCategoriesData(request!)
+        }
+        
+    }
+    
+    
+    
+    
 
     ///Conforms optional func manager(manager:BNDataManager!, requestUserCategoriesData user:BNUser) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestCategoriesData user:BNUser) {
@@ -727,14 +748,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///:param: The request to be process.
     func requestSiteData(request:BNRequest) {
         
-        
-        println("requestSiteData()")
-        
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
                 println("Error on requestSiteData()")
+                println("\(error!.description)")
                 self.handleFailedRequest(request, error: error? )
             } else {
                 
@@ -743,7 +762,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     var site = BNSite()
                     site.jsonUrl = request.requestString
                     site.identifier = self.findString("identifier", dictionary: dataData)
-                    println("SITE: \(site.identifier!)")
                     site.proximityUUID = self.findNSUUID("proximityUUID", dictionary: dataData)
                     site.major = self.findInt("major", dictionary: dataData)
                     site.title = self.findString("title", dictionary: dataData)
@@ -830,7 +848,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///Conforms optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) {
         
-        println("requestShowcaseData for:\(showcase.identifier!) ")
+        //println("requestShowcaseData for:\(showcase.identifier!) ")
         
         
         //https://biin-qa.herokuapp.com/mobile/showcases/6d6c93b1-2877-41a6-ac40-ec41a9a50be0
@@ -870,6 +888,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on showcase data")
+                println("\(error!.description)")
                 self.handleFailedRequest(request, error: error? )
             } else {
                 
@@ -914,7 +933,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///Conforms optional     optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) {
         
-        println("requestElementDataForBNUser for:\(element.identifier!) ")
+        //println("requestElementDataForBNUser for:\(element.identifier!) ")
 
         //https://biin-qa.herokuapp.com/mobile/biinies/e34b20e1-b21e-4681-85aa-096dac49c6a7/elements/f67d57a2-7de4-4e3f-ad72-dacd7f5b504a
         
@@ -965,7 +984,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     var element = BNElement()
                     element.isDownloadCompleted = true
                     element.identifier = self.findString("identifier", dictionary: elementData)
-                    println("****** \(element.identifier!)")
                     element.elementType = self.findBNElementType("elementType", dictionary: elementData)
                     element.position = self.findInt("position", dictionary: elementData)
                     element.title = self.findString("title", dictionary: elementData)
@@ -1472,7 +1490,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     func requestImageData(stringUrl:String, image:BNUIImageView!) {
 
-        println("image url:\(stringUrl)")
+        //println("image url:\(stringUrl)")
         
         var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
         self.requests[request.identifier] = request
@@ -1660,12 +1678,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     func removeRequestOnCompleted(identifier:Int){
-        println("Remove requests \(identifier)")
+        //println("Remove requests \(identifier)")
         requests.removeValueForKey(identifier)
         requestAttempts = 0
         
         
-        println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier)")
+        //println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier)")
         
         if requests.count == 0 {
             println("NOT requests pending: \(self.requests.count)")

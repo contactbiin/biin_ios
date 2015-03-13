@@ -22,7 +22,6 @@ class ProfileState:BNState {
     }
     
     override func next( state:BNState? ) {
-        println("goto state: \(state)")
         context!.state = state
         view!.transitionOut( context!.state )
     }

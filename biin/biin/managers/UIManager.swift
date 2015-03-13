@@ -209,8 +209,6 @@ class UIManager {
     
     func isValidEmail(testStr:String) -> Bool {
         
-        println("validate email: \(testStr)")
-        
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         
         if let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx) {

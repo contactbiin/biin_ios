@@ -31,6 +31,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var shareItButton:BNUIButton_ShareIt?
     
     var locationViewHeigh:CGFloat = 380
+    var panIndex = 0
+    var scrollSpaceForShowcases:CGFloat = 0
+    
+    var showcaseHeight:CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,6 +62,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
         scroll!.backgroundColor = UIColor.appBackground()
+        scroll!.delegate = self
         self.addSubview(scroll!)
         
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
@@ -109,15 +114,13 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     override func transitionIn() {
-        println("trasition in on SiteView")
-        
+    
         UIView.animateWithDuration(0.3, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView")
         state!.action()
         
         if state!.stateType == BNStateType.BiinieCategoriesState {
@@ -134,7 +137,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteView")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -142,7 +145,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteView")
+
         }else{
             father!.updateUserControl(position)
         }
@@ -184,7 +187,6 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func showElementView(elementMiniView:ElementMiniView?){
-        println("show elementView window")
         
         elementView!.updateElementData(elementMiniView)
         
@@ -220,21 +222,23 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
             showcases!.removeAll(keepCapacity: false)
         }
         
-        var height:CGFloat = SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.miniView_height + 15
+        showcaseHeight = SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.miniView_height + 15
 
         //scroll!.addSubview(imagesScrollView!)
         
         var ypos:CGFloat = SharedUIManager.instance.screenWidth
-
+        scrollSpaceForShowcases = 0
+        
         for biin in site!.biins {
             
-            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, biin:biin)
+            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, biin:biin)
             scroll!.addSubview(showcaseView)
             showcases!.append(showcaseView)
-            ypos += height
+            ypos += showcaseHeight
             ypos += 1
         }
-        
+
+        scrollSpaceForShowcases = ypos
         location!.frame.origin.y = ypos
         ypos += locationViewHeigh //200 for location View
         
@@ -242,7 +246,43 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.bounces = false
         scroll!.pagingEnabled = false
+        
+        if showcases!.count > 0 {
+            showcases![0].getToWork()
+        }
+        
+        println("scrollSpaceForShowcases: \(scrollSpaceForShowcases)")
+        
     }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
+        
+        var imagesHeight = SharedUIManager.instance.screenWidth
+        var page:Int = 0
+        var ypos:CGFloat = floor(scrollView.contentOffset.y)
+        
+        if (ypos - imagesHeight) > 0 {
+            page = Int(floor(ypos / showcaseHeight))
+            
+            if page != panIndex {
+                panIndex = page
+                
+                for showcase in showcases! {
+                    showcase.getToRest()
+                }
+                
+                if panIndex < showcases!.count {
+                    showcases![panIndex].getToWork()
+                }
+            }
+            
+        }
+    }// called when scroll view grinds to a halt
+    
+    /* UIScrollViewDelegate Methods */
+    func scrollViewDidScroll(scrollView: UIScrollView!) {
+        
+    }// any offset changes
     
     func clean(){
         for view in self.scroll!.subviews {
@@ -257,7 +297,6 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func biinit(sender:BNUIButton_BiinIt){
-        println("User biined site!")
         BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
         header!.updateForSite(site!)
         biinItButton!.showDisable()
@@ -265,9 +304,6 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareit(site!.identifier!)
-        println("Show shareit options")
-        //elementMiniView!.element!.userShared = true
-        //header!.updateSocialButtonsForElement(elementMiniView!.element!)
     }
 }
 

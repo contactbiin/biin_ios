@@ -61,7 +61,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     }
     
     override func transitionIn() {
-        println("trasition in on BiinieCategoriesView")
         
         UIView.animateWithDuration(0.4, animations: {()->Void in
             self.fade!.alpha = 0
@@ -69,7 +68,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on BiinieCategoriesView")
         
         UIView.animateWithDuration(0.2, animations: {()->Void in
             self.fade!.alpha = 0.25
@@ -85,7 +83,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: BiinieCategoriesView")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -93,7 +90,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: BiinieCategoriesView")
+            
         }else{
             father!.updateUserControl(position)
         }
@@ -147,7 +144,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         
         if categorySitesContainers!.count > 0 {
             categorySitesContainers![0].getToWork()
-            categorySitesContainers![0].manageSitesImageRequest()
+            //categorySitesContainers![0].manageSitesImageRequest()
         }
         
     }
@@ -168,7 +165,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     // called on start of dragging (may require some time and or distance to move)
     func scrollViewWillBeginDragging(scrollView: UIScrollView!) {
-        //println("scrollViewWillBeginDragging")
         //handlePan(scrollView.panGestureRecognizer)
         var mainView = father! as MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
@@ -176,16 +172,13 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
     func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        //println("scrollViewWillEndDragging")
     }
     
     // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
     func scrollViewDidEndDragging(scrollView: UIScrollView!, willDecelerate decelerate: Bool) {
-        //println("scrollViewDidEndDragging")
     }
     
     func scrollViewWillBeginDecelerating(scrollView: UIScrollView!) {
-        //println("scrollViewWillBeginDecelerating")
     }// called on finger up as we are moving
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
@@ -218,16 +211,13 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     }// called when scroll view grinds to a halt
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView!) {
-        //println("scrollViewDidEndScrollingAnimation")
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView!) -> Bool {
-        //println("scrollViewShouldScrollToTop")
         return true
     }// return a yes if you want to scroll to the top. if not defined, assumes YES
     
     func scrollViewDidScrollToTop(scrollView: UIScrollView!) {
-        //println("scrollViewDidScrollToTops")
     }// called when scrolling animation finished. may be called immediately if already at top
 
 }

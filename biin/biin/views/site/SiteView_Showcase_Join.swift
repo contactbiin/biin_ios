@@ -18,7 +18,7 @@ class SiteView_Showcase_Join:BNView {
     }
     
     deinit {
-        println("deinit on SiteView_Showcase_Join")
+
     }
     
     override init(frame: CGRect) {
@@ -61,12 +61,12 @@ class SiteView_Showcase_Join:BNView {
     
     /* Overide methods from BNView */
     override func transitionIn() {
-        println("trasition in on SiteView_Showcase_Join")
+
         
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView_Showcase_Join")
+
     }
     
     override func setNextState(option:Int){

@@ -123,9 +123,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //App methods
     func setDeviceType(screenWidth:CGFloat, screenHeight:CGFloat){
         
-        println("screen width: \(screenWidth)")
-        println("screen height: \(screenHeight)")
-        
         var uiManager = SharedUIManager.instance
         uiManager.screenWidth = screenWidth
         uiManager.screenHeight = screenHeight

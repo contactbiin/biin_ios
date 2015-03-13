@@ -34,6 +34,24 @@ class BNUIDetailView_Price:UIView {
         super.init(coder: aDecoder)
     }
     
+    convenience init(position:CGPoint, listPrice:String?, textColor:UIColor, borderColor:UIColor) {
+
+        var width = (SharedUIManager.instance.screenWidth - 10)
+        var frame = CGRectMake(position.x, position.y, width, 55)
+        self.init(frame:frame)
+        
+        self.layer.borderColor = borderColor.CGColor
+        self.layer.borderWidth = 0.5
+        
+        self.price = UILabel(frame: CGRectMake(0, 10, width, 35))
+        self.price!.text = listPrice
+        self.price!.textAlignment = NSTextAlignment.Center
+        self.price!.font = UIFont(name: "Lato-Black", size: 35)
+        self.price!.textColor = textColor
+        self.addSubview(self.price!)
+        
+    }
+    
     convenience init(position:CGPoint, price:String?, listPrice:String?, discount:String?, savings:String?, textColor:UIColor, borderColor:UIColor) {
         
         var width = (SharedUIManager.instance.screenWidth - 10)

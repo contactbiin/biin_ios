@@ -70,11 +70,11 @@ class SocialButtonsView:BNView {
     }
     
     override func transitionIn() {
-        println("trasition in on SocialButtonsView")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SocialButtonsView")
+
     }
     
     override func setNextState(option:Int){
@@ -84,7 +84,7 @@ class SocialButtonsView:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SocialButtonsView")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -92,7 +92,7 @@ class SocialButtonsView:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SocialButtonsView")
+
         }else{
             father!.updateUserControl(position)
         }

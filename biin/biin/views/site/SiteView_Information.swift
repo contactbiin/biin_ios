@@ -5,10 +5,14 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-class SiteView_Information:BNView {
+
+class SiteView_Information:BNView, MKMapViewDelegate {
     
     var backBtn:UIButton?
+    
+    var debugingMap:MKMapView?
     
     override init() {
         super.init()
@@ -30,14 +34,22 @@ class SiteView_Information:BNView {
         backBtn!.addTarget(father, action: "hideInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.backgroundColor = UIColor.redColor()
         self.addSubview(backBtn!)
+        
+        debugingMap = MKMapView(frame:frame)
+        debugingMap!.userInteractionEnabled = false
+        debugingMap!.layer.cornerRadius = 3
+        debugingMap!.layer.borderColor = UIColor.appBackground().CGColor
+        debugingMap!.layer.borderWidth = 1
+        debugingMap!.delegate = self
+        self.addSubview(debugingMap!)
     }
     
     override func transitionIn() {
-        println("trasition in on SiteView_Bottom")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView_Bottom")
+
     }
     
     override func setNextState(option:Int){
@@ -47,7 +59,7 @@ class SiteView_Information:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteView_Bottom")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -55,7 +67,7 @@ class SiteView_Information:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteView_Bottom")
+
         }else{
             father!.updateUserControl(position)
         }

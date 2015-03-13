@@ -90,11 +90,11 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     }
     
     override func transitionIn() {
-        println("trasition in on SiteView_Showcase")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView_Showcase")
+
     }
     
     override func setNextState(option:Int){
@@ -104,7 +104,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteView_Showcase")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -112,7 +112,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteView_Showcase")
+
         }else{
             father!.updateUserControl(position)
         }
@@ -172,13 +172,12 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView!) {
-        //        println("scrollViewDidScroll")
         manageElementMiniViewImageRequest()
     }// any offset changes
     
     // called on start of dragging (may require some time and or distance to move)
     func scrollViewWillBeginDragging(scrollView: UIScrollView!) {
-        //println("scrollViewWillBeginDragging")
+
         //handlePan(scrollView.panGestureRecognizer)
         var mainView = father!.father! as MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
@@ -186,20 +185,20 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
     func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        //println("scrollViewWillEndDragging")
+
     }
     
     // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
     func scrollViewDidEndDragging(scrollView: UIScrollView!, willDecelerate decelerate: Bool) {
-        //        println("scrollViewDidEndDragging \(decelerate)")
+
     }
     
     func scrollViewWillBeginDecelerating(scrollView: UIScrollView!) {
-        //println("scrollViewWillBeginDecelerating")
+
     }// called on finger up as we are moving
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
-        println("scrollViewDidEndDecelerating")
+
         /*
         if showcase!.isShowcaseGameCompleted {
             return
@@ -268,16 +267,16 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     }
     */
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView!) {
-        //println("scrollViewDidEndScrollingAnimation")
+
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView!) -> Bool {
-        //println("scrollViewShouldScrollToTop")
+
         return true
     }// return a yes if you want to scroll to the top. if not defined, assumes YES
     
     func scrollViewDidScrollToTop(scrollView: UIScrollView!) {
-        //println("scrollViewDidScrollToTops")
+
     }// called when scrolling animation finished. may be called immediately if already at top
     
     func manageElementMiniViewImageRequest(){
@@ -286,8 +285,6 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
         
         var width = SharedUIManager.instance.miniView_width + spacer
         var column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
-        
-        //println("column: \(column)")
         
         if lastColumnRequested < column {
             
@@ -299,7 +296,6 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
                 isWorking = false //reach the limit of requests
             }
             
-            //println("requestLimit: \(requestLimit)")
             var i:Int = requestLimit
             var stop:Bool = false
             

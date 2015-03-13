@@ -147,7 +147,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             images[index].requested = true
         }
         
-        println("scrollViewDidEndDecelerating: \(index)")
+        //println("scrollViewDidEndDecelerating: \(index)")
         
     }// called when scroll view grinds to a halt
     

@@ -79,12 +79,14 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion) {
         var text = "Enter region: " + region.identifier
+        println("\(text)")
         self.delegateView?.manager?(self, printText: text)
         self.delegateDM!.manager!(self, startEnterRegionProcessWithIdentifier: region.identifier)
     }
     
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion) {
         var text = "Exit region: " + region.identifier
+        println("\(text)")
         self.delegateView?.manager?(self, printText: text)
         self.delegateDM!.manager!(self, startExitRegionProcessWithIdentifier: region.identifier)
     }

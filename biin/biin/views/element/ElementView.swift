@@ -89,15 +89,12 @@ class ElementView: BNView {
     }
     
     override func transitionIn() {
-        println("trasition in on ElementView")
-        
         UIView.animateWithDuration(0.25, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on ElementView")
         state!.action()
         UIView.animateWithDuration(0.25, animations: {()-> Void in
             self.frame.origin.x = SharedUIManager.instance.screenWidth
@@ -111,7 +108,7 @@ class ElementView: BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: ElementView")
+
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -119,7 +116,7 @@ class ElementView: BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: ElementView")
+
         }else{
             father!.updateUserControl(position)
         }
@@ -151,13 +148,26 @@ class ElementView: BNView {
             ypos += 40
         }
         
-        if elementMiniView!.element!.hasListPrice  {
+//        if elementMiniView!.element!.hasListPrice  {
+//            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: elementMiniView!.element!.listPrice!, newPrice: elementMiniView!.element!.price!)
+//            scroll!.addSubview(priceView!)
+//            hasPrice = true
+//            ypos += 40
+//        }
+
+        if elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
+            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: elementMiniView!.element!.listPrice!)
+            scroll!.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+            
+        } else if elementMiniView!.element!.hasListPrice {
+            
             priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: elementMiniView!.element!.listPrice!, newPrice: elementMiniView!.element!.price!)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
         }
-        
         
         if elementMiniView!.element!.hasSticker {
             stickerView = BNUIStickerView(frame:CGRectMake(5, ypos, 50, 50), type:elementMiniView!.element!.sticker!.type, color:elementMiniView!.element!.sticker!.color! )
@@ -196,17 +206,12 @@ class ElementView: BNView {
     
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
-        println("Show biinit options")
-//        elementMiniView!.element!.biins++
-//        elementMiniView!.element!.userBiined = true
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
-        
         biinItButton!.showDisable()
     }
     
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareit(elementMiniView!.element!._id!)
-        println("Show shareit options")
         elementMiniView!.element!.userShared = true
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
     }

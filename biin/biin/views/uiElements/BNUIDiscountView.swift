@@ -34,7 +34,7 @@ class BNUIDiscountView:UIView {
         self.text!.textColor = UIColor.appMainColor()
         self.text!.textAlignment = NSTextAlignment.Center
         self.text!.font = UIFont(name: "Lato-Black", size:8)
-        self.text!.text = text
+        self.text!.text = "\(text)%"
         self.addSubview(self.text!)
         
         icon = BNIcon_PigSmall(color:UIColor.bnRed(), position: CGPointMake(9, 5))
