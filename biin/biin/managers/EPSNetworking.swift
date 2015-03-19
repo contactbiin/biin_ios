@@ -144,9 +144,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
                 
-                println("------------------------------------------------------------")
-                println("------------------------------------------------------------")
-                println("jsonString received: \(data)")
+                //println("------------------------------------------------------------")
+                //println("------------------------------------------------------------")
+                //println("jsonString received: \(data)")
                 
                 var jsonData = self.parseJson(data)
                 callback(jsonData, nil)

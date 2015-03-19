@@ -63,6 +63,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 //        var location:CLLocation = locations[0] as CLLocation
 //        println("updade location latitude: \(location.coordinate.latitude)")
 //        println("updade location longitude: \(location.coordinate.latitude)")
+        
+
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
@@ -298,6 +300,28 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             
             self.delegateView?.manager!(self, setPinOnMapWithLat: region.latitude!, long: region.longitude!, radious: region.radious!, title: region.identifier!, subtitle: region.identifier!)
         }
+    }
+    
+    func startRegionsMonitoring(regions:Array<BNRegion>){
+        for region in regions {
+            
+            println("Monitoring region: \(region.identifier!)")
+            
+            if region.latitude == nil || region.longitude == nil {
+                return
+            }
+            
+            var radiuos:CLLocationDistance = CLLocationDistance(region.radious!)
+            var lat:CLLocationDegrees? = CLLocationDegrees(region.latitude!)
+            var long:CLLocationDegrees? = CLLocationDegrees(region.longitude!)
+            var coord:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat!, long!)
+            var clRegion:CLCircularRegion = CLCircularRegion(center: coord, radius: radiuos, identifier: region.identifier!)
+            self.locationManager!.startMonitoringForRegion(clRegion)
+            self.locationManager!.requestStateForRegion(clRegion)
+            
+            self.delegateView?.manager!(self, setPinOnMapWithLat: region.latitude!, long: region.longitude!, radious: region.radious!, title: region.identifier!, subtitle: region.identifier!)
+        }
+
     }
     
     func manager(manager:BNDataManager!, stopRegionsMonitoring regions:Array<BNRegion>) {
