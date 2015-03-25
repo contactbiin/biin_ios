@@ -53,7 +53,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         self.biin = biin
         
         self.backgroundColor = UIColor.appMainColor()
-        self.showcase = BNAppSharedManager.instance.dataManager.showcases[self.biin!.showcase!.identifier!]
+        self.showcase = BNAppSharedManager.instance.dataManager.showcases[self.biin!.currectShowcase().identifier!]
 
         //TODO: Add all showcase data here
         var screenWidth = SharedUIManager.instance.screenWidth
@@ -76,13 +76,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         subTitle!.text = self.showcase!.subTitle!
         self.addSubview(subTitle!)
         
-        
         //TESTING NOTIFICATIONS
         addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
         addNotificationBtn!.backgroundColor = UIColor.redColor()
         addNotificationBtn!.addTarget(self, action: "addNotificationBtn:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(addNotificationBtn!)
-        
         
         //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
         var scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 10

@@ -284,7 +284,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         for region in regions {
             
-            println("Monitoring region: \(region.identifier!)")
+            println("Monitoring region 1: \(region.identifier!)")
             
             if region.latitude == nil || region.longitude == nil {
                 return
@@ -305,7 +305,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     func startRegionsMonitoring(regions:Array<BNRegion>){
         for region in regions {
             
-            println("Monitoring region: \(region.identifier!)")
+            println("Monitoring region 2: \(region.identifier!)")
             
             if region.latitude == nil || region.longitude == nil {
                 return

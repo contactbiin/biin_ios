@@ -60,7 +60,7 @@ class NotificationsView_Notification: BNView {
         self.addSubview(notificationAvatarView!)
         
         notificationAvatar = BNUIImageView(frame: CGRectMake(1, 1, 38, 38))
-        notificationAvatar!.alpha = 0
+        //notificationAvatar!.alpha = 0
         notificationAvatarView!.addSubview(notificationAvatar!)
     
         BNAppSharedManager.instance.networkManager.requestImageData(notification!.biin!.site!.media[0].url!, image: notificationAvatar)
@@ -101,7 +101,7 @@ class NotificationsView_Notification: BNView {
         println("Tap on notification: \(notification!.identifier)")
         println("Biin: \(notification!.biin!.identifier!)")
         println("Site: \(notification!.biin!.site!.identifier!)")
-        println("Showcase: \(notification!.biin!.showcase!.identifier!)")
+        println("Showcase: \(notification!.biin!.currectShowcase().identifier!)")
     }
 }
 

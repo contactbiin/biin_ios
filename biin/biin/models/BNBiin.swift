@@ -15,13 +15,11 @@ class BNBiin:NSObject
     var isBiinDetected:Bool = false
     
     weak var site:BNSite?
-    var showcase:BNShowcase?
-
-    
-    var isWebBiin = false
+    //var showcase:BNShowcase?
+    var showcases = Array<BNShowcase>()
     
     //TODO: Remove biin type and
-    var bnBiinType = BNBiinType.Web
+    var bnBiinType = BNBiinType.PRODUCT
     
     var state:Biin_State?
     
@@ -34,9 +32,15 @@ class BNBiin:NSObject
     deinit{
         
     }
+    
+    func currectShowcase()->BNShowcase {
+        //TODO: get the correct showcase depending on the time
+        return showcases[0]
+    }
 }
 
 enum BNBiinType {
-    case Web    //1
-    case Beacon //2
+    case EXTERNO    //1
+    case INTERNO    //2
+    case PRODUCT    //3
 }

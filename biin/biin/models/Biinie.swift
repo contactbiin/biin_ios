@@ -1,4 +1,4 @@
-//  BNUser.swift
+//  Biinie.swift
 //  Biin
 //  Created by Esteban Padilla on 9/29/14.
 //  Copyright (c) 2014 Biin. All rights reserved.
@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BNUser:NSObject, NSCoding {
+class Biinie:NSObject, NSCoding {
     
     var identifier:String?
     var biinName:String?
@@ -16,7 +16,7 @@ class BNUser:NSObject, NSCoding {
     var birthDate:NSDate?
     var password:String?
     var gender:String?
-    var friends:Array<BNUser>?
+    var friends:Array<Biinie>?
     var imgUrl:String?
     //var avatarImage:UIImageView? = UIImageView(image: UIImage(named:"view640X2.jpg"))
     var biins:Int?
@@ -27,6 +27,7 @@ class BNUser:NSObject, NSCoding {
     var categories = Array<BNCategory>()
     var collections:Dictionary<String, BNCollection>?
     var temporalCollectionIdentifier:String?
+    var actions:[BiinieAction] = [BiinieAction]()
     
     var isEmailVerified:Bool?
     
@@ -65,6 +66,7 @@ class BNUser:NSObject, NSCoding {
         self.email  = aDecoder.decodeObjectForKey("email") as? String
         self.birthDate = aDecoder.decodeObjectForKey("birthDate") as? NSDate
         self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
+        self.actions =  aDecoder.decodeObjectForKey("actions") as [BiinieAction]
         
         self.newNotificationCount = 0
         self.notificationIndex = 0
@@ -98,6 +100,8 @@ class BNUser:NSObject, NSCoding {
         if let isEmailVerified = self.isEmailVerified {
             aCoder.encodeBool(isEmailVerified, forKey: "isEmailVerified")
         }
+        
+        aCoder.encodeObject(actions, forKey: "actions")
     }
     
     deinit {
@@ -113,10 +117,10 @@ class BNUser:NSObject, NSCoding {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("user")
     }
     
-    class func loadSaved() -> BNUser? {
+    class func loadSaved() -> Biinie? {
         
         if let data = NSUserDefaults.standardUserDefaults().objectForKey("user") as? NSData {
-            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNUser
+            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? Biinie
         }
         
         return nil

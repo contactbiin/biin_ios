@@ -11,6 +11,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     var loadingView:LoadingView?
     
     var clearUserBtn:UIButton?
+
+    var addActionBtn:UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +57,22 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         clearUserBtn!.addTarget(self, action: "clearUserBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         clearUserBtn!.alpha = 1
         self.view.addSubview(clearUserBtn!)
+
+        addActionBtn = UIButton(frame: CGRectMake(0, (screenHeight - 240), screenWidth, 60))
+        addActionBtn!.backgroundColor = UIColor.bnGreen()
+        addActionBtn!.setTitle("Add Action", forState: UIControlState.Normal)
+        addActionBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 20)
+        addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        addActionBtn!.alpha = 0
+        self.view.addSubview(addActionBtn!)
+        
         
         loadingView = LoadingView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         self.view.addSubview(loadingView!)
+        
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +92,25 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    func addActionBtnAction(sender: UIButton!){
+        
+        var action1 = BiinieAction(at: NSDate(), did: 1, to: "identifier1", toType: "1")
+        var action2 = BiinieAction(at: NSDate(), did: 2, to: "identifier2", toType: "2")
+        var action3 = BiinieAction(at: NSDate(), did: 3, to: "identifier3", toType: "3")
+        var action4 = BiinieAction(at: NSDate(), did: 4, to: "identifier4", toType: "4")
+        var action5 = BiinieAction(at: NSDate(), did: 5, to: "identifier5", toType: "5")
+        var action6 = BiinieAction(at: NSDate(), did: 6, to: "identifier6", toType: "6")
+        
+        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action1)
+        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action2)
+        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action3)
+        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action4)
+        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action5)
+        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action6)
+        
+        BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+    }
+    
     //UIPopoverPresentationControllerDelegate Methods
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.Popover
@@ -89,9 +123,11 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
             UIView.animateWithDuration(0.5, animations: {()-> Void in
                 self.loadingView!.alpha = 0
                 self.enterBtn!.alpha = 1
+                self.addActionBtn!.alpha = 1
             })
         } else {
-             self.enterBtn!.alpha = 0
+            self.enterBtn!.alpha = 0
+            self.addActionBtn!.alpha = 0
         }
     }
     

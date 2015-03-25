@@ -70,7 +70,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         self.addSubview(siteAvatarView!)
         
         siteAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
-        siteAvatar!.alpha = 0
+        //siteAvatar!.alpha = 0
         siteAvatar!.layer.cornerRadius = 30
         siteAvatar!.layer.masksToBounds = true
         siteAvatarView!.addSubview(siteAvatar!)

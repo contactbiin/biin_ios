@@ -30,7 +30,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     //URL requests
     let connectibityUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
+    
     let regionsUrl = "https://www.biinapp.com/mobile/regions"
+    ///let regionsUrl = "https://biin-qa.herokuapp.com/mobile/regions"
+    
+    
     //let categoriesUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getCategories.json"
     //let biinedElements = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBiinedElements.json"
     //let boards = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBoards.json"
@@ -57,7 +61,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     
     //Saving data
-    func manager(manager: BNDataManager!, saveUserCategories user: BNUser) {
+    func manager(manager: BNDataManager!, saveUserCategories user: Biinie) {
         
     }
     
@@ -151,7 +155,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
     }
     
-    func register(user:BNUser) {
+    func register(user:Biinie) {
         
         println("login(\(user.email))")
 
@@ -208,7 +212,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
     
-    func sendBiinieCategories(user:BNUser, categories:Dictionary<String, String>) {
+    func sendBiinieCategories(user:Biinie, categories:Dictionary<String, String>) {
 
         println("sendBiinieCategories(\(user.email))")
         
@@ -279,7 +283,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     
-    func sendBiinie(user:BNUser) {
+    func sendBiinie(user:Biinie) {
         
         println("sendBiinie(\(user.email))")
         
@@ -354,6 +358,100 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             }
             
         })
+    }
+
+    
+    func sendBiinieActions(user:Biinie) {
+        
+        /*
+        {
+        "model":
+        [
+        {"whom":"biinie01","at":"2014-01-01 12:02:00","did":"3","to":"bnRegion1", "toType":"region"},
+        {"whom":"biinie01","at":"2014-01-01 12:05:00","did":"2","to":"biinIdentifier2", "toType":"biin"},
+        {"whom":"biinie01","at":"2014-01-01 12:010:00","did":"1","to":"biinIdentifier2", "toType":"biin"},
+        {"whom":"biinie01","at":"2014-01-01 12:020:00","did":"4","to":"bnRegion1", "toType":"region"},
+        ]
+        }
+        */
+        
+        println("sendBiinieActions(\(user.email))")
+        
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        var model = ["model":Array<Dictionary<String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
+        
+        for value in user.actions {
+            
+            var action = Dictionary <String, String>()
+            action["whom"]  = user.identifier!
+            action["at"]    = value.at!.bnDateFormatt()
+            action["did"]   = "\(value.did!)"
+            action["to"]    = value.to!
+            action["toType"] = value.toType!
+            model["model"]?.append(action)
+            
+            //model["model"]?.append(["identifier":value])
+        }
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
+        var response:BNResponse?
+        
+        epsNetwork!.post(request!.requestString, htttpBody:htttpBody, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("Error on posting categoies")
+                self.handleFailedRequest(request!, error: error? )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** Posting actions for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
+                
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    //var identifier = self.findString("identifier", dictionary: dataData)
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Register actions for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** Register actions for user \(user.email!) SUCK!")
+                    }
+                    
+                    //self.delegateVC!.manager!(self, didReceivedCategoriesSavedConfirmation: response)
+                    
+                    BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request!.identifier)
+                
+            }
+            
+        })
+
     }
 
     
@@ -537,6 +635,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         var request = BNRequest(requestString: "http://biin.herokuapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
         self.requests[request.identifier] = request
         
+        println("Region data: \(request.requestString)")
+        
         if !isRequestTimerAllow {
             self.requestRegionData(request)
         }
@@ -599,7 +699,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     
-    func manager(manager: BNDataManager!, requestCategoriesDataByBiinieAndRegion user: BNUser, region: BNRegion) {
+    func manager(manager: BNDataManager!, requestCategoriesDataByBiinieAndRegion user: Biinie, region: BNRegion) {
         
         //https://biin-qa.herokuapp.com/mobile/biinies/0742cc4b-cc5e-48cb-ab86-9acbc2577548/bnHome/categories
         
@@ -622,7 +722,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
 
     ///Conforms optional func manager(manager:BNDataManager!, requestUserCategoriesData user:BNUser) of BNDataManagerDelegate.
-    func manager(manager:BNDataManager!, requestCategoriesData user:BNUser) {
+    func manager(manager:BNDataManager!, requestCategoriesData user:Biinie) {
         
         /*
         var request = BNRequest(requestString:categoriesUrl, dataIdentifier:"userCategories", requestType:.UserCategories)
@@ -712,7 +812,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     ///Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
-    func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:BNUser) {
+    func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie) {
         
         //https://biin-qa.herokuapp.com/mobile/biinies/e34b20e1-b21e-4681-85aa-096dac49c6a7/sites/22d51e8b-8410-4032-8f12-815fc68d2cb9
         
@@ -807,11 +907,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             //biin.bnBiinType = self.findBNBiinType("biinType", dictionary: biinData)
                             biin.site = site
                             
-                            var showcase = BNShowcase()
-                            showcase.identifier = self.findString("showcaseIdentifier", dictionary: biinData)
-                            showcase.lastUpdate = self.findNSDate("lastUpdate", dictionary:biinData)
-                            //showcase.jsonUrl = self.findString("jsonUrl", dictionary: biinData)
-                            biin.showcase = showcase
+                            var showcases = self.findNSArray("showcases", dictionary: biinData)
+                            
+                            for var k = 0; k < showcases?.count; k++ {
+                                if let showcaseData = showcases!.objectAtIndex(k) as? NSDictionary {
+                                    
+                                    var showcase = BNShowcase()
+                                    showcase.identifier = self.findString("showcaseIdentifier", dictionary: showcaseData)
+                                    showcase.endTime = self.findNSDate("endTime", dictionary: showcaseData)
+                                    showcase.startTime = self.findNSDate("startTime", dictionary: showcaseData)
+                                    showcase.isDefault = self.findBool("isDefault", dictionary: showcaseData)
+//                                    showcase.lastUpdate = self.findNSDate("lastUpdate", dictionary:showcaseData)
+                                    
+                                    //showcase.jsonUrl = self.findString("jsonUrl", dictionary: biinData)
+                                    biin.showcases.append(showcase)
+                                }
+                                
+                            }
+                            
                             site.biins.append(biin)
                         }
                     }
@@ -931,7 +1044,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     
     ///Conforms optional     optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
-    func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) {
+    func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:Biinie) {
         
         //println("requestElementDataForBNUser for:\(element.identifier!) ")
 
@@ -1119,7 +1232,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     ///Conforms optional func manager(manager: BNDataManager!, requestBiinedElementListForBNUser user: BNUser) of BNDataManagerDelegate.
-    func manager(manager: BNDataManager!, requestBiinedElementListForBNUser user: BNUser) {
+    func manager(manager: BNDataManager!, requestBiinedElementListForBNUser user: Biinie) {
         
         var request = BNRequest(requestString:biinedElements, dataIdentifier:user.email!, requestType:.BiinedElements)
         self.requests[request.identifier] = request
@@ -1166,7 +1279,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     ///Conforms optional func manager(manager: BNDataManager!, requestBoardsForBNUser user: BNUser) of BNDataManagerDelegate.
-    func manager(manager: BNDataManager!, requestCollectionsForBNUser user: BNUser) {
+    func manager(manager: BNDataManager!, requestCollectionsForBNUser user: Biinie) {
         
         var request:BNRequest?
         
@@ -1286,7 +1399,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     }
     
     
-    func sendBiinedElement(user: BNUser, element: BNElement, collectionIdentifier:String) {
+    func sendBiinedElement(user: Biinie, element: BNElement, collectionIdentifier:String) {
         
         println("saveBiinedElement(\(user.email)) element: \(element._id!)")
         
@@ -1355,7 +1468,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         })
     }
     
-    func sendBiinedSite(user: BNUser, site: BNSite, collectionIdentifier:String) {
+    func sendBiinedSite(user: Biinie, site: BNSite, collectionIdentifier:String) {
         
         println("saveBiinedSite(\(user.email)) site: \(site.identifier!)")
     
@@ -1425,7 +1538,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     //TODO: Impelement later.
     ///Conforms optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
-    func manager(manager:BNDataManager!, requestElementNotificationForBNUser element:BNElement, user:BNUser){
+    func manager(manager:BNDataManager!, requestElementNotificationForBNUser element:BNElement, user:Biinie){
         println("requestElementNotificationForBNUser for:\(element.identifier!) ")
         var request = BNRequest(requestString:element.jsonUrl!, dataIdentifier:element.identifier!, requestType:.ShowcaseData)
         self.requests[request.identifier] = request
@@ -1436,7 +1549,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///Handles the request for a element's notification for a user.
     ///
     ///:param: The request to be process.
-    func requestElementNotificationForBNUser(request:BNRequest, element:BNElement, user:BNUser) {
+    func requestElementNotificationForBNUser(request:BNRequest, element:BNElement, user:Biinie) {
         
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -1528,7 +1641,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 //            })
     }
     
-    func manager(manager:BNDataManager!, requestBiinieData biinie:BNUser) {
+    func manager(manager:BNDataManager!, requestBiinieData biinie:Biinie) {
     
         var request:BNRequest?
         
@@ -1556,7 +1669,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     //if let biinieData = dataData["biinie"] as? NSDictionary {
                         //{"data":{"status":"0","result":{"_id":"54e73260a159220300e63ac4","identifier":"4479187b-cd61-4be2-a24d-a30e925c1edc","firstName":"e","lastName":"e","biinName":"e@e.com","friends":[],"followers":"0","following":"0","imgUrl":""}}}
                     
-                        var biinie = BNUser()
+                        var biinie = Biinie()
                         biinie.identifier = self.findString("identifier", dictionary:biinieData)
                         biinie.biinName = self.findString("biinName", dictionary: biinieData)
                         biinie.firstName = self.findString("firstName", dictionary: biinieData)
@@ -1740,11 +1853,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         var value:Int = self.findInt(name, dictionary: dictionary)!
         switch value {
         case 1:
-            return BNBiinType.Web
+            return BNBiinType.INTERNO
         case 2:
-            return BNBiinType.Beacon
+            return BNBiinType.EXTERNO
+        case 3:
+            return BNBiinType.PRODUCT
         default:
-            return BNBiinType.Beacon
+            return BNBiinType.PRODUCT
         }
     }
     
@@ -1978,7 +2093,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     optional func manager(manager:BNNetworkManager!, didReveivedBiinsOnRegion biins:Array<BNBiin>, identifier:String)
 
-    optional func manager(manager:BNNetworkManager!, didReceivedBiinieData user:BNUser)
+    optional func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie)
     optional func manager(manager:BNNetworkManager!, removeShowcaseRelationShips identifier:String)
     optional func manager(manager:BNNetworkManager!, didReveivedSharedBiins biins:Array<BNBiin>, identifier:String )
     optional func refreshTable(manager:BNNetworkManager!)

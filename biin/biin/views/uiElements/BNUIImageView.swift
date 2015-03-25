@@ -10,6 +10,7 @@ import  UIKit
 
 class BNUIImageView:UIImageView {
     
+    var loadingIndicator:UIActivityIndicatorView?
     
     override init() {
         super.init()
@@ -17,6 +18,12 @@ class BNUIImageView:UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        loadingIndicator = UIActivityIndicatorView(frame: CGRectMake(((frame.width / 2) - 20), ((frame.width / 2) - 20), 40, 40))
+        loadingIndicator!.hidesWhenStopped = true
+        loadingIndicator!.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        loadingIndicator!.startAnimating();
+        self.addSubview(loadingIndicator!)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -24,10 +31,12 @@ class BNUIImageView:UIImageView {
     }
     
     ///Set it's alpha to 1 once download is completed.
-    ///:param: Network manager that handled the request.
-    ///:param: BNShowcase received from web service in json format already parse in an showcase object.
     func showAfterDownload(){
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
+        
+        loadingIndicator!.stopAnimating()
+        self.alpha = 0
+        
+        UIView.animateWithDuration(0.5, animations: {()-> Void in
             self.alpha = 1
         })
     }

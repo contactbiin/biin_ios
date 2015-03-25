@@ -65,8 +65,8 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             image.backgroundColor = self.media![i].domainColor
             
             if i == 0 {
-                self.images += [(image:image, requested:true)]
                 
+                self.images += [(image:image, requested:true)]
                 BNAppSharedManager.instance.networkManager.requestImageData(self.media![i].url!, image: image)
                 
             } else {

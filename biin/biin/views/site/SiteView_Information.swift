@@ -63,6 +63,7 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
         backBtn!.backgroundColor = UIColor.redColor()
         self.addSubview(backBtn!)
         
+        //Call his method again just for testing on view.
         BNAppSharedManager.instance.positionManager.startRegionsMonitoring(Array(BNAppSharedManager.instance.dataManager.regions.values))
         
     }

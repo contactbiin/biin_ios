@@ -15,6 +15,9 @@ class BNShowcase:NSObject {
     var identifier:String?
     var isRequestPending = true
     var lastUpdate:NSDate?
+    var startTime:NSDate?
+    var endTime:NSDate?
+    var isDefault:Bool = false
     
     //Details
     var title:String?
@@ -31,6 +34,7 @@ class BNShowcase:NSObject {
 
     //Elements
     var elements:Array<BNElement> = Array<BNElement>()
+    
     
     
     override init(){

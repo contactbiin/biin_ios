@@ -253,7 +253,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         var httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        //println("HTTPBody: \(httpString)")
+        println("HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -329,6 +329,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         if let cacheImage = ShareEPSNetworking.cacheImages[urlString] {
             println("image already in cache...")
             image.image = cacheImage
+            image.showAfterDownload()
         }else {
         
         // Jump in to a background thread to get the image for this item

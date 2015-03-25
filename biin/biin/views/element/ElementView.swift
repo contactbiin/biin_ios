@@ -124,12 +124,10 @@ class ElementView: BNView {
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
-        detailsView!.removeFromSuperview()
-        detailsView = nil
-        scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
         delegate!.hideElementView!(elementMiniView)
-        
         self.elementMiniView!.refresh()
+//        detailsView!.removeFromSuperview()
+//        detailsView = nil
     }
     
     func updateElementData(elementMiniView:ElementMiniView?) {
@@ -202,6 +200,10 @@ class ElementView: BNView {
             priceView!.removeFromSuperview()
             hasPrice = false
         }
+        
+        scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
+        detailsView!.removeFromSuperview()
+        detailsView = nil
     }
     
     func biinit(sender:BNUIButton_BiinIt){

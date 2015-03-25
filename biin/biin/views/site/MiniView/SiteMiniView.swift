@@ -56,7 +56,7 @@ class SiteMiniView: BNView {
         var imageSize = frame.height - SharedUIManager.instance.miniView_headerHeight
         var xpos = ((imageSize - frame.width) / 2 ) * -1
         image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize))
-        image!.alpha = 0
+        //image!.alpha = 0
         self.addSubview(image!)
         
         header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, site: site)

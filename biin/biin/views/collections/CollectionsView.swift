@@ -55,7 +55,7 @@ class CollectionsView: BNView, ElementView_Delegate {
         
         if BNAppSharedManager.instance.dataManager.bnUser!.imgUrl != "" {
             biinieAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
-            biinieAvatar!.alpha = 0
+            //biinieAvatar!.alpha = 0
             biinieAvatar!.layer.cornerRadius = 30
             biinieAvatar!.layer.masksToBounds = true
             biinieAvatarView.addSubview(biinieAvatar!)

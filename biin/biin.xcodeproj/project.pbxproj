@@ -70,7 +70,7 @@
 		5B3D76071A6816B300CB0D1C /* BNShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75CE1A6816B300CB0D1C /* BNShowcase.swift */; };
 		5B3D76081A6816B300CB0D1C /* BNSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75CF1A6816B300CB0D1C /* BNSite.swift */; };
 		5B3D76091A6816B300CB0D1C /* BNSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75D01A6816B300CB0D1C /* BNSticker.swift */; };
-		5B3D760A1A6816B300CB0D1C /* BNUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75D11A6816B300CB0D1C /* BNUser.swift */; };
+		5B3D760A1A6816B300CB0D1C /* Biinie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75D11A6816B300CB0D1C /* Biinie.swift */; };
 		5B3D760B1A6816B300CB0D1C /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75D61A6816B300CB0D1C /* Lato-Black.ttf */; };
 		5B3D760C1A6816B300CB0D1C /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75D71A6816B300CB0D1C /* Lato-BlackItalic.ttf */; };
 		5B3D760D1A6816B300CB0D1C /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75D81A6816B300CB0D1C /* Lato-Bold.ttf */; };
@@ -190,6 +190,7 @@
 		5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */; };
 		5BB99B5F1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */; };
 		5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD342771A8AA95300A8984E /* BNResponse.swift */; };
+		5BD63B4C1AC1B23C004236A4 /* BiinieAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */; };
 		5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */; };
 		5BDB05541A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05531A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift */; };
 		5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */; };
@@ -308,7 +309,7 @@
 		5B3D75CE1A6816B300CB0D1C /* BNShowcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNShowcase.swift; sourceTree = "<group>"; };
 		5B3D75CF1A6816B300CB0D1C /* BNSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNSite.swift; sourceTree = "<group>"; };
 		5B3D75D01A6816B300CB0D1C /* BNSticker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNSticker.swift; sourceTree = "<group>"; };
-		5B3D75D11A6816B300CB0D1C /* BNUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUser.swift; sourceTree = "<group>"; };
+		5B3D75D11A6816B300CB0D1C /* Biinie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biinie.swift; sourceTree = "<group>"; };
 		5B3D75D61A6816B300CB0D1C /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		5B3D75D71A6816B300CB0D1C /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		5B3D75D81A6816B300CB0D1C /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -428,6 +429,7 @@
 		5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIAlertView.swift; sourceTree = "<group>"; };
 		5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_KeyholeSmall.swift; sourceTree = "<group>"; };
 		5BD342771A8AA95300A8984E /* BNResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNResponse.swift; sourceTree = "<group>"; };
+		5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieAction.swift; sourceTree = "<group>"; };
 		5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView.swift; sourceTree = "<group>"; };
 		5BDB05531A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_SitesContainer.swift; sourceTree = "<group>"; };
 		5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Header.swift; sourceTree = "<group>"; };
@@ -715,7 +717,8 @@
 				5B3D75CE1A6816B300CB0D1C /* BNShowcase.swift */,
 				5B3D75CF1A6816B300CB0D1C /* BNSite.swift */,
 				5B3D75D01A6816B300CB0D1C /* BNSticker.swift */,
-				5B3D75D11A6816B300CB0D1C /* BNUser.swift */,
+				5B3D75D11A6816B300CB0D1C /* Biinie.swift */,
+				5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */,
 				5BD342771A8AA95300A8984E /* BNResponse.swift */,
 			);
 			path = models;
@@ -1272,6 +1275,7 @@
 				5BA0B7831A686A0F00DBEB74 /* BNView.swift in Sources */,
 				5BF966AA1AA78DAC00994BEA /* Biin_State.swift in Sources */,
 				5BF966A81AA78DAC00994BEA /* Biin_Not_Notified_State.swift in Sources */,
+				5BD63B4C1AC1B23C004236A4 /* BiinieAction.swift in Sources */,
 				5BEE61331A97C23800DE334E /* ProfileImageView.swift in Sources */,
 				5BA0B7991A686B4600DBEB74 /* LoadingViewController.swift in Sources */,
 				5BF2B5AC1A852A0800598FB7 /* BNUIBiinView.swift in Sources */,
@@ -1348,7 +1352,7 @@
 				5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */,
 				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */,
-				5B3D760A1A6816B300CB0D1C /* BNUser.swift in Sources */,
+				5B3D760A1A6816B300CB0D1C /* Biinie.swift in Sources */,
 				5BEE61401A97EF3A00DE334E /* InviteFriendsView.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,
 				5BAD8AD61A828BAA0081B335 /* BNIcon_ShareItButton.swift in Sources */,
