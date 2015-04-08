@@ -20,9 +20,6 @@ class BNIcon_CompletedGameIcon:BNIcon {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
-        //// Color Declarations
-        let color0 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
@@ -47,7 +44,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         
         backPath.lineJoinStyle = kCGLineJoinRound;
         
-        color0.setStroke()
+        color!.setStroke()
         backPath.lineWidth = 3
         backPath.stroke()
         
@@ -68,7 +65,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         
         iconPath.lineJoinStyle = kCGLineJoinRound;
         
-        color0.setStroke()
+        color!.setStroke()
         iconPath.lineWidth = 3
         iconPath.stroke()
         

@@ -9,8 +9,12 @@ class Biin_Not_Notified_IN_State: Biin_State {
     
     override init(biin: BNBiin?) {
         super.init(biin: biin)
-        println("init on Biin_Not_Notified_IN_State")
+        println("init() Biin_Not_Notified_IN_State in biin: \(biin!.identifier!) and showcase: \(biin!.showcases![biin!.currentShowcaseIndex].identifier!)")
         setNotificationMessage(1)
         setNotificationWaitingTime(10.0)
+    }
+    
+    override func action() {
+        println("action() on Biin_Not_Notified_IN_State")
     }
 }

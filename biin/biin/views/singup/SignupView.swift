@@ -115,7 +115,8 @@ class SignupView:UIView, UITextFieldDelegate {
         signupLbl!.sizeToFit()
         self.addSubview(signupLbl!)
         
-        backBtn = BNUIButton_Back_SignupView(frame: CGRect(x: 10, y: 10, width: 20, height: 25))
+
+        backBtn = BNUIButton_Back_SignupView(frame: CGRect(x: 10, y: 10, width: 40, height: 20))
         backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         

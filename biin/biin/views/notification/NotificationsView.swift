@@ -29,14 +29,14 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        title = UILabel(frame: CGRectMake(0, 3, screenWidth, 12))
-        title!.text = "Profile"
+        title = UILabel(frame: CGRectMake(0, 5, screenWidth, 12))
+        title!.text = "Notifications"
         title!.textColor = UIColor.appTextColor()
         title!.font = UIFont(name: "Lato-Light", size: 10)
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(2, 5, 30, 15))
+        backBtn = BNUIButton_Back(frame: CGRectMake(2, 2, 40, 20))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         

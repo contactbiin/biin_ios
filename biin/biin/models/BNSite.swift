@@ -53,11 +53,19 @@ class BNSite:NSObject {
     var latitude:Float?
     var longitude:Float?
     
+    var isUserInside:Bool = false
+    
     override init(){
         super.init()
     }
 
     deinit{
         
+    }
+    
+    func setBiinsStates(){
+        for biin in biins {
+            biin.setBiinState()
+        }
     }
 }

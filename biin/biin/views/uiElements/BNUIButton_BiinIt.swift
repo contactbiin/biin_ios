@@ -25,7 +25,8 @@ class BNUIButton_BiinIt:BNUIButton {
     
     override func showDisable() {
         self.enabled = false
-        self.icon!.color = UIColor.appButtonColor_Disable()//.colorWithAlphaComponent(0.75)
+        self.icon!.color = UIColor.appButtonColor_Disable().colorWithAlphaComponent(0.5)
+        //.colorWithAlphaComponent(0.75)
         self.setNeedsDisplay()
     }
     

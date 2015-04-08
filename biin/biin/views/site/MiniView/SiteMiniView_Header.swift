@@ -26,12 +26,12 @@ class SiteMiniView_Header:BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, site:BNSite?){
+    convenience init(frame:CGRect, father:BNView?, site:BNSite?, showShareButton:Bool){
         self.init(frame: frame, father:father )
         self.backgroundColor = UIColor.appMainColor()
         
         var ypos:CGFloat = 4
-        buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, site: site)
+        buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, site: site, showShareButton:showShareButton)
         self.addSubview(buttonsView!)
         
         ypos += 16

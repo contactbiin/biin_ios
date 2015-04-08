@@ -53,7 +53,10 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         self.addSubview(categoryNameLbl!)
 
         addButtons()
-        addCategoriesPoints()
+        
+        if BNAppSharedManager.instance.dataManager.categories!.count > 0 {
+            addCategoriesPoints()
+        }
     }
     
     override func transitionIn() {

@@ -9,7 +9,12 @@ class Biined_Not_Notified_NEAR_State: Biin_State {
     
     override init(biin: BNBiin?) {
         super.init(biin: biin)
-        println("init on Biined_Not_Notified_NEAR_State")
+        println("init() Biined_Not_Notified_NEAR_State in biin: \(biin!.identifier!) and showcase: \(biin!.showcases![biin!.currentShowcaseIndex].identifier!)")
+
         setNotificationMessage(2)
+    }
+    
+    override func action() {
+        println("action() on Biined_Not_Notified_NEAR_State")
     }
 }

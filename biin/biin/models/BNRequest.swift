@@ -46,6 +46,9 @@ class BNRequest:NSObject {
     var dataIdentifier:String = ""//identifier for the object data is requested for.
     var requestType:BNRequestType = BNRequestType.None
     
+    weak var showcase:BNShowcase?
+    weak var element:BNElement?
+    
     override init() {
         super.init()
     }

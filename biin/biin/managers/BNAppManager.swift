@@ -51,16 +51,18 @@ class BNAppManager {
         if isElement {
             dataManager.elements[identifier]?.userBiined = true
             dataManager.elements[identifier]?.biinedCount++
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements.append(dataManager.elements[identifier]!)
-        
+            
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
+     
             networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
         } else {
             dataManager.sites[identifier]?.userBiined = true
             dataManager.sites[identifier]?.biinedCount++
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites.append(dataManager.sites[identifier]!)
-            
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
             networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
         }
+        
+        dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.append(identifier)
     }
     
     func shareit(identifier:String){
@@ -72,37 +74,33 @@ class BNAppManager {
     }
     
     func unBiinit(identifier:String, isElement:Bool){
+        
         println("unBiinit: \(identifier)")
         
-        if dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements.count > 0 {
-            
-            var index:Int = 0
-            
-            if isElement {
-                
-                dataManager.elements[identifier]?.userBiined = false
-                
-                for element in dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements {
-                    index++
-                    if element._id! == identifier {
-                        return
-                    }
-                }
-                
-                dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements.removeAtIndex(index)
-            } else {
-                
-                dataManager.sites[identifier]?.userBiined = false
-                for sites in dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites {
-                    index++
-                    if sites.identifier! == identifier {
-                        return
-                    }
-                }
-                
-                dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites.removeAtIndex(index)
-            }
+        if isElement {
+            dataManager.elements[identifier]?.userBiined = false
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[identifier] = nil
+            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+        } else {
+            dataManager.sites[identifier]?.userBiined = false
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
+            networkManager.sendUnBiinedSite(dataManager.bnUser!, siteIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         }
+
+        if dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.count > 0 {
+            var index:Int = 0
+            for item in dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items {
+
+                if item == identifier {
+                    break
+                }
+                
+                index++
+            }
+            
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items.removeAtIndex(index)
+        }
+        
         //TODO: inform backend the user remove biined element
     }
     

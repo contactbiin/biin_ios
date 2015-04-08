@@ -28,6 +28,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         
+        BNAppSharedManager.instance.dataManager.setSitesBiinsCurrentState()
+        
     }
     
     override func didReceiveMemoryWarning() {

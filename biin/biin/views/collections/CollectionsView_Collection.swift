@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, SiteView_Delegate {
+class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate, CollectionView_ItemView_Delegate {
     
     var title:UILabel?
     var subTitle:UILabel?
@@ -19,6 +19,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     var lastColumnRequested:Int = 0
     var elementRequestPreviousLimit:Int = 0
     
+    var items:Array<CollectionView_ItemView>?
     var elements:Array<ElementMiniView>?
     var sites:Array<SiteMiniView>?
     
@@ -60,7 +61,6 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
         title!.text = self.collection!.title!
         title!.textColor = UIColor.appTextColor()
         self.addSubview(title!)
-        
         
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         
@@ -124,7 +124,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     }
     
     func addElementAndSitesViews(){
-
+        /*
         if let elementsList = self.elements {
             for elementView in elements! {
                 elementView.removeFromSuperview()
@@ -133,25 +133,66 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
             elements!.removeAll(keepCapacity: false)
         }
         
+        if let siteList = self.sites {
+            for siteView in sites! {
+                siteView.removeFromSuperview()
+            }
+            
+            sites!.removeAll(keepCapacity: false)
+        }
+        */
         
-        var elementPosition:Int = 1
-        var xpos:CGFloat = spacer
-        elements = Array<ElementMiniView>()
-        
-        for element in collection!.elements {
-            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:true)
-            xpos += SharedUIManager.instance.miniView_width + spacer
-            elementView.delegate = self
-            scroll!.addSubview(elementView)
-            elements!.append(elementView)
-            elementPosition++
+        if let itemsList = self.items {
+            for itemView in items! {
+                itemView.removeFromSuperview()
+            }
+            
+            items!.removeAll(keepCapacity: false)
         }
         
-        xpos += spacer
+        var itemPosition:Int = 1
+        var xpos:CGFloat = spacer
+        elementRequestPreviousLimit = 0
+        lastColumnRequested = 0
+        isWorking = true
+//        elements = Array<ElementMiniView>()
+//        sites = Array<SiteMiniView>()
+        items = Array<CollectionView_ItemView>()
+        
+        
+        println("collection!.items.count: \(collection!.items.count)")
+        
+        for item in collection!.items {
+            
+            var itemView:CollectionView_ItemView?
+            if let element = collection!.elements[item] {
+                
+                
+                itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
+    
+                
+            } else if let site = collection!.sites[item] {
+                
+                itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: nil, isElement: false, site: site)
+            }
+            
+            if itemPosition < 3 {
+                itemView!.requestImage()
+            }
+            
+            itemView!.collectionScrollPosition = itemPosition
+            xpos += SharedUIManager.instance.miniView_width + spacer
+            itemView!.delegate = self
+            scroll!.addSubview(itemView!)
+            items!.append(itemView!)
+            itemPosition++
+            
+
+        }
         
 //        if site!.loyalty!.isSubscribed {
 //            //Add game view
-//            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
+//            gameView = Sor iteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
 //            scroll!.addSubview(gameView!)
 //            xpos += SharedUIManager.instance.screenWidth
 //        } else  {
@@ -159,6 +200,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
 //            scroll!.addSubview(joinView!)
 //            xpos += SharedUIManager.instance.screenWidth
 //        }
+
+        xpos += spacer
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
         scroll!.setContentOffset(CGPointZero, animated: false)
@@ -172,7 +215,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView!) {
-        manageElementMiniViewImageRequest()
+        manageItemViewImageRequest()
     }// any offset changes
     
     // called on start of dragging (may require some time and or distance to move)
@@ -279,7 +322,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
 
     }// called when scrolling animation finished. may be called immediately if already at top
     
-    func manageElementMiniViewImageRequest(){
+    func manageItemViewImageRequest(){
         
         if !isWorking { return }
         
@@ -291,8 +334,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
             lastColumnRequested = column
             var requestLimit:Int = Int(lastColumnRequested + columns)
             
-            if requestLimit >= elements?.count {
-                requestLimit = elements!.count - 1
+            if requestLimit >= collection!.items.count {
+                requestLimit = collection!.items.count - 1
                 isWorking = false //reach the limit of requests
             }
             
@@ -302,9 +345,20 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
             while !stop {
                 
                 if i >= elementRequestPreviousLimit {
-                    var elementView = elements![i] as ElementMiniView
-                    elementView.requestImage()
+                    
+                    
+//                    if let element = collection!.elements[collection!.items[i]] {
+                        (items![i] as CollectionView_ItemView).requestImage()
+                        
+                        
+//                    } else if let site = collection!.sites[collection!.items[i]] {
+                    
+//                        var siteView = sites![i] as SiteMiniView
+//                        siteView.requestImage()
+//                    }
+                    
                     i--
+                    
                 } else  {
                     stop = true
                 }
@@ -319,21 +373,39 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
         (father! as CollectionsView).showElementView(view)
     }
     
-    func resizeScrollOnRemoved(view: ElementMiniView) {
+    func resizeScrollOnRemoved(view:CollectionView_ItemView) {
         var startPosition = 0
+        /*
         for var i = 0; i < elements!.count; i++ {
             if elements![i].header!.elementPosition! == view.header!.elementPosition! {
                 startPosition = i
                 elements!.removeAtIndex(i)
             }
         }
+        */
+        for var i = 0; i < items!.count; i++ {
+            if items![i].collectionScrollPosition == view.collectionScrollPosition {
+                startPosition = i
+                items!.removeAtIndex(i)
+            }
+        }
         
         var width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
         var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
         
+        /*
         for var i = startPosition; i < elements!.count; i++ {
             UIView.animateWithDuration(0.2, animations: {()->Void in
                 self.elements![i].frame.origin.x = xpos
+            })
+            
+            xpos += SharedUIManager.instance.miniView_width + spacer
+        }
+        */
+        
+        for var i = startPosition; i < items!.count; i++ {
+            UIView.animateWithDuration(0.2, animations: {()->Void in
+                self.items![i].frame.origin.x = xpos
             })
             
             xpos += SharedUIManager.instance.miniView_width + spacer

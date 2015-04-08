@@ -11,6 +11,7 @@ class SocialButtonsView:BNView {
     var biinBtn:BNUIButton_Social?
     var commentBtn:BNUIButton_Social?
     var shareBtn:BNUIButton_Social?
+    var showShareButton = false
     
     override init() {
         super.init()
@@ -28,7 +29,7 @@ class SocialButtonsView:BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, site:BNSite?){
+    convenience init(frame:CGRect, father:BNView?, site:BNSite?, showShareButton:Bool){
         self.init(frame: frame, father:father )
         
         //Social buttons
@@ -37,6 +38,7 @@ class SocialButtonsView:BNView {
         var ypos:CGFloat = 0.0
         var buttonWidth:CGFloat = 43.0
         var buttonHeight:CGFloat = 18.0
+        self.showShareButton = showShareButton
         
         biinBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
         self.addSubview(biinBtn!)
@@ -45,9 +47,11 @@ class SocialButtonsView:BNView {
         commentBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
         self.addSubview(commentBtn!)
         
-        xpos += commentBtn!.frame.width + xSpace
-        shareBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"", activate:false, iconType:BNIconType.shareSmall)
-        self.addSubview(shareBtn!)
+        if self.showShareButton {
+            xpos += commentBtn!.frame.width + xSpace
+            shareBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"", activate:false, iconType:BNIconType.shareSmall)
+            self.addSubview(shareBtn!)
+        }
         
     }
     
@@ -121,12 +125,14 @@ class SocialButtonsView:BNView {
             (commentBtn! as BNUIButton_Social).setInactive()
         }
 
-        xpos += commentBtn!.frame.width + xSpace
-        shareBtn!.frame.origin.x = xpos
-        if site!.userShared {
-            (shareBtn! as BNUIButton_Social).setActive()
-        } else {
-            (shareBtn! as BNUIButton_Social).setInactive()
+        if showShareButton {
+            xpos += commentBtn!.frame.width + xSpace
+            shareBtn!.frame.origin.x = xpos
+            if site!.userShared {
+                (shareBtn! as BNUIButton_Social).setActive()
+            } else {
+                (shareBtn! as BNUIButton_Social).setInactive()
+            }
         }
     }
     

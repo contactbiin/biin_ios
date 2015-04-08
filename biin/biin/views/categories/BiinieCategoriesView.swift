@@ -186,6 +186,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         var width = SharedUIManager.instance.screenWidth
         var page:Int = Int(floor(scrollView.contentOffset.x / width))
         
+        if page < 0 {
+            return
+        }
+        
         width = width + 1
         var xpos:CGFloat = CGFloat(page) * width
         var position = CGPointMake(xpos, 0)

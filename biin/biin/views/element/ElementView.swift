@@ -31,6 +31,8 @@ class ElementView: BNView {
     var hasDiscount = false
     var hasPrice = false
     
+    var animationView:BiinItAnimationView?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -64,7 +66,7 @@ class ElementView: BNView {
         header = ElementView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(2, 5, 30, 15))
+        backBtn = BNUIButton_Back(frame: CGRectMake(2, 2, 40, 20))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -82,6 +84,10 @@ class ElementView: BNView {
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - 41), 4, 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(shareItButton!)
+        
+        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, screenWidth))
+        animationView!.alpha = 0
+        scroll!.addSubview(animationView!)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -210,6 +216,7 @@ class ElementView: BNView {
         BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
         biinItButton!.showDisable()
+        animationView!.animate()
     }
     
     func shareit(sender:BNUIButton_ShareIt){

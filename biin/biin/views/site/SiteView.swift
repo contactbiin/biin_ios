@@ -36,6 +36,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     var showcaseHeight:CGFloat = 0
     
+    var animationView:BiinItAnimationView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -74,7 +76,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(2, 5, 30, 15))
+        backBtn = BNUIButton_Back(frame: CGRectMake(2, 2, 40, 20))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -101,8 +103,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
         elementView!.delegate = self
         self.addSubview(elementView!)
-        
-        
+      
+        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, screenWidth))
+        animationView!.alpha = 0
+        scroll!.addSubview(animationView!)
         
         var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
         showMenuSwipe.edges = UIRectEdge.Left
@@ -300,6 +304,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
         header!.updateForSite(site!)
         biinItButton!.showDisable()
+        animationView!.animate()
     }
     
     func shareit(sender:BNUIButton_ShareIt){

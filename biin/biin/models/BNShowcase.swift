@@ -17,7 +17,10 @@ class BNShowcase:NSObject {
     var lastUpdate:NSDate?
     var startTime:NSDate?
     var endTime:NSDate?
+    
+    //Context Variables
     var isDefault:Bool = false
+    var isUserNotified:Bool = false
     
     //Details
     var title:String?

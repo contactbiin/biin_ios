@@ -178,7 +178,6 @@ class BNIcon_BurgerMedium:BNIcon {
         bezier18Path.lineWidth = 1
         bezier18Path.stroke()
         
-        
         //// Bezier 20 Drawing
         var bezier20Path = UIBezierPath()
         bezier20Path.moveToPoint(CGPointMake(21, 9))

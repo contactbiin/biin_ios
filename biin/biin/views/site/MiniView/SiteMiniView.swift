@@ -14,6 +14,7 @@ class SiteMiniView: BNView {
     var header:SiteMiniView_Header?
     var imageRequested = false
     
+    var collectionScrollPosition:Int = 0
     
     override init() {
         super.init()
@@ -59,7 +60,7 @@ class SiteMiniView: BNView {
         //image!.alpha = 0
         self.addSubview(image!)
         
-        header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, site: site)
+        header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, site: site, showShareButton:true)
         self.addSubview(header!)
         header!.updateSocialButtonsForSite(site)
         

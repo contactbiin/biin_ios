@@ -34,6 +34,8 @@ class Biinie:NSObject, NSCoding {
     var newNotificationCount:Int?
     var notificationIndex:Int?
     
+    var isInStore = false
+    
     override init() {
         super.init()
         

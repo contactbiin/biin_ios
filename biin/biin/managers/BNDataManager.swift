@@ -23,7 +23,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var showcases = Dictionary<String, BNShowcase>()
     var elements = Dictionary<String, BNElement>()
     var elementsRequested = Dictionary<String, BNElement>()
-    var elementsBiined = Dictionary<String, String>()
+    //var elementsBiined = Dictionary<String, String>()
     
     var notifications = Array<BNNotification>()
     
@@ -171,6 +171,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
     }
     
+    func setSitesBiinsCurrentState(){
+        for (key, site) in sites {
+            site.setBiinsStates()
+        }
+        
+        delegatePM!.manager!(self, startSitesMonitoring: true)
+    }
+    
     
     //BNNetworkManagerDelegate
     /**
@@ -287,7 +295,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         for biin in sites[site.identifier!]!.biins {
             //Check if showcase exist.
             
-            for showcase in biin.showcases {
+            for showcase in biin.showcases! {
             
                 if showcases[showcase.identifier!] == nil {
                     //Showcase does not exist, store it and request it's data.
@@ -307,6 +315,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //println("Received showcase: \(showcase.identifier!)")
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
+        
+        
         
         requestElements(showcase.elements)
         
@@ -334,11 +344,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNElement list received from web service in json format already parse in an array object.
     func manager(manager: BNNetworkManager!, didReceivedBiinedElementList elementList: Array<BNElement>) {
         
-        for element in elementList {
-            if elementsBiined[element._id!] == nil {
-                elementsBiined[element._id!] = element._id!
-            }
-        }
+        //for element in elementList {
+        //    if elementsBiined[element._id!] == nil {
+        //        elementsBiined[element._id!] = element._id!
+         //   }
+        //}
         
         
         //TODO: Remove this call temparary
@@ -590,7 +600,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
         
-        //println("Received collections: \(collectionList.count)")
+        println("Received collections: \(collectionList.count)")
         
         if collectionList.count > 0 {
             
@@ -603,13 +613,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     bnUser!.temporalCollectionIdentifier = collection.identifier!
                 }
                 
-                /*
-                for element in collection.elements {
-                    if elementsBiined[element._id!] == nil {
-                    elementsBiined[element._id!] = element._id!
-                    }
-                }
-                */
+                println("\(bnUser!.collections![collection.identifier!]?.elements.count)")
+                
+                //for (key, element) in collection.elements {
+                //    if elementsBiined[element._id!] == nil {
+                //        elementsBiined[element._id!] = element._id!
+                //    }
+                //}
+            
                 //TODO: Remove this call temporary
                 //requestElements(collection.elements)
             }
@@ -692,14 +703,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     //Store data methods
     func addElementBiined(_id:String) -> Int{
-        if elementsBiined[_id] == nil {
-            elementsBiined[_id] = _id
+        //if elementsBiined[_id] == nil {
+            //elementsBiined[_id] = _id
             elements[_id]!.userBiined = true
             elements[_id]!.biinedCount++
             return elements[_id]!.biinedCount
             //TODO: Post user just biined an element
-        }
-        return 0
+        //}
+        //return 0
     }
 }
 
@@ -814,14 +825,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNDataManager
     ///:param: Site to be monitor bu BNPositionManager.
     ///:returns: none
-    optional func manager(manager:BNDataManager, startSiteMonitoring site:BNSite)
+    optional func manager(manager:BNDataManager, startSitesMonitoring value:Bool)
     
     ///Request position manager to stop a site monitoring.
     ///
     ///:param: Data manager that stores the sites.
     ///:param: Site to be monitor.
     ///:returns: none
-    optional func manager(manager:BNDataManager, stopSiteMonitoring site:BNSite)
+    optional func manager(manager:BNDataManager, stopSitesMonitoring value:Bool)
     
     //TODO: Remove this two methods later
     optional func manager(manager:BNDataManager!, startBiinMonitoring biin:BNBiin)

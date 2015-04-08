@@ -127,7 +127,7 @@ class BNUICircle:UIView {
         circleAnimation.fromValue = pathFull
         circleAnimation.toValue = pathEmpty
         circleAnimation.removedOnCompletion = true
-        circleAnimation.duration = 0.2
+        circleAnimation.duration = 0.3
         circleAnimation.fillMode = kCAFillModeForwards
         mask!.addAnimation(circleAnimation, forKey:nil )
         

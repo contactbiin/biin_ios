@@ -21,6 +21,10 @@ class ElementMiniView: BNView {
     var discountView:BNUIDiscountView?
     var priceView:BNUIPricesView?
     
+    var collectionScrollPosition:Int = 0
+    
+    var animationView:BiinItAnimationView?
+    
     override init() {
         super.init()
     }
@@ -67,6 +71,32 @@ class ElementMiniView: BNView {
         self.addSubview(header!)
         header!.updateSocialButtonsForElement(self.element)
         
+        
+        var ypos:CGFloat = SharedUIManager.instance.siteView_headerHeight - 5
+        
+        if self.element!.hasDiscount {
+            discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
+            self.addSubview(discountView!)
+            ypos += 40
+        }
+        
+        if self.element!.hasListPrice && !self.element!.hasDiscount {
+            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: self.element!.listPrice!)
+            self.addSubview(priceView!)
+            
+        } else if self.element!.hasListPrice {
+            
+            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: self.element!.listPrice!, newPrice: self.element!.price!)
+            self.addSubview(priceView!)
+        }
+        
+        if self.element!.hasSticker {
+            stickerView = BNUIStickerView(frame:CGRectMake((SharedUIManager.instance.miniView_width - 55), (SharedUIManager.instance.miniView_headerHeight + 5), 50, 50), type:self.element!.sticker!.type, color:self.element!.sticker!.color! )
+            self.addSubview(stickerView!)
+        }
+        
+
+        
         xpos = 5
         if showRemoveBtn {
             removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
@@ -88,28 +118,9 @@ class ElementMiniView: BNView {
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(shareItButton!)
         
-        var ypos:CGFloat = SharedUIManager.instance.siteView_headerHeight - 5
-        
-        if self.element!.hasDiscount {
-            discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
-            self.addSubview(discountView!)
-            ypos += 40
-        }
-        
-        if self.element!.hasListPrice && !self.element!.hasDiscount {
-            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: self.element!.listPrice!)
-            self.addSubview(priceView!)
-
-        } else if self.element!.hasListPrice {
-            
-            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: self.element!.listPrice!, newPrice: self.element!.price!)
-            self.addSubview(priceView!)
-        }
-        
-        if self.element!.hasSticker {
-            stickerView = BNUIStickerView(frame:CGRectMake((SharedUIManager.instance.miniView_width - 55), (SharedUIManager.instance.miniView_headerHeight + 5), 50, 50), type:self.element!.sticker!.type, color:self.element!.sticker!.color! )
-            self.addSubview(stickerView!)
-        }
+        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, frame.width, frame.height))
+        animationView!.alpha = 0
+        self.addSubview(animationView!)
         
         var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
@@ -168,6 +179,7 @@ class ElementMiniView: BNView {
         BNAppSharedManager.instance.biinit(element!._id!, isElement:true)
         header!.updateSocialButtonsForElement(element!)        
         biinItButton!.showDisable()
+        animationView!.animate()
     }
     
     func shareit(sender:BNUIButton_ShareIt){
@@ -182,17 +194,16 @@ class ElementMiniView: BNView {
                 self.alpha = 0
             }, completion: {(completed:Bool)->Void in
                 self.delegate!.resizeScrollOnRemoved!(self)
-                BNAppSharedManager.instance.unBiinit(self.element!._id!, isElement:true)
+                BNAppSharedManager.instance.unBiinit(self.element!.identifier!, isElement:true)
                 self.removeFromSuperview()
         })
-
     }
     
     override func refresh() {
         
         if element!.userBiined {
             header!.updateSocialButtonsForElement(element!)
-            biinItButton!.showDisable()
+            biinItButton?.showDisable()
         }
     }
 }

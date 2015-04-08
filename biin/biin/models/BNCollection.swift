@@ -10,8 +10,9 @@ class BNCollection:NSObject {
     var identifier:String?
     var subTitle:String?
     var title:String?
-    var elements = Array<BNElement>()
-    var sites = Array<BNSite>()
+    var items = Array<String>()
+    var elements = Dictionary<String, BNElement>()
+    var sites = Dictionary<String, BNSite>()
     
 //    var isMine:Bool = true
 //    var owner:BNUser?

@@ -22,7 +22,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         BNAppSharedManager.instance.dataManager.requestInitialData()
         
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.biinColor()
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = true
         
@@ -34,35 +34,35 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         var version = UILabel(frame: CGRectMake(0, (screenHeight - 40), screenWidth, 20))
         version.font = UIFont(name: "Lato-Light", size: 18)
-        version.textColor = UIColor.blackColor()
+        version.textColor = UIColor.whiteColor()
         version.textAlignment = NSTextAlignment.Center
         version.text = "Version \(BNAppSharedManager.instance.version)"
         self.view.addSubview(version)
         
         enterBtn = UIButton(frame: CGRectMake(0, (screenHeight - 175), screenWidth, 60))
-        enterBtn!.backgroundColor = UIColor.biinColor()
+        enterBtn!.backgroundColor = UIColor.whiteColor()
         enterBtn!.setTitle("Enter", forState: UIControlState.Normal)
-        enterBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        enterBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 20)
+        enterBtn!.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        enterBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         enterBtn!.addTarget(self, action: "enterBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         enterBtn!.alpha = 0
         self.view.addSubview(enterBtn!)
         
         
         clearUserBtn = UIButton(frame: CGRectMake(0, (screenHeight - 110), screenWidth, 60))
-        clearUserBtn!.backgroundColor = UIColor.bnRed()
+        clearUserBtn!.backgroundColor = UIColor.whiteColor()
         clearUserBtn!.setTitle("Clear user", forState: UIControlState.Normal)
-        clearUserBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        clearUserBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 20)
+        clearUserBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        clearUserBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         clearUserBtn!.addTarget(self, action: "clearUserBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         clearUserBtn!.alpha = 1
         self.view.addSubview(clearUserBtn!)
 
         addActionBtn = UIButton(frame: CGRectMake(0, (screenHeight - 240), screenWidth, 60))
-        addActionBtn!.backgroundColor = UIColor.bnGreen()
+        addActionBtn!.backgroundColor = UIColor.whiteColor()
         addActionBtn!.setTitle("Add Action", forState: UIControlState.Normal)
-        addActionBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 20)
+        addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         addActionBtn!.alpha = 0
         self.view.addSubview(addActionBtn!)
