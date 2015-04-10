@@ -5,10 +5,13 @@
 
 import Foundation
 import CoreLocation
+import CoreBluetooth
 
-class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelegate
+class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelegate, CBCentralManagerDelegate
 {
     var locationManager:CLLocationManager?// = CLLocationManager()
+    var bluetoothManager:CBCentralManager?
+    
     var errorManager:BNErrorManager
     
     var delegateDM:BNPositionManagerDelegate?
@@ -54,8 +57,39 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.locationManager!.distanceFilter = kCLLocationAccuracyNearestTenMeters
         self.locationManager!.desiredAccuracy = kCLLocationAccuracyBest
         
-        //TODO: Remove all monitoring regions
+        if self.bluetoothManager == nil {
+            self.bluetoothManager = CBCentralManager(delegate: self, queue: nil, options: nil)
+            self.bluetoothManager!.delegate = self
+        }
+    }
+    
+    
+    //CLLocationManagerDelegate - Responding to Authorization Changes
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
+        println("didChangeAuthorizationStatus()")
+        
+        switch status {
+        case .AuthorizedAlways, .AuthorizedWhenInUse:
+            BNAppSharedManager.instance.continueAppInitialization()
+            println("didChangeAuthorizationStatus() autorized")
+            break
+        case .Denied, .Restricted, .NotDetermined:
+            BNAppSharedManager.instance.continueAppInitialization()
+            println("didChangeAuthorizationStatus() denied")
+            break
+        }
+    }
+    
+    func checkLocationServicesStatus()-> Bool{
+        var status:CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+        
+        switch status {
+        case .AuthorizedAlways, .AuthorizedWhenInUse:
+            return true
+        case .Denied, .Restricted, .NotDetermined:
+            return false
+        }
     }
     
     
@@ -380,11 +414,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     func locationManager(manager: CLLocationManager!, rangingBeaconsDidFailForRegion region: CLBeaconRegion!, withError error: NSError!) {
         //TODO: send error when failing ranging on a region.
     }
-    
-    //CLLocationManagerDelegate - Responding to Authorization Changes
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        
-    }
+
     
     //CLLocationManagerDelegate - Responding to Visit Events
     func locationManager(manager: CLLocationManager!, didVisit visit: CLVisit!) {
@@ -393,6 +423,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     //Methods to conform on BNPositionManager
     func manager(manager:BNDataManager!, startRegionsMonitoring regions:Array<BNRegion>) {
+        
+        
+        
         
         for region in regions {
             
@@ -596,6 +629,60 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     }
     
     //Methods related to Beacons
+    
+    
+    
+    func centralManagerDidUpdateState(central: CBCentralManager!) {
+        println("centralManagerDidUpdateState()")
+
+        
+        switch central.state {
+            
+        case .PoweredOn:
+            println(".PoweredOn")
+            
+        case .PoweredOff:
+            println(".PoweredOff")
+            
+        case .Resetting:
+            println(".Resetting")
+            
+        case .Unauthorized:
+            println(".Unauthorized")
+            
+        case .Unknown:
+            println(".Unknown")
+            
+        case .Unsupported:
+            println(".Unsupported")
+        }
+        
+        BNAppSharedManager.instance.continueAppInitialization()
+    }
+    
+    func checkBluetoothServicesStatus()-> Bool{
+
+        println("checkBluetoothServicesStatus()")
+        switch bluetoothManager!.state {
+        case .PoweredOn:
+            return true
+        case .PoweredOff, .Unsupported, .Unknown, .Unauthorized:
+            return false
+        default:
+            return false
+        }
+    }
+    
+    func checkHardwareStatus()-> Bool{
+        
+        println("checkHardwareStatus()")
+        switch bluetoothManager!.state {
+        case .Unsupported:
+            return false
+        default:
+            return true
+        }
+    }
 }
 
 

@@ -21,6 +21,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         super.viewDidLoad()
     
         BNAppSharedManager.instance.networkManager.delegateVC = self
+        BNAppSharedManager.instance.errorManager.currentViewController = self
         
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true

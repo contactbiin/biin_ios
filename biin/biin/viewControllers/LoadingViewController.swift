@@ -19,7 +19,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         println("LoadingViewController - viewDidLoad()")
         BNAppSharedManager.instance.networkManager.delegateVC = self
-        BNAppSharedManager.instance.dataManager.requestInitialData()
+        BNAppSharedManager.instance.errorManager.currentViewController = self
+//        BNAppSharedManager.instance.dataManager.requestInitialData()
         
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.biinColor()

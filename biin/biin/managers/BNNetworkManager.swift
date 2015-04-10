@@ -77,6 +77,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("Error on regions data - Not connection available")
+                self.errorManager!.showInternetError()
                 self.handleFailedRequest(request, error: error? )
             } else {
                 

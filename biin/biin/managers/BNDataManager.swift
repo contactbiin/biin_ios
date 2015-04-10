@@ -60,12 +60,19 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             bnUser!.biinName = ""
         }
         
-        
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "startAppTimer:", userInfo: nil, repeats: false)
     }
     
     deinit {
         
     }
+    
+    func startAppTimer(sender:NSTimer){
+        println("startAppTimer")
+        BNAppSharedManager.instance.continueAppInitialization()
+    }
+    
+    
     
     func requestInitialData(){
         
@@ -187,8 +194,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     :param: Network status.
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
-        if status {
-            
+        if status && BNAppSharedManager.instance.IS_APP_UP {
+
+            requestInitialData()
             //TODO: changing flow, if user is register or loged in reques data.
 //            if isUserLoaded {
 //                requestInitialData()

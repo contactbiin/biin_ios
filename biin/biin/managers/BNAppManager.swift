@@ -26,6 +26,10 @@ class BNAppManager {
     
     var mainViewController:MainViewController?
     
+    weak var appDelegate:AppDelegate?
+    
+    var IS_APP_UP:Bool = false
+    
     init(){
         self.counter++
 
@@ -39,8 +43,32 @@ class BNAppManager {
         dataManager.delegatePM = positionManager
         positionManager.delegateDM = dataManager
         errorManager.delegateNM = networkManager
+
+    }
+    
+
+    func continueAppInitialization(){
+        if positionManager.checkLocationServicesStatus() {
+            //errorManager.showAlertOnStart(NSError(domain: "Location serives ENABLED", code: 1, userInfo: nil))
+            
+            if positionManager.checkHardwareStatus() {
+                if positionManager.checkBluetoothServicesStatus() {
+                    continueAfterIntialChecking()
+                } else {
+                    errorManager.showBluetoothError()
+                }
+            } else  {
+                errorManager.showHardwareNotSupportedError()
+            }
+            
+        } else {
+            errorManager.showLocationServiceError()
+        }
+    }
+    
+    func continueAfterIntialChecking(){
         
-        //1. Code Flow - Checks connectivity first.
+        println("continueAfterIntialChecking()")
         networkManager.checkConnectivity()
     }
     

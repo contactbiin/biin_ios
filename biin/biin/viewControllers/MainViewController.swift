@@ -23,6 +23,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         println("MainViewController - viewDidLoad()")
         
+        BNAppSharedManager.instance.errorManager.currentViewController = self
+        
         self.view.backgroundColor = UIColor.appMainColor()
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
