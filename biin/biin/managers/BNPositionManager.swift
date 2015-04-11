@@ -6,6 +6,7 @@
 import Foundation
 import CoreLocation
 import CoreBluetooth
+import UIKit
 
 class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelegate, CBCentralManagerDelegate
 {
@@ -71,23 +72,29 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
-            BNAppSharedManager.instance.continueAppInitialization()
             println("didChangeAuthorizationStatus() autorized")
             break
         case .Denied, .Restricted, .NotDetermined:
-            BNAppSharedManager.instance.continueAppInitialization()
             println("didChangeAuthorizationStatus() denied")
             break
+        }
+        
+        if BNAppSharedManager.instance.isWaitingForLocationServicesPermision {
+            BNAppSharedManager.instance.continueAppInitialization()
         }
     }
     
     func checkLocationServicesStatus()-> Bool{
+        println("checkLocationServicesStatus()")
+        
         var status:CLAuthorizationStatus = CLLocationManager.authorizationStatus()
         
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
+            println("checkLocationServicesStatus() autorized")
             return true
         case .Denied, .Restricted, .NotDetermined:
+            println("checkLocationServicesStatus() denied")
             return false
         }
     }
@@ -120,6 +127,12 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         println("\(text)")
         self.delegateView?.manager?(self, printText: text)
         self.delegateDM!.manager!(self, startEnterRegionProcessWithIdentifier: region.identifier)
+        
+        var localNotification:UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "Enter Regions"
+        localNotification.alertBody = text
+        localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
     }
     
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion) {
@@ -127,6 +140,12 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         println("\(text)")
         self.delegateView?.manager?(self, printText: text)
         self.delegateDM!.manager!(self, startExitRegionProcessWithIdentifier: region.identifier)
+        
+        var localNotification:UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "Exit Regions"
+        localNotification.alertBody = text
+        localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
     }
     
     func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
@@ -635,7 +654,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     func centralManagerDidUpdateState(central: CBCentralManager!) {
         println("centralManagerDidUpdateState()")
 
-        
         switch central.state {
             
         case .PoweredOn:

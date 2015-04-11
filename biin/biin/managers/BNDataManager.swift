@@ -60,19 +60,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             bnUser!.biinName = ""
         }
         
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "startAppTimer:", userInfo: nil, repeats: false)
+        //NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "startAppTimer:", userInfo: nil, repeats: false)
     }
     
     deinit {
         
     }
     
-    func startAppTimer(sender:NSTimer){
-        println("startAppTimer")
-        BNAppSharedManager.instance.continueAppInitialization()
-    }
-    
-    
+    //func startAppTimer(sender:NSTimer){
+      //  println("startAppTimer")
+        //BNAppSharedManager.instance.continueAppInitialization()
+    //}
     
     func requestInitialData(){
         

@@ -77,6 +77,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             let settingsAction = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
                 
                 println("Goto settings...")
+                self.isAlertOn = false
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             
             })
@@ -117,6 +118,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             let settingsAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
                 
                 println("")
+                self.isAlertOn = false
                 BNAppSharedManager.instance.networkManager.checkConnectivity()
                 
             })
@@ -140,6 +142,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
                 
                 println("")
+                self.isAlertOn = false
                 (self.currentViewController as LoadingViewController).loadingView!.showHardwareError()
                 
             })
@@ -163,6 +166,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             let settingsAction = UIAlertAction(title: "Settings", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
                 
                 println("")
+                self.isAlertOn = false
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
                 
                 

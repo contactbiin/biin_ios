@@ -40,6 +40,7 @@ class BNUIDetailView_Price:UIView {
         var frame = CGRectMake(position.x, position.y, width, 55)
         self.init(frame:frame)
         
+        self.backgroundColor = UIColor.appBackground()
         self.layer.borderColor = borderColor.CGColor
         self.layer.borderWidth = 0.5
         

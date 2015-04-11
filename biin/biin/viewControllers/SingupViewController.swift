@@ -43,6 +43,14 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         self.view.addSubview(signupView!)
         signupView!.frame.origin.x = SharedUIManager.instance.screenWidth
         
+        //[snippet caption="Creating Notifications in Swift"]
+//        var localNotification: UILocalNotification = UILocalNotification()
+//        localNotification.alertAction = "Testing notifications on iOS8"
+//        //localNotification.alertBody = "Woww it works!!”
+//        localNotification.alertBody = "Testing"
+//        localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
+//        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        
     }
     
     override func didReceiveMemoryWarning() {

@@ -35,6 +35,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //appManager.networkManager.delegateVC = lvc
         }
         
+        
+        
+        //var localNotification:UILocalNotification = UILocalNotification()
+        //localNotification.alertAction = "Testing notifications on iOS8"
+//        localNotification = "Woww it works!!”
+        //localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
+        //UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound |
+            UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        
+        
         return true
     }
     
@@ -58,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         println("applicationWillEnterForeground")
         appManager.IS_APP_UP = true
+        appManager.continueAppInitialization()
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 

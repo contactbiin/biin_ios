@@ -55,12 +55,12 @@ class BiinItAnimationView:UIView {
     }
     
     func animateOut(){
-        NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "animateCircleOut:", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "animateCircleOut:", userInfo: nil, repeats: false)
     }
     
     func animateCircle(sender:NSTimer){
         
-        self.animatedCircle!.alpha = 1
+        self.animatedCircle!.alpha = 0.35
         self.animatedCircle!.animateIn()
         
         UIView.animateWithDuration(0.2, animations: {()->Void in

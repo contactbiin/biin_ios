@@ -29,7 +29,7 @@ class BNUICompletedGameIconView:BNView {
     convenience init(frame: CGRect, father: BNView?, color:UIColor) {
         self.init(frame: frame, father:father )
         self.backgroundColor = UIColor.clearColor()
-        self.icon = BNIcon_CompletedGameIcon(color:color, scale:1, position: CGPointMake(2, 2), stroke:1, isFilled:false)
+        self.icon = BNIcon_CompletedGameIcon(color:color, scale:1, position: CGPointMake(10, 10), stroke:1, isFilled:false)
     }
     
     override func drawRect(rect: CGRect) {

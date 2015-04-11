@@ -20,54 +20,50 @@ class BNIcon_CompletedGameIcon:BNIcon {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
+        //// Color Declarations
+        let colorBiin = UIColor.biinColor()
+        //let color0 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
         
         
-        //// back Drawing
-        var backPath = UIBezierPath()
-        backPath.moveToPoint(CGPointMake(48.5, 81.5))
-        backPath.addLineToPoint(CGPointMake(33, 81.5))
-        backPath.addCurveToPoint(CGPointMake(0, 48.5), controlPoint1: CGPointMake(14.8, 81.5), controlPoint2: CGPointMake(0, 66.7))
-        backPath.addLineToPoint(CGPointMake(0, 33))
-        backPath.addCurveToPoint(CGPointMake(33, 0), controlPoint1: CGPointMake(0, 14.8), controlPoint2: CGPointMake(14.8, 0))
-        backPath.addLineToPoint(CGPointMake(48.6, 0))
-        backPath.addCurveToPoint(CGPointMake(81.6, 33), controlPoint1: CGPointMake(66.8, 0), controlPoint2: CGPointMake(81.6, 14.8))
-        backPath.addLineToPoint(CGPointMake(81.6, 48.6))
-        backPath.addCurveToPoint(CGPointMake(48.5, 81.5), controlPoint1: CGPointMake(81.5, 66.8), controlPoint2: CGPointMake(66.7, 81.5))
-        backPath.closePath()
-        backPath.miterLimit = 4;
+        //// Bezier 2 Drawing
+        var bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPointMake(39.56, 66.6))
+        bezier2Path.addLineToPoint(CGPointMake(26.93, 66.6))
+        bezier2Path.addCurveToPoint(CGPointMake(0, 39.67), controlPoint1: CGPointMake(12.07, 66.6), controlPoint2: CGPointMake(0, 54.53))
+        bezier2Path.addLineToPoint(CGPointMake(0, 26.93))
+        bezier2Path.addCurveToPoint(CGPointMake(26.93, 0), controlPoint1: CGPointMake(0, 12.07), controlPoint2: CGPointMake(12.07, 0))
+        bezier2Path.addLineToPoint(CGPointMake(39.67, 0))
+        bezier2Path.addCurveToPoint(CGPointMake(66.6, 26.93), controlPoint1: CGPointMake(54.53, 0), controlPoint2: CGPointMake(66.6, 12.07))
+        bezier2Path.addLineToPoint(CGPointMake(66.6, 39.67))
+        bezier2Path.addCurveToPoint(CGPointMake(39.56, 66.6), controlPoint1: CGPointMake(66.49, 54.53), controlPoint2: CGPointMake(54.49, 66.6))
+        bezier2Path.closePath()
+        colorBiin.setFill()
+        bezier2Path.fill()
+        color!.setStroke()
+        bezier2Path.lineWidth = 2
+        bezier2Path.stroke()
         
-        backPath.lineCapStyle = kCGLineCapRound;
         
-        backPath.lineJoinStyle = kCGLineJoinRound;
+        //// Bezier 4 Drawing
+        var bezier4Path = UIBezierPath()
+        bezier4Path.moveToPoint(CGPointMake(45.1, 18.67))
+        bezier4Path.addLineToPoint(CGPointMake(27.83, 35.94))
+        bezier4Path.addLineToPoint(CGPointMake(23, 31.11))
+        bezier4Path.addLineToPoint(CGPointMake(18.14, 35.94))
+        bezier4Path.addLineToPoint(CGPointMake(27.83, 45.59))
+        bezier4Path.addLineToPoint(CGPointMake(49.93, 23.49))
+        bezier4Path.addLineToPoint(CGPointMake(45.1, 18.67))
+        bezier4Path.closePath()
+        bezier4Path.lineJoinStyle = kCGLineJoinRound;
         
         color!.setStroke()
-        backPath.lineWidth = 3
-        backPath.stroke()
-        
-        
-        //// icon Drawing
-        var iconPath = UIBezierPath()
-        iconPath.moveToPoint(CGPointMake(57.1, 21.2))
-        iconPath.addLineToPoint(CGPointMake(32, 46.3))
-        iconPath.addLineToPoint(CGPointMake(25, 39.3))
-        iconPath.addLineToPoint(CGPointMake(17.9, 46.3))
-        iconPath.addLineToPoint(CGPointMake(32, 60.4))
-        iconPath.addLineToPoint(CGPointMake(64.1, 28.3))
-        iconPath.addLineToPoint(CGPointMake(57.1, 21.2))
-        iconPath.closePath()
-        iconPath.miterLimit = 4;
-        
-        iconPath.lineCapStyle = kCGLineCapRound;
-        
-        iconPath.lineJoinStyle = kCGLineJoinRound;
-        
-        color!.setStroke()
-        iconPath.lineWidth = 3
-        iconPath.stroke()
+        bezier4Path.lineWidth = 2
+        bezier4Path.stroke()
         
         
         
