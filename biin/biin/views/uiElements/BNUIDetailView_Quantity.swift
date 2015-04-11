@@ -29,7 +29,7 @@ class BNUIDetailView_Quantity:UIView {
         var boxWidth = (SharedUIManager.instance.screenWidth - 14) / 3
         var frame = CGRectMake(position.x, position.y, boxWidth, 30)
         self.init(frame:frame)
-        //        self.layer.backgroundColor = UIColor.bnBlueDark().CGColor
+        self.backgroundColor = UIColor.appBackground()
         self.layer.borderColor = borderColor.CGColor
         self.layer.borderWidth = 0.5
         

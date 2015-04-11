@@ -30,6 +30,7 @@ class BNUIDetailView_Time:UIView {
         
         var frame = CGRectMake(position.x, position.y, (SharedUIManager.instance.screenWidth - 10), 30)
         self.init(frame:frame)
+        self.backgroundColor = UIColor.appBackground()
         self.layer.borderWidth = 0.5
         self.layer.borderColor = borderColor.CGColor
         
