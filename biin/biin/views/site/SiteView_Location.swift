@@ -31,9 +31,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var siteLocation:CLLocationCoordinate2D?
     var annotation:MKPointAnnotation?
 
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,7 +65,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         siteAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
         siteAvatarView!.layer.cornerRadius = 35
         siteAvatarView!.layer.borderColor = UIColor.appBackground().CGColor
-        siteAvatarView!.layer.borderWidth = 6
+        siteAvatarView!.layer.borderWidth = 4
         siteAvatarView!.layer.masksToBounds = true
         self.addSubview(siteAvatarView!)
         
@@ -78,39 +78,39 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: siteAvatar)
 
         xpos += 100
-        ypos += 5
+        ypos += 0
         
-        title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 20))
-        title!.font = UIFont(name: "Lato-Regular", size: 22)
+        title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 22))
+        title!.font = UIFont(name: "Lato-Regular", size: 20)
         title!.text = ""
         title!.textColor = UIColor.biinColor()
         self.addSubview(title!)
         
         ypos += 22
-        streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
-        streetAddress1!.font = UIFont(name: "Lato-Light", size: 10)
+        streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
+        streetAddress1!.font = UIFont(name: "Lato-Light", size: 12)
         streetAddress1!.text = "Address"
         streetAddress1!.textColor = UIColor.appTextColor()
         streetAddress1!.numberOfLines = 0
         self.addSubview(streetAddress1!)
 
         ypos += 13
-        streetAddress2 = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
-        streetAddress2!.font = UIFont(name: "Lato-Light", size: 10)
+        streetAddress2 = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
+        streetAddress2!.font = UIFont(name: "Lato-Light", size: 12)
         streetAddress2!.text = ""
         streetAddress2!.textColor = UIColor.appTextColor()
         self.addSubview(streetAddress2!)
         
         ypos += 13
-        phoneNumber = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
-        phoneNumber!.font = UIFont(name: "Lato-Light", size: 10)
+        phoneNumber = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
+        phoneNumber!.font = UIFont(name: "Lato-Light", size: 12)
         phoneNumber!.text = ""
         phoneNumber!.textColor = UIColor.appTextColor()
         self.addSubview(phoneNumber!)
         
         ypos += 13
-        email = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 12))
-        email!.font = UIFont(name: "Lato-Light", size: 10)
+        email = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
+        email!.font = UIFont(name: "Lato-Light", size: 12)
         email!.text = ""
         email!.textColor = UIColor.appTextColor()
         self.addSubview(email!)
@@ -127,7 +127,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
     
         annotation = MKPointAnnotation()
-        annotation!.setCoordinate(siteLocation!)
+        //annotation!.setCoordinate(siteLocation!)
+        annotation!.coordinate = siteLocation!
         annotation!.title = "Annotation title"
         annotation!.subtitle = "Annotation subtitle"
         
@@ -151,6 +152,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         self.addSubview(line)
+        
+        //ypos += 5
+        //self.frame = CGRectMake(0, 0, frame.width, ypos)
         
     }
     /*
@@ -267,7 +271,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         map!.setRegion(region, animated: false)
         
         
-        annotation!.setCoordinate(siteLocation!)
+
+        annotation!.coordinate = siteLocation!
+        //annotation!.setCoordinate(siteLocation!)
         
         BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)
     }

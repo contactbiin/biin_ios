@@ -8,10 +8,8 @@ import UIKit
 
 class BNUIDetailView_Price:UIView {
     
-    var titleLbl:UILabel?
-    var timeLbl:UILabel?
-    
     var price:UILabel?
+    var priceTitle:UILabel?
     
     var listPrice:UILabel?
     var listPriceTitle:UILabel?
@@ -22,9 +20,9 @@ class BNUIDetailView_Price:UIView {
     var savings:UILabel?
     var savingsTitle:UILabel?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,43 +35,59 @@ class BNUIDetailView_Price:UIView {
     convenience init(position:CGPoint, listPrice:String?, textColor:UIColor, borderColor:UIColor) {
 
         var width = (SharedUIManager.instance.screenWidth - 10)
-        var frame = CGRectMake(position.x, position.y, width, 55)
+        var frame = CGRectMake(position.x, position.y, width, 60)
         self.init(frame:frame)
         
-        self.backgroundColor = UIColor.appBackground()
+        self.backgroundColor = UIColor.bnGreen()
         self.layer.borderColor = borderColor.CGColor
         self.layer.borderWidth = 0.5
         
-        self.price = UILabel(frame: CGRectMake(0, 10, width, 35))
+        self.priceTitle = UILabel(frame: CGRectMake(0, 5, width, 13))
+        self.priceTitle!.text = "PRICE"
+        self.priceTitle!.textAlignment = NSTextAlignment.Center
+        self.priceTitle!.font = UIFont(name: "Lato-Regular", size: 11)
+        self.priceTitle!.textColor = textColor
+        self.addSubview(self.priceTitle!)
+        
+        self.price = UILabel(frame: CGRectMake(0, 16, width, 35))
         self.price!.text = listPrice
         self.price!.textAlignment = NSTextAlignment.Center
         self.price!.font = UIFont(name: "Lato-Black", size: 35)
-        self.price!.textColor = textColor
+        self.price!.textColor = UIColor.whiteColor()
         self.addSubview(self.price!)
         
     }
     
+    //TODO: Check if thei contructor is use otherwise remove
     convenience init(position:CGPoint, price:String?, listPrice:String?, discount:String?, savings:String?, textColor:UIColor, borderColor:UIColor) {
         
         var width = (SharedUIManager.instance.screenWidth - 10)
         
-        var frame = CGRectMake(position.x, position.y, width, 90)
+        var frame = CGRectMake(position.x, position.y, width, 100)
         self.init(frame:frame)
         self.backgroundColor = UIColor.appBackground()
         self.layer.borderColor = borderColor.CGColor
         self.layer.borderWidth = 0.5
         
-        self.price = UILabel(frame: CGRectMake(0, 10, width, 35))
+        self.priceTitle = UILabel(frame: CGRectMake(0, 10, width, 13))
+        self.priceTitle!.text = "PRICE"
+        self.priceTitle!.textAlignment = NSTextAlignment.Center
+        self.priceTitle!.font = UIFont(name: "Lato-Regular", size: 11)
+        self.priceTitle!.textColor = textColor
+        self.addSubview(self.priceTitle!)
+        
+        
+        self.price = UILabel(frame: CGRectMake(0, 20, width, 35))
         self.price!.text = price
         self.price!.textAlignment = NSTextAlignment.Center
         self.price!.font = UIFont(name: "Lato-Black", size: 35)
-        self.price!.textColor = textColor
+        self.price!.textColor = UIColor.bnGreen()
         self.addSubview(self.price!)
         
         var boxWidth:CGFloat = (width / 3)
         var xpos:CGFloat = 0
-        var ypos1:CGFloat = 50
-        var ypos2:CGFloat = 60
+        var ypos1:CGFloat = 60
+        var ypos2:CGFloat = 70
         
         self.listPriceTitle = UILabel(frame: CGRectMake(xpos, ypos1, boxWidth, 13))
         self.listPriceTitle!.text = "VALUE"

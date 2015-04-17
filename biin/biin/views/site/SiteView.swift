@@ -259,7 +259,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
         var imagesHeight = SharedUIManager.instance.screenWidth
         var page:Int = 0
@@ -284,7 +285,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }// called when scroll view grinds to a halt
     
     /* UIScrollViewDelegate Methods */
-    func scrollViewDidScroll(scrollView: UIScrollView!) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         
     }// any offset changes
     
@@ -308,7 +309,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareit(site!.identifier!)
+        BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false)
     }
 }
 

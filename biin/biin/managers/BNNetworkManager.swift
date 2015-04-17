@@ -78,7 +78,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             if (error != nil) {
                 println("Error on regions data - Not connection available")
                 self.errorManager!.showInternetError()
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 println("Connection OK")
@@ -118,7 +118,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("Error on regions data")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error)
                 
                 response = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
                 self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
@@ -178,7 +178,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** Register for user \(user.email!) SUCK - FAILED!")
@@ -244,7 +244,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("Error on posting categoies")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** Posting categories for user \(user.email!) SUCK - FAILED!")
@@ -323,7 +323,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("ERROR on sendBiinie()")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** sendBiinie() for user \(user.email!) SUCK - FAILED!")
@@ -414,7 +414,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("Error on posting categoies")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** Posting actions for user \(user.email!) SUCK - FAILED!")
@@ -543,7 +543,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("Error on regions data")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -598,7 +598,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("Error on regions data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -608,12 +608,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
                     for var i = 0; i < regionsData?.count; i++
                     {
-                        var dictionary = regionsData!.objectAtIndex(i) as NSDictionary
+                        var dictionary = regionsData!.objectAtIndex(i) as! NSDictionary
                         var region = BNRegion()
-                        region.identifier   = self.findString("identifier", dictionary: dictionary)?
-                        region.radious      = self.findInt("radious", dictionary: dictionary)?
-                        region.latitude     = self.findFloat("latitude", dictionary:dictionary)?
-                        region.longitude    = self.findFloat("longitude", dictionary:dictionary)?
+                        region.identifier   = self.findString("identifier", dictionary: dictionary)
+                        region.radious      = self.findInt("radious", dictionary: dictionary)
+                        region.latitude     = self.findFloat("latitude", dictionary:dictionary)
+                        region.longitude    = self.findFloat("longitude", dictionary:dictionary)
                         regions.append(region)
                     }
 
@@ -658,7 +658,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on biinie data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 var biins:Array<BNBiin> = Array()
@@ -761,7 +761,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("Error on requestUserCategoriesData()")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -771,7 +771,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     
                     for var i = 0; i < categoriesData?.count; i++ {
 
-                        var categoryData = categoriesData!.objectAtIndex(i) as NSDictionary
+                        var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
                         var category = BNCategory(identifier: self.findString("identifier", dictionary: categoryData)!)
 
                         category.name = self.findString("name", dictionary: categoryData)
@@ -780,7 +780,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
                         for var j = 0; j < sites?.count; j++ {
                             
-                            var siteData = sites!.objectAtIndex(j) as NSDictionary
+                            var siteData = sites!.objectAtIndex(j) as! NSDictionary
 
                             //TODO: Add site details to category here.
                             var siteDetails = BNCategorySiteDetails()
@@ -857,7 +857,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             if (error != nil) {
                 println("Error on requestSiteData()")
                 println("\(error!.description)")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -892,7 +892,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     var mediaArray = self.findNSArray("media", dictionary: dataData)
                     
                     for var i = 0; i < mediaArray?.count; i++ {
-                        var mediaData = mediaArray!.objectAtIndex(i) as NSDictionary
+                        var mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                         var url = self.findString("imgUrl", dictionary:mediaData)
                         var type = self.findMediaType("mediaType", dictionary: mediaData)
                         var domainColor = self.findUIColor("domainColor", dictionary: mediaData)
@@ -1014,7 +1014,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             if (error != nil) {
                 println("Error on showcase data")
                 println("\(error!.description)")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error)
             } else {
                 
                 if let showcaseData = data["data"] as? NSDictionary {
@@ -1031,7 +1031,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
                     for var i = 0; i < elements?.count; i++ {
 
-                        var elementData:NSDictionary = elements!.objectAtIndex(i) as NSDictionary
+                        var elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
                         var element = BNElement()
                         element._id = self.findString("_id", dictionary: elementData)
                         element.identifier = self.findString("elementIdentifier", dictionary: elementData)
@@ -1104,7 +1104,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on showcase data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let elementData = data["data"] as? NSDictionary {
@@ -1119,30 +1119,41 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     element.nutshellDescriptionTitle = self.findString("nutshellDescriptionTitle", dictionary: elementData)
                     element.nutshellDescription = self.findString("nutshellDescription", dictionary: elementData)
                     element.titleColor = self.findUIColor("titleColor", dictionary: elementData)!
+                    element.currency = self.findCurrency("currencyType", dictionary: elementData)
                     //element.socialButtonsColor = self.findUIColor("socialButtonsColor", dictionary: elementData)!
-                    element.hasListPrice = self.findBool("hasListPrice", dictionary: elementData)
                     
+                    element.hasFromPrice = self.findBool("hasFromPrice", dictionary: elementData)
+                    if element.hasFromPrice {
+                        element.fromPrice = self.findString("fromPrice", dictionary: elementData)
+                    }
+                    
+                    element.hasListPrice = self.findBool("hasListPrice", dictionary: elementData)
                     if element.hasListPrice {
                         element.listPrice = self.findString("listPrice", dictionary: elementData)
                     }
                     
                     element.hasDiscount = self.findBool("hasDiscount", dictionary: elementData)
-                    
                     if element.hasDiscount {
                         element.discount = self.findString("discount", dictionary: elementData)
+                    }
+
+                    element.hasPrice = self.findBool("hasPrice", dictionary: elementData)
+                    if element.hasPrice {
                         element.price = self.findString("price", dictionary: elementData)
-                        element.savings = self.findString("savings", dictionary: elementData)
+                    }
+
+                    element.hasSaving = self.findBool("hasSaving", dictionary: elementData)
+                    if element.hasSaving {
+                        element.savings = self.findString("savings", dictionary: elementData)                        
                     }
                     
                     request.element!.hasTimming = self.findBool("hasTimming", dictionary: elementData)
-        
                     if element.hasTimming {
                         element.initialDate = self.findNSDate("initialDate", dictionary: elementData)
                         element.expirationDate = self.findNSDate("expirationDate", dictionary: elementData)
                     }
                     
                     element.hasQuantity = self.findBool("hasQuantity", dictionary: elementData)
-                    
                     if element.hasQuantity {
                         element.quantity = self.findString("quantity", dictionary: elementData)
                         element.reservedQuantity = self.findString("reservedQuantity", dictionary: elementData)
@@ -1150,10 +1161,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         element.actualQuantity = self.findString("actualQuantity", dictionary: elementData)
                     }
                     
+                    
+                    
                     var details = self.findNSArray("details", dictionary: elementData)
 
                     for var i = 0; i < details?.count; i++ {
-                        var detailData = details!.objectAtIndex(i) as NSDictionary
+                        var detailData = details!.objectAtIndex(i) as! NSDictionary
 
                         var detail = BNElementDetail()
                         detail.text = self.findString("text", dictionary: detailData)!
@@ -1165,7 +1178,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             detail.body = Array<String>()
                             
                             for (var i = 0; i < body?.count; i++) {
-                                var line = body!.objectAtIndex(i) as NSDictionary
+                                var line = body!.objectAtIndex(i) as! NSDictionary
                                 detail.body!.append( self.findString("line", dictionary:line)! )
                             }
                             
@@ -1177,7 +1190,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     var mediaArray = self.findNSArray("media", dictionary: elementData)
                     
                     for var j = 0; j < mediaArray?.count; j++ {
-                        var mediaData = mediaArray!.objectAtIndex(j) as NSDictionary
+                        var mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
                         var url = self.findString("url", dictionary: mediaData)!
                         var type = self.findMediaType("mediaType", dictionary: mediaData)
                         var domainColor = self.findUIColor("domainColor", dictionary:mediaData)
@@ -1266,7 +1279,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on user elements biined data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -1277,7 +1290,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     
                     for var i = 0; i < elements?.count; i++ {
                         
-                        var elementData = elements!.objectAtIndex(i) as NSDictionary
+                        var elementData = elements!.objectAtIndex(i) as! NSDictionary
                         var element = BNElement()
                         element._id = self.findString("_id", dictionary: elementData)
                         element.identifier = self.findString("elementIdentifier", dictionary: elementData)
@@ -1321,7 +1334,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on user colletion data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
@@ -1331,7 +1344,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 //                    
                     for var i = 0; i < collections?.count; i++ {
                         
-                        var collectionData = collections!.objectAtIndex(i) as NSDictionary
+                        var collectionData = collections!.objectAtIndex(i) as! NSDictionary
                         var collection = BNCollection()
                         collection.identifier = self.findString("identifier", dictionary: collectionData)
                         collection.title = self.findString("title", dictionary: collectionData)
@@ -1358,7 +1371,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             collection.elements = Dictionary<String, BNElement>()
                             
                             for ( var j = 0; j < elements?.count; j++ ) {
-                                var elementData = elements!.objectAtIndex(j) as NSDictionary
+                                var elementData = elements!.objectAtIndex(j) as! NSDictionary
                                 var element = BNElement()
                                 element.identifier = self.findString("identifier", dictionary: elementData)
                                 element._id = self.findString("_id", dictionary: elementData)
@@ -1374,7 +1387,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             collection.sites = Dictionary<String, BNSite>()
                             
                             for ( var i = 0; i < sites?.count; i++ ) {
-                                var siteData = sites!.objectAtIndex(i) as NSDictionary
+                                var siteData = sites!.objectAtIndex(i) as! NSDictionary
                                 var site = BNSite()
                                 site.identifier = self.findString("identifier", dictionary: siteData)
                                 collection.sites[site.identifier!] = site
@@ -1454,7 +1467,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("ERROR on sendBiinedElement()")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** sendBiinedElement() for user \(user.email!) SUCK - FAILED!")
@@ -1529,7 +1542,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("ERROR on sendUnBiinedElement()")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** sendUnBiinedElement() for user \(user.email!) SUCK - FAILED!")
@@ -1598,7 +1611,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("ERROR on sendBiinedSite()")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** sendBiinedSite() for user \(user.email!) SUCK - FAILED!")
@@ -1674,7 +1687,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             if (error != nil) {
                 println("ERROR on sendUnBiinedSite()")
-                self.handleFailedRequest(request!, error: error? )
+                self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** sendUnBiinedSite() for user \(user.email!) SUCK - FAILED!")
@@ -1729,7 +1742,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on showcase data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let showcaseData = data["data"] as? NSDictionary {
@@ -1758,23 +1771,29 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
     
-    func manager(manager:BNDataManager!, requestImageData stringUrl:String, image:BNUIImageView) {
+
+    func manager(manager: BNDataManager!, requestImageData stringUrl: String, image: UIImageView!) {
         
         var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
         self.requests[request.identifier] = request
         
+        
+        
+
+/*
         epsNetwork!.getImage(stringUrl, image:image, callback:{(error: NSError?) -> Void in
-            if (error? == nil) {
-//                self.requestAttempts = 0
+            
+            if (error == nil) {
                 self.delegateVC?.refreshTable!(self)
-//                self.requests.removeValueForKey(request.identifier)
                 self.removeRequestOnCompleted(request.identifier)
             } else {
-                self.handleFailedRequest(request, error:error? )
+                self.handleFailedRequest(request, error:error )
+                println("ERROR on image request")
             }
         })
+*/
     }
-    
+
     func requestImageData(stringUrl:String, image:BNUIImageView!) {
 
         //println("image url:\(stringUrl)")
@@ -1790,7 +1809,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 //                    self.requests.removeValueForKey(request.identifier)
                     self.removeRequestOnCompleted(request.identifier)
                 } else {
-                    self.handleFailedRequest(request, error:error? )
+                    self.handleFailedRequest(request, error:error )
                     println("ERROR on image request")
                 }
             })
@@ -1836,7 +1855,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on biinie data")
-                self.handleFailedRequest(request, error: error? )
+                self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let biinieData = data["data"] as? NSDictionary {
@@ -1906,7 +1925,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
         
         if self.requestAttempts == self.requestAttemptsLimit {
-            self.errorManager!.showAlert(error?)
+            self.errorManager!.showAlert(error)
             self.requestAttempts = 0
         } else {
             
@@ -2140,6 +2159,21 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     func findUIColor(name:String, dictionary:NSDictionary) ->UIColor? {
         return self.colorFromString(dictionary[name] as? String)
     }
+    
+    func findCurrency(name:String, dictionary:NSDictionary) -> String {
+        var value = self.findInt(name, dictionary: dictionary)
+        
+        if value == 1 {
+            return "$"
+        } else if value == 2 {
+            return "￠"
+        } else if value ==  3 {
+            return "€"
+        } else {
+           return "$"
+        }
+    }
+    
     
     func colorFromString(color:String?)->UIColor? {
         

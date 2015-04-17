@@ -13,9 +13,9 @@ class BNView:UIView {
     var showcaseKey:String = ""
     var state:BNState?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -12,9 +12,9 @@ class SiteView_Header:BNView {
     var title:UILabel?
     var subTitle:UILabel?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

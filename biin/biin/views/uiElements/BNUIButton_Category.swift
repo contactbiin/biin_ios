@@ -14,9 +14,9 @@ class BNUIButton_Category:BNUIButton {
     var selectedColor:UIColor?
     var unSelectedColor:UIColor?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -133,7 +133,7 @@ class BNUIButton_Category:BNUIButton {
     
     override func showSelected() {
         
-        if isSelected {
+        if isButtonSelected {
             self.layer.borderColor = self.unSelectedColor!.CGColor
             self.label!.textColor = self.unSelectedColor!
             self.icon!.color = self.unSelectedColor!
@@ -148,7 +148,7 @@ class BNUIButton_Category:BNUIButton {
         
         
         
-        isSelected = !isSelected
+        isButtonSelected = !isButtonSelected
     }
 }
 

@@ -10,9 +10,9 @@ class LoadingView:UIView {
 
     var loadingLbl:UILabel?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

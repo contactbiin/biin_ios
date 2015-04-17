@@ -15,9 +15,9 @@ class SiteView_Showcase_Game:BNView {
     var animatedCircle:BNUICircle?
     var circleIcon:BNUICompletedGameIconView?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     deinit {
         circles.removeAll(keepCapacity: false)

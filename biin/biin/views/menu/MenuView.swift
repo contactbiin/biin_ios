@@ -9,7 +9,7 @@ import UIKit
 class MenuView:UIView {
     
     var delegate:MenuViewDelegate?
-    var isHidden = true
+    var isMenuHidden = true
     
     var profileBtn:BNUIButton_Menu?
     var homeBtn:BNUIButton_Menu?
@@ -22,9 +22,9 @@ class MenuView:UIView {
     
     var buttons = Array<BNUIButton_Menu>()
 
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

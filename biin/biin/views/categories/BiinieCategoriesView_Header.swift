@@ -18,9 +18,9 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     var notificationRedCircle:BNUINotificationView_RedCircle?
     var searchBtn:BNUIButton?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

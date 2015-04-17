@@ -28,9 +28,9 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     
     weak var collection:BNCollection?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -214,33 +214,33 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     }
     
     /* UIScrollViewDelegate Methods */
-    func scrollViewDidScroll(scrollView: UIScrollView!) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         manageItemViewImageRequest()
     }// any offset changes
     
     // called on start of dragging (may require some time and or distance to move)
-    func scrollViewWillBeginDragging(scrollView: UIScrollView!) {
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
 
         //handlePan(scrollView.panGestureRecognizer)
-        var mainView = father!.father! as MainView
+        var mainView = father!.father! as! MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
     }
     
     // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
-    func scrollViewWillEndDragging(scrollView: UIScrollView!, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
     }
     
     // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-    func scrollViewDidEndDragging(scrollView: UIScrollView!, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 
     }
     
-    func scrollViewWillBeginDecelerating(scrollView: UIScrollView!) {
+    func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
 
     }// called on finger up as we are moving
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
 
         /*
         if showcase!.isShowcaseGameCompleted {
@@ -309,16 +309,16 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         }
     }
     */
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView!) {
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
 
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
     
-    func scrollViewShouldScrollToTop(scrollView: UIScrollView!) -> Bool {
+    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
 
         return true
     }// return a yes if you want to scroll to the top. if not defined, assumes YES
     
-    func scrollViewDidScrollToTop(scrollView: UIScrollView!) {
+    func scrollViewDidScrollToTop(scrollView: UIScrollView) {
 
     }// called when scrolling animation finished. may be called immediately if already at top
     
@@ -370,7 +370,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     
     //ElementMiniView_Delegate
     func showElementView(view:ElementMiniView, position: CGRect) {
-        (father! as CollectionsView).showElementView(view)
+        (father! as! CollectionsView).showElementView(view)
     }
     
     func resizeScrollOnRemoved(view:CollectionView_ItemView) {

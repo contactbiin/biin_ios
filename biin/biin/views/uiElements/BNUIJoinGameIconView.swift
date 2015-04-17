@@ -10,9 +10,9 @@ class BNUIJoinGameIconView:BNView {
     
     var icon:BNIcon?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

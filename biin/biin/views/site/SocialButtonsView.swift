@@ -13,9 +13,9 @@ class SocialButtonsView:BNView {
     var shareBtn:BNUIButton_Social?
     var showShareButton = false
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

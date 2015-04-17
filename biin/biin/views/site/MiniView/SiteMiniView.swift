@@ -16,9 +16,9 @@ class SiteMiniView: BNView {
     
     var collectionScrollPosition:Int = 0
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,7 +46,7 @@ class SiteMiniView: BNView {
         
         self.site = site
         
-        if let color = site!.media[0].domainColor? {
+        if let color = site!.media[0].domainColor {
             self.backgroundColor = color
         } else {
             self.backgroundColor = UIColor.appMainColor()
@@ -110,7 +110,7 @@ class SiteMiniView: BNView {
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
         
-        var siteContainer = father as BiinieCategoriesView_SitesContainer
+        var siteContainer = father as! BiinieCategoriesView_SitesContainer
         var position = father!.father!.convertRect(self.frame, fromView: siteContainer.scroll!)
         delegate!.showSiteView!(self, site: site, position:position)
         

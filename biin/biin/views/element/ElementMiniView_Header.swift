@@ -12,9 +12,9 @@ class ElementMiniView_Header:BNView {
     var circleLabel:BNUICircleLabel?
     var elementPosition:Int?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

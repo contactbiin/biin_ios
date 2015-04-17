@@ -14,9 +14,9 @@ class BNUIStickerView:UIView {
     var text1Pos:CGRect?
     var text2Pos:CGRect?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

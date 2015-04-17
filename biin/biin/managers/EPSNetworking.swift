@@ -123,7 +123,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 }
                 
                 if (data != nil) {
-                    callback(NSString(data: data, encoding: NSUTF8StringEncoding)!, nil)
+                    callback(NSString(data: data, encoding: NSUTF8StringEncoding)! as String, nil)
                 } else {
                     callback("", error)
                 }
@@ -338,7 +338,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         var data: NSData = jsonString.dataUsingEncoding( NSUTF8StringEncoding )!
         
         //TODO: Caough error when data is empty
-        var json = NSJSONSerialization.JSONObjectWithData(data, options:options, error:&error) as Dictionary<String, AnyObject>?
+        var json = NSJSONSerialization.JSONObjectWithData(data, options:options, error:&error) as! Dictionary<String, AnyObject>?
         
         //println("------------------------------------------------------------")
         //println("------------------------------------------------------------")
@@ -356,7 +356,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
 
         //add requesting image to queue
         
-        if let cacheImage = ShareEPSNetworking.cacheImages[urlString] {
+        if let cacheImage = ShareEPSNetworking.cacheImages[urlString as String] {
             println("image already in cache...")
             image.image = cacheImage
             image.showAfterDownload()
@@ -379,9 +379,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 
                 //println("requesting image: \(urlString)")
                 
-                ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString))
+                ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
                 
-                var url: NSURL = NSURL(string: urlString)!
+                var url: NSURL = NSURL(string: urlString as String)!
                 
                 // Download an NSData representation of the image at the URL
                 var request: NSURLRequest = NSURLRequest(URL:url)
@@ -390,7 +390,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
                         
-                    if (error? != nil) {
+                    if (error != nil) {
                         println("Error on image request\( error! )")
                         callback(error)
                     } else {
@@ -399,10 +399,10 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                         
                         
                         //println("Store image: \(urlString)")
-                        ShareEPSNetworking.cacheImages[urlString] = UIImage(data: data)
+                        ShareEPSNetworking.cacheImages[urlString as String] = UIImage(data: data)
 //                        image.image = UIImage(data: data)
                         
-                        self.sentImages(urlString)
+                        self.sentImages(urlString as String)
                         //println("image cache count \(ShareEPSNetworking.cacheImages.count)")
                         
                         callback(nil)

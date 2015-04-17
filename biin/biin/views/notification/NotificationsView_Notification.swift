@@ -19,9 +19,9 @@ class NotificationsView_Notification: BNView {
     
     weak var notification:BNNotification?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

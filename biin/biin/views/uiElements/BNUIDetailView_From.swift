@@ -1,15 +1,15 @@
 //
-//  BNUIDetailView_Time.swift
+//  BNUIDetailView_From.swift
 //  biin
 //
-//  Created by Esteban Padilla on 2/5/15.
+//  Created by Esteban Padilla on 4/14/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class BNUIDetailView_Time:UIView {
+class BNUIDetailView_From:UIView {
     
     var titleLbl:UILabel?
     var timeLbl:UILabel?
@@ -35,7 +35,7 @@ class BNUIDetailView_Time:UIView {
         self.layer.borderColor = borderColor.CGColor
         
         titleLbl = UILabel(frame: CGRectMake(0, 7, ((SharedUIManager.instance.screenWidth / 2) - 5), 16))
-        titleLbl!.text = "Limited Time:"
+        titleLbl!.text = "From:"
         titleLbl!.font = UIFont(name: "Lato-Regular", size: 14)
         titleLbl!.textColor = textColor
         titleLbl!.textAlignment = NSTextAlignment.Right

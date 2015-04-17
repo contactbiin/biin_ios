@@ -29,9 +29,9 @@ class SignupView:UIView, UITextFieldDelegate {
     var maleBtn:BNUIButton_Gender?
     var genderStr:String?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -228,7 +228,11 @@ class SignupView:UIView, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+//    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+//        self.endEditing(true)
+//    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.endEditing(true)
     }
     

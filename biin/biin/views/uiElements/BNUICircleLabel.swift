@@ -12,9 +12,9 @@ class BNUICircleLabel:UIView {
     var circle:BNUICircle?
     var color:UIColor?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -10,11 +10,11 @@ class BNUIButton:UIButton {
     var color:UIColor?
     var icon:BNIcon?
     var iconType:BNIconType = BNIconType.none
-    var isSelected = false
+    var isButtonSelected = false
     
-    override init() {
-        super.init()
-    }
+    //override init() {
+     //   super.init()
+    //}
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

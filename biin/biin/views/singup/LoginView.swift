@@ -22,9 +22,9 @@ class LoginView:UIView, UITextFieldDelegate {
     
     var testBtn:UIButton?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -186,7 +186,11 @@ class LoginView:UIView, UITextFieldDelegate {
         delegate!.showSignupView!(self)
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    //override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    //    self.endEditing(true)
+    //}
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.endEditing(true)
     }
     

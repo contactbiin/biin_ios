@@ -11,9 +11,9 @@ class BiinieCategoriesView_Icon:UIView {
     var icon:BNIcon?
     var color:UIColor?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

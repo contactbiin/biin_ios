@@ -31,9 +31,9 @@ class CollectionView_ItemView: BNView {
     
     var isElement = false
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,7 +63,7 @@ class CollectionView_ItemView: BNView {
         if self.isElement {
             self.element = BNAppSharedManager.instance.dataManager.elements[element!._id!]
             
-            if let color = self.element!.media[0].domainColor? {
+            if let color = self.element!.media[0].domainColor {
                 self.backgroundColor = color
             } else {
                 self.backgroundColor = UIColor.appMainColor()
@@ -72,7 +72,7 @@ class CollectionView_ItemView: BNView {
         } else {
             self.site = BNAppSharedManager.instance.dataManager.sites[site!.identifier!]
             
-            if let color = self.site!.media[0].domainColor? {
+            if let color = self.site!.media[0].domainColor {
                 self.backgroundColor = color
             } else {
                 self.backgroundColor = UIColor.appMainColor()
@@ -112,19 +112,19 @@ class CollectionView_ItemView: BNView {
         var ypos:CGFloat = SharedUIManager.instance.siteView_headerHeight - 5
         if self.isElement {
             if self.element!.hasDiscount {
-                discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
-                self.addSubview(discountView!)
+                //discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
+                //self.addSubview(discountView!)
                 ypos += 40
             }
             
             if self.element!.hasListPrice && !self.element!.hasDiscount {
-                priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: self.element!.listPrice!)
-                self.addSubview(priceView!)
+                //priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: self.element!.listPrice!)
+                //self.addSubview(priceView!)
                 
             } else if self.element!.hasListPrice {
                 
-                priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: self.element!.listPrice!, newPrice: self.element!.price!)
-                self.addSubview(priceView!)
+                //priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: self.element!.listPrice!, newPrice: self.element!.price!)
+                //self.addSubview(priceView!)
             }
             
             if self.element!.hasSticker {
@@ -199,11 +199,13 @@ class CollectionView_ItemView: BNView {
     func shareit(sender:BNUIButton_ShareIt){
         
         if self.isElement {
-            BNAppSharedManager.instance.shareit(element!._id!)
+            //BNAppSharedManager.instance.shareIt(element!._id!)
+            BNAppSharedManager.instance.shareIt(element!._id!, isElement: true)
             element!.userShared = true
             header!.updateSocialButtonsForElement(element!)
         } else {
-            
+            BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false)
+            site!.userShared = true
         }
     }
     

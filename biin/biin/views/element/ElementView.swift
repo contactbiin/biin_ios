@@ -23,6 +23,7 @@ class ElementView: BNView {
     var shareItButton:BNUIButton_ShareIt?
     
     var detailsView:ElementView_Details?
+    
     var stickerView:BNUIStickerView?
     var discountView:BNUIDiscountView?
     var priceView:BNUIPricesView?
@@ -167,10 +168,10 @@ class ElementView: BNView {
             
         } else if elementMiniView!.element!.hasListPrice {
             
-            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: elementMiniView!.element!.listPrice!, newPrice: elementMiniView!.element!.price!)
-            scroll!.addSubview(priceView!)
-            hasPrice = true
-            ypos += 40
+            ///priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: elementMiniView!.element!.listPrice!, newPrice: elementMiniView!.element!.price!)
+            //scroll!.addSubview(priceView!)
+            //hasPrice = true
+            //ypos += 40
         }
         
         if elementMiniView!.element!.hasSticker {
@@ -179,14 +180,16 @@ class ElementView: BNView {
             hasSticker = true
         }
         
-        if elementMiniView!.element!.userBiined {
-            biinItButton?.showDisable()
-        }else {
-            biinItButton?.showEnable()
-        }
-        
         detailsView = ElementView_Details(frame: CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
         scroll!.addSubview(detailsView!)
+        
+        if elementMiniView!.element!.userBiined {
+            biinItButton?.showDisable()
+            detailsView!.showBiinItButton(false)
+        }else {
+            biinItButton?.showEnable()
+            detailsView!.showBiinItButton(true)
+        }
         
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenWidth + detailsView!.frame.height))
     }
@@ -214,13 +217,19 @@ class ElementView: BNView {
     
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
+        detailsView!.showBiinItButton(false)
+        animationView!.animate()
+        applyBiinIt()
+    }
+    
+    func applyBiinIt(){
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
         biinItButton!.showDisable()
-        animationView!.animate()
+        detailsView!.showBiinItButton(false)
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareit(elementMiniView!.element!._id!)
+        BNAppSharedManager.instance.shareIt(elementMiniView!.element!._id!, isElement: true)
         elementMiniView!.element!.userShared = true
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
     }

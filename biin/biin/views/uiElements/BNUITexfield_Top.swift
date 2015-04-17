@@ -19,9 +19,9 @@ class BNUITexfield_Top:UIView {
     
     var point:UIView?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

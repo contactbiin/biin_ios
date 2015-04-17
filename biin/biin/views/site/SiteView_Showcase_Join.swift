@@ -13,9 +13,9 @@ class SiteView_Showcase_Join:BNView {
     
     var circleIcon:BNUIJoinGameIconView?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     deinit {
 

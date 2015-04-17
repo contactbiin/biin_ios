@@ -30,9 +30,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var searchState:SearchState?
     var settingsState:SettingsState?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -260,7 +260,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     //SiteMiniView_Delegate Methods
     func showSiteView(view: SiteMiniView, site: BNSite?, position: CGRect) {
         //println("site to show: \(site!.identifier) xpos: \(position.origin.x) ypos: \(position.origin.y)")
-        (siteState!.view as SiteView).updateSiteData(site)
+        (siteState!.view as! SiteView).updateSiteData(site)
         setNextState(2)
         
     }
@@ -285,13 +285,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func showNotification(){
         //header!.showNotification(quantity)
-        (biinieCategoriesState!.view as BiinieCategoriesView).showNotification()
-        (notificationsState!.view as NotificationsView).addNotifications()
+        (biinieCategoriesState!.view as! BiinieCategoriesView).showNotification()
+        (notificationsState!.view as! NotificationsView).addNotifications()
     }
     
     func hideNotification(){
         //header!.hideNotification()
-        (biinieCategoriesState!.view as BiinieCategoriesView).hideNotification()
+        (biinieCategoriesState!.view as! BiinieCategoriesView).hideNotification()
     }
 }
 

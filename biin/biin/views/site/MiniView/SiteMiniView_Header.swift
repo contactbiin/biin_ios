@@ -10,9 +10,9 @@ class SiteMiniView_Header:BNView {
 
     var buttonsView:SocialButtonsView?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

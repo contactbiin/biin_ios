@@ -12,9 +12,9 @@ class BNUIImageView:UIImageView {
     
     var loadingIndicator:UIActivityIndicatorView?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

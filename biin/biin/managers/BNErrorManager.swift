@@ -143,7 +143,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
                 
                 println("")
                 self.isAlertOn = false
-                (self.currentViewController as LoadingViewController).loadingView!.showHardwareError()
+                (self.currentViewController as! LoadingViewController).loadingView!.showHardwareError()
                 
             })
             
@@ -180,7 +180,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
     }
     
     // before animation and hiding view
-    func alertView(alertView: UIAlertView!, willDismissWithButtonIndex buttonIndex: Int) {
+    func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
         isAlertOn = false
     }
 

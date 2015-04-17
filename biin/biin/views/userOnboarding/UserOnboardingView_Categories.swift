@@ -13,9 +13,9 @@ class UserOnboardingView_Categories:UIView {
     var startBtn:BNUIButton_Loging?
     var categoriesSelected = Dictionary<String, String>()
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

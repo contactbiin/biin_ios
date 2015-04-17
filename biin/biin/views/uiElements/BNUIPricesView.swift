@@ -14,9 +14,9 @@ class BNUIPricesView:UIView {
     var oldPrice:UILabel?
     var icon:BNIcon?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,12 +29,12 @@ class BNUIPricesView:UIView {
     convenience init(frame: CGRect, listPrice:String ) {
         self.init(frame: frame)
         
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = UIColor.appTextColor()
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
         self.oldPrice = UILabel(frame: CGRectMake(10, 5, self.frame.width, 12))
-        self.oldPrice!.textColor = UIColor.appTextColor()
+        self.oldPrice!.textColor = UIColor.whiteColor()
         self.oldPrice!.textAlignment = NSTextAlignment.Left
         self.oldPrice!.font = UIFont(name: "Lato-Regular", size:10)
         self.oldPrice!.text = listPrice
@@ -49,12 +49,12 @@ class BNUIPricesView:UIView {
     convenience init(frame: CGRect, oldPrice:String, newPrice:String) {
         self.init(frame: frame)
         
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = UIColor.appTextColor()
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
 
         self.oldPrice = UILabel(frame: CGRectMake(10, 5, self.frame.width, 12))
-        self.oldPrice!.textColor = UIColor.appTextColor()
+        self.oldPrice!.textColor = UIColor.whiteColor()
         self.oldPrice!.textAlignment = NSTextAlignment.Left
         self.oldPrice!.font = UIFont(name: "Lato-Regular", size:10)
         self.oldPrice!.text = oldPrice
@@ -62,7 +62,7 @@ class BNUIPricesView:UIView {
         self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(10, 18, self.frame.width, 12))
-        self.newPrice!.textColor = UIColor.appTextColor()
+        self.newPrice!.textColor = UIColor.whiteColor()
         self.newPrice!.textAlignment = NSTextAlignment.Left
         self.newPrice!.font = UIFont(name: "Lato-Regular", size:10)
         self.newPrice!.text = newPrice

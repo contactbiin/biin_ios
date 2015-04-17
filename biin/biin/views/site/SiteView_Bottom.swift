@@ -11,9 +11,9 @@ class SiteView_Bottom:BNView {
     var pointsLbl:UILabel?
     var informationBtn:BNUIButton_Information?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

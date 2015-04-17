@@ -15,9 +15,9 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
     var debugingMap:MKMapView?
     var console:UITextView?
 
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +43,8 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
         var siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
         
         var annotation = MKPointAnnotation()
-        annotation.setCoordinate(siteLocation)
+//        annotation.setCoordinate(siteLocation)
+        annotation.coordinate = siteLocation
         annotation.title = "Annotation title"
         annotation.subtitle = "Annotation subtitle"
         

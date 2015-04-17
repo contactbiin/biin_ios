@@ -10,10 +10,10 @@ class ElementView_Details:BNView {
 
     var elementIdentifier:String?
     var biinitBtn:BNUIButton_BiinItLarge?
-    
-    override init() {
-        super.init()
-    }
+  
+//    override init() {
+//        super.init()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,6 +39,7 @@ class ElementView_Details:BNView {
         var ypos:CGFloat = 15
         var spacer:CGFloat = 5
         
+        /*
         var nutshellDescriptionTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), (SharedUIManager.instance.siteView_titleSize + 2)))
         nutshellDescriptionTitle.font = UIFont(name: "Lato-Regular", size:titleSize)
         nutshellDescriptionTitle.textColor = UIColor.appTextColor()
@@ -58,12 +59,19 @@ class ElementView_Details:BNView {
         self.addSubview(nutshellDescription)
         
         ypos += nutshellDescription.frame.height + spacer
+        */
+        
+        
+        var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: self, element: element)
+        self.addSubview(pricingDetails)
+        
+        /*
         
         var showBenefitDescription = false
         //Timing Stickers
         if element!.hasTimming {
             ypos += 20 //Spacing
-            var timeStickerView = BNUIDetailView_Time(position: CGPointMake(5, ypos), text:"30h", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var timeStickerView = BNUIDetailView_Time(position: CGPointMake(5, ypos), text:"Calculate time", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(timeStickerView)
             showBenefitDescription = true
         }
@@ -83,7 +91,7 @@ class ElementView_Details:BNView {
         } else if element!.hasListPrice {
             
             ypos += 32
-            ySpacer = 92
+            ySpacer = 102
             
             var priceStickerView = BNUIDetailView_Price(position: CGPointMake(5, ypos), price:element!.price, listPrice:element!.listPrice, discount:element!.discount, savings: element!.savings, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(priceStickerView)
@@ -118,7 +126,9 @@ class ElementView_Details:BNView {
             showBenefitDescription = true
         }
         
-        ypos += 30
+        */
+        
+        ypos += pricingDetails.frame.height
         
         for detail in element!.details {
             switch detail.elementDetailType! {
@@ -255,7 +265,16 @@ class ElementView_Details:BNView {
     
     func biinIt(sender:BNUIButton_BiinItLarge) {
         BNAppSharedManager.instance.biinit(elementIdentifier!, isElement:true)
+        (father as! ElementView).applyBiinIt()
         biinitBtn!.showDisable()
+    }
+    
+    func showBiinItButton(value:Bool){
+        if value {
+            biinitBtn!.showEnable()
+        } else {
+            biinitBtn!.showDisable()
+        }
     }
 }
 

@@ -89,7 +89,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     }
     
     //UIPopoverPresentationControllerDelegate Methods
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController!) -> UIModalPresentationStyle {
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController ) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.Popover
     }
     

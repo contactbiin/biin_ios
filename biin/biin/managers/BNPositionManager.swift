@@ -213,7 +213,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         //Get all beacon from regions
         for (key:AnyObject, value:AnyObject) in self.rangedRegions {
-            self.myBeacons += value as Array<CLBeacon>
+            self.myBeacons += value as! Array<CLBeacon>
             
         }
         
@@ -551,7 +551,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
         
         for (key:AnyObject, value:AnyObject) in self.rangedRegions {
-            self.locationManager!.startRangingBeaconsInRegion(key as CLBeaconRegion)
+            self.locationManager!.startRangingBeaconsInRegion(key as! CLBeaconRegion)
         }
         
         locationManager!.requestWhenInUseAuthorization()
@@ -637,13 +637,13 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func startMonitoringBeaconRegions() {
         for (key:AnyObject, value:AnyObject) in self.rangedRegions {
-            self.locationManager!.startRangingBeaconsInRegion(key as CLBeaconRegion)
+            self.locationManager!.startRangingBeaconsInRegion(key as! CLBeaconRegion)
         }
     }
     
     func stopMonitoringBeaconRegions() {
         for (key:AnyObject, value:AnyObject) in self.rangedRegions {
-            self.locationManager!.stopRangingBeaconsInRegion(key as CLBeaconRegion)
+            self.locationManager!.stopRangingBeaconsInRegion(key as! CLBeaconRegion)
         }
     }
     
@@ -744,7 +744,7 @@ enum BNProximity
 extension Array {
      func hasBiin(child:BNBiin) -> Bool {
         for obj in self {
-            if child == obj as BNBiin {
+            if child == obj as! BNBiin {
                 return true
             }
         }

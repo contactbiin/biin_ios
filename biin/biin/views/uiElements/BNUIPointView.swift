@@ -15,9 +15,9 @@ class BNUIPointView:UIView {
     
     var label:UILabel?
     
-    override init() {
-        super.init()
-    }
+//    override init() {
+//        super.init()
+//    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

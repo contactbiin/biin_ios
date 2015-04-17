@@ -5,8 +5,9 @@
 
 import Foundation
 import UIKit
+import QuartzCore
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, UIDocumentInteractionControllerDelegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -18,12 +19,15 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     var alert:BNUIAlertView?
     
+    var uiDocumentInteractionController:UIDocumentInteractionController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         println("MainViewController - viewDidLoad()")
         
         BNAppSharedManager.instance.errorManager.currentViewController = self
+        BNAppSharedManager.instance.mainViewController = self
         
         self.view.backgroundColor = UIColor.appMainColor()
         self.view.layer.cornerRadius = 5
@@ -73,18 +77,21 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
-        if menuView!.isHidden {
+        if menuView!.isMenuHidden {
             showMenuSwipe!.enabled = false
             fadeView!.becomeFirstResponder()
 
-            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.35, initialSpringVelocity:10.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {() -> Void in
+
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.35, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
                 self.menuView!.frame.origin.x = -40
                 self.mainView!.frame.origin.x = 101
                 self.fadeView!.frame.origin.x = 101
-                }, completion: {(completed:Bool) -> Void in
-                    self.menuView!.isHidden = false
+                }, completion: {(completed:Bool)->Void in
                     
+                self.menuView!.isMenuHidden = false
             })
+            
+            
             
             UIView.animateWithDuration(0.25, animations:{()-> Void in
                 self.fadeView!.alpha = 0.5
@@ -93,15 +100,16 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func hideMenu(sender:UIGestureRecognizer) {
+        
         showMenuSwipe!.enabled = true
         
-        UIView.animateWithDuration(0.25, animations: {() -> Void in
+        UIView.animateWithDuration(0.25, animations: {()->Void in
             self.menuView!.frame.origin.x = -140
             self.mainView!.frame.origin.x = 0
             self.fadeView!.frame.origin.x = 0
             self.fadeView!.alpha = 0
-            }, completion: {(completed:Bool) -> Void in
-                self.menuView!.isHidden = true
+            }, completion: {(completed:Bool)->Void in
+                self.menuView!.isMenuHidden = true
         })
     }
     
@@ -269,5 +277,101 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func manager(hideNotifications value: Bool) {
         mainView!.hideNotification()
+    }
+    
+    var fullPath = ""
+    
+    func shareSite(site:BNSite){
+        var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site )
+        
+        var image = imageFromView(view)
+        //var url = NSBundle.mainBundle().URLForResource("shareIt", withExtension: "jpg")
+        var url = NSURL(fileURLWithPath: fullPath)
+        
+        if url != nil {
+            uiDocumentInteractionController = UIDocumentInteractionController(URL: url!)
+            uiDocumentInteractionController!.delegate = self
+            uiDocumentInteractionController!.presentPreviewAnimated(false)
+        }
+        
+    }
+    
+    func findSiteForElement(element:BNElement) -> BNSite? {
+        for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
+            for biin in site.biins {
+                for showcase in biin.showcases! {
+                    for elementSC in showcase.elements {
+                        if element.identifier! == elementSC.identifier! {
+                            return site
+                        }
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    func shareElement(element:BNElement){
+        
+        var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
+        
+        var image = imageFromView(view)
+        //var url = NSBundle.mainBundle().URLForResource("shareIt", withExtension: "jpg")
+        var url = NSURL(fileURLWithPath: fullPath)
+        
+        if url != nil {
+            uiDocumentInteractionController = UIDocumentInteractionController(URL: url!)
+            uiDocumentInteractionController!.delegate = self
+            uiDocumentInteractionController!.presentPreviewAnimated(false)
+        }
+    }
+    
+    func documentsPathForFileName(name: String) -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true);
+        let path = paths[0] as! String;
+        fullPath = path.stringByAppendingPathComponent(name)
+        println("\(fullPath)")
+        return fullPath
+    }
+    
+    /*
+    
+    #import <QuartzCore/QuartzCore.h>
+    
+    + (UIImage *) imageWithView:(UIView *)view
+    {
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+    }
+*/
+    func imageFromView(view:UIView) -> UIImage {
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0.0)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        var image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        //NSUserDefaults.standardUserDefaults().setObject(UIImagePNGRepresentation(image), forKey: "shareIt")
+        
+        
+        let imageData = UIImageJPEGRepresentation(image, 1)
+        let relativePath = "image_\(NSDate.timeIntervalSinceReferenceDate()).jpg"
+        let path = self.documentsPathForFileName(relativePath)
+        imageData.writeToFile(path, atomically: true)
+        NSUserDefaults.standardUserDefaults().setObject(relativePath, forKey: "path")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        return image
+    }
+    
+    
+    func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
+        return self
     }
 }

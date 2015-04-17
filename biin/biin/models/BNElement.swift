@@ -29,12 +29,17 @@ class BNElement:NSObject {
 //    var socialButtonsColor = UIColor.whiteColor()
     
     //Hightlights - Price
+    var hasFromPrice:Bool = false
+    var fromPrice:String?
     var hasListPrice:Bool = false
     var listPrice:String?
     var hasDiscount:Bool = false
     var discount:String?
-    var price:String?
+    var hasPrice:Bool = false //after discount applied
+    var price:String? //after discount applied
+    var hasSaving:Bool = false
     var savings:String?
+    var currency:String?
     
    //Hightlights - Limited Time
     var hasTimming = false
@@ -86,35 +91,40 @@ class BNElement:NSObject {
     func clone()->BNElement {
         var clone = BNElement()
         clone.jsonUrl = self.jsonUrl
-        clone.elementType = self.elementType?
-        clone._id = self._id?
-        clone.identifier = self.identifier?
-        clone.position = self.position?
-        clone.title = self.title?
-        clone.subTitle = self.subTitle?
-        clone.nutshellDescriptionTitle = self.nutshellDescriptionTitle?
-        clone.nutshellDescription = self.nutshellDescription?
-        clone.titleColor = self.titleColor?
+        if let value = self.elementType { clone.elementType = value }
+        if let value = self._id { clone._id = value }
+        if let value = self.identifier { clone.identifier = value }
+        if let value = self.position { clone.position = value }
+        if let value = self.title { clone.title = value }
+        if let value = self.subTitle { clone.subTitle = value }
+        if let value = self.nutshellDescriptionTitle { clone.nutshellDescriptionTitle = value }
+        if let value = self.nutshellDescription { clone.nutshellDescription = value }
+        if let value = self.titleColor { clone.titleColor = value }
+        clone.hasFromPrice = self.hasFromPrice
+        if let value = self.fromPrice { clone.fromPrice = value }
         clone.hasListPrice = self.hasListPrice
-        clone.listPrice = self.listPrice?
+        if let value = self.listPrice { clone.listPrice = value }
         clone.hasDiscount = self.hasDiscount
-        clone.discount = self.discount?
-        clone.price = self.price?
-        clone.savings = self.savings?
+        if let value = self.discount { clone.discount = value }
+        clone.hasPrice = self.hasPrice
+        if let value = self.price { clone.price = value }
+        clone.hasSaving = self.hasSaving
+        if let value = self.savings { clone.savings = value }
+        if let value = self.currency { clone.currency = value }
         clone.hasTimming = self.hasTimming
-        clone.initialDate = self.initialDate?
-        clone.expirationDate = self.expirationDate?
+        if let value = self.initialDate { clone.initialDate = value }
+        if let value = self.expirationDate { clone.expirationDate = value }
         clone.hasQuantity = self.hasQuantity
-        clone.quantity = self.quantity?
-        clone.reservedQuantity = self.reservedQuantity?
-        clone.claimedQuantity = self.claimedQuantity?
-        clone.actualQuantity = self.actualQuantity?
+        if let value = self.quantity { clone.quantity = value }
+        if let value = self.reservedQuantity { clone.reservedQuantity = value }
+        if let value = self.claimedQuantity { clone.claimedQuantity = value }
+        if let value = self.actualQuantity { clone.actualQuantity = value }
         clone.details = self.details
         clone.media = self.media
         clone.hasSticker = self.hasSticker
-        clone.sticker = self.sticker?
+        if let value = self.sticker { clone.sticker = value }
         clone.activateNotification = self.activateNotification
-        clone.notifications = self.notifications?
+        if let value = self.notifications { clone.notifications = value }
         clone.biinedCount = self.biinedCount
         clone.commentedCount = self.commentedCount
         clone.userBiined = self.userBiined

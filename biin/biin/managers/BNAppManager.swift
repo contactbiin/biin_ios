@@ -99,8 +99,27 @@ class BNAppManager {
         dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.append(identifier)
     }
     
-    func shareit(identifier:String){
+    func shareIt(identifier:String, isElement:Bool){
         println("Shareit: \(identifier)")
+//        mainViewController!.shareIt(identifier, view: view)
+        
+        if isElement {
+            dataManager.elements[identifier]?.userShared = true
+//            dataManager.elements[identifier]?.biinedCount++
+            
+            //dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
+            
+            //networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+
+            mainViewController?.shareElement(dataManager.elements[identifier]!)
+            
+        } else {
+            dataManager.sites[identifier]?.userShared = true
+//            dataManager.sites[identifier]?.biinedCount++
+//            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
+//            networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+            mainViewController?.shareSite(dataManager.sites[identifier]!)
+        }
     }
     
     func commentit(identifier:String, comment:String){
