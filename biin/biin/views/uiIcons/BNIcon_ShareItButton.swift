@@ -20,53 +20,82 @@ class BNIcon_ShareItButton:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let logoColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+//        let fillColor = UIColor(red: 0.278, green: 0.776, blue: 0.949, alpha: 1.000)
+        let strokeColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        let fillColor2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
         
-        //// Group
+        //// shareButton.svg Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
- 
-        //// back Drawing
-        var backPath = UIBezierPath()
-        backPath.moveToPoint(CGPointMake(24, 35))
-        backPath.addLineToPoint(CGPointMake(11, 35))
-        backPath.addCurveToPoint(CGPointMake(0, 24), controlPoint1: CGPointMake(4.9, 35), controlPoint2: CGPointMake(0, 30.1))
-        backPath.addLineToPoint(CGPointMake(0, 11))
-        backPath.addCurveToPoint(CGPointMake(11, 0), controlPoint1: CGPointMake(0, 4.9), controlPoint2: CGPointMake(4.9, 0))
-        backPath.addLineToPoint(CGPointMake(24, 0))
-        backPath.addCurveToPoint(CGPointMake(35, 11), controlPoint1: CGPointMake(30.1, 0), controlPoint2: CGPointMake(35, 4.9))
-        backPath.addLineToPoint(CGPointMake(35, 24))
-        backPath.addCurveToPoint(CGPointMake(24, 35), controlPoint1: CGPointMake(35, 30.1), controlPoint2: CGPointMake(30.1, 35))
-        backPath.closePath()
-        backPath.miterLimit = 4;
+
+        //// Bezier Drawing
+        var bezierPath = UIBezierPath()
+        bezierPath.moveToPoint(CGPointMake(24, 35))
+        bezierPath.addLineToPoint(CGPointMake(11, 35))
+        bezierPath.addCurveToPoint(CGPointMake(0, 24), controlPoint1: CGPointMake(4.9, 35), controlPoint2: CGPointMake(0, 30.1))
+        bezierPath.addLineToPoint(CGPointMake(0, 11))
+        bezierPath.addCurveToPoint(CGPointMake(11, 0), controlPoint1: CGPointMake(0, 4.9), controlPoint2: CGPointMake(4.9, 0))
+        bezierPath.addLineToPoint(CGPointMake(24, 0))
+        bezierPath.addCurveToPoint(CGPointMake(35, 11), controlPoint1: CGPointMake(30.1, 0), controlPoint2: CGPointMake(35, 4.9))
+        bezierPath.addLineToPoint(CGPointMake(35, 24))
+        bezierPath.addCurveToPoint(CGPointMake(24, 35), controlPoint1: CGPointMake(35, 30.1), controlPoint2: CGPointMake(30.1, 35))
+        bezierPath.closePath()
+        bezierPath.miterLimit = 4;
         
         color!.setFill()
-        backPath.fill()
+        bezierPath.fill()
+        
+        //// Group 2
+        //// Oval Drawing
+        var ovalPath = UIBezierPath(ovalInRect: CGRectMake(19.6, 20, 6, 6))
+        fillColor2.setFill()
+        ovalPath.fill()
+        strokeColor.setStroke()
+        ovalPath.lineWidth = 2
+        ovalPath.stroke()
         
         
-        //// logo Drawing
-        var logoPath = UIBezierPath()
-        logoPath.moveToPoint(CGPointMake(25.4, 9.1))
-        logoPath.addCurveToPoint(CGPointMake(24.5, 8.9), controlPoint1: CGPointMake(25.2, 8.9), controlPoint2: CGPointMake(24.8, 8.8))
-        logoPath.addLineToPoint(CGPointMake(9.3, 15.1))
-        logoPath.addCurveToPoint(CGPointMake(8.8, 15.9), controlPoint1: CGPointMake(9, 15.2), controlPoint2: CGPointMake(8.8, 15.6))
-        logoPath.addCurveToPoint(CGPointMake(9.4, 16.6), controlPoint1: CGPointMake(8.8, 16.2), controlPoint2: CGPointMake(9.1, 16.5))
-        logoPath.addLineToPoint(CGPointMake(15.9, 18.4))
-        logoPath.addLineToPoint(CGPointMake(17.8, 24.8))
-        logoPath.addCurveToPoint(CGPointMake(18.5, 25.4), controlPoint1: CGPointMake(17.9, 25.1), controlPoint2: CGPointMake(18.2, 25.4))
-        logoPath.addLineToPoint(CGPointMake(18.5, 25.4))
-        logoPath.addCurveToPoint(CGPointMake(19.2, 24.9), controlPoint1: CGPointMake(18.8, 25.4), controlPoint2: CGPointMake(19.1, 25.2))
-        logoPath.addLineToPoint(CGPointMake(25.5, 9.9))
-        logoPath.addCurveToPoint(CGPointMake(25.4, 9.1), controlPoint1: CGPointMake(25.7, 9.7), controlPoint2: CGPointMake(25.6, 9.3))
-        logoPath.closePath()
-        logoPath.miterLimit = 4;
-        
-        logoColor.setStroke()
-        logoPath.lineWidth = 2.5
-        logoPath.stroke()
+        //// Oval 2 Drawing
+        var oval2Path = UIBezierPath(ovalInRect: CGRectMake(19.6, 8.6, 6, 6))
+        fillColor2.setFill()
+        oval2Path.fill()
+        strokeColor.setStroke()
+        oval2Path.lineWidth = 2
+        oval2Path.stroke()
         
         
+        //// Oval 3 Drawing
+        var oval3Path = UIBezierPath(ovalInRect: CGRectMake(8.2, 14.3, 6, 6))
+        fillColor2.setFill()
+        oval3Path.fill()
+        strokeColor.setStroke()
+        oval3Path.lineWidth = 2
+        oval3Path.stroke()
         
+        //// Bezier 2 Drawing
+        var bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPointMake(13.9, 18.6))
+        bezier2Path.addLineToPoint(CGPointMake(19.9, 21.6))
+        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        
+        fillColor2.setFill()
+        bezier2Path.fill()
+        strokeColor.setStroke()
+        bezier2Path.lineWidth = 2
+        bezier2Path.stroke()
+        
+        //// Bezier 3 Drawing
+        var bezier3Path = UIBezierPath()
+        bezier3Path.moveToPoint(CGPointMake(13.9, 16))
+        bezier3Path.addLineToPoint(CGPointMake(19.9, 13))
+        bezier3Path.lineJoinStyle = kCGLineJoinRound;
+        
+        fillColor2.setFill()
+        bezier3Path.fill()
+        strokeColor.setStroke()
+        bezier3Path.lineWidth = 2
+        bezier3Path.stroke()
+
         CGContextRestoreGState(context)
     }
 }

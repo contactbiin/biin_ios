@@ -293,7 +293,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             uiDocumentInteractionController!.delegate = self
             uiDocumentInteractionController!.presentPreviewAnimated(false)
         }
-        
     }
     
     func findSiteForElement(element:BNElement) -> BNSite? {

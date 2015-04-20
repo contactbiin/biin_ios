@@ -73,28 +73,40 @@ class ElementMiniView: BNView {
         
         
         var ypos:CGFloat = SharedUIManager.instance.siteView_headerHeight - 5
-        
+        /*
         if self.element!.hasDiscount {
             discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
             self.addSubview(discountView!)
             ypos += 40
         }
+        */
         
-        if self.element!.hasListPrice && !self.element!.hasDiscount {
-            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: self.element!.listPrice!)
-            self.addSubview(priceView!)
+        if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
             
-        } else if self.element!.hasListPrice {
-            //TODO: make change here with new pricing
-//            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: self.element!.listPrice!, newPrice: self.element!.price!)
-//            self.addSubview(priceView!)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 37), price: "\(element!.currency!)\(element!.price!)", isMini:true)
+            self.addSubview(priceView!)
+            ypos += 40
+            
+        } else if element!.hasPrice &&  element!.hasListPrice {
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 44), oldPrice:"\(element!.currency!)\(element!.listPrice!)", newPrice:"\(element!.currency!)\(element!.price!)", isMini:true)
+            self.addSubview(priceView!)
+            ypos += 40
+            
+        } else if element!.hasPrice &&  element!.hasFromPrice {
+
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 37), price: "\(element!.currency!)\(element!.price!)", from: "", isMini:true)
+            self.addSubview(priceView!)
+
+            ypos += 40
         }
         
+        /*
         if self.element!.hasSticker {
             stickerView = BNUIStickerView(frame:CGRectMake((SharedUIManager.instance.miniView_width - 55), (SharedUIManager.instance.miniView_headerHeight + 5), 50, 50), type:self.element!.sticker!.type, color:self.element!.sticker!.color! )
             self.addSubview(stickerView!)
         }
-        
+        */
 
         
         xpos = 5

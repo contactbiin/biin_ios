@@ -144,7 +144,7 @@ class ElementView: BNView {
         imagesScrollView!.updateImages(elementMiniView!.element!.media)
 
         var ypos:CGFloat = 5
-        
+        /*
         if elementMiniView!.element!.hasDiscount {
             //Add pig
             discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: elementMiniView!.element!.discount!)
@@ -152,7 +152,8 @@ class ElementView: BNView {
             hasDiscount = true
             ypos += 40
         }
-        
+        */
+
 //        if elementMiniView!.element!.hasListPrice  {
 //            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: elementMiniView!.element!.listPrice!, newPrice: elementMiniView!.element!.price!)
 //            scroll!.addSubview(priceView!)
@@ -160,26 +161,34 @@ class ElementView: BNView {
 //            ypos += 40
 //        }
 
-        if elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
-            priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), listPrice: elementMiniView!.element!.listPrice!)
+        if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
             
-        } else if elementMiniView!.element!.hasListPrice {
+        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice {
             
-            ///priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: elementMiniView!.element!.listPrice!, newPrice: elementMiniView!.element!.price!)
-            //scroll!.addSubview(priceView!)
-            //hasPrice = true
-            //ypos += 40
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
+            scroll!.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
+            
+            //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from: "", isMini:false)
+            scroll!.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
         }
         
+        /*
         if elementMiniView!.element!.hasSticker {
             stickerView = BNUIStickerView(frame:CGRectMake(5, ypos, 50, 50), type:elementMiniView!.element!.sticker!.type, color:elementMiniView!.element!.sticker!.color! )
             scroll!.addSubview(stickerView!)
             hasSticker = true
         }
-        
+        */
         detailsView = ElementView_Details(frame: CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
         scroll!.addSubview(detailsView!)
         
@@ -218,7 +227,6 @@ class ElementView: BNView {
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
         detailsView!.showBiinItButton(false)
-        animationView!.animate()
         applyBiinIt()
     }
     
@@ -226,6 +234,7 @@ class ElementView: BNView {
         header!.updateSocialButtonsForElement(elementMiniView!.element!)
         biinItButton!.showDisable()
         detailsView!.showBiinItButton(false)
+        animationView!.animate()
     }
     
     func shareit(sender:BNUIButton_ShareIt){

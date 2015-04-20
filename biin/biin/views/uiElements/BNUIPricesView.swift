@@ -26,62 +26,158 @@ class BNUIPricesView:UIView {
         super.init(frame: frame)
     }
 
-    convenience init(frame: CGRect, listPrice:String ) {
+    convenience init(frame: CGRect, price:String, isMini:Bool) {
         self.init(frame: frame)
         
-        self.backgroundColor = UIColor.appTextColor()
+        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        self.oldPrice = UILabel(frame: CGRectMake(10, 5, self.frame.width, 12))
-        self.oldPrice!.textColor = UIColor.whiteColor()
-        self.oldPrice!.textAlignment = NSTextAlignment.Left
-        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:10)
-        self.oldPrice!.text = listPrice
-        self.oldPrice!.sizeToFit()
-        self.addSubview(self.oldPrice!)
+        var fontSize1:CGFloat = 18
+        var fontSize2:CGFloat = 28
+        var ypos1:CGFloat = 3
+        var ypos2:CGFloat = 25
+        var x_ypos:CGFloat = 10
+        var spacer:CGFloat = 40
         
-        var width:CGFloat = self.oldPrice!.frame.width + 15
+        if isMini {
+            fontSize1 = 10
+            fontSize2 = 16
+            ypos1 = 3
+            ypos2 = 15
+            x_ypos = 5
+            spacer = 20
+        }
+        
+        var size2 = getStringLength(price, fontName: "Lato-Black", fontSize: fontSize2)
+        var width:CGFloat = size2 + spacer
         
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
-    }
-    
-    convenience init(frame: CGRect, oldPrice:String, newPrice:String) {
-        self.init(frame: frame)
         
-        self.backgroundColor = UIColor.appTextColor()
-        self.layer.cornerRadius = 5
-        self.layer.masksToBounds = true
-
-        self.oldPrice = UILabel(frame: CGRectMake(10, 5, self.frame.width, 12))
-        self.oldPrice!.textColor = UIColor.whiteColor()
-        self.oldPrice!.textAlignment = NSTextAlignment.Left
-        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:10)
-        self.oldPrice!.text = oldPrice
-        self.oldPrice!.sizeToFit()
+        self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
+        self.oldPrice!.textColor = UIColor.appButtonColor()
+        self.oldPrice!.textAlignment = NSTextAlignment.Center
+        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
+        self.oldPrice!.text = "PRICE"
         self.addSubview(self.oldPrice!)
         
-        self.newPrice = UILabel(frame: CGRectMake(10, 18, self.frame.width, 12))
-        self.newPrice!.textColor = UIColor.whiteColor()
-        self.newPrice!.textAlignment = NSTextAlignment.Left
-        self.newPrice!.font = UIFont(name: "Lato-Regular", size:10)
-        self.newPrice!.text = newPrice
-        self.newPrice!.sizeToFit()
+        self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
+        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textAlignment = NSTextAlignment.Center
+        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.text = price
         self.addSubview(self.newPrice!)
-
+    }
+    
+    convenience init(frame: CGRect, oldPrice:String, newPrice:String, isMini:Bool) {
+        self.init(frame: frame)
+        
+        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
+        
+        var fontSize1:CGFloat = 24
+        var fontSize2:CGFloat = 28
+        var ypos1:CGFloat = 3
+        var ypos2:CGFloat = 32
+        var x_ypos:CGFloat = 10
+        var spacer:CGFloat = 40
+        
+        if isMini {
+            fontSize1 = 14
+            fontSize2 = 16
+            ypos1 = 3
+            ypos2 = 20
+            x_ypos = 5
+            spacer = 20
+        }
+        
+        
+        var size1 = getStringLength(oldPrice, fontName: "Lato-Regular", fontSize: (fontSize1 + 2))
+        var size2 = getStringLength(newPrice, fontName: "Lato-Black", fontSize: (fontSize2 + 2))
+        
         var width:CGFloat = 0
-        if self.newPrice!.frame.width > self.oldPrice!.frame.width {
-            width = self.newPrice!.frame.width + 15
+        if size2 > size1 {
+            width = size2 + spacer
         } else {
-            width = self.oldPrice!.frame.width + 15
-
+            width = size1 + spacer
+            
         }
         
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
+
+        self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
+        self.oldPrice!.textColor = UIColor.appButtonColor()
+        self.oldPrice!.textAlignment = NSTextAlignment.Center
+        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
+        self.oldPrice!.text = oldPrice
+        self.addSubview(self.oldPrice!)
         
-        icon = BNIcon_RedX(color: UIColor.bnRed(), position: CGPoint(x: 13, y: 8))
-        icon!.width = self.oldPrice!.frame.width / 30
-        //icon = BNIcon_PigSmall(color:UIColor.bnRed(), position: CGPointMake(9, 5))
+        self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
+        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textAlignment = NSTextAlignment.Center
+        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.text = newPrice
+        self.addSubview(self.newPrice!)
+
+
+        var xpos:CGFloat = ( width - size1 ) / 2
+        
+        var xView = BNUIView_PriceX(frame: CGRectMake(0, 0, width, 30), color: UIColor.redColor(), position: CGPoint(x:xpos, y: x_ypos), size: size1)
+        self.addSubview(xView)
+        
+    }
+    
+    convenience init(frame: CGRect, price:String, from:String, isMini:Bool) {
+        self.init(frame: frame)
+        
+        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
+        
+        var fontSize1:CGFloat = 18
+        var fontSize2:CGFloat = 28
+        var ypos1:CGFloat = 3
+        var ypos2:CGFloat = 25
+        var x_ypos:CGFloat = 10
+        var spacer:CGFloat = 40
+        
+        if isMini {
+            fontSize1 = 10
+            fontSize2 = 16
+            ypos1 = 3
+            ypos2 = 15
+            x_ypos = 5
+            spacer = 20
+        }
+        
+        var size2 = getStringLength(price, fontName: "Lato-Black", fontSize: fontSize2)
+        var width:CGFloat = size2 + spacer
+
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
+        
+        self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
+        self.oldPrice!.textColor = UIColor.appButtonColor()
+        self.oldPrice!.textAlignment = NSTextAlignment.Center
+        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
+        self.oldPrice!.text = "FROM"
+        self.addSubview(self.oldPrice!)
+        
+        self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
+        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textAlignment = NSTextAlignment.Center
+        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.text = price
+        self.addSubview(self.newPrice!)
+        
+    }
+    
+    func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
+        var label = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        label.font = UIFont(name: fontName, size:fontSize)
+        label.text = text
+        label.sizeToFit()
+        return label.frame.width
     }
     
     override func drawRect(rect:CGRect){

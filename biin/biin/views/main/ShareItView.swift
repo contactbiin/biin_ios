@@ -25,7 +25,7 @@ class ShareItView:UIView {
         
         self.backgroundColor = UIColor.clearColor()
         self.layer.cornerRadius = 5
-        self.layer.borderColor = UIColor.appBackground().CGColor
+        self.layer.borderColor = UIColor.appButtonColor().CGColor
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
 
@@ -38,6 +38,7 @@ class ShareItView:UIView {
         ypos = 0
         var whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
         whiteBackground.backgroundColor = UIColor.appMainColor()
+        
         self.addSubview(whiteBackground)
 
         ypos += 6
@@ -47,19 +48,19 @@ class ShareItView:UIView {
         title.text = element.title
         self.addSubview(title)
         
-        ypos += 27
+        ypos += 28
         var subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
         subTitle.font = UIFont(name:"Lato-Regular", size:14)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = element.subTitle
         self.addSubview(subTitle)
         
-        ypos = 340
+        ypos = 335
         var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: nil, element: element)
         self.addSubview(pricingDetails)
-        pricingDetails.frame.origin.y = 310
+        pricingDetails.frame.origin.y = 335
         
-        ypos += pricingDetails.frame.height
+        ypos += pricingDetails.frame.height + 10
         
         var siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
         siteLocation.updateForSite(site!)
@@ -73,7 +74,7 @@ class ShareItView:UIView {
         whiteBackground2.backgroundColor = UIColor.biinColor()
         self.addSubview(whiteBackground2)
         
-        var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 55), 3, 100, 30))
+        var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
         whiteBackground2.addSubview(biinLogo)
         
         ypos += 35
@@ -107,14 +108,14 @@ class ShareItView:UIView {
         title.text = site.title
         self.addSubview(title)
         
-        ypos += 27
+        ypos += 28
         var subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
         subTitle.font = UIFont(name:"Lato-Regular", size:14)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = site.subTitle
         self.addSubview(subTitle)
         
-        ypos = 360
+        ypos = 370
         var siteLocation = SiteView_Location(frame: CGRectMake(0, ypos, 0, 0), father: nil)
         siteLocation.updateForSite(site)
         siteLocation.map!.alpha = 0
@@ -127,7 +128,7 @@ class ShareItView:UIView {
         whiteBackground2.backgroundColor = UIColor.biinColor()
         self.addSubview(whiteBackground2)
         
-        var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 55), 3, 100, 30))
+        var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
         whiteBackground2.addSubview(biinLogo)
         
         ypos += 35

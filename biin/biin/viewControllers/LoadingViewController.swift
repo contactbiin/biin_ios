@@ -71,9 +71,6 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         loadingView = LoadingView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         self.view.addSubview(loadingView!)
-        
-        
-
     }
 
     override func didReceiveMemoryWarning() {

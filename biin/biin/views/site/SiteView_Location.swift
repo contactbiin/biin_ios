@@ -47,7 +47,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         super.init(frame: frame, father:father )
         
         self.backgroundColor = UIColor.appMainColor()
-
+        
         site_phoneNumber = ""
         site_email = ""
         
@@ -71,7 +71,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         siteAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
         //siteAvatar!.alpha = 0
-        siteAvatar!.layer.cornerRadius = 30
+        siteAvatar!.layer.cornerRadius = 35
         siteAvatar!.layer.masksToBounds = true
         siteAvatarView!.addSubview(siteAvatar!)
         
