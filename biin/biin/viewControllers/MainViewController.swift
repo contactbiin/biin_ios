@@ -396,9 +396,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             sharingItems.append(url)
         }
         
-//        if let image = imageToShate {
-//         sharingItems.append(image)
-//        }
+        if let image = imageToShate {
+         sharingItems.append(image)
+        }
         
         let activityVC = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
 
