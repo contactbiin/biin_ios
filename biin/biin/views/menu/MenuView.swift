@@ -82,22 +82,22 @@ class MenuView:UIView {
         buttons.append(profileBtn!)
         buttons.append(homeBtn!)
         buttons.append(collectionsBtn!)
-        //buttons.append(loyaltyBtn!)
+        buttons.append(loyaltyBtn!)
         buttons.append(notificationsBtn!)
-        //buttons.append(inviteFriendsBtn!)
-        //buttons.append(settingsBtn!)
-        //buttons.append(searchBtn!)
+        buttons.append(inviteFriendsBtn!)
+        buttons.append(settingsBtn!)
+        buttons.append(searchBtn!)
         
         //TODO:Disable buttons for version 0.1.8
-        loyaltyBtn!.enabled = false
+        //loyaltyBtn!.enabled = false
         //notificationsBtn!.enabled = false
-        inviteFriendsBtn!.enabled = false
+//        inviteFriendsBtn!.enabled = false
         settingsBtn!.enabled = false
         searchBtn!.enabled = false
         
-        loyaltyBtn!.showDisable()
+        //loyaltyBtn!.showDisable()
         //notificationsBtn!.showDisable()
-        inviteFriendsBtn!.showDisable()
+        inviteFriendsBtn!.showEnable()
         settingsBtn!.showDisable()
         searchBtn!.showDisable()
     }
@@ -128,7 +128,7 @@ class MenuView:UIView {
     }
     
     func inviteFriendsBtnActon(sender:BNUIButton) {
-        disableButton(5)
+        //disableButton(5)
         delegate!.menuView!(self, showInviteFriends: true)
     }
 

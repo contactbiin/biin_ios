@@ -181,6 +181,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func menuView(menuView: MenuView!, showInviteFriends value: Bool) {
         mainView!.setNextState(7)
+        sendInvitation()
     }
     
     func menuView(menuView: MenuView!, showSettings value: Bool) {
@@ -372,5 +373,41 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
         return self
+    }
+    
+    func sendInvitation(){
+        
+        let textToShare:String?
+        textToShare = "Biin is awesome!  Check out this new amazing app!"
+        
+        let imageToShate:UIImage?
+        imageToShate = UIImage(named: "biinShare")
+        
+        let myWebsite:NSURL?
+        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        
+        var sharingItems = [AnyObject]()
+        
+        if let text = textToShare {
+            sharingItems.append(text)
+        }
+
+        if let url = myWebsite {
+            sharingItems.append(url)
+        }
+        
+//        if let image = imageToShate {
+//         sharingItems.append(image)
+//        }
+        
+        let activityVC = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+
+        //New Excluded Activities Code
+        activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll]
+
+
+        self.presentViewController(activityVC, animated: true, completion: nil)
+        mainView!.setNextState(1)
+
     }
 }

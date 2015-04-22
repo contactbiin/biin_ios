@@ -16,6 +16,8 @@
 		5B1E2C1E1A830B2400633C46 /* SiteView_Showcase_Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */; };
 		5B1E2C201A830DEE00633C46 /* BNUIJoinGameIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C1F1A830DEE00633C46 /* BNUIJoinGameIconView.swift */; };
 		5B1E2C221A830EBF00633C46 /* BNIcon_JoinGameIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */; };
+		5B1F54FE1AE6F16300130CFE /* BNUIActivityItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F54FD1AE6F16300130CFE /* BNUIActivityItemProvider.swift */; };
+		5B1F55001AE6FB0200130CFE /* biinShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F54FF1AE6FB0200130CFE /* biinShare.png */; };
 		5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */; };
 		5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */; };
 		5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */; };
@@ -273,6 +275,8 @@
 		5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase_Join.swift; sourceTree = "<group>"; };
 		5B1E2C1F1A830DEE00633C46 /* BNUIJoinGameIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIJoinGameIconView.swift; sourceTree = "<group>"; };
 		5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_JoinGameIcon.swift; sourceTree = "<group>"; };
+		5B1F54FD1AE6F16300130CFE /* BNUIActivityItemProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIActivityItemProvider.swift; sourceTree = "<group>"; };
+		5B1F54FF1AE6FB0200130CFE /* biinShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = biinShare.png; sourceTree = "<group>"; };
 		5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIScrollView.swift; sourceTree = "<group>"; };
 		5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Gender.swift; sourceTree = "<group>"; };
 		5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_FemaleSmall.swift; sourceTree = "<group>"; };
@@ -838,6 +842,7 @@
 		5B3D75E81A6816B300CB0D1C /* pictures */ = {
 			isa = PBXGroup;
 			children = (
+				5B1F54FF1AE6FB0200130CFE /* biinShare.png */,
 				5BB3BCEE1AC722A000C46A09 /* biinLogoLS.png */,
 				5B60A4C31AA0FC9E0025ACBA /* mapIcon.png */,
 				5B3D75E91A6816B300CB0D1C /* biinLogo.png */,
@@ -856,6 +861,7 @@
 				5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */,
 				5B5339641A85188C0049FB00 /* SingupViewController.swift */,
 				5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */,
+				5B1F54FD1AE6F16300130CFE /* BNUIActivityItemProvider.swift */,
 			);
 			path = viewControllers;
 			sourceTree = "<group>";
@@ -1228,6 +1234,7 @@
 				5BE82CD01AC624B2003342C9 /* iPhone-40-2x.png in Resources */,
 				5B3D76181A6816B300CB0D1C /* Lato-Regular.ttf in Resources */,
 				5B3D761E1A6816B300CB0D1C /* iPhone5bg.png in Resources */,
+				5B1F55001AE6FB0200130CFE /* biinShare.png in Resources */,
 				5B3D760B1A6816B300CB0D1C /* Lato-Black.ttf in Resources */,
 				5B3D761B1A6816B300CB0D1C /* Lato-Thin.ttf in Resources */,
 				5BE82CD41AC62503003342C9 /* iPhone-60-2x.png in Resources */,
@@ -1428,6 +1435,7 @@
 				5B5D77EA1A8E7762001C4A34 /* BNIcon_MusicMedium.swift in Sources */,
 				5BA0B7901A686A6700DBEB74 /* ProfileState.swift in Sources */,
 				5B5D77F01A8E7C90001C4A34 /* BNIcon_CarsMedium.swift in Sources */,
+				5B1F54FE1AE6F16300130CFE /* BNUIActivityItemProvider.swift in Sources */,
 				5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */,
 				5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */,
 				5BF60D6E1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift in Sources */,
