@@ -43,14 +43,14 @@ class SiteView_Showcase_Join:BNView {
         youSeenTitleLbl = UILabel(frame: CGRectMake(0, (frame.height * 0.6), frame.width, 22))
         youSeenTitleLbl!.font = UIFont(name: "Lato-Regular", size: 20)
         youSeenTitleLbl!.textColor = UIColor.appTextColor()
-        youSeenTitleLbl!.text = "Joint us!"
+        youSeenTitleLbl!.text = NSLocalizedString("JoinUs", comment: "title")
         youSeenTitleLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(youSeenTitleLbl!)
         
         youSeenLbl = UILabel(frame: CGRectMake(0, (frame.height * 0.7), frame.width, 18))
         youSeenLbl!.font = UIFont(name: "Lato-Light", size: 16)
         youSeenLbl!.textColor = UIColor.appTextColor()
-        youSeenLbl!.text = "And start to enjoy our benefits!"
+        youSeenLbl!.text = NSLocalizedString("StartToEnjoy", comment: "title")
         youSeenLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(youSeenLbl!)
         

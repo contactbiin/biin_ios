@@ -36,16 +36,16 @@ class SiteMiniView_Header:BNView {
         
         ypos += 16
         
-        var title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 2)))
-        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+        var title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 3)))
+        title.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = site!.titleColor
         title.text = site!.title
         self.addSubview(title)
         
-        ypos += SharedUIManager.instance.miniView_titleSize + 2
+        ypos += SharedUIManager.instance.miniView_titleSize + 3
         
         var subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_subTittleSize)
+        subTitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = site!.subTitle!
         self.addSubview(subTitle)

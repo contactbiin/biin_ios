@@ -129,9 +129,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         showMenuSwipe.edges = UIRectEdge.Left
         categoriesView.scroll!.addGestureRecognizer(showMenuSwipe)
         
-        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
-        showMenuSwipe.edges = UIRectEdge.Left
-        siteView.scroll!.addGestureRecognizer(showMenuSwipe)
+        //showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
+        //showMenuSwipe.edges = UIRectEdge.Left
+        //siteView.scroll!.addGestureRecognizer(showMenuSwipe)
 
         /*
         showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")

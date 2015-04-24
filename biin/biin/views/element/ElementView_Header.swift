@@ -8,7 +8,7 @@ import UIKit
 
 class ElementView_Header:BNView {
     
-    var buttonsView:SocialButtonsView?
+    //var buttonsView:SocialButtonsView?
     var title:UILabel?
     var subTitle:UILabel?
     
@@ -35,24 +35,33 @@ class ElementView_Header:BNView {
         self.layer.shadowOpacity = 0.25
         
         var ypos:CGFloat = 5
-        buttonsView = SocialButtonsView(frame: CGRectMake(30, ypos, frame.width, 15), father: self, element: nil)
-        self.addSubview(buttonsView!)
+//        buttonsView = SocialButtonsView(frame: CGRectMake(0, ( SharedUIManager.instance.siteView_headerHeight + 5 ), frame.width, 15), father: self, element: nil)
+//        self.addSubview(buttonsView!)
         
-        ypos += 18
+        ypos += 15
         
-        title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 2)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
+        title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.biinColor()
         title!.text = "site title here"
+        title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_titleSize + 2
+        ypos += SharedUIManager.instance.siteView_titleSize + 4
         
-        subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_subTittleSize)
+        subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
+        subTitle!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.appTextColor()
         subTitle!.text = "Site subtitle here"
+        subTitle!.textAlignment = NSTextAlignment.Center
         self.addSubview(subTitle!)
+        
+        
+        
+        
+        
+        
+        
     }
 
     override func transitionIn() {
@@ -87,7 +96,7 @@ class ElementView_Header:BNView {
     //Instance methods
     //Instance methods
     func updateForElement(element:BNElement?) {
-        buttonsView!.updateSocialButtonsForElement(element)
+        //buttonsView!.updateSocialButtonsForElement(element)
         title!.textColor = element!.titleColor!
         title!.text = element!.title
         subTitle!.text = element!.subTitle
@@ -95,7 +104,7 @@ class ElementView_Header:BNView {
     
     //Instance methods
     func updateSocialButtonsForElement(element: BNElement?){
-        buttonsView!.updateSocialButtonsForElement(element)
+        //buttonsView!.updateSocialButtonsForElement(element)
     }
 }
 

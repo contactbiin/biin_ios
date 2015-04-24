@@ -53,7 +53,7 @@ class SiteView_Showcase_Game:BNView {
         youSeenTitleLbl = UILabel(frame: CGRectMake(0, (frame.height * 0.44), frame.width, 16))
         youSeenTitleLbl!.font = UIFont(name: "Lato-Regular", size: 14)
         youSeenTitleLbl!.textColor = UIColor.appTextColor()
-        youSeenTitleLbl!.text = "You’ve seen"
+        youSeenTitleLbl!.text = NSLocalizedString("YouSeen", comment: "title")
         youSeenTitleLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(youSeenTitleLbl!)
         
@@ -101,8 +101,8 @@ class SiteView_Showcase_Game:BNView {
         }else {
             self.youSeenTitleLbl!.frame.origin.y = self.frame.height * 0.7
             self.youSeenLbl!.frame.origin.y = self.frame.height * 0.6
-            self.youSeenLbl!.text = "Done!"
-            self.youSeenTitleLbl!.text = "Thank you for stoping by."
+            self.youSeenLbl!.text = NSLocalizedString("Done", comment: "title")
+            self.youSeenTitleLbl!.text = NSLocalizedString("ThankYouStop", comment: "title")
             self.circleIcon!.alpha = 1
         }
     }
@@ -167,8 +167,8 @@ class SiteView_Showcase_Game:BNView {
         self.animatedCircle!.animateIn()
         self.youSeenTitleLbl!.frame.origin.y = self.frame.height * 0.7
         self.youSeenLbl!.frame.origin.y = self.frame.height * 0.6
-        self.youSeenLbl!.text = "Done!"
-        self.youSeenTitleLbl!.text = "Thank you for stoping by."
+        self.youSeenLbl!.text = NSLocalizedString("Done", comment: "title")
+        self.youSeenTitleLbl!.text = NSLocalizedString("ThankYouStop", comment: "title")
         
         UIView.animateWithDuration(0.2, animations: {()-> Void in
             self.youSeenTitleLbl!.alpha = 1

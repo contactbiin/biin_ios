@@ -50,16 +50,16 @@ class ElementMiniView_Header:BNView {
             }
         }
         
-        var title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 2)))
-        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+        var title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 3)))
+        title.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = element!.titleColor!
         title.text = element!.title!
         self.addSubview(title)
         
-        ypos += SharedUIManager.instance.miniView_titleSize + 2
+        ypos += SharedUIManager.instance.miniView_titleSize + 3
         
-        var subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_subTittleSize)
+        var subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 3)))
+        subTitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = element!.subTitle!
         self.addSubview(subTitle)

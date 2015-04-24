@@ -54,7 +54,7 @@ class BNUIButton_Category:BNUIButton {
         label!.textAlignment  = NSTextAlignment.Center
         label!.lineBreakMode = NSLineBreakMode.ByWordWrapping
         label!.numberOfLines = 2
-        label!.text = text
+        label!.text = NSLocalizedString(categoryIdentifier!, comment:categoryIdentifier!)
         self.addSubview(label!)
     }
     

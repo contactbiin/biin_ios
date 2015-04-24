@@ -17,6 +17,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     var notificationBtn:BNUIButton?
     var notificationRedCircle:BNUINotificationView_RedCircle?
     var searchBtn:BNUIButton?
+    var showMenuBtn:BNUIButton?
     
 //    override init() {
 //        super.init()
@@ -46,8 +47,8 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         addSubview(effectView)
         */
         
-        categoryNameLbl = UILabel(frame: CGRectMake(0, 2, SharedUIManager.instance.screenWidth, 14))
-        categoryNameLbl!.font = UIFont(name: "Lato-Regular", size: 12)
+        categoryNameLbl = UILabel(frame: CGRectMake(0, 20, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
+        categoryNameLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_titleSize)
         categoryNameLbl!.textColor = UIColor.appTextColor()
         categoryNameLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(categoryNameLbl!)
@@ -91,19 +92,24 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     //Instance Methods
     func addButtons(){
         
-        notificationRedCircle = BNUINotificationView_RedCircle(position: CGPoint(x: 22, y: 14))
-        notificationBtn = BNUIButton_WithLabel(position: CGPoint(x:2, y: 10), text: "", iconType: BNIconType.notificationMedium, hasLabel: false)
-        notificationBtn!.addTarget(self, action: "showNotificationsView:", forControlEvents: UIControlEvents.TouchUpInside)
+        //notificationRedCircle = BNUINotificationView_RedCircle(position: CGPoint(x: 20, y: 14))
+        //notificationBtn = BNUIButton_WithLabel(position: CGPoint(x:2, y: 10), text: "", iconType: BNIconType.notificationMedium, hasLabel: false)
+        //notificationBtn!.addTarget(self, action: "showNotificationsView:", forControlEvents: UIControlEvents.TouchUpInside)
         
-//        searchBtn = BNUIButton(position: CGPoint(x: (SharedUIManager.instance.screenWidth - 45), y: 10), iconType: BNIconType.searchMedium)
-//        searchBtn!.addTarget(self, action: "showSearchView:", forControlEvents: UIControlEvents.TouchUpInside)
+        //searchBtn = BNUIButton(position: CGPoint(x: (SharedUIManager.instance.screenWidth - 45), y: 10), iconType: BNIconType.searchMedium)
+        //searchBtn!.addTarget(self, action: "showSearchView:", forControlEvents: UIControlEvents.TouchUpInside)
 
-        self.addSubview(notificationBtn!)
-        self.addSubview(notificationRedCircle!)
+        //self.addSubview(notificationBtn!)
+        //self.addSubview(notificationRedCircle!)
         //self.addSubview(searchBtn!)
         
         //notificationRedCircle!.setNotifitionNumber(23)
-        hideNotification()
+        //hideNotification()
+        
+        
+        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 30, 100, 60), text: "", iconType: BNIconType.menuMedium)
+        showMenuBtn!.addTarget(father, action: "showMenuBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(showMenuBtn!)
     }
     
     func addCategoriesPoints(){
@@ -112,14 +118,14 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
         var xpos:CGFloat = (space - 5)
         
-        categoryNameLbl!.text = BNAppSharedManager.instance.dataManager.bnUser!.categories[0].name!
+        categoryNameLbl!.text = NSLocalizedString(BNAppSharedManager.instance.dataManager.bnUser!.categories[0].identifier!, comment:"")
 
         for var i:Int = 0; i < BNAppSharedManager.instance.dataManager.bnUser!.categories.count; i++ {
             
-            var point = BNUIPointView(frame: CGRectMake((xpos), 45, 14, 14), sectionIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!)
+            var point = BNUIPointView(frame: CGRectMake((xpos), 45, 14, 14), categoryIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!)
             self.points.append(point)
             self.addSubview(point)
-            
+            /*
             var icon = BiinieCategoriesView_Icon(frame: CGRectMake((xpos), 22, 25, 25), categoryType: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].categoryType!)
             
             if i != 0 {
@@ -132,7 +138,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
             
             self.icons.append(icon)
             self.addSubview(icon)
-            
+            */
             xpos += 20
         }
         
@@ -167,10 +173,11 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
     
     func updateCategoriesPoints(view: BiinieCategoriesView, index: Int) {
         
-        categoryNameLbl!.alpha = 0
+        //categoryNameLbl!.alpha = 0
         
         points[previousPoint].setInactive()
         
+        /*
         UIView.animateWithDuration(0.25, animations: {()->Void in
             self.icons[self.previousPoint].transform = CGAffineTransformMakeScale(0.7, 0.7)
             self.icons[self.previousPoint].alpha = 0.5
@@ -183,27 +190,28 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
                 self.icons[self.previousPoint].frame.origin.y = 26
             }
         })
-        
+        */
         points[index].setActive()
+        /*
         UIView.animateWithDuration(0.25, animations: {()->Void in
             
             self.icons[index].transform = CGAffineTransformMakeScale(1, 1)
             self.icons[index].frame.origin.x = (self.points[index].frame.origin.x - 6)
             self.icons[index].frame.origin.y = 18
             self.icons[index].alpha = 1
-        })
+        })*/
         
-        categoryNameLbl!.text = BNAppSharedManager.instance.dataManager.bnUser!.categories[index].name!
-        categoryNameLbl!.sizeToFit()
-        self.categoryNameLbl!.frame.origin.x = self.points[index].frame.origin.x - (self.categoryNameLbl!.frame.width / 2) + 7
+        categoryNameLbl!.text = NSLocalizedString(BNAppSharedManager.instance.dataManager.bnUser!.categories[index].identifier!, comment:"")
         
-        UIView.animateWithDuration(0.3, animations: {()->Void in
+        //categoryNameLbl!.sizeToFit()
+        //self.categoryNameLbl!.frame.origin.x = self.points[index].frame.origin.x - (self.categoryNameLbl!.frame.width / 2) + 7
+        
+        //UIView.animateWithDuration(0.2, animations: {()->Void in
 
             self.categoryNameLbl!.alpha = 1
-        })
+        //})
         
         previousPoint = index
-        
         
     }
 

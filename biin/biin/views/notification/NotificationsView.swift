@@ -29,22 +29,22 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        title = UILabel(frame: CGRectMake(0, 5, screenWidth, 12))
-        title!.text = "Notifications"
+        title = UILabel(frame: CGRectMake(0, 25, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
+        title!.text = NSLocalizedString("Notifications", comment: "title")
         title!.textColor = UIColor.appTextColor()
-        title!.font = UIFont(name: "Lato-Light", size: 10)
+        title!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_titleSize )
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(2, 2, 40, 20))
+        backBtn = BNUIButton_Back(frame: CGRectMake(2, 25, 40, 20))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
-        
         var headerWidth = screenWidth - 60
         var xpos:CGFloat = (screenWidth - headerWidth) / 2
-        var ypos:CGFloat = 25
+        var ypos:CGFloat = 15
         
+        /*
         var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
         biinieAvatarView.layer.cornerRadius = 35
         biinieAvatarView.layer.borderColor = UIColor.appBackground().CGColor
@@ -53,35 +53,42 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         self.addSubview(biinieAvatarView)
         
         if BNAppSharedManager.instance.dataManager.bnUser!.imgUrl != "" {
-            biinieAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
-            //biinieAvatar!.alpha = 0
-            biinieAvatar!.layer.cornerRadius = 30
-            biinieAvatar!.layer.masksToBounds = true
-            biinieAvatarView.addSubview(biinieAvatar!)
-            BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: biinieAvatar)
+        biinieAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
+        //biinieAvatar!.alpha = 0
+        biinieAvatar!.layer.cornerRadius = 30
+        biinieAvatar!.layer.masksToBounds = true
+        biinieAvatarView.addSubview(biinieAvatar!)
+        BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: biinieAvatar)
         } else  {
-            var initials = UILabel(frame: CGRectMake(0, 25, 90, 40))
-            initials.font = UIFont(name: "Lato-Light", size: 38)
-            initials.textColor = UIColor.appMainColor()
-            initials.textAlignment = NSTextAlignment.Center
-            initials.text = "\(first(BNAppSharedManager.instance.dataManager.bnUser!.firstName!)!)\(first(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)!)"
-            biinieAvatarView.addSubview(initials)
-            biinieAvatarView.backgroundColor = UIColor.biinColor()
+        var initials = UILabel(frame: CGRectMake(0, 25, 90, 40))
+        initials.font = UIFont(name: "Lato-Light", size: 38)
+        initials.textColor = UIColor.appMainColor()
+        initials.textAlignment = NSTextAlignment.Center
+        initials.text = "\(first(BNAppSharedManager.instance.dataManager.bnUser!.firstName!)!)\(first(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)!)"
+        biinieAvatarView.addSubview(initials)
+        biinieAvatarView.backgroundColor = UIColor.biinColor()
         }
+
         
-        biinieNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 30), (headerWidth - 95), 20))
+        
+        //        biinieNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 30), (headerWidth - 95), 20))
+        biinieNameLbl = UILabel(frame: CGRectMake(6, 25, (screenWidth - 20), 20))
         biinieNameLbl!.font = UIFont(name: "Lato-Regular", size: 22)
         biinieNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)"
         biinieNameLbl!.textColor = UIColor.biinColor()
+        biinieNameLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(biinieNameLbl!)
         
-        biinieUserNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 50), (headerWidth - 95), 14))
+        //biinieUserNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 50), (headerWidth - 95), 14))
+        biinieUserNameLbl = UILabel(frame: CGRectMake(6, 45, (screenWidth - 20), 14))
         biinieUserNameLbl!.font = UIFont(name: "Lato-Light", size: 12)
         biinieUserNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.biinName!)"
         biinieUserNameLbl!.textColor = UIColor.appTextColor()
+        biinieUserNameLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(biinieUserNameLbl!)
+        */
         
-        ypos += 100
+        ypos += 40
         var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         

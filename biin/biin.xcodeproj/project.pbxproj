@@ -18,6 +18,9 @@
 		5B1E2C221A830EBF00633C46 /* BNIcon_JoinGameIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */; };
 		5B1F54FE1AE6F16300130CFE /* BNUIActivityItemProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F54FD1AE6F16300130CFE /* BNUIActivityItemProvider.swift */; };
 		5B1F55001AE6FB0200130CFE /* biinShare.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F54FF1AE6FB0200130CFE /* biinShare.png */; };
+		5B1F55021AE846E900130CFE /* BNIcon_MenuMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1F55011AE846E900130CFE /* BNIcon_MenuMedium.swift */; };
+		5B1F550C1AE8519500130CFE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F550E1AE8519500130CFE /* Localizable.strings */; };
+		5B1F55111AE851BB00130CFE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F55131AE851BB00130CFE /* Localizable.strings */; };
 		5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */; };
 		5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */; };
 		5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */; };
@@ -277,6 +280,10 @@
 		5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_JoinGameIcon.swift; sourceTree = "<group>"; };
 		5B1F54FD1AE6F16300130CFE /* BNUIActivityItemProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIActivityItemProvider.swift; sourceTree = "<group>"; };
 		5B1F54FF1AE6FB0200130CFE /* biinShare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = biinShare.png; sourceTree = "<group>"; };
+		5B1F55011AE846E900130CFE /* BNIcon_MenuMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MenuMedium.swift; sourceTree = "<group>"; };
+		5B1F55091AE84EFA00130CFE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		5B1F550D1AE8519500130CFE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5B1F55121AE851BB00130CFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIScrollView.swift; sourceTree = "<group>"; };
 		5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Gender.swift; sourceTree = "<group>"; };
 		5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_FemaleSmall.swift; sourceTree = "<group>"; };
@@ -635,6 +642,7 @@
 				5B2F5B911A8BAADC004133D4 /* BNIcon_CloseSmall.swift */,
 				5B2F5B931A8BAF78004133D4 /* BNIcon_SmileFace1.swift */,
 				5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */,
+				5B1F55011AE846E900130CFE /* BNIcon_MenuMedium.swift */,
 				5BAD8AD31A828B9F0081B335 /* BNIcon_BiinItButton.swift */,
 				5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */,
 				5BAD8AD51A828BAA0081B335 /* BNIcon_ShareItButton.swift */,
@@ -795,6 +803,8 @@
 				5B3D75D31A6816B300CB0D1C /* audio */,
 				5B3D75D41A6816B300CB0D1C /* fonts */,
 				5B3D75E81A6816B300CB0D1C /* pictures */,
+				5B1F550E1AE8519500130CFE /* Localizable.strings */,
+				5B1F55131AE851BB00130CFE /* Localizable.strings */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -1209,10 +1219,12 @@
 				5B3D76131A6816B300CB0D1C /* Lato-Italic.ttf in Resources */,
 				5BE82CDC1AC64368003342C9 /* iPad-29-2x.png in Resources */,
 				5B3D76101A6816B300CB0D1C /* Lato-HairlineItalic.ttf in Resources */,
+				5B1F550C1AE8519500130CFE /* Localizable.strings in Resources */,
 				5B3D761A1A6816B300CB0D1C /* Lato-SemiboldItalic.ttf in Resources */,
 				5BE82CDF1AC64368003342C9 /* iPad-76-2x.png in Resources */,
 				5B3D75F31A6816B300CB0D1C /* cert.der in Resources */,
 				5BE82CDD1AC64368003342C9 /* iPad-40-1x.png in Resources */,
+				5B1F55111AE851BB00130CFE /* Localizable.strings in Resources */,
 				5B3D761C1A6816B300CB0D1C /* Lato-ThinItalic.ttf in Resources */,
 				5BE82CD51AC62503003342C9 /* iPhone-60-3x.png in Resources */,
 				5B3D761D1A6816B300CB0D1C /* biinLogo.png in Resources */,
@@ -1448,6 +1460,7 @@
 				5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */,
 				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */,
+				5B1F55021AE846E900130CFE /* BNIcon_MenuMedium.swift in Sources */,
 				5B3D760A1A6816B300CB0D1C /* Biinie.swift in Sources */,
 				5BEE61401A97EF3A00DE334E /* InviteFriendsView.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,
@@ -1485,10 +1498,27 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5B1F550E1AE8519500130CFE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B1F550D1AE8519500130CFE /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5B1F55131AE851BB00130CFE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B1F55121AE851BB00130CFE /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		5B3D759C1A67052100CB0D1C /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5B3D759D1A67052100CB0D1C /* Base */,
+				5B1F55091AE84EFA00130CFE /* es */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

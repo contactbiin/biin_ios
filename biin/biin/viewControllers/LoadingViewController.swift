@@ -37,12 +37,13 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         version.font = UIFont(name: "Lato-Light", size: 18)
         version.textColor = UIColor.whiteColor()
         version.textAlignment = NSTextAlignment.Center
-        version.text = "Version \(BNAppSharedManager.instance.version)"
+        var versionTxt = NSLocalizedString("Version", comment: "the version title")
+        version.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
         self.view.addSubview(version)
         
         enterBtn = UIButton(frame: CGRectMake(0, (screenHeight - 175), screenWidth, 60))
         enterBtn!.backgroundColor = UIColor.whiteColor()
-        enterBtn!.setTitle("Enter", forState: UIControlState.Normal)
+        enterBtn!.setTitle(NSLocalizedString("Start", comment: "the Start button title"), forState: UIControlState.Normal)
         enterBtn!.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         enterBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         enterBtn!.addTarget(self, action: "enterBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -52,7 +53,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         clearUserBtn = UIButton(frame: CGRectMake(0, (screenHeight - 110), screenWidth, 60))
         clearUserBtn!.backgroundColor = UIColor.whiteColor()
-        clearUserBtn!.setTitle("Clear user", forState: UIControlState.Normal)
+        clearUserBtn!.setTitle(NSLocalizedString("DeleteUser", comment: "the DeleteUser button title"), forState: UIControlState.Normal)
         clearUserBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         clearUserBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         clearUserBtn!.addTarget(self, action: "clearUserBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -61,7 +62,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 
         addActionBtn = UIButton(frame: CGRectMake(0, (screenHeight - 240), screenWidth, 60))
         addActionBtn!.backgroundColor = UIColor.whiteColor()
-        addActionBtn!.setTitle("Add Action", forState: UIControlState.Normal)
+        addActionBtn!.setTitle(NSLocalizedString("AddAction", comment: "the AddAction button title"), forState: UIControlState.Normal)
         addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)

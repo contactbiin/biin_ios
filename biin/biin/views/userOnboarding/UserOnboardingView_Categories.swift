@@ -30,7 +30,7 @@ class UserOnboardingView_Categories:UIView {
         title = UILabel(frame:CGRectMake(0, 30, (screenWidth / 2), 45))
         title!.textColor = UIColor.appMainColor()
         title!.font = UIFont(name: "Lato-Regular", size: 20)
-        title!.text = "What are you interested in?"
+        title!.text = NSLocalizedString("WhatAreYouInterest", comment:"WhatAreYouInterest")
         title!.numberOfLines = 2
         title!.textAlignment  = NSTextAlignment.Center
         title!.lineBreakMode = NSLineBreakMode.ByWordWrapping
@@ -66,7 +66,7 @@ class UserOnboardingView_Categories:UIView {
         }
         
         ypos += 40
-        startBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnGreen(), text:"Start!")
+        startBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnGreen(), text:NSLocalizedString("Start", comment:"Start"))
         startBtn!.addTarget(self, action: "startBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(startBtn!)
     }

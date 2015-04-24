@@ -29,7 +29,7 @@ class BNUIPointView:UIView {
         self.setInactive()
     }
     
-    convenience init(frame: CGRect, sectionIdentifier:String) {
+    convenience init(frame: CGRect, categoryIdentifier:String) {
         self.init(frame: frame)
         
         label = UILabel(frame: CGRectMake(0, 13, 100, 20))
@@ -39,7 +39,8 @@ class BNUIPointView:UIView {
         label!.font = UIFont(name: "Lato-Black", size: 13)
         self.addSubview(label!)
         
-        setLabelText(sectionIdentifier)
+//        println("\(categoryIdentifier) = \(NSLocalizedString(categoryIdentifier, comment:categoryIdentifier))")
+        setLabelText(NSLocalizedString(categoryIdentifier, comment:categoryIdentifier))
         
         //createIcon(sectionIdentifier)
     }

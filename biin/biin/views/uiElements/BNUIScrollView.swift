@@ -55,7 +55,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         
         for var i:Int = 0; i < self.media!.count; i++ {
             
-            var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), sectionIdentifier:"")
+            var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
             self.points!.append(point)
             self.addSubview(point)
             xpos += 20

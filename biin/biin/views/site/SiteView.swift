@@ -13,6 +13,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var backBtn:BNUIButton_Back?
     var header:SiteView_Header?
     var bottom:SiteView_Bottom?
+    var buttonsView:SocialButtonsView?
     
     var scroll:UIScrollView?
     var showcases:Array<SiteView_Showcase>?
@@ -76,7 +77,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(2, 2, 40, 20))
+        buttonsView = SocialButtonsView(frame: CGRectMake(0, 5, frame.width, 15), father: self, site: nil, showShareButton:true)
+        scroll!.addSubview(buttonsView!)
+        
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 25, 40, 20))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -108,9 +112,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         animationView!.alpha = 0
         scroll!.addSubview(animationView!)
         
-        var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
-        showMenuSwipe.edges = UIRectEdge.Left
-        elementView!.scroll!.addGestureRecognizer(showMenuSwipe)
+        //var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
+        //showMenuSwipe.edges = UIRectEdge.Left
+        //elementView!.scroll!.addGestureRecognizer(showMenuSwipe)
     }
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
@@ -163,6 +167,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func updateSiteData(site:BNSite?) {
         self.site = site
         header!.updateForSite(site)
+        buttonsView!.updateSocialButtonsForSite(site)
         bottom!.updateForSite(site)
         imagesScrollView!.updateImages(site!.media)
         updateShowcases(site)

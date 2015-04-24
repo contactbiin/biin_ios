@@ -53,25 +53,26 @@ class SignupView:UIView, UITextFieldDelegate {
         
         ypos += (10 + biinLogo!.frame.height)
         welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 18))
-        welcomeLbl!.text = "Well comeback, we miss you!"
+        welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
+
         welcomeLbl!.textAlignment = NSTextAlignment.Center
         welcomeLbl!.textColor = UIColor.appMainColor()
         welcomeLbl!.font = UIFont(name: "Lato-Light", size: 16)
         self.addSubview(welcomeLbl!)
         
         ypos += (20 + welcomeLbl!.frame.height)
-        firstNameTxt = BNUITexfield_Top(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"Name")
+        firstNameTxt = BNUITexfield_Top(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Name", comment: "Name"))
         firstNameTxt!.textField!.delegate = self
         //emailTxt!.textField!.becomeFirstResponder()
         self.addSubview(firstNameTxt!)
         
         ypos += (2 + firstNameTxt!.frame.height)
-        lastNameTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"Last name")
+        lastNameTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Lastnane", comment: "Lastnane"))
         lastNameTxt!.textField!.delegate = self
         self.addSubview(lastNameTxt!)
         
         ypos += (2 + lastNameTxt!.frame.height)
-        genderTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"I am ...")
+        genderTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Gender", comment: "Gender"))
         genderTxt!.textField!.enabled = false
         genderTxt!.textField!.delegate = self
         self.addSubview(genderTxt!)
@@ -86,14 +87,14 @@ class SignupView:UIView, UITextFieldDelegate {
         genderTxt!.addSubview(maleBtn!)
         
         ypos += (2 + genderTxt!.frame.height)
-        emailTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"Email")
+        emailTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         self.addSubview(emailTxt!)
         
         
         ypos += (2 + emailTxt!.frame.height)
-        passwordTxt = BNUITexfield_Bottom(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:"Password")
+        passwordTxt = BNUITexfield_Bottom(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Password", comment: "Password"))
         passwordTxt!.textField!.delegate = self
         passwordTxt!.textField!.secureTextEntry = true
         passwordTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
@@ -101,13 +102,13 @@ class SignupView:UIView, UITextFieldDelegate {
         
 
         ypos += (20 + passwordTxt!.frame.height)
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:"Let's get started!")
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"))
         singupBtn!.addTarget(self, action: "singup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         
         ypos += (10 + singupBtn!.frame.height)
         signupLbl = UILabel(frame: CGRectMake(20, ypos, (screenWidth - 40), 16))
-        signupLbl!.text = "Don’t forget to check your inbox and verify your email address later on."
+        signupLbl!.text = NSLocalizedString("DontForget", comment: "DontForget")
         signupLbl!.textAlignment = NSTextAlignment.Left
         signupLbl!.textColor = UIColor.appMainColor()
         signupLbl!.numberOfLines = 0
@@ -115,7 +116,6 @@ class SignupView:UIView, UITextFieldDelegate {
         signupLbl!.sizeToFit()
         self.addSubview(signupLbl!)
         
-
         backBtn = BNUIButton_Back_SignupView(frame: CGRect(x: 10, y: 10, width: 40, height: 20))
         backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
@@ -129,7 +129,7 @@ class SignupView:UIView, UITextFieldDelegate {
 
     
     func femaleBtnAction(sender:BNUIButton_Gender){
-        genderTxt!.textField!.text = "I am a female."
+        genderTxt!.textField!.text = NSLocalizedString("GenderFemale", comment: "GenderFemale")
         genderTxt!.textField!.textColor = UIColor.appTextColor()
         genderStr = "female"
         femaleBtn!.showSelected()
@@ -138,7 +138,7 @@ class SignupView:UIView, UITextFieldDelegate {
     }
 
     func maleBtnAction(sender:BNUIButton_Gender){
-        genderTxt!.textField!.text = "I am a male."
+        genderTxt!.textField!.text = NSLocalizedString("GenderMale", comment: "GenderMale")
         genderTxt!.textField!.textColor = UIColor.appTextColor()
         genderStr = "male"
         maleBtn!.showSelected()

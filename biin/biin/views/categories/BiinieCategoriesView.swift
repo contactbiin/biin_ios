@@ -60,6 +60,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         self.addSubview(fade!)
     }
     
+    func showMenuBtnActon(sender:BNUIButton) {
+        (father as! MainView).showMenu(UIScreenEdgePanGestureRecognizer())
+    }
+    
     override func transitionIn() {
         
         UIView.animateWithDuration(0.4, animations: {()->Void in

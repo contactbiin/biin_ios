@@ -46,10 +46,10 @@ class BNUIButton_Contact:BNUIButton {
     override func createIcon(){
         switch iconType {
         case .phoneMedium:
-            icon = BNIcon_PhoneMedium(color: UIColor.biinColor(), position: CGPointMake(13, 11))
+            icon = BNIcon_PhoneMedium(color: UIColor.biinColor(), position: CGPointMake(23, 11))
             break
         case .emailMedium:
-            icon = BNIcon_EmailMedium(color: UIColor.biinColor(), position: CGPointMake(12.5, 14))
+            icon = BNIcon_EmailMedium(color: UIColor.biinColor(), position: CGPointMake(22.5, 14))
             break
         case .commentMedium:
             icon = BNIcon_CommentMedium(color: UIColor.biinColor(), position: CGPointMake(12, 12))

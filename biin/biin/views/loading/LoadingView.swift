@@ -25,7 +25,7 @@ class LoadingView:UIView {
         loadingLbl!.textColor = UIColor.whiteColor()
         loadingLbl!.textAlignment = NSTextAlignment.Center
         loadingLbl!.numberOfLines = 0
-        loadingLbl!.text = "Loading..."
+        loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
     }
     

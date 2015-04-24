@@ -1347,8 +1347,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         var collectionData = collections!.objectAtIndex(i) as! NSDictionary
                         var collection = BNCollection()
                         collection.identifier = self.findString("identifier", dictionary: collectionData)
-                        collection.title = self.findString("title", dictionary: collectionData)
-                        collection.subTitle = self.findString("subTitle", dictionary: collectionData)
+                        collection.title = NSLocalizedString("CollectionTitle", comment: "CollectionTitle")
+//self.findString("title", dictionary: collectionData)
+                        collection.subTitle = NSLocalizedString("CollectionSubTitle", comment: "CollectionSubTitle")//self.findString("subTitle", dictionary: collectionData)
 
                         //board.isMine = self.findBool("isMine", dictionary: boardData)
                     

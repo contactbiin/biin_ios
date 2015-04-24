@@ -1,0 +1,90 @@
+/* 
+    Localizable.strings
+    biin
+    Created by Esteban Padilla - English on 4/22/15.
+    Copyright (c) 2015 Esteban Padilla. All rights reserved.
+ 
+    NSLocalizedString("Version", comment: "the version title")
+ 
+*/
+
+/* General button and labelss */
+Version = "Version";
+Close = "Close";
+Save = "Save";
+Start = "Start";
+Loading = "Loading...";
+EmailUs = "Email us";
+CallUs = "Call us";
+Phone = "Phone";
+Password = "Password";
+Login = "Log in";
+ImNewHere = "I'm new here!";
+SignUpMsj = "Sign up using your email address.";
+LetsGetStarted = "Let's get started!";
+DontForget = "Don't forget to check your inbox and verify your email address later on.";
+PleaseWait = "Please wait a moment!";
+Yes = "yes";
+No = "no";
+DeleteUser = "Delete Current User";
+AddAction = "Add a Action";
+
+/* Menu buttons */
+Profile = "Profile";
+Home = "Home";
+Collections = "Collections";
+Loyalty = "Loyalty";
+Notifications = "Notifications";
+InviteFriends = "Invite Friends";
+Settings = "Settings";
+Search = "Search";
+
+/* Categories */
+category1 = "Personal Care";
+category2 = "Cars";
+category3 = "Shoes";
+category4 = "Games";
+category5 = "Outdoors";
+category6 = "Health";
+category7 = "Food";
+category8 = "Sports";
+category9 = "Education";
+category10 = "Fashion";
+category11 = "Music";
+category12 = "Movies";
+category13 = "Technology";
+category14 = "Entertaiment";
+category15 = "Travel";
+category16 = "Bars";
+
+/* Views */
+/* Profile View*/
+Name = "Name";
+Lastname = "Lastname";
+Username = "Username";
+Email = "Email";
+IsEmailVerified = "Is email verified?";
+Birthdate = "Birthdate";
+Gender = "I'm a ...";
+GenderMale = "I'm a male";
+GenderFemale = "I'm a female";
+WhatAreYouInterest = "What are you interested in?";
+EnterYourBirthDate = "Enter your birthDate";
+
+/* Showcase - Game View*/
+JoinUs = "Join us!";
+StartToEnjoy = "And start to enjoy our benefits!";
+YouSeen = "You’ve seen";
+Done = "Done!";
+ThankYouStop = "Thank you for stoping by.";
+
+/* Login View*/
+Wellcome = "Welcome to biin!";
+
+
+/* Email messaje*/
+EmailMsj = "Hello there!";
+
+/* Collection View Temporal */
+CollectionTitle = "Biined stuff.";
+CollectionSubTitle = "This is a list of all your biined stuff";

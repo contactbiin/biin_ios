@@ -29,6 +29,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         BNAppSharedManager.instance.errorManager.currentViewController = self
         BNAppSharedManager.instance.mainViewController = self
         
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+        UIApplication.sharedApplication().statusBarHidden = false
+        
         self.view.backgroundColor = UIColor.appMainColor()
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
@@ -70,15 +73,19 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         menuView!.addGestureRecognizer(hideMenuSwipe)
         
-        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
-        showMenuSwipe!.edges = UIRectEdge.Left
-        self.view.addGestureRecognizer(showMenuSwipe!)
-
+        //showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
+        //showMenuSwipe!.edges = UIRectEdge.Left
+        //self.view.addGestureRecognizer(showMenuSwipe!)
+        
+        var statusBarLine = UIView(frame: CGRectMake(0, 0, frame.width, 20))
+        statusBarLine.backgroundColor = UIColor.appMainColor()
+        self.view.addSubview(statusBarLine)
+        
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
         if menuView!.isMenuHidden {
-            showMenuSwipe!.enabled = false
+            //showMenuSwipe!.enabled = false
             fadeView!.becomeFirstResponder()
 
 
@@ -101,7 +108,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func hideMenu(sender:UIGestureRecognizer) {
         
-        showMenuSwipe!.enabled = true
+        //showMenuSwipe!.enabled = true
         
         UIView.animateWithDuration(0.25, animations: {()->Void in
             self.menuView!.frame.origin.x = -140
@@ -134,7 +141,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func hideMenuOnChange(){
-        showMenuSwipe!.enabled = true
+        //showMenuSwipe!.enabled = true
         hideMenu(UIGestureRecognizer())
         
         /*

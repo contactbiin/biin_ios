@@ -23,7 +23,7 @@ class ElementMiniView_PricingDetails:BNView {
     convenience init(frame: CGRect, father:BNView?, element:BNElement?) {
         self.init(frame:frame, father:father)
         
-        var ypos:CGFloat = 0
+        var ypos:CGFloat = 5
         var spacer:CGFloat = 5
         
         if element!.hasTimming {

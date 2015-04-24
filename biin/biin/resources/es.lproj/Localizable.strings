@@ -1,0 +1,86 @@
+/* 
+  Localizable.strings
+  biin
+  Created by Esteban Padilla - Spanish on 4/22/15.
+  Copyright (c) 2015 Esteban Padilla. All rights reserved.
+*/
+
+/* General button and labelss */
+Version = "Versión";
+Close = "Cerrar";
+Save = "Guardar";
+Start = "Iniciar";
+Loading = "Cargando...";
+EmailUs = "Escribanos";
+CallUs = "Llamanos";
+Phone = "Telefono";
+Password = "Clave";
+Login = "Iniciar";
+ImNewHere = "Soy nuevo aquí!";
+SignUpMsj = "Iniciar con tu dirección de correo";
+LetsGetStarted = "Empecemos!";
+DontForget = "No olvides de revisar tu buzón y verificar tu dirección de correo.";
+PleaseWait = "Espera un momento!";
+Yes = "si";
+No = "no";
+DeleteUser = "Eliminar usuario actual";
+AddAction = "Agregar una Acción";
+
+/* Menu buttons */
+Profile = "Perfil";
+Home = "Inicio";
+Collections = "Colecciones";
+Loyalty = "Lealtad";
+Notifications = "Notificaciones";
+InviteFriends = "Invitar Amigos";
+Settings = "Ajustes";
+Search = "Buscar";
+
+/* Categories */
+category1 = "Cuidado Personal";
+category2 = "Carros";
+category3 = "Zapatos";
+category4 = "Juegos";
+category5 = "Exteriores";
+category6 = "Salud";
+category7 = "Comida";
+category8 = "Deportes";
+category9 = "Educación";
+category10 = "Moda";
+category11 = "Música";
+category12 = "Cine";
+category13 = "Tecnología";
+category14 = "Entretenimiento";
+category15 = "Viajes";
+category16 = "Bares";
+
+/* Views */
+/* Profile View*/
+Name = "Nombre";
+Lastname = "Apellido";
+Username = "Nombre de usuario";
+Email = "Correo";
+IsEmailVerified = "Correo verificado?";
+Birthdate = "Fecha de nacimiento";
+Gender = "Yo soy ...";
+GenderMale = "Yo soy un hombre.";
+GenderFemale = "Yo soy una mujer";
+WhatAreYouInterest = "Qué te interesa?";
+EnterYourBirthDate = "Fecha de nacimiento";
+
+/* Showcase - Game View*/
+JoinUs = "Unete!";
+StartToEnjoy = "Y empieza a disfrutar de nuestros beneficios!";
+YouSeen = "Has visto";
+Done = "Completo!";
+ThankYouStop = "Muchas gracias!";
+
+/* Login View*/
+Wellcome = "Bienvenido a Biin!";
+
+/* Email messaje*/
+EmailMsj = "Saludos, esto es Biin!";
+
+/* Collection View Temporal */
+CollectionTitle = "Coleccón de biins";
+CollectionSubTitle = "Esta es una lista de todas tus cosas en biin.";

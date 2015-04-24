@@ -16,35 +16,38 @@ class BNIcon_LeftArrowSmall:BNIcon {
     }
     
     override func drawCanvas() {
+
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
-        //// Group
+        //// Group 2
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        
-        
-        //// Bezier1 Drawing
-        var bezier1Path = UIBezierPath()
-        bezier1Path.moveToPoint(CGPointMake(0, 6.1))
-        bezier1Path.addLineToPoint(CGPointMake(4.6, 0))
-        bezier1Path.lineCapStyle = kCGLineCapRound;
-        
-        color!.setStroke()
-        bezier1Path.lineWidth = 3
-        bezier1Path.stroke()
-        
-        
         //// Bezier Drawing
         var bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(0, 6.1))
-        bezierPath.addLineToPoint(CGPointMake(4.6, 12.2))
+        bezierPath.moveToPoint(CGPointMake(15.1, 5.96))
+        bezierPath.addLineToPoint(CGPointMake(1.45, 5.96))
         bezierPath.lineCapStyle = kCGLineCapRound;
         
         color!.setStroke()
         bezierPath.lineWidth = 3
         bezierPath.stroke()
+        
+        
+        //// Bezier 2 Drawing
+        var bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPointMake(6.02, 11.6))
+        bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
+        bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
+        bezier2Path.addLineToPoint(CGPointMake(6.02, 0))
+        bezier2Path.lineCapStyle = kCGLineCapRound;
+        
+        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        
+        color!.setStroke()
+        bezier2Path.lineWidth = 3
+        bezier2Path.stroke()
         
         
         

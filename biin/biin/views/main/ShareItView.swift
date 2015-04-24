@@ -55,10 +55,10 @@ class ShareItView:UIView {
         subTitle.text = element.subTitle
         self.addSubview(subTitle)
         
-        ypos = 335
+        ypos = 350
         var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: nil, element: element)
         self.addSubview(pricingDetails)
-        pricingDetails.frame.origin.y = 335
+        pricingDetails.frame.origin.y = 350
         
         ypos += pricingDetails.frame.height + 10
         

@@ -78,7 +78,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: siteAvatar)
 
         xpos += 100
-        ypos += 0
+        ypos += 5
         
         title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 22))
         title!.font = UIFont(name: "Lato-Regular", size: 20)
@@ -135,19 +135,19 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         map!.addAnnotation(annotation!)
         
         ypos += 180
-        xpos = (screenWidth - 170) / 2
-        emailBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Email us", iconType: BNIconType.emailMedium)
+        xpos = (screenWidth - 140) / 2
+        emailBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 70, 50), text:NSLocalizedString("EmailUs", comment: "EmailUs"), iconType: BNIconType.emailMedium)
         emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
         
-        xpos += 60
-        callBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Call us", iconType: BNIconType.phoneMedium)
+        xpos += 80
+        callBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 70, 50), text:NSLocalizedString("CallUs", comment: "CallUs"), iconType: BNIconType.phoneMedium)
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
         
         xpos += 60
-        commentBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Call us", iconType: BNIconType.commentMedium)
-        self.addSubview(commentBtn!)
+        //commentBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Call us", iconType: BNIconType.commentMedium)
+        //self.addSubview(commentBtn!)
         
         var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appButtonColor()
@@ -236,7 +236,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
-            phoneNumber!.text = "Phone: \(site!.phoneNumber!)"
+            var value = NSLocalizedString("Phone", comment: "Phone")
+            phoneNumber!.text = "\(value): \(site!.phoneNumber!)"
             phoneNumber!.frame.origin.y = ypos
             ypos += 13
             
@@ -249,7 +250,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
  
         if site!.email! != "" {
             site_email = site!.email!
-            email!.text = "email: \(site!.email!)"
+            var value = NSLocalizedString("Email", comment: "Email")
+            email!.text = "\(value): \(site!.email!)"
             email!.frame.origin.y = ypos
             
             emailBtn!.icon!.color = site!.titleColor!
@@ -260,8 +262,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
         }
 
-        commentBtn!.icon!.color = site!.titleColor!
-        commentBtn!.showDisable()
+        //commentBtn!.icon!.color = site!.titleColor!
+        //commentBtn!.showDisable()
        
         
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
@@ -291,7 +293,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var toRecipents = [site_email!]
         picker.setToRecipients(toRecipents)
         picker.mailComposeDelegate = self
-        picker.setSubject("Hello there!")
+        picker.setSubject(NSLocalizedString("EmailMsj", comment: "EmailMsj"))
         picker.setMessageBody("", isHTML: true)
         
         (father!.father! as? MainView)?.rootViewController!.presentViewController(picker, animated: true, completion: nil)

@@ -12,6 +12,7 @@ class ElementView: BNView {
     var elementMiniView:ElementMiniView?
     var backBtn:BNUIButton_Back?
     var header:ElementView_Header?
+    var buttonsView:SocialButtonsView?
     
     var scroll:UIScrollView?
     
@@ -64,10 +65,13 @@ class ElementView: BNView {
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
+        buttonsView = SocialButtonsView(frame: CGRectMake(1, 5, frame.width, 15), father: self, element: nil)
+        scroll!.addSubview(buttonsView!)
+        
         header = ElementView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(2, 2, 40, 20))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 25, 40, 20))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -143,7 +147,7 @@ class ElementView: BNView {
         header!.updateForElement(elementMiniView!.element!)
         imagesScrollView!.updateImages(elementMiniView!.element!.media)
 
-        var ypos:CGFloat = 5
+        var ypos:CGFloat = 25
         /*
         if elementMiniView!.element!.hasDiscount {
             //Add pig
@@ -231,7 +235,8 @@ class ElementView: BNView {
     }
     
     func applyBiinIt(){
-        header!.updateSocialButtonsForElement(elementMiniView!.element!)
+//        header!.updateSocialButtonsForElement(elementMiniView!.element!)
+        buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
         biinItButton!.showDisable()
         detailsView!.showBiinItButton(false)
         animationView!.animate()
@@ -240,7 +245,8 @@ class ElementView: BNView {
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareIt(elementMiniView!.element!._id!, isElement: true)
         elementMiniView!.element!.userShared = true
-        header!.updateSocialButtonsForElement(elementMiniView!.element!)
+//        header!.updateSocialButtonsForElement(elementMiniView!.element!)
+        buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
     }
 }
 

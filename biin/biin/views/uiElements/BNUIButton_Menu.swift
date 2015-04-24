@@ -56,6 +56,9 @@ class BNUIButton_Menu:BNUIButton {
         case .notificationMedium:
             icon = BNIcon_NotificationMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
             break
+        case .menuMedium:
+            icon = BNIcon_MenuMedium(color: UIColor.appButtonColor(), position: CGPointMake(2, 2))
+            break
         case .friendsMedium:
             icon = BNIcon_FriendsMedium(color: UIColor.appButtonColor(), position: CGPointMake(35, 7))
             break
