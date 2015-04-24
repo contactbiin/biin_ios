@@ -50,21 +50,19 @@ class BNAppManager {
 
     func continueAppInitialization(){
         
-
-        
         if positionManager.checkLocationServicesStatus() {
             //errorManager.showAlertOnStart(NSError(domain: "Location serives ENABLED", code: 1, userInfo: nil))
             isWaitingForLocationServicesPermision = false
             
-            //if positionManager.checkHardwareStatus() {
-                //if positionManager.checkBluetoothServicesStatus() {
+            if positionManager.checkHardwareStatus() {
+                if positionManager.checkBluetoothServicesStatus() {
                     continueAfterIntialChecking()
-                //} else {
-                    //errorManager.showBluetoothError()
-                //}
-            //} else  {
-              //  errorManager.showHardwareNotSupportedError()
-            //}
+                } else {
+                    errorManager.showBluetoothError()
+                }
+            } else  {
+                errorManager.showHardwareNotSupportedError()
+            }
             
         } else {
             isWaitingForLocationServicesPermision = true

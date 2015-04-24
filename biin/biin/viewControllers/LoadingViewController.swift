@@ -49,8 +49,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         enterBtn!.addTarget(self, action: "enterBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         enterBtn!.alpha = 0
         self.view.addSubview(enterBtn!)
-        
-        
+
         clearUserBtn = UIButton(frame: CGRectMake(0, (screenHeight - 110), screenWidth, 60))
         clearUserBtn!.backgroundColor = UIColor.whiteColor()
         clearUserBtn!.setTitle(NSLocalizedString("DeleteUser", comment: "the DeleteUser button title"), forState: UIControlState.Normal)

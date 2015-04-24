@@ -715,12 +715,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         if !isRequestTimerAllow {
             self.requestUserCategoriesData(request!)
         }
-        
     }
-    
-    
-    
-    
 
     ///Conforms optional func manager(manager:BNDataManager!, requestUserCategoriesData user:BNUser) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestCategoriesData user:Biinie) {

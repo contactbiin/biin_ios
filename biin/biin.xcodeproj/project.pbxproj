@@ -194,6 +194,8 @@
 		5BAD8AD61A828BAA0081B335 /* BNIcon_ShareItButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD51A828BAA0081B335 /* BNIcon_ShareItButton.swift */; };
 		5BAD8AD81A828C480081B335 /* BNUIButton_BiinIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD71A828C480081B335 /* BNUIButton_BiinIt.swift */; };
 		5BAD8ADA1A828C530081B335 /* BNUIButton_ShareIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD91A828C530081B335 /* BNUIButton_ShareIt.swift */; };
+		5BB2B4981AEAA45C002E3121 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB2B4971AEAA45C002E3121 /* CoreLocation.framework */; };
+		5BB2B49A1AEAA46B002E3121 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB2B4991AEAA46B002E3121 /* CoreBluetooth.framework */; };
 		5BB3BCEF1AC722A000C46A09 /* biinLogoLS.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BB3BCEE1AC722A000C46A09 /* biinLogoLS.png */; };
 		5BB3BCF11AC8594300C46A09 /* CollectionView_ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB3BCF01AC8594300C46A09 /* CollectionView_ItemView.swift */; };
 		5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */; };
@@ -461,6 +463,8 @@
 		5BAD8AD51A828BAA0081B335 /* BNIcon_ShareItButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_ShareItButton.swift; sourceTree = "<group>"; };
 		5BAD8AD71A828C480081B335 /* BNUIButton_BiinIt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_BiinIt.swift; sourceTree = "<group>"; };
 		5BAD8AD91A828C530081B335 /* BNUIButton_ShareIt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_ShareIt.swift; sourceTree = "<group>"; };
+		5BB2B4971AEAA45C002E3121 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5BB2B4991AEAA46B002E3121 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		5BB3BCEE1AC722A000C46A09 /* biinLogoLS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = biinLogoLS.png; sourceTree = "<group>"; };
 		5BB3BCF01AC8594300C46A09 /* CollectionView_ItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView_ItemView.swift; sourceTree = "<group>"; };
 		5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Time.swift; sourceTree = "<group>"; };
@@ -530,6 +534,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BB2B49A1AEAA46B002E3121 /* CoreBluetooth.framework in Frameworks */,
+				5BB2B4981AEAA45C002E3121 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +687,8 @@
 		5B3D75821A67052100CB0D1C = {
 			isa = PBXGroup;
 			children = (
+				5BB2B4991AEAA46B002E3121 /* CoreBluetooth.framework */,
+				5BB2B4971AEAA45C002E3121 /* CoreLocation.framework */,
 				5B3D758D1A67052100CB0D1C /* biin */,
 				5B3D75A61A67052100CB0D1C /* biinTests */,
 				5B3D758C1A67052100CB0D1C /* Products */,
@@ -1560,7 +1568,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1597,7 +1605,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

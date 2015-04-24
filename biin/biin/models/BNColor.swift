@@ -225,6 +225,7 @@ extension UIColor {
     
     class func biinColor() -> UIColor! {
         return UIColor(red:63/255, green: 169/255, blue: 245/199, alpha: 1)
+        //return UIColor.blackColor()
     }
 }
 

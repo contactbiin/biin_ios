@@ -57,6 +57,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.locationManager!.activityType = CLActivityType.OtherNavigation
         self.locationManager!.distanceFilter = kCLLocationAccuracyNearestTenMeters
         self.locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager!.requestAlwaysAuthorization()
+        self.locationManager!.requestWhenInUseAuthorization()
         
         if self.bluetoothManager == nil {
             self.bluetoothManager = CBCentralManager(delegate: self, queue: nil, options: nil)

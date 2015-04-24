@@ -293,12 +293,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         //header!.hideNotification()
         (biinieCategoriesState!.view as! BiinieCategoriesView).hideNotification()
     }
+    
+    func reloadCategories() {
+        
+        //1. Request categories not downloaded
+        
+        //2. Update view.
+        
+    }
+    
 }
 
 
 @objc protocol MainViewDelegate:NSObjectProtocol {
     
-    //Methods to conform on BNNetworkManager
+    //Methods to conform on BNNetworkManager in
     
     ///Request a region's data.
     ///
