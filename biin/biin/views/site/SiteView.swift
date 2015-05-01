@@ -80,7 +80,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         buttonsView = SocialButtonsView(frame: CGRectMake(0, 5, frame.width, 15), father: self, site: nil, showShareButton:true)
         scroll!.addSubview(buttonsView!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 25, 40, 20))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         

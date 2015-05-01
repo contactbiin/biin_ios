@@ -35,7 +35,7 @@ class BNUIDetailView_Time:UIView {
         self.layer.borderColor = borderColor.CGColor
         
         titleLbl = UILabel(frame: CGRectMake(0, 7, ((SharedUIManager.instance.screenWidth / 2) - 5), 16))
-        titleLbl!.text = "Limited Time:"
+        titleLbl!.text = NSLocalizedString("LimitedTime", comment: "LimitedTime")
         titleLbl!.font = UIFont(name: "Lato-Regular", size: 14)
         titleLbl!.textColor = textColor
         titleLbl!.textAlignment = NSTextAlignment.Right

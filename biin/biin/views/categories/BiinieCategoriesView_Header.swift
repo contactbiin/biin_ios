@@ -55,7 +55,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
 
         addButtons()
         
-        if BNAppSharedManager.instance.dataManager.categories!.count > 0 {
+        if BNAppSharedManager.instance.dataManager.bnUser!.categories.count > 0 {
             addCategoriesPoints()
         }
     }
@@ -107,7 +107,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         //hideNotification()
         
         
-        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 30, 100, 60), text: "", iconType: BNIconType.menuMedium)
+        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 30, 60, 40), text: "", iconType: BNIconType.menuMedium)
         showMenuBtn!.addTarget(father, action: "showMenuBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
     }

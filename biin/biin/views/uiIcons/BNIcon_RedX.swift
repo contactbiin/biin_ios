@@ -20,46 +20,22 @@ class BNIcon_RedX:BNIcon {
     
     override func drawCanvas() {
 
-        
-        
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
-        
         //// Group
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextTranslateCTM(context, (position.x + 2), (position.y + 10))
         
-        
-        
-        //// line2 Drawing
-        var line2Path = UIBezierPath()
-        line2Path.moveToPoint(CGPointMake(0.1, 13.42))
-        line2Path.addLineToPoint(CGPointMake(width, 0))
-        line2Path.miterLimit = 4;
-        
-        line2Path.lineCapStyle = kCGLineCapRound;
-        
-        line2Path.lineJoinStyle = kCGLineJoinRound;
+        //// Bezier 2 Drawing
+        var bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPointMake(0, 0))
+        bezier2Path.addLineToPoint(CGPointMake(width, 0))
+        bezier2Path.lineCapStyle = kCGLineCapRound;
         
         color!.setStroke()
-        line2Path.lineWidth = 2
-        line2Path.stroke()
-        
-        
-        //// line1 Drawing
-        var line1Path = UIBezierPath()
-        line1Path.moveToPoint(CGPointMake(0, 0.73))
-        line1Path.addLineToPoint(CGPointMake(width, 12.69))
-        line1Path.miterLimit = 4;
-        
-        line1Path.lineCapStyle = kCGLineCapRound;
-        
-        line1Path.lineJoinStyle = kCGLineJoinRound;
-        
-        color!.setStroke()
-        line1Path.lineWidth = 2
-        line1Path.stroke()
+        bezier2Path.lineWidth = strokeWidth
+        bezier2Path.stroke()
         
         
         

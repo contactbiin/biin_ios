@@ -47,8 +47,8 @@ class BNUIAlertView_Header:UIView {
         
         self.text = text
         
-        label = UILabel(frame: CGRectMake(49, 61, SharedUIManager.instance.screenWidth, 28))
-        label!.font = UIFont(name: "Lato-Regular", size: 18)
+        label = UILabel(frame: CGRectMake(49, 80, SharedUIManager.instance.screenWidth, 16))
+        label!.font = UIFont(name: "Lato-Regular", size: 14)
         label!.textColor = UIColor.appMainColor()
         label!.textAlignment = NSTextAlignment.Left
         self.addSubview(label!)

@@ -12,6 +12,7 @@ class BNIcon {
     var color:UIColor?
     var position:CGPoint = CGPoint.zeroPoint
     var width:CGFloat = 0
+    var strokeWidth:CGFloat = 0
     
     init(){ }
     

@@ -25,6 +25,17 @@ Yes = "si";
 No = "no";
 DeleteUser = "Eliminar usuario actual";
 AddAction = "Agregar una Acción";
+From = "DESDE";
+Price = "PRECIO";
+LimitedTime = "Tiempo Limitado";
+OriginalPrice = "PRECIO ORIGINAL";
+Quantity = "CANTIDAD";
+Reserve = "RESERVADOS";
+Claimed = "RECLAMADOS";
+Discount = "DESCUENTO";
+Savings = "AHORROS";
+YouSave = "USTED AHORRA";
+Value = "VALOR";
 
 /* Menu buttons */
 Profile = "Perfil";

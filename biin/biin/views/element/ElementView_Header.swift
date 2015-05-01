@@ -40,7 +40,7 @@ class ElementView_Header:BNView {
         
         ypos += 15
         
-        title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.biinColor()
         title!.text = "site title here"
@@ -49,7 +49,7 @@ class ElementView_Header:BNView {
         
         ypos += SharedUIManager.instance.siteView_titleSize + 4
         
-        subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
+        subTitle = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.miniView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.appTextColor()
         subTitle!.text = "Site subtitle here"

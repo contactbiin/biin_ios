@@ -39,19 +39,19 @@ class ElementMiniView_PricingDetails:BNView {
         }
         
         if element!.hasListPrice {
-            var listPrice = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title: "ORIGINAL PRICE", value: "\(element!.currency!)\(element!.listPrice!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var listPrice = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title: NSLocalizedString("LimitedTime", comment: "LimitedTime"), value: "\(element!.currency!)\(element!.listPrice!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(listPrice)
             ypos += 32
         }
         
         if element!.hasDiscount {
-            var discount = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title: "DISCOUNT", value: "\(element!.discount!)%", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var discount = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title:NSLocalizedString("Discount", comment: "Discount"), value: "\(element!.discount!)%", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(discount)
             ypos += 32
         }
         
         if element!.hasSaving {
-            var savings = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title: "SAVINGS", value:"\(element!.currency!)\(element!.savings!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var savings = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title:NSLocalizedString("Savings", comment: "Savings"), value:"\(element!.currency!)\(element!.savings!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(savings)
             ypos += 32
         }
@@ -64,14 +64,14 @@ class ElementMiniView_PricingDetails:BNView {
         
         if element!.hasQuantity {
             var boxWidth = (SharedUIManager.instance.screenWidth - 14) / 3
-            var quantityStickerView = BNUIDetailView_Quantity(position: CGPointMake(5, ypos), title:"QUANTITY", value:element!.quantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var quantityStickerView = BNUIDetailView_Quantity(position: CGPointMake(5, ypos), title:NSLocalizedString("Quantity", comment: "Quantity"), value:element!.quantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(quantityStickerView)
             
-            var reservedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 7), ypos), title:"RESERVED", value:element!.reservedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var reservedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 7), ypos), title:NSLocalizedString("Reserve", comment: "Reserve"), value:element!.reservedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(reservedStickerView)
             
             boxWidth += boxWidth
-            var claimedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 9), ypos), title:"CLAIMED", value:element!.claimedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var claimedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 9), ypos), title:NSLocalizedString("Claimed", comment: "Claimed"), value:element!.claimedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(claimedStickerView)
             ypos += 32
         }

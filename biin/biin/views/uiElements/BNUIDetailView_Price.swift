@@ -43,7 +43,7 @@ class BNUIDetailView_Price:UIView {
         self.layer.borderWidth = 0.5
         
         self.priceTitle = UILabel(frame: CGRectMake(0, 5, width, 13))
-        self.priceTitle!.text = "PRICE"
+        self.priceTitle!.text = NSLocalizedString("Price", comment: "Price")
         self.priceTitle!.textAlignment = NSTextAlignment.Center
         self.priceTitle!.font = UIFont(name: "Lato-Regular", size: 11)
         self.priceTitle!.textColor = textColor
@@ -70,7 +70,7 @@ class BNUIDetailView_Price:UIView {
         self.layer.borderWidth = 0.5
         
         self.priceTitle = UILabel(frame: CGRectMake(0, 10, width, 13))
-        self.priceTitle!.text = "PRICE"
+        self.priceTitle!.text = NSLocalizedString("Price", comment: "Price")
         self.priceTitle!.textAlignment = NSTextAlignment.Center
         self.priceTitle!.font = UIFont(name: "Lato-Regular", size: 11)
         self.priceTitle!.textColor = textColor
@@ -90,7 +90,7 @@ class BNUIDetailView_Price:UIView {
         var ypos2:CGFloat = 70
         
         self.listPriceTitle = UILabel(frame: CGRectMake(xpos, ypos1, boxWidth, 13))
-        self.listPriceTitle!.text = "VALUE"
+        self.listPriceTitle!.text = NSLocalizedString("Value", comment: "Value")
         self.listPriceTitle!.textAlignment = NSTextAlignment.Center
         self.listPriceTitle!.font = UIFont(name: "Lato-Regular", size: 11)
         self.listPriceTitle!.textColor = textColor
@@ -108,7 +108,7 @@ class BNUIDetailView_Price:UIView {
         
         xpos += boxWidth
         self.discountTitle = UILabel(frame: CGRectMake(xpos, ypos1, boxWidth, 13))
-        self.discountTitle!.text = "DISCOUNT"
+        self.discountTitle!.text = NSLocalizedString("Discount", comment: "Discount")
         self.discountTitle!.textAlignment = NSTextAlignment.Center
         self.discountTitle!.font = UIFont(name: "Lato-Regular", size: 11)
         self.discountTitle!.textColor = textColor
@@ -123,7 +123,7 @@ class BNUIDetailView_Price:UIView {
         
         xpos += boxWidth
         self.savingsTitle = UILabel(frame: CGRectMake(xpos, ypos1, boxWidth, 13))
-        self.savingsTitle!.text = "YOU SAVE"
+        self.savingsTitle!.text = NSLocalizedString("YouSave", comment: "YouSave")
         self.savingsTitle!.textAlignment = NSTextAlignment.Center
         self.savingsTitle!.font = UIFont(name: "Lato-Regular", size: 11)
         self.savingsTitle!.textColor = textColor

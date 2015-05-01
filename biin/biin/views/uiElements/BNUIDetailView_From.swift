@@ -35,7 +35,7 @@ class BNUIDetailView_From:UIView {
         self.layer.borderColor = borderColor.CGColor
         
         titleLbl = UILabel(frame: CGRectMake(0, 7, ((SharedUIManager.instance.screenWidth / 2) - 5), 16))
-        titleLbl!.text = "From:"
+        titleLbl!.text = NSLocalizedString("From", comment: "From")
         titleLbl!.font = UIFont(name: "Lato-Regular", size: 14)
         titleLbl!.textColor = textColor
         titleLbl!.textAlignment = NSTextAlignment.Right

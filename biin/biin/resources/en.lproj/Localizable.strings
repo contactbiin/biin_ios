@@ -28,6 +28,17 @@ Yes = "yes";
 No = "no";
 DeleteUser = "Delete Current User";
 AddAction = "Add a Action";
+From = "FROM";
+Price = "PRICE";
+LimitedTime = "Limited Time";
+OriginalPrice = "ORIGINAL PRICE";
+Quantity = "QUANTITY";
+Reserve = "RESERVE";
+Claimed = "CLAIMED";
+Discount = "DISCOUNT";
+Savings = "SAVINGS";
+YouSave = "YOU SAVE";
+Value = "VALUE";
 
 /* Menu buttons */
 Profile = "Profile";

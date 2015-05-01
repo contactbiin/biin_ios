@@ -36,7 +36,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(2, 25, 40, 20))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         

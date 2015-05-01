@@ -226,7 +226,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
-        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:         self.regions["bnHome"]!)
+        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:self.regions["bnHome"]!)
         
         if self.regions.count > 0 {
             //TESTING
@@ -270,6 +270,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
         }
+        
+        
     }
     
     func findCategoryNameByIdentifier(identifier:String) -> String {
@@ -279,6 +281,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         for category in self.categories! {
             if category.identifier! == identifier {
                 name = category.name!
+                category.isUserCategory = true
                 return name
             }
         }

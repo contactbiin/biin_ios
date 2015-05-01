@@ -71,7 +71,7 @@ class ElementView: BNView {
         header = ElementView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 25, 40, 20))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -164,23 +164,29 @@ class ElementView: BNView {
 //            hasPrice = true
 //            ypos += 40
 //        }
+        
+        if priceView != nil {
+            priceView!.removeFromSuperview()
+            priceView = nil
+        }
 
         if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice {
             
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
             
             //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from: "", isMini:false)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:     NSLocalizedString("From", comment: "From")
+, isMini:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
@@ -193,6 +199,13 @@ class ElementView: BNView {
             hasSticker = true
         }
         */
+        
+        
+        if detailsView != nil {
+            detailsView!.removeFromSuperview()
+            detailsView = nil
+        }
+        
         detailsView = ElementView_Details(frame: CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
         scroll!.addSubview(detailsView!)
         

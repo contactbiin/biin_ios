@@ -782,11 +782,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             siteDetails.identifier = self.findString("identifier", dictionary: siteData)
                             siteDetails.json = self.findString("jsonUrl", dictionary: siteData)
                             category.sitesDetails.append(siteDetails)
-                            
-                            //var site = BNSite()
-                            //site.identifier = self.findString("identifier", dictionary: siteData)
-                            //site.jsonUrl = self.findString("jsonUrl", dictionary: siteData)
-                            //category.sites.append(site)
+ 
                         }
                         
                         categories.append(category)
@@ -1094,158 +1090,184 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///
     ///:param: The request to be process.
     func requestElementData(request:BNRequest, element:BNElement) {
-    
+
+        var response:BNResponse?
+        
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                println("Error on showcase data")
+                println("Error on element data")
                 self.handleFailedRequest(request, error: error )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** element data SUCK - FAILED!")
+                
             } else {
                 
                 if let elementData = data["data"] as? NSDictionary {
 
-                    //var element = BNElement()
-                    element.isDownloadCompleted = true
-                    element.identifier = self.findString("identifier", dictionary: elementData)
-                    element.elementType = self.findBNElementType("elementType", dictionary: elementData)
-                    element.position = self.findInt("position", dictionary: elementData)
-                    element.title = self.findString("title", dictionary: elementData)
-                    element.subTitle = self.findString("subTitle", dictionary: elementData)
-                    element.nutshellDescriptionTitle = self.findString("nutshellDescriptionTitle", dictionary: elementData)
-                    element.nutshellDescription = self.findString("nutshellDescription", dictionary: elementData)
-                    element.titleColor = self.findUIColor("titleColor", dictionary: elementData)!
-                    element.currency = self.findCurrency("currencyType", dictionary: elementData)
-                    //element.socialButtonsColor = self.findUIColor("socialButtonsColor", dictionary: elementData)!
-                    
-                    element.hasFromPrice = self.findBool("hasFromPrice", dictionary: elementData)
-                    if element.hasFromPrice {
-                        element.fromPrice = self.findString("fromPrice", dictionary: elementData)
-                    }
-                    
-                    element.hasListPrice = self.findBool("hasListPrice", dictionary: elementData)
-                    if element.hasListPrice {
-                        element.listPrice = self.findString("listPrice", dictionary: elementData)
-                    }
-                    
-                    element.hasDiscount = self.findBool("hasDiscount", dictionary: elementData)
-                    if element.hasDiscount {
-                        element.discount = self.findString("discount", dictionary: elementData)
-                    }
-
-                    element.hasPrice = self.findBool("hasPrice", dictionary: elementData)
-                    if element.hasPrice {
-                        element.price = self.findString("price", dictionary: elementData)
-                    }
-
-                    element.hasSaving = self.findBool("hasSaving", dictionary: elementData)
-                    if element.hasSaving {
-                        element.savings = self.findString("savings", dictionary: elementData)                        
-                    }
-                    
-                    request.element!.hasTimming = self.findBool("hasTimming", dictionary: elementData)
-                    if element.hasTimming {
-                        element.initialDate = self.findNSDate("initialDate", dictionary: elementData)
-                        element.expirationDate = self.findNSDate("expirationDate", dictionary: elementData)
-                    }
-                    
-                    element.hasQuantity = self.findBool("hasQuantity", dictionary: elementData)
-                    if element.hasQuantity {
-                        element.quantity = self.findString("quantity", dictionary: elementData)
-                        element.reservedQuantity = self.findString("reservedQuantity", dictionary: elementData)
-                        element.claimedQuantity = self.findString("claimedQuantity", dictionary: elementData)
-                        element.actualQuantity = self.findString("actualQuantity", dictionary: elementData)
-                    }
                     
                     
+                    var status = self.findInt("status", dictionary: elementData)
+                    var result = self.findBool("result", dictionary: elementData)
+//                    var identifier = self.findString("identifier", dictionary: elementData)
                     
-                    var details = self.findNSArray("details", dictionary: elementData)
-
-                    for var i = 0; i < details?.count; i++ {
-                        var detailData = details!.objectAtIndex(i) as! NSDictionary
-
-                        var detail = BNElementDetail()
-                        detail.text = self.findString("text", dictionary: detailData)!
-                        detail.elementDetailType = self.findBNElementDetailType("elementDetailType", dictionary: detailData)
+                    if status != nil {
                         
-                        if (detail.elementDetailType! == BNElementDetailType.ListItem){
+                        //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Request element data BAD! \(status!) request: \(request.requestString)")
+                        
+                    } else {
+                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** Request element data COOL!")
+
+                        
+                        
+                        
+                        //var element = BNElement()
+                        element.isDownloadCompleted = true
+                        element.identifier = self.findString("identifier", dictionary: elementData)
+                        println("Processing: \(element.identifier!)")
+                        element.elementType = self.findBNElementType("elementType", dictionary: elementData)
+                        element.position = self.findInt("position", dictionary: elementData)
+                        element.title = self.findString("title", dictionary: elementData)
+                        element.subTitle = self.findString("subTitle", dictionary: elementData)
+                        element.nutshellDescriptionTitle = self.findString("nutshellDescriptionTitle", dictionary: elementData)
+                        element.nutshellDescription = self.findString("nutshellDescription", dictionary: elementData)
+                        element.titleColor = self.findUIColor("titleColor", dictionary: elementData)!
+                        element.currency = self.findCurrency("currencyType", dictionary: elementData)
+                        //element.socialButtonsColor = self.findUIColor("socialButtonsColor", dictionary: elementData)!
+                        
+                        element.hasFromPrice = self.findBool("hasFromPrice", dictionary: elementData)
+                        if element.hasFromPrice {
+                            element.fromPrice = self.findString("fromPrice", dictionary: elementData)
+                        }
+                        
+                        element.hasListPrice = self.findBool("hasListPrice", dictionary: elementData)
+                        if element.hasListPrice {
+                            element.listPrice = self.findString("listPrice", dictionary: elementData)
+                        }
+                        
+                        element.hasDiscount = self.findBool("hasDiscount", dictionary: elementData)
+                        if element.hasDiscount {
+                            element.discount = self.findString("discount", dictionary: elementData)
+                        }
+
+                        element.hasPrice = self.findBool("hasPrice", dictionary: elementData)
+                        if element.hasPrice {
+                            element.price = self.findString("price", dictionary: elementData)
+                        }
+
+                        element.hasSaving = self.findBool("hasSaving", dictionary: elementData)
+                        if element.hasSaving {
+                            element.savings = self.findString("savings", dictionary: elementData)                        
+                        }
+                        
+                        request.element!.hasTimming = self.findBool("hasTimming", dictionary: elementData)
+                        if element.hasTimming {
+                            element.initialDate = self.findNSDate("initialDate", dictionary: elementData)
+                            element.expirationDate = self.findNSDate("expirationDate", dictionary: elementData)
+                        }
+                        
+                        element.hasQuantity = self.findBool("hasQuantity", dictionary: elementData)
+                        if element.hasQuantity {
+                            element.quantity = self.findString("quantity", dictionary: elementData)
+                            element.reservedQuantity = self.findString("reservedQuantity", dictionary: elementData)
+                            element.claimedQuantity = self.findString("claimedQuantity", dictionary: elementData)
+                            element.actualQuantity = self.findString("actualQuantity", dictionary: elementData)
+                        }
+                        
+                        
+                        
+                        var details = self.findNSArray("details", dictionary: elementData)
+
+                        for var i = 0; i < details?.count; i++ {
+                            var detailData = details!.objectAtIndex(i) as! NSDictionary
+
+                            var detail = BNElementDetail()
+                            detail.text = self.findString("text", dictionary: detailData)!
+                            detail.elementDetailType = self.findBNElementDetailType("elementDetailType", dictionary: detailData)
                             
-                            var body = self.findNSArray("body", dictionary: detailData)
-                            detail.body = Array<String>()
-                            
-                            for (var i = 0; i < body?.count; i++) {
-                                var line = body!.objectAtIndex(i) as! NSDictionary
-                                detail.body!.append( self.findString("line", dictionary:line)! )
+                            if (detail.elementDetailType! == BNElementDetailType.ListItem){
+                                
+                                var body = self.findNSArray("body", dictionary: detailData)
+                                detail.body = Array<String>()
+                                
+                                for (var i = 0; i < body?.count; i++) {
+                                    var line = body!.objectAtIndex(i) as! NSDictionary
+                                    detail.body!.append( self.findString("line", dictionary:line)! )
+                                }
+                                
                             }
                             
+                            element.details.append(detail)
                         }
                         
-                        element.details.append(detail)
-                    }
-                    
-                    var mediaArray = self.findNSArray("media", dictionary: elementData)
-                    
-                    for var j = 0; j < mediaArray?.count; j++ {
-                        var mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
-                        var url = self.findString("url", dictionary: mediaData)!
-                        var type = self.findMediaType("mediaType", dictionary: mediaData)
-                        var domainColor = self.findUIColor("domainColor", dictionary:mediaData)
-                        var media = BNMedia(mediaType:type, url:url, domainColor:domainColor!)
-                        element.media.append(media)
+                        var mediaArray = self.findNSArray("media", dictionary: elementData)
                         
-//                        var image = UIImageView(image:UIImage(named:"view3.jpg"))
-//                        element.gallery.append(image)
-//                        
-//                        BNAppSharedManager.instance.networkManager.requestImageData(url, image:image)
-                    }
-                    /*
-                    element.activateNotification = self.findBool("activateNotification", dictionary: elementData)
+                        for var j = 0; j < mediaArray?.count; j++ {
+                            var mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
+                            var url = self.findString("url", dictionary: mediaData)!
+                            var type = self.findMediaType("mediaType", dictionary: mediaData)
+                            var domainColor = self.findUIColor("domainColor", dictionary:mediaData)
+                            var media = BNMedia(mediaType:type, url:url, domainColor:domainColor!)
+                            element.media.append(media)
+                            
+    //                        var image = UIImageView(image:UIImage(named:"view3.jpg"))
+    //                        element.gallery.append(image)
+    //                        
+    //                        BNAppSharedManager.instance.networkManager.requestImageData(url, image:image)
+                        }
+                        /*
+                        element.activateNotification = self.findBool("activateNotification", dictionary: elementData)
 
-                    if (element.activateNotification){
-                        
-                        element.notifications = Array<BNNotification>()
-                        
-                        var notificationArray = self.findNSArray("notifications", dictionary: elementData)
-                        
-                        for (var k = 0; k < notificationArray?.count; k++){
-                            var notificationData = notificationArray!.objectAtIndex(k) as NSDictionary
+                        if (element.activateNotification){
                             
-                            var isActive = self.findBool("isActive", dictionary: notificationData)
-                            var type = self.findNotificationType("notificationType", dictionary: notificationData)
-                            var text = self.findString("text", dictionary: notificationData)
+                            element.notifications = Array<BNNotification>()
                             
-                            var notification = BNNotification(isActive: isActive, notificationType:type, text:text!)
-                            element.notifications!.append(notification)
+                            var notificationArray = self.findNSArray("notifications", dictionary: elementData)
+                            
+                            for (var k = 0; k < notificationArray?.count; k++){
+                                var notificationData = notificationArray!.objectAtIndex(k) as NSDictionary
+                                
+                                var isActive = self.findBool("isActive", dictionary: notificationData)
+                                var type = self.findNotificationType("notificationType", dictionary: notificationData)
+                                var text = self.findString("text", dictionary: notificationData)
+                                
+                                var notification = BNNotification(isActive: isActive, notificationType:type, text:text!)
+                                element.notifications!.append(notification)
+                            }
                         }
-                    }
-//                    element.showNotification = self.findBool("showNotification", dictionary: elementData)
-//                    element.hasNotification = self.findBool("hasNotification", dictionary: elementData)
-                    */
-                    element.biinedCount = self.findInt("biinedCount", dictionary: elementData)!
-                    element.commentedCount = self.findInt("commentedCount", dictionary: elementData)!
-                    element.userBiined = self.findBool("userBiined", dictionary: elementData)
-                    element.userShared = self.findBool("userShared", dictionary: elementData)
-                    element.userCommented = self.findBool("userCommented", dictionary: elementData)
-                    request.element!.userViewed = self.findBool("userViewed", dictionary: elementData)
-                    
-                    var hasSticker = self.findBool("hasSticker", dictionary: elementData)
-                    
-                    if (hasSticker) {
-                        if let stickerData = elementData["sticker"] as? NSDictionary {
-                            element.hasSticker = hasSticker
-                            var stickerColor = self.findUIColor("color", dictionary: stickerData)
-                            var stickerType = self.findBNStickerType("type", dictionary: stickerData)
-                            var sticker = BNSticker(type:stickerType, color:stickerColor!)
-                            element.sticker = sticker
+    //                    element.showNotification = self.findBool("showNotification", dictionary: elementData)
+    //                    element.hasNotification = self.findBool("hasNotification", dictionary: elementData)
+                        */
+                        element.biinedCount = self.findInt("biinedCount", dictionary: elementData)!
+                        element.commentedCount = self.findInt("commentedCount", dictionary: elementData)!
+                        element.userBiined = self.findBool("userBiined", dictionary: elementData)
+                        element.userShared = self.findBool("userShared", dictionary: elementData)
+                        element.userCommented = self.findBool("userCommented", dictionary: elementData)
+                        request.element!.userViewed = self.findBool("userViewed", dictionary: elementData)
+                        
+                        var hasSticker = self.findBool("hasSticker", dictionary: elementData)
+                        
+                        if (hasSticker) {
+                            if let stickerData = elementData["sticker"] as? NSDictionary {
+                                element.hasSticker = hasSticker
+                                var stickerColor = self.findUIColor("color", dictionary: stickerData)
+                                var stickerType = self.findBNStickerType("type", dictionary: stickerData)
+                                var sticker = BNSticker(type:stickerType, color:stickerColor!)
+                                element.sticker = sticker
+                            }
                         }
+                        
+                        self.delegateDM!.manager!(self, didReceivedElement:element)
+                        
+                        if self.isRequestTimerAllow {
+                            self.runRequest()
+                        }
+                        
+                        
                     }
-                    
-                    self.delegateDM!.manager!(self, didReceivedElement:element)
-                    
-                    if self.isRequestTimerAllow {
-                        self.runRequest()
-                    }
-                    
-                    
                 }
                 self.removeRequestOnCompleted(request.identifier)
 //                self.requests.removeValueForKey(request.identifier)

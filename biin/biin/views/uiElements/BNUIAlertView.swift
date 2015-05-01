@@ -34,7 +34,7 @@ class BNUIAlertView:UIView {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        self.header = BNUIAlertView_Header(frame: CGRectMake(0, -110, frame.width, 100), type: type, text: text, father: self)
+        self.header = BNUIAlertView_Header(frame: CGRectMake(0, -120, frame.width, 120), type:type, text:text, father: self)
         self.addSubview(header!)
     }
     
@@ -45,7 +45,7 @@ class BNUIAlertView:UIView {
     func show(){
         isOn = true
         UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
-                self.header!.frame = CGRectMake(self.frame.origin.x, -50, self.frame.width, self.frame.height)
+                self.header!.frame = CGRectMake(self.frame.origin.x, -60, self.frame.width, self.frame.height)
                 self.fade!.alpha = 0.3
             }, completion: {(completed:Bool)-> Void in
         
@@ -55,7 +55,7 @@ class BNUIAlertView:UIView {
     func hide(){
         isOn = false
         UIView.animateWithDuration(0.2, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
-                self.header!.frame = CGRectMake(self.frame.origin.x, -110, self.frame.width, self.frame.height)
+                self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
                 self.fade!.alpha = 0
             }, completion: {(completed:Bool)-> Void in
                 self.removeFromSuperview()
@@ -66,7 +66,7 @@ class BNUIAlertView:UIView {
         isOn = false
         
         UIView.animateWithDuration(0.2, delay: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
-                self.header!.frame = CGRectMake(self.frame.origin.x, -110, self.frame.width, self.frame.height)
+                self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
             }, completion: {(completed:Bool)->Void in
                 callback()
                 self.removeFromSuperview()

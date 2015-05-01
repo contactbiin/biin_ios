@@ -59,7 +59,7 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
         self.console!.selectable = false
         self.addSubview(self.console!)
         
-        backBtn = UIButton(frame: CGRectMake(20, 20, 40, 40))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
         backBtn!.addTarget(father, action: "hideInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.backgroundColor = UIColor.redColor()
         self.addSubview(backBtn!)

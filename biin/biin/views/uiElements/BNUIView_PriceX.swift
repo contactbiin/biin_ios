@@ -17,11 +17,12 @@ class BNUIView_PriceX:UIView {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, color:UIColor, position:CGPoint, size:CGFloat ) {
+    convenience init(frame: CGRect, color:UIColor, position:CGPoint, size:CGFloat, strokeWidth:CGFloat ) {
         self.init(frame:frame)
         self.backgroundColor = UIColor.clearColor()
         icon = BNIcon_RedX(color: color, position: position)
         icon!.width = size
+        icon!.strokeWidth = strokeWidth
     }
     
 
