@@ -36,6 +36,7 @@ class ElementView_Details:BNView {
         var titleSize:CGFloat = SharedUIManager.instance.elementView_titleSize
         var textSize:CGFloat = SharedUIManager.instance.elementView_textSize
         var quoteSize:CGFloat = SharedUIManager.instance.elementView_quoteSize
+        var priceListSize:CGFloat = SharedUIManager.instance.elementView_priceList
         var ypos:CGFloat = 15
         var spacer:CGFloat = 5
         
@@ -215,7 +216,7 @@ class ElementView_Details:BNView {
                     var price = UILabel(frame: CGRectMake(0, ypos, (frame.width - 50), 0))
                     price.text = "\(priceItem.currency!) \(priceItem.price!)"
                     price.textColor = UIColor.appTextColor()
-                    price.font = UIFont(name: "Lato-Black", size: textSize)
+                    price.font = UIFont(name: "Lato-Black", size: priceListSize)
                     price.numberOfLines = 0
                     price.sizeToFit()
                     price.alpha = 1
@@ -226,7 +227,7 @@ class ElementView_Details:BNView {
                     var desc = UILabel(frame: CGRectMake(10, ypos, (frame.width - 50), 0))
                     desc.text = priceItem.description!
                     desc.textColor = UIColor.appTextColor()
-                    desc.font = UIFont(name: "Lato-Regular", size: textSize)
+                    desc.font = UIFont(name: "Lato-Regular", size: priceListSize)
                     desc.numberOfLines = 0
                     desc.alpha = 1
                     desc.sizeToFit()
