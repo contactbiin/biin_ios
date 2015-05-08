@@ -159,7 +159,6 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
 //        sites = Array<SiteMiniView>()
         items = Array<CollectionView_ItemView>()
         
-        
         println("collection!.items.count: \(collection!.items.count)")
         
         for item in collection!.items {

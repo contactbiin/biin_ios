@@ -20,43 +20,46 @@ class BNIcon_MenuMedium:BNIcon {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
-        //// Group
+        //// Color Declarations
+        let strokeColor = UIColor(red: 0.255, green: 0.251, blue: 0.259, alpha: 1.000)
+        
+        //// menu.svg Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
+        
+        
         //// Bezier Drawing
         var bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(0, 0))
-        bezierPath.addCurveToPoint(CGPointMake(14.28, 0), controlPoint1: CGPointMake(20.3, 0), controlPoint2: CGPointMake(14.28, 0))
+        bezierPath.moveToPoint(CGPointMake(0, 6.3))
+        bezierPath.addLineToPoint(CGPointMake(16.5, 6.3))
         bezierPath.lineCapStyle = kCGLineCapRound;
         
-        color!.setStroke()
-        bezierPath.lineWidth = 2
+        strokeColor.setStroke()
+        bezierPath.lineWidth = 3
         bezierPath.stroke()
         
         
         //// Bezier 2 Drawing
         var bezier2Path = UIBezierPath()
-        bezier2Path.moveToPoint(CGPointMake(0, 5))
-        bezier2Path.addCurveToPoint(CGPointMake(14.28, 5), controlPoint1: CGPointMake(20.3, 5), controlPoint2: CGPointMake(14.28, 5))
+        bezier2Path.moveToPoint(CGPointMake(0, 0))
+        bezier2Path.addLineToPoint(CGPointMake(16.5, 0))
         bezier2Path.lineCapStyle = kCGLineCapRound;
         
-        color!.setStroke()
-        bezier2Path.lineWidth = 2
+        strokeColor.setStroke()
+        bezier2Path.lineWidth = 3
         bezier2Path.stroke()
         
         
         //// Bezier 3 Drawing
         var bezier3Path = UIBezierPath()
-        bezier3Path.moveToPoint(CGPointMake(0, 10))
-        bezier3Path.addCurveToPoint(CGPointMake(14.28, 10), controlPoint1: CGPointMake(20.3, 10), controlPoint2: CGPointMake(14.28, 10))
+        bezier3Path.moveToPoint(CGPointMake(0, 12.6))
+        bezier3Path.addLineToPoint(CGPointMake(16.5, 12.6))
         bezier3Path.lineCapStyle = kCGLineCapRound;
         
-        color!.setStroke()
-        bezier3Path.lineWidth = 2
+        strokeColor.setStroke()
+        bezier3Path.lineWidth = 3
         bezier3Path.stroke()
-        
-        
         
         CGContextRestoreGState(context)
     }

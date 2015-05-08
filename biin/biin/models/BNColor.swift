@@ -196,7 +196,7 @@ extension UIColor {
     }
     
     class func appBackground() -> UIColor {
-        return UIColor(red: 231/255, green: 231/255, blue: 231/255, alpha: 1)
+        return UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)
     }
     
     class func appIconColor() -> UIColor {
@@ -224,8 +224,8 @@ extension UIColor {
     }
     
     class func biinColor() -> UIColor! {
-        return UIColor(red:63/255, green: 169/255, blue: 245/199, alpha: 1)
-        //return UIColor.blackColor()
+        //return UIColor(red:63/255, green: 169/255, blue: 245/199, alpha: 1)
+        return UIColor.blackColor()
     }
 }
 

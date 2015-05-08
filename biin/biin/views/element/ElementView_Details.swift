@@ -215,7 +215,7 @@ class ElementView_Details:BNView {
                     var price = UILabel(frame: CGRectMake(0, ypos, (frame.width - 50), 0))
                     price.text = "\(priceItem.currency!) \(priceItem.price!)"
                     price.textColor = UIColor.appTextColor()
-                    price.font = UIFont(name: "Lato-Regular", size: textSize)
+                    price.font = UIFont(name: "Lato-Black", size: textSize)
                     price.numberOfLines = 0
                     price.sizeToFit()
                     price.alpha = 1
@@ -226,7 +226,7 @@ class ElementView_Details:BNView {
                     var desc = UILabel(frame: CGRectMake(10, ypos, (frame.width - 50), 0))
                     desc.text = priceItem.description!
                     desc.textColor = UIColor.appTextColor()
-                    desc.font = UIFont(name: "Lato-Light", size: textSize)
+                    desc.font = UIFont(name: "Lato-Regular", size: textSize)
                     desc.numberOfLines = 0
                     desc.alpha = 1
                     desc.sizeToFit()

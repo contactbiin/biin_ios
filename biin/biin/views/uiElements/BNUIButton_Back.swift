@@ -20,6 +20,6 @@ class BNUIButton_Back:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_LeftArrowSmall(color: UIColor.appTextColor(), position: CGPointMake(10, 4.5))
+        icon = BNIcon_LeftArrowSmall(color: UIColor.biinColor(), position: CGPointMake(10, 4.5))
     }
 }
