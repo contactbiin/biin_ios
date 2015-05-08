@@ -5,12 +5,19 @@
 
 import Foundation
 
-class BNElementDetail:NSObject {
+struct BNElementDetail_PriceLlist {
+    var description:String?
+    var currency:String?
+    var price:String?
+}
 
+
+class BNElementDetail:NSObject {
 
     var elementDetailType:BNElementDetailType?
     var text:String = ""
-    var body:Array<String>?// = Array<String>()
+    var body:Array<String>? //exemple: for description in price list
+    var priceList:Array<BNElementDetail_PriceLlist>?
     
     override init(){
         super.init()
@@ -34,4 +41,5 @@ enum BNElementDetailType {
     case Quote      //3
     case ListItem   //4
     case Link       //5
+    case PriceList  //6
 }

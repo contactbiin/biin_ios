@@ -208,6 +208,37 @@ class ElementView_Details:BNView {
                 self.addSubview(link)
                 ypos += link.frame.height
                 break
+            case .PriceList:   //6
+                ypos += 5
+                for priceItem in detail.priceList! {
+                    ypos += 5
+                    var price = UILabel(frame: CGRectMake(0, ypos, (frame.width - 50), 0))
+                    price.text = "\(priceItem.currency!) \(priceItem.price!)"
+                    price.textColor = UIColor.appTextColor()
+                    price.font = UIFont(name: "Lato-Regular", size: textSize)
+                    price.numberOfLines = 0
+                    price.sizeToFit()
+                    price.alpha = 1
+                    self.addSubview(price)
+                    
+                    price.frame.origin.x = frame.width - (price.frame.width + 10)
+                    
+                    var desc = UILabel(frame: CGRectMake(10, ypos, (frame.width - 50), 0))
+                    desc.text = priceItem.description!
+                    desc.textColor = UIColor.appTextColor()
+                    desc.font = UIFont(name: "Lato-Light", size: textSize)
+                    desc.numberOfLines = 0
+                    desc.alpha = 1
+                    desc.sizeToFit()
+                    self.addSubview(desc)
+                    
+                    desc.frame = CGRectMake(10, ypos, frame.width - (price.frame.width + 30), desc.frame.height)
+                    
+                    ypos += desc.frame.height
+                }
+                ypos += 5
+                break
+
             default:
                 break
             }

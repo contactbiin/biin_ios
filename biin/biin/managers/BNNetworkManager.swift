@@ -1200,6 +1200,27 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                 
                             }
                             
+                            if (detail.elementDetailType! == BNElementDetailType.PriceList){
+                                
+                                var body = self.findNSArray("body", dictionary: detailData)
+                                detail.priceList = Array<BNElementDetail_PriceLlist>()
+                                
+                                //detail.body = Array<String>()
+                                
+                                for (var i = 0; i < body?.count; i++) {
+                                    var line = body!.objectAtIndex(i) as! NSDictionary
+                                    var priceListItem = BNElementDetail_PriceLlist()
+                                    priceListItem.currency = self.findCurrency("currencyType", dictionary: line)
+                                    priceListItem.description = self.findString("description", dictionary: line)
+                                    priceListItem.price = self.findString("line", dictionary: line)
+                                    detail.priceList!.append(priceListItem)
+
+//                                    detail.priceList!.append( self.findString("line", dictionary:line)! )
+                                }
+                                
+                            }
+                            
+                            
                             element.details.append(detail)
                         }
                         
@@ -2103,6 +2124,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             return BNElementDetailType.ListItem
         } else if value == 5 {
             return BNElementDetailType.Link
+        } else if value == 6 {
+            return BNElementDetailType.PriceList
         } else {
             return BNElementDetailType.Title
         }
