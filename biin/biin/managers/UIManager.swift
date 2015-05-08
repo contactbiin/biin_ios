@@ -48,8 +48,8 @@ class UIManager {
     
     //Element view sizes
     var elementView_titleSize:CGFloat = 18
-    var elementView_textSize:CGFloat = 14
-    var elementView_quoteSize:CGFloat = 14
+    var elementView_textSize:CGFloat = 16
+    var elementView_quoteSize:CGFloat = 16
     
     //Showcase and Main view positions
     var titleTop        = CGRectMake(5, 20, 0, 0)

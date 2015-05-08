@@ -182,6 +182,9 @@ class CollectionView_ItemView: BNView {
     
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
+        
+        //TODO: Show element or site.
+        
         //delegate!.showElementView!(self, position:CGRectMake(0, 0, 0, 0))
     }
     

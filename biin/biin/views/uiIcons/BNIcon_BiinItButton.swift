@@ -22,6 +22,7 @@ class BNIcon_BiinItButton:BNIcon {
         //// Color Declarations
         //let color0 = UIColor(red: 0.237, green: 0.727, blue: 0.935, alpha: 1.000)
         let colorLogo = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        //let colorLogo = UIColor(red:63/255, green: 169/255, blue: 245/199, alpha: 1)
         
         //// Group
         CGContextSaveGState(context)

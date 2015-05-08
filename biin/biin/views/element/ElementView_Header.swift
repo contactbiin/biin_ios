@@ -54,14 +54,7 @@ class ElementView_Header:BNView {
         subTitle!.textColor = UIColor.appTextColor()
         subTitle!.text = "Site subtitle here"
         subTitle!.textAlignment = NSTextAlignment.Center
-        self.addSubview(subTitle!)
-        
-        
-        
-        
-        
-        
-        
+        self.addSubview(subTitle!)  
     }
 
     override func transitionIn() {

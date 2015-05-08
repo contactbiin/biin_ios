@@ -21,8 +21,8 @@ class BNIcon_ShareItButton:BNIcon {
         
         //// Color Declarations
 //        let fillColor = UIColor(red: 0.278, green: 0.776, blue: 0.949, alpha: 1.000)
-        let strokeColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        let fillColor2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        let blueColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+        //let blueColor = UIColor(red:63/255, green: 169/255, blue: 245/199, alpha: 1)
         
         //// shareButton.svg Group
         CGContextSaveGState(context)
@@ -48,27 +48,27 @@ class BNIcon_ShareItButton:BNIcon {
         //// Group 2
         //// Oval Drawing
         var ovalPath = UIBezierPath(ovalInRect: CGRectMake(19.6, 20, 6, 6))
-        fillColor2.setFill()
+        blueColor.setFill()
         ovalPath.fill()
-        strokeColor.setStroke()
+        blueColor.setStroke()
         ovalPath.lineWidth = 2
         ovalPath.stroke()
         
         
         //// Oval 2 Drawing
         var oval2Path = UIBezierPath(ovalInRect: CGRectMake(19.6, 8.6, 6, 6))
-        fillColor2.setFill()
+        blueColor.setFill()
         oval2Path.fill()
-        strokeColor.setStroke()
+        blueColor.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
         
         
         //// Oval 3 Drawing
         var oval3Path = UIBezierPath(ovalInRect: CGRectMake(8.2, 14.3, 6, 6))
-        fillColor2.setFill()
+        blueColor.setFill()
         oval3Path.fill()
-        strokeColor.setStroke()
+        blueColor.setStroke()
         oval3Path.lineWidth = 2
         oval3Path.stroke()
         
@@ -78,9 +78,9 @@ class BNIcon_ShareItButton:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(19.9, 21.6))
         bezier2Path.lineJoinStyle = kCGLineJoinRound;
         
-        fillColor2.setFill()
+        blueColor.setFill()
         bezier2Path.fill()
-        strokeColor.setStroke()
+        blueColor.setStroke()
         bezier2Path.lineWidth = 2
         bezier2Path.stroke()
         
@@ -90,9 +90,9 @@ class BNIcon_ShareItButton:BNIcon {
         bezier3Path.addLineToPoint(CGPointMake(19.9, 13))
         bezier3Path.lineJoinStyle = kCGLineJoinRound;
         
-        fillColor2.setFill()
+        blueColor.setFill()
         bezier3Path.fill()
-        strokeColor.setStroke()
+        blueColor.setStroke()
         bezier3Path.lineWidth = 2
         bezier3Path.stroke()
 
