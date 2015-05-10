@@ -47,8 +47,8 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         addSubview(effectView)
         */
         
-        categoryNameLbl = UILabel(frame: CGRectMake(0, 20, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        categoryNameLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_titleSize)
+        categoryNameLbl = UILabel(frame: CGRectMake(0, 3, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
+        categoryNameLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.siteView_titleSize)
         categoryNameLbl!.textColor = UIColor.appTextColor()
         categoryNameLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(categoryNameLbl!)
@@ -107,7 +107,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         //hideNotification()
         
         
-        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 30, 60, 40), text: "", iconType: BNIconType.menuMedium)
+        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 12, 60, 40), text: "", iconType: BNIconType.menuMedium)
         showMenuBtn!.addTarget(father, action: "showMenuBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
     }
@@ -122,7 +122,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
 
         for var i:Int = 0; i < BNAppSharedManager.instance.dataManager.bnUser!.categories.count; i++ {
             
-            var point = BNUIPointView(frame: CGRectMake((xpos), 45, 14, 14), categoryIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!)
+            var point = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!)
             self.points.append(point)
             self.addSubview(point)
             /*
@@ -208,7 +208,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         
         //UIView.animateWithDuration(0.2, animations: {()->Void in
 
-            self.categoryNameLbl!.alpha = 1
+            //self.categoryNameLbl!.alpha = 1
         //})
         
         previousPoint = index

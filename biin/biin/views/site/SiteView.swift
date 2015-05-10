@@ -80,7 +80,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         buttonsView = SocialButtonsView(frame: CGRectMake(0, 5, frame.width, 15), father: self, site: nil, showShareButton:true)
         scroll!.addSubview(buttonsView!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
@@ -235,7 +235,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
 
         //scroll!.addSubview(imagesScrollView!)
         
-        var ypos:CGFloat = SharedUIManager.instance.screenWidth
+        var ypos:CGFloat = SharedUIManager.instance.screenWidth + 5
         scrollSpaceForShowcases = 0
         
         for biin in site!.biins {
@@ -244,7 +244,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
             scroll!.addSubview(showcaseView)
             showcases!.append(showcaseView)
             ypos += showcaseHeight
-            ypos += 1
+            //ypos += 1
         }
 
         scrollSpaceForShowcases = ypos

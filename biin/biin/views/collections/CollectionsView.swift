@@ -190,7 +190,7 @@ class CollectionsView: BNView, ElementView_Delegate {
         
         collections = Array<CollectionsView_Collection>()
         
-        var height:CGFloat = SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.miniView_height + 15
+        var height:CGFloat = SharedUIManager.instance.elementView_headerHeight + SharedUIManager.instance.miniView_height + 15
         var ypos:CGFloat = 0
         
         for (key, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {

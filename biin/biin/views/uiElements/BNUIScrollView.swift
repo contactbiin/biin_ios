@@ -28,7 +28,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         scroll = UIScrollView(frame: frame)
-        scroll!.backgroundColor = UIColor.appMainColor()
+        scroll!.backgroundColor = UIColor.appBackground()
         scroll!.delegate = self
         self.addSubview(scroll!)
     }

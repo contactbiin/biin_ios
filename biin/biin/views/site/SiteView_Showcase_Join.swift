@@ -38,7 +38,11 @@ class SiteView_Showcase_Join:BNView {
         
         self.init(frame:frame, father:father)
         
-        self.backgroundColor = UIColor.appBackground()
+        self.backgroundColor = UIColor.appMainColor()
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+        self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
+        self.layer.masksToBounds = true
         
         youSeenTitleLbl = UILabel(frame: CGRectMake(0, (frame.height * 0.6), frame.width, 22))
         youSeenTitleLbl!.font = UIFont(name: "Lato-Regular", size: 20)

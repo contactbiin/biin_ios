@@ -64,7 +64,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
         siteAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
         siteAvatarView!.layer.cornerRadius = 35
-        siteAvatarView!.layer.borderColor = UIColor.appBackground().CGColor
+        siteAvatarView!.layer.borderColor = UIColor.appButtonBorderColor().CGColor
         siteAvatarView!.layer.borderWidth = 4
         siteAvatarView!.layer.masksToBounds = true
         self.addSubview(siteAvatarView!)
@@ -119,7 +119,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         map = MKMapView(frame:CGRectMake(10, ypos, (screenWidth - 20), 160))
         map!.userInteractionEnabled = false
         map!.layer.cornerRadius = 3
-        map!.layer.borderColor = UIColor.appBackground().CGColor
+        map!.layer.borderColor = UIColor.appButtonBorderColor().CGColor
         map!.layer.borderWidth = 1
         map!.delegate = self
         self.addSubview(map!)

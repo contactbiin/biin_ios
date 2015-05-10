@@ -29,16 +29,21 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         BNAppSharedManager.instance.errorManager.currentViewController = self
         BNAppSharedManager.instance.mainViewController = self
         
-        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
+        self.setNeedsStatusBarAppearanceUpdate()
         
-        self.view.backgroundColor = UIColor.appMainColor()
+        self.view.backgroundColor = UIColor.blackColor()
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         
         BNAppSharedManager.instance.dataManager.setSitesBiinsCurrentState()
         
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,7 +56,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.delegate = self
         
-        mainView = MainView(frame: frame, father:nil, rootViewController: self)
+        mainView = MainView(frame: CGRectMake(0, 20, frame.width, (frame.height - 10)), father:nil, rootViewController: self)
         mainView!.delegate = self
         self.view.addSubview(self.mainView!)
         
@@ -65,7 +70,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         fadeView!.addGestureRecognizer(hideMenuSwipe)
         
-        menuView = MenuView(frame: CGRectMake(-140, 0, 140, frame.height))
+        menuView = MenuView(frame: CGRectMake(-140, 20, 140, frame.height))
         menuView!.delegate = self
         self.view.addSubview(menuView!)
         
@@ -77,9 +82,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //showMenuSwipe!.edges = UIRectEdge.Left
         //self.view.addGestureRecognizer(showMenuSwipe!)
         
-        var statusBarLine = UIView(frame: CGRectMake(0, 0, frame.width, 20))
-        statusBarLine.backgroundColor = UIColor.appMainColor()
-        self.view.addSubview(statusBarLine)
+        //var statusBarLine = UIView(frame: CGRectMake(0, 0, frame.width, 20))
+        //statusBarLine.backgroundColor = UIColor.appMainColor()
+        //self.view.addSubview(statusBarLine)
         
     }
     

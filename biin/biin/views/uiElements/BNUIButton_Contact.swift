@@ -30,7 +30,7 @@ class BNUIButton_Contact:BNUIButton {
         
         self.layer.cornerRadius = 20
         self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.appBackground().CGColor
+        self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
         
         self.iconType = iconType
         createIcon()

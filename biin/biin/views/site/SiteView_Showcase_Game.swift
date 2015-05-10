@@ -40,7 +40,10 @@ class SiteView_Showcase_Game:BNView {
         
         self.init(frame:frame, father:father)
         
-        self.backgroundColor = UIColor.appBackground()
+        self.backgroundColor = UIColor.appShowcaseBackground()
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
         
         var textColor:UIColor?
         var borderColor:UIColor?

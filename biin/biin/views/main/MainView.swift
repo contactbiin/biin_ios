@@ -52,9 +52,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         self.rootViewController = rootViewController
         
         self.backgroundColor = UIColor.appBackground()
+        self.layer.borderColor = UIColor.clearColor().CGColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
+        
         
         //Create views
-        var categoriesView = BiinieCategoriesView(frame: frame, father: self)
+        var categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
         self.addSubview(categoriesView)
         state = biinieCategoriesState!

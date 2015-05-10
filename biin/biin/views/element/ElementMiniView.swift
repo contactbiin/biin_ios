@@ -72,7 +72,7 @@ class ElementMiniView: BNView {
         header!.updateSocialButtonsForElement(self.element)
         
         
-        var ypos:CGFloat = SharedUIManager.instance.siteView_headerHeight - 5
+        var ypos:CGFloat = SharedUIManager.instance.miniView_headerHeight + 5
         /*
         if self.element!.hasDiscount {
             discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)

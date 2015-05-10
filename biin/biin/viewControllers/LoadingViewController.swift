@@ -24,8 +24,10 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = UIColor.biinColor()
+        
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-        UIApplication.sharedApplication().statusBarHidden = true
+        UIApplication.sharedApplication().statusBarHidden = false
+        self.setNeedsStatusBarAppearanceUpdate()
         
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true

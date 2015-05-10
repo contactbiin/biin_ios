@@ -30,7 +30,7 @@ class BNUIButton_Loging:BNUIButton {
         
         self.layer.cornerRadius = 25
         self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.appMainColor().CGColor
+        self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
         self.layer.masksToBounds = true
 
         self.color = color

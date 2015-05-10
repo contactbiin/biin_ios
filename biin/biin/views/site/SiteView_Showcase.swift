@@ -59,11 +59,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 5
-        ypos += 18
+        var ypos:CGFloat = 1
+        //ypos += 18
         
         title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_titleSize)
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.text = self.showcase!.title
         title!.textColor = self.showcase!.titleColor!
         self.addSubview(title!)
@@ -71,7 +71,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         ypos += SharedUIManager.instance.siteView_titleSize + 3
         
         subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_subTittleSize)
+        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.appTextColor()
         subTitle!.text = self.showcase!.subTitle!
         self.addSubview(subTitle!)
@@ -89,7 +89,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.appBackground()
+        scroll!.backgroundColor = UIColor.appShowcaseBackground()
         self.addSubview(scroll!)
     
         addElementViews()
@@ -173,11 +173,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         if biin!.site!.loyalty!.isSubscribed {
             //Add game view
-            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
+            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
             scroll!.addSubview(gameView!)
             xpos += SharedUIManager.instance.screenWidth
         } else  {
-            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!)
+            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!)
             scroll!.addSubview(joinView!)
             xpos += SharedUIManager.instance.screenWidth
         }

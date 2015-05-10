@@ -51,10 +51,10 @@ class ElementView: BNView {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        var scrollHeight:CGFloat = screenHeight - SharedUIManager.instance.siteView_headerHeight
+        var scrollHeight:CGFloat = screenHeight - SharedUIManager.instance.elementView_headerHeight
         //Add here any other heights for site view.
         
-        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.siteView_headerHeight, screenWidth, scrollHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.elementView_headerHeight, screenWidth, scrollHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -68,10 +68,10 @@ class ElementView: BNView {
         buttonsView = SocialButtonsView(frame: CGRectMake(1, 5, frame.width, 15), father: self, element: nil)
         scroll!.addSubview(buttonsView!)
         
-        header = ElementView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
+        header = ElementView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.elementView_headerHeight), father: self)
         self.addSubview(header!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         

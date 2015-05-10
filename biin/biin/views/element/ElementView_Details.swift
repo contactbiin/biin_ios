@@ -136,7 +136,7 @@ class ElementView_Details:BNView {
             case .Title:      //1
                 ypos += 25
                 var title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 20))
-                title.font = UIFont(name: "Lato-Regular", size: titleSize)
+                title.font = UIFont(name: "Lato-Black", size: titleSize)
                 title.text = detail.text
                 title.textColor = UIColor.appTextColor()
                 title.numberOfLines = 0
@@ -227,7 +227,7 @@ class ElementView_Details:BNView {
                     var desc = UILabel(frame: CGRectMake(10, ypos, (frame.width - 50), 0))
                     desc.text = priceItem.description!
                     desc.textColor = UIColor.appTextColor()
-                    desc.font = UIFont(name: "Lato-Regular", size: priceListSize)
+                    desc.font = UIFont(name: "Lato-Light", size: priceListSize)
                     desc.numberOfLines = 0
                     desc.alpha = 1
                     desc.sizeToFit()

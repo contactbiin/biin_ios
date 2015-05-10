@@ -109,7 +109,7 @@ class CollectionView_ItemView: BNView {
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(shareItButton!)
         
-        var ypos:CGFloat = SharedUIManager.instance.siteView_headerHeight - 5
+        var ypos:CGFloat = SharedUIManager.instance.elementView_headerHeight - 5
         if self.isElement {
             if self.element!.hasDiscount {
                 //discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)

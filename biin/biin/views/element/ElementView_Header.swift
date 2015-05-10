@@ -34,14 +34,14 @@ class ElementView_Header:BNView {
         self.layer.shadowRadius = 2
         self.layer.shadowOpacity = 0.25
         
-        var ypos:CGFloat = 5
+        var ypos:CGFloat = 1
 //        buttonsView = SocialButtonsView(frame: CGRectMake(0, ( SharedUIManager.instance.siteView_headerHeight + 5 ), frame.width, 15), father: self, element: nil)
 //        self.addSubview(buttonsView!)
         
-        ypos += 15
+        //ypos += 15
         
         title = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_titleSize)
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.biinColor()
         title!.text = "site title here"
         title!.textAlignment = NSTextAlignment.Center
@@ -49,8 +49,8 @@ class ElementView_Header:BNView {
         
         ypos += SharedUIManager.instance.siteView_titleSize + 4
         
-        subTitle = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.miniView_subTittleSize + 3)))
-        subTitle!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_subTittleSize)
+        subTitle = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.miniView_subTittleSize + 4)))
+        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.appTextColor()
         subTitle!.text = "Site subtitle here"
         subTitle!.textAlignment = NSTextAlignment.Center
