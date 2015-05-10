@@ -47,10 +47,10 @@ class UIManager {
     
     
     //Element view sizes
-    var elementView_titleSize:CGFloat = 20
-    var elementView_textSize:CGFloat = 16
-    var elementView_quoteSize:CGFloat = 16
-    var elementView_priceList:CGFloat = 16
+    var elementView_titleSize:CGFloat = 18
+    var elementView_textSize:CGFloat = 14
+    var elementView_quoteSize:CGFloat = 14
+    var elementView_priceList:CGFloat = 14
     var elementView_headerHeight:CGFloat = 40
     
     //Showcase and Main view positions

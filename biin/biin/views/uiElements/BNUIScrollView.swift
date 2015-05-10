@@ -28,7 +28,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         scroll = UIScrollView(frame: frame)
-        scroll!.backgroundColor = UIColor.appBackground()
+        scroll!.backgroundColor = UIColor.whiteColor()
         scroll!.delegate = self
         self.addSubview(scroll!)
     }
@@ -44,44 +44,50 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
     func updateImages(media:Array<BNMedia>){
         
         clean()
-        self.media = media
         
-        var totalLength:CGFloat = CGFloat((media.count - 1) * 20)
-        var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
-        var xpos:CGFloat = (space - 5)
-        
-        var scrollXPos:CGFloat = 0
-        
-        
-        for var i:Int = 0; i < self.media!.count; i++ {
+        if media.count > 0 {
             
-            var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
-            self.points!.append(point)
-            self.addSubview(point)
-            xpos += 20
+
+            self.media = media
             
-            //Add images to scroll
-            var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
-            image.backgroundColor = self.media![i].domainColor
+            var totalLength:CGFloat = CGFloat((media.count - 1) * 20)
+            var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
+            var xpos:CGFloat = (space - 5)
             
-            if i == 0 {
+            var scrollXPos:CGFloat = 0
+            
+            
+            for var i:Int = 0; i < self.media!.count; i++ {
                 
-                self.images += [(image:image, requested:true)]
-                BNAppSharedManager.instance.networkManager.requestImageData(self.media![i].url!, image: image)
+                var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
+                self.points!.append(point)
+                self.addSubview(point)
+                xpos += 20
                 
-            } else {
-                self.images += [(image:image, requested:false)]
+                //Add images to scroll
+                var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+                image.backgroundColor = self.media![i].domainColor
+                
+                if i == 0 {
+                    
+                    self.images += [(image:image, requested:true)]
+                    BNAppSharedManager.instance.networkManager.requestImageData(self.media![i].url!, image: image)
+                    
+                } else {
+                    self.images += [(image:image, requested:false)]
+                }
+                
+                scroll!.addSubview(image)
+                scrollXPos += SharedUIManager.instance.screenWidth
             }
             
-            scroll!.addSubview(image)
-            scrollXPos += SharedUIManager.instance.screenWidth
+            points![previousPoint].setActive()
+            scroll!.contentSize = CGSizeMake(scrollXPos, 0)
+            scroll!.setContentOffset(CGPointZero, animated: false)
+            scroll!.bounces = false
+            scroll!.pagingEnabled = true
+            
         }
-        
-        points![previousPoint].setActive()
-        scroll!.contentSize = CGSizeMake(scrollXPos, 0)
-        scroll!.setContentOffset(CGPointZero, animated: false)
-        scroll!.bounces = false
-        scroll!.pagingEnabled = true
     }
     
     func changedPoint(pointIndex: Int) {

@@ -34,7 +34,7 @@ class ElementView_Header:BNView {
         self.layer.shadowRadius = 2
         self.layer.shadowOpacity = 0.25
         
-        var ypos:CGFloat = 1
+        var ypos:CGFloat = 2
 //        buttonsView = SocialButtonsView(frame: CGRectMake(0, ( SharedUIManager.instance.siteView_headerHeight + 5 ), frame.width, 15), father: self, element: nil)
 //        self.addSubview(buttonsView!)
         

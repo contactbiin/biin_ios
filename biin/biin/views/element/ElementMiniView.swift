@@ -54,8 +54,10 @@ class ElementMiniView: BNView {
         //self.layer.shadowOpacity = 0.25
         self.element = BNAppSharedManager.instance.dataManager.elements[element!._id!]
         
-        if let color = self.element!.media[0].domainColor {
-            self.backgroundColor = color
+        if self.element!.media.count > 0 {
+            if let color = self.element!.media[0].domainColor {
+                self.backgroundColor = color
+            }
         } else {
             self.backgroundColor = UIColor.appMainColor()
         }
@@ -174,8 +176,14 @@ class ElementMiniView: BNView {
         
         if imageRequested { return }
         
-        imageRequested = true
-        BNAppSharedManager.instance.networkManager.requestImageData(element!.media[0].url!, image: image)
+        
+        if element!.media.count > 0 {
+            imageRequested = true
+            BNAppSharedManager.instance.networkManager.requestImageData(element!.media[0].url!, image: image)
+        } else {
+            //TODO: set defaul image.
+            imageRequested = true
+        }
     }
     
     /* Gesture hadlers */

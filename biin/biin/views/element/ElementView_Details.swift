@@ -63,8 +63,8 @@ class ElementView_Details:BNView {
         */
         
         
-        var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: self, element: element)
-        self.addSubview(pricingDetails)
+        //var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: self, element: element)
+        //self.addSubview(pricingDetails)
         
         /*
         
@@ -129,7 +129,7 @@ class ElementView_Details:BNView {
         
         */
         
-        ypos += pricingDetails.frame.height
+        //ypos += pricingDetails.frame.height
         
         for detail in element!.details {
             switch detail.elementDetailType! {
@@ -237,7 +237,7 @@ class ElementView_Details:BNView {
                     
                     ypos += desc.frame.height
                 }
-                ypos += 5
+                ypos += 15
                 break
 
             default:
