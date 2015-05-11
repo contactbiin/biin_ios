@@ -37,7 +37,7 @@ class MenuView:UIView {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        var ypos:CGFloat = 40
+        var ypos:CGFloat = 20
         var distance:CGFloat = 65
 
         /*

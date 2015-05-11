@@ -43,6 +43,8 @@
 		5B2F5B941A8BAF78004133D4 /* BNIcon_SmileFace1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2F5B931A8BAF78004133D4 /* BNIcon_SmileFace1.swift */; };
 		5B3856071A9E376100755644 /* CollectionsView_Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3856061A9E376100755644 /* CollectionsView_Collection.swift */; };
 		5B3AADE61A9FB52A0022B572 /* SiteView_Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3AADE51A9FB52A0022B572 /* SiteView_Location.swift */; };
+		5B3CF32E1AFFF6DA00A74E77 /* BNIcon_Pricing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3CF32D1AFFF6DA00A74E77 /* BNIcon_Pricing.swift */; };
+		5B3CF3301AFFFDF300A74E77 /* BNIcon_PricingBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3CF32F1AFFFDF300A74E77 /* BNIcon_PricingBig.swift */; };
 		5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75901A67052100CB0D1C /* AppDelegate.swift */; };
 		5B3D75941A67052100CB0D1C /* biin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75921A67052100CB0D1C /* biin.xcdatamodeld */; };
 		5B3D759B1A67052100CB0D1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D759A1A67052100CB0D1C /* Images.xcassets */; };
@@ -308,6 +310,8 @@
 		5B2F5B931A8BAF78004133D4 /* BNIcon_SmileFace1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SmileFace1.swift; sourceTree = "<group>"; };
 		5B3856061A9E376100755644 /* CollectionsView_Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsView_Collection.swift; sourceTree = "<group>"; };
 		5B3AADE51A9FB52A0022B572 /* SiteView_Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Location.swift; sourceTree = "<group>"; };
+		5B3CF32D1AFFF6DA00A74E77 /* BNIcon_Pricing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Pricing.swift; sourceTree = "<group>"; };
+		5B3CF32F1AFFFDF300A74E77 /* BNIcon_PricingBig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_PricingBig.swift; sourceTree = "<group>"; };
 		5B3D758B1A67052100CB0D1C /* biin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = biin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3D758F1A67052100CB0D1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B3D75901A67052100CB0D1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -680,6 +684,8 @@
 				5B60A4CB1AA21D820025ACBA /* BNIcon_EmailMedium.swift */,
 				5B8B075F1A6F144B00780F74 /* BNIcon_CommentSmall.swift */,
 				5B60A4CD1AA21DBB0025ACBA /* BNIcon_CommentMedium.swift */,
+				5B3CF32D1AFFF6DA00A74E77 /* BNIcon_Pricing.swift */,
+				5B3CF32F1AFFFDF300A74E77 /* BNIcon_PricingBig.swift */,
 			);
 			path = uiIcons;
 			sourceTree = "<group>";
@@ -1355,6 +1361,7 @@
 				5BEE61371A97E5A400DE334E /* CollectionsView.swift in Sources */,
 				5BEA77911A97903A00F6D1F5 /* BNIcon_ProfileMedium.swift in Sources */,
 				5B3D76021A6816B300CB0D1C /* BNNotification.swift in Sources */,
+				5B3CF32E1AFFF6DA00A74E77 /* BNIcon_Pricing.swift in Sources */,
 				5B3D76041A6816B300CB0D1C /* BNRegion.swift in Sources */,
 				5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */,
 				5B5D77F61A8E84FE001C4A34 /* BNIcon_BarMedium.swift in Sources */,
@@ -1379,6 +1386,7 @@
 				5BB5D1D11A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift in Sources */,
 				5B2907B01A687C040000658A /* BNUIPointView.swift in Sources */,
 				5B3D75941A67052100CB0D1C /* biin.xcdatamodeld in Sources */,
+				5B3CF3301AFFFDF300A74E77 /* BNIcon_PricingBig.swift in Sources */,
 				5B75E2521A8010B7005FF629 /* BNUIButton_Back.swift in Sources */,
 				5B60A4CE1AA21DBB0025ACBA /* BNIcon_CommentMedium.swift in Sources */,
 				5B5D77DE1A8E6F0A001C4A34 /* BNIcon_OutdoorsMedium.swift in Sources */,

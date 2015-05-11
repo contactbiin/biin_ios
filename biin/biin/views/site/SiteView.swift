@@ -57,14 +57,14 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        var scrollHeight:CGFloat = screenHeight - (SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.siteView_bottomHeight) + 6
+        var scrollHeight:CGFloat = screenHeight - (SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.siteView_bottomHeight + 20) + 6
         //Add here any other heights for site view.
         
         scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.siteView_headerHeight, screenWidth, scrollHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.appBackground()
+        scroll!.backgroundColor = UIColor.whiteColor()
         scroll!.delegate = self
         self.addSubview(scroll!)
         
@@ -84,7 +84,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
-        bottom = SiteView_Bottom(frame: CGRectMake(0, screenHeight - SharedUIManager.instance.siteView_bottomHeight, screenWidth, SharedUIManager.instance.siteView_bottomHeight), father:self)
+        bottom = SiteView_Bottom(frame: CGRectMake(0, screenHeight - (SharedUIManager.instance.siteView_bottomHeight + 20), screenWidth, SharedUIManager.instance.siteView_bottomHeight), father:self)
         self.addSubview(bottom!)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))

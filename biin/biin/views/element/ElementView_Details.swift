@@ -37,7 +37,7 @@ class ElementView_Details:BNView {
         var textSize:CGFloat = SharedUIManager.instance.elementView_textSize
         var quoteSize:CGFloat = SharedUIManager.instance.elementView_quoteSize
         var priceListSize:CGFloat = SharedUIManager.instance.elementView_priceList
-        var ypos:CGFloat = 15
+        var ypos:CGFloat = 0
         var spacer:CGFloat = 5
         
         /*
@@ -134,7 +134,7 @@ class ElementView_Details:BNView {
         for detail in element!.details {
             switch detail.elementDetailType! {
             case .Title:      //1
-                ypos += 25
+                ypos += 20
                 var title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 20))
                 title.font = UIFont(name: "Lato-Black", size: titleSize)
                 title.text = detail.text
