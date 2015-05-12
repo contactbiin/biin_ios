@@ -932,6 +932,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     var loyalty = BNLoyalty()
                     loyalty.isSubscribed = self.findBool("isSubscribed", dictionary: loyaltyData!)
                     
+                    //HACK:
+                    loyalty.isSubscribed = true
+                    
                     if loyalty.isSubscribed {
                         loyalty.points = self.findInt("points", dictionary:loyaltyData!)!
                         loyalty.subscriptionDate = self.findNSDate("subscriptionDate", dictionary:loyaltyData!)
@@ -1028,6 +1031,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         element.identifier = self.findString("elementIdentifier", dictionary: elementData)
                         element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
                         showcase.elements.append(element)
+                        element.color = UIColor.elementColor()
                     }
                     
                     self.delegateDM!.manager!(self, didReceivedShowcase: showcase)

@@ -63,17 +63,24 @@ class CollectionView_ItemView: BNView {
         if self.isElement {
             self.element = BNAppSharedManager.instance.dataManager.elements[element!._id!]
             
-            if let color = self.element!.media[0].domainColor {
-                self.backgroundColor = color
+            if self.element!.media.count > 0 {
+                if let color = self.element!.media[0].domainColor {
+                    self.backgroundColor = color
+                } else {
+                    self.backgroundColor = UIColor.appMainColor()
+                }
             } else {
                 self.backgroundColor = UIColor.appMainColor()
             }
             
         } else {
             self.site = BNAppSharedManager.instance.dataManager.sites[site!.identifier!]
-            
-            if let color = self.site!.media[0].domainColor {
-                self.backgroundColor = color
+            if self.site!.media.count > 0 {
+                if let color = self.site!.media[0].domainColor {
+                    self.backgroundColor = color
+                } else {
+                    self.backgroundColor = UIColor.appMainColor()
+                }
             } else {
                 self.backgroundColor = UIColor.appMainColor()
             }

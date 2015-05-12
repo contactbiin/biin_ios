@@ -40,9 +40,10 @@ class SiteView_Showcase_Game:BNView {
         
         self.init(frame:frame, father:father)
         
-        self.backgroundColor = UIColor.appShowcaseBackground()
-        self.layer.borderWidth = 1
+        self.backgroundColor = UIColor.appMainColor()
+        //self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
+        //self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
         self.layer.masksToBounds = true
         
         var textColor:UIColor?
@@ -50,7 +51,7 @@ class SiteView_Showcase_Game:BNView {
         var titlesBackgroundColor:UIColor?
         
         //self.animatedCircleColor = animatedCircleColor
-        animatedCircle = BNUICircle(fullFrame:CGRectMake(0, 0, 1024, 1024), emptyFrame: CGRectMake((self.frame.width / 2), (self.frame.height / 2), 35, 35), color:UIColor.biinColor(), isFilled: true)
+        animatedCircle = BNUICircle(fullFrame:CGRectMake(0, 0, 1024, 1024), emptyFrame: CGRectMake((self.frame.width / 2), (self.frame.height / 2), 35, 35), color:showcase.titleColor!, isFilled: true)
         self.addSubview(animatedCircle!)
         
         youSeenTitleLbl = UILabel(frame: CGRectMake(0, (frame.height * 0.44), frame.width, 16))
@@ -67,8 +68,7 @@ class SiteView_Showcase_Game:BNView {
         youSeenLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(youSeenLbl!)
         
-        
-        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(((frame.width / 2) - 43 ), (frame.height * 0.2 ), 86, 86), father: self, color:UIColor.appMainColor())
+        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(((frame.width / 2) - 43 ), (frame.height * 0.2 ), 86, 86), father: self, color:showcase.titleColor!)
         circleIcon!.alpha = 0
         self.addSubview(circleIcon!)
         
@@ -94,7 +94,7 @@ class SiteView_Showcase_Game:BNView {
                 
                 weak var element = BNAppSharedManager.instance.dataManager.elements[showcase.elements[i]._id!]
                 
-                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 35, 35), color:element!.titleColor!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
+                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 35, 35), color:element!.color!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
                 self.circles.append(circle)
                 self.addSubview(circle)
             }

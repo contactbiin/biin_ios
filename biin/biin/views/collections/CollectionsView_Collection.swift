@@ -162,19 +162,19 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         
         println("collection!.items.count: \(collection!.items.count)")
         
-        for item in collection!.items {
+        for (key, element) in collection!.elements {
             
 //            var itemView:CollectionView_ItemView?
             var elementView:ElementMiniView?
-            if let element = collection!.elements[item] {
+            //if let element = collection!.elements[item] {
                 
                 
                 //itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
-                elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, elementPosition: itemPosition, showRemoveBtn: true)
+                elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true)
                     //ElementView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, showBiinItBtn: false)
     
                 
-            }/* else if let site = collection!.sites[item] {
+            /*} else if let site = collection!.sites[item] {
                 
                 itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: nil, isElement: false, site: site)
             }

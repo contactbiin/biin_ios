@@ -69,6 +69,9 @@ class ElementMiniView: BNView {
         //image!.alpha = 1
         self.addSubview(image!)
         
+        
+        
+        
         header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
         self.addSubview(header!)
         header!.updateSocialButtonsForElement(self.element)
@@ -176,13 +179,13 @@ class ElementMiniView: BNView {
         
         if imageRequested { return }
         
+        imageRequested = true
         
         if element!.media.count > 0 {
-            imageRequested = true
             BNAppSharedManager.instance.networkManager.requestImageData(element!.media[0].url!, image: image)
         } else {
-            //TODO: set defaul image.
-            imageRequested = true
+            image!.image =  UIImage(named: "noImage.jpg")
+            image!.showAfterDownload()
         }
     }
     

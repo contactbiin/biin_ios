@@ -46,7 +46,6 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         clean()
         
         if media.count > 0 {
-            
 
             self.media = media
             
@@ -55,7 +54,6 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             var xpos:CGFloat = (space - 5)
             
             var scrollXPos:CGFloat = 0
-            
             
             for var i:Int = 0; i < self.media!.count; i++ {
                 
@@ -87,6 +85,47 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             scroll!.bounces = false
             scroll!.pagingEnabled = true
             
+        } else {
+            
+            self.media = Array<BNMedia>()
+            
+            var totalLength:CGFloat = CGFloat((media.count - 1) * 20)
+            var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
+            var xpos:CGFloat = (space - 5)
+            
+            var scrollXPos:CGFloat = 0
+            
+            //for var i:Int = 0; i < self.media!.count; i++ {
+                
+                //var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
+                //self.points!.append(point)
+                //self.addSubview(point)
+                //xpos += 20
+                
+                //Add images to scroll
+                var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+                image.image =  UIImage(named: "noImage.jpg")
+                image.showAfterDownload()
+                //image.backgroundColor = self.media![i].domainColor
+                
+                //if i == 0 {
+                    
+                    self.images += [(image:image, requested:true)]
+                    //BNAppSharedManager.instance.networkManager.requestImageData(self.media![i].url!, image: image)
+                    
+                //} else {
+                    //self.images += [(image:image, requested:false)]
+                //}
+                
+                scroll!.addSubview(image)
+                scrollXPos += SharedUIManager.instance.screenWidth
+            //}
+            
+            //points![previousPoint].setActive()
+            scroll!.contentSize = CGSizeMake(scrollXPos, 0)
+            scroll!.setContentOffset(CGPointZero, animated: false)
+            scroll!.bounces = false
+            scroll!.pagingEnabled = true
         }
     }
     
