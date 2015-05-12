@@ -26,6 +26,7 @@ class BNElement:NSObject {
     
     //Colours
     var titleColor:UIColor?
+    var color:UIColor?
 //    var socialButtonsColor = UIColor.whiteColor()
     
     //Hightlights - Price
@@ -91,6 +92,7 @@ class BNElement:NSObject {
     func clone()->BNElement {
         var clone = BNElement()
         clone.jsonUrl = self.jsonUrl
+        clone.color = self.color
         if let value = self.elementType { clone.elementType = value }
         if let value = self._id { clone._id = value }
         if let value = self.identifier { clone.identifier = value }

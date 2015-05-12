@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "451681486.411868"
+            timestampString = "453155873.648486"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "963"
-            endingLineNumber = "963"
+            startingLineNumber = "966"
+            endingLineNumber = "966"
             landmarkName = "manager(_:requestShowcaseData:)"
             landmarkType = "5">
          </BreakpointContent>
