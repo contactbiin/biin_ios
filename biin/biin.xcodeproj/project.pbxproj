@@ -45,6 +45,7 @@
 		5B3AADE61A9FB52A0022B572 /* SiteView_Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3AADE51A9FB52A0022B572 /* SiteView_Location.swift */; };
 		5B3CF32E1AFFF6DA00A74E77 /* BNIcon_Pricing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3CF32D1AFFF6DA00A74E77 /* BNIcon_Pricing.swift */; };
 		5B3CF3301AFFFDF300A74E77 /* BNIcon_PricingBig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3CF32F1AFFFDF300A74E77 /* BNIcon_PricingBig.swift */; };
+		5B3CF3321B02406500A74E77 /* noImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B3CF3311B02406500A74E77 /* noImage.jpg */; };
 		5B3D75911A67052100CB0D1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75901A67052100CB0D1C /* AppDelegate.swift */; };
 		5B3D75941A67052100CB0D1C /* biin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D75921A67052100CB0D1C /* biin.xcdatamodeld */; };
 		5B3D759B1A67052100CB0D1C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D759A1A67052100CB0D1C /* Images.xcassets */; };
@@ -312,6 +313,7 @@
 		5B3AADE51A9FB52A0022B572 /* SiteView_Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Location.swift; sourceTree = "<group>"; };
 		5B3CF32D1AFFF6DA00A74E77 /* BNIcon_Pricing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Pricing.swift; sourceTree = "<group>"; };
 		5B3CF32F1AFFFDF300A74E77 /* BNIcon_PricingBig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_PricingBig.swift; sourceTree = "<group>"; };
+		5B3CF3311B02406500A74E77 /* noImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noImage.jpg; sourceTree = "<group>"; };
 		5B3D758B1A67052100CB0D1C /* biin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = biin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B3D758F1A67052100CB0D1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B3D75901A67052100CB0D1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -866,6 +868,7 @@
 		5B3D75E81A6816B300CB0D1C /* pictures */ = {
 			isa = PBXGroup;
 			children = (
+				5B3CF3311B02406500A74E77 /* noImage.jpg */,
 				5B1F54FF1AE6FB0200130CFE /* biinShare.png */,
 				5BB3BCEE1AC722A000C46A09 /* biinLogoLS.png */,
 				5B60A4C31AA0FC9E0025ACBA /* mapIcon.png */,
@@ -1257,6 +1260,7 @@
 				5B3D76161A6816B300CB0D1C /* Lato-Medium.ttf in Resources */,
 				5B3D760F1A6816B300CB0D1C /* Lato-Hairline.ttf in Resources */,
 				5B3D759E1A67052100CB0D1C /* LaunchScreen.xib in Resources */,
+				5B3CF3321B02406500A74E77 /* noImage.jpg in Resources */,
 				5BE82CD01AC624B2003342C9 /* iPhone-40-2x.png in Resources */,
 				5B3D76181A6816B300CB0D1C /* Lato-Regular.ttf in Resources */,
 				5B3D761E1A6816B300CB0D1C /* iPhone5bg.png in Resources */,
