@@ -31,7 +31,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     //URL requests
     let connectibityUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
     
-    let regionsUrl = "https://www.biinapp.com/mobile/regions"
+    //let regionsUrl = "https://www.biinapp.com/mobile/regions"
     ///let regionsUrl = "https://biin-qa.herokuapp.com/mobile/regions"
     
     
@@ -576,11 +576,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///Creates a request for all regions and calls the requestRegions(request:BNRequest) method to handle the request.
     func requestRegions() {
         println("requestRegions")
-        var request = BNRequest(requestString:regionsUrl, dataIdentifier: "", requestType:.Regions)
-        self.requests[request.identifier] = request
+        var request:BNRequest?
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/regions", dataIdentifier: "", requestType:.Regions)
+        } else  {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/regions", dataIdentifier: "", requestType:.Regions)
+        }
+        
+        self.requests[request!.identifier] = request!
         
         if !isRequestTimerAllow {
-            self.requestRegions(request)
+            self.requestRegions(request!)
         }
     }
     
@@ -633,13 +639,20 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     ///Conforms optional func manager(manager:BNDataManager!, requestRegionData identifier:String) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestRegionData identifier:String) {
-        var request = BNRequest(requestString: "http://biin.herokuapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
-        self.requests[request.identifier] = request
         
-        println("Region data: \(request.requestString)")
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString: "https://www.biinapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
+        } else {
+            request = BNRequest(requestString: "http://biin.herokuapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
+        }
+
+        self.requests[request!.identifier] = request!
+        println("Region data: \(request!.requestString)")
         
         if !isRequestTimerAllow {
-            self.requestRegionData(request)
+            self.requestRegionData(request!)
         }
     }
     
@@ -735,9 +748,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/\(user.identifier!)/\(10)/\(10)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/\(user.identifier!)/\(10)/\(10)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         }
         self.requests[request!.identifier] = request
         
@@ -1011,33 +1024,53 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 self.handleFailedRequest(request, error: error)
             } else {
                 
+                
+                
+                
+                
                 if let showcaseData = data["data"] as? NSDictionary {
                     
-                    //var showcase = BNShowcase()
-                    showcase.identifier = self.findString("identifier", dictionary: showcaseData)
-                    showcase.lastUpdate = self.findNSDate("lastUpdate", dictionary: showcaseData)
-                    showcase.theme = self.findBNShowcaseTheme("theme", dictionary: showcaseData)
-                    showcase.showcaseType = self.findBNShowcaseType("showcaseType", dictionary: showcaseData)
-                    showcase.title = self.findString("title", dictionary: showcaseData)
-                    showcase.subTitle = self.findString("subTitle", dictionary: showcaseData)
-                    showcase.titleColor = self.findUIColor("titleColor", dictionary: showcaseData)!
-                    var elements = self.findNSArray("elements", dictionary: showcaseData)
-
-                    for var i = 0; i < elements?.count; i++ {
-
-                        var elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
-                        var element = BNElement()
-                        element._id = self.findString("_id", dictionary: elementData)
-                        element.identifier = self.findString("elementIdentifier", dictionary: elementData)
-                        element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
-                        showcase.elements.append(element)
-                        element.color = UIColor.elementColor()
-                    }
                     
-                    self.delegateDM!.manager!(self, didReceivedShowcase: showcase)
                     
-                    if self.isRequestTimerAllow {
-                        self.runRequest()
+                    var status = self.findInt("status", dictionary: showcaseData)
+                    var result = self.findBool("result", dictionary: showcaseData)
+                    //                    var identifier = self.findString("identifier", dictionary: elementData)
+                    
+                    if status != nil {
+                        
+                        //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Request showcase data BAD! \(status!) request: \(request.requestString)")
+                        
+                    } else {
+                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        //println("*** Request showcase data COOL!")
+                    
+                        //var showcase = BNShowcase()
+                        showcase.identifier = self.findString("identifier", dictionary: showcaseData)
+                        showcase.lastUpdate = self.findNSDate("lastUpdate", dictionary: showcaseData)
+                        showcase.theme = self.findBNShowcaseTheme("theme", dictionary: showcaseData)
+                        showcase.showcaseType = self.findBNShowcaseType("showcaseType", dictionary: showcaseData)
+                        showcase.title = self.findString("title", dictionary: showcaseData)
+                        showcase.subTitle = self.findString("subTitle", dictionary: showcaseData)
+                        showcase.titleColor = self.findUIColor("titleColor", dictionary: showcaseData)!
+                        var elements = self.findNSArray("elements", dictionary: showcaseData)
+
+                        for var i = 0; i < elements?.count; i++ {
+
+                            var elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
+                            var element = BNElement()
+                            element._id = self.findString("_id", dictionary: elementData)
+                            element.identifier = self.findString("elementIdentifier", dictionary: elementData)
+                            element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
+                            showcase.elements.append(element)
+                            element.color = UIColor.elementColor()
+                        }
+                        
+                        self.delegateDM!.manager!(self, didReceivedShowcase: showcase)
+                        
+                        if self.isRequestTimerAllow {
+                            self.runRequest()
+                        }
                     }
                 }
                 
@@ -1123,7 +1156,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         
                     } else {
                         //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                        println("*** Request element data COOL!")
+                        //println("*** Request element data COOL!")
 
                         
                         
@@ -1131,7 +1164,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         //var element = BNElement()
                         element.isDownloadCompleted = true
                         element.identifier = self.findString("identifier", dictionary: elementData)
-                        println("Processing: \(element.identifier!)")
+                        //println("Processing: \(element.identifier!)")
                         element.elementType = self.findBNElementType("elementType", dictionary: elementData)
                         element.position = self.findInt("position", dictionary: elementData)
                         element.title = self.findString("title", dictionary: elementData)

@@ -50,6 +50,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         
         addCategoriesSitesContainers()
         
+        //HACK: This hack is to show all sites on one category and remove the call to the method before.
+        //addSitesToOneContainer()
+        
+        
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         headerDelegate = header
         self.addSubview(header!)
@@ -118,6 +122,9 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         //Sets all user categories on section for further use
         //BNAppSharedManager.instance.dataManager.loadUserSections()
         
+        println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
+
+        
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
             var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
@@ -150,6 +157,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
             categorySitesContainers![0].getToWork()
             //categorySitesContainers![0].manageSitesImageRequest()
         }
+        
+    }
+    
+    func addSitesToOneContainer(){
         
     }
     
