@@ -36,6 +36,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var rangedRegions:NSMutableDictionary = NSMutableDictionary();
     
     var currentSiteUUID:NSUUID?
+    var locationFixAchieved = false
+    var userCoordinates:CLLocationCoordinate2D?
     
     init(errorManager:BNErrorManager){
         
@@ -59,6 +61,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.locationManager!.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager!.requestAlwaysAuthorization()
         self.locationManager!.requestWhenInUseAuthorization()
+        self.locationManager!.startUpdatingLocation()
         
         if self.bluetoothManager == nil {
             self.bluetoothManager = CBCentralManager(delegate: self, queue: nil, options: nil)
@@ -66,8 +69,18 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
     }
     
+    func getCurrentLocation(){
+        if self.locationManager == nil {
+            startLocationService()
+        }
+        
+        locationFixAchieved = false
+        locationManager!.startUpdatingLocation()
+    }
+    
     
     //CLLocationManagerDelegate - Responding to Authorization Changes
+    
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
         println("didChangeAuthorizationStatus()")
@@ -101,13 +114,24 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
     }
     
+   
     
     //CLLocationManagerDelegate - Responding to Location Events
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]) {
-        self.delegateView?.manager?(self, printText:"LocationManager update should not be working")
+//        self.delegateView?.manager?(self, printText:"LocationManager update should not be working")
 //        var location:CLLocation = locations[0] as CLLocation
 //        println("updade location latitude: \(location.coordinate.latitude)")
 //        println("updade location longitude: \(location.coordinate.latitude)")
+        
+            if (locationFixAchieved == false) {
+                locationFixAchieved = true
+                var locationArray = locations as NSArray
+                var locationObj = locationArray.lastObject as? CLLocation
+                userCoordinates = locationObj!.coordinate
+                println("LAT:  \(userCoordinates!.latitude)")
+                println("LONG: \(userCoordinates!.longitude)")
+                locationManager!.stopUpdatingLocation()
+            }
         
 
     }
@@ -469,6 +493,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     }
     
     func startRegionsMonitoring(regions:Array<BNRegion>){
+        
+        return
+        
         for region in regions {
             
             println("Monitoring region 2: \(region.identifier!)")

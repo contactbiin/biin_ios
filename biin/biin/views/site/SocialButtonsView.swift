@@ -45,7 +45,7 @@ class SocialButtonsView:BNView {
         
         xpos += biinBtn!.frame.width + xSpace
         commentBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
-        self.addSubview(commentBtn!)
+        //self.addSubview(commentBtn!)
         
 //        if self.showShareButton {
 //            xpos += commentBtn!.frame.width + xSpace
@@ -70,7 +70,7 @@ class SocialButtonsView:BNView {
         
         xpos += biinBtn!.frame.width + xSpace
         commentBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.commentSmall)
-        self.addSubview(commentBtn!)
+        //self.addSubview(commentBtn!)
     }
     
     override func transitionIn() {

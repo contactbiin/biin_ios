@@ -10,6 +10,8 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
+    var IS_PRODUCTION_RELEASE = true
+    
     var counter = 0
     var version = "0.1.8"
     
@@ -19,8 +21,6 @@ class BNAppManager {
     var positionManager:BNPositionManager
     var networkManager:BNNetworkManager
     var errorManager:BNErrorManager
-    
-    var IS_PRODUCTION_RELEASE = false
     
     var areNewNotificationsPendingToShow = false
     
