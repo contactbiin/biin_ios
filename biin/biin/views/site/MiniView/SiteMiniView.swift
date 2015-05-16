@@ -46,8 +46,12 @@ class SiteMiniView: BNView {
         
         self.site = site
         
-        if let color = site!.media[0].domainColor {
-            self.backgroundColor = color
+        if site!.media.count > 0 {
+            if let color = site!.media[0].domainColor {
+                self.backgroundColor = color
+            } else {
+                self.backgroundColor = UIColor.appMainColor()
+            }
         } else {
             self.backgroundColor = UIColor.appMainColor()
         }
@@ -104,7 +108,13 @@ class SiteMiniView: BNView {
         if imageRequested { return }
 
         imageRequested = true
-        BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: image)
+        
+        if site!.media.count > 0 {
+            BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: image)
+        } else {
+            image!.image =  UIImage(named: "noImage.jpg")
+            image!.showAfterDownload()
+        }
     }
     
     /* Gesture hadlers */

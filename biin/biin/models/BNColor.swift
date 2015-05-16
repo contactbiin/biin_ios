@@ -237,5 +237,16 @@ extension UIColor {
         return UIColor(red:0/255, green: 173/255, blue: 239/199, alpha: 1)
         //return UIColor.blackColor()
     }
+    
+    class func elementColor() -> UIColor! {
+        
+        if BNAppSharedManager.instance.elementColorIndex  >= (BNAppSharedManager.instance.elementColors.count - 1) {
+            BNAppSharedManager.instance.elementColorIndex = -1
+        }
+        
+        BNAppSharedManager.instance.elementColorIndex++
+        
+        return BNAppSharedManager.instance.elementColors[BNAppSharedManager.instance.elementColorIndex]
+    }
 }
 

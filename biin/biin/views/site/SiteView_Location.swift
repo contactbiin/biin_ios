@@ -277,7 +277,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         annotation!.coordinate = siteLocation!
         //annotation!.setCoordinate(siteLocation!)
         
-        BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)
+        if site!.media.count > 0 {
+            BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)
+        } else {
+            siteAvatar!.image =  UIImage(named: "noImage.jpg")
+            siteAvatar!.showAfterDownload()
+        }
+        
+        
+
     }
     
     func call(sender:BNUIButton_Contact){

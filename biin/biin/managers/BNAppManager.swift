@@ -10,6 +10,8 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
+    var IS_PRODUCTION_RELEASE = true
+    
     var counter = 0
     var version = "0.1.8"
     
@@ -20,8 +22,6 @@ class BNAppManager {
     var networkManager:BNNetworkManager
     var errorManager:BNErrorManager
     
-    var IS_PRODUCTION_RELEASE = false
-    
     var areNewNotificationsPendingToShow = false
     
     var mainViewController:MainViewController?
@@ -31,13 +31,18 @@ class BNAppManager {
     var IS_APP_UP:Bool = false
     var isWaitingForLocationServicesPermision = false
     
+    var elementColorIndex = 0
+    var elementColors:Array<UIColor> = Array<UIColor>()
+    
     init(){
         self.counter++
-
+        
         errorManager = BNErrorManager()
         dataManager = BNDataManager(errorManager:errorManager)
         positionManager = BNPositionManager(errorManager:errorManager)
         networkManager = BNNetworkManager(errorManager:errorManager)
+        
+        self.addElementColors()
         
         networkManager.delegateDM = dataManager
         dataManager.delegateNM = networkManager
@@ -163,6 +168,19 @@ class BNAppManager {
 
         //Notify main view to show circle
         delegate!.manager!(showNotifications: true)
+    }
+    
+    func addElementColors(){
+        elementColors.append(UIColor.bnBlue())
+        elementColors.append(UIColor.bnGreen())
+        elementColors.append(UIColor.bnOrange())
+        elementColors.append(UIColor.bnBlue())
+        elementColors.append(UIColor.bnCyan())
+        elementColors.append(UIColor.bnRed())
+        elementColors.append(UIColor.bnPurple())
+        elementColors.append(UIColor.bnGreenDark())
+        elementColors.append(UIColor.bnBlueDark())
+        elementColors.append(UIColor.bnOrangeBase())
     }
 }
 

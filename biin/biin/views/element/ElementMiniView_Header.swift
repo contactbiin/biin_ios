@@ -41,7 +41,7 @@ class ElementMiniView_Header:BNView {
         ypos += 17
         
         if showCircle {
-            circleLabel = BNUICircleLabel(frame: CGRectMake(xpos, 24, 25, 25), color:element!.titleColor!, text: "\(elementPosition)", textSize: 14, isFilled: false)
+            circleLabel = BNUICircleLabel(frame: CGRectMake(xpos, 24, 25, 25), color:element!.color!, text: "\(elementPosition)", textSize: 14, isFilled: false)
             self.addSubview(circleLabel!)
             xpos += 28
             

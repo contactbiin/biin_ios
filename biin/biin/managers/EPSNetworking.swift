@@ -133,7 +133,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func getJson( url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
-        var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 15.0)
+        var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
 
 //        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
 //        request.setValue("application/json", forHTTPHeaderField:"Accept")
@@ -244,7 +244,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func post(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
-        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
+        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
         
         var err: NSError?
         request.HTTPMethod = "POST"
@@ -273,7 +273,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func put(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
-        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
+        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
         
         var err: NSError?
         request.HTTPMethod = "PUT"
@@ -303,7 +303,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func delete(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
-        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
+        var request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
         
         var err: NSError?
         request.HTTPMethod = "DELETE"

@@ -35,7 +35,7 @@ class ElementView_Details:BNView {
         elementIdentifier = element!._id
         var titleSize:CGFloat = SharedUIManager.instance.elementView_titleSize
         var textSize:CGFloat = SharedUIManager.instance.elementView_textSize
-        var quoteSize:CGFloat = SharedUIManager.instance.elementView_quoteSize
+        var quoteSize:CGFloat = SharedUIManager.instance.elementView_quoteSize + 2
         var priceListSize:CGFloat = SharedUIManager.instance.elementView_priceList
         var ypos:CGFloat = 0
         var spacer:CGFloat = 5
@@ -161,7 +161,7 @@ class ElementView_Details:BNView {
                 ypos += 25
                 var quote = UILabel(frame: CGRectMake(20, ypos, (frame.width - 40), 0))
                 quote.text = detail.text
-                quote.textColor = UIColor.appTextColor()
+                quote.textColor = element!.color!
                 quote.font = UIFont(name: "Lato-Regular", size: quoteSize)
                 quote.numberOfLines = 0
                 quote.sizeToFit()
@@ -169,7 +169,7 @@ class ElementView_Details:BNView {
                 self.addSubview(quote)
                 
                 var quoteView = UIView(frame: CGRectMake(10, (ypos - 5), 2, (quote.frame.height + 10)))
-                quoteView.backgroundColor = UIColor.biinColor()
+                quoteView.backgroundColor = element!.color!
                 self.addSubview(quoteView)
                 
                 ypos += quoteView.frame.height

@@ -226,7 +226,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
-        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:self.regions["bnHome"]!)
+//        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:self.regions["bnHome"]!)
+        delegateNM!.manager!(self, requestCategoriesData: bnUser!)
         
         if self.regions.count > 0 {
             //TESTING
@@ -248,10 +249,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: Categories received from web service in json format already parse in an nice array.
     func manager(manager: BNNetworkManager!, didReceivedUserCategories categories: Array<BNCategory>) {
 
+
+        println("didReceivedUserCategories(): \(categories.count)")
         bnUser!.categories.removeAll(keepCapacity: false)
-        bnUser!.categories = categories
+        bnUser!.categories = Array<BNCategory>()
+
+
         
-        for category in bnUser!.categories {
+        for category in categories {
             
             //println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
 
@@ -269,8 +274,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     delegateNM!.manager!(self, requestSiteData: site, user:bnUser!)
                 }
             }
+            
+            bnUser!.categories.append(category)
+            
         }
         
+        println("user categories(): \(bnUser!.categories.count)")
         
     }
     

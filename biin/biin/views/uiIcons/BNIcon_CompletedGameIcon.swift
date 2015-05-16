@@ -21,7 +21,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let colorBiin = UIColor.biinColor()
+        let colorWhite = UIColor.whiteColor()
         //let color0 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
         
         //// Group
@@ -42,9 +42,9 @@ class BNIcon_CompletedGameIcon:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(66.6, 39.67))
         bezier2Path.addCurveToPoint(CGPointMake(39.56, 66.6), controlPoint1: CGPointMake(66.49, 54.53), controlPoint2: CGPointMake(54.49, 66.6))
         bezier2Path.closePath()
-        colorBiin.setFill()
+        color!.setFill()
         bezier2Path.fill()
-        color!.setStroke()
+        colorWhite.setStroke()
         bezier2Path.lineWidth = 2
         bezier2Path.stroke()
         
@@ -61,7 +61,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         bezier4Path.closePath()
         bezier4Path.lineJoinStyle = kCGLineJoinRound;
         
-        color!.setStroke()
+        colorWhite.setStroke()
         bezier4Path.lineWidth = 2
         bezier4Path.stroke()
         
