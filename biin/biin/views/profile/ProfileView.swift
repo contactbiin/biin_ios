@@ -347,7 +347,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         //saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColor
         scroll!.addSubview(saveBtn!)
         
-        ypos += 75
+        ypos += 100
         scroll!.contentSize = CGSizeMake(screenWidth, ypos)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
@@ -540,6 +540,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         println("textFieldDidEndEditing")
         
+        /*
         if textField.placeholder == "Name" || textField.placeholder == "Lastname" {
             biinieNameLbl!.text = "\(nameTxt!.textField!.text) \(lastNameTxt!.textField!.text)"
         }
@@ -547,6 +548,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         if textField.placeholder == "Email" {
             biinieUserNameLbl!.text = "\(emailTxt!.textField!.text)"
         }
+        */
     }// may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
     
     

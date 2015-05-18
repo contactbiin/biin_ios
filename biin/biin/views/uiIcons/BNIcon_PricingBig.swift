@@ -34,22 +34,22 @@ class BNIcon_PricingBig:BNIcon {
         
         //// Group
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, (position.x - 7), (position.y - 7.95405845398))
+        CGContextTranslateCTM(context, (position.x - 0.0459415460184), (position.y - 0.5))
         
         
         
         //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(rect: CGRectMake(7, 7.95, 94, 43.94))
+        let rectanglePath = UIBezierPath(rect: CGRectMake(0.05, 0.5, 94, 43.94))
         color2.setFill()
         rectanglePath.fill()
         
         
         //// Bezier Drawing
         var bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(7, 7.95))
-        bezierPath.addLineToPoint(CGPointMake(50, 7.95))
-        bezierPath.addLineToPoint(CGPointMake(7, 50.95))
-        bezierPath.addLineToPoint(CGPointMake(7, 7.95))
+        bezierPath.moveToPoint(CGPointMake(0.05, 0.5))
+        bezierPath.addLineToPoint(CGPointMake(49.05, 0.5))
+        bezierPath.addLineToPoint(CGPointMake(0.05, 49.5))
+        bezierPath.addLineToPoint(CGPointMake(0.05, 0.5))
         bezierPath.closePath()
         color.setFill()
         bezierPath.fill()
@@ -57,19 +57,19 @@ class BNIcon_PricingBig:BNIcon {
         
         //// Text Drawing
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 0, 33.05)
+        CGContextTranslateCTM(context, -0, 28.55)
         CGContextRotateCTM(context, -45 * CGFloat(M_PI) / 180)
         
-        let textRect = CGRectMake(0, 0, 46.73, 16.91)
+        let textRect = CGRectMake(0, 0, 40.37, 13.99)
         let textStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.Center
         
-        let textFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(10), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(13), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: textStyle]
         
         let textTextHeight: CGFloat = NSString(string: self.text!).boundingRectWithSize(CGSizeMake(textRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         CGContextSaveGState(context)
         CGContextClipToRect(context, textRect);
-        NSString(string: self.text!).drawInRect(CGRectMake(textRect.minX, textRect.minY + (textRect.height - textTextHeight) / 2, textRect.width, textTextHeight), withAttributes: textFontAttributes)
+        NSString(string: self.text!).drawInRect(CGRectMake(textRect.minX, textRect.minY + textRect.height - textTextHeight, textRect.width, textTextHeight), withAttributes: textFontAttributes)
         CGContextRestoreGState(context)
         
         CGContextRestoreGState(context)
@@ -77,5 +77,6 @@ class BNIcon_PricingBig:BNIcon {
         
         
         CGContextRestoreGState(context)
+
     }
 }

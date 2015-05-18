@@ -30,7 +30,7 @@ class BiinItAnimationView:UIView {
         
         var x:CGFloat = ((frame.width - 86) / 2 )
         var y:CGFloat = ((frame.height - 86 ) / 2 )
-        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(x, y, 86, 86), father: nil, color: UIColor.clearColor())
+        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(x, y, 86, 86), father: nil, color: UIColor.biinColor())
         circleIcon!.alpha = 0
         self.addSubview(circleIcon!)
         

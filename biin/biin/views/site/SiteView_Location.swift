@@ -78,15 +78,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: siteAvatar)
 
         xpos += 100
-        ypos += 5
         
         title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 22))
-        title!.font = UIFont(name: "Lato-Regular", size: 20)
+        title!.font = UIFont(name: "Lato-Black", size: 20)
         title!.text = ""
         title!.textColor = UIColor.biinColor()
         self.addSubview(title!)
         
-        ypos += 22
+        ypos += 23
         streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
         streetAddress1!.font = UIFont(name: "Lato-Light", size: 12)
         streetAddress1!.text = "Address"
@@ -239,7 +238,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             var value = NSLocalizedString("Phone", comment: "Phone")
             phoneNumber!.text = "\(value): \(site!.phoneNumber!)"
             phoneNumber!.frame.origin.y = ypos
-            ypos += 13
+            phoneNumber!.sizeToFit()
+            ypos += phoneNumber!.frame.height
             
             callBtn!.icon!.color = site!.titleColor!
             callBtn!.showEnable()
@@ -253,6 +253,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             var value = NSLocalizedString("Email", comment: "Email")
             email!.text = "\(value): \(site!.email!)"
             email!.frame.origin.y = ypos
+            email!.sizeToFit()
+            ypos += email!.frame.height
             
             emailBtn!.icon!.color = site!.titleColor!
             emailBtn!.showEnable()
@@ -265,17 +267,24 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //commentBtn!.icon!.color = site!.titleColor!
         //commentBtn!.showDisable()
        
+        ypos += 10
+        var total:CGFloat = (ypos - siteAvatarView!.frame.height) / 2
+        siteAvatarView!.frame.origin.y = total
+        
         
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
-        
+
+        ypos += 10
         let span = MKCoordinateSpanMake(0.1, 0.1)
         let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
+        map!.frame.origin.y = ypos
         
-        
-
         annotation!.coordinate = siteLocation!
-        //annotation!.setCoordinate(siteLocation!)
+        
+        ypos += (map!.frame.height + 10)
+        emailBtn!.frame.origin.y = ypos
+        callBtn!.frame.origin.y = ypos
         
         if site!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)
