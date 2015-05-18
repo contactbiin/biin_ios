@@ -52,20 +52,28 @@ class ProfileView: BNView, UITextFieldDelegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        title = UILabel(frame: CGRectMake(0, 25, screenWidth, (SharedUIManager.instance.siteView_titleSize + 2)))
-        title!.text = NSLocalizedString("Profile", comment: "title")
+//        title = UILabel(frame: CGRectMake(0, 25, screenWidth, (SharedUIManager.instance.siteView_titleSize + 2)))
+//        title!.text = NSLocalizedString("Profile", comment: "title")
+//        title!.textColor = UIColor.appTextColor()
+//        title!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_titleSize )
+//        title!.textAlignment = NSTextAlignment.Center
+//        self.addSubview(title!)
+        
+        var ypos:CGFloat = 12
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.appTextColor()
-        title!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_titleSize )
         title!.textAlignment = NSTextAlignment.Center
+        title!.text = NSLocalizedString("Profile", comment: "title")
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
 
         var headerWidth = screenWidth - 60
         var xpos:CGFloat = (screenWidth - headerWidth) / 2
-        var ypos:CGFloat = 15
+        ypos = 15
         
         /*
         var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
@@ -111,21 +119,20 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(biinieUserNameLbl!)
         */
         
-        ypos += 40
+        ypos = SharedUIManager.instance.siteView_headerHeight
         var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
         self.addSubview(scroll!)
         self.addSubview(line)
-        
 
         var fontSize:CGFloat = 14
         var labelHeight:CGFloat = fontSize + 3
         
         ypos = 5
         var nameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
-        nameLbl.font = UIFont(name: "Lato-Light", size: fontSize)
+        nameLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         nameLbl.text = NSLocalizedString("Name", comment: "name")
         nameLbl.textColor = UIColor.biinColor()
         nameLbl.textAlignment = NSTextAlignment.Right
@@ -143,7 +150,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         scroll!.addSubview(line)
 
         var lastNameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
-        lastNameLbl.font = UIFont(name: "Lato-Light", size: fontSize)
+        lastNameLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         lastNameLbl.text = NSLocalizedString("Lastname", comment: "Lastname")
         lastNameLbl.textColor = UIColor.biinColor()
         lastNameLbl.textAlignment = NSTextAlignment.Right
@@ -161,7 +168,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         scroll!.addSubview(line)
         
         var userNameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
-        userNameLbl.font = UIFont(name: "Lato-Light", size: fontSize)
+        userNameLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         userNameLbl.text = NSLocalizedString("Username", comment: "Username")
         userNameLbl.textColor = UIColor.biinColor()
         userNameLbl.textAlignment = NSTextAlignment.Right
@@ -180,7 +187,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         scroll!.addSubview(line)
         
         var emailLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
-        emailLbl.font = UIFont(name: "Lato-Light", size: fontSize)
+        emailLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         emailLbl.text = NSLocalizedString("Email", comment: "Email")
         emailLbl.textColor = UIColor.biinColor()
         emailLbl.textAlignment = NSTextAlignment.Right
@@ -198,7 +205,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         scroll!.addSubview(line)
         
         var emailVerifyLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
-        emailVerifyLbl.font = UIFont(name: "Lato-Light", size: fontSize)
+        emailVerifyLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         emailVerifyLbl.text = NSLocalizedString("IsEmailVerified", comment: "IsEmailVerified")
         emailVerifyLbl.textColor = UIColor.biinColor()
         emailVerifyLbl.textAlignment = NSTextAlignment.Right
@@ -224,7 +231,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         scroll!.addSubview(line)
         
         var birthDateLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
-        birthDateLbl.font = UIFont(name: "Lato-Light", size: fontSize)
+        birthDateLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         birthDateLbl.text = NSLocalizedString("Birthdate", comment: "Birthdate")
         birthDateLbl.textColor = UIColor.biinColor()
         birthDateLbl.textAlignment = NSTextAlignment.Right
@@ -244,7 +251,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         scroll!.addSubview(line)
         
         genderLbl = UILabel(frame: CGRectMake(-10, (ypos + 13), (screenWidth / 2), labelHeight))
-        genderLbl!.font = UIFont(name: "Lato-Light", size: fontSize)
+        genderLbl!.font = UIFont(name: "Lato-Black", size: fontSize)
         genderStr = BNAppSharedManager.instance.dataManager.bnUser!.gender!
         
         if genderStr == "male"  {
@@ -289,7 +296,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         ypos += 20
         categoriesTitle = UILabel(frame:CGRectMake(0, ypos, (screenWidth / 2), 45))
         categoriesTitle!.textColor = UIColor.appTextColor()
-        categoriesTitle!.font = UIFont(name: "Lato-Light", size: 16)
+        categoriesTitle!.font = UIFont(name: "Lato-Black", size: 16)
         categoriesTitle!.text = NSLocalizedString("WhatAreYouInterest", comment: "WhatAreYouInterest")
         categoriesTitle!.numberOfLines = 2
         categoriesTitle!.textAlignment  = NSTextAlignment.Center

@@ -53,18 +53,17 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         //self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         //TODO: Add all showcase data here
         
-        var ypos:CGFloat = 5
-        ypos += 18
+        var ypos:CGFloat = 3
         
-        title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 2)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
+        title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.text = self.collection!.title!
-        title!.textColor = UIColor.appTextColor()
+        title!.textColor = UIColor.biinColor()
         self.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_titleSize + 2
+        ypos += SharedUIManager.instance.siteView_titleSize + 3
         
-        subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
+        subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.appTextColor()
         subTitle!.text = self.collection!.subTitle!
@@ -189,6 +188,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
 
             
                 itemView!.collectionScrollPosition = itemPosition
+                itemView!.delegate = self
                 xpos += SharedUIManager.instance.miniView_width + spacer
                 //elementView!.delegate = self
                 scroll!.addSubview(itemView!)

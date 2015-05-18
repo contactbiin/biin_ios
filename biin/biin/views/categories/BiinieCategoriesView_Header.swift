@@ -55,9 +55,12 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
 
         addButtons()
         
-        if BNAppSharedManager.instance.dataManager.bnUser!.categories.count > 0 {
-            addCategoriesPoints()
-        }
+        //if BNAppSharedManager.instance.dataManager.bnUser!.categories.count > 0 {
+        //    addCategoriesPoints()
+        //}
+        
+        //HACK: show only three options
+        add3Options()
     }
     
     override func transitionIn() {
@@ -141,6 +144,31 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
             */
             xpos += 20
         }
+        
+        points[0].setActive()
+    }
+    
+    func add3Options() {
+        var totalLength:CGFloat = CGFloat( 2 * 20)
+        var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
+        var xpos:CGFloat = (space - 5)
+        
+        categoryNameLbl!.text = NSLocalizedString("Places", comment:"Places")
+        var point1 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("Places", comment:"Places"))
+        self.points.append(point1)
+        self.addSubview(point1)
+        xpos += 20
+
+        
+        var point2 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("HightLights", comment:"HightLights"))
+        self.points.append(point2)
+        self.addSubview(point2)
+        xpos += 20
+        
+        var point3 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("Biins", comment:"Biins"))
+        self.points.append(point3)
+        self.addSubview(point3)
+        xpos += 20
         
         points[0].setActive()
     }

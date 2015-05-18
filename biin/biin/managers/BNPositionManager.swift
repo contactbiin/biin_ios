@@ -469,8 +469,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //Methods to conform on BNPositionManager
     func manager(manager:BNDataManager!, startRegionsMonitoring regions:Array<BNRegion>) {
         
-        return
-        
+        /*
         for region in regions {
             
             println("Monitoring region 1: \(region.identifier!)")
@@ -489,6 +488,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             
             self.delegateView?.manager!(self, setPinOnMapWithLat: region.latitude!, long: region.longitude!, radious: region.radious!, title: region.identifier!, subtitle: region.identifier!)
         }
+        */
     }
     
     func startRegionsMonitoring(regions:Array<BNRegion>){

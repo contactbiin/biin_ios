@@ -97,5 +97,9 @@ Wellcome = "Welcome to biin!";
 EmailMsj = "Hello there!";
 
 /* Collection View Temporal */
-CollectionTitle = "Biined stuff.";
-CollectionSubTitle = "This is a list of all your biined stuff";
+CollectionTitle = "Your biined stuff.";
+CollectionSubTitle = "This is a list of all your biined stuff.";
+
+Places = "Sites";
+HightLights = "HightLights";
+Biins = "Biins";

@@ -93,5 +93,9 @@ Wellcome = "Bienvenido a Biin!";
 EmailMsj = "Saludos, esto es Biin!";
 
 /* Collection View Temporal */
-CollectionTitle = "Coleccón de biins";
+CollectionTitle = "Colección de biins";
 CollectionSubTitle = "Esta es una lista de todas tus cosas en biin.";
+
+Places = "Lugares";
+HightLights = "Recomendados";
+Biins = "Biins";

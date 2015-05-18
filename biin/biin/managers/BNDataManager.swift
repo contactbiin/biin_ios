@@ -74,6 +74,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestInitialData(){
         //Request
+        delegateNM!.manager!(self, requestBiinieData: bnUser!)
+
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
     
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
