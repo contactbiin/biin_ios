@@ -69,6 +69,7 @@ class Biinie:NSObject, NSCoding {
         self.birthDate = aDecoder.decodeObjectForKey("birthDate") as? NSDate
         self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
+        self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         
         self.newNotificationCount = 0
         self.notificationIndex = 0
@@ -101,6 +102,10 @@ class Biinie:NSObject, NSCoding {
         
         if let isEmailVerified = self.isEmailVerified {
             aCoder.encodeBool(isEmailVerified, forKey: "isEmailVerified")
+        }
+        
+        if let gender = self.gender {
+            aCoder.encodeObject(gender, forKey: "gender")
         }
         
         aCoder.encodeObject(actions, forKey: "actions")

@@ -48,10 +48,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         scroll!.delegate = self
         self.addSubview(scroll!)
         
-        addCategoriesSitesContainers()
+        //addCategoriesSitesContainers()
         
         //HACK: This hack is to show all sites on one category and remove the call to the method before.
-        //addSitesToOneContainer()
+        addSitesToOneContainer()
         
         
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
@@ -162,6 +162,57 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     func addSitesToOneContainer(){
         
+        var screenWidth = SharedUIManager.instance.screenWidth
+        var screenHeight = SharedUIManager.instance.screenHeight
+        var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+        
+        var xpos:CGFloat = 0.0
+        var counter = 0
+        
+        categorySitesContainers?.removeAll(keepCapacity: false)
+        categorySitesContainers = Array<BiinieCategoriesView_SitesContainer>()
+        
+        numberOfCategories = BNAppSharedManager.instance.dataManager.bnUser!.categories.count
+        
+        //Sets all user categories on section for further use
+        //BNAppSharedManager.instance.dataManager.loadUserSections()
+        
+        println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
+        println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
+
+        
+        //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            
+            var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+            var sitesContainer = BiinieCategoriesView_SitesContainer(frame: frame, father: self, allSites: true) //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
+            
+            categorySitesContainers!.append(sitesContainer)
+            scroll!.addSubview(sitesContainer)
+            
+            if counter == ( numberOfCategories - 1 ){
+                xpos += screenWidth
+            }else {
+                xpos += screenWidth + SharedUIManager.instance.spacer
+            }
+            
+            
+            
+            //counter++
+            
+            //            if counter == 4 {
+            //                showFx = true
+            //            } else {
+            //                showFx = false
+            //            }
+        //}
+        
+        scroll!.contentSize = CGSizeMake(xpos, 316)
+        scroll!.pagingEnabled = true
+        
+        if categorySitesContainers!.count > 0 {
+            categorySitesContainers![0].getToWork()
+            //categorySitesContainers![0].manageSitesImageRequest()
+        }
     }
     
     func showNotification(){

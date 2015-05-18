@@ -73,25 +73,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //}
     
     func requestInitialData(){
-        
-        //Verified email
-        //if !bnUser!.isEmailVerified! {
-            //delegateNM!.manager!(self, checkIsEmailVerified: bnUser!.identifier!)
-        //}
-        
-        //Request regions
-        BNAppSharedManager.instance.networkManager.requestRegions()
-
-        //1. Request user biined data
-        delegateNM!.manager!(self, requestBiinieData: bnUser!)
-        
-        //delegateNM!.manager!(self, requestBiinedElementListForBNUser: bnUser!)
-        //delegateNM!.manager!(self, requestBoardsForBNUser:bnUser!)
-        
-        //2. Request user categories data.
-        //delegateNM!.manager!(self, requestCategoriesData:bnUser!)
-        
-//        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:         regions["bnHome"]!)
+        //Request
+        delegateNM!.manager!(self, requestCategoriesData: bnUser!)
+    
+        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
 
     }
     
@@ -166,7 +151,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         categories!.append(BNCategory(identifier: "category16", name: "Bars"))
     }
 
-    
     func removeNotification(identifier:Int){
         for var i = 0; i < notifications.count; i++ {
             if notifications[i].identifier == identifier {
@@ -205,6 +189,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
         bnUser!.identifier = idetifier
         bnUser!.save()
+        isUserLoaded = true
     }
     
     func manager(manager: BNNetworkManager!, didReceivedEmailVerification value: Bool) {
@@ -218,6 +203,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: Regions received from web service in json format already parse in an nice array.
     func manager(manager:BNNetworkManager!, didReceivedRegions regions:Array<BNRegion>) {
         
+        
+        /*
         for region in regions {
             //Check if regions exist.
             if self.regions[region.identifier!] == nil {
@@ -225,17 +212,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 self.regions[region.identifier!] = region
             }
         }
-        
+        */
 //        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:self.regions["bnHome"]!)
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
         
+        /*
         if self.regions.count > 0 {
             //TESTING
-        
-            
             self.delegatePM!.manager!(self, startRegionsMonitoring:Array(self.regions.values))
         }
-
+        */
+        
         //FIXME: This few lines are only for testing when not entering a regions.
 //        self.currentRegionIdentifier = "bnHome"
 //        self.delegateNM!.manager!(self, requestRegionData:self.currentRegionIdentifier!)
@@ -256,11 +243,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
 
         
+        
+        
+        
         for category in categories {
             
-            //println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
 
             category.name = findCategoryNameByIdentifier(category.identifier!)
+            
+            //BNAppSharedManager.instance.biinieCategoriesBckup[category.name!] = category
             
             for siteDetails in category.sitesDetails {
                 //Check if site exist.
@@ -279,6 +271,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
         }
         
+        //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
         println("user categories(): \(bnUser!.categories.count)")
         
     }
@@ -603,7 +596,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             self.bnUser = user
             self.bnUser!.save()
         }
-        /*
+        /*x
         //Add a temporal BNCollection
         bnUser!.collections = Dictionary<String, BNCollection>()
         var collection = BNCollection()
@@ -613,7 +606,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         bnUser!.collections![collection.identifier!] = collection
         */
         
-        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
+       // delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
     func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {

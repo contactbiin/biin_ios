@@ -97,7 +97,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
         biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(biinItButton!)
+        //scroll!.addSubview(biinItButton!)
 
         
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - 41), 4, 37, 37))

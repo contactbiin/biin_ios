@@ -34,6 +34,8 @@ class BNAppManager {
     var elementColorIndex = 0
     var elementColors:Array<UIColor> = Array<UIColor>()
     
+    var biinieCategoriesBckup = Dictionary<String, BNCategory>()
+    
     init(){
         self.counter++
         

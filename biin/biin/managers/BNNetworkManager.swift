@@ -187,6 +187,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
+                    println("REGISTER DATA: \(dataData)")
                     var status = self.findInt("status", dictionary: dataData)
                     var result = self.findBool("result", dictionary: dataData)
                     var identifier = self.findString("identifier", dictionary: dataData)
@@ -195,12 +196,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         println("*** Register for user \(user.email!) COOL!")
                         self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                        
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
                         println("*** Register for user \(user.email!) SUCK!")
                     }
                     
                     self.delegateVC!.manager!(self, didReceivedRegisterConfirmation: response)
+                    //BNAppSharedManager.instance.dataManager.bnUser = user
+
                     
                     if self.isRequestTimerAllow {
                         self.runRequest()
@@ -235,12 +239,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         
         var httpError: NSError?
         var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
-        
+  
         var response:BNResponse?
         
         epsNetwork!.post(request!.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            println("*** data \(data)")
             
             if (error != nil) {
                 println("Error on posting categoies")
