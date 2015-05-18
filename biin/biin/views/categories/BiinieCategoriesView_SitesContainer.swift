@@ -63,6 +63,25 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         addSites()
     }
     
+    convenience init(frame: CGRect, father: BNView?, allSites:Bool) {
+        self.init(frame: frame, father:father )
+        
+        self.backgroundColor = UIColor.appBackground()
+        
+        var screenWidth = SharedUIManager.instance.screenWidth
+        var screenHeight = SharedUIManager.instance.screenHeight
+        
+        scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - SharedUIManager.instance.categoriesHeaderHeight)))
+        //        scroll!.backgroundColor = UIColor.biinColor()
+        scroll!.showsHorizontalScrollIndicator = false
+        scroll!.showsVerticalScrollIndicator = false
+        scroll!.delegate = self
+        scroll!.bounces = false
+        self.addSubview(scroll!)
+        
+        addAllSites()
+    }
+    
     override func transitionIn() {
 
     }
@@ -97,13 +116,13 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     func getToWork(){
         isWorking = true
         manageSitesImageRequest()
-        println("\(category!.identifier!) is working")
+        //println("\(category!.identifier!) is working")
     }
     
     //Stop all category work, download etc.
     func getToRest(){
         isWorking = false
-        println("\(category!.identifier!) is resting")
+        //println("\(category!.identifier!) is resting")
     }
     
     func addSites() {
@@ -164,6 +183,69 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
 
+        SharedUIManager.instance.miniView_height = siteViewHeight
+        SharedUIManager.instance.miniView_width = siteViewWidth
+        SharedUIManager.instance.miniView_columns = columns
+    }
+    
+    func addAllSites(){
+        var xpos:CGFloat = 0
+        var ypos:CGFloat = siteSpacer
+        
+        var columnCounter = 0
+        
+        sites = Array<SiteMiniView>()
+        
+        switch SharedUIManager.instance.deviceType {
+        case .iphone4s, .iphone5, .iphone6:
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
+            siteViewHeight = 240.0
+            columns = 2
+            break
+        case .iphone6Plus:
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+            siteViewHeight = SharedUIManager.instance.screenHeight / 4
+            columns = 3
+            break
+        case .ipad:
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+            siteViewHeight = SharedUIManager.instance.screenHeight / 3
+            columns = 3
+            break
+        default:
+            break
+        }
+        
+        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            for var i = 0; i < category.sitesDetails.count; i++ {
+                
+                if columnCounter < columns {
+                    columnCounter++
+                    xpos = xpos + siteSpacer
+                    
+                } else {
+                    ypos = ypos + siteViewHeight + siteSpacer
+                    xpos = siteSpacer
+                    columnCounter = 1
+                }
+                
+                var siteIdentifier = category.sitesDetails[i].identifier!
+                var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                
+                var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                
+                miniSiteView.delegate = father?.father! as! MainView
+                
+                sites!.append(miniSiteView)
+                scroll!.addSubview(miniSiteView)
+                
+                xpos = xpos + siteViewWidth
+            }
+        }
+        
+        ypos = ypos + siteViewHeight + siteSpacer
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        
         SharedUIManager.instance.miniView_height = siteViewHeight
         SharedUIManager.instance.miniView_width = siteViewWidth
         SharedUIManager.instance.miniView_columns = columns

@@ -174,6 +174,7 @@ class SignupView:UIView, UITextFieldDelegate {
         if ready {
             var user = Biinie(identifier:emailTxt!.textField!.text, firstName: firstNameTxt!.textField!.text, lastName: lastNameTxt!.textField!.text, email: emailTxt!.textField!.text, gender:genderStr!)
             user.password = passwordTxt!.textField!.text
+            BNAppSharedManager.instance.dataManager.bnUser = user
             BNAppSharedManager.instance.networkManager.register(user)
             
             delegate!.showProgress!(self)

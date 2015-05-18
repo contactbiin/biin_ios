@@ -469,8 +469,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //Methods to conform on BNPositionManager
     func manager(manager:BNDataManager!, startRegionsMonitoring regions:Array<BNRegion>) {
         
-        
-        
+        return
         
         for region in regions {
             
@@ -494,7 +493,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func startRegionsMonitoring(regions:Array<BNRegion>){
         
-        return
+        //return
         
         for region in regions {
             
@@ -554,7 +553,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.myBeacons = Array<CLBeacon>()
         self.rangedRegions = NSMutableDictionary()
         
-        
+        /*
         for (key, value) in BNAppSharedManager.instance.dataManager.sites {
 
             println("////////////////////////////////////////////////////")
@@ -574,11 +573,22 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 
                 var major:CLBeaconMajorValue = UInt16(value.major!)
                 var minor:CLBeaconMajorValue = UInt16(biin.minor!)
+                
                 var region:CLBeaconRegion = CLBeaconRegion(proximityUUID: value.proximityUUID!, identifier: value.title!)
                 self.rangedRegions[region] = NSArray()
             }
         }
+        */
         
+        
+        println("RANGING BIIN COMMERCIAL REGION")
+        println("uuid: 99d803fb-3c4f-4276-9535-d17a1b0cf49d")
+        println("---------------------------------------")
+        
+        var proximityUUID:NSUUID = NSUUID(UUIDString:"99d803fb-3c4f-4276-9535-d17a1b0cf49d")!
+        var region:CLBeaconRegion = CLBeaconRegion(proximityUUID:proximityUUID, identifier:"BIIN_COMMERCIAL")
+        self.rangedRegions[region] = NSArray()
+
         for (key:AnyObject, value:AnyObject) in self.rangedRegions {
             self.locationManager!.startRangingBeaconsInRegion(key as! CLBeaconRegion)
         }
@@ -588,6 +598,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func manager(manager:BNDataManager, stopSiteMonitoring site:BNSite) {
     
+        /*
         self.stopMonitoringBeaconRegions()
         
         for biin in site.biins {
@@ -611,6 +622,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
         
         self.startMonitoringBeaconRegions()
+*/
 
     }
     

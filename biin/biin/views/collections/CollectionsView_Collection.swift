@@ -124,7 +124,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     }
     
     func addElementAndSitesViews(){
-        
+        /*
         if let elementsList = self.elements {
             for elementView in elements! {
                 elementView.removeFromSuperview()
@@ -132,7 +132,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             
             elements!.removeAll(keepCapacity: false)
         }
-        /*
+
         if let siteList = self.sites {
             for siteView in sites! {
                 siteView.removeFromSuperview()
@@ -141,6 +141,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             sites!.removeAll(keepCapacity: false)
         }
 
+        */
         
         if let itemsList = self.items {
             for itemView in items! {
@@ -149,48 +150,52 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             
             items!.removeAll(keepCapacity: false)
         }
-        */
+
         
         var itemPosition:Int = 1
         var xpos:CGFloat = spacer
         elementRequestPreviousLimit = 0
         lastColumnRequested = 0
         isWorking = true
-        elements = Array<ElementMiniView>()
+        //elements = Array<ElementMiniView>()
 //        sites = Array<SiteMiniView>()
-        //items = Array<CollectionView_ItemView>()
+        items = Array<CollectionView_ItemView>()
         
         println("collection!.items.count: \(collection!.items.count)")
         
-        for (key, element) in collection!.elements {
+        for item in collection!.items {
             
-//            var itemView:CollectionView_ItemView?
-            var elementView:ElementMiniView?
-            //if let element = collection!.elements[item] {
+            var itemView:CollectionView_ItemView?
+            //var elementView:ElementMiniView?
+            if let element = collection!.elements[item] {
                 
                 
-                //itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
-                elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true)
+                itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
+                //elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true)
                     //ElementView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, showBiinItBtn: false)
     
                 
             /*} else if let site = collection!.sites[item] {
                 
                 itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: nil, isElement: false, site: site)
-            }
             */
+
+
             
-            if itemPosition < 3 {
-                elementView!.requestImage()
+                if itemPosition < 3 {
+                    itemView!.requestImage()
+                }
+                    
+
+            
+                itemView!.collectionScrollPosition = itemPosition
+                xpos += SharedUIManager.instance.miniView_width + spacer
+                //elementView!.delegate = self
+                scroll!.addSubview(itemView!)
+                items!.append(itemView!)
+    //            elements!.append(elementView!)
+
             }
-            
-            elementView!.collectionScrollPosition = itemPosition
-            xpos += SharedUIManager.instance.miniView_width + spacer
-            //elementView!.delegate = self
-            scroll!.addSubview(elementView!)
-            elements!.append(elementView!)
-            itemPosition++
-            
 
         }
         
