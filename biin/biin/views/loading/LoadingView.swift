@@ -16,7 +16,7 @@ class LoadingView:UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.biinColor()
+        self.backgroundColor = UIColor.blackColor()
         
         var labelHeight:CGFloat = 40.0
         var ypos:CGFloat = (frame.height / 2) - (labelHeight / 2)

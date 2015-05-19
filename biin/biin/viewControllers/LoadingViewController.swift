@@ -23,7 +23,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 //        BNAppSharedManager.instance.dataManager.requestInitialData()
         
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.backgroundColor = UIColor.biinColor()
+        self.view.backgroundColor = UIColor.blackColor()
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false

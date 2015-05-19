@@ -1980,6 +1980,23 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             }
                         }
                         */
+                    
+                    
+                    
+                        var categories = Array<BNCategory>()
+                        var categoriesData = self.findNSArray("categories", dictionary: biinieData)
+                        
+                        for var i = 0; i < categoriesData?.count; i++ {
+                            
+                            var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
+                            var category = BNCategory(identifier: self.findString("identifier", dictionary: categoryData)!)
+                            
+                            category.name = self.findString("name", dictionary: categoryData)
+                            
+                            categories.append(category)
+                        }
+
+                        biinie.categories = categories
                         self.delegateDM!.manager!(self, didReceivedBiinieData: biinie)
                    // }
                 }
