@@ -25,7 +25,7 @@
                     <rect key="frame" x="0.0" y="120" width="320" height="320"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.080535878404130234" green="0.66762804890122951" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <accessibility key="accessibilityConfiguration">
                 <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>

@@ -40,14 +40,14 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         var version = UILabel(frame: CGRectMake(0, (screenHeight - 40), screenWidth, 20))
         version.font = UIFont(name: "Lato-Light", size: 18)
-        version.textColor = UIColor.whiteColor()
+        version.textColor = UIColor.appTextColor()
         version.textAlignment = NSTextAlignment.Center
         var versionTxt = NSLocalizedString("Version", comment: "the version title")
         version.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
         self.view.addSubview(version)
         
         enterBtn = UIButton(frame: CGRectMake(0, (screenHeight - 115), screenWidth, 60))
-        enterBtn!.backgroundColor = UIColor.whiteColor()
+        enterBtn!.backgroundColor = UIColor.appButtonColor_Disable()
         enterBtn!.setTitle(NSLocalizedString("Start", comment: "the Start button title"), forState: UIControlState.Normal)
         enterBtn!.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         enterBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)

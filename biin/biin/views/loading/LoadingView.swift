@@ -17,7 +17,7 @@ class LoadingView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.biinColor()
+        self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
@@ -29,14 +29,12 @@ class LoadingView:UIView {
         var ypos:CGFloat = 320
         loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:30))
         loadingLbl!.font = UIFont(name: "Lato-Black", size: 25)
-        loadingLbl!.textColor = UIColor.whiteColor()
+        loadingLbl!.textColor = UIColor.appTextColor()
         loadingLbl!.textAlignment = NSTextAlignment.Center
         loadingLbl!.numberOfLines = 0
         loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
-        
-        
-        
+  
     }
     
     required init(coder aDecoder: NSCoder) {
