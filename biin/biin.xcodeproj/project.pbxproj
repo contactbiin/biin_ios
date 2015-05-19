@@ -208,6 +208,8 @@
 		5BB917DD1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB917DC1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift */; };
 		5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */; };
 		5BB99B5F1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */; };
+		5BC0D81E1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D81D1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift */; };
+		5BC0D8201B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D81F1B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift */; };
 		5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD342771A8AA95300A8984E /* BNResponse.swift */; };
 		5BD63B4C1AC1B23C004236A4 /* BiinieAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */; };
 		5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */; };
@@ -480,6 +482,8 @@
 		5BB917DC1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Back_SignupView.swift; sourceTree = "<group>"; };
 		5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIAlertView.swift; sourceTree = "<group>"; };
 		5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_KeyholeSmall.swift; sourceTree = "<group>"; };
+		5BC0D81D1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_HighlightsContainer.swift; sourceTree = "<group>"; };
+		5BC0D81F1B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_BiinsContainer.swift; sourceTree = "<group>"; };
 		5BD342771A8AA95300A8984E /* BNResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNResponse.swift; sourceTree = "<group>"; };
 		5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieAction.swift; sourceTree = "<group>"; };
 		5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView.swift; sourceTree = "<group>"; };
@@ -1085,6 +1089,8 @@
 			children = (
 				5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */,
 				5BDB05531A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift */,
+				5BC0D81D1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift */,
+				5BC0D81F1B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift */,
 				5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */,
 				5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */,
 			);
@@ -1478,6 +1484,7 @@
 				5BDB05541A6972B9006EBB1E /* BiinieCategoriesView_SitesContainer.swift in Sources */,
 				5B5BE7201A855E9100DB5996 /* BNUIButton_Loging.swift in Sources */,
 				5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */,
+				5BC0D8201B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift in Sources */,
 				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */,
 				5B1F55021AE846E900130CFE /* BNIcon_MenuMedium.swift in Sources */,
@@ -1492,6 +1499,7 @@
 				5B48C8291A700992009FC4D4 /* BNUINotificationView_RedCircle.swift in Sources */,
 				5B6246381A9EA33C009C979D /* BNIcon_XSmall.swift in Sources */,
 				5BEA77931A97934E00F6D1F5 /* BNIcon_HomeMedium.swift in Sources */,
+				5BC0D81E1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift in Sources */,
 				5B047D641A816B3F00281B17 /* SiteView_Information.swift in Sources */,
 				5BEA778F1A978DAA00F6D1F5 /* BNUIButton_Menu.swift in Sources */,
 				5B5D77EE1A8E7AFA001C4A34 /* BNIcon_TechnologyMedium.swift in Sources */,

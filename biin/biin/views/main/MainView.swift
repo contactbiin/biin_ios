@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate {
     
     var delegate:MainViewDelegate?
     
@@ -26,7 +26,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var collectionsState:CollectionsState?    
     var notificationsState:NotificationsState?
     
-
     var searchState:SearchState?
     var settingsState:SettingsState?
     
@@ -267,6 +266,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         //println("site to show: \(site!.identifier) xpos: \(position.origin.x) ypos: \(position.origin.y)")
         (siteState!.view as! SiteView).updateSiteData(site)
         setNextState(2)
+        
+    }
+    
+    
+    //ElementMiniView_Delegate
+    func showElementView(view: ElementMiniView, position: CGRect) {
         
     }
     

@@ -138,14 +138,14 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     //Instance methods
     //instance methods
     //Start all category work, download etc.
-    func getToWork(){
+    override func getToWork(){
         isWorking = true
         manageElementMiniViewImageRequest()
         println("\(showcase!.identifier!) is working")
     }
     
     //Stop all category work, download etc.
-    func getToRest(){
+    override func getToRest(){
         isWorking = false
         println("\(showcase!.identifier!) is resting")
     }

@@ -229,7 +229,18 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
             self.icons[index].alpha = 1
         })*/
         
-        categoryNameLbl!.text = NSLocalizedString(BNAppSharedManager.instance.dataManager.bnUser!.categories[index].identifier!, comment:"")
+        //categoryNameLbl!.text = NSLocalizedString(BNAppSharedManager.instance.dataManager.bnUser!.categories[index].identifier!, comment:"")
+        
+        
+        //HACK
+        if index == 0 {
+            categoryNameLbl!.text = NSLocalizedString("Places", comment: "Places")
+        } else  if index == 1 {
+            categoryNameLbl!.text = NSLocalizedString("HightLights", comment: "HightLights")
+        } else if index == 2 {
+            categoryNameLbl!.text = NSLocalizedString("Biins", comment: "Biins")
+        }
+        
         
         //categoryNameLbl!.sizeToFit()
         //self.categoryNameLbl!.frame.origin.x = self.points[index].frame.origin.x - (self.categoryNameLbl!.frame.width / 2) + 7

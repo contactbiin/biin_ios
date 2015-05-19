@@ -12,7 +12,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     
     //var container:CategoriesView_Container?
     var header:BiinieCategoriesView_Header?
-    var categorySitesContainers:Array <BiinieCategoriesView_SitesContainer>?
+    var categorySitesContainers:Array <BNView>?
     var panIndex = 0
     var numberOfCategories = 0
     
@@ -53,6 +53,9 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         //HACK: This hack is to show all sites on one category and remove the call to the method before.
         addSitesToOneContainer()
         
+        addHightlightsContainer()
+        
+        addRangedBiinsContainer()
         
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         headerDelegate = header
@@ -115,7 +118,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         var counter = 0
         
         categorySitesContainers?.removeAll(keepCapacity: false)
-        categorySitesContainers = Array<BiinieCategoriesView_SitesContainer>()
+        categorySitesContainers = Array<BNView>()
         
         numberOfCategories = BNAppSharedManager.instance.dataManager.bnUser!.categories.count
         
@@ -213,6 +216,117 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
             categorySitesContainers![0].getToWork()
             //categorySitesContainers![0].manageSitesImageRequest()
         }
+    }
+    
+    func addHightlightsContainer() {
+        var screenWidth = SharedUIManager.instance.screenWidth
+        var screenHeight = SharedUIManager.instance.screenHeight
+        var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+        
+        var xpos:CGFloat = screenWidth + 1
+        //var counter = 0
+        
+        //categorySitesContainers?.removeAll(keepCapacity: false)
+        //categorySitesContainers = Array<BiinieCategoriesView_SitesContainer>()
+        
+        //numberOfCategories = BNAppSharedManager.instance.dataManager.bnUser!.categories.count
+        
+        //Sets all user categories on section for further use
+        //BNAppSharedManager.instance.dataManager.loadUserSections()
+        
+        //println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
+        //println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
+        
+        
+        //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+        
+        var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+        var highlightsContainer = BiinieCategoriesView_HighlightsContainer(frame: frame, father: self, allElements: true)
+        //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
+        
+        categorySitesContainers!.append(highlightsContainer)
+        scroll!.addSubview(highlightsContainer)
+        
+        //if counter == ( numberOfCategories - 1 ){
+        //    xpos += screenWidth
+        //}else {
+        //    xpos += screenWidth + SharedUIManager.instance.spacer
+        //}
+        
+        
+        
+        //counter++
+        
+        //            if counter == 4 {
+        //                showFx = true
+        //            } else {
+        //                showFx = false
+        //            }
+        //}
+        xpos += screenWidth
+        scroll!.contentSize = CGSizeMake(xpos, 316)
+        scroll!.pagingEnabled = true
+        
+        //if categorySitesContainers!.count > 0 {
+          //  categorySitesContainers![0].getToWork()
+            //categorySitesContainers![0].manageSitesImageRequest()
+        //}
+    }
+    
+    func addRangedBiinsContainer() {
+        var screenWidth = SharedUIManager.instance.screenWidth
+        var screenHeight = SharedUIManager.instance.screenHeight
+        var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+        
+        var xpos:CGFloat = screenWidth + 2
+        //var counter = 0
+        
+        //categorySitesContainers?.removeAll(keepCapacity: false)
+        //categorySitesContainers = Array<BiinieCategoriesView_SitesContainer>()
+        
+        //numberOfCategories = BNAppSharedManager.instance.dataManager.bnUser!.categories.count
+        
+        //Sets all user categories on section for further use
+        //BNAppSharedManager.instance.dataManager.loadUserSections()
+        
+        //println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
+        //println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
+        
+        
+        //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+
+        xpos += screenWidth
+        var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+        var biinsContainer = BiinieCategoriesView_BiinsContainer(frame: frame, father: self, allElements: true)
+        //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
+        
+        categorySitesContainers!.append(biinsContainer)
+        scroll!.addSubview(biinsContainer)
+        
+        //if counter == ( numberOfCategories - 1 ){
+        //    xpos += screenWidth
+        //}else {
+        //    xpos += screenWidth + SharedUIManager.instance.spacer
+        //}
+        
+        
+        
+        //counter++
+        
+        //            if counter == 4 {
+        //                showFx = true
+        //            } else {
+        //                showFx = false
+        //            }
+        //}
+        xpos += screenWidth
+        scroll!.contentSize = CGSizeMake(xpos, 316)
+        scroll!.pagingEnabled = true
+        
+        //if categorySitesContainers!.count > 0 {
+        //  categorySitesContainers![0].getToWork()
+        //categorySitesContainers![0].manageSitesImageRequest()
+        //}
     }
     
     func showNotification(){

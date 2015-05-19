@@ -978,6 +978,36 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
     
+    func manager(manager: BNDataManager!, requestHighlightsData user: Biinie) {
+
+        return
+        
+        //TODO: add the correct URL
+        var runRequest = false
+        var request:BNRequest?
+        var showcase:BNShowcase?
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+            showcase = BNShowcase()
+            request!.showcase = showcase!
+            self.requests[request!.identifier] = request
+            runRequest = true
+            
+        } else {
+            request = BNRequest(requestString:"", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+
+            showcase = BNShowcase()
+            request!.showcase = showcase!
+            self.requests[request!.identifier] = request
+            runRequest = true
+        }
+        
+        if runRequest {
+            self.requestShowcaseData(request!, showcase:request!.showcase!)
+        }
+    }
+    
+    
     ///Conforms optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) {
         
@@ -1029,18 +1059,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 println("\(error!.description)")
                 self.handleFailedRequest(request, error: error)
             } else {
-                
-                
-                
-                
-                
+            
                 if let showcaseData = data["data"] as? NSDictionary {
-                    
-                    
-                    
+                
                     var status = self.findInt("status", dictionary: showcaseData)
                     var result = self.findBool("result", dictionary: showcaseData)
-                    //                    var identifier = self.findString("identifier", dictionary: elementData)
+//                    var identifier = self.findString("identifier", dictionary: elementData)
                     
                     if status != nil {
                         
@@ -1087,6 +1111,27 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
     
+    func manager(manager: BNDataManager!, requestHightlightDataForBNUser element: BNElement, user: Biinie) {
+        var runRequest = false
+        var request:BNRequest?
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            //TODO: Add highlight url
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+            request!.element = element
+            self.requests[request!.identifier] = request
+            runRequest = true
+        } else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+            request!.element = element
+            self.requests[request!.identifier] = request
+            runRequest = true
+        }
+        
+        if runRequest {
+            self.self.requestElementData(request!, element:element)
+        }
+    }
+    
     
     ///Conforms optional     optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:Biinie) {
@@ -1114,10 +1159,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         if runRequest {
             self.self.requestElementData(request!, element:element)
         }
-        
-        
-        
-        
+
         /*
         
         var request = BNRequest(requestString:element.jsonUrl!, dataIdentifier:element.identifier!, requestType:.ElementData)
@@ -1128,6 +1170,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
 */
     }
+    
+    
     
     ///Handles the request for a element's data for a user.
     ///
@@ -1220,7 +1264,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             element.actualQuantity = self.findString("actualQuantity", dictionary: elementData)
                         }
                         
-                        
+                        element.isHighlight = self.findBool("isHighlight", dictionary: elementData)
                         
                         var details = self.findNSArray("details", dictionary: elementData)
 
@@ -1324,7 +1368,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             }
                         }
                         
-                        self.delegateDM!.manager!(self, didReceivedElement:element)
+                        
+                        if element.isHighlight {
+                           self.delegateDM!.manager!(self, didReceivedHightlight:element)
+                        } else {
+                            self.delegateDM!.manager!(self, didReceivedElement:element)
+                        }
                         
                         if self.isRequestTimerAllow {
                             self.runRequest()
@@ -2363,6 +2412,18 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///:param: BNNetworkManager.
     ///:param: BNElement requested.
     optional func manager(manager:BNNetworkManager!, didReceivedElement element:BNElement)
+    
+    
+    
+    optional func manager(manager:BNNetworkManager!, didReceivedHihglightList showcase:BNShowcase)
+
+    
+    
+    ///Takes element data requested and proccess that data.
+    ///
+    ///:param: BNNetworkManager.
+    ///:param: BNElement requested.
+    optional func manager(manager:BNNetworkManager!, didReceivedHightlight element:BNElement)
     
     
     ///Takes user biined element list and process data and request to download elements.

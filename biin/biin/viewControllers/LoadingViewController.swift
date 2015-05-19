@@ -35,6 +35,9 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
+        loadingView = LoadingView(frame: CGRectMake(0, 20, screenWidth, screenHeight))
+        self.view.addSubview(loadingView!)
+        
         var version = UILabel(frame: CGRectMake(0, (screenHeight - 40), screenWidth, 20))
         version.font = UIFont(name: "Lato-Light", size: 18)
         version.textColor = UIColor.whiteColor()
@@ -43,11 +46,11 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         version.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
         self.view.addSubview(version)
         
-        enterBtn = UIButton(frame: CGRectMake(0, (screenHeight - 175), screenWidth, 60))
+        enterBtn = UIButton(frame: CGRectMake(0, (screenHeight - 115), screenWidth, 60))
         enterBtn!.backgroundColor = UIColor.whiteColor()
         enterBtn!.setTitle(NSLocalizedString("Start", comment: "the Start button title"), forState: UIControlState.Normal)
         enterBtn!.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        enterBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
+        enterBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
         enterBtn!.addTarget(self, action: "enterBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         enterBtn!.alpha = 0
         self.view.addSubview(enterBtn!)
@@ -59,7 +62,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         clearUserBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         clearUserBtn!.addTarget(self, action: "clearUserBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         clearUserBtn!.alpha = 1
-        self.view.addSubview(clearUserBtn!)
+        //self.view.addSubview(clearUserBtn!)
 
         addActionBtn = UIButton(frame: CGRectMake(0, (screenHeight - 240), screenWidth, 60))
         addActionBtn!.backgroundColor = UIColor.whiteColor()
@@ -68,11 +71,13 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
         addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         addActionBtn!.alpha = 0
-        self.view.addSubview(addActionBtn!)
-        
-        
-        loadingView = LoadingView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        self.view.addSubview(loadingView!)
+        //self.view.addSubview(addActionBtn!)
+  
+
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,7 +126,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         if value {
             UIView.animateWithDuration(0.5, animations: {()-> Void in
-                self.loadingView!.alpha = 0
+                self.loadingView!.loadingLbl!.alpha = 0
                 self.enterBtn!.alpha = 1
                 self.addActionBtn!.alpha = 1
             })

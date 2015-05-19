@@ -22,6 +22,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var sites = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
     var elements = Dictionary<String, BNElement>()
+    var highlights = Dictionary<String, String>()//list of hightlight element
     var elementsRequested = Dictionary<String, BNElement>()
     //var elementsBiined = Dictionary<String, String>()
     
@@ -79,6 +80,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
     
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
+        
+        delegateNM!.manager!(self, requestHighlightsData: bnUser!)
 
     }
     
@@ -320,6 +323,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
     }
     
+    func manager(manager: BNNetworkManager!, didReceivedHihglightList showcase: BNShowcase) {
+        requestElements(showcase.elements)
+    }
+    
+    
     ///Received site and start proccesing depending on data store.
     ///:param: Network manager that handled the request.
     ///:param: BNShowcase received from web service in json format already parse in an showcase object.
@@ -328,8 +336,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //println("Received showcase: \(showcase.identifier!)")
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
-        
-        
         
         requestElements(showcase.elements)
         
@@ -440,6 +446,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         */
+    }
+    
+    func manager(manager: BNNetworkManager!, didReceivedHightlight element: BNElement) {
+        highlights[element.identifier!] = element.identifier!
+        manageElementRelationShips(element)
     }
     
     func manageElementRelationShips(element:BNElement){
@@ -767,6 +778,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNDataManager that store all data.
     ///:param: BNSite requesting the data.
     optional func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie)
+    
+    
+    ///Request showcase's data
+    ///
+    ///:param: BNDataManager that store all data.
+    ///:param: BNShowcase requesting the data.
+    optional func manager(manager:BNDataManager!, requestHighlightsData user:Biinie)
     
     ///Request showcase's data
     ///

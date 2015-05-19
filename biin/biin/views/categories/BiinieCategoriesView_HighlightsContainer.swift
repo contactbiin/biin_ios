@@ -1,18 +1,18 @@
-//  BiinieCategoriesView_SitesContainer.swift
+//  BiinieCategoriesView_HighlightsContainer.swift
 //  biin
-//  Created by Esteban Padilla on 1/16/15.
+//  Created by Esteban Padilla on 5/19/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
+class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate {
     
     //var delegate:BiinieCategoriesView_SiteContainer_Delegate?
     
     var isWorking = false
     var category:BNCategory?
-    var sites:Array<SiteMiniView>?
+    var elements:Array<ElementMiniView>?
     var scroll:UIScrollView?
     var isScrollDecelerating = false
     
@@ -20,15 +20,15 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     var siteViewWidth:CGFloat = 0
     var siteSpacer:CGFloat = 10.0
     var columns:Int = 2
-//    var siteRequestIndex:Int = 0
+    //    var siteRequestIndex:Int = 0
     var siteRequestPreviousLimit:Int = 0
     
     
     var lastRowRequested:Int = 0
     
-//    override init() {
-//        super.init()
-//    }
+    //    override init() {
+    //        super.init()
+    //    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,27 +43,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
     }
     
-    convenience init(frame:CGRect, father:BNView?, category:BNCategory?){
-        self.init(frame: frame, father:father )
-        
-        self.backgroundColor = UIColor.appBackground()
-        self.category = category
-        
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
-        
-        scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - SharedUIManager.instance.categoriesHeaderHeight)))
-//        scroll!.backgroundColor = UIColor.biinColor()
-        scroll!.showsHorizontalScrollIndicator = false
-        scroll!.showsVerticalScrollIndicator = false
-        scroll!.delegate = self
-        scroll!.bounces = false
-        self.addSubview(scroll!)
-        
-        addSites()
-    }
-    
-    convenience init(frame: CGRect, father: BNView?, allSites:Bool) {
+    convenience init(frame: CGRect, father: BNView?, allElements:Bool) {
         self.init(frame: frame, father:father )
         
         self.backgroundColor = UIColor.appBackground()
@@ -79,15 +59,15 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         scroll!.bounces = false
         self.addSubview(scroll!)
         
-        addAllSites()
+        addHighlights()
     }
     
     override func transitionIn() {
-
+        
     }
     
     override func transitionOut( state:BNState? ) {
-
+        
     }
     
     override func setNextState(option:Int){
@@ -97,7 +77,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
- 
+            
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -105,7 +85,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
- 
+            
         }else{
             father!.updateUserControl(position)
         }
@@ -125,76 +105,14 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         //println("\(category!.identifier!) is resting")
     }
     
-    func addSites() {
-        
-        var xpos:CGFloat = 0
-        var ypos:CGFloat = siteSpacer
-        
-        var columnCounter = 0
-        
-        sites = Array<SiteMiniView>()
-        
-        switch SharedUIManager.instance.deviceType {
-        case .iphone4s, .iphone5, .iphone6:
-            siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
-            siteViewHeight = 240.0
-            columns = 2
-            break
-        case .iphone6Plus:
-            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
-            siteViewHeight = SharedUIManager.instance.screenHeight / 4
-            columns = 3
-            break
-        case .ipad:
-            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
-            siteViewHeight = SharedUIManager.instance.screenHeight / 3
-            columns = 3
-            break
-        default:
-            break
-        }
-        
-        
-        for var i = 0; i < category?.sitesDetails.count; i++ {
-            
-            if columnCounter < columns {
-                columnCounter++
-                xpos = xpos + siteSpacer
-                
-            } else {
-                ypos = ypos + siteViewHeight + siteSpacer
-                xpos = siteSpacer
-                columnCounter = 1
-            }
-            
-            var siteIdentifier = category?.sitesDetails[i].identifier!
-            var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier! ]
-            
-            var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-            
-            miniSiteView.delegate = father?.father! as! MainView
-            
-            sites!.append(miniSiteView)
-            scroll!.addSubview(miniSiteView)
-
-            xpos = xpos + siteViewWidth
-        }
-        
-        ypos = ypos + siteViewHeight + siteSpacer
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-
-        SharedUIManager.instance.miniView_height = siteViewHeight
-        SharedUIManager.instance.miniView_width = siteViewWidth
-        SharedUIManager.instance.miniView_columns = columns
-    }
     
-    func addAllSites(){
+    func addHighlights(){
         var xpos:CGFloat = 0
         var ypos:CGFloat = siteSpacer
         
         var columnCounter = 0
         
-        sites = Array<SiteMiniView>()
+        elements = Array<ElementMiniView>()
         
         switch SharedUIManager.instance.deviceType {
         case .iphone4s, .iphone5, .iphone6:
@@ -216,8 +134,11 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
             break
         }
         
-        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
-            for var i = 0; i < category.sitesDetails.count; i++ {
+        for (key, value) in BNAppSharedManager.instance.dataManager.highlights {
+            
+            var element = BNAppSharedManager.instance.dataManager.elements[value]
+            
+            //for var i = 0; i < category.sitesDetails.count; i++ {
                 
                 if columnCounter < columns {
                     columnCounter++
@@ -229,18 +150,19 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                     columnCounter = 1
                 }
                 
-                var siteIdentifier = category.sitesDetails[i].identifier!
-                var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                //var siteIdentifier = category.sitesDetails[i].identifier!
+                //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                 
-                var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false)
                 
-                miniSiteView.delegate = father?.father! as! MainView
+                elementMiniView.delegate = father?.father! as! MainView
                 
-                sites!.append(miniSiteView)
-                scroll!.addSubview(miniSiteView)
+                elements!.append(elementMiniView)
+                scroll!.addSubview(elementMiniView)
                 
                 xpos = xpos + siteViewWidth
-            }
+            //}
         }
         
         ypos = ypos + siteViewHeight + siteSpacer
@@ -286,7 +208,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     }// return a yes if you want to scroll to the top. if not defined, assumes YES
     
     func scrollViewDidScrollToTop(scrollView: UIScrollView) {
-    
+        
     }// called when scrolling animation finished. may be called immediately if already at top
     
     
@@ -296,24 +218,24 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         var height = self.siteViewHeight + self.siteSpacer
         var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
-
+        
         if lastRowRequested < row {
             
             lastRowRequested = row
             var requestLimit:Int = Int((lastRowRequested + columns) * columns)
-
-            if requestLimit >= sites?.count {
-                requestLimit = sites!.count - 1
+            
+            if requestLimit >= elements?.count {
+                requestLimit = elements!.count - 1
             }
             
-
+            
             var i:Int = requestLimit
             var stop:Bool = false
             
             while !stop {
-
+                
                 if i >= siteRequestPreviousLimit {
-                    var siteView = sites![i] as SiteMiniView
+                    var siteView = elements![i] as ElementMiniView
                     siteView.requestImage()
                     i--
                 } else  {
@@ -324,9 +246,9 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
             //Error when archiving: command failed due to signal: segmentation fault: 11
             /*
             for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
-                //println("requesting for  \(i)")
-                var siteView = sites![i] as SiteMiniView
-                siteView.requestImage()
+            //println("requesting for  \(i)")
+            var siteView = sites![i] as SiteMiniView
+            siteView.requestImage()
             }
             */
             
@@ -336,6 +258,6 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
 }
 
 //@objc protocol BiinieCategoriesView_SiteContainer_Delegate:NSObjectProtocol {
-    ///Update categories icons on header
-    //optional func updateCategorControl(view:BiinieCategoriesView_Header,  position:CGFloat)
+///Update categories icons on header
+//optional func updateCategorControl(view:BiinieCategoriesView_Header,  position:CGFloat)
 //}
