@@ -210,6 +210,8 @@
 		5BB99B5F1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */; };
 		5BC0D81E1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D81D1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift */; };
 		5BC0D8201B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D81F1B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift */; };
+		5BC0D8221B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D8211B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift */; };
+		5BC0D8241B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */; };
 		5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD342771A8AA95300A8984E /* BNResponse.swift */; };
 		5BD63B4C1AC1B23C004236A4 /* BiinieAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */; };
 		5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */; };
@@ -484,6 +486,8 @@
 		5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_KeyholeSmall.swift; sourceTree = "<group>"; };
 		5BC0D81D1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_HighlightsContainer.swift; sourceTree = "<group>"; };
 		5BC0D81F1B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_BiinsContainer.swift; sourceTree = "<group>"; };
+		5BC0D8211B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NoBiinAvailableSign.swift; sourceTree = "<group>"; };
+		5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNView_NoBiinAvailableSign.swift; sourceTree = "<group>"; };
 		5BD342771A8AA95300A8984E /* BNResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNResponse.swift; sourceTree = "<group>"; };
 		5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieAction.swift; sourceTree = "<group>"; };
 		5BDB05511A6972AD006EBB1E /* BiinieCategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView.swift; sourceTree = "<group>"; };
@@ -623,6 +627,7 @@
 				5B6B886A1A8BE45000F21E4A /* BNUIAlertView_Header.swift */,
 				5B60A4C11AA0EDC10025ACBA /* BNMKAnnotation.swift */,
 				5B60A4C51AA21B3E0025ACBA /* BNUIButton_Contact.swift */,
+				5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */,
 			);
 			path = uiElements;
 			sourceTree = "<group>";
@@ -632,6 +637,7 @@
 			children = (
 				5B2907BB1A687C0C0000658A /* BNIcon.swift */,
 				5B8B075D1A6F143400780F74 /* BNIcon_BiinSmall.swift */,
+				5BC0D8211B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift */,
 				5B6246371A9EA33C009C979D /* BNIcon_XSmall.swift */,
 				5B760E581AAE5FB7003E017A /* BNIcon_RightArrowSmall.swift */,
 				5BEA77901A97903A00F6D1F5 /* BNIcon_ProfileMedium.swift */,
@@ -1331,6 +1337,7 @@
 				5B9AD35C1A7C15A8001C9B5A /* SiteState.swift in Sources */,
 				5B1E2C1E1A830B2400633C46 /* SiteView_Showcase_Join.swift in Sources */,
 				5B3D76051A6816B300CB0D1C /* BNRequest.swift in Sources */,
+				5BC0D8221B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift in Sources */,
 				5B3D75FB1A6816B300CB0D1C /* BNColor.swift in Sources */,
 				5B3D75FA1A6816B300CB0D1C /* BNCategory.swift in Sources */,
 				5B3D75F21A6816B300CB0D1C /* BNPositionManager.swift in Sources */,
@@ -1457,6 +1464,7 @@
 				5BA46FAF1A840776006C685D /* BNUIPricesView.swift in Sources */,
 				5B3D75EF1A6816B300CB0D1C /* BNDataManager.swift in Sources */,
 				5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */,
+				5BC0D8241B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift in Sources */,
 				5B75E2541A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift in Sources */,
 				5B60A4CA1AA21D620025ACBA /* BNIcon_EmailSmall.swift in Sources */,
 				5B047D601A81604600281B17 /* BNUIButton_Information.swift in Sources */,

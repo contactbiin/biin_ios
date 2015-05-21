@@ -26,6 +26,8 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
     
     var lastRowRequested:Int = 0
     
+    var notBiinsView:BNView_NoBiinAvailableSign?
+    
     //    override init() {
     //        super.init()
     //    }
@@ -44,7 +46,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
     }
     
     convenience init(frame: CGRect, father: BNView?, allElements:Bool) {
-        self.init(frame: frame, father:father )
+        self.init(frame: frame, father:father)
         
         self.backgroundColor = UIColor.appBackground()
         

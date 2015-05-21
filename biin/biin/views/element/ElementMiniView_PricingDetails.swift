@@ -33,7 +33,7 @@ class ElementMiniView_PricingDetails:BNView {
         }
         
         if element!.hasFromPrice {
-            var fromPrice = BNUIDetailView_From(position: CGPointMake(5, ypos), text:"\(element!.currency!)\(element!.fromPrice!)", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var fromPrice = BNUIDetailView_From(position: CGPointMake(5, ypos), text:"\(element!.currency!)\(element!.price!)", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(fromPrice)
             ypos += 32
         }

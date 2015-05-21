@@ -136,7 +136,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate {
         
         for (key, value) in BNAppSharedManager.instance.dataManager.highlights {
             
-            var element = BNAppSharedManager.instance.dataManager.elements[value]
+            var element = BNAppSharedManager.instance.dataManager.elements[key]
             
             //for var i = 0; i < category.sitesDetails.count; i++ {
                 

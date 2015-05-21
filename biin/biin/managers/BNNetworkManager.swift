@@ -836,7 +836,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
         }
         
-        println("requestSiteData() \(request!.requestString)")
+        //println("requestSiteData() \(request!.requestString)")
         
         self.requests[request!.identifier] = request
         
@@ -980,21 +980,20 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     func manager(manager: BNDataManager!, requestHighlightsData user: Biinie) {
 
-        return
-        
+        println("requestHighlightsData()")
         //TODO: add the correct URL
         var runRequest = false
         var request:BNRequest?
         var showcase:BNShowcase?
         if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
-            request = BNRequest(requestString:"", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
             showcase = BNShowcase()
             request!.showcase = showcase!
             self.requests[request!.identifier] = request
             runRequest = true
             
         } else {
-            request = BNRequest(requestString:"", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+            request = BNRequest(requestString:"https://www.biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
 
             showcase = BNShowcase()
             request!.showcase = showcase!
@@ -1003,7 +1002,76 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
         
         if runRequest {
-            self.requestShowcaseData(request!, showcase:request!.showcase!)
+            self.requestHighlightsData(request!, showcase:request!.showcase!)
+        }
+    }
+    
+    
+    ///Handles the request for a showcase's data.
+    ///
+    ///:param: The request to be process.
+    func requestHighlightsData(request:BNRequest, showcase:BNShowcase) {
+        
+        
+        println("\(request.requestString)")
+        
+        epsNetwork!.getJson(request.requestString) {
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            if (error != nil) {
+                println("Error on hightlights data")
+                println("\(error!.description)")
+                self.handleFailedRequest(request, error: error)
+            } else {
+                
+                if let showcaseData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: showcaseData)
+                    var result = self.findBool("result", dictionary: showcaseData)
+                    //                    var identifier = self.findString("identifier", dictionary: elementData)
+                    
+                    if status != nil {
+                        
+                        //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Request hightlights data BAD! \(status!) request: \(request.requestString)")
+                        
+                    } else {
+                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        //println("*** Request showcase data COOL!")
+                        
+                        //var showcase = BNShowcase()
+                        //showcase.identifier = self.findString("identifier", dictionary: showcaseData)
+                        //showcase.lastUpdate = self.findNSDate("lastUpdate", dictionary: showcaseData)
+                        //showcase.theme = self.findBNShowcaseTheme("theme", dictionary: showcaseData)
+                        //showcase.showcaseType = self.findBNShowcaseType("showcaseType", dictionary: showcaseData)
+                        //showcase.title = self.findString("title", dictionary: showcaseData)
+                        //showcase.subTitle = self.findString("subTitle", dictionary: showcaseData)
+                        //showcase.titleColor = self.findUIColor("titleColor", dictionary: showcaseData)!
+                        var elements = self.findNSArray("elements", dictionary: showcaseData)
+                        
+                        for var i = 0; i < elements?.count; i++ {
+                            
+                            var elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
+                            var element = BNElement()
+                            element.isHighlight = true
+                            element._id = self.findString("_id", dictionary: elementData)
+                            element.identifier = self.findString("elementIdentifier", dictionary: elementData)
+                            element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
+                            showcase.elements.append(element)
+                            element.color = UIColor.elementColor()
+                        }
+                        
+                        self.delegateDM!.manager!(self, didReceivedHihglightList: showcase)
+                        
+                        if self.isRequestTimerAllow {
+                            self.runRequest()
+                        }
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request.identifier)
+                //                self.requests.removeValueForKey(request.identifier)
+                //                self.requestAttempts = 0
+            }
         }
     }
     
@@ -1012,7 +1080,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) {
         
         //println("requestShowcaseData for:\(showcase.identifier!) ")
-        
         
         //https://biin-qa.herokuapp.com/mobile/showcases/6d6c93b1-2877-41a6-ac40-ec41a9a50be0
 
@@ -1140,8 +1207,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
         //https://biin-qa.herokuapp.com/mobile/biinies/e34b20e1-b21e-4681-85aa-096dac49c6a7/elements/f67d57a2-7de4-4e3f-ad72-dacd7f5b504a
         
-  
-        
         var runRequest = false
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
@@ -1264,7 +1329,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             element.actualQuantity = self.findString("actualQuantity", dictionary: elementData)
                         }
                         
-                        element.isHighlight = self.findBool("isHighlight", dictionary: elementData)
+                        //element.isHighlight = self.findBool("isHighlight", dictionary: elementData)
                         
                         var details = self.findNSArray("details", dictionary: elementData)
 

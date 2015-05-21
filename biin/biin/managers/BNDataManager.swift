@@ -333,7 +333,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNShowcase received from web service in json format already parse in an showcase object.
     func manager(manager:BNNetworkManager!, didReceivedShowcase showcase:BNShowcase) {
 
-        //println("Received showcase: \(showcase.identifier!)")
+        println("Received showcase: \(showcase.identifier!)")
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
         
@@ -449,7 +449,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func manager(manager: BNNetworkManager!, didReceivedHightlight element: BNElement) {
-        highlights[element.identifier!] = element.identifier!
+        elementsRequested[element.identifier!] = element
+        highlights[element._id!] = element._id!
         manageElementRelationShips(element)
     }
     
