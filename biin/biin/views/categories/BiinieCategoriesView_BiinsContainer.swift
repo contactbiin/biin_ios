@@ -109,70 +109,90 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
     
     
     func addRangedBiins(){
-        var xpos:CGFloat = 0
-        var ypos:CGFloat = siteSpacer
         
-        var columnCounter = 0
-        
-        elements = Array<ElementMiniView>()
-        
-        switch SharedUIManager.instance.deviceType {
-        case .iphone4s, .iphone5, .iphone6:
-            siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
-            siteViewHeight = 240.0
-            columns = 2
-            break
-        case .iphone6Plus:
-            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
-            siteViewHeight = SharedUIManager.instance.screenHeight / 4
-            columns = 3
-            break
-        case .ipad:
-            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
-            siteViewHeight = SharedUIManager.instance.screenHeight / 3
-            columns = 3
-            break
-        default:
-            break
-        }
-        
-        for (key, value) in BNAppSharedManager.instance.dataManager.highlights {
+        if BNAppSharedManager.instance.dataManager.availableBiins.count > 0 {
             
-            var element = BNAppSharedManager.instance.dataManager.elements[value]
-            
-            //for var i = 0; i < category.sitesDetails.count; i++ {
-            
-            if columnCounter < columns {
-                columnCounter++
-                xpos = xpos + siteSpacer
-                
-            } else {
-                ypos = ypos + siteViewHeight + siteSpacer
-                xpos = siteSpacer
-                columnCounter = 1
+            if notBiinsView != nil {
+                notBiinsView!.alpha = 0
             }
             
-            //var siteIdentifier = category.sitesDetails[i].identifier!
-            //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+            var xpos:CGFloat = 0
+            var ypos:CGFloat = siteSpacer
             
-            //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-            var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false)
+            var columnCounter = 0
             
-            elementMiniView.delegate = father?.father! as! MainView
+            elements = Array<ElementMiniView>()
             
-            elements!.append(elementMiniView)
-            scroll!.addSubview(elementMiniView)
+            switch SharedUIManager.instance.deviceType {
+            case .iphone4s, .iphone5, .iphone6:
+                siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
+                siteViewHeight = 240.0
+                columns = 2
+                break
+            case .iphone6Plus:
+                siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+                siteViewHeight = SharedUIManager.instance.screenHeight / 4
+                columns = 3
+                break
+            case .ipad:
+                siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+                siteViewHeight = SharedUIManager.instance.screenHeight / 3
+                columns = 3
+                break
+            default:
+                break
+            }
             
-            xpos = xpos + siteViewWidth
-            //}
+            for (key, value) in BNAppSharedManager.instance.dataManager.availableBiins {
+                
+                var element = BNAppSharedManager.instance.dataManager.elements[value]
+                
+                //for var i = 0; i < category.sitesDetails.count; i++ {
+                
+                if columnCounter < columns {
+                    columnCounter++
+                    xpos = xpos + siteSpacer
+                    
+                } else {
+                    ypos = ypos + siteViewHeight + siteSpacer
+                    xpos = siteSpacer
+                    columnCounter = 1
+                }
+                
+                //var siteIdentifier = category.sitesDetails[i].identifier!
+                //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                
+                //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false)
+                
+                elementMiniView.delegate = father?.father! as! MainView
+                
+                elements!.append(elementMiniView)
+                scroll!.addSubview(elementMiniView)
+                
+                xpos = xpos + siteViewWidth
+                //}
+            }
+            
+            ypos = ypos + siteViewHeight + siteSpacer
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+            
+            SharedUIManager.instance.miniView_height = siteViewHeight
+            SharedUIManager.instance.miniView_width = siteViewWidth
+            SharedUIManager.instance.miniView_columns = columns
+        } else {
+            //Show not biins view
+            if notBiinsView == nil {
+                
+                var xpos = (( SharedUIManager.instance.screenWidth - 170) / 2 )
+                var ypos = (( SharedUIManager.instance.screenHeight / 4 ))
+                
+                notBiinsView = BNView_NoBiinAvailableSign(frame: CGRectMake(0, 0, self.frame.width, self.frame.height), color: UIColor.appButtonColor_Disable(), iconPosition: CGPointMake(xpos, ypos))
+                self.addSubview(notBiinsView!)
+            } else  {
+                notBiinsView!.alpha = 1
+            }
         }
-        
-        ypos = ypos + siteViewHeight + siteSpacer
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-        
-        SharedUIManager.instance.miniView_height = siteViewHeight
-        SharedUIManager.instance.miniView_width = siteViewWidth
-        SharedUIManager.instance.miniView_columns = columns
     }
     
     /* UIScrollViewDelegate Methods */
@@ -218,43 +238,45 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
         
         if !isWorking { return }
         
-        var height = self.siteViewHeight + self.siteSpacer
-        var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
+        if elements != nil {
         
-        if lastRowRequested < row {
+            var height = self.siteViewHeight + self.siteSpacer
+            var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
             
-            lastRowRequested = row
-            var requestLimit:Int = Int((lastRowRequested + columns) * columns)
-            
-            if requestLimit >= elements?.count {
-                requestLimit = elements!.count - 1
-            }
-            
-            
-            var i:Int = requestLimit
-            var stop:Bool = false
-            
-            while !stop {
+            if lastRowRequested < row {
                 
-                if i >= siteRequestPreviousLimit {
-                    var siteView = elements![i] as ElementMiniView
-                    siteView.requestImage()
-                    i--
-                } else  {
-                    stop = true
+                lastRowRequested = row
+                var requestLimit:Int = Int((lastRowRequested + columns) * columns)
+                
+                if requestLimit >= elements?.count {
+                    requestLimit = elements!.count - 1
                 }
+                
+                var i:Int = requestLimit
+                var stop:Bool = false
+                
+                while !stop {
+                    
+                    if i >= siteRequestPreviousLimit {
+                        var siteView = elements![i] as ElementMiniView
+                        siteView.requestImage()
+                        i--
+                    } else  {
+                        stop = true
+                    }
+                }
+                
+                //Error when archiving: command failed due to signal: segmentation fault: 11
+                /*
+                for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
+                //println("requesting for  \(i)")
+                var siteView = sites![i] as SiteMiniView
+                siteView.requestImage()
+                }
+                */
+                
+                siteRequestPreviousLimit = requestLimit + 1
             }
-            
-            //Error when archiving: command failed due to signal: segmentation fault: 11
-            /*
-            for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
-            //println("requesting for  \(i)")
-            var siteView = sites![i] as SiteMiniView
-            siteView.requestImage()
-            }
-            */
-            
-            siteRequestPreviousLimit = requestLimit + 1
         }
     }
 }

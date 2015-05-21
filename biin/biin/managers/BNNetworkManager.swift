@@ -747,10 +747,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             self.requestUserCategoriesData(request)
         }
         */
-        
-        
+                
         //https://biin-qa.herokuapp.com/mobile/5eb36cc2-983d-4762-ac44-c6100bf3598a/10/10/categories
-
 
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
@@ -1056,6 +1054,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             element._id = self.findString("_id", dictionary: elementData)
                             element.identifier = self.findString("elementIdentifier", dictionary: elementData)
                             element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
+                            element.siteIdentifier = self.findString("siteIdentifier", dictionary: elementData)
                             showcase.elements.append(element)
                             element.color = UIColor.elementColor()
                         }
@@ -1918,6 +1917,157 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             }
         })
     }
+    
+    
+    func sendSharedElement(user: Biinie, element: BNElement) {
+
+        /*
+        Registration of Share Service:
+        Method: PUT
+        Route: 'mobile/biinies/[Biinie Identifier]/share’
+        Model: {"model":{"identifier”:”’[Object Identifier]","type":”element/site"}}
+        Example: {"model":{"identifier":"1234","type":"element”}}
+        */
+        
+        println("sendSharedElement(\(user.email)) element: \(element.identifier!)")
+        
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        println("Share request string: \(request!.requestString)")
+        
+        var model = Dictionary<String, Dictionary <String, String>>()
+        
+        var modelContent = Dictionary<String, String>()
+        modelContent["identifier"] = element.identifier!
+        modelContent["type"] = "element" //"site"
+        model["model"] = modelContent
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
+        var response:BNResponse?
+        
+        epsNetwork!.put(request!.requestString, htttpBody:htttpBody, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("ERROR on sendSharedElement()")
+                self.handleFailedRequest(request!, error: error )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** sendSharedElement() for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    
+                    println("*** data \(data)")
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** sendSharedElement() for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** sendSharedElement() for user \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedUpdateConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request!.identifier)
+            }
+        })
+
+        
+    }
+    
+    func sendSharedSite(user:Biinie, site:BNSite ) {
+        
+        println("sendSharedSite(\(user.email)) site: \(site.identifier!)")
+        
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        var model = Dictionary<String, Dictionary <String, String>>()
+        
+        var modelContent = Dictionary<String, String>()
+        modelContent["identifier"] = site.identifier!
+        modelContent["type"] = "site"
+        model["model"] = modelContent
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
+        var response:BNResponse?
+        
+        epsNetwork!.put(request!.requestString, htttpBody:htttpBody, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("ERROR on sendSharedSite()")
+                self.handleFailedRequest(request!, error: error )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** sendSharedSite() for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    //var identifier = self.findString("identifier", dictionary: dataData)
+                    println("*** data \(data)")
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** sendSharedSite() for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** sendSharedSite() for user \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedUpdateConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request!.identifier)
+            }
+        })
+
+    }
+    
     
     //TODO: Impelement later.
     ///Conforms optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.

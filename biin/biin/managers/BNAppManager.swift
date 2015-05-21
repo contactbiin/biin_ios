@@ -101,7 +101,7 @@ class BNAppManager {
             networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
         }
         
-        dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.append(identifier)
+        //dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.append(identifier)
     }
     
     func shareIt(identifier:String, isElement:Bool){
@@ -114,7 +114,7 @@ class BNAppManager {
             
             //dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
             
-            //networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+            networkManager.sendSharedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!)
 
             mainViewController?.shareElement(dataManager.elements[identifier]!)
             
@@ -122,7 +122,7 @@ class BNAppManager {
             dataManager.sites[identifier]?.userShared = true
 //            dataManager.sites[identifier]?.biinedCount++
 //            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
-//            networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+            networkManager.sendSharedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!)
             mainViewController?.shareSite(dataManager.sites[identifier]!)
         }
     }
@@ -145,6 +145,7 @@ class BNAppManager {
             networkManager.sendUnBiinedSite(dataManager.bnUser!, siteIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         }
 
+        /*
         if dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.count > 0 {
             var index:Int = 0
             for item in dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items {
@@ -158,7 +159,7 @@ class BNAppManager {
             
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items.removeAtIndex(index)
         }
-        
+        */
         //TODO: inform backend the user remove biined element
     }
     

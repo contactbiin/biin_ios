@@ -81,6 +81,7 @@ class BNElement:NSObject {
     //Download management
     var isDownloadCompleted = false
     var isHighlight:Bool = false
+    var siteIdentifier:String?
     
     override init() {
         super.init()
@@ -135,6 +136,7 @@ class BNElement:NSObject {
         clone.userCommented = self.userCommented
         clone.userViewed = self.userViewed
         clone.isHighlight = self.isHighlight
+        if let value = self.siteIdentifier { clone.siteIdentifier = value }
         return clone
     }
 }

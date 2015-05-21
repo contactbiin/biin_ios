@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BiinieCategoriesView: BNView, UIScrollViewDelegate {
+class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     var headerDelegate:BiinieCategoriesView_Delegate?
     
@@ -23,6 +23,8 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
 //    override init() {
 //        super.init()
 //    }
+    
+    var elementView:ElementView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,6 +67,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
+        
+        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:false)
+        elementView!.delegate = self
+        self.addSubview(elementView!)
     }
     
     func showMenuBtnActon(sender:BNUIButton) {
@@ -404,6 +410,30 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate {
     func scrollViewDidScrollToTop(scrollView: UIScrollView) {
     }// called when scrolling animation finished. may be called immediately if already at top
 
+    func showElementView(elementMiniView:ElementMiniView?){
+        
+        elementView!.updateElementData(elementMiniView)
+        
+        UIView.animateWithDuration(0.3, animations: {()-> Void in
+            self.elementView!.frame.origin.x = 0
+            self.fade!.alpha = 0.25
+        })
+    }
+    
+    func hideElementView(view:ElementMiniView?) {
+        UIView.animateWithDuration(0.4, animations: {() -> Void in
+            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
+            self.fade!.alpha = 0
+            }, completion: {(completed:Bool)-> Void in
+                
+                if !view!.element!.userViewed {
+                    view!.userViewedElement()
+                }
+                
+                self.elementView!.clean()
+        })
+    }
+    
 }
 
 @objc protocol BiinieCategoriesView_Delegate:NSObjectProtocol {

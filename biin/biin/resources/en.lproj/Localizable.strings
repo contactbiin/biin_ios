@@ -92,7 +92,6 @@ ThankYouStop = "Thank you for stoping by.";
 /* Login View*/
 Wellcome = "Welcome to biin!";
 
-
 /* Email messaje*/
 EmailMsj = "Hello there!";
 
@@ -104,3 +103,4 @@ Places = "Sites";
 HightLights = "HightLights";
 Biins = "Biins";
 Biined = "Biined!";
+NotBiins = "It seems there are not Biins around here!";

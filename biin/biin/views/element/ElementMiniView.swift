@@ -25,6 +25,8 @@ class ElementMiniView: BNView {
     
     var animationView:BiinItAnimationView?
     
+    var isNumberVisible = true
+    
 //    override init() {
 //        super.init()
 //    }
@@ -41,8 +43,10 @@ class ElementMiniView: BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool){
+    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool){
+        
         self.init(frame: frame, father:father )
+        self.isNumberVisible = isNumberVisible
         
         self.layer.borderColor = UIColor.appMainColor().CGColor
         self.layer.borderWidth = 1
@@ -68,14 +72,16 @@ class ElementMiniView: BNView {
         image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize))
         //image!.alpha = 1
         self.addSubview(image!)
-        
-        
-        
-        
-        header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
-        self.addSubview(header!)
-        header!.updateSocialButtonsForElement(self.element)
-        
+ 
+        if !isNumberVisible {
+            header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:false)
+            self.addSubview(header!)
+            header!.updateSocialButtonsForElement(self.element)
+        } else {
+            header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
+            self.addSubview(header!)
+            header!.updateSocialButtonsForElement(self.element)
+        }
         
         var ypos:CGFloat = SharedUIManager.instance.miniView_headerHeight + 5
         /*

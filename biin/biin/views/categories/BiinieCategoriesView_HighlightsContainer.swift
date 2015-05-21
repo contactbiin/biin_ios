@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate {
+class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, ElementMiniView_Delegate {
     
     //var delegate:BiinieCategoriesView_SiteContainer_Delegate?
     
@@ -154,10 +154,10 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate {
                 //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                 
                 //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false)
-                
-                elementMiniView.delegate = father?.father! as! MainView
-                
+                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false)
+            
+                //elementMiniView.delegate = father?.father! as! MainView
+                elementMiniView.delegate = self
                 elements!.append(elementMiniView)
                 scroll!.addSubview(elementMiniView)
                 
@@ -254,6 +254,11 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate {
             
             siteRequestPreviousLimit = requestLimit + 1
         }
+    }
+    
+    //ElementMiniView_Delegate
+    func showElementView(view:ElementMiniView, position: CGRect) {
+        (father! as! BiinieCategoriesView).showElementView(view)
     }
 }
 
