@@ -9,6 +9,7 @@ import UIKit
 class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate {
     
     var delegate:MainViewDelegate?
+    var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
     
     var rootViewController:MainViewController?
     var fade:UIView?
@@ -59,6 +60,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         //Create views
         var categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
+        delegate_HighlightsContainer = categoriesView
         biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
         self.addSubview(categoriesView)
         state = biinieCategoriesState!
@@ -312,12 +314,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
     }
     
+    func updateHighlightsContainer() {
+        delegate_HighlightsContainer!.updateHighlightsContainer!(self, update: true)
+    }
+    
 }
 
 
 @objc protocol MainViewDelegate:NSObjectProtocol {
     
     //Methods to conform on BNNetworkManager in
+    
     
     ///Request a region's data.
     ///
@@ -327,4 +334,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     optional func mainView(mainView:MainView!, hideMenuOnChange value:Bool, index:Int)
     
     optional func mainView(mainView:MainView!, showMenu value:Bool)
+
+}
+
+@objc protocol MainViewDelegate_HighlightsContainer:NSObjectProtocol {
+    optional func updateHighlightsContainer(view:MainView,  update:Bool)
+
 }

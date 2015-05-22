@@ -59,7 +59,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         scroll!.bounces = false
         self.addSubview(scroll!)
         
-        addHighlights()
+        updateHighlights()
     }
     
     override func transitionIn() {
@@ -106,7 +106,12 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
     }
     
     
-    func addHighlights(){
+    func updateHighlights(){
+        
+        lastRowRequested = 0
+        siteRequestPreviousLimit = 0
+   
+        
         var xpos:CGFloat = 0
         var ypos:CGFloat = siteSpacer
         
@@ -171,6 +176,8 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         SharedUIManager.instance.miniView_height = siteViewHeight
         SharedUIManager.instance.miniView_width = siteViewWidth
         SharedUIManager.instance.miniView_columns = columns
+        
+        getToWork()
     }
     
     /* UIScrollViewDelegate Methods */
@@ -216,43 +223,46 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         
         if !isWorking { return }
         
-        var height = self.siteViewHeight + self.siteSpacer
-        var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
-        
-        if lastRowRequested < row {
+        if elements?.count > 0 {
             
-            lastRowRequested = row
-            var requestLimit:Int = Int((lastRowRequested + columns) * columns)
+            var height = self.siteViewHeight + self.siteSpacer
+            var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
             
-            if requestLimit >= elements?.count {
-                requestLimit = elements!.count - 1
-            }
-            
-            
-            var i:Int = requestLimit
-            var stop:Bool = false
-            
-            while !stop {
+            if lastRowRequested < row {
                 
-                if i >= siteRequestPreviousLimit {
-                    var siteView = elements![i] as ElementMiniView
-                    siteView.requestImage()
-                    i--
-                } else  {
-                    stop = true
+                lastRowRequested = row
+                var requestLimit:Int = Int((lastRowRequested + columns) * columns)
+                
+                if requestLimit >= elements?.count {
+                    requestLimit = elements!.count - 1
                 }
+                
+                
+                var i:Int = requestLimit
+                var stop:Bool = false
+                
+                while !stop {
+                    
+                    if i >= siteRequestPreviousLimit {
+                        var siteView = elements![i] as ElementMiniView
+                        siteView.requestImage()
+                        i--
+                    } else  {
+                        stop = true
+                    }
+                }
+                
+                //Error when archiving: command failed due to signal: segmentation fault: 11
+                /*
+                for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
+                //println("requesting for  \(i)")
+                var siteView = sites![i] as SiteMiniView
+                siteView.requestImage()
+                }
+                */
+                
+                siteRequestPreviousLimit = requestLimit + 1
             }
-            
-            //Error when archiving: command failed due to signal: segmentation fault: 11
-            /*
-            for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
-            //println("requesting for  \(i)")
-            var siteView = sites![i] as SiteMiniView
-            siteView.requestImage()
-            }
-            */
-            
-            siteRequestPreviousLimit = requestLimit + 1
         }
     }
     

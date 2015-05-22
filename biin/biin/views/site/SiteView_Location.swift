@@ -30,6 +30,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     var siteLocation:CLLocationCoordinate2D?
     var annotation:MKPointAnnotation?
+    
+    var yStop:CGFloat = 0
 
 //    override init() {
 //        super.init()
@@ -83,6 +85,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         title!.font = UIFont(name: "Lato-Black", size: 20)
         title!.text = ""
         title!.textColor = UIColor.biinColor()
+        title!.numberOfLines = 0
+        title!.sizeToFit()
         self.addSubview(title!)
         
         ypos += 23
@@ -115,6 +119,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         self.addSubview(email!)
         
         ypos += 35
+        yStop = ypos //To use in shareview.
         map = MKMapView(frame:CGRectMake(10, ypos, (screenWidth - 20), 160))
         map!.userInteractionEnabled = false
         map!.layer.cornerRadius = 3

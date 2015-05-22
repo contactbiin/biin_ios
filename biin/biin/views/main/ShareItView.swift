@@ -61,24 +61,23 @@ class ShareItView:UIView {
 
         ypos += 6
         var title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
-        title.font = UIFont(name:"Lato-Regular", size:25)
+        title.font = UIFont(name:"Lato-Black", size:25)
         title.textColor = element.titleColor!
         title.text = element.title
         self.addSubview(title)
         
         ypos += 28
         var subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
-        subTitle.font = UIFont(name:"Lato-Regular", size:14)
+        subTitle.font = UIFont(name:"Lato-Light", size:13)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = element.subTitle
         self.addSubview(subTitle)
         
-        ypos = 350
-        var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: nil, element: element)
-        self.addSubview(pricingDetails)
-        pricingDetails.frame.origin.y = 350
-        
-        ypos += pricingDetails.frame.height + 10
+        ypos = 360
+        //var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: nil, element: element)
+        //self.addSubview(pricingDetails)
+        //pricingDetails.frame.origin.y = 350
+        //ypos += pricingDetails.frame.height + 10
         
         var siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
         siteLocation.updateForSite(site!)
@@ -86,7 +85,7 @@ class ShareItView:UIView {
         siteLocation.frame.origin.y = ypos
         self.addSubview(siteLocation)
         
-        ypos += 120
+        ypos += siteLocation.yStop
         
         var whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
         whiteBackground2.backgroundColor = UIColor.biinColor()

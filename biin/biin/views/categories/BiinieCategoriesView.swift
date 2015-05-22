@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate {
+class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, MainViewDelegate_HighlightsContainer {
     
     var headerDelegate:BiinieCategoriesView_Delegate?
     
@@ -17,6 +17,9 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate {
     var numberOfCategories = 0
     
     var scroll:UIScrollView?
+    
+    var highlightsContainer:BiinieCategoriesView_HighlightsContainer?
+    var biinsContainer:BiinieCategoriesView_BiinsContainer?
     
     var fade:UIView?
     
@@ -225,11 +228,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func addHightlightsContainer() {
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
-        var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
-        
-        var xpos:CGFloat = screenWidth + 1
+
         //var counter = 0
         
         //categorySitesContainers?.removeAll(keepCapacity: false)
@@ -246,32 +245,41 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
         
-        var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
-        var highlightsContainer = BiinieCategoriesView_HighlightsContainer(frame: frame, father: self, allElements: true)
-        //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
-        
-        categorySitesContainers!.append(highlightsContainer)
-        scroll!.addSubview(highlightsContainer)
-        
-        //if counter == ( numberOfCategories - 1 ){
-        //    xpos += screenWidth
-        //}else {
-        //    xpos += screenWidth + SharedUIManager.instance.spacer
-        //}
-        
-        
-        
-        //counter++
-        
-        //            if counter == 4 {
-        //                showFx = true
-        //            } else {
-        //                showFx = false
-        //            }
-        //}
-        xpos += screenWidth
-        scroll!.contentSize = CGSizeMake(xpos, 316)
-        scroll!.pagingEnabled = true
+        if highlightsContainer == nil {
+            
+            var screenWidth = SharedUIManager.instance.screenWidth
+            var screenHeight = SharedUIManager.instance.screenHeight
+            var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+            
+            var xpos:CGFloat = screenWidth + 1
+            
+            var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+            highlightsContainer = BiinieCategoriesView_HighlightsContainer(frame: frame, father: self, allElements: true)
+            //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
+            
+            categorySitesContainers!.append(highlightsContainer!)
+            scroll!.addSubview(highlightsContainer!)
+            
+            //if counter == ( numberOfCategories - 1 ){
+            //    xpos += screenWidth
+            //}else {
+            //    xpos += screenWidth + SharedUIManager.instance.spacer
+            //}
+            
+            
+            
+            //counter++
+            
+            //            if counter == 4 {
+            //                showFx = true
+            //            } else {
+            //                showFx = false
+            //            }
+            //}
+            xpos += screenWidth
+            scroll!.contentSize = CGSizeMake(xpos, 316)
+            scroll!.pagingEnabled = true
+        }
         
         //if categorySitesContainers!.count > 0 {
           //  categorySitesContainers![0].getToWork()
@@ -280,59 +288,62 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func addRangedBiinsContainer() {
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
-        var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
         
-        var xpos:CGFloat = screenWidth + 2
-        //var counter = 0
-        
-        //categorySitesContainers?.removeAll(keepCapacity: false)
-        //categorySitesContainers = Array<BiinieCategoriesView_SitesContainer>()
-        
-        //numberOfCategories = BNAppSharedManager.instance.dataManager.bnUser!.categories.count
-        
-        //Sets all user categories on section for further use
-        //BNAppSharedManager.instance.dataManager.loadUserSections()
-        
-        //println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
-        //println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
-        
-        
-        //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+        if biinsContainer == nil {
+            var screenWidth = SharedUIManager.instance.screenWidth
+            var screenHeight = SharedUIManager.instance.screenHeight
+            var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+            
+            var xpos:CGFloat = screenWidth + 2
+            //var counter = 0
+            
+            //categorySitesContainers?.removeAll(keepCapacity: false)
+            //categorySitesContainers = Array<BiinieCategoriesView_SitesContainer>()
+            
+            //numberOfCategories = BNAppSharedManager.instance.dataManager.bnUser!.categories.count
+            
+            //Sets all user categories on section for further use
+            //BNAppSharedManager.instance.dataManager.loadUserSections()
+            
+            //println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
+            //println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
+            
+            
+            //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
 
-        xpos += screenWidth
-        var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
-        var biinsContainer = BiinieCategoriesView_BiinsContainer(frame: frame, father: self, allElements: true)
-        //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
-        
-        categorySitesContainers!.append(biinsContainer)
-        scroll!.addSubview(biinsContainer)
-        
-        //if counter == ( numberOfCategories - 1 ){
-        //    xpos += screenWidth
-        //}else {
-        //    xpos += screenWidth + SharedUIManager.instance.spacer
-        //}
-        
-        
-        
-        //counter++
-        
-        //            if counter == 4 {
-        //                showFx = true
-        //            } else {
-        //                showFx = false
-        //            }
-        //}
-        xpos += screenWidth
-        scroll!.contentSize = CGSizeMake(xpos, 316)
-        scroll!.pagingEnabled = true
-        
-        //if categorySitesContainers!.count > 0 {
-        //  categorySitesContainers![0].getToWork()
-        //categorySitesContainers![0].manageSitesImageRequest()
-        //}
+            xpos += screenWidth
+            var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+            biinsContainer = BiinieCategoriesView_BiinsContainer(frame: frame, father: self, allElements: true)
+            //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
+            
+            categorySitesContainers!.append(biinsContainer!)
+            scroll!.addSubview(biinsContainer!)
+            
+            //if counter == ( numberOfCategories - 1 ){
+            //    xpos += screenWidth
+            //}else {
+            //    xpos += screenWidth + SharedUIManager.instance.spacer
+            //}
+            
+            
+            
+            //counter++
+            
+            //            if counter == 4 {
+            //                showFx = true
+            //            } else {
+            //                showFx = false
+            //            }
+            //}
+            xpos += screenWidth
+            scroll!.contentSize = CGSizeMake(xpos, 316)
+            scroll!.pagingEnabled = true
+            
+            //if categorySitesContainers!.count > 0 {
+            //  categorySitesContainers![0].getToWork()
+            //categorySitesContainers![0].manageSitesImageRequest()
+            //}
+        }
     }
     
     func showNotification(){
@@ -434,6 +445,11 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate {
         })
     }
     
+    
+    func updateHighlightsContainer(view: MainView, update: Bool) {
+        println("updateHighlightsContainer() in BiinieCategoriesView")
+        highlightsContainer!.updateHighlights()
+    }
 }
 
 @objc protocol BiinieCategoriesView_Delegate:NSObjectProtocol {

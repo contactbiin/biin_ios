@@ -1522,7 +1522,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
     func requestCollectionsForBNUser(request:BNRequest) {
         
-        println("requestCollectionsForBNUser()")
+        println("requestCollectionsForBNUser() url: \(request.requestString)")
         
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in

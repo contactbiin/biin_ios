@@ -309,12 +309,17 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func findSiteForElement(element:BNElement) -> BNSite? {
-        for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
-            for biin in site.biins {
-                for showcase in biin.showcases! {
-                    for elementSC in showcase.elements {
-                        if element.identifier! == elementSC.identifier! {
-                            return site
+        
+        if element.isHighlight {
+                return BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!]
+        } else {
+            for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
+                for biin in site.biins {
+                    for showcase in biin.showcases! {
+                        for elementSC in showcase.elements {
+                            if element.identifier! == elementSC.identifier! {
+                                return site
+                            }
                         }
                     }
                 }

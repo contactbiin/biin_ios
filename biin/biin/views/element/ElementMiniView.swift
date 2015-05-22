@@ -224,8 +224,8 @@ class ElementMiniView: BNView {
         UIView.animateWithDuration(0.1, animations: {()->Void in
                 self.alpha = 0
             }, completion: {(completed:Bool)->Void in
+                BNAppSharedManager.instance.unBiinit(self.element!._id!, isElement:true)
                 self.delegate!.resizeScrollOnRemoved!(self)
-                BNAppSharedManager.instance.unBiinit(self.element!.identifier!, isElement:true)
                 self.removeFromSuperview()
         })
     }

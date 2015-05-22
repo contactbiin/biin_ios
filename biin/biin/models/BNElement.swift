@@ -8,7 +8,6 @@ import UIKit
 
 class BNElement:NSObject {
     
-    
     //TODO: jsonUrl only for testing, remove later
     var jsonUrl:String?
     

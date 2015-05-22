@@ -133,12 +133,14 @@ class BNAppManager {
     
     func unBiinit(identifier:String, isElement:Bool){
         
+        //The identifier parameter is actually the _id of the element.
+        //On site is the identifier.
         println("unBiinit: \(identifier)")
         
         if isElement {
             dataManager.elements[identifier]?.userBiined = false
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[identifier] = nil
-            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[dataManager.elements[identifier]!.identifier!] = nil
+            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:dataManager.elements[identifier]!.identifier!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         } else {
             dataManager.sites[identifier]?.userBiined = false
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil

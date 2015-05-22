@@ -442,6 +442,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         //scroll!.bounces = false
         //scroll!.pagingEnabled = false
         
+        (father as! CollectionsView).updateHighlightsContainer()
+        
     }
 
 }
