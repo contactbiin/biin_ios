@@ -12,6 +12,8 @@ class ShareItView:UIView {
 //        super.init()
 //    }
     
+    var priceView:BNUIPricesView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -23,6 +25,8 @@ class ShareItView:UIView {
     convenience init(frame: CGRect, element:BNElement, site:BNSite?) {
         self.init(frame:frame)
         
+        //var newElement = BNAppSharedManager.instance.dataManager.elements[element._id!]
+        
         self.backgroundColor = UIColor.clearColor()
         self.layer.cornerRadius = 5
         self.layer.borderColor = UIColor.appButtonColor().CGColor
@@ -30,6 +34,7 @@ class ShareItView:UIView {
         self.layer.masksToBounds = true
 
         var ypos:CGFloat = 30
+        var hasPrice = false
         
         var image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320))
         
@@ -42,17 +47,35 @@ class ShareItView:UIView {
         
         self.addSubview(image)
 
-//        if element.media.count > 0 {
-//            
-//            
-//            var image = ShareEPSNetworking.cacheImages[element.media[0].url!]!
-//            var imageView = UIImageView(image: image)
-//            self.addSubview(imageView)
-//            imageView.frame = CGRectMake(0, ypos, 320, 320)
-//        } else {
-//            
-//        }
-    
+        ypos = 65
+        if priceView != nil {
+            priceView!.removeFromSuperview()
+            priceView = nil
+        }
+        
+        if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.currency!)\(element.price!)", isMini:false)
+            self.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+            
+        } else if element.hasPrice && element.hasListPrice {
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.listPrice!)", newPrice:"\(element.currency!)\(element.price!)", percentage:"\(element.discount!)%", isMini:false)
+            self.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+        } else if element.hasPrice &&  element.hasFromPrice {
+            
+            //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(element.currency!)\(element.price!)", from:     NSLocalizedString("From", comment: "From")
+                , isMini:false)
+            self.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+        }
+
+        
         ypos = 0
         var whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
         whiteBackground.backgroundColor = UIColor.appMainColor()
@@ -86,9 +109,10 @@ class ShareItView:UIView {
         self.addSubview(siteLocation)
         
         ypos += siteLocation.yStop
+        ypos += 30
         
         var whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
-        whiteBackground2.backgroundColor = UIColor.biinColor()
+        whiteBackground2.backgroundColor = UIColor.biinDarkColor()
         self.addSubview(whiteBackground2)
         
         var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))

@@ -991,7 +991,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             runRequest = true
             
         } else {
-            request = BNRequest(requestString:"https://www.biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
 
             showcase = BNShowcase()
             request!.showcase = showcase!

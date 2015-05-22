@@ -219,17 +219,23 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     //Instance methods
     //Instance methods
     func updateForSite(site: BNSite?){
+
+        
+        var ypos:CGFloat = title!.frame.origin.y
         
         title!.textColor = site!.titleColor
         title!.text = site!.title!
-
+        title!.numberOfLines = 0
+        title!.sizeToFit()
+        ypos += title!.frame.height
+        
         var headerWidth = SharedUIManager.instance.screenWidth - 30
-        streetAddress1!.frame = CGRectMake(streetAddress1!.frame.origin.x, streetAddress1!.frame.origin.y, (headerWidth - 95), 12)
+        streetAddress1!.frame = CGRectMake(streetAddress1!.frame.origin.x, ypos, (headerWidth - 95), 12)
         streetAddress1!.text = "\(site!.streetAddress1!)"
         streetAddress1!.numberOfLines = 0
         streetAddress1!.sizeToFit()
         
-        var ypos:CGFloat = streetAddress1!.frame.origin.y
+
         ypos += streetAddress1!.frame.height
         
         streetAddress2!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
