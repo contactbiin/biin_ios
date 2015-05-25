@@ -69,6 +69,73 @@ class BNUIPricesView:UIView {
         self.addSubview(self.newPrice!)
     }
     
+    convenience init(frame: CGRect, oldPrice:String, newPrice:String, isMini:Bool) {
+        self.init(frame: frame)
+        
+        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
+        
+        var fontSize1:CGFloat = 20
+        var fontSize2:CGFloat = 28
+        var ypos1:CGFloat = 3
+        var ypos2:CGFloat = 25
+        var x_ypos:CGFloat = 4
+        var spacer:CGFloat = 40
+        var strokeWidth:CGFloat = 2
+        
+        if isMini {
+            fontSize1 = 11
+            fontSize2 = 16
+            ypos1 = 3
+            ypos2 = 15
+            x_ypos = 0
+            spacer = 20
+            strokeWidth = 1
+        }
+        
+        
+        var size1 = getStringLength(oldPrice, fontName: "Lato-Regular", fontSize: (fontSize1 + 2))
+        var size2 = getStringLength(newPrice, fontName: "Lato-Black", fontSize: (fontSize2 + 2))
+        
+        var width:CGFloat = 0
+        if size2 > size1 {
+            width = size2 + spacer
+        } else {
+            width = size1 + spacer
+            
+        }
+        
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
+        
+        self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
+        self.oldPrice!.textColor = UIColor.appButtonColor()
+        self.oldPrice!.textAlignment = NSTextAlignment.Center
+        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
+        self.oldPrice!.text = oldPrice
+        self.addSubview(self.oldPrice!)
+        
+        self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
+        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textAlignment = NSTextAlignment.Center
+        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.text = newPrice
+        self.addSubview(self.newPrice!)
+        
+        var xpos:CGFloat = ( width - size1 ) / 2
+        
+        var xView = BNUIView_PriceX(frame: CGRectMake(0, 0, width, 30), color: UIColor.appButtonColor(), position: CGPoint(x:xpos, y: x_ypos), size: (size1 - 3), strokeWidth:strokeWidth)
+        self.addSubview(xView)
+        
+        if isMini {
+            //icon = BNIcon_Pricing(color: UIColor.blackColor(), position: CGPoint(x: -9, y: -9), text:percentage)
+        } else {
+            //icon = BNIcon_PricingBig(color: UIColor.blackColor(), position: CGPoint(x:-2, y:-2), text:percentage)
+        }
+
+    }
+    
+    
     convenience init(frame: CGRect, oldPrice:String, newPrice:String, percentage:String, isMini:Bool) {
         self.init(frame: frame)
         

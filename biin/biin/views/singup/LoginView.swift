@@ -33,7 +33,7 @@ class LoginView:UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.biinColor()
+        self.backgroundColor = UIColor.whiteColor()
 //        self.layer.cornerRadius = 5
 //        self.layer.masksToBounds = true
 //        self.becomeFirstResponder()
@@ -45,34 +45,37 @@ class LoginView:UIView, UITextFieldDelegate {
         self.addSubview(biinLogo!)
         
         ypos += (10 + biinLogo!.frame.height)
-        welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 18))
+        welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 23))
         welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
         welcomeLbl!.textAlignment = NSTextAlignment.Center
-        welcomeLbl!.textColor = UIColor.appMainColor()
-        welcomeLbl!.font = UIFont(name: "Lato-Light", size: 16)
+        welcomeLbl!.textColor = UIColor.appTextColor()
+        welcomeLbl!.font = UIFont(name: "Lato-Black", size: 20)
         self.addSubview(welcomeLbl!)
 
         ypos += (30 + welcomeLbl!.frame.height)
-        emailTxt = BNUITexfield_Top(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Email", comment: "Email"))
+        emailTxt = BNUITexfield_Top(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         self.addSubview(emailTxt!)
         //emailTxt!.setNeedsDisplay()
         
-        ypos += (2 + emailTxt!.frame.height)
-        passwordTxt = BNUITexfield_Bottom(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Password", comment: "Password"))
+        ypos += (1 + emailTxt!.frame.height)
+        passwordTxt = BNUITexfield_Bottom(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Password", comment: "Password"))
         passwordTxt!.textField!.delegate = self
         passwordTxt!.textField!.secureTextEntry = true
         passwordTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         self.addSubview(passwordTxt!)
         
         ypos += (40 + passwordTxt!.frame.height)
-        loginBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnGreen(), text:NSLocalizedString("Login", comment: "Login"))
+        //loginBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnGreen(), text:NSLocalizedString("Login", comment: "Login"))
+        
+        loginBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 65), color:UIColor.appButtonColor_Disable(), text:NSLocalizedString("Login", comment: "Login"))
         loginBtn!.addTarget(self, action: "login:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(loginBtn!)
 
         ypos += (10 + loginBtn!.frame.height)
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"))
+//        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"))
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 65), color:UIColor.appButtonColor_Disable(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"))
         singupBtn!.addTarget(self, action: "signup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         
@@ -80,7 +83,7 @@ class LoginView:UIView, UITextFieldDelegate {
         signupLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 18))
         signupLbl!.text = NSLocalizedString("SignUpMsj", comment: "SignUpMsj")
         signupLbl!.textAlignment = NSTextAlignment.Center
-        signupLbl!.textColor = UIColor.appMainColor()
+        signupLbl!.textColor = UIColor.appTextColor()
         signupLbl!.font = UIFont(name: "Lato-Light", size: 16)
         self.addSubview(signupLbl!)
         

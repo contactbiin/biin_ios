@@ -178,16 +178,24 @@ class ElementView: BNView {
             hasPrice = true
             ypos += 40
             
-        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice {
+        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && elementMiniView!.element!.hasDiscount {
             
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
+            
+        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
+            //TODO
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", isMini:false)
+            scroll!.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+            
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
             
             //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:     NSLocalizedString("From", comment: "From")
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:NSLocalizedString("From", comment: "From")
 , isMini:false)
             scroll!.addSubview(priceView!)
             hasPrice = true

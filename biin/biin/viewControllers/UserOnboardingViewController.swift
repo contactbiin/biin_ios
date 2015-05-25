@@ -23,6 +23,10 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        UIApplication.sharedApplication().statusBarHidden = false
+        self.setNeedsStatusBarAppearanceUpdate()
+        
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
@@ -55,6 +59,10 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         
         scroll!.contentSize = CGSize(width: xpos, height: screenHeight)
         
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     override func didReceiveMemoryWarning() {

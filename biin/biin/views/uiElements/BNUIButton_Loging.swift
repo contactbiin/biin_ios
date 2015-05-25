@@ -28,10 +28,10 @@ class BNUIButton_Loging:BNUIButton {
         
         self.backgroundColor = color
         
-        self.layer.cornerRadius = 25
-        self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
-        self.layer.masksToBounds = true
+        //self.layer.cornerRadius = 25
+        //self.layer.borderWidth = 3
+        //self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
+        //self.layer.masksToBounds = true
 
         self.color = color
         self.position = CGPoint(x:3, y:3 )
@@ -39,8 +39,8 @@ class BNUIButton_Loging:BNUIButton {
         
         var label = UILabel(frame: CGRectMake(0, ((frame.height - 20) / 2), frame.width, 20))
         label.text = text
-        label.textColor = UIColor.appMainColor()
-        label.font = UIFont(name: "Lato-Light", size: 18)
+        label.textColor = UIColor.appTextColor()
+        label.font = UIFont(name: "Lato-Black", size: 18)
         label.textAlignment = NSTextAlignment.Center
         self.addSubview(label)
     }

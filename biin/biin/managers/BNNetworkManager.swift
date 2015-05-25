@@ -2531,7 +2531,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         if value == 1 {
             return "$"
         } else if value == 2 {
-            return "￠"
+            return "¢"
         } else if value ==  3 {
             return "€"
         } else {
