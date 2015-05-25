@@ -23,6 +23,8 @@ class ElementMiniView_PricingDetails:BNView {
     convenience init(frame: CGRect, father:BNView?, element:BNElement?) {
         self.init(frame:frame, father:father)
         
+        println("element identifier: \(element!.identifier!)")
+        
         var ypos:CGFloat = 5
         var spacer:CGFloat = 5
         

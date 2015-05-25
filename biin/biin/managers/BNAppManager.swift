@@ -10,7 +10,7 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
-    var IS_PRODUCTION_RELEASE = true
+    var IS_PRODUCTION_RELEASE = false
     
     var counter = 0
     var version = "0.1.8"
@@ -72,8 +72,10 @@ class BNAppManager {
             }
             
         } else {
-            isWaitingForLocationServicesPermision = true
-            errorManager.showLocationServiceError()
+            if dataManager.isUserLoaded {
+                isWaitingForLocationServicesPermision = true
+                errorManager.showLocationServiceError()
+            }
         }
     }
     
