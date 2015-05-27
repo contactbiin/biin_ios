@@ -22,7 +22,7 @@ Login = "Sign In";
 ImNewHere = "Or, create an account";
 SignUpMsj = "Sign up using your email address.";
 LetsGetStarted = "Let's get started!";
-DontForget = "Don't forget to check your inbox and verify your email address later on.";
+DontForget = "* Don't forget to check your inbox and verify your email address later on.";
 PleaseWait = "Please wait a moment!";
 Yes = "yes";
 No = "no";
@@ -39,6 +39,7 @@ Discount = "DISCOUNT";
 Savings = "SAVINGS";
 YouSave = "YOU SAVE";
 Value = "VALUE";
+Calcel = "Cancel";
 
 /* Menu buttons */
 Profile = "Profile";

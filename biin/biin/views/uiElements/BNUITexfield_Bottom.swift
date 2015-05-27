@@ -38,11 +38,14 @@ class BNUITexfield_Bottom:UIView {
         textField = UITextField(frame: CGRectMake(15, 0, (frame.width - 50), frame.height))
         textField!.font = UIFont(name: "Lato-Light", size: 18)
         textField!.textColor = UIColor.appTextColor()
-        textField!.placeholder = placeHolderText
+//        textField!.placeholder = placeHolderText
         textField!.returnKeyType = UIReturnKeyType.Go
         textField!.keyboardAppearance = UIKeyboardAppearance.Light
         textField!.clearsOnBeginEditing = true
         self.addSubview(textField!)
+        
+        let str = NSAttributedString(string: placeHolderText, attributes: [NSForegroundColorAttributeName:UIColor.appButtonColor()])
+        textField!.attributedPlaceholder = str
         
         radius = 15.0
         self.color = UIColor.appMainColor()

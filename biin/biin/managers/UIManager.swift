@@ -130,8 +130,8 @@ class UIManager {
         siteView_subTittleSize = 12
         
         signupView_isAnimatingLogo = true
-        signupView_ypos_1 = 115
-        signupView_ypos_2 = 125
+        signupView_ypos_1 = 125
+        signupView_ypos_2 = 140
         
         loginView_isAnimatingLogo = true
         loginView_ypos_1 = 160

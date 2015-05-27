@@ -23,7 +23,7 @@ class BNUIButton_Back_SignupView:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_LeftArrowMedium(color: UIColor.appMainColor(), position: CGPoint(x:5, y: 2))
+        icon = BNIcon_LeftArrowMedium(color: UIColor.appTextColor(), position: CGPoint(x:5, y: 2))
     }
 }
 

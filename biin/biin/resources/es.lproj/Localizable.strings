@@ -19,7 +19,7 @@ Login = "Iniciar";
 ImNewHere = "Soy nuevo aquí!";
 SignUpMsj = "Iniciar con tu dirección de correo";
 LetsGetStarted = "Empecemos!";
-DontForget = "No olvides de revisar tu buzón y verificar tu dirección de correo.";
+DontForget = "* No olvides de revisar tu buzón y verificar tu dirección de correo.";
 PleaseWait = "Espera un momento!";
 Yes = "si";
 No = "no";
@@ -36,6 +36,7 @@ Discount = "DESCUENTO";
 Savings = "AHORROS";
 YouSave = "USTED AHORRA";
 Value = "VALOR";
+Calcel = "Cancelar";
 
 /* Menu buttons */
 Profile = "Perfil";
