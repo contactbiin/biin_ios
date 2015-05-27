@@ -18,8 +18,8 @@ EmailUs = "Email us";
 CallUs = "Call us";
 Phone = "Phone";
 Password = "Password";
-Login = "Log in";
-ImNewHere = "I'm new here!";
+Login = "Sign In";
+ImNewHere = "Or, create an account";
 SignUpMsj = "Sign up using your email address.";
 LetsGetStarted = "Let's get started!";
 DontForget = "Don't forget to check your inbox and verify your email address later on.";
@@ -90,7 +90,7 @@ Done = "Done!";
 ThankYouStop = "Thank you for stoping by.";
 
 /* Login View*/
-Wellcome = "Welcome to biin!";
+Wellcome = "Welcome!";
 
 /* Email messaje*/
 EmailMsj = "Hello there!";

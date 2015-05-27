@@ -134,9 +134,9 @@ class UIManager {
         signupView_ypos_2 = 125
         
         loginView_isAnimatingLogo = true
-        loginView_ypos_1 = 25
-        loginView_ypos_2 = 30
-        loginView_ypos_3 = 55
+        loginView_ypos_1 = 160
+        loginView_ypos_2 = 240
+        loginView_ypos_3 = 75
     }
     
     func setIPhone6Variables() {

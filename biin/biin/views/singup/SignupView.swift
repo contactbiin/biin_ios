@@ -102,7 +102,7 @@ class SignupView:UIView, UITextFieldDelegate {
         
 
         ypos += (20 + passwordTxt!.frame.height)
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"))
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), textColor:UIColor.biinColor())
         singupBtn!.addTarget(self, action: "singup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         

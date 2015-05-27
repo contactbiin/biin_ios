@@ -66,7 +66,7 @@ class UserOnboardingView_Categories:UIView {
         }
         
         ypos += 40
-        startBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnGreen(), text:NSLocalizedString("Start", comment:"Start"))
+        startBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnGreen(), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.biinColor())
         startBtn!.addTarget(self, action: "startBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(startBtn!)
     }

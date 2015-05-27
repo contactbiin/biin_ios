@@ -23,7 +23,7 @@ class BNUIButton_Loging:BNUIButton {
         super.init(frame: frame)
     }
     
-    convenience init(frame:CGRect, color:UIColor, text:String){
+    convenience init(frame:CGRect, color:UIColor, text:String, textColor:UIColor){
         self.init(frame:frame)
         
         self.backgroundColor = color
@@ -39,7 +39,7 @@ class BNUIButton_Loging:BNUIButton {
         
         var label = UILabel(frame: CGRectMake(0, ((frame.height - 20) / 2), frame.width, 20))
         label.text = text
-        label.textColor = UIColor.appTextColor()
+        label.textColor = textColor
         label.font = UIFont(name: "Lato-Black", size: 18)
         label.textAlignment = NSTextAlignment.Center
         self.addSubview(label)

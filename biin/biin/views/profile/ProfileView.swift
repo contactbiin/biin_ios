@@ -342,7 +342,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         }
         
         ypos += 10
-        saveBtn = BNUIButton_Loging(frame: CGRectMake(((screenWidth - 150) / 2), ypos, 150, 60), color: UIColor.biinColor(), text:NSLocalizedString("Save", comment: "Save") )
+        saveBtn = BNUIButton_Loging(frame: CGRectMake(((screenWidth - 150) / 2), ypos, 150, 60), color: UIColor.biinColor(), text:NSLocalizedString("Save", comment: "Save"), textColor:UIColor.biinColor())
         saveBtn!.addTarget(self, action: "saveBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         //saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColor
         scroll!.addSubview(saveBtn!)
