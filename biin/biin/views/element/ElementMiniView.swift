@@ -92,7 +92,13 @@ class ElementMiniView: BNView {
         }
         */
         
-        if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
+        if !element!.hasPrice && element!.hasDiscount{
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(element!.discount!)%", isMini:true)
+            self.addSubview(priceView!)
+            ypos += 40
+            
+        } else if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
             
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(element!.currency!)\(element!.price!)", isMini:true)
             self.addSubview(priceView!)

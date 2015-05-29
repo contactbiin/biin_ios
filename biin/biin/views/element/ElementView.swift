@@ -171,8 +171,14 @@ class ElementView: BNView {
             priceView!.removeFromSuperview()
             priceView = nil
         }
-
-        if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
+        
+        if !elementMiniView!.element!.hasPrice && elementMiniView!.element!.hasDiscount{
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(elementMiniView!.element!.discount!)%", isMini:true)
+            self.addSubview(priceView!)
+            ypos += 40
+            
+        } else if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
             scroll!.addSubview(priceView!)
             hasPrice = true

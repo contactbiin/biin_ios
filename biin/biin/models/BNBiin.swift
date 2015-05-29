@@ -8,22 +8,34 @@ import Foundation
 
 class BNBiin:NSObject
 {
-    var identifier:String?
-    var minor:Int?
+    //Relationship properties
+    var accountIdentifier:String?
+    var siteIdentifier:String?
+    var organizationIdentifier:String?
 
     var isBiinDataCorrupted:Bool = false
     var isBiinDetected:Bool = false
     
     weak var site:BNSite?
     //var showcase:BNShowcase?
-    var showcases:Array<BNShowcase>?
+    var showcases:Array<BNShowcase>?//REMOVE LATER
     var currentShowcaseIndex:Int = 0
-
+    
+    var objects:Array<BNBiinObject>?
+    var currentObjectIndex:Int = 0
+    
     var biinType = BNBiinType.NONE
     
     var state:Biin_State?
     var lastUpdate:NSDate?
-    //var isUserNotified:Bool = false
+    var venue:String?
+    var proximityUUID:NSUUID?
+    var major:Int?
+    var minor:Int?
+    
+    //Identification properties
+    var name:String?
+    var identifier:String?
     
     override init() {
         super.init()
@@ -41,8 +53,24 @@ class BNBiin:NSObject
     }
     
     func setBiinState(){
+        
+        
+        if let objectsList = objects {
+            if objectsList.count > 0 {
+                assingCurrectObject()
+            } else {
+                currentObjectIndex = 0
+            }
+            
+            if didUserBiinedSomethingInShowcase() {
+                
+            }
+            
+        }
+        
+        
+        
         //TODO: set biin state depending on showcase.
-
         //1. Check if showcases is not empty
         if let showcasesList = showcases {
             
@@ -81,6 +109,36 @@ class BNBiin:NSObject
     }
     
     func didUserBiinedSomethingInShowcase()->Bool{
+        
+        /*
+        for element in showcases![currentShowcaseIndex].elements {
+            if element.userBiined {
+                return true
+            }
+        }
+        */
+        return false
+    }
+    
+    func assingCurrectObject(){
+        //TODO: get the correct object depending on the time and properties.
+        currentObjectIndex = 0
+    }
+    
+    func didUserBiinedSomethingInBiinObjects()->Bool {
+        
+        for object in self.objects! {
+         
+            switch object.objectType {
+            case .ELEMENT:
+                break
+            case .SHOWCASE:
+                break
+            default:
+                break
+            }
+        }
+        
         for element in showcases![currentShowcaseIndex].elements {
             if element.userBiined {
                 return true
@@ -88,6 +146,7 @@ class BNBiin:NSObject
         }
         return false
     }
+    
     
     func context(){
         state!.action()

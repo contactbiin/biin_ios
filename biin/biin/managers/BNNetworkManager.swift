@@ -916,9 +916,38 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             biin.identifier = self.findString("identifier", dictionary: biinData)
                             biin.minor = self.findInt("minor", dictionary: biinData)
                             biin.biinType = self.findBNBiinType("biinType", dictionary: biinData)
-                            biin.lastUpdate = self.findNSDate("lastUpdate", dictionary: biinData)
+                            //biin.lastUpdate = self.findNSDate("lastUpdate", dictionary: biinData)
                             biin.site = site
                             
+                            var objects = self.findNSArray("objects", dictionary: biinData)
+                            
+                            if objects!.count > 0 {
+                                biin.objects = Array<BNBiinObject>()
+                                for var k = 0; k < objects!.count; k++ {
+                                    if let objectData = objects!.objectAtIndex(k) as? NSDictionary {
+                                        var object = BNBiinObject()
+                                        object.identifier = self.findString("identifier", dictionary: objectData)
+                                        object.isDefault = self.findBool("isDefault", dictionary: objectData)
+                                        object.onMonday = self.findBool("onMonday", dictionary: objectData)
+                                        object.onTuesday = self.findBool("onTuesday", dictionary: objectData)
+                                        object.onWednesday = self.findBool("onWednesday", dictionary: objectData)
+                                        object.onThursday = self.findBool("onThursday", dictionary: objectData)
+                                        object.onFriday = self.findBool("onFriday", dictionary: objectData)
+                                        object.onSaturday = self.findBool("onSaturday", dictionary: objectData)
+                                        object.onSunday = self.findBool("onSunday", dictionary: objectData)
+                                        object.startTime = self.findFloat("startTime", dictionary: objectData)!
+                                        object.endTime = self.findFloat("endTime", dictionary: objectData)!
+                                        object.hasTimeOptions = self.findBool("hasTimeOptions", dictionary: objectData)
+                                        object.hasNotification = self.findBool("hasNotification", dictionary: objectData)
+                                        object.notification = self.findString("notification", dictionary: objectData)
+                                        object.isUserNotified = self.findBool("isUserNotified", dictionary: objectData)
+                                        object.objectType = self.findBiinObjectType("objectType", dictionary: objectData)
+                                        biin.objects!.append(object)
+                                    }
+                                }
+                            }
+                            
+                            /*
                             var showcases = self.findNSArray("showcases", dictionary: biinData)
                             
                             if showcases?.count > 0 {
@@ -939,7 +968,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                     }
                                 }
                             }
-                            
+                            */
                             site.biins.append(biin)
                         }
                     }
@@ -2518,6 +2547,18 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             return BNMediaType.Video
         } else {
             return BNMediaType.Image
+        }
+    }
+    
+    func findBiinObjectType(name:String, dictionary:NSDictionary) -> BNBiinObjectType {
+        var value = self.findInt(name, dictionary: dictionary)
+        
+        if value == 1 {
+            return BNBiinObjectType.ELEMENT
+        } else if value == 2 {
+            return BNBiinObjectType.SHOWCASE
+        } else {
+            return BNBiinObjectType.NONE
         }
     }
     

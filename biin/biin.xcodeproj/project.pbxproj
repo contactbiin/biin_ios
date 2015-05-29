@@ -265,6 +265,7 @@
 		5BF966AC1AA78DAC00994BEA /* Biined_Not_Notified_NEAR_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF966A31AA78DAC00994BEA /* Biined_Not_Notified_NEAR_State.swift */; };
 		5BF966AD1AA78DAC00994BEA /* Biined_Not_Notified_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF966A41AA78DAC00994BEA /* Biined_Not_Notified_State.swift */; };
 		5BF966AE1AA78DAC00994BEA /* Biined_Notified_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF966A51AA78DAC00994BEA /* Biined_Notified_State.swift */; };
+		B2693FC21B18CFF800B8C87C /* BNBiinObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2693FC11B18CFF800B8C87C /* BNBiinObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -541,6 +542,7 @@
 		5BF966A31AA78DAC00994BEA /* Biined_Not_Notified_NEAR_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biined_Not_Notified_NEAR_State.swift; sourceTree = "<group>"; };
 		5BF966A41AA78DAC00994BEA /* Biined_Not_Notified_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biined_Not_Notified_State.swift; sourceTree = "<group>"; };
 		5BF966A51AA78DAC00994BEA /* Biined_Notified_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biined_Notified_State.swift; sourceTree = "<group>"; };
+		B2693FC11B18CFF800B8C87C /* BNBiinObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNBiinObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -799,6 +801,7 @@
 				5B3D75BD1A6816B300CB0D1C /* BNAchievement.swift */,
 				5B3D75BE1A6816B300CB0D1C /* BNBadge.swift */,
 				5B3D75BF1A6816B300CB0D1C /* BNBiin.swift */,
+				B2693FC11B18CFF800B8C87C /* BNBiinObject.swift */,
 				5B3D75C01A6816B300CB0D1C /* BNCollection.swift */,
 				5B3D75C11A6816B300CB0D1C /* BNCategory.swift */,
 				5B3D75C21A6816B300CB0D1C /* BNColor.swift */,
@@ -1493,6 +1496,7 @@
 				5B5BE7201A855E9100DB5996 /* BNUIButton_Loging.swift in Sources */,
 				5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */,
 				5BC0D8201B0BA355003B7F22 /* BiinieCategoriesView_BiinsContainer.swift in Sources */,
+				B2693FC21B18CFF800B8C87C /* BNBiinObject.swift in Sources */,
 				5B2E3C871A83BCB50008EA10 /* ElementView_Details.swift in Sources */,
 				5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */,
 				5B1F55021AE846E900130CFE /* BNIcon_MenuMedium.swift in Sources */,

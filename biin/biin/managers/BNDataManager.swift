@@ -312,6 +312,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         for biin in sites[site.identifier!]!.biins {
             //Check if showcase exist.
             
+            
+            //TODO FIX
+            /*
             for showcase in biin.showcases! {
             
                 if showcases[showcase.identifier!] == nil {
@@ -319,6 +322,31 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     showcases[showcase.identifier!] = showcase
                     //println("CRASH: \(biin.showcase!.identifier!)")
                     delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+                }
+            }
+            */
+            
+            if biin.objects != nil && biin.objects!.count > 0 {
+                for object in biin.objects! {
+                    switch object.objectType {
+                    case .ELEMENT:
+                        
+
+                        break
+                    case .SHOWCASE:
+                        if showcases[object.identifier!] == nil {
+                            //Showcase does not exist, store it and request it's data.
+                            var showcase = BNShowcase()
+                            showcase.identifier = object.identifier!
+                            showcase.isDefault = object.isDefault
+                            showcases[object.identifier!] = showcase
+                            
+                            delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+                        }
+                        break
+                    default:
+                        break
+                    }
                 }
             }
         }
