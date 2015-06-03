@@ -43,15 +43,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
         //UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound |
-            UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound |
+//            UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        setupNotificationSettings()
         
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
+
         
         return true
     }
     
 
-    
+    func setupNotificationSettings() {
+        let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
+        
+        if (notificationSettings.types == UIUserNotificationType.None){
+            // Specify the notification types.
+            var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound | UIUserNotificationType.Badge
+            
+            
+            // Specify the notification actions.
+            var justInformAction = UIMutableUserNotificationAction()
+            justInformAction.identifier = "justInform"
+            justInformAction.title = "OK, got it"
+            justInformAction.activationMode = UIUserNotificationActivationMode.Background
+            justInformAction.destructive = false
+            justInformAction.authenticationRequired = false
+            
+            var modifyListAction = UIMutableUserNotificationAction()
+            modifyListAction.identifier = "editList"
+            modifyListAction.title = "Edit list"
+            modifyListAction.activationMode = UIUserNotificationActivationMode.Foreground
+            modifyListAction.destructive = false
+            modifyListAction.authenticationRequired = true
+            
+            var trashAction = UIMutableUserNotificationAction()
+            trashAction.identifier = "trashAction"
+            trashAction.title = "Delete list"
+            trashAction.activationMode = UIUserNotificationActivationMode.Background
+            trashAction.destructive = true
+            trashAction.authenticationRequired = true
+            
+            let actionsArray = NSArray(objects: justInformAction, modifyListAction, trashAction)
+            let actionsArrayMinimal = NSArray(objects: trashAction, modifyListAction)
+            
+            // Specify the category related to the above actions.
+            var shoppingListReminderCategory = UIMutableUserNotificationCategory()
+            shoppingListReminderCategory.identifier = "shoppingListReminderCategory"
+            shoppingListReminderCategory.setActions(actionsArray as [AnyObject], forContext: UIUserNotificationActionContext.Default)
+            shoppingListReminderCategory.setActions(actionsArrayMinimal as [AnyObject], forContext: UIUserNotificationActionContext.Minimal)
+//
+            
+            let categoriesForSettings = NSSet(objects: shoppingListReminderCategory)
+            
+            
+            // Register the notification settings.
+            let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings as Set<NSObject>)
+            UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
+        }
+    }
 
     func applicationWillResignActive(application: UIApplication) {
         println("applicationWillResignActive()")
@@ -160,7 +212,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         uiManager.screenHeight = screenHeight
         uiManager.setDeviceVariables()
     }
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        // Do something serious in a real app.
+        println("Received Local Notification:")
+        println(notification.alertBody)
+    }
     
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        
+        if identifier == "editList" {
+            NSNotificationCenter.defaultCenter().postNotificationName("modifyListNotification", object: nil)
+        }
+        else if identifier == "trashAction" {
+            NSNotificationCenter.defaultCenter().postNotificationName("deleteListNotification", object: nil)
+        }
+        
+        completionHandler()
+    }
+    
+    func handleModifyListNotification() {
+        println("handleModifyListNotification()")
+    }
+    
+    func handleDeleteListNotification() {
+        println("handleDeleteListNotification()")
+    }
 
 }
 

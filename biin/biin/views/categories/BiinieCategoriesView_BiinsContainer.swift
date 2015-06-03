@@ -61,7 +61,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
         scroll!.bounces = false
         self.addSubview(scroll!)
         
-        addRangedBiins()
+        updateContainer()
     }
     
     override func transitionIn() {
@@ -108,7 +108,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
     }
     
     
-    func addRangedBiins(){
+    func updateContainer(){
         
         if BNAppSharedManager.instance.dataManager.availableBiins.count > 0 {
             

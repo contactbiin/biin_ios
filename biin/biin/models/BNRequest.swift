@@ -38,6 +38,7 @@ enum BNRequestType
     case Collections //User collections
     case SendBiinedElement
     case SendBiinedSite
+    case SendNotifiedObject
 }
 
 class BNRequest:NSObject {

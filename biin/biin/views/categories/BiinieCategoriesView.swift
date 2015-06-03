@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, MainViewDelegate_HighlightsContainer {
+class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
     
     var headerDelegate:BiinieCategoriesView_Delegate?
     
@@ -449,6 +449,11 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     func updateHighlightsContainer(view: MainView, update: Bool) {
         println("updateHighlightsContainer() in BiinieCategoriesView")
         highlightsContainer!.updateHighlights()
+    }
+    
+    func updateBiinsContainer(view: MainView, update: Bool) {
+        println("updateBiinsContainer() in BiinieCategoriesView")
+        biinsContainer!.updateContainer()
     }
 }
 

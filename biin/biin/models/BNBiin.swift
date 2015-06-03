@@ -8,34 +8,36 @@ import Foundation
 
 class BNBiin:NSObject
 {
-    //Relationship properties
-    var accountIdentifier:String?
-    var siteIdentifier:String?
-    var organizationIdentifier:String?
-
-    var isBiinDataCorrupted:Bool = false
-    var isBiinDetected:Bool = false
-    
-    weak var site:BNSite?
-    //var showcase:BNShowcase?
-    var showcases:Array<BNShowcase>?//REMOVE LATER
-    var currentShowcaseIndex:Int = 0
-    
-    var objects:Array<BNBiinObject>?
-    var currentObjectIndex:Int = 0
-    
-    var biinType = BNBiinType.NONE
-    
-    var state:Biin_State?
+    //Identification properties
+    var identifier:String?
+    var name:String?
     var lastUpdate:NSDate?
     var venue:String?
     var proximityUUID:NSUUID?
     var major:Int?
     var minor:Int?
     
-    //Identification properties
-    var name:String?
-    var identifier:String?
+    //Relationship properties
+    var accountIdentifier:String?
+    var siteIdentifier:String?
+    var organizationIdentifier:String?
+    var biinType = BNBiinType.NONE
+    
+    var isBiinDataCorrupted:Bool = false
+    var isBiinDetected:Bool = false
+    
+    //REMOVE ->
+    weak var site:BNSite?
+    var showcase:BNShowcase?
+    var showcases:Array<BNShowcase>?//REMOVE LATER
+    var currentShowcaseIndex:Int = 0
+    //REMOVE <-
+    
+    var objects:Array<BNBiinObject>?
+    var currentObjectIndex:Int = 0
+    
+    var state:Biin_State?
+    var proximity = BNBiinProximityType.NA
     
     override init() {
         super.init()
@@ -48,28 +50,43 @@ class BNBiin:NSObject
     }
     
     func currectShowcase()->BNShowcase {
-        assingCurrectShowcase()
+        //assingCurrectShowcase()
         return showcases![currentShowcaseIndex]
+    }
+    
+    func currectObject() ->BNBiinObject {
+        return objects![currentObjectIndex]
     }
     
     func setBiinState(){
         
-        
-        if let objectsList = objects {
-            if objectsList.count > 0 {
+        if objects != nil {
+            if objects!.count > 0 {
                 assingCurrectObject()
-            } else {
-                currentObjectIndex = 0
+                if objects![currentObjectIndex].isBiined {
+                    //Biined
+                    if objects![currentObjectIndex].isUserNotified {
+                        //User notified
+                        state = Biined_Notified_State(biin: self)
+                    } else {
+                        //User not notified
+                        state = Biined_Not_Notified_State(biin: self)
+                    }
+                } else {
+                    //Biin (not biined)
+                    if objects![currentObjectIndex].isUserNotified {
+                        //User notified
+                        state = Biin_Notified_State(biin: self)
+                    } else {
+                        //User not notified
+                        state = Biin_Not_Notified_State(biin: self)
+                    }
+                }
             }
-            
-            if didUserBiinedSomethingInShowcase() {
-                
-            }
-            
         }
         
         
-        
+        /*
         //TODO: set biin state depending on showcase.
         //1. Check if showcases is not empty
         if let showcasesList = showcases {
@@ -101,6 +118,7 @@ class BNBiin:NSObject
                 }
             }
         }
+        */
     }
     
     func assingCurrectShowcase(){
@@ -139,17 +157,32 @@ class BNBiin:NSObject
             }
         }
         
+        /*
         for element in showcases![currentShowcaseIndex].elements {
             if element.userBiined {
                 return true
             }
         }
+        */
+        
         return false
     }
     
-    
     func context(){
         state!.action()
+    }
+    
+    func updateBiinType(){
+        switch minor! {
+        case 1:
+            biinType = BNBiinType.EXTERNO
+        case 2:
+            biinType = BNBiinType.INTERNO
+        case 3:
+            biinType = BNBiinType.PRODUCT
+        default:
+            break
+        }
     }
 }
 
@@ -159,4 +192,10 @@ enum BNBiinType {
     case INTERNO    //2
     case PRODUCT    //3
     
+}
+
+enum BNBiinProximityType {
+    case NA   //0
+    case INM    //1
+    case NEAR   //2
 }

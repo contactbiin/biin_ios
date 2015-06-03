@@ -10,6 +10,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     var delegate:MainViewDelegate?
     var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
+    var delegate_BiinsContainer:MainViewDelegate_BiinsContainer?
     
     var rootViewController:MainViewController?
     var fade:UIView?
@@ -60,12 +61,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         //Create views
         var categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
-        delegate_HighlightsContainer = categoriesView
         biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
         self.addSubview(categoriesView)
         state = biinieCategoriesState!
         
-        var siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        delegate_HighlightsContainer = categoriesView
+        delegate_BiinsContainer = categoriesView
+        
+        
+        var siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
+            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         siteState = SiteState(context: self, view: siteView, stateType: BNStateType.SiteState)
         siteView.delegate = self
         self.addSubview(siteView)
@@ -318,6 +323,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         delegate_HighlightsContainer!.updateHighlightsContainer!(self, update: true)
     }
     
+    func updateBiinsContainer() {
+        delegate_BiinsContainer!.updateBiinsContainer!(self, update: true)
+    }
 }
 
 
@@ -340,4 +348,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 @objc protocol MainViewDelegate_HighlightsContainer:NSObjectProtocol {
     optional func updateHighlightsContainer(view:MainView,  update:Bool)
 
+}
+
+@objc protocol MainViewDelegate_BiinsContainer:NSObjectProtocol {
+    optional func updateBiinsContainer(view:MainView,  update:Bool)
+    
 }

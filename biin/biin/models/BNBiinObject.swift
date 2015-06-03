@@ -7,6 +7,7 @@ import Foundation
 
 class BNBiinObject:NSObject
 {
+    var _id:String?
     var identifier:String?
     var isDefault = false
     
@@ -25,6 +26,7 @@ class BNBiinObject:NSObject
     var hasNotification = false
     var notification:String?
     var isUserNotified = false
+    var isBiined = false
     
     var objectType = BNBiinObjectType.NONE
     

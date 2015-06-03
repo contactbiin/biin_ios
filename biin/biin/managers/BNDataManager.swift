@@ -39,6 +39,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     var timer:NSTimer?
     
+    var commercialUUID:NSUUID?
+    
     init(errorManager:BNErrorManager){
         
         self.errorManager = errorManager
@@ -166,12 +168,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
     }
     
-    func setSitesBiinsCurrentState(){
-        for (key, site) in sites {
-            site.setBiinsStates()
-        }
-        
+    func startSitesMonitoring(){
         delegatePM!.manager!(self, startSitesMonitoring: true)
+    }
+    
+    func startCommercialBiinMonitoring() {
+        delegatePM!.manager!(self, startCommercialBiinMonitoring:self.commercialUUID!)
     }
     
     
@@ -310,10 +312,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
         
         for biin in sites[site.identifier!]!.biins {
-            //Check if showcase exist.
             
             
-            //TODO FIX
+            //REMOVE ->
             /*
             for showcase in biin.showcases! {
             
@@ -325,13 +326,27 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
             */
+            //REMOVE <-
+            
+            if commercialUUID == nil {
+                commercialUUID = biin.proximityUUID
+            }
             
             if biin.objects != nil && biin.objects!.count > 0 {
+                
+                //Set biin state.
+                biin.setBiinState()
+                
+                //HACK for biinType
+                biin.updateBiinType()
+                
                 for object in biin.objects! {
                     switch object.objectType {
                     case .ELEMENT:
-                        
-
+                        var element = BNElement()
+                        element.identifier = object.identifier!
+                        element._id = object._id!
+                        requestElement(element)
                         break
                     case .SHOWCASE:
                         if showcases[object.identifier!] == nil {
@@ -454,6 +469,40 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
         }
+    }
+    
+    
+    func requestElement(element:BNElement){
+        //for element in elementList {
+            
+            //Check if element exist.
+            if elements[element._id!] == nil {
+                //Element does not exist, store it and request it's data.
+                var newElement = BNElement()
+                newElement.identifier = element.identifier!
+                newElement._id = element._id
+                //newElement.jsonUrl = element.jsonUrl!
+                elements[newElement._id!] = newElement
+                
+                //Check is element is has been requested by it's identifier
+                if elementsRequested[element.identifier!] == nil {
+                    //println("Request element: \(element._id!) and \(element.identifier!)")
+                    elementsRequested[element.identifier!] = element
+                    delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
+                } else {
+                    //println("############# element is already in list \(element.identifier!) for \(element._id!)")
+                    var value = elementsRequested[element.identifier!]!.isDownloadCompleted
+                    
+                    if value {
+                        manageElementRelationShips(elementsRequested[element.identifier!]!)
+                    }else {
+                        //println("Request element Pending: \(element._id!) and \(element.identifier!)")
+                        //                        elementsRequestedIdentifiers[element.identifier!] = element
+                        //                        delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
+                    }
+                }
+            }
+        //}
     }
     
     
@@ -888,6 +937,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:returns: none
     optional func manager(manager:BNDataManager, startSitesMonitoring value:Bool)
     
+    optional func manager(manager:BNDataManager, startCommercialBiinMonitoring proximityUUID:NSUUID)
     ///Request position manager to stop a site monitoring.
     ///
     ///:param: Data manager that stores the sites.

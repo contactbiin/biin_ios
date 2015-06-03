@@ -859,6 +859,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///:param: The request to be process.
     func requestSiteData(request:BNRequest) {
         
+        println("\(request.requestString)")
+        
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
@@ -914,10 +916,20 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         if let biinData = biins!.objectAtIndex(j) as? NSDictionary {
                             var biin = BNBiin()
                             biin.identifier = self.findString("identifier", dictionary: biinData)
+                            biin.accountIdentifier = self.findString("accountIdentifier", dictionary: biinData)
+                            biin.siteIdentifier = self.findString("siteIdentifier", dictionary: biinData)
+                            biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
+                            biin.major = self.findInt("major", dictionary: biinData)
                             biin.minor = self.findInt("minor", dictionary: biinData)
+                            biin.proximityUUID = self.findNSUUID("proximityUUID", dictionary: biinData)
+                            biin.venue = self.findString("venue", dictionary: biinData)
+                            biin.name = self.findString("name", dictionary: biinData)
                             biin.biinType = self.findBNBiinType("biinType", dictionary: biinData)
-                            //biin.lastUpdate = self.findNSDate("lastUpdate", dictionary: biinData)
+                            
+                            //REMOVE ->
                             biin.site = site
+                            //biin.lastUpdate = self.findNSDate("lastUpdate", dictionary: biinData)
+                            //REMOVE <-
                             
                             var objects = self.findNSArray("objects", dictionary: biinData)
                             
@@ -926,6 +938,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                 for var k = 0; k < objects!.count; k++ {
                                     if let objectData = objects!.objectAtIndex(k) as? NSDictionary {
                                         var object = BNBiinObject()
+                                        object._id = self.findString("_id", dictionary: objectData)
                                         object.identifier = self.findString("identifier", dictionary: objectData)
                                         object.isDefault = self.findBool("isDefault", dictionary: objectData)
                                         object.onMonday = self.findBool("onMonday", dictionary: objectData)
@@ -941,6 +954,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                         object.hasNotification = self.findBool("hasNotification", dictionary: objectData)
                                         object.notification = self.findString("notification", dictionary: objectData)
                                         object.isUserNotified = self.findBool("isUserNotified", dictionary: objectData)
+                                        object.isBiined = self.findBool("isBiined", dictionary: objectData)
                                         object.objectType = self.findBiinObjectType("objectType", dictionary: objectData)
                                         biin.objects!.append(object)
                                     }
@@ -2094,8 +2108,82 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 self.removeRequestOnCompleted(request!.identifier)
             }
         })
-
     }
+    
+    
+    func sendNotifiedObject(user: Biinie, biin: BNBiin, object:BNBiinObject) {
+        
+        println("sendNotifiedObject(\(user.email)) biin: \(biin.identifier!) - object: \(object.identifier)")
+        
+        var request:BNRequest?
+        
+        //localhost:5000/mobile/biinies/:biinieIdentifier/biin/:biinIdentifier/object/:objectIdentifier/notified
+
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        println("sendNotifiedObject request string: \(request!.requestString)")
+        
+        var model = Dictionary<String, Dictionary <String, String>>()
+        
+        var modelContent = Dictionary<String, String>()
+        //modelContent["identifier"] = element.identifier!
+        //modelContent["_id"] = element._id!
+        //modelContent["type"] = "element" //"site"
+        model["model"] = modelContent
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
+        var response:BNResponse?
+        
+        epsNetwork!.put(request!.requestString, htttpBody:htttpBody, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("ERROR on sendNotifiedObject()")
+                self.handleFailedRequest(request!, error: error )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** sendNotifiedObject() for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    
+                    println("*** data \(data)")
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** sendNotifiedObject() for user \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** sendNotifiedObject() for user \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedUpdateConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request!.identifier)
+            }
+        })
+    }
+
     
     
     //TODO: Impelement later.

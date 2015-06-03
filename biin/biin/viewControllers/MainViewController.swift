@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, UIDocumentInteractionControllerDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -38,7 +38,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         
-        BNAppSharedManager.instance.dataManager.setSitesBiinsCurrentState()
+        BNAppSharedManager.instance.dataManager.startCommercialBiinMonitoring()
+        BNAppSharedManager.instance.positionManager.delegateView = self
         
     }
     
@@ -315,6 +316,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         } else {
             for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
                 for biin in site.biins {
+                    /*
                     for showcase in biin.showcases! {
                         for elementSC in showcase.elements {
                             if element.identifier! == elementSC.identifier! {
@@ -322,6 +324,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
                             }
                         }
                     }
+*/
                 }
             }
         }
@@ -426,5 +429,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.presentViewController(activityVC, animated: true, completion: nil)
         mainView!.setNextState(1)
 
+    }
+    
+    func manager(manager: BNPositionManager!, updateMainViewController biins: Array<BNBiin>) {
+        mainView!.updateBiinsContainer()
     }
 }
