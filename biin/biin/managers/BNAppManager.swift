@@ -189,6 +189,35 @@ class BNAppManager {
         elementColors.append(UIColor.bnBlueDark())
         elementColors.append(UIColor.bnOrangeBase())
     }
+    
+    /*
+    +(BOOL) runningInBackground
+    {
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    BOOL result = (state == UIApplicationStateBackground);
+    
+    return result;
+    }
+    
+    +(BOOL) runningInForeground
+    {
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    BOOL result = (state == UIApplicationStateActive);
+    
+    return result;
+    }
+*/
+    func runningInBackground()->Bool {
+        var state = UIApplication.sharedApplication().applicationState
+        return state == UIApplicationState.Background
+    }
+    
+    func runningInForeground()->Bool {
+        var state = UIApplication.sharedApplication().applicationState
+        return state == UIApplicationState.Active
+    }
+    
+    
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {

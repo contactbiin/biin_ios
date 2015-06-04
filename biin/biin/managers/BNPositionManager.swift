@@ -43,6 +43,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var areOtherBiinsAvailable = false
     var waitingTimeOnOtherBiinsAvailable = 30
     var waitingTimeWithNotOtherBiinsAvaialble = 10
+    var isIN_BIIN_COMMERCIAL = false
     
     
     init(errorManager:BNErrorManager){
@@ -157,49 +158,67 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion) {
         
-        var text = ""
-        self.myBeacons = Array<CLBeacon>()
-        self.rangedRegions = NSMutableDictionary()
-        var myBeaconsPrevious = Array<CLBeacon>()
-        
-        if let beaconRegion = region as? CLBeaconRegion {
-            text = "Enter region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)"
-            self.rangedRegions[beaconRegion] = NSArray()
-            self.locationManager!.startRangingBeaconsInRegion( beaconRegion )
+        if !isIN_BIIN_COMMERCIAL {
+            
+            var text = ""
+            self.myBeacons = Array<CLBeacon>()
+            self.rangedRegions = NSMutableDictionary()
+            var myBeaconsPrevious = Array<CLBeacon>()
+            
+            if let beaconRegion = region as? CLBeaconRegion {
+                text = "Enter region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)"
+                self.rangedRegions[beaconRegion] = NSArray()
+                self.locationManager!.startRangingBeaconsInRegion( beaconRegion )
+                self.isIN_BIIN_COMMERCIAL = true
+            }
+            
+            
+            println("\(text)")
+            self.delegateView?.manager?(self, printText: text)
+            self.delegateDM!.manager!(self, startEnterRegionProcessWithIdentifier: region.identifier)
+            
+            if BNAppSharedManager.instance.runningInBackground() {
+                
+                var localNotification:UILocalNotification = UILocalNotification()
+                localNotification.alertAction = "editList"
+                localNotification.alertBody = text
+                localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
+                localNotification.category = "shoppingListReminderCategory"
+                UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                
+            }
         }
-        
-        println("\(text)")
-        self.delegateView?.manager?(self, printText: text)
-        self.delegateDM!.manager!(self, startEnterRegionProcessWithIdentifier: region.identifier)
-        
-        var localNotification:UILocalNotification = UILocalNotification()
-        localNotification.alertAction = "editList"
-        localNotification.alertBody = text
-        localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
-        localNotification.category = "shoppingListReminderCategory"
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-    
-
-        
     }
     
     func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion) {
-        var text = "Exit region: " + region.identifier
-        println("\(text)")
         
-        self.delegateView?.manager?(self, printText: text)
-        self.delegateDM!.manager!(self, startExitRegionProcessWithIdentifier: region.identifier)
-        
-        var localNotification:UILocalNotification = UILocalNotification()
-        localNotification.alertAction = "Exit Regions"
-        localNotification.alertBody = text
-        localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-        
-        if let beaconRegion = region as? CLBeaconRegion {
-            text = "Enter region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)"
-            self.locationManager!.stopRangingBeaconsInRegion(beaconRegion)
-            //self.rangedRegions[beaconRegion] = nil
+         if isIN_BIIN_COMMERCIAL {
+            
+            var text = "Exit region: " + region.identifier
+            println("\(text)")
+            
+            self.delegateView?.manager?(self, printText: text)
+            self.delegateDM!.manager!(self, startExitRegionProcessWithIdentifier: region.identifier)
+            
+            if BNAppSharedManager.instance.runningInBackground() {
+                var localNotification:UILocalNotification = UILocalNotification()
+                localNotification.alertAction = "Exit Regions"
+                localNotification.alertBody = text
+                localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
+                UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            }
+            
+            if let beaconRegion = region as? CLBeaconRegion {
+                text = "Enter region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)"
+                self.locationManager!.stopRangingBeaconsInRegion(beaconRegion)
+                self.isIN_BIIN_COMMERCIAL = false
+                //self.rangedRegions[beaconRegion] = nil
+                
+                self.biins.removeAll(keepCapacity: false)
+                BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
+                self.delegateView?.manager!(self, updateMainViewController: self.biins)
+                
+            }
         }
         
     }
@@ -208,19 +227,20 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         switch state {
         case .Inside:
-            println("Region state: \(state.hashValue) for region: \(region!.identifier)")
-//            self.delegateDM!.manager!(self, startEnterRegionProcessWithIdentifier:region!.identifier)
-            self.myBeacons = Array<CLBeacon>()
-            self.rangedRegions = NSMutableDictionary()
-            var myBeaconsPrevious = Array<CLBeacon>()
-            
-            if let beaconRegion = region as? CLBeaconRegion {
-                println("IN region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)")
-                self.rangedRegions[beaconRegion] = NSArray()
-                self.locationManager!.startRangingBeaconsInRegion( beaconRegion )
+            if region.identifier == "BIIN_COMMERCIAL" {
+                println("Region state: \(state.hashValue) for region: \(region!.identifier)")
+    //            self.delegateDM!.manager!(self, startEnterRegionProcessWithIdentifier:region!.identifier)
+                self.myBeacons = Array<CLBeacon>()
+                self.rangedRegions = NSMutableDictionary()
+                var myBeaconsPrevious = Array<CLBeacon>()
+                
+                if let beaconRegion = region as? CLBeaconRegion {
+                    println("IN region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)")
+                    self.rangedRegions[beaconRegion] = NSArray()
+                    self.locationManager!.startRangingBeaconsInRegion( beaconRegion )
+                    self.isIN_BIIN_COMMERCIAL = true
+                }
             }
-
-            
             break
         case .Outside:
             

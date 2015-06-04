@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
+class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, ElementMiniView_Delegate {
     
     //var delegate:BiinieCategoriesView_SiteContainer_Delegate?
     
@@ -121,6 +121,12 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
             
             var columnCounter = 0
             
+            if elements != nil {
+                for view in elements! {
+                    view.removeFromSuperview()
+                }
+            }
+            
             elements = Array<ElementMiniView>()
             
             switch SharedUIManager.instance.deviceType {
@@ -165,8 +171,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
                 //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
                 var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false)
                 
-                elementMiniView.delegate = father?.father! as! MainView
-                
+                elementMiniView.delegate = self
                 elements!.append(elementMiniView)
                 scroll!.addSubview(elementMiniView)
                 
@@ -177,9 +182,10 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
             ypos = ypos + siteViewHeight + siteSpacer
             scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
             
-            SharedUIManager.instance.miniView_height = siteViewHeight
-            SharedUIManager.instance.miniView_width = siteViewWidth
-            SharedUIManager.instance.miniView_columns = columns
+//            SharedUIManager.instance.miniView_height = siteViewHeight
+//            SharedUIManager.instance.miniView_width = siteViewWidth
+//            SharedUIManager.instance.miniView_columns = columns
+            
         } else {
             //Show not biins view
             if notBiinsView == nil {
@@ -189,8 +195,20 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
                 
                 notBiinsView = BNView_NoBiinAvailableSign(frame: CGRectMake(0, 0, self.frame.width, self.frame.height), color: UIColor.appButtonColor_Disable(), iconPosition: CGPointMake(xpos, ypos))
                 self.addSubview(notBiinsView!)
+                
             } else  {
                 notBiinsView!.alpha = 1
+                
+                if elements != nil {
+                    
+                    for view in elements! {
+                        view.removeFromSuperview()
+                    }
+                    
+                    elements!.removeAll(keepCapacity: false)
+                    elements = nil
+                }
+                
             }
         }
     }
@@ -278,6 +296,10 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate {
                 siteRequestPreviousLimit = requestLimit + 1
             }
         }
+    }
+    
+    func showElementView(view: ElementMiniView, position: CGRect) {
+        (father! as! BiinieCategoriesView).showElementView(view)
     }
 }
 
