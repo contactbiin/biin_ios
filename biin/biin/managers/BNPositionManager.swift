@@ -23,7 +23,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var firstBeaconUUID:String?
     
     var counter = 0
-    var counterLimmit = 30
+    var counterLimmit = 20
     
     var firstBeaconProximity = BNProximity.None
     var counterProximity = 0
@@ -308,8 +308,14 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         if !self.myBeacons.isEmpty {
             
+            //value 0 = more beacons detected
+            //value 1 = order changed
+            //value 2 = proximity changed
             
-            if !checkArraysEquality(self.myBeacons, array2:self.myBeaconsPrevious) {
+            var value = didSomethingChangeOnBeaconsDetected(self.myBeacons, array2:self.myBeaconsPrevious)
+            
+            //Frist return value checks is there are more biins available
+            if value.0 || value.1 {
                 
                 self.counter++
                 
@@ -317,22 +323,39 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     self.counter = 0
                     self.myBeaconsPrevious = self.myBeacons
                     
-                    /*
+                    //TESTING ->
                     println("")
                     println("Beacon order  -------")
                     for b:CLBeacon in self.myBeacons {
                         println("***")
-                        println("uuid: \(b.proximityUUID.UUIDString)")
+                        
+                        println("proximity: \(b.proximity.rawValue)")
+                        
+                        switch b.proximity {
+                        case .Immediate:
+                            println("proximity: Immediate")
+                        case .Near:
+                            println("proximity: Near")
+                        case .Far:
+                            println("proximity: Far")
+                        case .Unknown:
+                            println("proximity: Unknown")
+                            default:
+                            break
+                        }
+                        
                         println("major: \(b.major)")
                         println("minor: \(b.minor)")
                     }
                     println("")
-                    */
+                    //TESTING <-
                     
-                    self.orderBiins(self.myBeacons)
+                    //if value.0 || value.1 {
+                        self.orderAndSentBiinsToDisplay(self.myBeacons)
+                    //}
                     
                     if myBeacons.count > 0 {
-                        handleBiiniePositionOnFirstBiinDetected(myBeacons[0])
+                        //handleBiiniePositionOnFirstBiinDetected(myBeacons[0])
                     }
                     
                     //TEMP: update table view
@@ -340,6 +363,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     
 //                        self.delegateView?.manager!(self, updateMainViewController: self.biins)
 //                    }
+                } else if value.2 {
+                    println("Something change on proximity")
                 }
             }
             
@@ -355,6 +380,38 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             self.counterProximity = 0
             self.counter = 0
         }
+    }
+    
+    
+    //The method checks is the tow Arrays are order the same way.
+    func didSomethingChangeOnBeaconsDetected(array1:Array<CLBeacon>, array2:Array<CLBeacon>) -> ( Bool, Bool, Bool ){
+        
+        //value 0 = more beacons detected
+        //value 1 = order changed
+        //value 2 = proximity changed
+        
+        var value = (false, false, false)
+        
+        if !array1.isEmpty || !array2.isEmpty {
+            if array1.count != array2.count {
+                value.0 = true
+            }
+            
+            if !value.0 {
+                for var i = 0; i < array1.count; i++ {
+                    
+                    if array1[i].minor.integerValue != array2[i].minor.integerValue {
+                        value.1 = true
+                    }
+                    
+                    if array1[i].proximity != array2[i].proximity {
+                        value.2 = true
+                    }
+                }
+            }
+        }
+
+        return value
     }
     
     func handleBiiniePositionOnFirstBiinDetected(beacon:CLBeacon){
@@ -404,7 +461,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             switch biin.biinType {
                             case .EXTERNO:
                                 println("User is outside \(site.title!)")
-                                site.isUserInside = true
+                                site.isUserInside = false
                                 break
                             case .INTERNO:
                                 println("User is inside \(site.title!)")
@@ -430,21 +487,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
 
     
-    //The method checks is the tow Arrays are order the same way.
-    func checkArraysEquality(array1:Array<CLBeacon>, array2:Array<CLBeacon>) -> Bool{
-        if array1.isEmpty || array2.isEmpty || array1.count != array2.count {
-            return false
-        } else {
-            for var i = 0; i < array1.count; i++ {
-                if array1[i].proximityUUID.UUIDString != array2[i].proximityUUID.UUIDString {
-                    return false
-                } else if array1[i].minor.integerValue != array2[i].minor.integerValue {
-                    return false
-                }
-            }
-        }
-        return true
-    }
+
 
     //TODO: Remove this method if not needed.
     //The method checks is first beacon on list has change.
@@ -498,7 +541,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     }
     
     //This method order the biin list according to beacons detected on field.
-    func orderBiins(beacons:Array<CLBeacon>) {
+    func orderAndSentBiinsToDisplay(beacons:Array<CLBeacon>) {
 
         //Create an Array to temporary backup biins.
 //        var biinBackup:Array<BNBiin> = Array<BNBiin>()
