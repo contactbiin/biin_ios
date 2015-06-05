@@ -23,7 +23,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var firstBeaconUUID:String?
     
     var counter = 0
-    var counterLimmit = 20
+    var counterLimmit = 30
     
     var firstBeaconProximity = BNProximity.None
     var counterProximity = 0
@@ -156,6 +156,10 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.delegateView?.manager?(self, printText: text)
     }
     
+    
+    var isMonitoringSites = false
+    var isMonitoringBiins = false
+    
     func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion) {
         
         if !isIN_BIIN_COMMERCIAL {
@@ -166,10 +170,44 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             var myBeaconsPrevious = Array<CLBeacon>()
             
             if let beaconRegion = region as? CLBeaconRegion {
+                
                 text = "Enter region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)"
                 self.rangedRegions[beaconRegion] = NSArray()
+                
+                if !isMonitoringSites {
+                
+                    if !isMonitoringBiins {
+                        
+                        println("Start monitoring sites")
+                        /*
+                        var regionSiteA:CLBeaconRegion = CLBeaconRegion(proximityUUID:beaconRegion.proximityUUID!, major:3, identifier: "BIIN_COMMERCIAL_SITE_A")
+                        regionSiteA.notifyEntryStateOnDisplay = true
+                        self.locationManager!.startMonitoringForRegion(regionSiteA)
+                        self.locationManager!.requestStateForRegion(regionSiteA)
+                        
+                        var regionSiteB:CLBeaconRegion = CLBeaconRegion(proximityUUID:beaconRegion.proximityUUID!, major:4, identifier: "BIIN_COMMERCIAL_SITE_B")
+                        regionSiteB.notifyEntryStateOnDisplay = true
+                        self.locationManager!.startMonitoringForRegion(regionSiteB)
+                        self.locationManager!.requestStateForRegion(regionSiteB)
+                        
+                        var regionSiteC:CLBeaconRegion = CLBeaconRegion(proximityUUID:beaconRegion.proximityUUID!, major:5, identifier: "BIIN_COMMERCIAL_SITE_C")
+                        regionSiteB.notifyEntryStateOnDisplay = true
+                        self.locationManager!.startMonitoringForRegion(regionSiteC)
+                        self.locationManager!.requestStateForRegion(regionSiteC)
+                        */
+                    }
+                    
+                    isMonitoringSites = true
+                }
+                
+                
                 self.locationManager!.startRangingBeaconsInRegion( beaconRegion )
                 self.isIN_BIIN_COMMERCIAL = true
+                
+                BNAppSharedManager.instance.networkManager.checkConnectivity()
+                
+                
+                
             }
             
             
@@ -227,9 +265,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         switch state {
         case .Inside:
-            if region.identifier == "BIIN_COMMERCIAL" {
+//            if region.identifier == "BIIN_COMMERCIAL" {
                 println("Region state: \(state.hashValue) for region: \(region!.identifier)")
-    //            self.delegateDM!.manager!(self, startEnterRegionProcessWithIdentifier:region!.identifier)
                 self.myBeacons = Array<CLBeacon>()
                 self.rangedRegions = NSMutableDictionary()
                 var myBeaconsPrevious = Array<CLBeacon>()
@@ -240,7 +277,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     self.locationManager!.startRangingBeaconsInRegion( beaconRegion )
                     self.isIN_BIIN_COMMERCIAL = true
                 }
-            }
+//            }
             break
         case .Outside:
             
@@ -304,7 +341,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             
         }
         
-        self.myBeacons = sorted(self.myBeacons){ $0.rssi > $1.rssi }
+        self.myBeacons = sorted(self.myBeacons){ $0.rssi > $1.rssi  }
         
         if !self.myBeacons.isEmpty {
             
@@ -330,20 +367,20 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                         println("***")
                         
                         println("proximity: \(b.proximity.rawValue)")
-                        
+    
                         switch b.proximity {
+                        case .Unknown:
+                            println("proximity: Unknown")
                         case .Immediate:
                             println("proximity: Immediate")
                         case .Near:
                             println("proximity: Near")
                         case .Far:
                             println("proximity: Far")
-                        case .Unknown:
-                            println("proximity: Unknown")
                             default:
                             break
                         }
-                        
+                        println("rssi: \(b.rssi)")
                         println("major: \(b.major)")
                         println("minor: \(b.minor)")
                     }
@@ -354,9 +391,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                         self.orderAndSentBiinsToDisplay(self.myBeacons)
                     //}
                     
-                    if myBeacons.count > 0 {
+                    //if myBeacons.count > 0 {
                         //handleBiiniePositionOnFirstBiinDetected(myBeacons[0])
-                    }
+                    //}
                     
                     //TEMP: update table view
 //                    if self.delegateView is BNPositionManagerDelegate {
@@ -364,15 +401,43 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 //                        self.delegateView?.manager!(self, updateMainViewController: self.biins)
 //                    }
                 } else if value.2 {
+                    /*
                     println("Something change on proximity")
+                    
+                    println("")
+                    println("Proximity change and reorder  -------")
+                    for b:CLBeacon in self.myBeacons {
+                        println("***")
+                        
+                        println("proximity: \(b.proximity.rawValue)")
+                        
+                        switch b.proximity {
+                        case .Unknown:
+                            println("proximity: Unknown")
+                        case .Immediate:
+                            println("proximity: Immediate")
+                        case .Near:
+                            println("proximity: Near")
+                        case .Far:
+                            println("proximity: Far")
+                        default:
+                            break
+                        }
+                        
+                        println("rssi: \(b.rssi)")
+                        println("major: \(b.major)")
+                        println("minor: \(b.minor)")
+                    }
+                    println("")
+                    */
                 }
             }
             
             //Check how close is first beacon to device.
-            if didProximityChanged(self.myBeacons[0].rssi) {
+            //if didProximityChanged(self.myBeacons[0].rssi) {
                 //TODO: implement proximity changes on first beacon.
                 
-            }
+            //}
             
         } else {
             self.firstBeacon = nil
@@ -488,7 +553,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
     
 
-
+    /*
     //TODO: Remove this method if not needed.
     //The method checks is first beacon on list has change.
     func didFirstBeaconChanged(uuid:String) -> Bool {
@@ -510,7 +575,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         return returnValue
     }
+    */
     
+    /*
     //This method sets the proximity on first beacon on list and return 
     //bool is proximity on first beacon has change.
     func didProximityChanged(proximity:Int) ->Bool {
@@ -539,6 +606,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         return returnValue
     }
+    */
     
     //This method order the biin list according to beacons detected on field.
     func orderAndSentBiinsToDisplay(beacons:Array<CLBeacon>) {
@@ -550,14 +618,16 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Remove and backup biins from local list.
         for beacon in beacons {
             
-            for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
-                
-                if beacon.major.integerValue == site.major {
-                    for biin in site.biins {
-                        if beacon.minor.integerValue == biin.minor {
-                            println("ADDING BIIN TO DISPLAY \(site.major) \(biin.minor)")
-                            BNAppSharedManager.instance.dataManager.availableBiins[biin.currectObject()._id!] = biin.currectObject()._id!
-                            self.biins.append(biin)
+            
+            if beacon.proximity != CLProximity.Unknown {
+                for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
+                    if beacon.major.integerValue == site.major {
+                        for biin in site.biins {
+                            if beacon.minor.integerValue == biin.minor {
+                                println("ADDING BIIN TO DISPLAY \(site.major) \(biin.minor)")
+                                BNAppSharedManager.instance.dataManager.availableBiins.append(biin.currectObject()._id!)
+                                self.biins.append(biin)
+                            }
                         }
                     }
                 }
@@ -666,91 +736,13 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
     }
     
-    
-    
     func manager(manager: BNDataManager, startCommercialBiinMonitoring proximityUUID: NSUUID) {
         println("startCommercialBiinMonitoring():")
-        //self.stopMonitoringBeaconRegions()
-        //self.myBeacons = Array<CLBeacon>()
-        //self.rangedRegions = NSMutableDictionary()
-        
-        //var region:CLBeaconRegion = CLBeaconRegion(proximityUUID: proximityUUID, major: 3, minor: 1, identifier: "BIIN_COMMERCIAL") //
         var region:CLBeaconRegion = CLBeaconRegion(proximityUUID:proximityUUID, identifier:"BIIN_COMMERCIAL")
         region.notifyEntryStateOnDisplay = true //If you want to get a guaranteed extra monitoring update in the background whenever the users wakes up their phone, set the notifyEntryStateOnDisplay option on your region as so:
         self.locationManager!.startMonitoringForRegion(region)
-        /*
-        //SITE A
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 3, minor: 2, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 3, minor: 3, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        //SITE B
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 4, minor: 1, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 4, minor: 2, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 4, minor: 3, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        
-        
-        //SITE C
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 5, minor: 1, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 5, minor: 2, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 5, minor: 3, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        //SITE D
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 6, minor: 1, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 6, minor: 2, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 6, minor: 3, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        //SITE E
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 7, minor: 1, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 7, minor: 2, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        
-        region = CLBeaconRegion(proximityUUID: proximityUUID, major: 7, minor: 3, identifier: "BIIN_COMMERCIAL")
-        region.notifyEntryStateOnDisplay = true
-        self.locationManager!.startMonitoringForRegion(region)
-        */
-        
-        //self.rangedRegions[region] = NSArray()
-        
-//        for (key:AnyObject, value:AnyObject) in self.rangedRegions {
-//            self.locationManager!.startRangingBeaconsInRegion(key as! CLBeaconRegion)
-//        }
-        
-        locationManager!.requestWhenInUseAuthorization()
-        locationManager!.requestStateForRegion(region)
+        self.locationManager!.requestWhenInUseAuthorization()
+        self.locationManager!.requestStateForRegion(region)
     }
 
     //BNDataManagerDelegate Methods

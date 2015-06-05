@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1082"
             endingLineNumber = "1082"
-            landmarkName = "manager(_:requestShowcaseData:)"
+            landmarkName = "requestHighlightsData(_:showcase:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "453327681.742536"
+            timestampString = "455159025.068049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
-            landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "locationManager(_:didDetermineState:forRegion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "453327681.742536"
+            timestampString = "455159025.068049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
-            landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "locationManager(_:didDetermineState:forRegion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,28 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "453327681.742536"
+            timestampString = "455159025.068049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
-            landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "453327681.742536"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "locationManager(_:didDetermineState:forRegion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -271,7 +255,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1047"
             endingLineNumber = "1047"
-            landmarkName = "requestHighlightsData(_:showcase:)"
+            landmarkName = "manager(_:requestHighlightsData:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

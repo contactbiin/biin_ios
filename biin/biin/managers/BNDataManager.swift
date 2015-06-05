@@ -23,7 +23,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var showcases = Dictionary<String, BNShowcase>()
     var elements = Dictionary<String, BNElement>()
     var highlights = Dictionary<String, String>()//list of hightlight element
-    var availableBiins = Dictionary<String, String>()//list of hightlight element
+    var availableBiins = Array<String>()//list of biins detected
     var elementsRequested = Dictionary<String, BNElement>()
     //var elementsBiined = Dictionary<String, String>()
     

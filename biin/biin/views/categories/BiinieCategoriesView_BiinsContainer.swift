@@ -149,7 +149,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
                 break
             }
             
-            for (key, value) in BNAppSharedManager.instance.dataManager.availableBiins {
+            for value in BNAppSharedManager.instance.dataManager.availableBiins {
                 
                 var element = BNAppSharedManager.instance.dataManager.elements[value]
                 

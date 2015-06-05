@@ -266,7 +266,7 @@ class ElementView: BNView {
     func applyBiinIt(){
 //        header!.updateSocialButtonsForElement(elementMiniView!.element!)
         buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
-        biinItButton!.showDisable()
+        //biinItButton!.showDisable()
         detailsView!.showBiinItButton(false)
         animationView!.animate()
     }
