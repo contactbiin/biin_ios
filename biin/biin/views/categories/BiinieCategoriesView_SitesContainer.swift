@@ -157,27 +157,30 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         for var i = 0; i < category?.sitesDetails.count; i++ {
             
-            if columnCounter < columns {
-                columnCounter++
-                xpos = xpos + siteSpacer
-                
-            } else {
-                ypos = ypos + siteViewHeight + siteSpacer
-                xpos = siteSpacer
-                columnCounter = 1
-            }
             
             var siteIdentifier = category?.sitesDetails[i].identifier!
-            var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier! ]
-            
-            var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-            
-            miniSiteView.delegate = father?.father! as! MainView
-            
-            sites!.append(miniSiteView)
-            scroll!.addSubview(miniSiteView)
+            var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier!]
+  
+            if !isSiteAdded(siteIdentifier!) {
+                if columnCounter < columns {
+                    columnCounter++
+                    xpos = xpos + siteSpacer
+                    
+                } else {
+                    ypos = ypos + siteViewHeight + siteSpacer
+                    xpos = siteSpacer
+                    columnCounter = 1
+                }
+                
+                var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                
+                miniSiteView.delegate = father?.father! as! MainView
+                
+                sites!.append(miniSiteView)
+                scroll!.addSubview(miniSiteView)
 
-            xpos = xpos + siteViewWidth
+                xpos = xpos + siteViewWidth
+            }
         }
         
         ypos = ypos + siteViewHeight + siteSpacer
@@ -218,28 +221,31 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             for var i = 0; i < category.sitesDetails.count; i++ {
-                
-                if columnCounter < columns {
-                    columnCounter++
-                    xpos = xpos + siteSpacer
-                    
-                } else {
-                    ypos = ypos + siteViewHeight + siteSpacer
-                    xpos = siteSpacer
-                    columnCounter = 1
-                }
-                
+
                 var siteIdentifier = category.sitesDetails[i].identifier!
                 var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                 
-                var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                
-                miniSiteView.delegate = father?.father! as! MainView
-                
-                sites!.append(miniSiteView)
-                scroll!.addSubview(miniSiteView)
-                
-                xpos = xpos + siteViewWidth
+                if !isSiteAdded(siteIdentifier) {
+                    
+                    if columnCounter < columns {
+                        columnCounter++
+                        xpos = xpos + siteSpacer
+                        
+                    } else {
+                        ypos = ypos + siteViewHeight + siteSpacer
+                        xpos = siteSpacer
+                        columnCounter = 1
+                    }
+                    
+                    var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                    
+                    miniSiteView.delegate = father?.father! as! MainView
+                    
+                    sites!.append(miniSiteView)
+                    scroll!.addSubview(miniSiteView)
+                    
+                    xpos = xpos + siteViewWidth
+                }
             }
         }
         
@@ -332,6 +338,15 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
             
             siteRequestPreviousLimit = requestLimit + 1
         }
+    }
+    
+    func isSiteAdded(identifier:String) -> Bool {
+        for siteView in sites! {
+            if siteView.site!.identifier == identifier {
+                return true
+            }
+        }
+        return false
     }
 }
 

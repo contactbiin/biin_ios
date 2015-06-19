@@ -23,6 +23,7 @@ ImNewHere = "Or, create an account";
 SignUpMsj = "Sign up using your email address.";
 LetsGetStarted = "Let's get started!";
 DontForget = "* Don't forget to check your inbox and verify your email address later on.";
+HardwareError = "Your device does not support Biin due to harware requirements, please close this app.";
 PleaseWait = "Please wait a moment!";
 Yes = "yes";
 No = "no";

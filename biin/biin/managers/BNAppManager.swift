@@ -21,6 +21,7 @@ class BNAppManager {
     var positionManager:BNPositionManager
     var networkManager:BNNetworkManager
     var errorManager:BNErrorManager
+    var notificationManager:BNNotificationManager
     
     var areNewNotificationsPendingToShow = false
     
@@ -44,6 +45,18 @@ class BNAppManager {
         positionManager = BNPositionManager(errorManager:errorManager)
         networkManager = BNNetworkManager(errorManager:errorManager)
         
+        
+        // Try loading a saved version first
+        if let savedNotificationManager = BNNotificationManager.loadSaved() {
+            println("Loading notificationManager:")
+            notificationManager = savedNotificationManager
+        } else {
+            // Create a new Course List
+            println("Not notificationManager available")
+            notificationManager = BNNotificationManager()
+            notificationManager.save()
+        }
+        
         self.addElementColors()
         
         networkManager.delegateDM = dataManager
@@ -57,25 +70,29 @@ class BNAppManager {
 
     func continueAppInitialization(){
         
-        if positionManager.checkLocationServicesStatus() {
-            //errorManager.showAlertOnStart(NSError(domain: "Location serives ENABLED", code: 1, userInfo: nil))
-            isWaitingForLocationServicesPermision = false
-            
-            if positionManager.checkHardwareStatus() {
-                if positionManager.checkBluetoothServicesStatus() {
-                    continueAfterIntialChecking()
-                } else {
-                    errorManager.showBluetoothError()
+        if !SimulatorUtility.isRunningSimulator {
+            if positionManager.checkLocationServicesStatus() {
+                //errorManager.showAlertOnStart(NSError(domain: "Location serives ENABLED", code: 1, userInfo: nil))
+                isWaitingForLocationServicesPermision = false
+                
+                if positionManager.checkHardwareStatus() {
+                    if positionManager.checkBluetoothServicesStatus() {
+                        continueAfterIntialChecking()
+                    } else {
+                        errorManager.showBluetoothError()
+                    }
+                } else  {
+                    errorManager.showHardwareNotSupportedError()
                 }
-            } else  {
-                errorManager.showHardwareNotSupportedError()
+                
+            } else {
+                if dataManager.isUserLoaded {
+                    isWaitingForLocationServicesPermision = true
+                    errorManager.showLocationServiceError()
+                }
             }
-            
         } else {
-            if dataManager.isUserLoaded {
-                isWaitingForLocationServicesPermision = true
-                errorManager.showLocationServiceError()
-            }
+            continueAfterIntialChecking()
         }
     }
     
@@ -171,7 +188,7 @@ class BNAppManager {
         areNewNotificationsPendingToShow = true
         dataManager.bnUser!.newNotificationCount!++
         dataManager.bnUser!.notificationIndex! = notification.identifier
-        dataManager.notifications.append(notification)
+        notificationManager.notifications.append(notification)
 
         //Notify main view to show circle
         delegate!.manager!(showNotifications: true)

@@ -14,6 +14,11 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 
     var addActionBtn:UIButton?
     
+    var addSiteNeighbors:UIButton?
+
+    var addLocalNotification:UIButton?
+    var removeLocalNotification:UIButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,7 +77,30 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         addActionBtn!.alpha = 0
         //self.view.addSubview(addActionBtn!)
-  
+        
+        addSiteNeighbors = UIButton(frame: CGRectMake(10, 30, 170, 50))
+        addSiteNeighbors!.backgroundColor = UIColor.biinColor()
+        addSiteNeighbors!.setTitle("Start Site Monitoring", forState: UIControlState.Normal)
+        addSiteNeighbors!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
+        addSiteNeighbors!.addTarget(self, action: "addSiteNeighborsAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        addSiteNeighbors!.alpha = 0
+        self.view.addSubview(addSiteNeighbors!)
+        
+        addLocalNotification = UIButton(frame: CGRectMake(10, 90, 170, 50))
+        addLocalNotification!.backgroundColor = UIColor.bnGreen()
+        addLocalNotification!.setTitle("Add local Notification", forState: UIControlState.Normal)
+        addLocalNotification!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
+        addLocalNotification!.addTarget(self, action: "addLocalNotificationAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        addLocalNotification!.alpha = 0
+        self.view.addSubview(addLocalNotification!)
+
+        removeLocalNotification = UIButton(frame: CGRectMake(190, 90, 100, 50))
+        removeLocalNotification!.backgroundColor = UIColor.bnRed()
+        removeLocalNotification!.setTitle("Remove all", forState: UIControlState.Normal)
+        removeLocalNotification!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
+        removeLocalNotification!.addTarget(self, action: "removeLocalNotificationAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        removeLocalNotification!.alpha = 0
+        self.view.addSubview(removeLocalNotification!)
 
     }
     
@@ -116,6 +144,23 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
     }
     
+    func addSiteNeighborsAction(sender:UIButton){
+        //BNAppSharedManager.instance.dataManager.setSiteNeighbors()
+        //BNAppSharedManager.instance.dataManager.startCommercialBiinMonitoring()
+    }
+    
+    
+    var notificationCounter = 0
+    func addLocalNotificationAction(sender:UIButton){
+//        notificationCounter++
+//        BNAppSharedManager.instance.notificationManager.addLocalNotification("\(notificationCounter)", text: "Just a local notification number: \(notificationCounter)")
+    }
+    
+    func removeLocalNotificationAction(sender:UIButton){
+        notificationCounter = 0
+        BNAppSharedManager.instance.notificationManager.clearLocalNotifications()
+    }
+    
     //UIPopoverPresentationControllerDelegate Methods
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.Popover
@@ -129,6 +174,9 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
                 self.loadingView!.loadingLbl!.alpha = 0
                 self.enterBtn!.alpha = 1
                 self.addActionBtn!.alpha = 1
+                self.addSiteNeighbors!.alpha = 1
+                self.addLocalNotification!.alpha = 1
+                self.removeLocalNotification!.alpha = 1
             })
         } else {
             self.enterBtn!.alpha = 0

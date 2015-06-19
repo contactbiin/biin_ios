@@ -139,6 +139,44 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
             break
         }
         
+        for (key, site) in BNAppSharedManager.instance.dataManager.sites {
+            for showcase in site.showcases! {
+                for element in showcase.elements {
+                    
+
+                    var elementData = BNAppSharedManager.instance.dataManager.elements[element._id!]
+                    
+                    if elementData!.isHighlight {
+                    
+                        if columnCounter < columns {
+                            columnCounter++
+                            xpos = xpos + siteSpacer
+                            
+                        } else {
+                            ypos = ypos + siteViewHeight + siteSpacer
+                            xpos = siteSpacer
+                            columnCounter = 1
+                        }
+                        
+                        //var siteIdentifier = category.sitesDetails[i].identifier!
+                        //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                        
+                        //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                        var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: elementData, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false)
+                        
+                        //elementMiniView.delegate = father?.father! as! MainView
+                        elementMiniView.delegate = self
+                        elements!.append(elementMiniView)
+                        scroll!.addSubview(elementMiniView)
+                        
+                        xpos = xpos + siteViewWidth
+                    }
+
+                }
+            }
+        }
+        
+        /*
         for (key, value) in BNAppSharedManager.instance.dataManager.highlights {
             
             var element = BNAppSharedManager.instance.dataManager.elements[key]
@@ -169,6 +207,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
                 xpos = xpos + siteViewWidth
             //}
         }
+        */
         
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)

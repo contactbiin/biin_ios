@@ -35,8 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //appManager.networkManager.delegateVC = lvc
         }
         
-        
-        
         //var localNotification:UILocalNotification = UILocalNotification()
         //localNotification.alertAction = "Testing notifications on iOS8"
 //        localNotification = "Woww it works!!”
@@ -63,42 +61,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Specify the notification types.
             var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound | UIUserNotificationType.Badge
             
-            
             // Specify the notification actions.
-            var justInformAction = UIMutableUserNotificationAction()
-            justInformAction.identifier = "justInform"
-            justInformAction.title = "OK, got it"
-            justInformAction.activationMode = UIUserNotificationActivationMode.Background
-            justInformAction.destructive = false
-            justInformAction.authenticationRequired = false
+            var externalAction = UIMutableUserNotificationAction()
+            externalAction.identifier = "externalAction"
+            externalAction.title = "Visit Site!"
+            externalAction.activationMode = UIUserNotificationActivationMode.Background
+            externalAction.destructive = false
+            externalAction.authenticationRequired = false
             
-            var modifyListAction = UIMutableUserNotificationAction()
-            modifyListAction.identifier = "editList"
-            modifyListAction.title = "Edit list"
-            modifyListAction.activationMode = UIUserNotificationActivationMode.Foreground
-            modifyListAction.destructive = false
-            modifyListAction.authenticationRequired = true
+            var internalAction = UIMutableUserNotificationAction()
+            internalAction.identifier = "internalAction"
+            internalAction.title = "Visit Site!"
+            internalAction.activationMode = UIUserNotificationActivationMode.Foreground
+            internalAction.destructive = false
+            internalAction.authenticationRequired = false
             
-            var trashAction = UIMutableUserNotificationAction()
-            trashAction.identifier = "trashAction"
-            trashAction.title = "Delete list"
-            trashAction.activationMode = UIUserNotificationActivationMode.Background
-            trashAction.destructive = true
-            trashAction.authenticationRequired = true
+            var productAction = UIMutableUserNotificationAction()
+            productAction.identifier = "productAction"
+            productAction.title = "See product!"
+            productAction.activationMode = UIUserNotificationActivationMode.Background
+            productAction.destructive = false
+            productAction.authenticationRequired = false
             
-            let actionsArray = NSArray(objects: justInformAction, modifyListAction, trashAction)
-            let actionsArrayMinimal = NSArray(objects: trashAction, modifyListAction)
+            let actionsArray = NSArray(objects: externalAction, internalAction, productAction)
+            //let actionsArrayMinimal = NSArray(objects: productAction, internalAction)
             
             // Specify the category related to the above actions.
-            var shoppingListReminderCategory = UIMutableUserNotificationCategory()
-            shoppingListReminderCategory.identifier = "shoppingListReminderCategory"
-            shoppingListReminderCategory.setActions(actionsArray as [AnyObject], forContext: UIUserNotificationActionContext.Default)
-            shoppingListReminderCategory.setActions(actionsArrayMinimal as [AnyObject], forContext: UIUserNotificationActionContext.Minimal)
+            var biinNotificationCategory = UIMutableUserNotificationCategory()
+            biinNotificationCategory.identifier = "biinNotificationCategory"
+            biinNotificationCategory.setActions(actionsArray as [AnyObject], forContext: UIUserNotificationActionContext.Default)
+            //biinNotificationCategory.setActions(actionsArrayMinimal as [AnyObject], forContext: UIUserNotificationActionContext.Minimal)
 //
             
-            let categoriesForSettings = NSSet(objects: shoppingListReminderCategory)
-            
-            
+            let categoriesForSettings = NSSet(objects: biinNotificationCategory)
+
             // Register the notification settings.
             let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings as Set<NSObject>)
             UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
@@ -115,6 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         println("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
+        appManager.positionManager.start_SITES_MONITORING()
+//        appManager.positionManager.requestStateForMonitoredRegions()
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -123,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         println("applicationWillEnterForeground")
         appManager.IS_APP_UP = true
         appManager.continueAppInitialization()
-        
+        appManager.positionManager.start_BEACON_RANGING()
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
@@ -221,10 +219,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
         
-        if identifier == "editList" {
+        if identifier == "externalAction" {
             NSNotificationCenter.defaultCenter().postNotificationName("modifyListNotification", object: nil)
         }
-        else if identifier == "trashAction" {
+        else if identifier == "internalAction" {
             NSNotificationCenter.defaultCenter().postNotificationName("deleteListNotification", object: nil)
         }
         

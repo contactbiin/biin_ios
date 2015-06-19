@@ -38,6 +38,7 @@ class BNBiin:NSObject
     
     var state:Biin_State?
     var proximity = BNBiinProximityType.NA
+    var children:Array<Int>?
     
     override init() {
         super.init()

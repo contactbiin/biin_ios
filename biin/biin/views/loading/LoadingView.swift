@@ -9,7 +9,7 @@ import UIKit
 class LoadingView:UIView {
 
     var loadingLbl:UILabel?
-    
+    var biinLogo:UIImageView?
 //    override init() {
 //        super.init()
 //    }
@@ -21,9 +21,9 @@ class LoadingView:UIView {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        var biinLogo = UIImageView(frame: CGRectMake(0, 100, 320, 320))
-        biinLogo.image = UIImage(named: "biinLogoLS.png")
-        self.addSubview(biinLogo)
+        biinLogo = UIImageView(frame: CGRectMake(0, 100, 320, 320))
+        biinLogo!.image = UIImage(named: "biinLogoLS.png")
+        self.addSubview(biinLogo!)
         
 
         var ypos:CGFloat = 320
@@ -44,13 +44,14 @@ class LoadingView:UIView {
     func showHardwareError() {
         
         loadingLbl!.alpha = 0
+        biinLogo!.alpha = 0
         
         var labelHeight:CGFloat = 80.0
         var ypos:CGFloat = (frame.height / 2) - (labelHeight / 2)
         var errorLbl = UILabel(frame: CGRect(x:25, y:ypos, width:(self.frame.width - 50), height:labelHeight))
         errorLbl.font = UIFont(name: "Lato-Light", size: 18)
-        errorLbl.text = "Your device does not support Biin due to harware requirements, please close this app."
-        errorLbl.textColor = UIColor.whiteColor()
+        errorLbl.text = NSLocalizedString("HardwareError", comment: "HardwareError")
+        errorLbl.textColor = UIColor.blackColor()
         errorLbl.textAlignment = NSTextAlignment.Center
         errorLbl.numberOfLines = 3
 

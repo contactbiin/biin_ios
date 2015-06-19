@@ -167,11 +167,11 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             
             //var itemView:CollectionView_ItemView?
             var elementView:ElementMiniView?
-            if let element = collection!.elements[key] {
+            //if let element = collection!.elements[key] {
                 
                 
                 //itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
-                elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true, isNumberVisible:false)
+                elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[value._id!], elementPosition: itemPosition, showRemoveBtn: true, isNumberVisible:false)
                     //ElementView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, showBiinItBtn: false)
     
                 
@@ -196,7 +196,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
                 //items!.append(itemView!)
                 elements!.append(elementView!)
                 itemPosition++
-            }
+            //}
 
         }
         

@@ -56,7 +56,7 @@ class ElementMiniView: BNView {
         //self.layer.shadowOffset = CGSizeMake(0, 0.5)
         //self.layer.shadowRadius = 1
         //self.layer.shadowOpacity = 0.25
-        self.element = BNAppSharedManager.instance.dataManager.elements[element!._id!]
+        self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
         
         if self.element!.media.count > 0 {
             if let color = self.element!.media[0].domainColor {

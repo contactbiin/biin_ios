@@ -11,8 +11,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     var title:UILabel?
     var subTitle:UILabel?
     var scroll:UIScrollView?
-    weak var biin:BNBiin?
-    var showcase:BNShowcase?
+    //weak var biin:BNBiin?
+    weak var showcase:BNShowcase?
 
     var isWorking = true
     var spacer:CGFloat = 5
@@ -25,7 +25,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     var joinView:SiteView_Showcase_Join?
     
 
-    //weak var site:BNSite?
+    weak var site:BNSite?
     var currentPoints = 0
     var timer:NSTimer?
     
@@ -47,14 +47,15 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame: CGRect, father:BNView?, biin:BNBiin?) {
+    convenience init(frame: CGRect, father:BNView?, showcase:BNShowcase?, site:BNSite?) {
         self.init(frame: frame, father:father )
         
-        self.biin = biin
+        //self.biin = biin
         
         self.backgroundColor = UIColor.appMainColor()
-        self.showcase = BNAppSharedManager.instance.dataManager.showcases[self.biin!.currectShowcase().identifier!]
-
+        self.showcase = showcase//BNAppSharedManager.instance.dataManager.showcases[self.biin!.currectShowcase().identifier!]
+        self.site = site
+        
         //TODO: Add all showcase data here
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
@@ -100,9 +101,9 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     func addNotificationBtn(sender:UIButton){
         //TEST: Add some notifications
-        var notification = BNNotification(title: "\(self.biin!.site!.title!)", text: "A test notification for site \(self.biin!.site!.title!)", biin: self.biin!, notificationType: BNNotificationType.STIMULUS, time:NSDate())
+        //var notification = BNNotification(title: "\(self.biin!.site!.title!)", text: "A test notification for site \(self.biin!.site!.title!)", biin: self.biin!, notificationType: BNNotificationType.STIMULUS, time:NSDate())
         
-        BNAppSharedManager.instance.processNotification(notification)
+        //BNAppSharedManager.instance.processNotification(notification)
 
     }
     
@@ -161,7 +162,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         elements = Array<ElementMiniView>()
         
         for element in showcase!.elements {
-            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
+            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
             xpos += SharedUIManager.instance.miniView_width + spacer
             elementView.delegate = self
             scroll!.addSubview(elementView)
@@ -171,7 +172,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         xpos += spacer
         
-        if biin!.site!.loyalty!.isSubscribed {
+        if self.site!.loyalty!.isSubscribed {
             //Add game view
             gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
             scroll!.addSubview(gameView!)
@@ -220,7 +221,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             return
         }
         
-        if biin!.site!.loyalty!.isSubscribed {
+        if self.site!.loyalty!.isSubscribed {
             
             var isShowcaseGameCompleted = true
             var totalPoints = 0
@@ -251,11 +252,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                 
                 if isShowcaseGameCompleted {
                     totalPoints = self.elements!.count * pointsByElement
-                    currentPoints = biin!.site!.loyalty!.points
+                    currentPoints = self.site!.loyalty!.points
                     self.updatePointCounter()
-                    biin!.site!.loyalty!.points += totalPoints
+                    self.site!.loyalty!.points += totalPoints
                     showcase!.isShowcaseGameCompleted = true
-                    father!.changeJoinBtnText("You have \(biin!.site!.loyalty!.points) points with us!")
+                    father!.changeJoinBtnText("You have \(self.site!.loyalty!.points) points with us!")
                 }
             }
         }
@@ -269,7 +270,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         currentPoints++
         
-        if currentPoints <= biin!.site!.loyalty!.points {
+        if currentPoints <= self.site!.loyalty!.points {
             //gameView!.updatePointLbl("\(currentPoints)")
             //TODO: update bottom label on site
             (father! as! SiteView).updateLoyaltyPoints()

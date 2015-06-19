@@ -54,9 +54,21 @@ class BNSite:NSObject {
     var longitude:Float?
     
     var isUserInside:Bool = false
+
+    //Neighbors are set by geo distance on backend.
+    var neighbors:Array<String>?
+    
+//    var showcases:Array<String>?
+    var showcases:Array<BNShowcase>?
+
     
     override init(){
         super.init()
+    }
+    
+    convenience init(identifier:String){
+        self.init()
+        self.identifier = identifier
     }
 
     deinit{

@@ -238,9 +238,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         var ypos:CGFloat = SharedUIManager.instance.screenWidth + 5
         scrollSpaceForShowcases = 0
         
-        for biin in site!.biins {
+        for showcase in site!.showcases! {
             
-            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, biin:biin)
+            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site)
             scroll!.addSubview(showcaseView)
             showcases!.append(showcaseView)
             ypos += showcaseHeight

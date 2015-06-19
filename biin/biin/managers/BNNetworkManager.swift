@@ -6,6 +6,8 @@
 import Foundation
 import UIKit
 import SystemConfiguration
+import CoreLocation
+
 
 class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     
@@ -51,6 +53,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     var isRequestTimerAllow = false
     
     var epsNetwork:EPSNetworking?
+    
     
     init(errorManager:BNErrorManager) {
         //Initialize here any data or variables.
@@ -750,11 +753,19 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 
         //https://biin-qa.herokuapp.com/mobile/5eb36cc2-983d-4762-ac44-c6100bf3598a/10/10/categories
 
+        if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
+           BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
+            //CLLocationCoordinate2D(latitude: CLLocationDegrees(0), longitude: CLLocationDegrees(0))
+        }
+        
+        
+        
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            //nota simulator
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         }
         self.requests[request!.identifier] = request
         
@@ -767,6 +778,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///
     ///:param: The request to be process.
     func requestUserCategoriesData(request:BNRequest) {
+        
+        
+        println("\(request.requestString)")
         
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -898,6 +912,19 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     
                     site.latitude = self.findFloat("latitude", dictionary:dataData)
                     site.longitude = self.findFloat("longitude", dictionary:dataData)
+
+                    var neighbors = self.findNSArray("neighbors", dictionary: dataData)
+
+                    if neighbors?.count > 0{
+                        
+                        site.neighbors = Array<String>()
+                        
+                        for var i = 0; i < neighbors?.count; i++ {
+                            var neighborData = neighbors!.objectAtIndex(i) as! NSDictionary
+                            var neighbor = self.findString("siteIdentifier", dictionary:neighborData)
+                            site.neighbors!.append(neighbor!)
+                        }
+                    }
                     
                     var mediaArray = self.findNSArray("media", dictionary: dataData)
                     
@@ -910,6 +937,21 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         site.media.append(media)
                     }
                     
+                    var showcases = self.findNSArray("showcases", dictionary: dataData)
+                    
+                    if showcases?.count > 0 {
+                        
+                        site.showcases = Array<BNShowcase>()
+                        
+                        for var i = 0; i < showcases?.count; i++ {
+                            var showcaseData = showcases!.objectAtIndex(i) as! NSDictionary
+                            var identifier = self.findString("identifier", dictionary:showcaseData)
+                            var showcase = BNShowcase()
+                            showcase.identifier = identifier
+                            site.showcases!.append(showcase)
+                        }
+                    }
+      
                     var biins = self.findNSArray("biins", dictionary: dataData)
                     
                     for var j = 0; j < biins?.count; j++ {
@@ -931,6 +973,19 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             //biin.lastUpdate = self.findNSDate("lastUpdate", dictionary: biinData)
                             //REMOVE <-
                             
+                            
+                            var children = self.findNSArray("children", dictionary: biinData)
+                            
+                            if children?.count > 0 {
+                                
+                                biin.children = Array<Int>()
+                                
+                                for var i = 0; i < children?.count; i++ {
+                                    var child = (children!.objectAtIndex(i) as? String)?.toInt()
+                                    biin.children!.append(child!)
+                                }
+                            }
+      
                             var objects = self.findNSArray("objects", dictionary: biinData)
                             
                             if objects!.count > 0 {
@@ -1003,7 +1058,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     }
 
                     site.loyalty = loyalty
-                    
                     
                     self.delegateDM!.manager!(self, didReceivedSite:site)
                     
@@ -1201,8 +1255,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             element._id = self.findString("_id", dictionary: elementData)
                             element.identifier = self.findString("elementIdentifier", dictionary: elementData)
                             element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
-                            showcase.elements.append(element)
                             element.color = UIColor.elementColor()
+                            showcase.elements.append(element)
                         }
                         
                         self.delegateDM!.manager!(self, didReceivedShowcase: showcase)
@@ -1317,7 +1371,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
 
                         
                         
-                        
+
+
                         //var element = BNElement()
                         element.isDownloadCompleted = true
                         element.identifier = self.findString("identifier", dictionary: elementData)
@@ -1330,6 +1385,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         element.nutshellDescription = self.findString("nutshellDescription", dictionary: elementData)
                         element.titleColor = self.findUIColor("titleColor", dictionary: elementData)!
                         element.currency = self.findCurrency("currencyType", dictionary: elementData)
+                        element.color = UIColor.elementColor()
                         //element.socialButtonsColor = self.findUIColor("socialButtonsColor", dictionary: elementData)!
                         
                         element.hasFromPrice = self.findBool("hasFromPrice", dictionary: elementData)
@@ -1371,7 +1427,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             element.actualQuantity = self.findString("actualQuantity", dictionary: elementData)
                         }
                         
-                        //element.isHighlight = self.findBool("isHighlight", dictionary: elementData)
+                        element.isHighlight = self.findBool("isHighlight", dictionary: elementData)
                         
                         var details = self.findNSArray("details", dictionary: elementData)
 
