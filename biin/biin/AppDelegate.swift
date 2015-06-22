@@ -55,11 +55,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func setupNotificationSettings() {
+        
         let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
         
         if (notificationSettings.types == UIUserNotificationType.None){
+            
             // Specify the notification types.
-            var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound | UIUserNotificationType.Badge
+            var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound
             
             // Specify the notification actions.
             var externalAction = UIMutableUserNotificationAction()
@@ -122,6 +124,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.IS_APP_UP = true
         appManager.continueAppInitialization()
         appManager.positionManager.start_BEACON_RANGING()
+        if appManager.notificationManager.currentNotification != nil {
+            switch appManager.notificationManager.currentNotification!.notificationType! {
+            case .PRODUCT:
+                println("GOTO TO ELEMENT VIEW")
+                break
+            case .INTERNAL:
+                println("GOTO TO SITE VIEW")
+                break
+            case .EXTERNAL:
+                println("GOTO TO SITE VIEW")
+                break
+            default:
+                break
+            }
+        }
+        
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
@@ -211,11 +229,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         uiManager.setDeviceVariables()
     }
 
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        // Do something serious in a real app.
-        println("Received Local Notification:")
-        println(notification.alertBody)
-    }
+//    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+//        // Do something serious in a real app.
+//        println("Received Local Notification:")
+//        println(notification.alertBody)
+//    }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
         

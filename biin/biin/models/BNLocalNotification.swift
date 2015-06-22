@@ -10,22 +10,25 @@ class BNLocalNotification:NSObject, NSCoding {
     var key:String?
     var text:String?
     var notificationType:BNLocalNotificationType?
+    var itemIdentifier:String?
     
     override init() {
         super.init()
     }
     
-    convenience init( key:String, text:String, notificationType:BNLocalNotificationType ) {
+    convenience init( key:String, text:String, notificationType:BNLocalNotificationType, itemIdentifier:String ) {
         self.init()
         self.key = key
         self.text = text
         self.notificationType = notificationType
+        self.itemIdentifier = itemIdentifier
         
     }
     
     required init(coder aDecoder: NSCoder) {
         self.key  = aDecoder.decodeObjectForKey("key") as? String
         self.text = aDecoder.decodeObjectForKey("text") as? String
+        self.itemIdentifier = aDecoder.decodeObjectForKey("itemIdentifier") as? String
         
         var value = aDecoder.decodeIntForKey("notificationType")
         switch value {
@@ -53,6 +56,10 @@ class BNLocalNotification:NSObject, NSCoding {
         
         if let notificationType = self.notificationType?.hashValue {
             aCoder.encodeInteger(notificationType, forKey: "notificationType")
+        }
+        
+        if let itemIdentifier = self.itemIdentifier {
+            aCoder.encodeObject(itemIdentifier, forKey: "itemIdentifier")
         }
     }
     

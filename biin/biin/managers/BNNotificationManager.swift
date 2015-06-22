@@ -11,6 +11,7 @@ import UIKit
 
 class BNNotificationManager:NSObject, NSCoding {
 
+    var currentNotification:BNLocalNotification?
     var notifications = Array<BNNotification>()//[BiinieAction]()
     var localNotifications:[BNLocalNotification] = [BNLocalNotification]()
     
@@ -55,7 +56,7 @@ class BNNotificationManager:NSObject, NSCoding {
         return nil
     }
     
-    func addLocalNotification(key:String, text:String, notificationType:BNLocalNotificationType){
+    func addLocalNotification(key:String, text:String, notificationType:BNLocalNotificationType, itemIdentifier:String){
         
         var isNotificationSaved = false
 
@@ -65,15 +66,16 @@ class BNNotificationManager:NSObject, NSCoding {
             if localNotifications[i].key == key {
                 localNotifications[i].text = text
                 isNotificationSaved = true
-                save()
                 break
             }
         }
         
+        
         if !isNotificationSaved {
-            localNotifications.append(BNLocalNotification(key: key, text: text, notificationType:notificationType))
-            save()
+            localNotifications.append(BNLocalNotification(key: key, text: text, notificationType:notificationType, itemIdentifier:itemIdentifier ))
         }
+        
+        save()
         
         println("localNotification count: \(localNotifications.count)")
     }
@@ -95,18 +97,25 @@ class BNNotificationManager:NSObject, NSCoding {
     
     func activateNotification(key:String) {
         
-        var isNotificationSaved = false
+        if currentNotification != nil {
+            if currentNotification!.key == key {
+                return
+            }
+        }
+        
+        var isNotificationSent = false
+
         for var i = 0; i < localNotifications.count; i++ {
             if localNotifications[i].key == key {
+
+                self.currentNotification = localNotifications[i]
                 
                 var time:NSTimeInterval = 0
                 var localNotification:UILocalNotification = UILocalNotification()
                 localNotification.alertBody = localNotifications[i].text
                 localNotification.alertTitle = "Alert title here!"
                 localNotification.alertLaunchImage = "biinLogoLS"
-                localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
-                localNotification.category = "biinNotificationCategory"
-                
+
                 println("\(localNotifications[i].notificationType!)")
                 
                 switch localNotifications[i].notificationType! {
@@ -129,16 +138,19 @@ class BNNotificationManager:NSObject, NSCoding {
                     break
                 }
 
+                localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
+//                localNotification.category = "biinNotificationCategory"
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
                 
-                isNotificationSaved = true
+                isNotificationSent = true
                 break
             }
         }
         
-        if !isNotificationSaved {
+        if !isNotificationSent {
             println("NOTIFICATION NOT FOUND \(key)")
         }
+
     }
 }
 

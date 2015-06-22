@@ -474,7 +474,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                         currentInteriorRegion = nil
                         currentProductRegion = nil
                         start_SITE_EXTERIOR_MONITORING(beaconRegion)
-                        BNAppSharedManager.instance.notificationManager.activateNotification(exteriorRegion.identifier!)
+                        BNAppSharedManager.instance.notificationManager.activateNotification(currentExteriorRegion!.identifier!)
                     }
                 }
                 break

@@ -305,7 +305,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedSite site: BNSite) {
         
         sites[site.identifier!] = site
-        BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL)
+        BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL, itemIdentifier:site.identifier!)
         println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
@@ -362,10 +362,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             
                             switch biin.biinType {
                             case .INTERNO:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification("\(biin.identifier!)", text: object.notification!, notificationType:BNLocalNotificationType.INTERNAL)
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification("\(biin.identifier!)", text: object.notification!, notificationType:BNLocalNotificationType.INTERNAL, itemIdentifier:biin.currectObject().identifier!)
                                 break
                             case .PRODUCT:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification("\(biin.identifier!)", text: object.notification!, notificationType:BNLocalNotificationType.PRODUCT)
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification("\(biin.identifier!)", text: object.notification!, notificationType:BNLocalNotificationType.PRODUCT, itemIdentifier:biin.currectObject().identifier!)
                                 break
                             default:
                                 break
