@@ -125,19 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.continueAppInitialization()
         appManager.positionManager.start_BEACON_RANGING()
         if appManager.notificationManager.currentNotification != nil {
-            switch appManager.notificationManager.currentNotification!.notificationType! {
-            case .PRODUCT:
-                println("GOTO TO ELEMENT VIEW")
-                break
-            case .INTERNAL:
-                println("GOTO TO SITE VIEW")
-                break
-            case .EXTERNAL:
-                println("GOTO TO SITE VIEW")
-                break
-            default:
-                break
-            }
+            appManager.mainViewController!.mainView!.showNotificationContext()
         }
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.

@@ -423,6 +423,8 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
 
     func showElementView(elementMiniView:ElementMiniView?){
         
+        println("BiinieCategoriesView.showElementView()")
+        
         elementView!.updateElementData(elementMiniView)
         
         UIView.animateWithDuration(0.3, animations: {()-> Void in

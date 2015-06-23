@@ -123,7 +123,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     override func transitionIn() {
     
-        UIView.animateWithDuration(0.3, animations: {()->Void in
+        UIView.animateWithDuration(0.2, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }

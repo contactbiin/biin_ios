@@ -304,8 +304,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNSite received from web service in json format already parse in an site object.
     func manager(manager: BNNetworkManager!, didReceivedSite site: BNSite) {
         
+        
+        var isExternalBiinAdded = false
+        
         sites[site.identifier!] = site
-        BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL, itemIdentifier:site.identifier!)
+        //BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL, itemIdentifier:site.identifier!)
         println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
@@ -350,22 +353,29 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 
                 //Set biin state.
                 biin.setBiinState()
-                
+                println("Add notification for biin: \(biin.identifier!)")
                 //HACK for biinType
                 //biin.updateBiinType()
                 
                 for object in biin.objects! {
+                    
+                    println("Object: \(object._id!)")
+                    
                     switch object.objectType {
                     case .ELEMENT:
-                        
                         if object.hasNotification {
-                            
                             switch biin.biinType {
+                            case .EXTERNO:
+                                if !isExternalBiinAdded {
+                                    isExternalBiinAdded = true
+                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                }
+                                break
                             case .INTERNO:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification("\(biin.identifier!)", text: object.notification!, notificationType:BNLocalNotificationType.INTERNAL, itemIdentifier:biin.currectObject().identifier!)
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                 break
                             case .PRODUCT:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification("\(biin.identifier!)", text: object.notification!, notificationType:BNLocalNotificationType.PRODUCT, itemIdentifier:biin.currectObject().identifier!)
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                 break
                             default:
                                 break

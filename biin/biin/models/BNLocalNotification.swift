@@ -7,28 +7,34 @@ import Foundation
 
 class BNLocalNotification:NSObject, NSCoding {
 
-    var key:String?
-    var text:String?
+    var objectIdentifier:String?
+    var notificationText:String?
     var notificationType:BNLocalNotificationType?
-    var itemIdentifier:String?
+    var siteIdentifier:String?
+    var biinIdentifier:String?
+    var elementIdentifier:String?
     
     override init() {
         super.init()
     }
     
-    convenience init( key:String, text:String, notificationType:BNLocalNotificationType, itemIdentifier:String ) {
+    convenience init( objectIdentifier:String, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String ) {
         self.init()
-        self.key = key
-        self.text = text
+        self.objectIdentifier = objectIdentifier
+        self.notificationText = notificationText
         self.notificationType = notificationType
-        self.itemIdentifier = itemIdentifier
+        self.siteIdentifier = siteIdentifier
+        self.biinIdentifier = biinIdentifier
+        self.elementIdentifier = elementIdentifier
         
     }
     
     required init(coder aDecoder: NSCoder) {
-        self.key  = aDecoder.decodeObjectForKey("key") as? String
-        self.text = aDecoder.decodeObjectForKey("text") as? String
-        self.itemIdentifier = aDecoder.decodeObjectForKey("itemIdentifier") as? String
+        self.objectIdentifier  = aDecoder.decodeObjectForKey("objectIdentifier") as? String
+        self.notificationText = aDecoder.decodeObjectForKey("notificationText") as? String
+        self.siteIdentifier = aDecoder.decodeObjectForKey("siteIdentifier") as? String
+        self.biinIdentifier = aDecoder.decodeObjectForKey("biinIdentifier") as? String
+        self.elementIdentifier = aDecoder.decodeObjectForKey("elementIdentifier") as? String
         
         var value = aDecoder.decodeIntForKey("notificationType")
         switch value {
@@ -46,20 +52,28 @@ class BNLocalNotification:NSObject, NSCoding {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        if let key = self.key {
-            aCoder.encodeObject(key, forKey: "key")
+        if let objectIdentifier = self.objectIdentifier {
+            aCoder.encodeObject(objectIdentifier, forKey: "objectIdentifier")
         }
         
-        if let text = self.text {
-            aCoder.encodeObject(text, forKey: "text")
+        if let notificationText = self.notificationText {
+            aCoder.encodeObject(notificationText, forKey: "notificationText")
         }
         
         if let notificationType = self.notificationType?.hashValue {
             aCoder.encodeInteger(notificationType, forKey: "notificationType")
         }
         
-        if let itemIdentifier = self.itemIdentifier {
-            aCoder.encodeObject(itemIdentifier, forKey: "itemIdentifier")
+        if let siteIdentifier = self.siteIdentifier {
+            aCoder.encodeObject(siteIdentifier, forKey: "siteIdentifier")
+        }
+        
+        if let biinIdentifier = self.biinIdentifier {
+            aCoder.encodeObject(biinIdentifier, forKey: "biinIdentifier")
+        }
+        
+        if let elementIdentifier = self.elementIdentifier {
+            aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
         }
     }
     
@@ -69,16 +83,16 @@ class BNLocalNotification:NSObject, NSCoding {
     
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.key!)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.objectIdentifier!)
     }
     
     func clear() {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(self.key!)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(self.objectIdentifier!)
     }
     
-    class func loadSaved(key:String) -> BNLocalNotification? {
+    class func loadSaved(objectIdentifier:String) -> BNLocalNotification? {
         
-        if let data = NSUserDefaults.standardUserDefaults().objectForKey(key) as? NSData {
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey(objectIdentifier) as? NSData {
             return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNLocalNotification
         }
         

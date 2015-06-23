@@ -56,23 +56,25 @@ class BNNotificationManager:NSObject, NSCoding {
         return nil
     }
     
-    func addLocalNotification(key:String, text:String, notificationType:BNLocalNotificationType, itemIdentifier:String){
+    
+    ///identifier: object identifier on the biin.
+    ///
+    func addLocalNotification(objectIdentifier:String, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String){
         
         var isNotificationSaved = false
 
         
         for var i = 0; i < localNotifications.count; i++ {
-            println(localNotifications[i].key!)
-            if localNotifications[i].key == key {
-                localNotifications[i].text = text
+            println(localNotifications[i].objectIdentifier!)
+            if localNotifications[i].objectIdentifier == objectIdentifier {
+                localNotifications[i].notificationText = notificationText
                 isNotificationSaved = true
                 break
             }
         }
         
-        
         if !isNotificationSaved {
-            localNotifications.append(BNLocalNotification(key: key, text: text, notificationType:notificationType, itemIdentifier:itemIdentifier ))
+            localNotifications.append(BNLocalNotification(objectIdentifier:objectIdentifier, notificationText:notificationText, notificationType:notificationType, siteIdentifier:siteIdentifier, biinIdentifier:biinIdentifier, elementIdentifier:elementIdentifier ))
         }
         
         save()
@@ -80,9 +82,9 @@ class BNNotificationManager:NSObject, NSCoding {
         println("localNotification count: \(localNotifications.count)")
     }
     
-    func removeLocalNotification(key:String) {
+    func removeLocalNotification(objectIdentifier:String) {
         for var i = 0; i < localNotifications.count; i++ {
-            if localNotifications[i].key == key {
+            if localNotifications[i].objectIdentifier == objectIdentifier {
                 localNotifications.removeAtIndex(i)
                 return
             }
@@ -94,61 +96,111 @@ class BNNotificationManager:NSObject, NSCoding {
         localNotifications.removeAll(keepCapacity: false)
         save()
     }
+
+    func activateNotificationForSite(siteIdentifier:String) {
+        
+        self.currentNotification = nil
+        
+        //FALLO
+        if let site = BNAppSharedManager.instance.dataManager.sites[siteIdentifier] {
+            println("site: \(site.title!)")
+            
+            for biin in site.biins {
+                println("biin: \(biin.identifier!)")
+                if biin.biinType == BNBiinType.EXTERNO {
+                    for localNotification in localNotifications {
+                        println("notification id: \(localNotification.objectIdentifier!)")
+                        println("current biin object: \(biin.currectObject()._id!)")
+                        if localNotification.objectIdentifier == biin.currectObject()._id! {
+                            self.currentNotification = localNotification
+                            sendCurrentNotification()
+                            return
+                        }
+                    }
+                }
+            }
+        }
+        
+        if  self.currentNotification == nil {
+            println("NOTIFICATION NOT FOUND FOR BIIN in SITE: \(siteIdentifier)")
+        }
+    }
     
-    func activateNotification(key:String) {
+    
+    func activateNotificationForBiin(biinIdentifier:String) {
+        
+        //Get the closes local notification asociates to the biin
+        for localNotification in localNotifications {
+
+            println("biin: \(biinIdentifier)")
+            println("notification-biin: \(localNotification.biinIdentifier!)")
+
+            
+            if localNotification.biinIdentifier == biinIdentifier {
+                self.currentNotification = localNotification
+                break
+            } else {
+                self.currentNotification = nil
+                println("NOTIFICATION NOT FOUND FOR BIIN: \(biinIdentifier)")
+            }
+        }
         
         if currentNotification != nil {
-            if currentNotification!.key == key {
-                return
+            if let site = BNAppSharedManager.instance.dataManager.sites[self.currentNotification!.siteIdentifier!] {
+                for biin in site.biins {
+                    if biin.identifier! == biinIdentifier {
+                        
+                        for localNotification in localNotifications {
+                            if localNotification.objectIdentifier == biin.currectObject()._id! {
+                                self.currentNotification = localNotification
+                                break
+                            }
+                        }
+                        
+                        break
+                    }
+                }
             }
         }
+    
+        sendCurrentNotification()
+    }
+    
+    func sendCurrentNotification(){
         
-        var isNotificationSent = false
-
-        for var i = 0; i < localNotifications.count; i++ {
-            if localNotifications[i].key == key {
-
-                self.currentNotification = localNotifications[i]
-                
-                var time:NSTimeInterval = 0
-                var localNotification:UILocalNotification = UILocalNotification()
-                localNotification.alertBody = localNotifications[i].text
-                localNotification.alertTitle = "Alert title here!"
-                localNotification.alertLaunchImage = "biinLogoLS"
-
-                println("\(localNotifications[i].notificationType!)")
-                
-                switch localNotifications[i].notificationType! {
-                case .EXTERNAL:
-                    println("Activating notification \(localNotifications[i].key!), EXTERNAL")
-                    //localNotification.alertAction = "externalAction"
-                    time = 1
-                    break
-                case .INTERNAL:
-                    println("Activating notification \(localNotifications[i].key!), INTERNAL")
-                    //localNotification.alertAction = "internalAction"
-                    time = 10
-                    break
-                case .PRODUCT:
-                    println("Activating notification \(localNotifications[i].key!), PRODUCT")
-                    //localNotification.alertAction = "productAction"
-                    time = 10
-                    break
-                default:
-                    break
-                }
-
-                localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
-//                localNotification.category = "biinNotificationCategory"
-                UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-                
-                isNotificationSent = true
+        if self.currentNotification != nil {
+            
+            var time:NSTimeInterval = 0
+            var localNotification:UILocalNotification = UILocalNotification()
+            localNotification.alertBody = currentNotification!.notificationText
+            localNotification.alertTitle = "Alert title here!"
+            localNotification.alertLaunchImage = "biinLogoLS"
+            
+            
+            switch self.currentNotification!.notificationType! {
+            case .EXTERNAL:
+                println("Activating notification \(self.currentNotification!.biinIdentifier!), EXTERNAL")
+                //localNotification.alertAction = "externalAction"
+                time = 1
+                break
+            case .INTERNAL:
+                println("Activating notification \(self.currentNotification!.biinIdentifier!), INTERNAL")
+                //localNotification.alertAction = "internalAction"
+                time = 10
+                break
+            case .PRODUCT:
+                println("Activating notification \(self.currentNotification!.biinIdentifier!), PRODUCT")
+                //localNotification.alertAction = "productAction"
+                time = 10
+                break
+            default:
                 break
             }
-        }
-        
-        if !isNotificationSent {
-            println("NOTIFICATION NOT FOUND \(key)")
+            
+            localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
+            //                localNotification.category = "biinNotificationCategory"
+            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            
         }
 
     }
