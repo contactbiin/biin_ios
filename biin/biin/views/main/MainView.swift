@@ -170,7 +170,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         boardsView.addGestureRecognizer(showMenuSwipe)
         */
         
-        showNotificationContext()
+        //showNotificationContext()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
@@ -333,10 +333,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
             switch BNAppSharedManager.instance.notificationManager.currentNotification!.notificationType! {
             case .PRODUCT:
-                println("GOTO TO ELEMENT VIEW on product notification")
-                if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.elementIdentifier!] {
+                println("GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
+                if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     //setNextState(2)
+                    println("Show element view for element: \(element._id!)")
                     var elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
                 }
@@ -359,6 +360,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 break
             }
         }
+        
+        BNAppSharedManager.instance.notificationManager.currentNotification = nil
     }
 }
 

@@ -186,12 +186,12 @@ class BNNotificationManager:NSObject, NSCoding {
             case .INTERNAL:
                 println("Activating notification \(self.currentNotification!.biinIdentifier!), INTERNAL")
                 //localNotification.alertAction = "internalAction"
-                time = 10
+                time = 1
                 break
             case .PRODUCT:
                 println("Activating notification \(self.currentNotification!.biinIdentifier!), PRODUCT")
                 //localNotification.alertAction = "productAction"
-                time = 10
+                time = 1
                 break
             default:
                 break

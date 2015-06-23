@@ -375,7 +375,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                                 BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                 break
                             case .PRODUCT:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
                                 break
                             default:
                                 break
@@ -583,7 +583,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             if value.identifier! == element.identifier! {
                 element._id = key
                 elements[key] = element.clone()
-                //println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
+                println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
             }
         }
     }

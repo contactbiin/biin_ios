@@ -484,13 +484,15 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 if currentExteriorRegion != nil {
                     if beaconRegion.minor != nil {
                         if beaconRegion.major.integerValue == currentExteriorRegion!.major.integerValue {
-                            if let interiorRegion = monitoredBeaconRegions[beaconRegion.minor!.integerValue]{
-                                if currentInteriorRegion == nil {
+                            if currentInteriorRegion == nil {
+                                if let interiorRegion = monitoredBeaconRegions[beaconRegion.minor!.integerValue]{
                                     currentInteriorRegion = interiorRegion
                                     start_SITE_INTERIOR_MONITORING(beaconRegion)
                                     BNAppSharedManager.instance.notificationManager.activateNotificationForBiin(currentInteriorRegion!.identifier!)
                                     println("2")
                                 }
+                            } else {
+                                println("Enter other region with minor: \(beaconRegion.minor) on current exterior:\(currentExteriorRegion!.major!)")
                             }
                         } else {
                             println("Enter other interior region: \(beaconRegion.minor) on current exterior:\(currentExteriorRegion!.major!)")

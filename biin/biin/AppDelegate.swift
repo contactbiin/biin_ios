@@ -124,9 +124,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.IS_APP_UP = true
         appManager.continueAppInitialization()
         appManager.positionManager.start_BEACON_RANGING()
-        if appManager.notificationManager.currentNotification != nil {
-            appManager.mainViewController!.mainView!.showNotificationContext()
-        }
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
@@ -217,11 +214,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         uiManager.setDeviceVariables()
     }
 
-//    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-//        // Do something serious in a real app.
-//        println("Received Local Notification:")
-//        println(notification.alertBody)
-//    }
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        // Do something serious in a real app.
+        println("Received Local Notification:")
+        println(notification.alertBody)
+        
+        if appManager.notificationManager.currentNotification != nil {
+            appManager.mainViewController!.mainView!.showNotificationContext()
+        }
+    }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
         
