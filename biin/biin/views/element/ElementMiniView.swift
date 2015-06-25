@@ -43,6 +43,25 @@ class ElementMiniView: BNView {
         super.init(frame: frame, father:father )
     }
     
+    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
+        self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible)
+        
+        biinItButton!.frame.origin.y = (frame.height - 82)
+        shareItButton!.frame.origin.y = (frame.height - 82)
+
+        var siteBackgorund = UIView(frame: CGRectMake(0, (frame.height - 40), frame.width, 40))
+        siteBackgorund.backgroundColor = UIColor.whiteColor()
+        self.addSubview(siteBackgorund)
+
+        var siteMiniLocation:SiteView_MiniLocation?
+        if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
+            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 40), frame.width, 40), father: self, site:site)
+            self.addSubview(siteMiniLocation!)
+        }
+        
+        
+    }
+    
     convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool){
         
         self.init(frame: frame, father:father )
@@ -139,7 +158,7 @@ class ElementMiniView: BNView {
             self.addSubview(removeItButton!)
         } else {
             
-            biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
+            biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 82), 37, 37))
             biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(biinItButton!)
             xpos += 37

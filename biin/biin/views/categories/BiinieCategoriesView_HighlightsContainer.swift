@@ -122,7 +122,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         switch SharedUIManager.instance.deviceType {
         case .iphone4s, .iphone5, .iphone6:
             siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
-            siteViewHeight = 240.0
+            siteViewHeight = 280.0
             columns = 2
             break
         case .iphone6Plus:
@@ -162,7 +162,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
                         //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                         
                         //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                        var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: elementData, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false)
+                        var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: elementData, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
                         
                         //elementMiniView.delegate = father?.father! as! MainView
                         elementMiniView.delegate = self

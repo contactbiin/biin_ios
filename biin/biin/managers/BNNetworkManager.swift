@@ -803,8 +803,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         category.name = self.findString("name", dictionary: categoryData)
                         category.hasSites = self.findBool("hasSites", dictionary: categoryData)
 
-                        category.hasSites = true
-                        //if category.hasSites {
+                        //category.hasSites = true
+                        if category.hasSites {
                             var sites = self.findNSArray("sites", dictionary: categoryData)
 
                             for var j = 0; j < sites?.count; j++ {
@@ -818,7 +818,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                                 category.sitesDetails.append(siteDetails)
      
                             }
-                        //}
+                        }
                         
                         categories.append(category)
                     }
