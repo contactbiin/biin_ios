@@ -46,16 +46,12 @@ class ElementMiniView: BNView {
     convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
         self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible)
         
-        biinItButton!.frame.origin.y = (frame.height - 82)
-        shareItButton!.frame.origin.y = (frame.height - 82)
-
-        var siteBackgorund = UIView(frame: CGRectMake(0, (frame.height - 40), frame.width, 40))
-        siteBackgorund.backgroundColor = UIColor.whiteColor()
-        self.addSubview(siteBackgorund)
+        biinItButton!.frame.origin.y = (frame.height - 92)
+        shareItButton!.frame.origin.y = (frame.height - 92)
 
         var siteMiniLocation:SiteView_MiniLocation?
         if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
-            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 40), frame.width, 40), father: self, site:site)
+            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 50), frame.width, 50), father: self, site:site)
             self.addSubview(siteMiniLocation!)
         }
         

@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate {
     
     var delegate:MainViewDelegate?
     var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -372,6 +372,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         }
         
         BNAppSharedManager.instance.notificationManager.currentNotification = nil
+    }
+    
+    func showSiteView(view: SiteView_MiniLocation, site: BNSite) {
+        println("showSiteView() from mini location view")
+        (siteState!.view as! SiteView).updateSiteData(site)
+        setNextState(2)
     }
 }
 
