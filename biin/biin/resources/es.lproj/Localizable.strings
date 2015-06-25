@@ -105,3 +105,7 @@ HightLights = "Recomendados";
 Biins = "Biins";
 Biined = "Biined!";
 NotBiins = "Parece que no hay Biins por aquí!";
+
+/*Invite friends*/
+InviteSubject = "De compras y diversión con Biin";
+InviteBody = "Las mejores ofertas y lugares en tu celular. Descarga Biin en";

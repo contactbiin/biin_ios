@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "456880242.953553"
+            timestampString = "456938444.166081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1494"
-            endingLineNumber = "1494"
+            startingLineNumber = "1495"
+            endingLineNumber = "1495"
             landmarkName = "requestElementData(_:element:)"
             landmarkType = "5">
          </BreakpointContent>

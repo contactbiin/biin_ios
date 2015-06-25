@@ -351,9 +351,19 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 break
             case .EXTERNAL:
                 println("GOTO TO SITE VIEW on external notification")
-                if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
-                    (siteState!.view as! SiteView).updateSiteData(site)
-                    setNextState(2)
+//                if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
+//                    (siteState!.view as! SiteView).updateSiteData(site)
+//                    setNextState(2)
+//                }
+//                
+                
+                println("GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
+                if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
+                    //(siteState!.view as! SiteView).updateSiteData(site)
+                    //setNextState(2)
+                    println("Show element view for element: \(element._id!)")
+                    var elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
+                    (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
                 }
                 break
             default:

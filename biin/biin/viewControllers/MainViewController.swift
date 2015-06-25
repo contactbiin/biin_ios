@@ -397,17 +397,28 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func sendInvitation(){
+    
+        let subjectToShare:String?
+        subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")
         
+//        let imageToShate:UIImage?
+//        imageToShate = UIImage(named: "biinShare")
+    
         let textToShare:String?
-        textToShare = "Biin is awesome!  Check out this new amazing app!"
-        
-        let imageToShate:UIImage?
-        imageToShate = UIImage(named: "biinShare")
+        textToShare = NSLocalizedString("InviteBody", comment: "InviteBody")
         
         let myWebsite:NSURL?
         myWebsite = NSURL(string: "https:/www.biinapp.com")
         
         var sharingItems = [AnyObject]()
+        
+//        if let text = subjectToShare {
+//            sharingItems.append(text)
+//        }
+        
+//        if let image = imageToShate {
+//            sharingItems.append(image)
+//        }
         
         if let text = textToShare {
             sharingItems.append(text)
@@ -417,11 +428,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             sharingItems.append(url)
         }
         
-        if let image = imageToShate {
-         sharingItems.append(image)
-        }
-        
         let activityVC = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+        activityVC.setValue(subjectToShare, forKey: "subject")
 
         //New Excluded Activities Code
         activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll]

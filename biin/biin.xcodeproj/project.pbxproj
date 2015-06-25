@@ -609,6 +609,7 @@
 				5BB917DC1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift */,
 				5B6246351A9E9F61009C979D /* BNUIButton_RemoveIt.swift */,
 				5B760E561AAE5F2C003E017A /* BNUIButton_NotificationGo.swift */,
+				5B60A4C51AA21B3E0025ACBA /* BNUIButton_Contact.swift */,
 				5B29079A1A687C040000658A /* BNUIPointView.swift */,
 				5BE96EFD1A6D585100929236 /* BNUIImageView.swift */,
 				5B48C8281A700992009FC4D4 /* BNUINotificationView_RedCircle.swift */,
@@ -636,7 +637,6 @@
 				5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */,
 				5B6B886A1A8BE45000F21E4A /* BNUIAlertView_Header.swift */,
 				5B60A4C11AA0EDC10025ACBA /* BNMKAnnotation.swift */,
-				5B60A4C51AA21B3E0025ACBA /* BNUIButton_Contact.swift */,
 				5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */,
 			);
 			path = uiElements;

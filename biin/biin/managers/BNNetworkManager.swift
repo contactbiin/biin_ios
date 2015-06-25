@@ -1257,6 +1257,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             element.identifier = self.findString("elementIdentifier", dictionary: elementData)
                             element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
                             element.color = UIColor.elementColor()
+                            element.siteIdentifier = showcase.siteIdentifier!
                             showcase.elements.append(element)
                         }
                         
