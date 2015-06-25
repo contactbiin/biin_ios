@@ -53,6 +53,8 @@ class UserOnboardingView_Categories:UIView {
             
             var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.biinDarkColor())
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+            categoriesSelected[category.identifier!] = category.identifier!
+            button.showSelected()
             self.addSubview(button)
             buttonCounter++
             
@@ -82,9 +84,7 @@ class UserOnboardingView_Categories:UIView {
     }
     
     func startBtnAction(sender:BNUIButton_Loging){
-        
         delegate!.showProgress!(self)
-        
         BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
     }
 }

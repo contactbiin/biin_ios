@@ -220,31 +220,34 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         }
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
-            for var i = 0; i < category.sitesDetails.count; i++ {
+            
+            if category.hasSites {
+                for var i = 0; i < category.sitesDetails.count; i++ {
 
-                var siteIdentifier = category.sitesDetails[i].identifier!
-                var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
-                
-                if !isSiteAdded(siteIdentifier) {
+                    var siteIdentifier = category.sitesDetails[i].identifier!
+                    var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                     
-                    if columnCounter < columns {
-                        columnCounter++
-                        xpos = xpos + siteSpacer
+                    if !isSiteAdded(siteIdentifier) {
                         
-                    } else {
-                        ypos = ypos + siteViewHeight + siteSpacer
-                        xpos = siteSpacer
-                        columnCounter = 1
+                        if columnCounter < columns {
+                            columnCounter++
+                            xpos = xpos + siteSpacer
+                            
+                        } else {
+                            ypos = ypos + siteViewHeight + siteSpacer
+                            xpos = siteSpacer
+                            columnCounter = 1
+                        }
+                        
+                        var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                        
+                        miniSiteView.delegate = father?.father! as! MainView
+                        
+                        sites!.append(miniSiteView)
+                        scroll!.addSubview(miniSiteView)
+                        
+                        xpos = xpos + siteViewWidth
                     }
-                    
-                    var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                    
-                    miniSiteView.delegate = father?.father! as! MainView
-                    
-                    sites!.append(miniSiteView)
-                    scroll!.addSubview(miniSiteView)
-                    
-                    xpos = xpos + siteViewWidth
                 }
             }
         }

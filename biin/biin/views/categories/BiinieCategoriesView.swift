@@ -71,7 +71,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:false)
+        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
         elementView!.delegate = self
         self.addSubview(elementView!)
     }

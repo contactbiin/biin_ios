@@ -229,7 +229,7 @@ class ElementView: BNView {
             biinItButton?.showDisable()
             detailsView!.showBiinItButton(false)
         }else {
-            biinItButton?.showEnable()
+            biinItButton!.showEnable()
             detailsView!.showBiinItButton(true)
         }
         
@@ -258,6 +258,7 @@ class ElementView: BNView {
     }
     
     func biinit(sender:BNUIButton_BiinIt){
+        biinItButton!.showDisable()
         BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
         detailsView!.showBiinItButton(false)
         applyBiinIt()

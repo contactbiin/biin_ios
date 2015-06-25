@@ -321,14 +321,11 @@ class ProfileView: BNView, UITextFieldDelegate {
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
             scroll!.addSubview(button)
             buttonCounter++
-            
-            
 
-            
             for userCategory in BNAppSharedManager.instance.dataManager.bnUser!.categories {
                 if userCategory.identifier! == category.identifier! {
                     button.showSelected()
-                    categoriesSelected[button.categoryIdentifier!] = button.categoryIdentifier!
+                    categoriesSelected[category.identifier!] = category.identifier!
                 }
             }
             

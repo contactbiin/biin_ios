@@ -801,20 +801,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                         var category = BNCategory(identifier: self.findString("identifier", dictionary: categoryData)!)
 
                         category.name = self.findString("name", dictionary: categoryData)
-                        
-                        var sites = self.findNSArray("sites", dictionary: categoryData)
+                        category.hasSites = self.findBool("hasSites", dictionary: categoryData)
 
-                        for var j = 0; j < sites?.count; j++ {
-                            
-                            var siteData = sites!.objectAtIndex(j) as! NSDictionary
+                        category.hasSites = true
+                        //if category.hasSites {
+                            var sites = self.findNSArray("sites", dictionary: categoryData)
 
-                            //TODO: Add site details to category here.
-                            var siteDetails = BNCategorySiteDetails()
-                            siteDetails.identifier = self.findString("identifier", dictionary: siteData)
-                            siteDetails.json = self.findString("jsonUrl", dictionary: siteData)
-                            category.sitesDetails.append(siteDetails)
- 
-                        }
+                            for var j = 0; j < sites?.count; j++ {
+                                
+                                var siteData = sites!.objectAtIndex(j) as! NSDictionary
+
+                                //TODO: Add site details to category here.
+                                var siteDetails = BNCategorySiteDetails()
+                                siteDetails.identifier = self.findString("identifier", dictionary: siteData)
+                                siteDetails.json = self.findString("jsonUrl", dictionary: siteData)
+                                category.sitesDetails.append(siteDetails)
+     
+                            }
+                        //}
                         
                         categories.append(category)
                     }

@@ -19,6 +19,7 @@ class BNCategory:NSObject {
     var sitesDetails:Array<BNCategorySiteDetails> = Array<BNCategorySiteDetails>()
     var isDownloaded = false
     var isUserCategory = false
+    var hasSites = false
     
     override init(){
         super.init()
