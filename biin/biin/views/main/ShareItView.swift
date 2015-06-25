@@ -53,6 +53,8 @@ class ShareItView:UIView {
             priceView = nil
         }
         
+        
+        /*
         if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.currency!)\(element.price!)", isMini:false)
             self.addSubview(priceView!)
@@ -66,14 +68,56 @@ class ShareItView:UIView {
             hasPrice = true
             ypos += 40
         } else if element.hasPrice &&  element.hasFromPrice {
-            
-            //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(element.currency!)\(element.price!)", from:     NSLocalizedString("From", comment: "From")
                 , isMini:false)
             self.addSubview(priceView!)
             hasPrice = true
             ypos += 40
         }
+        */
+        
+        
+        
+        
+        if element.hasPrice && element.hasDiscount {
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(element.discount!)%", isMini:false)
+            self.addSubview(priceView!)
+            ypos += 40
+            
+        } else if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.currency!)\(element.price!)", isMini:false)
+            self.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+            
+        } else if element.hasPrice && element.hasListPrice && element.hasDiscount {
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.price!)", newPrice:"\(element.currency!)\(element.listPrice!)", percentage:"\(element.discount!)%", isMini:false)
+            self.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+            
+        } else if element.hasPrice && element.hasListPrice && element.hasDiscount {
+            //TODO
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.price!)", newPrice:"\(element.currency!)\(element.listPrice!)", isMini:false)
+            self.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+            
+        } else if element.hasPrice && element.hasFromPrice {
+            
+            //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(element.currency!)\(element.price!)", from:NSLocalizedString("From", comment: "From")
+                , isMini:false)
+            self.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+        }
+
+        
+        
+        
 
         
         ypos = 0
