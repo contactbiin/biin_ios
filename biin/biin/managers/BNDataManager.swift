@@ -318,7 +318,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         
         for showcase in site.showcases! {
-        
+            
             if showcases[showcase.identifier!] == nil {
                 //Showcase does not exist, store it and request it's data.
                 showcases[showcase.identifier!] = showcase
@@ -385,6 +385,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         var element = BNElement()
                         element.identifier = object.identifier!
                         element._id = object._id!
+                        element.siteIdentifier = site.identifier
                         requestElement(element)
                         
                         break

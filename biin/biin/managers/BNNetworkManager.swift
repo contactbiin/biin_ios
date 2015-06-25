@@ -249,7 +249,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
-            println("*** data \(data)")
+            println("*** data: \(data)")
             
             if (error != nil) {
                 println("Error on posting categoies")
@@ -270,11 +270,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                        println("*** Register categproes for user \(user.email!) COOL!")
+                        println("*** Register categproes for user: \(user.email!) COOL!")
                         //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                        println("*** Register categories for user \(user.email!) SUCK!")
+                        println("*** Register categories for user: \(user.email!) SUCK!")
                     }
                     
                     self.delegateVC!.manager!(self, didReceivedCategoriesSavedConfirmation: response)
@@ -948,6 +948,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                             var identifier = self.findString("identifier", dictionary:showcaseData)
                             var showcase = BNShowcase()
                             showcase.identifier = identifier
+                            showcase.siteIdentifier = site.identifier!
                             site.showcases!.append(showcase)
                         }
                     }
