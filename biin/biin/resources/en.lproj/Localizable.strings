@@ -107,6 +107,9 @@ Biins = "Biins";
 Biined = "Biined!";
 NotBiins = "It seems there are not Biins around here!";
 
-/*Invite friends*/
+/*Invite friends   hey check out the Salmon al Limo from Spoon  */
 InviteSubject = "Shoping and having fun with Biin";
 InviteBody = "The best offers and places in your hand. Download Biin at ";
+ShareBody1 = "Hey, check out the ";
+ShareBody2 = "from ";
+ShareBody3 = "The best offers and places in your hand. Download Biin at ";

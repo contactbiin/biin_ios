@@ -334,6 +334,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func shareElement(element:BNElement){
         
+        var siteTitle = ""
+        if let site = BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!] {
+            siteTitle = site.title!
+        }
         
         var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
         let imageToShare:UIImage?
@@ -347,7 +351,11 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
 //        imageToShate = UIImage(named: "biinShare")
         
         let textToShare:String?
-        textToShare = NSLocalizedString("InviteBody", comment: "InviteBody")
+        var string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
+        var string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
+        var string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
+        
+        textToShare = "\(string1)\(element.title!) \(string2)\(siteTitle). \(string3)"
         
         let myWebsite:NSURL?
         myWebsite = NSURL(string: "https:/www.biinapp.com")
