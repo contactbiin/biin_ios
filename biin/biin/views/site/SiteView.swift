@@ -31,7 +31,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var biinItButton:BNUIButton_BiinIt?
     var shareItButton:BNUIButton_ShareIt?
     
-    var locationViewHeigh:CGFloat = 380
+    var locationViewHeigh:CGFloat = 400
     var panIndex = 0
     var scrollSpaceForShowcases:CGFloat = 0
     

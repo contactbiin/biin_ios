@@ -175,6 +175,11 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
                 elements!.append(elementMiniView)
                 scroll!.addSubview(elementMiniView)
                 
+                if columnCounter < 3 {
+                    println("request image")
+                    elementMiniView.requestImage()
+                }
+                
                 xpos = xpos + siteViewWidth
                 //}
             }

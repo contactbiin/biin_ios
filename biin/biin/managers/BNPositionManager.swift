@@ -58,6 +58,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     let MAX_NUMBER_OF_REGIONS = 20
     
+    var isBiinsViewContainerEmpty = true
+    
     init(errorManager:BNErrorManager){
         
         self.errorManager = errorManager
@@ -1003,7 +1005,10 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     //TESTING <-
                     
                     //if value.0 || value.1 {
+                    if isBiinsViewContainerEmpty {
+                        isBiinsViewContainerEmpty = false
                         self.orderAndSentBiinsToDisplay(self.myBeacons)
+                    }
                     //}
                     
                     //if myBeacons.count > 0 {
@@ -1059,6 +1064,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             self.firstBeaconUUID = nil
             self.counterProximity = 0
             self.counter = 0
+            if !isBiinsViewContainerEmpty {
+                cleanAndSentBiinsToDisplay()
+            }
         }
     }
     
@@ -1226,19 +1234,23 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //This method order the biin list according to beacons detected on field.
     func orderAndSentBiinsToDisplay(beacons:Array<CLBeacon>) {
 
+        println("orderAndSentBiinsToDisplay: \(beacons.count) ")
+
         //Create an Array to temporary backup biins.
 //        var biinBackup:Array<BNBiin> = Array<BNBiin>()
         self.biins.removeAll(keepCapacity: false)
         BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
         //Remove and backup biins from local list.
+
         for beacon in beacons {
-            
-            
             if beacon.proximity != CLProximity.Unknown {
                 for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
                     if beacon.major.integerValue == site.major {
+                        var minorAdded = 0
                         for biin in site.biins {
-                            if beacon.minor.integerValue == biin.minor {
+                            
+                            if beacon.minor.integerValue == biin.minor && minorAdded != biin.minor {
+                                minorAdded = biin.minor!
                                 println("ADDING BIIN TO DISPLAY \(site.major) \(biin.minor)")
                                 BNAppSharedManager.instance.dataManager.availableBiins.append(biin.currectObject()._id!)
                                 self.biins.append(biin)
@@ -1268,6 +1280,15 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //clear biinBackup
         biinBackup.removeAll(keepCapacity: false)
         */
+        self.delegateView?.manager!(self, updateMainViewController: self.biins)
+
+    }
+    
+    
+    func cleanAndSentBiinsToDisplay() {
+        isBiinsViewContainerEmpty = true
+        self.biins.removeAll(keepCapacity: false)
+        BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
         self.delegateView?.manager!(self, updateMainViewController: self.biins)
 
     }

@@ -120,11 +120,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         ypos += 35
         yStop = ypos //To use in shareview.
-        map = MKMapView(frame:CGRectMake(10, ypos, (screenWidth - 20), 160))
-        map!.userInteractionEnabled = false
-        map!.layer.cornerRadius = 3
-        map!.layer.borderColor = UIColor.appButtonBorderColor().CGColor
-        map!.layer.borderWidth = 1
+        map = MKMapView(frame:CGRectMake(0, ypos, screenWidth, 160))
+        ///map!.userInteractionEnabled = false
+//        map!.layer.cornerRadius = 3
+//        map!.layer.borderColor = UIColor.appButtonBorderColor().CGColor
+//        map!.layer.borderWidth = 1
         map!.delegate = self
         self.addSubview(map!)
         
@@ -140,12 +140,12 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         ypos += 180
         xpos = (screenWidth - 140) / 2
-        emailBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 70, 50), text:NSLocalizedString("EmailUs", comment: "EmailUs"), iconType: BNIconType.emailMedium)
+        emailBtn = BNUIButton_Contact(frame: CGRectMake(0, ypos, screenWidth, 50), text:NSLocalizedString("EmailUs", comment: "EmailUs"), iconType: BNIconType.emailMedium)
         emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
         
         xpos += 80
-        callBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 70, 50), text:NSLocalizedString("CallUs", comment: "CallUs"), iconType: BNIconType.phoneMedium)
+        callBtn = BNUIButton_Contact(frame: CGRectMake(0, ypos, screenWidth, 50), text:NSLocalizedString("CallUs", comment: "CallUs"), iconType: BNIconType.phoneMedium)
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
         
@@ -225,7 +225,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         title!.textColor = site!.titleColor
         title!.text = site!.title!
-        title!.numberOfLines = 0
+        title!.numberOfLines = 1
         title!.sizeToFit()
         ypos += title!.frame.height
         
@@ -252,7 +252,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             phoneNumber!.sizeToFit()
             ypos += phoneNumber!.frame.height
             
-            callBtn!.icon!.color = site!.titleColor!
+            //callBtn!.icon!.color = site!.titleColor!
             callBtn!.showEnable()
             
         }else {
@@ -267,7 +267,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             email!.sizeToFit()
             ypos += email!.frame.height
             
-            emailBtn!.icon!.color = site!.titleColor!
+//            emailBtn!.icon!.color = site!.titleColor!
+            //emailBtn!.backgroundColor = site!.titleColor!
             emailBtn!.showEnable()
             
         } else {
@@ -282,20 +283,26 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var total:CGFloat = (ypos - siteAvatarView!.frame.height) / 2
         siteAvatarView!.frame.origin.y = total
         
-        
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
 
         ypos += 10
-        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let span = MKCoordinateSpanMake(0.01, 0.01)
         let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
         map!.frame.origin.y = ypos
         
         annotation!.coordinate = siteLocation!
+        annotation!.title = site!.title!
+        annotation!.subtitle = site!.streetAddress1!
         
         ypos += (map!.frame.height + 10)
+        
         emailBtn!.frame.origin.y = ypos
+        ypos += (50 + 10)
         callBtn!.frame.origin.y = ypos
+        
+        
+        ypos += (50 + 10)
         
         if site!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)

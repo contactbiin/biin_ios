@@ -143,7 +143,6 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
             for showcase in site.showcases! {
                 for element in showcase.elements {
                     
-
                     var elementData = BNAppSharedManager.instance.dataManager.elements[element._id!]
                     
                     if elementData!.isHighlight {
@@ -164,6 +163,10 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
                         //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
                         var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: elementData, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
                         
+                        if columnCounter < 3 {
+                            println("request image")
+                            elementMiniView.requestImage()
+                        }
                         //elementMiniView.delegate = father?.father! as! MainView
                         elementMiniView.delegate = self
                         elements!.append(elementMiniView)

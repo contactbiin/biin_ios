@@ -154,7 +154,7 @@ class ElementMiniView: BNView {
             self.addSubview(removeItButton!)
         } else {
             
-            biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 82), 37, 37))
+            biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
             biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(biinItButton!)
             xpos += 37
