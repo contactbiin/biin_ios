@@ -140,7 +140,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
 //                siteViewHeight = SharedUIManager.instance.screenHeight / 4
                 
                 siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
-                siteViewHeight = SharedUIManager.instance.screenHeight / 3
+                siteViewHeight = (SharedUIManager.instance.screenHeight / 3) + 50
                 columns = 3
                 break
             case .ipad:
@@ -172,7 +172,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
                 //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                 
                 //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false)
+                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
                 
                 elementMiniView.delegate = self
                 elements!.append(elementMiniView)
