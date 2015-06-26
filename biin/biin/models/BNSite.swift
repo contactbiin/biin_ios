@@ -29,6 +29,7 @@ class BNSite:NSObject {
     var zipCode:String?
     var streetAddress1:String?
     var streetAddress2:String?
+    var ubication:String?
     var phoneNumber:String?
     var email:String?
     

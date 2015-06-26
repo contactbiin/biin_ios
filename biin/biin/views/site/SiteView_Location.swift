@@ -16,8 +16,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     var streetAddress1:UILabel?
     var streetAddress2:UILabel?
-    var phoneNumber:UILabel?
-    var email:UILabel?
+    var ubication:UILabel?
+    //var phoneNumber:UILabel?
+    //var email:UILabel?
     
     var map:MKMapView?
     
@@ -105,18 +106,27 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         self.addSubview(streetAddress2!)
         
         ypos += 13
-        phoneNumber = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
-        phoneNumber!.font = UIFont(name: "Lato-Light", size: 12)
-        phoneNumber!.text = ""
-        phoneNumber!.textColor = UIColor.appTextColor()
-        self.addSubview(phoneNumber!)
         
-        ypos += 13
-        email = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
-        email!.font = UIFont(name: "Lato-Light", size: 12)
-        email!.text = ""
-        email!.textColor = UIColor.appTextColor()
-        self.addSubview(email!)
+        ubication = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
+        ubication!.font = UIFont(name: "Lato-Light", size: 12)
+        ubication!.text = ""
+        ubication!.textColor = UIColor.appTextColor()
+        self.addSubview(ubication!)
+
+//        ypos += 13
+//        
+//        phoneNumber = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
+//        phoneNumber!.font = UIFont(name: "Lato-Light", size: 12)
+//        phoneNumber!.text = ""
+//        phoneNumber!.textColor = UIColor.appTextColor()
+//        self.addSubview(phoneNumber!)
+//        
+//        ypos += 13
+//        email = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
+//        email!.font = UIFont(name: "Lato-Light", size: 12)
+//        email!.text = ""
+//        email!.textColor = UIColor.appTextColor()
+//        self.addSubview(email!)
         
         ypos += 35
         yStop = ypos //To use in shareview.
@@ -242,13 +252,21 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         
         ypos += streetAddress2!.frame.height
+        ubication!.text = site!.ubication!
+        ubication!.frame = CGRectMake(ubication!.frame.origin.x, ypos, (headerWidth - 95), 12)
+        ubication!.numberOfLines = 0
+        ubication!.sizeToFit()
+        ubication!.frame.origin.y = ypos
+        
+        ypos += ubication!.frame.height
+        
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
-            var value = NSLocalizedString("Phone", comment: "Phone")
-            phoneNumber!.text = "\(value): \(site!.phoneNumber!)"
-            phoneNumber!.frame.origin.y = ypos
-            phoneNumber!.sizeToFit()
-            ypos += phoneNumber!.frame.height
+//            var value = NSLocalizedString("Phone", comment: "Phone")
+//            phoneNumber!.text = "\(value): \(site!.phoneNumber!)"
+//            phoneNumber!.frame.origin.y = ypos
+//            phoneNumber!.sizeToFit()
+//            ypos += phoneNumber!.frame.height
             callBtn!.showEnable()
         }else {
             callBtn!.showDisable()
@@ -256,11 +274,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
  
         if site!.email! != "" {
             site_email = site!.email!
-            var value = NSLocalizedString("Email", comment: "Email")
-            email!.text = "\(value): \(site!.email!)"
-            email!.frame.origin.y = ypos
-            email!.sizeToFit()
-            ypos += email!.frame.height
+//            var value = NSLocalizedString("Email", comment: "Email")
+//            email!.text = "\(value): \(site!.email!)"
+//            email!.frame.origin.y = ypos
+//            email!.sizeToFit()
+//            ypos += email!.frame.height
             emailBtn!.showEnable()
         } else {
             emailBtn!.showDisable()
@@ -291,7 +309,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         emailBtn!.frame.origin.y = ypos
         ypos += (50 + 10)
         callBtn!.frame.origin.y = ypos
-        
         
         ypos += (50 + 10)
         

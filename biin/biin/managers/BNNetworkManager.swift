@@ -906,7 +906,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                     site.city = self.findString("city", dictionary: dataData)
                     site.zipCode = self.findString("zipCode", dictionary: dataData)
                     site.streetAddress1 = self.findString("streetAddress1", dictionary: dataData)
-                    //site.streetAddress2 = self.findString("streetAddress2", dictionary: dataData)
+                    site.ubication = self.findString("ubication", dictionary: dataData)
                     site.phoneNumber = self.findString("phoneNumber", dictionary: dataData)
                     site.email = self.findString("email", dictionary: dataData)
                     
