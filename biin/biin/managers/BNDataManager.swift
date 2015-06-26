@@ -317,13 +317,15 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         
         
-        for showcase in site.showcases! {
-            
-            if showcases[showcase.identifier!] == nil {
-                //Showcase does not exist, store it and request it's data.
-                showcases[showcase.identifier!] = showcase
-                //println("CRASH: \(biin.showcase!.identifier!)")
-                delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+        if site.showcases != nil {
+            for showcase in site.showcases! {
+                
+                if showcases[showcase.identifier!] == nil {
+                    //Showcase does not exist, store it and request it's data.
+                    showcases[showcase.identifier!] = showcase
+                    //println("CRASH: \(biin.showcase!.identifier!)")
+                    delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+                }
             }
         }
         

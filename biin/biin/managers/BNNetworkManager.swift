@@ -753,7 +753,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
                 
         //https://biin-qa.herokuapp.com/mobile/5eb36cc2-983d-4762-ac44-c6100bf3598a/10/10/categories
 
-        if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
+        if SimulatorUtility.isRunningSimulator {
+           BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
+            
+        } else if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
             //CLLocationCoordinate2D(latitude: CLLocationDegrees(0), longitude: CLLocationDegrees(0))
         }

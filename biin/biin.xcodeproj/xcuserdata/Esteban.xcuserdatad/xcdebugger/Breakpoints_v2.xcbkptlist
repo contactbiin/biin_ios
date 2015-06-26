@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "456953981.897707"
+            timestampString = "457024255.33452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1141"
-            endingLineNumber = "1141"
+            startingLineNumber = "1144"
+            endingLineNumber = "1144"
             landmarkName = "requestHighlightsData(_:showcase:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "456953981.897707"
+            timestampString = "457024255.33452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1499"
-            endingLineNumber = "1499"
+            startingLineNumber = "1502"
+            endingLineNumber = "1502"
             landmarkName = "requestElementData(_:element:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "456953981.897707"
+            timestampString = "457024255.33452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1121"
-            endingLineNumber = "1121"
+            startingLineNumber = "1124"
+            endingLineNumber = "1124"
             landmarkName = "requestHighlightsData(_:showcase:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "456953981.897707"
+            timestampString = "457024255.33452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1106"
-            endingLineNumber = "1106"
+            startingLineNumber = "1109"
+            endingLineNumber = "1109"
             landmarkName = "manager(_:requestHighlightsData:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNDataManager.swift"
-            timestampString = "456880242.953553"
+            timestampString = "457023589.032733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "483"
-            endingLineNumber = "483"
+            startingLineNumber = "485"
+            endingLineNumber = "485"
             landmarkName = "requestElements(_:)"
             landmarkType = "5">
          </BreakpointContent>
