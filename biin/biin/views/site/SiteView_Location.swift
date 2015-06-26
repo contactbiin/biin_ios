@@ -254,7 +254,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ypos += streetAddress2!.frame.height
         ubication!.text = site!.ubication!
         ubication!.frame = CGRectMake(ubication!.frame.origin.x, ypos, (headerWidth - 95), 12)
-        ubication!.numberOfLines = 0
+        ubication!.numberOfLines = 2
         ubication!.sizeToFit()
         ubication!.frame.origin.y = ypos
         
