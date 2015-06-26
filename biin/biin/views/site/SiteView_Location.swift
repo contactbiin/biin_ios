@@ -237,13 +237,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
 
         ypos += streetAddress1!.frame.height
-        
         streetAddress2!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
         streetAddress2!.frame.origin.y = ypos
         
-        ypos += 13
         
-        
+        ypos += streetAddress2!.frame.height
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
             var value = NSLocalizedString("Phone", comment: "Phone")
@@ -251,10 +249,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             phoneNumber!.frame.origin.y = ypos
             phoneNumber!.sizeToFit()
             ypos += phoneNumber!.frame.height
-            
-            //callBtn!.icon!.color = site!.titleColor!
             callBtn!.showEnable()
-            
         }else {
             callBtn!.showDisable()
         }
@@ -266,11 +261,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             email!.frame.origin.y = ypos
             email!.sizeToFit()
             ypos += email!.frame.height
-            
-//            emailBtn!.icon!.color = site!.titleColor!
-            //emailBtn!.backgroundColor = site!.titleColor!
             emailBtn!.showEnable()
-            
         } else {
             emailBtn!.showDisable()
             

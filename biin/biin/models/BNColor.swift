@@ -243,6 +243,15 @@ extension UIColor {
         //return UIColor.blackColor()
     }
     
+    class func fromColor() -> UIColor! {
+        return UIColor(red:165/255, green: 230/255, blue: 94/255, alpha: 1)
+        //return UIColor.blackColor()
+    }
+    
+    class func percentageColor() -> UIColor! {
+        return UIColor(red:255/255, green: 151/255, blue: 41/255, alpha: 1)
+        //return UIColor.blackColor()
+    }
     
     class func elementColor() -> UIColor! {
         

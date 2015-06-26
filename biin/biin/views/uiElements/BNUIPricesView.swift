@@ -13,6 +13,7 @@ class BNUIPricesView:UIView {
     var newPrice:UILabel?
     var oldPrice:UILabel?
     var icon:BNIcon?
+    var newPriceColor:UIColor?
     
 //    override init() {
 //        super.init()
@@ -26,9 +27,14 @@ class BNUIPricesView:UIView {
         super.init(frame: frame)
     }
 
-    convenience init(frame: CGRect, price:String, isMini:Bool) {
+    convenience init(frame: CGRect, price:String, isMini:Bool, isDiscount:Bool) {
         self.init(frame: frame)
         
+        if isDiscount {
+            newPriceColor = UIColor.percentageColor()
+        } else {
+            newPriceColor = UIColor.appMainColor()
+        }
         self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
@@ -62,16 +68,18 @@ class BNUIPricesView:UIView {
 //        self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
-        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
         self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
         self.newPrice!.text = price
         self.addSubview(self.newPrice!)
     }
     
-    convenience init(frame: CGRect, oldPrice:String, newPrice:String, isMini:Bool) {
+    convenience init(frame: CGRect, oldPrice:String, newPrice:String, isMini:Bool, isHighlight:Bool) {
         self.init(frame: frame)
-        
+    
+        newPriceColor = UIColor.yellowColor()
+
         self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
@@ -94,7 +102,6 @@ class BNUIPricesView:UIView {
             strokeWidth = 1
         }
         
-        
         var size1 = getStringLength(oldPrice, fontName: "Lato-Regular", fontSize: (fontSize1 + 2))
         var size2 = getStringLength(newPrice, fontName: "Lato-Black", fontSize: (fontSize2 + 2))
         
@@ -116,7 +123,7 @@ class BNUIPricesView:UIView {
         self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
-        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
         self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
         self.newPrice!.text = newPrice
@@ -136,8 +143,10 @@ class BNUIPricesView:UIView {
     }
     
     
-    convenience init(frame: CGRect, oldPrice:String, newPrice:String, percentage:String, isMini:Bool) {
+    convenience init(frame: CGRect, oldPrice:String, newPrice:String, percentage:String, isMini:Bool, isHighlight:Bool) {
         self.init(frame: frame)
+        
+        newPriceColor = UIColor.yellowColor()
         
         self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         self.layer.cornerRadius = 5
@@ -183,7 +192,7 @@ class BNUIPricesView:UIView {
         self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
-        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
         self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
         self.newPrice!.text = newPrice
@@ -202,8 +211,10 @@ class BNUIPricesView:UIView {
         
     }
     
-    convenience init(frame: CGRect, price:String, from:String, isMini:Bool) {
+    convenience init(frame: CGRect, price:String, from:String, isMini:Bool, isHighlight:Bool) {
         self.init(frame: frame)
+        
+        newPriceColor = UIColor.fromColor()
         
         self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         self.layer.cornerRadius = 5
@@ -231,14 +242,14 @@ class BNUIPricesView:UIView {
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
         
         self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
-        self.oldPrice!.textColor = UIColor.appButtonColor()
+        self.oldPrice!.textColor = self.newPriceColor!
         self.oldPrice!.textAlignment = NSTextAlignment.Center
         self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
         self.oldPrice!.text = from
         self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
-        self.newPrice!.textColor = UIColor.yellowColor()
+        self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
         self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
         self.newPrice!.text = price
