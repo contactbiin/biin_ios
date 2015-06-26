@@ -136,8 +136,11 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
                 columns = 2
                 break
             case .iphone6Plus:
-                siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
-                siteViewHeight = SharedUIManager.instance.screenHeight / 4
+//                siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+//                siteViewHeight = SharedUIManager.instance.screenHeight / 4
+                
+                siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
+                siteViewHeight = SharedUIManager.instance.screenHeight / 3
                 columns = 3
                 break
             case .ipad:
