@@ -258,16 +258,14 @@ class ElementView: BNView {
     }
     
     func biinit(sender:BNUIButton_BiinIt){
-        biinItButton!.showDisable()
         BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
         detailsView!.showBiinItButton(false)
         applyBiinIt()
     }
     
     func applyBiinIt(){
-//        header!.updateSocialButtonsForElement(elementMiniView!.element!)
         buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
-        //biinItButton!.showDisable()
+        biinItButton!.showDisable()
         detailsView!.showBiinItButton(false)
         animationView!.animate()
     }
@@ -275,7 +273,6 @@ class ElementView: BNView {
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareIt(elementMiniView!.element!._id!, isElement: true)
         elementMiniView!.element!.userShared = true
-//        header!.updateSocialButtonsForElement(elementMiniView!.element!)
         buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
     }
 }

@@ -262,6 +262,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             //BNAppSharedManager.instance.biinieCategoriesBckup[category.name!] = category
             
+            
+            
             for siteDetails in category.sitesDetails {
                 //Check if site exist.
                 if self.sites[siteDetails.identifier!] == nil {
