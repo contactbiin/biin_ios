@@ -208,7 +208,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         case .iphone6Plus:
             siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
             siteViewHeight = SharedUIManager.instance.screenHeight / 3
-            columns = 3
+            columns = 2
             break
         case .ipad:
             siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
@@ -221,16 +221,19 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             if category.hasSites {
-               println("ADDING SITE 1:\(category.name!), sites:\(category.sitesDetails.count)")
+                
+                println("----------------------------------------------------------------")
+                println("Category:\(category.name!), sites:\(category.sitesDetails.count)")
                 
                 for var i = 0; i < category.sitesDetails.count; i++ {
 
                     var siteIdentifier = category.sitesDetails[i].identifier!
-                    println("ADDING SITE 2:\(siteIdentifier)")
+
                     var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
-                    
+                    println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
                     if !isSiteAdded(siteIdentifier) {
-                        println("ADDING SITE 3:\(siteIdentifier)")
+                        println("***** ADDING SITE:\(siteIdentifier) title: \(site!.title!)")
+                        
                         if columnCounter < columns {
                             columnCounter++
                             xpos = xpos + siteSpacer
@@ -240,7 +243,9 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                             xpos = siteSpacer
                             columnCounter = 1
                         }
-                        
+
+                        println("***** ypos:\(ypos)")
+
                         var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
                         
                         miniSiteView.delegate = father?.father! as! MainView
