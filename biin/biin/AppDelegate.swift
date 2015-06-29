@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
         appManager.appDelegate = self
         appManager.IS_APP_UP = true
+        appManager.IS_APP_WORKING_IN_BACKGROUND = false
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
@@ -124,6 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.IS_APP_UP = true
         appManager.continueAppInitialization()
         appManager.positionManager.start_BEACON_RANGING()
+        appManager.IS_APP_WORKING_IN_BACKGROUND = false
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
@@ -131,6 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         println("applicationDidBecomeActive")
         appManager.IS_APP_UP = true
+        appManager.IS_APP_WORKING_IN_BACKGROUND = false
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 

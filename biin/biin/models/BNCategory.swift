@@ -20,6 +20,7 @@ class BNCategory:NSObject {
     var isDownloaded = false
     var isUserCategory = false
     var hasSites = false
+    var backgroundSites:Dictionary<String, BNSite>?
     
     override init(){
         super.init()

@@ -9,7 +9,7 @@ import SystemConfiguration
 import CoreLocation
 
 
-class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
+class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, BNPositionManagerDelegate {
     
     //URL requests with mocky
     //let connectibityUrl = "http://www.mocky.io/v2/546b66f21dc00bbc132cf175"
@@ -26,7 +26,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     //let connectibityUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
     //let regionsUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getRegions.json"
     let categoriesUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getCategories.json"
-    let biinedElements = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBiinedElements.json"
+    let biinedElements = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons, /getBiinedElements.json"
     let boards = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBoards.json"
 
     
@@ -739,6 +739,168 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
         }
     }
 
+    func manager(manager: BNPositionManager!, requestCategoriesDataOnBackground user:Biinie) {
+        
+//        if SimulatorUtility.isRunningSimulator {
+//            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
+//            
+//        } else if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
+//            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
+//            //CLLocationCoordinate2D(latitude: CLLocationDegrees(0), longitude: CLLocationDegrees(0))
+//        }
+        
+        var request:BNRequest?
+        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+        } else {
+            //nota simulator
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        if !isRequestTimerAllow {
+            self.requestUserCategoriesData(request!)
+        }
+    }
+    
+    /*
+    ///Handles the request for a user categories data and packs the information on an array of BNCategory.
+    ///
+    ///:param: The request to be process.
+    func requestUserCategoriesDataOnBackground(request:BNRequest) {
+        
+        
+        println("\(request.requestString)")
+        
+        epsNetwork!.getJson(request.requestString) {
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("Error on requestUserCategoriesDataOnBackground()")
+                self.handleFailedRequest(request, error: error )
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var categories = Array<BNCategory>()
+                    var categoriesData = self.findNSArray("categories", dictionary: dataData)
+                    
+                    for var i = 0; i < categoriesData?.count; i++ {
+                        
+                        var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
+                        var category = BNCategory(identifier: self.findString("identifier", dictionary: categoryData)!)
+                        
+                        category.name = self.findString("name", dictionary: categoryData)
+                        category.hasSites = self.findBool("hasSites", dictionary: categoryData)
+                        
+                        //category.hasSites = true
+                        if category.hasSites {
+                            
+                            category.backgroundSites = Dictionary<String, BNSite>()
+                            
+                            var sites = self.findNSArray("sites", dictionary: categoryData)
+                            
+                            for var j = 0; j < sites?.count; j++ {
+                                
+                                var siteData = sites!.objectAtIndex(j) as! NSDictionary
+                                var site = BNSite()
+                                site.identifier = self.findString("identifier", dictionary: siteData)
+                                
+                                var biins = self.findNSArray("biins", dictionary: siteData)
+                                
+                                for var j = 0; j < biins?.count; j++ {
+                                    if let biinData = biins!.objectAtIndex(j) as? NSDictionary {
+                                        var biin = BNBiin()
+                                        biin.identifier = self.findString("identifier", dictionary: biinData)
+                                        biin.accountIdentifier = self.findString("accountIdentifier", dictionary: biinData)
+                                        biin.siteIdentifier = self.findString("siteIdentifier", dictionary: biinData)
+                                        biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
+                                        biin.major = self.findInt("major", dictionary: biinData)
+                                        biin.minor = self.findInt("minor", dictionary: biinData)
+                                        biin.proximityUUID = self.findNSUUID("proximityUUID", dictionary: biinData)
+                                        biin.venue = self.findString("venue", dictionary: biinData)
+                                        biin.name = self.findString("name", dictionary: biinData)
+                                        biin.biinType = self.findBNBiinType("biinType", dictionary: biinData)
+                                        
+                                        //REMOVE ->
+                                        biin.site = site
+                                        //biin.lastUpdate = self.findNSDate("lastUpdate", dictionary: biinData)
+                                        //REMOVE <-
+                                        
+                                        
+                                        var children = self.findNSArray("children", dictionary: biinData)
+                                        
+                                        if children?.count > 0 {
+                                            
+                                            biin.children = Array<Int>()
+                                            
+                                            for var i = 0; i < children?.count; i++ {
+                                                var child = (children!.objectAtIndex(i) as? String)?.toInt()
+                                                biin.children!.append(child!)
+                                            }
+                                        }
+                                        
+                                        var objects = self.findNSArray("objects", dictionary: biinData)
+                                        
+                                        if objects!.count > 0 {
+                                            biin.objects = Array<BNBiinObject>()
+                                            for var k = 0; k < objects!.count; k++ {
+                                                if let objectData = objects!.objectAtIndex(k) as? NSDictionary {
+                                                    var object = BNBiinObject()
+                                                    object._id = self.findString("_id", dictionary: objectData)
+                                                    object.identifier = self.findString("identifier", dictionary: objectData)
+                                                    object.isDefault = self.findBool("isDefault", dictionary: objectData)
+                                                    object.onMonday = self.findBool("onMonday", dictionary: objectData)
+                                                    object.onTuesday = self.findBool("onTuesday", dictionary: objectData)
+                                                    object.onWednesday = self.findBool("onWednesday", dictionary: objectData)
+                                                    object.onThursday = self.findBool("onThursday", dictionary: objectData)
+                                                    object.onFriday = self.findBool("onFriday", dictionary: objectData)
+                                                    object.onSaturday = self.findBool("onSaturday", dictionary: objectData)
+                                                    object.onSunday = self.findBool("onSunday", dictionary: objectData)
+                                                    object.startTime = self.findFloat("startTime", dictionary: objectData)!
+                                                    object.endTime = self.findFloat("endTime", dictionary: objectData)!
+                                                    object.hasTimeOptions = self.findBool("hasTimeOptions", dictionary: objectData)
+                                                    object.hasNotification = self.findBool("hasNotification", dictionary: objectData)
+                                                    object.notification = self.findString("notification", dictionary: objectData)
+                                                    object.isUserNotified = self.findBool("isUserNotified", dictionary: objectData)
+                                                    object.isBiined = self.findBool("isBiined", dictionary: objectData)
+                                                    object.objectType = self.findBiinObjectType("objectType", dictionary: objectData)
+                                                    biin.objects!.append(object)
+                                                }
+                                            }
+                                        }
+
+                                        site.biins.append(biin)
+                                    }
+                                }    
+                                
+                                category.backgroundSites![site.identifier!] = site
+                            }
+                        }
+                        
+                        categories.append(category)
+                    }
+                    
+                    self.delegateDM!.manager!(self, didReceivedUserCategoriesOnBackground:categories)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request.identifier)
+                //                self.requests.removeValueForKey(request.identifier)
+                //                self.requestAttempts = 0
+                
+            }
+        }
+    }
+    */
+    
+
+    
+    
     ///Conforms optional func manager(manager:BNDataManager!, requestUserCategoriesData user:BNUser) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestCategoriesData user:Biinie) {
         
@@ -2803,6 +2965,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate {
     ///:param: BNNetworkManager.
     ///:param: An array of categories.
     optional func manager(manager:BNNetworkManager!, didReceivedUserCategories categories:Array<BNCategory>)
+
+    optional func manager(manager:BNNetworkManager!, didReceivedUserCategoriesOnBackground categories:Array<BNCategory>)
+
     
     ///Takes site data requested and proccess that data.
     ///

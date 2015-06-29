@@ -20,6 +20,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     var regions = Dictionary<String, BNRegion>()
     var sites = Dictionary<String, BNSite>()
+    var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
     var elements = Dictionary<String, BNElement>()
     var highlights = Dictionary<String, String>()//list of hightlight element
@@ -86,6 +87,18 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         //delegateNM!.manager!(self, requestHighlightsData: bnUser!)
 
+    }
+    
+    func requestDataForBackgroundUse(){
+        //Request
+        //delegateNM!.manager!(self, requestBiinieData: bnUser!)
+        
+        delegateNM!.manager!(self, requestCategoriesData: bnUser!)
+        
+        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
+        
+        //delegateNM!.manager!(self, requestHighlightsData: bnUser!)
+        
     }
     
     /*
@@ -238,6 +251,98 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
     }
     
+    func manager(manager: BNNetworkManager!, didReceivedUserCategoriesOnBackground categories: Array<BNCategory>) {
+        
+        println("didReceivedUserCategoriesOnBackground(): \(categories.count)")
+        
+        var isExternalBiinAdded = false
+        var start_background_monitor = false
+        
+        sites_OnBackground = Dictionary<String, BNSite>()
+        
+        for category in categories {
+            
+            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            
+            category.name = findCategoryNameByIdentifier(category.identifier!)
+            
+            if category.backgroundSites != nil {
+
+                for (identifier, site) in category.backgroundSites! {
+                    
+                    sites_OnBackground[site.identifier!] = site
+                    
+                    for biin in site.biins {
+                        
+                        start_background_monitor = true
+                        
+                        if commercialUUID == nil {
+                            commercialUUID = biin.proximityUUID
+                        }
+                        
+                        if biin.objects != nil && biin.objects!.count > 0 {
+                            
+                            biin.setBiinState()
+                            
+                            for object in biin.objects! {
+                                
+                                println("Object: \(object._id!)")
+                                
+                                switch object.objectType {
+                                case .ELEMENT:
+                                    if object.hasNotification {
+                                        switch biin.biinType {
+                                        case .EXTERNO:
+                                            if !isExternalBiinAdded {
+                                                isExternalBiinAdded = true
+                                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                            }
+                                            break
+                                        case .INTERNO:
+                                            BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                            break
+                                        case .PRODUCT:
+                                            BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+                                            break
+                                        default:
+                                            break
+                                        }
+                                    }
+                                    
+                                    //var element = BNElement()
+                                    //element.identifier = object.identifier!
+                                    //element._id = object._id!
+                                    //element.siteIdentifier = site.identifier
+                                    //requestElement(element)
+                                    
+                                    break
+                                case .SHOWCASE:
+                                    if showcases[object.identifier!] == nil {
+                                        //Showcase does not exist, store it and request it's data.
+                                        //var showcase = BNShowcase()
+                                        //showcase.identifier = object.identifier!
+                                        //showcase.isDefault = object.isDefault
+                                        //showcases[object.identifier!] = showcase
+                                        
+                                        //delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+                                    }
+                                    break
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if start_background_monitor {
+            BNAppSharedManager.instance.IS_APP_WORKING_IN_BACKGROUND = true
+            delegatePM!.manager!(self, startSiteBiinsBackgroundMonitoring: false)
+        }
+    }
+    
 
     ///Receives user categories data and start requests depending on data store.
     ///:param: Network manager that handled the request.
@@ -249,10 +354,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
 
-
-        
-        
-        
         
         for category in categories {
             
@@ -261,8 +362,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             category.name = findCategoryNameByIdentifier(category.identifier!)
             
             //BNAppSharedManager.instance.biinieCategoriesBckup[category.name!] = category
-            
-            
             
             for siteDetails in category.sitesDetails {
                 //Check if site exist.
@@ -1012,6 +1111,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     optional func manager(manager:BNDataManager!, requestBiinieData biinie:Biinie)
     
     
+    
+    optional func manager(manager:BNDataManager!, startSiteBiinsBackgroundMonitoring value:Bool)
+
     
     
     

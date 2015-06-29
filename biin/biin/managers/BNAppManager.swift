@@ -30,6 +30,7 @@ class BNAppManager {
     weak var appDelegate:AppDelegate?
     
     var IS_APP_UP:Bool = false
+    var IS_APP_WORKING_IN_BACKGROUND = false
     var isWaitingForLocationServicesPermision = false
     
     var elementColorIndex = 0
@@ -44,7 +45,7 @@ class BNAppManager {
         dataManager = BNDataManager(errorManager:errorManager)
         positionManager = BNPositionManager(errorManager:errorManager)
         networkManager = BNNetworkManager(errorManager:errorManager)
-        
+        positionManager.delegateNM = networkManager
         
         // Try loading a saved version first
         if let savedNotificationManager = BNNotificationManager.loadSaved() {

@@ -16,6 +16,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var errorManager:BNErrorManager
     
     var delegateDM:BNPositionManagerDelegate?
+    var delegateNM:BNPositionManagerDelegate?
     var delegateView:BNPositionManagerDelegate?
     
     //objective c implementation
@@ -83,7 +84,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.locationManager!.requestAlwaysAuthorization()
         self.locationManager!.requestWhenInUseAuthorization()
         self.locationManager!.startUpdatingLocation()
-
         
         if self.bluetoothManager == nil {
             self.bluetoothManager = CBCentralManager(delegate: self, queue: nil, options: nil)
@@ -92,6 +92,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     }
     
     func getCurrentLocation(){
+        
         if self.locationManager == nil {
             startLocationService()
         }
@@ -145,17 +146,40 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 //        println("updade location latitude: \(location.coordinate.latitude)")
 //        println("updade location longitude: \(location.coordinate.latitude)")
         
-            if (locationFixAchieved == false) {
-                locationFixAchieved = true
-                var locationArray = locations as NSArray
-                var locationObj = locationArray.lastObject as? CLLocation
-                userCoordinates = locationObj!.coordinate
-                println("LAT:  \(userCoordinates!.latitude)")
-                println("LONG: \(userCoordinates!.longitude)")
-                locationManager!.stopUpdatingLocation()
-            }
+        if (locationFixAchieved == false) {
+            locationFixAchieved = true
+            var locationArray = locations as NSArray
+            var locationObj = locationArray.lastObject as? CLLocation
+            userCoordinates = locationObj!.coordinate
+            println("LAT:  \(userCoordinates!.latitude)")
+            println("LONG: \(userCoordinates!.longitude)")
+            locationManager!.stopUpdatingLocation()
+            self.locationManager!.startMonitoringSignificantLocationChanges()
+        }
         
+        
+        if !BNAppSharedManager.instance.IS_APP_UP {
+            
+            println("Request user categories on background when user moved!")
+            locationFixAchieved = true
+            var locationArray = locations as NSArray
+            var locationObj = locationArray.lastObject as? CLLocation
+            userCoordinates = locationObj!.coordinate
+            println("LAT on background:  \(userCoordinates!.latitude)")
+            println("LONG on background: \(userCoordinates!.longitude)")
 
+
+            var time:NSTimeInterval = 1
+            var localNotification:UILocalNotification = UILocalNotification()
+            localNotification.alertBody = "Request user categories on background!"
+            localNotification.alertTitle = "Report location change."
+            localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
+            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+    
+            BNAppSharedManager.instance.dataManager.requestDataForBackgroundUse()
+            
+//            delegateNM!.manager!(self, requestCategoriesDataOnBackground: BNAppSharedManager.instance.dataManager.bnUser!)
+        }
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {
@@ -1601,6 +1625,7 @@ func == (biin1:BNBiin, biin2:BNBiin) -> Bool {
     optional func manager(manager:BNPositionManager!, startEnterRegionProcessWithIdentifier identifier:String)
     optional func manager(manager:BNPositionManager!, startExitRegionProcessWithIdentifier identifier:String)
     optional func manager(manager:BNPositionManager!, markBiinAsDetectedWithUUID uuid:String)
+    optional func manager(manager:BNPositionManager!, requestCategoriesDataOnBackground user:Biinie)
     
     //temporal methods
     optional func manager(manager:BNPositionManager!, updateMainViewController biins:Array<BNBiin>)
