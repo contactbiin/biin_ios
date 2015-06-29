@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/viewControllers/MainViewController.swift"
-            timestampString = "456943647.097936"
+            timestampString = "457297864.591851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
             landmarkName = "shareElement(_:)"
             landmarkType = "5">
          </BreakpointContent>

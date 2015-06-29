@@ -220,15 +220,17 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         }
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
-            
             if category.hasSites {
+               println("ADDING SITE 1:\(category.name!), sites:\(category.sitesDetails.count)")
+                
                 for var i = 0; i < category.sitesDetails.count; i++ {
 
                     var siteIdentifier = category.sitesDetails[i].identifier!
+                    println("ADDING SITE 2:\(siteIdentifier)")
                     var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                     
                     if !isSiteAdded(siteIdentifier) {
-                        
+                        println("ADDING SITE 3:\(siteIdentifier)")
                         if columnCounter < columns {
                             columnCounter++
                             xpos = xpos + siteSpacer

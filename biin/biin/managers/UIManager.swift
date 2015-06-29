@@ -116,7 +116,7 @@ class UIManager {
         signupView_ypos_2 = 0
         
         loginView_isAnimatingLogo = false
-        loginView_ypos_1 = 0
+        loginView_ypos_1 = 210
         loginView_ypos_2 = 130
         loginView_ypos_3 = 150
         

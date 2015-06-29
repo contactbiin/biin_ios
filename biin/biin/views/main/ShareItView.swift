@@ -79,9 +79,9 @@ class ShareItView:UIView {
         
         
         
-        if element.hasPrice && element.hasDiscount {
+        if !element.hasPrice && element.hasDiscount {
             
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(element.discount!)%", isMini:false, isDiscount:true)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.discount!)%", isMini:false, isDiscount:true)
             self.addSubview(priceView!)
             ypos += 40
             
@@ -153,10 +153,10 @@ class ShareItView:UIView {
         self.addSubview(siteLocation)
         
         ypos += siteLocation.yStop
-        ypos += 30
+        ypos += 40
         
         var whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
-        whiteBackground2.backgroundColor = UIColor.biinDarkColor()
+        whiteBackground2.backgroundColor = UIColor.biinColor()
         self.addSubview(whiteBackground2)
         
         var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
@@ -188,14 +188,14 @@ class ShareItView:UIView {
         
         ypos += 6
         var title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
-        title.font = UIFont(name:"Lato-Regular", size:25)
+        title.font = UIFont(name:"Lato-Black", size:25)
         title.textColor = site.titleColor!
         title.text = site.title
         self.addSubview(title)
         
         ypos += 28
         var subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
-        subTitle.font = UIFont(name:"Lato-Regular", size:14)
+        subTitle.font = UIFont(name:"Lato-Light", size:13)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = site.subTitle
         self.addSubview(subTitle)
@@ -207,8 +207,7 @@ class ShareItView:UIView {
         siteLocation.frame.origin.y = ypos
         self.addSubview(siteLocation)
         
-        ypos += 120
-        
+        ypos += 110
         var whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
         whiteBackground2.backgroundColor = UIColor.biinColor()
         self.addSubview(whiteBackground2)

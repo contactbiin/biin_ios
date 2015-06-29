@@ -296,6 +296,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     var fullPath = ""
     
     func shareSite(site:BNSite){
+        
+        /*
         var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site )
         
         var image = imageFromView(view)
@@ -307,6 +309,67 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             uiDocumentInteractionController!.delegate = self
             uiDocumentInteractionController!.presentPreviewAnimated(false)
         }
+        */
+        
+        
+        var siteTitle = ""
+        if let site = BNAppSharedManager.instance.dataManager.sites[site.identifier!] {
+            siteTitle = site.title!
+        }
+        
+        var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site)
+        let imageToShare:UIImage?
+        imageToShare = imageFromView(view)
+        
+        
+        let subjectToShare:String?
+        subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")
+        
+        //        let imageToShate:UIImage?
+        //        imageToShate = UIImage(named: "biinShare")
+        
+        let textToShare:String?
+        var string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
+        var string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
+        var string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
+        
+        textToShare = "\(string1)\(site.title!) \(string2)\(siteTitle). \(string3)"
+        
+        let myWebsite:NSURL?
+        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        
+        var sharingItems = [AnyObject]()
+        
+        //        if let text = subjectToShare {
+        //            sharingItems.append(text)
+        //        }
+        
+        if let image = imageToShare {
+            sharingItems.append(image)
+        }
+        
+        if let text = textToShare {
+            sharingItems.append(text)
+        }
+        
+        if let url = myWebsite {
+            sharingItems.append(url)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+        activityVC.setValue(subjectToShare, forKey: "subject")
+        
+        //New Excluded Activities Code
+        activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll]
+        
+        
+        self.presentViewController(activityVC, animated: true, completion: nil)
+        mainView!.setNextState(1)
+        
+        
+        
+        
+        
     }
     
     func findSiteForElement(element:BNElement) -> BNSite? {

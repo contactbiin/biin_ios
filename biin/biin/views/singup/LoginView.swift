@@ -159,7 +159,7 @@ class LoginView:UIView, UITextFieldDelegate {
                 } else {
                     self.biinLogo!.alpha = 1
                     self.welcomeLbl!.alpha = 1
-                    self.biinLogoImage!.alpha = 0
+                    self.biinLogoImage!.alpha = 1
                 }
             })
             

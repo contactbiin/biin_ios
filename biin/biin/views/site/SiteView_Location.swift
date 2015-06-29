@@ -163,9 +163,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //commentBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Call us", iconType: BNIconType.commentMedium)
         //self.addSubview(commentBtn!)
         
-        var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
-        line.backgroundColor = UIColor.appButtonColor()
-        self.addSubview(line)
+//        var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
+//        line.backgroundColor = UIColor.appButtonColor()
+//        self.addSubview(line)
         
         //ypos += 5
         //self.frame = CGRectMake(0, 0, frame.width, ypos)
