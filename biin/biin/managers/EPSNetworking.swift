@@ -360,6 +360,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             println("image already in cache...")
             image.image = cacheImage
             image.showAfterDownload()
+            BNAppSharedManager.instance.networkManager.removeImageRequest(urlString as String)
         }else {
         
         // Jump in to a background thread to get the image for this item
@@ -395,9 +396,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                         callback(error)
                     } else {
                         //Send image to be store in image dictionary
-                        
-                        
-                        
+
                         //println("Store image: \(urlString)")
                         ShareEPSNetworking.cacheImages[urlString as String] = UIImage(data: data)
 //                        image.image = UIImage(data: data)

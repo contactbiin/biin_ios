@@ -30,7 +30,8 @@ class BNAppManager {
     weak var appDelegate:AppDelegate?
     
     var IS_APP_UP:Bool = false
-    var IS_APP_WORKING_IN_BACKGROUND = false
+    var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
+    var IS_APP_REQUESTING_NEW_DATA = false
     var isWaitingForLocationServicesPermision = false
     
     var elementColorIndex = 0

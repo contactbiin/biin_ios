@@ -228,6 +228,10 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         getToWork()
     }
     
+    override func refresh() {
+        println("refresh all highlights")
+    }
+    
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //        println("scrollViewDidScroll")

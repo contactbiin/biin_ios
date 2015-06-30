@@ -477,7 +477,8 @@ class ProfileView: BNView, UITextFieldDelegate {
                 //Save categories for user
                 areCategoriesChanged = false
                 BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
-                (father as! MainView).reloadCategories()
+                //(father as! MainView).refresh()
+                
             }
             
             delegate!.showProgress!(self)

@@ -29,7 +29,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     var currentPoints = 0
     var timer:NSTimer?
     
-    var addNotificationBtn:UIButton?
+    //var addNotificationBtn:UIButton?
     
 //    override init() {
 //        super.init()
@@ -78,10 +78,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         self.addSubview(subTitle!)
         
         //TESTING NOTIFICATIONS
-        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
-        addNotificationBtn!.backgroundColor = UIColor.redColor()
-        addNotificationBtn!.addTarget(self, action: "addNotificationBtn:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(addNotificationBtn!)
+//        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
+//        addNotificationBtn!.backgroundColor = UIColor.redColor()
+//        addNotificationBtn!.addTarget(self, action: "addNotificationBtn:", forControlEvents: UIControlEvents.TouchUpInside)
+//        self.addSubview(addNotificationBtn!)
         
         //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
         var scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 10
@@ -99,13 +99,13 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
     }
     
-    func addNotificationBtn(sender:UIButton){
+//    func addNotificationBtn(sender:UIButton){
         //TEST: Add some notifications
         //var notification = BNNotification(title: "\(self.biin!.site!.title!)", text: "A test notification for site \(self.biin!.site!.title!)", biin: self.biin!, notificationType: BNNotificationType.STIMULUS, time:NSDate())
         
         //BNAppSharedManager.instance.processNotification(notification)
 
-    }
+//    }
     
     override func transitionIn() {
 

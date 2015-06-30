@@ -35,6 +35,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        super.init()
 //    }
     
+    var testButton:UIButton?
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -171,6 +174,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         */
         
         //showNotificationContext()
+        
+        testButton = UIButton(frame: CGRectMake(10, 100, 100, 50))
+        testButton!.backgroundColor = UIColor.bnOrange()
+        testButton!.setTitle("TEST", forState: UIControlState.Normal)
+        testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        //self.addSubview(testButton!)
+    }
+    
+    func testButtonAction(sender:UIButton) {
+        println("testButtonAction()")
+        BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
@@ -313,12 +327,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (biinieCategoriesState!.view as! BiinieCategoriesView).hideNotification()
     }
     
-    func reloadCategories() {
-        
-        //1. Request categories not downloaded
-        
-        //2. Update view.
-        
+    override func refresh() {
+        biinieCategoriesState!.view!.refresh()
     }
     
     func updateHighlightsContainer() {

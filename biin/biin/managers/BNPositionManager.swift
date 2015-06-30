@@ -157,9 +157,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             self.locationManager!.startMonitoringSignificantLocationChanges()
         }
         
-        
-        if !BNAppSharedManager.instance.IS_APP_UP {
-            
+        if BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST {
             println("Request user categories on background when user moved!")
             locationFixAchieved = true
             var locationArray = locations as NSArray
@@ -168,18 +166,16 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             println("LAT on background:  \(userCoordinates!.latitude)")
             println("LONG on background: \(userCoordinates!.longitude)")
 
-
             var time:NSTimeInterval = 1
             var localNotification:UILocalNotification = UILocalNotification()
             localNotification.alertBody = "Request user categories on background!"
             localNotification.alertTitle = "Report location change."
             localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-    
-            BNAppSharedManager.instance.dataManager.requestDataForBackgroundUse()
-            
-//            delegateNM!.manager!(self, requestCategoriesDataOnBackground: BNAppSharedManager.instance.dataManager.bnUser!)
+
+            BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
         }
+    
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError) {

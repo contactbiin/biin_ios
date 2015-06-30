@@ -89,16 +89,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
     }
     
-    func requestDataForBackgroundUse(){
-        //Request
-        //delegateNM!.manager!(self, requestBiinieData: bnUser!)
-        
+    func requestDataForNewPosition(){
+        println("requestDataForNewPosition()")
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
-        
-        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
-        
-        //delegateNM!.manager!(self, requestHighlightsData: bnUser!)
-        
+        BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = true
+//        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
     /*
@@ -338,7 +333,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
         
         if start_background_monitor {
-            BNAppSharedManager.instance.IS_APP_WORKING_IN_BACKGROUND = true
             delegatePM!.manager!(self, startSiteBiinsBackgroundMonitoring: false)
         }
     }
@@ -353,6 +347,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         println("didReceivedUserCategories(): \(categories.count)")
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
+        
+        
+        for (identifier, site) in sites {
+            site.showInView = false
+        }
 
         
         for category in categories {
@@ -373,6 +372,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     sites[siteDetails.identifier!] = site
                     //Site does not exist, store it and request it's data.
                     delegateNM!.manager!(self, requestSiteData: site, user:bnUser!)
+                } else {
+                    self.sites[siteDetails.identifier!]?.showInView = true
                 }
             }
             

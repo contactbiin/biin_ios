@@ -9,7 +9,7 @@ import UIKit
 class SiteMiniView: BNView {
     
     var delegate:SiteMiniView_Delegate?
-    var site:BNSite?
+    weak var site:BNSite?
     var image:BNUIImageView?
     var header:SiteMiniView_Header?
     var imageRequested = false
@@ -19,6 +19,9 @@ class SiteMiniView: BNView {
 //    override init() {
 //        super.init()
 //    }
+    
+    var isPositionedInFather = false
+    var isReadyToRemoveFromFather = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)

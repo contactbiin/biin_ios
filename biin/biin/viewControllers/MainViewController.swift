@@ -79,6 +79,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         menuView!.addGestureRecognizer(hideMenuSwipe)
         
+        BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST = true
+        
         //showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         //showMenuSwipe!.edges = UIRectEdge.Left
         //self.view.addGestureRecognizer(showMenuSwipe!)
@@ -87,6 +89,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //statusBarLine.backgroundColor = UIColor.appMainColor()
         //self.view.addSubview(statusBarLine)
         
+    }
+    
+    func refresh(){
+        mainView!.refresh()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {

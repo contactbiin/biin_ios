@@ -13,6 +13,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     var isWorking = false
     var category:BNCategory?
     var sites:Array<SiteMiniView>?
+    var addedSitesIdentifiers:Dictionary<String, SiteMiniView>?
     var scroll:UIScrollView?
     var isScrollDecelerating = false
     
@@ -127,6 +128,9 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
     func addSites() {
         
+        siteRequestPreviousLimit = 0
+        lastRowRequested = 0
+        
         var xpos:CGFloat = 0
         var ypos:CGFloat = siteSpacer
         
@@ -180,6 +184,8 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                 scroll!.addSubview(miniSiteView)
 
                 xpos = xpos + siteViewWidth
+            } else {
+                
             }
         }
         
@@ -192,12 +198,28 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     }
     
     func addAllSites(){
+        
+        siteRequestPreviousLimit = 0
+        lastRowRequested = 0
+        
         var xpos:CGFloat = 0
         var ypos:CGFloat = siteSpacer
         
         var columnCounter = 0
         
-        sites = Array<SiteMiniView>()
+        if sites != nil {
+            addedSitesIdentifiers!.removeAll(keepCapacity: false)
+            for view in sites! {
+                view.isPositionedInFather = false
+                view.isReadyToRemoveFromFather = true
+            }
+//
+//            sites!.removeAll(keepCapacity: false)
+            
+        } else {
+            sites = Array<SiteMiniView>()
+            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
+        }
         
         switch SharedUIManager.instance.deviceType {
         case .iphone4s, .iphone5, .iphone6:
@@ -231,29 +253,80 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
 
                     var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                     println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
-                    if !isSiteAdded(siteIdentifier) {
-                        println("***** ADDING SITE:\(siteIdentifier) title: \(site!.title!)")
-                        
-                        if columnCounter < columns {
-                            columnCounter++
-                            xpos = xpos + siteSpacer
+
+                    if site!.showInView {
+                        if !isSiteAdded(siteIdentifier) {
+                            println("***** ADDING SITE:\(siteIdentifier) title: \(site!.title!)")
                             
+                            if columnCounter < columns {
+                                columnCounter++
+                                xpos = xpos + siteSpacer
+                                
+                            } else {
+                                ypos = ypos + siteViewHeight + siteSpacer
+                                xpos = siteSpacer
+                                columnCounter = 1
+                            }
+
+                            var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                            miniSiteView.isPositionedInFather = true
+                            miniSiteView.isReadyToRemoveFromFather = false
+                            miniSiteView.delegate = father?.father! as! MainView
+                            
+                            if columnCounter < 3 {
+                                //miniSiteView.requestImage()
+                            }
+                            
+                            sites!.append(miniSiteView)
+                            scroll!.addSubview(miniSiteView)
+                            
+                            xpos = xpos + siteViewWidth
+                        
                         } else {
-                            ypos = ypos + siteViewHeight + siteSpacer
-                            xpos = siteSpacer
-                            columnCounter = 1
+                            
+                    
+                    
+                            for siteView in sites! {
+                                if siteView.site!.identifier == siteIdentifier && !siteView.isPositionedInFather {
+                                    
+                                    println("***** POSITIONING SITE:\(siteIdentifier) title: \(site!.title!)")
+                                    if columnCounter < columns {
+                                        columnCounter++
+                                        xpos = xpos + siteSpacer
+                                        
+                                    } else {
+                                        ypos = ypos + siteViewHeight + siteSpacer
+                                        xpos = siteSpacer
+                                        columnCounter = 1
+                                    }
+                                    siteView.isPositionedInFather = true
+                                    siteView.isReadyToRemoveFromFather = false
+                                    siteView.frame = CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight)
+                                    xpos = xpos + siteViewWidth
+                                    
+                                    break
+                                }
+                            }
+                            
+                            //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                            
+                            //miniSiteView.delegate = father?.father! as! MainView
+  
+//                            sites!.append(miniSiteView)
+//                            scroll!.addSubview(miniSiteView)
+                            
+
+
                         }
-
-                        println("***** ypos:\(ypos)")
-
-                        var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                        
-                        miniSiteView.delegate = father?.father! as! MainView
-                        
-                        sites!.append(miniSiteView)
-                        scroll!.addSubview(miniSiteView)
-                        
-                        xpos = xpos + siteViewWidth
+                    } else {
+//                        for var i = 0; i < sites!.count; i++ {
+//                            if sites![i].site!.identifier == siteIdentifier {
+//                                println("***** REMOVE SITE:\(siteIdentifier) title: \(sites![i].site!.title!)")
+//                                sites![i].removeFromSuperview()
+//                                sites!.removeAtIndex(i)
+//                                break
+//                            }
+//                        }
                     }
                 }
             }
@@ -265,6 +338,26 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         SharedUIManager.instance.miniView_height = siteViewHeight
         SharedUIManager.instance.miniView_width = siteViewWidth
         SharedUIManager.instance.miniView_columns = columns
+
+        
+        var sitesCount = sites!.count
+        for var i = 0; i < sites!.count; i++ {
+            if sites![i].isReadyToRemoveFromFather {
+                println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
+                sites![i].removeFromSuperview()
+                sites!.removeAtIndex(i)
+                i = 0
+    
+            }
+        }
+        
+        
+    }
+    
+    override func refresh() {
+        println("refresh all sites")
+        addAllSites()
+        //getToWork()
     }
     
     /* UIScrollViewDelegate Methods */
@@ -308,45 +401,46 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
     func manageSitesImageRequest(){
         
-        if !isWorking { return }
+        if !isWorking || sites == nil { return }
         
-        var height = self.siteViewHeight + self.siteSpacer
-        var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
+        if sites!.count > 0 {
+            var height = self.siteViewHeight + self.siteSpacer
+            var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
 
-        if lastRowRequested < row {
-            
-            lastRowRequested = row
-            var requestLimit:Int = Int((lastRowRequested + columns) * columns)
+            if lastRowRequested < row {
+                
+                lastRowRequested = row
+                var requestLimit:Int = Int((lastRowRequested + columns) * columns)
 
-            if requestLimit >= sites?.count {
-                requestLimit = sites!.count - 1
-            }
-            
+                if requestLimit >= sites?.count {
+                    requestLimit = sites!.count - 1
+                }
 
-            var i:Int = requestLimit
-            var stop:Bool = false
-            
-            while !stop {
+                var i:Int = requestLimit
+                var stop:Bool = false
+                
+                while !stop {
 
-                if i >= siteRequestPreviousLimit {
+                    if i >= siteRequestPreviousLimit {
+                        var siteView = sites![i] as SiteMiniView
+                        siteView.requestImage()
+                        i--
+                    } else  {
+                        stop = true
+                    }
+                }
+                
+                //Error when archiving: command failed due to signal: segmentation fault: 11
+                /*
+                for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
+                    //println("requesting for  \(i)")
                     var siteView = sites![i] as SiteMiniView
                     siteView.requestImage()
-                    i--
-                } else  {
-                    stop = true
                 }
+                */
+                
+                siteRequestPreviousLimit = requestLimit + 1
             }
-            
-            //Error when archiving: command failed due to signal: segmentation fault: 11
-            /*
-            for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
-                //println("requesting for  \(i)")
-                var siteView = sites![i] as SiteMiniView
-                siteView.requestImage()
-            }
-            */
-            
-            siteRequestPreviousLimit = requestLimit + 1
         }
     }
     

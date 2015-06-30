@@ -61,7 +61,8 @@ class BNSite:NSObject {
     
 //    var showcases:Array<String>?
     var showcases:Array<BNShowcase>?
-
+    
+    var showInView = true
     
     override init(){
         super.init()

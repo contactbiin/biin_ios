@@ -221,6 +221,10 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
         }
     }
     
+    override func refresh() {
+        println("refresh all biins")
+    }
+    
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //        println("scrollViewDidScroll")

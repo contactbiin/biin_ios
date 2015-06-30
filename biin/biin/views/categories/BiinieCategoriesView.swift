@@ -116,6 +116,12 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         }
     }
     
+    override func refresh() {
+        for view in categorySitesContainers! {
+            view.refresh()
+        }
+    }
+    
     //Instance methods
     func addCategoriesSitesContainers(){
 
@@ -190,7 +196,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         //BNAppSharedManager.instance.dataManager.loadUserSections()
         
         println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
-        println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
+        //println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
 
         
         //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {

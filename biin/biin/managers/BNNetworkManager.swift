@@ -2483,27 +2483,48 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         })
 */
     }
+    
+    func removeImageRequest(stringUrl:String){
+        for (identifier, request) in self.requests {
+            if stringUrl == request.requestString {
+                self.removeRequestOnCompleted(request.identifier)
+                break
+            }
+        }
+    }
+    
 
     func requestImageData(stringUrl:String, image:BNUIImageView!) {
 
-        //println("image url:\(stringUrl)")
+        println("--------  image url 1:\(stringUrl)")
         
-        var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
-        self.requests[request.identifier] = request
+        var isRequestInQueue = false
+        for (identifier, request) in self.requests {
+            if stringUrl == request.requestString {
+                isRequestInQueue = true
+                break
+            }
+        }
         
-        epsNetwork!.getImage(stringUrl, image:image, callback:{(error: NSError?) -> Void in
+        if !isRequestInQueue {
             
-                if (error == nil)  {
-//                    self.requestAttempts = 0
-//                    self.delegateVC?.refreshTable!(self)
-//                    self.requests.removeValueForKey(request.identifier)
-                    self.removeRequestOnCompleted(request.identifier)
-                } else {
-                    self.handleFailedRequest(request, error:error )
-                    println("ERROR on image request")
-                }
-            })
-
+            println("--------  image url 2:\(stringUrl)")
+            var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
+            self.requests[request.identifier] = request
+            
+            epsNetwork!.getImage(stringUrl, image:image, callback:{(error: NSError?) -> Void in
+                
+                    if (error == nil)  {
+    //                    self.requestAttempts = 0
+    //                    self.delegateVC?.refreshTable!(self)
+    //                    self.requests.removeValueForKey(request.identifier)
+                        self.removeRequestOnCompleted(request.identifier)
+                    } else {
+                        self.handleFailedRequest(request, error:error )
+                        println("ERROR on image request")
+                    }
+                })
+        }
 //        
 //        var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
 //        let placeholder = UIImage(named: "view640X2.jpg")
@@ -2699,10 +2720,19 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier)")
         
         if requests.count == 0 {
+            
             println("NOT requests pending: \(self.requests.count)")
             self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
+            
+            if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
+                println("Ready to refresh")
+                BNAppSharedManager.instance.mainViewController!.refresh()
+                BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = false
+            }
+            
         } else {
-            self.delegateVC!.manager!(self, didReceivedAllInitialData: false)
+            //self.delegateVC!.manager!(self, didReceivedAllInitialData: false)
+            println("Requests Pending:\(requests.count)")
         }
         
     }
