@@ -252,21 +252,22 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //STAGE 1-5 / SITES_MONITORING
         var site_counter = 0
         for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
-
-            if let exteriorBeaconRegionAdded = self.monitoredBeaconRegions[site.major!] {
-                println("This site major already monitored: \(site.major!)")
-            } else {
-                if site_counter < MAX_NUMBER_OF_REGIONS {
-                    println("Monitoring site: \(site.title!) major: \(site.major!) identifier: \(site.identifier!)")
-                    nowMonitoring = .SITES_MONITORING
-                    var exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), identifier:site.identifier!)
-                    exteriorBeaconRegion.notifyEntryStateOnDisplay = true
-                    self.monitoredBeaconRegions[site.major!] = exteriorBeaconRegion
-                    self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
-                    self.locationManager!.requestAlwaysAuthorization()
-                    self.locationManager!.requestStateForRegion(exteriorBeaconRegion)
+            if site.showInView {
+                if let exteriorBeaconRegionAdded = self.monitoredBeaconRegions[site.major!] {
+                    println("This site major already monitored: \(site.major!)")
+                } else {
+                    if site_counter < MAX_NUMBER_OF_REGIONS {
+                        println("Monitoring site: \(site.title!) major: \(site.major!) identifier: \(site.identifier!)")
+                        nowMonitoring = .SITES_MONITORING
+                        var exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), identifier:site.identifier!)
+                        exteriorBeaconRegion.notifyEntryStateOnDisplay = true
+                        self.monitoredBeaconRegions[site.major!] = exteriorBeaconRegion
+                        self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
+                        self.locationManager!.requestAlwaysAuthorization()
+                        self.locationManager!.requestStateForRegion(exteriorBeaconRegion)
+                    }
+                    site_counter++
                 }
-                site_counter++
             }
         }
     }
@@ -305,51 +306,52 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         var regions_available = 20
         
         if let site = BNAppSharedManager.instance.dataManager.sites[beaconRegion.identifier!] {
-
+            if site.showInView {
             //Add neighbors ext regions
-            if let neighbors = site.neighbors {
-                for neighbor in neighbors {
-                    if let neighborSite = BNAppSharedManager.instance.dataManager.sites[neighbor] {
-                        
-                        println("Monitoring neighborBeaconRegion major: \(neighborSite.major!)")
-                        var neighborBeaconRegion = CLBeaconRegion(proximityUUID:neighborSite.proximityUUID!, major:CLBeaconMajorValue(neighborSite.major!), identifier:neighborSite.identifier!)
-                        neighborBeaconRegion.notifyEntryStateOnDisplay = true
-                        self.monitoredBeaconRegions[neighborSite.major!] = neighborBeaconRegion
-                        self.locationManager!.startMonitoringForRegion(neighborBeaconRegion)
-                        self.locationManager!.requestAlwaysAuthorization()
-                        region_counter++
-                        neighbors_counter++
+                if let neighbors = site.neighbors {
+                    for neighbor in neighbors {
+                        if let neighborSite = BNAppSharedManager.instance.dataManager.sites[neighbor] {
+                            
+                            println("Monitoring neighborBeaconRegion major: \(neighborSite.major!)")
+                            var neighborBeaconRegion = CLBeaconRegion(proximityUUID:neighborSite.proximityUUID!, major:CLBeaconMajorValue(neighborSite.major!), identifier:neighborSite.identifier!)
+                            neighborBeaconRegion.notifyEntryStateOnDisplay = true
+                            self.monitoredBeaconRegions[neighborSite.major!] = neighborBeaconRegion
+                            self.locationManager!.startMonitoringForRegion(neighborBeaconRegion)
+                            self.locationManager!.requestAlwaysAuthorization()
+                            region_counter++
+                            neighbors_counter++
+                        }
                     }
                 }
-            }
-            
-            //Add site exterior region
-            println("Monitoring site exterior region: \(site.major!) major")
-            var exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), identifier:site.identifier!)
-            exteriorBeaconRegion.notifyEntryStateOnDisplay = true
-            self.monitoredBeaconRegions[site.major!] = exteriorBeaconRegion
-            self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
-            self.locationManager!.requestAlwaysAuthorization()
-            region_counter++
-            neighbors_counter++
-            
-            regions_available = regions_available - (region_counter + neighbors_counter)
-            
-            //Add site interior regions
-            for biin in site.biins {
-                if region_counter < regions_available {
-                    if biin.biinType == BNBiinType.INTERNO {
-                        println("Monitoring site interior region: \(biin.minor!) minor, biin identifier:\(biin.identifier!)")
-                        var interiorBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
-                        interiorBeaconRegion.notifyEntryStateOnDisplay = true
-                        self.monitoredBeaconRegions[biin.minor!] = interiorBeaconRegion
-                        self.locationManager!.startMonitoringForRegion(interiorBeaconRegion)
-                        self.locationManager!.requestAlwaysAuthorization()
-                        region_counter++
+                
+                //Add site exterior region
+                println("Monitoring site exterior region: \(site.major!) major")
+                var exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), identifier:site.identifier!)
+                exteriorBeaconRegion.notifyEntryStateOnDisplay = true
+                self.monitoredBeaconRegions[site.major!] = exteriorBeaconRegion
+                self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
+                self.locationManager!.requestAlwaysAuthorization()
+                region_counter++
+                neighbors_counter++
+                
+                regions_available = regions_available - (region_counter + neighbors_counter)
+                
+                //Add site interior regions
+                for biin in site.biins {
+                    if region_counter < regions_available {
+                        if biin.biinType == BNBiinType.INTERNO {
+                            println("Monitoring site interior region: \(biin.minor!) minor, biin identifier:\(biin.identifier!)")
+                            var interiorBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
+                            interiorBeaconRegion.notifyEntryStateOnDisplay = true
+                            self.monitoredBeaconRegions[biin.minor!] = interiorBeaconRegion
+                            self.locationManager!.startMonitoringForRegion(interiorBeaconRegion)
+                            self.locationManager!.requestAlwaysAuthorization()
+                            region_counter++
+                        }
                     }
                 }
+                nowMonitoring = .SITE_EXTERIOR_MONITORING
             }
-            nowMonitoring = .SITE_EXTERIOR_MONITORING
         }
     }
     
@@ -385,89 +387,90 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             var regions_available = 20
             
             if let site = BNAppSharedManager.instance.dataManager.sites[currentExteriorRegion!.identifier!] {
-                
-                //Add neighbors ext regions
-                if let neighbors = site.neighbors {
-                    for neighbor in neighbors {
-                        if let neighborSite = BNAppSharedManager.instance.dataManager.sites[neighbor] {
-                            
-                            println("Monitoring neighborBeaconRegion major: \(neighborSite.major!)")
-                            var neighborBeaconRegion = CLBeaconRegion(proximityUUID:neighborSite.proximityUUID!, major:CLBeaconMajorValue(neighborSite.major!), identifier:neighborSite.identifier!)
-                            neighborBeaconRegion.notifyEntryStateOnDisplay = true
-                            self.monitoredBeaconRegions[neighborSite.major!] = neighborBeaconRegion
-                            self.locationManager!.startMonitoringForRegion(neighborBeaconRegion)
-                            self.locationManager!.requestAlwaysAuthorization()
-                            region_counter++
-                            neighbors_counter++
-                        }
-                    }
-                }
-                
-                //Add site exterior region
-                println("Monitoring site exterior region: \(site.major!) major")
-                var exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), identifier:site.identifier!)
-                exteriorBeaconRegion.notifyEntryStateOnDisplay = true
-                self.monitoredBeaconRegions[site.major!] = exteriorBeaconRegion
-                self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
-                self.locationManager!.requestAlwaysAuthorization()
-                region_counter++
-                neighbors_counter++
-                
-                regions_available = regions_available - (region_counter + neighbors_counter)
-                
-                //Add site interior regions
-                
-                var interiorBiin:BNBiin?
-                
-                for biin in site.biins {
-                    if region_counter < regions_available {
-                        if biin.biinType == BNBiinType.INTERNO {
-                            if biin.minor! == interiorBeaconRegion.minor! {
-                                //Get current biin to monitor his children later
-                                interiorBiin = biin
-                                println("Monitoring site interior region: \(biin.minor!) minor")
-                                var interiorBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
-                                interiorBeaconRegion.notifyEntryStateOnDisplay = true
-                                self.monitoredBeaconRegions[biin.minor!] = interiorBeaconRegion
-                                self.locationManager!.startMonitoringForRegion(interiorBeaconRegion)
+                if site.showInView {
+                    //Add neighbors ext regions
+                    if let neighbors = site.neighbors {
+                        for neighbor in neighbors {
+                            if let neighborSite = BNAppSharedManager.instance.dataManager.sites[neighbor] {
+                                
+                                println("Monitoring neighborBeaconRegion major: \(neighborSite.major!)")
+                                var neighborBeaconRegion = CLBeaconRegion(proximityUUID:neighborSite.proximityUUID!, major:CLBeaconMajorValue(neighborSite.major!), identifier:neighborSite.identifier!)
+                                neighborBeaconRegion.notifyEntryStateOnDisplay = true
+                                self.monitoredBeaconRegions[neighborSite.major!] = neighborBeaconRegion
+                                self.locationManager!.startMonitoringForRegion(neighborBeaconRegion)
                                 self.locationManager!.requestAlwaysAuthorization()
                                 region_counter++
-                            } else {
-                                println("Monitoring site interior region: \(biin.minor!) minor")
-                                var interiorBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
-                                interiorBeaconRegion.notifyEntryStateOnDisplay = true
-                                self.monitoredBeaconRegions[biin.minor!] = interiorBeaconRegion
-                                self.locationManager!.startMonitoringForRegion(interiorBeaconRegion)
-                                self.locationManager!.requestAlwaysAuthorization()
-                                region_counter++
+                                neighbors_counter++
                             }
                         }
                     }
-                }
-                
-                if interiorBiin != nil {
+                    
+                    //Add site exterior region
+                    println("Monitoring site exterior region: \(site.major!) major")
+                    var exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), identifier:site.identifier!)
+                    exteriorBeaconRegion.notifyEntryStateOnDisplay = true
+                    self.monitoredBeaconRegions[site.major!] = exteriorBeaconRegion
+                    self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
+                    self.locationManager!.requestAlwaysAuthorization()
+                    region_counter++
+                    neighbors_counter++
+                    
+                    regions_available = regions_available - (region_counter + neighbors_counter)
+                    
+                    //Add site interior regions
+                    
+                    var interiorBiin:BNBiin?
+                    
                     for biin in site.biins {
                         if region_counter < regions_available {
-                            if biin.biinType == BNBiinType.PRODUCT {
-                                
-                                for child in interiorBiin!.children! {
-                                    if child == biin.minor! {
-                                        println("Monitoring site product region: \(child) minor")
-                                        var productBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
-                                        productBeaconRegion.notifyEntryStateOnDisplay = true
-                                        self.monitoredBeaconRegions[biin.minor!] = productBeaconRegion
-                                        self.locationManager!.startMonitoringForRegion(productBeaconRegion)
-                                        self.locationManager!.requestAlwaysAuthorization()
-                                        region_counter++
+                            if biin.biinType == BNBiinType.INTERNO {
+                                if biin.minor! == interiorBeaconRegion.minor! {
+                                    //Get current biin to monitor his children later
+                                    interiorBiin = biin
+                                    println("Monitoring site interior region: \(biin.minor!) minor")
+                                    var interiorBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
+                                    interiorBeaconRegion.notifyEntryStateOnDisplay = true
+                                    self.monitoredBeaconRegions[biin.minor!] = interiorBeaconRegion
+                                    self.locationManager!.startMonitoringForRegion(interiorBeaconRegion)
+                                    self.locationManager!.requestAlwaysAuthorization()
+                                    region_counter++
+                                } else {
+                                    println("Monitoring site interior region: \(biin.minor!) minor")
+                                    var interiorBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
+                                    interiorBeaconRegion.notifyEntryStateOnDisplay = true
+                                    self.monitoredBeaconRegions[biin.minor!] = interiorBeaconRegion
+                                    self.locationManager!.startMonitoringForRegion(interiorBeaconRegion)
+                                    self.locationManager!.requestAlwaysAuthorization()
+                                    region_counter++
+                                }
+                            }
+                        }
+                    }
+                    
+                    if interiorBiin != nil {
+                        for biin in site.biins {
+                            if region_counter < regions_available {
+                                if biin.biinType == BNBiinType.PRODUCT {
+                                    
+                                    for child in interiorBiin!.children! {
+                                        if child == biin.minor! {
+                                            println("Monitoring site product region: \(child) minor")
+                                            var productBeaconRegion = CLBeaconRegion(proximityUUID: site.proximityUUID!, major: CLBeaconMajorValue(site.major!), minor: CLBeaconMinorValue(biin.minor!), identifier: biin.identifier!)
+                                            productBeaconRegion.notifyEntryStateOnDisplay = true
+                                            self.monitoredBeaconRegions[biin.minor!] = productBeaconRegion
+                                            self.locationManager!.startMonitoringForRegion(productBeaconRegion)
+                                            self.locationManager!.requestAlwaysAuthorization()
+                                            region_counter++
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
+                    
+                    nowMonitoring = .SITE_INTERIOR_MONITORING
                 
-                nowMonitoring = .SITE_INTERIOR_MONITORING
-            
+                }
             }
         }
     }

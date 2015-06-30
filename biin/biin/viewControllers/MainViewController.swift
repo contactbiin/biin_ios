@@ -232,23 +232,29 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
         if response!.code == 0 {
+
+           
+            
             if (alert?.isOn != nil) {
-                alert!.hideWithCallback({() -> Void in
-                    //var vc = LoadingViewController()
-                    //vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-                    //self.presentViewController(vc, animated: true, completion: nil)
-                })
+                alert!.hide()
+                
+//                alert!.hideWithCallback({() -> Void in
+//                    //var vc = LoadingViewController()
+//                    //vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//                    //self.presentViewController(vc, animated: true, completion: nil)
+//                })
             }
             
-        } else {
-            if (alert?.isOn != nil) {
-                alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
-                    self.view.addSubview(self.alert!)
-                    self.alert!.show()
-                })
-            }
         }
+//        else {
+//            if (alert?.isOn != nil) {
+//                alert!.hideWithCallback({() -> Void in
+//                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+//                    self.view.addSubview(self.alert!)
+//                    self.alert!.showAndHide()
+//                })
+//            }
+//        }
         
     }
     
@@ -256,19 +262,18 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Saved, text:"Changes saved!")
-                    self.view.addSubview(self.alert!)
-                    self.alert!.show()
+//                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Saved, text:"Changes saved!")
+//                    self.view.addSubview(self.alert!)
+//                    self.alert!.showAndHide()
+                    BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
                 })
             }
-
-            
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
                     self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
                     self.view.addSubview(self.alert!)
-                    self.alert!.show()
+                    self.alert!.showAndHide()
                 })
             }
         }
@@ -285,7 +290,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func showProgressView(){
-        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:"Please wait a moment!")
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
         self.view.addSubview(alert!)
         alert!.show()
     }

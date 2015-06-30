@@ -113,3 +113,6 @@ InviteBody = "The best offers and places in your hand. Download Biin at ";
 ShareBody1 = "Hey, check out the ";
 ShareBody2 = "from ";
 ShareBody3 = "The best offers and places in your hand. Download Biin at ";
+
+/*Alert messages*/
+PleaseWait = "Saving, please wait a moment!";

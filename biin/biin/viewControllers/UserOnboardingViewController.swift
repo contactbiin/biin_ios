@@ -149,7 +149,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
                 alert!.hideWithCallback({() -> Void in
                     self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
                     self.view.addSubview(self.alert!)
-                    self.alert!.show()
+                    self.alert!.showAndHide()
                 })
             }
         }
