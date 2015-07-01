@@ -9,6 +9,7 @@ struct BNCategorySiteDetails {
     init(){ }
     var identifier:String?
     var json:String?
+    var biinieProximity:Float?
 }
 
 class BNCategory:NSObject {

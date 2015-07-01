@@ -406,7 +406,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             action["at"]    = value.at!.bnDateFormatt()
             action["did"]   = "\(value.did!)"
             action["to"]    = value.to!
-            action["toType"] = value.toType!
             model["model"]?.append(action)
             
             //model["model"]?.append(["identifier":value])
@@ -509,7 +508,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.requestUserCategoriesData(value)
                 break
             case .SiteData:
-                self.requestSiteData(value)
+                //self.requestSiteData(value)
                 break
             case .ShowcaseData:
                 self.requestShowcaseData(value, showcase:value.showcase!)
@@ -980,6 +979,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                                 var siteDetails = BNCategorySiteDetails()
                                 siteDetails.identifier = self.findString("identifier", dictionary: siteData)
                                 siteDetails.json = self.findString("jsonUrl", dictionary: siteData)
+                                siteDetails.biinieProximity = self.findFloat("biinieProximity", dictionary: siteData)
                                 category.sitesDetails.append(siteDetails)
      
                             }
@@ -1022,7 +1022,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.requests[request!.identifier] = request
         
         if !isRequestTimerAllow {
-            self.requestSiteData(request!)
+            self.requestSiteData(request!, psite:site)
         }
 
         
@@ -1040,7 +1040,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///Handles the request for a site's data.
     ///
     ///:param: The request to be process.
-    func requestSiteData(request:BNRequest) {
+    func requestSiteData(request:BNRequest, psite:BNSite) {
         
         println("\(request.requestString)")
         
@@ -1056,6 +1056,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 if let dataData = data["data"] as? NSDictionary {
                     
                     var site = BNSite()
+                    site.biinieProximity = psite.biinieProximity!
                     site.jsonUrl = request.requestString
                     site.identifier = self.findString("identifier", dictionary: dataData)
                     site.proximityUUID = self.findNSUUID("proximityUUID", dictionary: dataData)
@@ -2670,7 +2671,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.requestUserCategoriesData(request)
                 break
             case .SiteData:
-                self.requestSiteData(request)
+                //self.requestSiteData(request)
                 break
             case .ShowcaseData:
                 self.requestShowcaseData(request, showcase:request.showcase!)

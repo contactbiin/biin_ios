@@ -127,12 +127,12 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     
     func addActionBtnAction(sender: UIButton!){
         
-        var action1 = BiinieAction(at: NSDate(), did: 1, to: "identifier1", toType: "1")
-        var action2 = BiinieAction(at: NSDate(), did: 2, to: "identifier2", toType: "2")
-        var action3 = BiinieAction(at: NSDate(), did: 3, to: "identifier3", toType: "3")
-        var action4 = BiinieAction(at: NSDate(), did: 4, to: "identifier4", toType: "4")
-        var action5 = BiinieAction(at: NSDate(), did: 5, to: "identifier5", toType: "5")
-        var action6 = BiinieAction(at: NSDate(), did: 6, to: "identifier6", toType: "6")
+        var action1 = BiinieAction(at: NSDate(), did: 1, to: "identifier1")
+        var action2 = BiinieAction(at: NSDate(), did: 2, to: "identifier2")
+        var action3 = BiinieAction(at: NSDate(), did: 3, to: "identifier3")
+        var action4 = BiinieAction(at: NSDate(), did: 4, to: "identifier4")
+        var action5 = BiinieAction(at: NSDate(), did: 5, to: "identifier5")
+        var action6 = BiinieAction(at: NSDate(), did: 6, to: "identifier6")
         
         BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action1)
         BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action2)

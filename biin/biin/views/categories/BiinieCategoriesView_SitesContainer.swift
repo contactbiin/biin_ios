@@ -241,6 +241,52 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
             break
         }
         
+        
+        
+        
+        
+        
+        
+        
+        /*
+        //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
+        println("user categories(): \(bnUser!.categories.count)")
+        
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        for (key, value) in sites {
+            sitesArray.append(value)
+        }
+        
+        sitesArray = sorted(sitesArray){ $0.biinieProximity > $1.biinieProximity  }
+        
+        sites.removeAll(keepCapacity: false)
+        
+        for orderedSite in sitesArray {
+            sites[orderedSite.identifier!] = orderedSite
+        }
+        */
+        
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            if category.hasSites {
+                for var i = 0; i < category.sitesDetails.count; i++ {
+                    
+                    var siteIdentifier = category.sitesDetails[i].identifier!
+                    var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                    println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
+                    
+                    if site!.showInView {
+                        sitesArray.append(site!)
+                    }
+                }
+            }
+        }
+        
+        sitesArray = sorted(sitesArray){ $0.biinieProximity < $1.biinieProximity  }
+
+        /*
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             if category.hasSites {
                 
@@ -253,10 +299,11 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
 
                     var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                     println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
-
-                    if site!.showInView {
-                        if !isSiteAdded(siteIdentifier) {
-                            println("***** ADDING SITE:\(siteIdentifier) title: \(site!.title!)")
+*/
+        for site in sitesArray {
+                    if site.showInView {
+                        if !isSiteAdded(site.identifier!) {
+                            println("***** ADDING SITE:\(site.identifier!) title: \(site.title!)")
                             
                             if columnCounter < columns {
                                 columnCounter++
@@ -273,23 +320,16 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                             miniSiteView.isReadyToRemoveFromFather = false
                             miniSiteView.delegate = father?.father! as! MainView
                             
-                            if columnCounter < 3 {
-                                //miniSiteView.requestImage()
-                            }
-                            
                             sites!.append(miniSiteView)
                             scroll!.addSubview(miniSiteView)
                             
                             xpos = xpos + siteViewWidth
                         
                         } else {
-                            
-                    
-                    
                             for siteView in sites! {
-                                if siteView.site!.identifier == siteIdentifier && !siteView.isPositionedInFather {
+                                if siteView.site!.identifier == site.identifier! && !siteView.isPositionedInFather {
                                     
-                                    println("***** POSITIONING SITE:\(siteIdentifier) title: \(site!.title!)")
+                                    println("***** POSITIONING SITE:\(site.identifier!) title: \(site.title!)")
                                     if columnCounter < columns {
                                         columnCounter++
                                         xpos = xpos + siteSpacer
@@ -318,7 +358,10 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
 
 
                         }
-                    } else {
+                    }
+        }
+                    /*
+                    else {
 //                        for var i = 0; i < sites!.count; i++ {
 //                            if sites![i].site!.identifier == siteIdentifier {
 //                                println("***** REMOVE SITE:\(siteIdentifier) title: \(sites![i].site!.title!)")
@@ -331,7 +374,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                 }
             }
         }
-        
+        */
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         

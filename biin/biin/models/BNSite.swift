@@ -53,6 +53,7 @@ class BNSite:NSObject {
     
     var latitude:Float?
     var longitude:Float?
+    var biinieProximity:Float?
     
     var isUserInside:Bool = false
 

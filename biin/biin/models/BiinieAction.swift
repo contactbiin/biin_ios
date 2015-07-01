@@ -19,20 +19,18 @@ class BiinieAction:NSObject, NSCoding {
     var at:NSDate?
     var did:Int?
     var to:String?
-    var toType:String?
 
     override init() {
         super.init()
     }
     
-    convenience init(at:NSDate, did:Int, to:String, toType:String) {
+    convenience init(at:NSDate, did:Int, to:String) {
         self.init()
         var actionCounter = BiinieActionData.actionCounter++
         self.key = "key\(actionCounter)"
         self.at = at
         self.did = did
         self.to = to
-        self.toType = toType
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -40,7 +38,6 @@ class BiinieAction:NSObject, NSCoding {
         self.at  = aDecoder.decodeObjectForKey("at") as? NSDate
         self.did = aDecoder.decodeIntegerForKey("did")
         self.to  = aDecoder.decodeObjectForKey("to") as? String
-        self.toType  = aDecoder.decodeObjectForKey("toType") as? String
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -59,10 +56,6 @@ class BiinieAction:NSObject, NSCoding {
         
         if let to = self.did {
             aCoder.encodeObject(to, forKey: "to")
-        }
-        
-        if let toType = self.did {
-            aCoder.encodeObject(toType, forKey: "toType")
         }
     }
     

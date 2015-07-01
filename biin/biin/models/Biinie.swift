@@ -110,7 +110,7 @@ class Biinie:NSObject, NSCoding {
         
         aCoder.encodeObject(actions, forKey: "actions")
         
-        
+        println("")
     }
     
     deinit {

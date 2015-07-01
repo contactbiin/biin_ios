@@ -332,6 +332,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
+        //self.sites = sorted(self.sites){ $0.rssi > $1.rssi  }
+        
         if start_background_monitor {
             delegatePM!.manager!(self, startSiteBiinsBackgroundMonitoring: false)
         }
@@ -368,6 +370,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     
                     var site = BNSite()
                     site.identifier = siteDetails.identifier!
+                    site.biinieProximity = siteDetails.biinieProximity!
                     //site.jsonUrl = siteDetails.json!
                     sites[siteDetails.identifier!] = site
                     //Site does not exist, store it and request it's data.
@@ -384,6 +387,19 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
         println("user categories(): \(bnUser!.categories.count)")
         
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        for (key, value) in sites {
+            sitesArray.append(value)
+        }
+        
+        sitesArray = sorted(sitesArray){ $0.biinieProximity > $1.biinieProximity  }
+
+        sites.removeAll(keepCapacity: false)
+        
+        for orderedSite in sitesArray {
+            sites[orderedSite.identifier!] = orderedSite
+        }
     }
     
     func findCategoryNameByIdentifier(identifier:String) -> String {
@@ -408,6 +424,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         
         var isExternalBiinAdded = false
+        //site.biinieProximity = sites[site.identifier!]?.biinieProximity!
         
         sites[site.identifier!] = site
         //BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL, itemIdentifier:site.identifier!)

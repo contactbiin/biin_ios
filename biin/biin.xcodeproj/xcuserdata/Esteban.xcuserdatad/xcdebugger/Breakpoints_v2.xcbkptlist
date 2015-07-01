@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "457374843.07367"
+            timestampString = "457477663.546037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2716"
-            endingLineNumber = "2716"
+            startingLineNumber = "2717"
+            endingLineNumber = "2717"
             landmarkName = "removeRequestOnCompleted(_:)"
             landmarkType = "5">
          </BreakpointContent>
