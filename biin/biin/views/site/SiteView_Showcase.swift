@@ -53,7 +53,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         //self.biin = biin
         
         self.backgroundColor = UIColor.appMainColor()
-        self.showcase = showcase//BNAppSharedManager.instance.dataManager.showcases[self.biin!.currectShowcase().identifier!]
+        self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         self.site = site
         
         //TODO: Add all showcase data here
@@ -66,7 +66,13 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.text = self.showcase!.title
-        title!.textColor = self.showcase!.titleColor!
+        
+        if let color = self.showcase!.titleColor {
+            title!.textColor = self.showcase!.titleColor!
+        } else {
+            title!.textColor = UIColor.appTextColor()
+        }
+        
         self.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_titleSize + 3

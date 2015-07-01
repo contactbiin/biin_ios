@@ -47,7 +47,7 @@ class SiteMiniView_Header:BNView {
         var subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
         subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.appTextColor()
-        subTitle.text = site!.subTitle!//"\(site!.biinieProximity!)"
+        subTitle.text = site!.subTitle!//"\(site!.biinieProximity!)"c
         self.addSubview(subTitle)
     }
     
