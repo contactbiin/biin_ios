@@ -385,38 +385,72 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
         */
         
+        
+        if user.actions.count == 0 {
+            return
+        }
+        
         println("sendBiinieActions(\(user.email))")
         
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
         }
         
         self.requests[request!.identifier] = request
         
-        var model = ["model":Array<Dictionary<String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
+        
+            /*
+            {
+        
+                "model":
+                
+                {
+                    
+                    "actions":
+                    [
+                    
+                    {
+                        "whom":"8a9b83bc-9e6d-46ee-8b2d-c5f9d91b4589",
+                        "at":"2014-01-01 12:02:00",
+                        "did”:”1”,
+                        ”to":"biinIdentifier2"
+                    },
+                    
+                    ]
+        
+        }
+*/
+        
+        
+        var model = ["model":["actions":Array<Dictionary<String, String>>()]] as Dictionary<String, Dictionary<String, Array<Dictionary <String, String>>>>
+        
+        //var actions = ["actions":Array<Dictionary<String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
+        println("user.action:\(user.actions.count)")
         
         for value in user.actions {
             
             var action = Dictionary <String, String>()
             action["whom"]  = user.identifier!
             action["at"]    = value.at!.bnDateFormatt()
-            action["did"]   = "\(value.did!)"
+            action["did"]   = "\(value.did!.hashValue)"
             action["to"]    = value.to!
-            model["model"]?.append(action)
-            
+            //actions["actions"]?.append(action)
+            model["model"]!["actions"]?.append(action)
             //model["model"]?.append(["identifier":value])
         }
+        
+
         
         var httpError: NSError?
         var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
         
         var response:BNResponse?
         
-        epsNetwork!.post(request!.requestString, htttpBody:htttpBody, callback: {
+        epsNetwork!.put(request!.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
@@ -441,6 +475,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         println("*** Register actions for user \(user.email!) COOL!")
                         //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                        user.deleteAllActions()
+                        user.save()
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
                         println("*** Register actions for user \(user.email!) SUCK!")
@@ -2500,6 +2536,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //println("--------  image url 1:\(stringUrl)")
         
         var isRequestInQueue = false
+        
         for (identifier, request) in self.requests {
             if stringUrl == request.requestString {
                 isRequestInQueue = true
@@ -2525,6 +2562,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                         println("ERROR on image request")
                     }
                 })
+        } else {
+            epsNetwork!.getImageInCache(stringUrl, image: image)
         }
 //        
 //        var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
@@ -2557,11 +2596,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
         
         self.requests[request!.identifier] = request
-        self.requestBiinieData(request!)
+        self.requestBiinieData(request!, biinie:biinie)
         println("\(request!.requestString)")
     }
 
-    func requestBiinieData(request:BNRequest) {
+    func requestBiinieData(request:BNRequest, biinie:Biinie) {
      
         epsNetwork!.getJson(request.requestString) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -2574,7 +2613,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     //if let biinieData = dataData["biinie"] as? NSDictionary {
                         //{"data":{"status":"0","result":{"_id":"54e73260a159220300e63ac4","identifier":"4479187b-cd61-4be2-a24d-a30e925c1edc","firstName":"e","lastName":"e","biinName":"e@e.com","friends":[],"followers":"0","following":"0","imgUrl":""}}}
                     
-                        var biinie = Biinie()
+                        //var biinie = Biinie()
                         biinie.identifier = self.findString("identifier", dictionary:biinieData)
                         biinie.biinName = self.findString("biinName", dictionary: biinieData)
                         biinie.firstName = self.findString("firstName", dictionary: biinieData)

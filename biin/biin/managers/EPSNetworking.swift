@@ -352,6 +352,10 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         }
     }
     
+    func getImageInCache(urlString:NSString, image:BNUIImageView) {
+        ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
+    }
+    
     func getImage(urlString:NSString, image:BNUIImageView, callback:(NSError?) -> Void) {
 
         //add requesting image to queue

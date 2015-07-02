@@ -69,14 +69,13 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         clearUserBtn!.alpha = 1
         //self.view.addSubview(clearUserBtn!)
 
-        addActionBtn = UIButton(frame: CGRectMake(0, (screenHeight - 240), screenWidth, 60))
-        addActionBtn!.backgroundColor = UIColor.whiteColor()
+        addActionBtn = UIButton(frame: CGRectMake(10, 30, 150, 50))
+        addActionBtn!.backgroundColor = UIColor.bnRed()
         addActionBtn!.setTitle(NSLocalizedString("AddAction", comment: "the AddAction button title"), forState: UIControlState.Normal)
-        addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 20)
+        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
         addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         addActionBtn!.alpha = 0
-        //self.view.addSubview(addActionBtn!)
+        self.view.addSubview(addActionBtn!)
         
         addSiteNeighbors = UIButton(frame: CGRectMake(10, 30, 170, 50))
         addSiteNeighbors!.backgroundColor = UIColor.biinColor()
@@ -84,11 +83,11 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         addSiteNeighbors!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
         addSiteNeighbors!.addTarget(self, action: "addSiteNeighborsAction:", forControlEvents: UIControlEvents.TouchUpInside)
         addSiteNeighbors!.alpha = 0
-        self.view.addSubview(addSiteNeighbors!)
+        //self.view.addSubview(addSiteNeighbors!)
         
         addLocalNotification = UIButton(frame: CGRectMake(10, 90, 170, 50))
         addLocalNotification!.backgroundColor = UIColor.bnGreen()
-        addLocalNotification!.setTitle("Add local Notification", forState: UIControlState.Normal)
+        addLocalNotification!.setTitle("Send Biinie Actions", forState: UIControlState.Normal)
         addLocalNotification!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
         addLocalNotification!.addTarget(self, action: "addLocalNotificationAction:", forControlEvents: UIControlEvents.TouchUpInside)
         addLocalNotification!.alpha = 0
@@ -100,7 +99,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         removeLocalNotification!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
         removeLocalNotification!.addTarget(self, action: "removeLocalNotificationAction:", forControlEvents: UIControlEvents.TouchUpInside)
         removeLocalNotification!.alpha = 0
-        self.view.addSubview(removeLocalNotification!)
+        //self.view.addSubview(removeLocalNotification!)
 
     }
     
@@ -127,21 +126,14 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     
     func addActionBtnAction(sender: UIButton!){
         
-        var action1 = BiinieAction(at: NSDate(), did: 1, to: "identifier1")
-        var action2 = BiinieAction(at: NSDate(), did: 2, to: "identifier2")
-        var action3 = BiinieAction(at: NSDate(), did: 3, to: "identifier3")
-        var action4 = BiinieAction(at: NSDate(), did: 4, to: "identifier4")
-        var action5 = BiinieAction(at: NSDate(), did: 5, to: "identifier5")
-        var action6 = BiinieAction(at: NSDate(), did: 6, to: "identifier6")
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to: "04eb8e15-2ded-4081-b92f-cf745cfc1e60")
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to: "04eb8e15-2ded-4081-b92f-cf745cfc1e60")
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to: "04eb8e15-2ded-4081-b92f-cf745cfc1e60")
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to: "04eb8e15-2ded-4081-b92f-cf745cfc1e60")
+
+        BNAppSharedManager.instance.dataManager.bnUser!.save()
         
-        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action1)
-        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action2)
-        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action3)
-        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action4)
-        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action5)
-        BNAppSharedManager.instance.dataManager.bnUser!.actions.append(action6)
-        
-        BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        //BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
     }
     
     func addSiteNeighborsAction(sender:UIButton){
@@ -154,6 +146,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     func addLocalNotificationAction(sender:UIButton){
 //        notificationCounter++
 //        BNAppSharedManager.instance.notificationManager.addLocalNotification("\(notificationCounter)", text: "Just a local notification number: \(notificationCounter)")
+        BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
     }
     
     func removeLocalNotificationAction(sender:UIButton){

@@ -35,6 +35,7 @@ class Biinie:NSObject, NSCoding {
     var notificationIndex:Int?
     
     var isInStore = false
+    var actionCounter:Int = 0
     
     override init() {
         super.init()
@@ -44,6 +45,8 @@ class Biinie:NSObject, NSCoding {
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String) {
+        println("Biinie init 2")
+        
         self.init()
         self.identifier = identifier
         self.firstName = firstName
@@ -54,13 +57,16 @@ class Biinie:NSObject, NSCoding {
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String, gender:String) {
-
+        println("Biinie init 1")
         self.init(identifier:identifier, firstName:firstName, lastName:lastName, email:email)
         
         self.gender = gender
     }
     
     required init(coder aDecoder: NSCoder) {
+        
+        println("Biinie aDecoder")
+
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
         self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
@@ -70,9 +76,12 @@ class Biinie:NSObject, NSCoding {
         self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
+        self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
+
         
         self.newNotificationCount = 0
         self.notificationIndex = 0
+        println("Biinie actions: \(actions.count)")
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -110,7 +119,9 @@ class Biinie:NSObject, NSCoding {
         
         aCoder.encodeObject(actions, forKey: "actions")
         
-        println("")
+        aCoder.encodeInteger(actionCounter, forKey: "actionCounter")
+
+
     }
     
     deinit {
@@ -133,5 +144,15 @@ class Biinie:NSObject, NSCoding {
         }
         
         return nil
+    }
+    
+    func addAction(at:NSDate, did:BiinieActionType, to:String) {
+        self.actionCounter++
+        self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
+    }
+    
+    func deleteAllActions(){
+        self.actionCounter = 0
+        self.actions.removeAll(keepCapacity: false)
     }
 }

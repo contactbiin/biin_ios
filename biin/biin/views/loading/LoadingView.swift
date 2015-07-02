@@ -9,7 +9,7 @@ import UIKit
 class LoadingView:UIView {
 
     var loadingLbl:UILabel?
-    var biinLogo:UIImageView?
+    var biinLogo:BNUIBiinView?
 //    override init() {
 //        super.init()
 //    }
@@ -21,9 +21,19 @@ class LoadingView:UIView {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        biinLogo = UIImageView(frame: CGRectMake(0, 100, 320, 320))
-        biinLogo!.image = UIImage(named: "biinLogoLS.png")
+//        biinLogo = UIImageView(frame: CGRectMake(0, 100, 320, 320))
+//        biinLogo!.image = UIImage(named: "biinLogoLS.png")
+//        self.addSubview(biinLogo!)
+        
+        var screenWidth = SharedUIManager.instance.screenWidth
+        var screenHeight = SharedUIManager.instance.screenHeight
+        
+        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:0), scale:5.0)
+        biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
+        biinLogo!.frame.origin.y = (((screenHeight - biinLogo!.frame.height) / 2) - 50)
+        
         self.addSubview(biinLogo!)
+        biinLogo!.setNeedsDisplay()
         
 
         var ypos:CGFloat = 320

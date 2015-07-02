@@ -300,6 +300,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             stop_SITE_EXTERIOR_MONITORING()
         }
         
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:beaconRegion.identifier!)
+        BNAppSharedManager.instance.dataManager.bnUser!.save()
+        
         //Add all site exterior monitoring regions (neighbors and interior)
         var region_counter = 0
         var neighbors_counter = 0
@@ -385,6 +388,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             var region_counter = 0
             var neighbors_counter = 0
             var regions_available = 20
+            
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:interiorBeaconRegion.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.save()
             
             if let site = BNAppSharedManager.instance.dataManager.sites[currentExteriorRegion!.identifier!] {
                 if site.showInView {
@@ -559,6 +565,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             switch findBiinTypeByMinor(beaconRegion.minor!.integerValue) {
                             case .PRODUCT:
                                 if let productRegion = monitoredBeaconRegions[beaconRegion.minor!.integerValue]{
+                                    
                                     if currentProductRegion == nil {
                                         currentProductRegion = productRegion
                                         println("Show notification for product biin:\(currentProductRegion!.proximityUUID!.UUIDString), major:\(currentProductRegion!.major!),  minor:\(currentProductRegion!.minor!)")
@@ -570,6 +577,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                                         BNAppSharedManager.instance.notificationManager.activateNotificationForBiin(productRegion.identifier!)
                                         println("7")
                                     }
+                                    
+                                    BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:productRegion.identifier!)
+                                    BNAppSharedManager.instance.dataManager.bnUser!.save()
                                 }
                                 break
                             case .INTERNO:
@@ -743,6 +753,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         if let beaconRegion = region as? CLBeaconRegion {
             
             println("EXIT region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)")
+            
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.save()
             
             switch nowMonitoring {
             case .NONE:
