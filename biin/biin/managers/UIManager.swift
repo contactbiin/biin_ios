@@ -36,6 +36,10 @@ class UIManager {
     var miniView_width:CGFloat = 0
     var miniView_columns:Int = 0
     
+    //Onboarding
+    var onBoardingView_ypos_1:CGFloat = 0
+    var onBoardingView_spacer:CGFloat = 0
+
     
     //Sites View sizes
     var siteView_headerHeight:CGFloat = 40
@@ -71,14 +75,17 @@ class UIManager {
     var elementPointsView = CGRectMake(0, 302, 320, 20)
     var elementStickerView = CGRectMake(260, 255, 50, 50)
     
+    //Signup
     var signupView_isAnimatingLogo:Bool = true
     var signupView_ypos_1:CGFloat = 0
     var signupView_ypos_2:CGFloat = 0
+    var signupView_logoSize:CGFloat = 200
+    var signupView_showLogo:Bool = true
     
     var loginView_isAnimatingLogo:Bool = true
     var loginView_ypos_1:CGFloat = 0
-    var loginView_ypos_2:CGFloat = 0
-    var loginView_ypos_3:CGFloat = 0
+//    var loginView_ypos_2:CGFloat = 0
+//    var loginView_ypos_3:CGFloat = 0
     
     func setDeviceVariables(){
         
@@ -111,14 +118,19 @@ class UIManager {
         siteView_titleSize = 14
         siteView_subTittleSize = 12
         
+        signupView_showLogo = false
         signupView_isAnimatingLogo = true
-        signupView_ypos_1 = 125
+        signupView_ypos_1 = 10
         signupView_ypos_2 = 0
+        signupView_logoSize = 100
         
         loginView_isAnimatingLogo = false
-        loginView_ypos_1 = 210
-        loginView_ypos_2 = 130
-        loginView_ypos_3 = 150
+        loginView_ypos_1 = 220
+//        loginView_ypos_2 = 130
+//        loginView_ypos_3 = 150
+        
+        onBoardingView_ypos_1 = 10
+        onBoardingView_spacer = 10
         
     }
     
@@ -129,14 +141,19 @@ class UIManager {
         siteView_titleSize = 14
         siteView_subTittleSize = 12
         
+        signupView_showLogo = true
         signupView_isAnimatingLogo = true
         signupView_ypos_1 = 125
         signupView_ypos_2 = 140
+        signupView_logoSize = 200
         
         loginView_isAnimatingLogo = true
         loginView_ypos_1 = 160
-        loginView_ypos_2 = 240
-        loginView_ypos_3 = 75
+//        loginView_ypos_2 = 240
+//        loginView_ypos_3 = 75
+        
+        onBoardingView_ypos_1 = 30
+        onBoardingView_spacer = 40
     }
     
     func setIPhone6Variables() {
@@ -146,14 +163,19 @@ class UIManager {
         siteView_titleSize = 14
         siteView_subTittleSize = 12
         
+        signupView_showLogo = true
         signupView_isAnimatingLogo = false
         signupView_ypos_1 = 70
         signupView_ypos_2 = 70
+        signupView_logoSize = 200
         
         loginView_isAnimatingLogo = true
         loginView_ypos_1 = 0
-        loginView_ypos_2 = 0
-        loginView_ypos_3 = 0
+//        loginView_ypos_2 = 0
+//        loginView_ypos_3 = 0
+        
+        onBoardingView_ypos_1 = 30
+        onBoardingView_spacer = 40
     }
     
     func setIPhone6PlusVariables() {
@@ -163,14 +185,19 @@ class UIManager {
         siteView_titleSize = 14
         siteView_subTittleSize = 12
     
+        signupView_showLogo = true
         signupView_isAnimatingLogo = false
         signupView_ypos_1 = 70
         signupView_ypos_2 = 40
+        signupView_logoSize = 200
         
         loginView_isAnimatingLogo = true
         loginView_ypos_1 = 0
-        loginView_ypos_2 = 0
-        loginView_ypos_3 = 0
+//        loginView_ypos_2 = 0
+//        loginView_ypos_3 = 0
+        
+        onBoardingView_ypos_1 = 30
+        onBoardingView_spacer = 40
         
     }
     
@@ -181,14 +208,19 @@ class UIManager {
         siteView_titleSize = 14
         siteView_subTittleSize = 12
         
+        signupView_showLogo = true
         signupView_isAnimatingLogo = false
         signupView_ypos_1 = 0
         signupView_ypos_2 = 0
+        signupView_logoSize = 200
         
         loginView_isAnimatingLogo = false
         loginView_ypos_1 = 0
-        loginView_ypos_2 = 0
-        loginView_ypos_3 = 0
+//        loginView_ypos_2 = 0
+//        loginView_ypos_3 = 0
+        
+        onBoardingView_ypos_1 = 30
+        onBoardingView_spacer = 40
     }
     
     

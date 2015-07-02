@@ -26,8 +26,9 @@ class UserOnboardingView_Categories:UIView {
         self.backgroundColor = UIColor.whiteColor()
         
         var screenWidth = SharedUIManager.instance.screenWidth
-        
-        title = UILabel(frame:CGRectMake(0, 30, (screenWidth / 2), 45))
+        var ypos:CGFloat = SharedUIManager.instance.onBoardingView_ypos_1
+
+        title = UILabel(frame:CGRectMake(0, ypos, (screenWidth / 2), 45))
         title!.textColor = UIColor.appTextColor()
         title!.font = UIFont(name: "Lato-Black", size: 20)
         title!.text = NSLocalizedString("WhatAreYouInterest", comment:"WhatAreYouInterest")
@@ -42,7 +43,7 @@ class UserOnboardingView_Categories:UIView {
         
         var buttonCounter:Int = 1
         xpos = (screenWidth - 295) / 2
-        var ypos:CGFloat = 110
+        ypos += 60
         var space:CGFloat = 5
         
         //var line = UIView(frame: CGRectMake(5, (ypos - 10), (screenWidth - 10), 0.5))
@@ -67,7 +68,7 @@ class UserOnboardingView_Categories:UIView {
             }
         }
         
-        ypos += 40
+        ypos += SharedUIManager.instance.onBoardingView_spacer
         startBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width: screenWidth, height: 65), color:UIColor.biinColor(), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.whiteColor())
         startBtn!.addTarget(self, action: "startBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(startBtn!)

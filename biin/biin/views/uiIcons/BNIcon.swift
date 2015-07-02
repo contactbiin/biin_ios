@@ -13,6 +13,7 @@ class BNIcon {
     var position:CGPoint = CGPoint.zeroPoint
     var width:CGFloat = 0
     var strokeWidth:CGFloat = 0
+    var scale:CGFloat = 1
     
     init(){ }
     

@@ -40,6 +40,9 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         scroll!.layer.masksToBounds = true
         scroll!.pagingEnabled = true
         scroll!.bounces = false
+        scroll!.backgroundColor = UIColor.whiteColor()
+        scroll!.showsHorizontalScrollIndicator = false
+        scroll!.showsVerticalScrollIndicator = false
         self.view.addSubview(scroll!)
         
         slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title: "PAGE 1")
@@ -59,7 +62,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         categoriesView!.delegate = self
         xpos += screenWidth
         
-        scroll!.contentSize = CGSize(width: xpos, height: screenHeight)
+        scroll!.contentSize = CGSize(width: xpos, height: (screenHeight - 25))
         
     }
     

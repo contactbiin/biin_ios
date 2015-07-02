@@ -10,7 +10,7 @@ class LoginView:UIView, UITextFieldDelegate {
     
     var delegate:LoginView_Delegate?
     var biinLogo:BNUIBiinView?
-    var biinLogoImage:UIImageView?
+//    var biinLogoImage:UIImageView?
     var welcomeLbl:UILabel?
     var emailTxt:BNUITexfield_Top?
     var passwordTxt:BNUITexfield_Bottom?
@@ -38,14 +38,16 @@ class LoginView:UIView, UITextFieldDelegate {
 //        self.becomeFirstResponder()
         
         var screenWidth = SharedUIManager.instance.screenWidth
-        var ypos:CGFloat = 100
+        var ypos:CGFloat = 50
         
-        biinLogo = BNUIBiinView(frame: CGRectMake(((screenWidth - 110) / 2), ypos, 110, 65))
+        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:5.0)
+        biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
         self.addSubview(biinLogo!)
+        biinLogo!.setNeedsDisplay()
         
-        biinLogoImage = UIImageView(image: UIImage(named: "biinLogoLS"))
-        biinLogoImage!.frame = CGRectMake(10, -50, 300, 300)
-        self.addSubview(biinLogoImage!)
+//        biinLogoImage = UIImageView(image: UIImage(named: "biinLogoLS"))
+//        biinLogoImage!.frame = CGRectMake(10, -50, 300, 300)
+//        self.addSubview(biinLogoImage!)
         
         ypos += (10 + biinLogo!.frame.height)
         welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 23))
@@ -76,9 +78,8 @@ class LoginView:UIView, UITextFieldDelegate {
         loginBtn!.addTarget(self, action: "login:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(loginBtn!)
 
-        ypos = (frame.height - 65)
-//        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"))
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 65), color:UIColor.clearColor(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"), textColor:UIColor.biinColor())
+        ypos += (10 + loginBtn!.frame.height)//        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"))
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 20), color:UIColor.clearColor(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"), textColor:UIColor.appTextColor())
         singupBtn!.addTarget(self, action: "signup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         
@@ -124,11 +125,13 @@ class LoginView:UIView, UITextFieldDelegate {
                     //self.welcomeLbl!.frame.origin.y -= SharedUIManager.instance.loginView_ypos_1
                     self.biinLogo!.alpha = 0
                     self.welcomeLbl!.alpha = 0
-                    self.biinLogoImage!.alpha = 0
+                    self.singupBtn!.alpha = 0
+//                    self.biinLogoImage!.alpha = 0
                 } else {
                     self.biinLogo!.alpha = 0
                     self.welcomeLbl!.alpha = 0
-                    self.biinLogoImage!.alpha = 0
+//                    self.biinLogoImage!.alpha = 0
+                    self.singupBtn!.alpha = 0
                 }
             })
             
@@ -137,7 +140,7 @@ class LoginView:UIView, UITextFieldDelegate {
                 self.emailTxt!.frame.origin.y -= SharedUIManager.instance.loginView_ypos_1
                 self.passwordTxt!.frame.origin.y -= SharedUIManager.instance.loginView_ypos_1
                 self.loginBtn!.frame.origin.y -= SharedUIManager.instance.loginView_ypos_1
-                self.singupBtn!.frame.origin.y -= SharedUIManager.instance.loginView_ypos_2
+                self.singupBtn!.frame.origin.y -= SharedUIManager.instance.loginView_ypos_1
                 //self.signupLbl!.alpha = 0
             })
         }
@@ -155,11 +158,13 @@ class LoginView:UIView, UITextFieldDelegate {
 //                    self.welcomeLbl!.frame.origin.y += SharedUIManager.instance.loginView_ypos_1
                     self.biinLogo!.alpha = 1
                     self.welcomeLbl!.alpha = 1
-                    self.biinLogoImage!.alpha = 1
+                    self.singupBtn!.alpha = 1
+//                    self.biinLogoImage!.alpha = 1
                 } else {
                     self.biinLogo!.alpha = 1
                     self.welcomeLbl!.alpha = 1
-                    self.biinLogoImage!.alpha = 1
+                    self.singupBtn!.alpha = 1
+//                    self.biinLogoImage!.alpha = 1
                 }
             })
             
@@ -168,7 +173,7 @@ class LoginView:UIView, UITextFieldDelegate {
                 self.emailTxt!.frame.origin.y += SharedUIManager.instance.loginView_ypos_1
                 self.passwordTxt!.frame.origin.y += SharedUIManager.instance.loginView_ypos_1
                 self.loginBtn!.frame.origin.y += SharedUIManager.instance.loginView_ypos_1
-                self.singupBtn!.frame.origin.y += SharedUIManager.instance.loginView_ypos_2
+                self.singupBtn!.frame.origin.y += SharedUIManager.instance.loginView_ypos_1
                 //self.signupLbl!.alpha = 0
             })
         }
