@@ -111,7 +111,6 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         lastRowRequested = 0
         siteRequestPreviousLimit = 0
    
-        
         var xpos:CGFloat = 0
         var ypos:CGFloat = siteSpacer
         
@@ -126,9 +125,6 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
             columns = 2
             break
         case .iphone6Plus:
-//            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
-//            siteViewHeight = SharedUIManager.instance.screenHeight / 4
-            
             siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
             siteViewHeight = (SharedUIManager.instance.screenHeight / 3) + 50
             columns = 3
@@ -142,81 +138,57 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
             break
         }
         
-        for (key, site) in BNAppSharedManager.instance.dataManager.sites {
-
-            if site.showcases != nil {
-                for showcase in site.showcases! {
-                    for element in showcase.elements {
-                        
-                        var elementData = BNAppSharedManager.instance.dataManager.elements[element._id!]
-                        
-                        if elementData!.isHighlight {
-                        
-                            if columnCounter < columns {
-                                columnCounter++
-                                xpos = xpos + siteSpacer
-                                
-                            } else {
-                                ypos = ypos + siteViewHeight + siteSpacer
-                                xpos = siteSpacer
-                                columnCounter = 1
-                            }
-                            
-                            //var siteIdentifier = category.sitesDetails[i].identifier!
-                            //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
-                            
-                            //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                            var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: elementData, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
-                            
-                            if columnCounter < 3 {
-                                println("request image")
-                                elementMiniView.requestImage()
-                            }
-                            //elementMiniView.delegate = father?.father! as! MainView
-                            elementMiniView.delegate = self
-                            elements!.append(elementMiniView)
-                            scroll!.addSubview(elementMiniView)
-                            
-                            xpos = xpos + siteViewWidth
-                        }
-
+        
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            if category.hasSites {
+                for var i = 0; i < category.sitesDetails.count; i++ {
+                    
+                    var siteIdentifier = category.sitesDetails[i].identifier!
+                    var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                    
+                    if site!.showcases != nil {
+                        sitesArray.append(site!)
                     }
                 }
             }
         }
         
-        /*
-        for (key, value) in BNAppSharedManager.instance.dataManager.highlights {
-            
-            var element = BNAppSharedManager.instance.dataManager.elements[key]
-            
-            //for var i = 0; i < category.sitesDetails.count; i++ {
-                
-                if columnCounter < columns {
-                    columnCounter++
-                    xpos = xpos + siteSpacer
+        sitesArray = sorted(sitesArray){ $0.biinieProximity < $1.biinieProximity  }
+        
+        for site in sitesArray {
+            for showcase in site.showcases! {
+                for element in showcase.elements {
                     
-                } else {
-                    ypos = ypos + siteViewHeight + siteSpacer
-                    xpos = siteSpacer
-                    columnCounter = 1
+                    var elementData = BNAppSharedManager.instance.dataManager.elements[element._id!]
+                    
+                    if elementData!.isHighlight {
+                    
+                        if columnCounter < columns {
+                            columnCounter++
+                            xpos = xpos + siteSpacer
+                            
+                        } else {
+                            ypos = ypos + siteViewHeight + siteSpacer
+                            xpos = siteSpacer
+                            columnCounter = 1
+                        }
+                        
+                        var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: elementData, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
+                        
+                        if columnCounter < 3 {
+                            elementMiniView.requestImage()
+                        }
+                        
+                        elementMiniView.delegate = self
+                        elements!.append(elementMiniView)
+                        scroll!.addSubview(elementMiniView)
+                        xpos = xpos + siteViewWidth
+                    }
                 }
-                
-                //var siteIdentifier = category.sitesDetails[i].identifier!
-                //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
-                
-                //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false)
-            
-                //elementMiniView.delegate = father?.father! as! MainView
-                elementMiniView.delegate = self
-                elements!.append(elementMiniView)
-                scroll!.addSubview(elementMiniView)
-                
-                xpos = xpos + siteViewWidth
-            //}
+            }
         }
-        */
         
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)

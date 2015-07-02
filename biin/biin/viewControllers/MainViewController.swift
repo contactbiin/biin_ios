@@ -375,12 +375,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         
         self.presentViewController(activityVC, animated: true, completion: nil)
-        mainView!.setNextState(1)
-        
-        
-        
-        
-        
+        //mainView!.setNextState(1)  
     }
     
     func findSiteForElement(element:BNElement) -> BNSite? {
@@ -460,7 +455,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         
         self.presentViewController(activityVC, animated: true, completion: nil)
-        mainView!.setNextState(1)
+        //mainView!.setNextState(1)
         
         
         

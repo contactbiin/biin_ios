@@ -387,19 +387,19 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
         println("user categories(): \(bnUser!.categories.count)")
         
-        var sitesArray:Array<BNSite> = Array<BNSite>()
-        
-        for (key, value) in sites {
-            sitesArray.append(value)
-        }
-        
-        sitesArray = sorted(sitesArray){ $0.biinieProximity > $1.biinieProximity  }
-
-        sites.removeAll(keepCapacity: false)
-        
-        for orderedSite in sitesArray {
-            sites[orderedSite.identifier!] = orderedSite
-        }
+//        var sitesArray:Array<BNSite> = Array<BNSite>()
+//        
+//        for (key, value) in sites {
+//            sitesArray.append(value)
+//        }
+//        
+//        sitesArray = sorted(sitesArray){ $0.biinieProximity < $1.biinieProximity  }
+//
+//        sites.removeAll(keepCapacity: false)
+//        
+//        for orderedSite in sitesArray {
+//            sites[orderedSite.identifier!] = orderedSite
+//        }
     }
     
     func findCategoryNameByIdentifier(identifier:String) -> String {

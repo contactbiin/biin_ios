@@ -2497,7 +2497,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     func requestImageData(stringUrl:String, image:BNUIImageView!) {
 
-        println("--------  image url 1:\(stringUrl)")
+        //println("--------  image url 1:\(stringUrl)")
         
         var isRequestInQueue = false
         for (identifier, request) in self.requests {
@@ -2509,7 +2509,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         if !isRequestInQueue {
             
-            println("--------  image url 2:\(stringUrl)")
+            //println("--------  image url 2:\(stringUrl)")
             var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
             self.requests[request.identifier] = request
             
