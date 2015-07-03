@@ -174,6 +174,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             scroll!.addSubview(elementView)
             elements!.append(elementView)
             elementPosition++
+            
+            if elementPosition < 3 {
+                elementView.requestImage()
+            }
         }
         
         xpos += spacer
