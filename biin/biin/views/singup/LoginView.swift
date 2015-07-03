@@ -128,8 +128,8 @@ class LoginView:UIView, UITextFieldDelegate {
                     self.singupBtn!.alpha = 0
 //                    self.biinLogoImage!.alpha = 0
                 } else {
-                    self.biinLogo!.alpha = 0
-                    self.welcomeLbl!.alpha = 0
+                    self.biinLogo!.alpha = 1
+                    self.welcomeLbl!.alpha = 1
 //                    self.biinLogoImage!.alpha = 0
                     self.singupBtn!.alpha = 0
                 }

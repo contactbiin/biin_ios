@@ -28,7 +28,7 @@ class LoadingView:UIView {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:0), scale:5.0)
+        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:0), scale:SharedUIManager.instance.loadingView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
         biinLogo!.frame.origin.y = (((screenHeight - biinLogo!.frame.height) / 2) - 50)
         
@@ -36,9 +36,9 @@ class LoadingView:UIView {
         biinLogo!.setNeedsDisplay()
         
 
-        var ypos:CGFloat = 320
-        loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:30))
-        loadingLbl!.font = UIFont(name: "Lato-Black", size: 25)
+        var ypos:CGFloat = biinLogo!.frame.height + biinLogo!.frame.origin.y
+        loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:25))
+        loadingLbl!.font = UIFont(name: "Lato-Black", size: 22)
         loadingLbl!.textColor = UIColor.appTextColor()
         loadingLbl!.textAlignment = NSTextAlignment.Center
         loadingLbl!.numberOfLines = 0

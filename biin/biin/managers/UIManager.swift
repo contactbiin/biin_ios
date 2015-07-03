@@ -83,6 +83,9 @@ class UIManager {
     var signupView_logoSize:CGFloat = 200
     var signupView_showLogo:Bool = true
     
+    //Loading
+    var loadingView_logoSize:CGFloat = 1
+    
     var loginView_isAnimatingLogo:Bool = true
     var loginView_ypos_1:CGFloat = 0
 //    var loginView_ypos_2:CGFloat = 0
@@ -133,6 +136,8 @@ class UIManager {
         onBoardingView_ypos_1 = 10
         onBoardingView_spacer = 10
         
+        loadingView_logoSize = 5
+        
     }
     
     func setIPhone5Variables(){
@@ -155,6 +160,8 @@ class UIManager {
         
         onBoardingView_ypos_1 = 30
         onBoardingView_spacer = 40
+        
+        loadingView_logoSize = 5
     }
     
     func setIPhone6Variables() {
@@ -170,13 +177,15 @@ class UIManager {
         signupView_ypos_2 = 70
         signupView_logoSize = 200
         
-        loginView_isAnimatingLogo = true
+        loginView_isAnimatingLogo = false
         loginView_ypos_1 = 0
 //        loginView_ypos_2 = 0
 //        loginView_ypos_3 = 0
         
         onBoardingView_ypos_1 = 30
         onBoardingView_spacer = 40
+        
+        loadingView_logoSize = 5
     }
     
     func setIPhone6PlusVariables() {
@@ -200,6 +209,8 @@ class UIManager {
         onBoardingView_ypos_1 = 30
         onBoardingView_spacer = 40
         
+        loadingView_logoSize = 6
+        
     }
     
     func setIPadVariables() {
@@ -222,6 +233,8 @@ class UIManager {
         
         onBoardingView_ypos_1 = 30
         onBoardingView_spacer = 40
+        
+        loadingView_logoSize = 6
     }
     
     

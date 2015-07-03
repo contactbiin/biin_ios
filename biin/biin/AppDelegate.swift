@@ -14,10 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
         self.window!.backgroundColor = UIColor.blackColor()
         self.window!.makeKeyAndVisible()
+        
+        
+        let objects = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil)
+        (objects[0] as? UIView)?.layer.backgroundColor = UIColor.greenColor().CGColor
+
+        
+        
         appManager.appDelegate = self
         appManager.IS_APP_UP = true
         appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
@@ -51,6 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
 
+
+        
         
         return true
     }
@@ -128,6 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.positionManager.start_BEACON_RANGING()
         appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
 
+        
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
