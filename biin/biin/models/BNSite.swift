@@ -32,7 +32,7 @@ class BNSite:NSObject {
     var ubication:String?
     var phoneNumber:String?
     var email:String?
-    
+    var nutshell:String?
     //Gallery
     var media:Array<BNMedia> = Array<BNMedia>()
 //    var images:Array<UIImageView> = Array<UIImageView>()

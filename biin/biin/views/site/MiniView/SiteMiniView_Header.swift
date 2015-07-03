@@ -8,7 +8,7 @@ import UIKit
 
 class SiteMiniView_Header:BNView {
 
-    var buttonsView:SocialButtonsView?
+    //var buttonsView:SocialButtonsView?
     
 //    override init() {
 //        super.init()
@@ -31,10 +31,9 @@ class SiteMiniView_Header:BNView {
         self.backgroundColor = UIColor.appMainColor()
         
         var ypos:CGFloat = 4
-        buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, site: site, showShareButton:showShareButton)
-        self.addSubview(buttonsView!)
-        
-        ypos += 16
+        //buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, site: site, showShareButton:showShareButton)
+        //self.addSubview(buttonsView!)
+        //ypos += 16
         
         var title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_titleSize)
@@ -82,6 +81,6 @@ class SiteMiniView_Header:BNView {
     
     //Instance methods
     func updateSocialButtonsForSite(site: BNSite?){
-        buttonsView!.updateSocialButtonsForSite(site)
+        //buttonsView!.updateSocialButtonsForSite(site)
     }
 }

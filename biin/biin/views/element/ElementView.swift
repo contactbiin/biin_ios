@@ -146,6 +146,7 @@ class ElementView: BNView {
         self.elementMiniView = elementMiniView
         header!.updateForElement(elementMiniView!.element!)
         imagesScrollView!.updateImages(elementMiniView!.element!.media)
+        buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
 
         println("element identifier: \(elementMiniView!.element!.identifier!)")
         

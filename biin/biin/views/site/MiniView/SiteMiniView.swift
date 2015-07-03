@@ -23,6 +23,8 @@ class SiteMiniView: BNView {
     var isPositionedInFather = false
     var isReadyToRemoveFromFather = true
     
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -67,9 +69,20 @@ class SiteMiniView: BNView {
         //image!.alpha = 0
         self.addSubview(image!)
         
-        header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, site: site, showShareButton:true)
+        header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.siteMiniView_headerHeight), father: self, site: site, showShareButton:true)
         self.addSubview(header!)
         header!.updateSocialButtonsForSite(site)
+        
+        var nutshell = UILabel(frame: CGRectMake(10, 100, (frame.width - 20), 14))
+        nutshell.font = UIFont(name:"Lato-Black", size:12)
+        nutshell.textColor = UIColor.whiteColor()
+        nutshell.text = site!.nutshell!
+        nutshell.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        nutshell.shadowOffset = CGSize(width: 1, height: 1)
+        nutshell.numberOfLines = 0
+        nutshell.sizeToFit()
+        self.addSubview(nutshell)
+        nutshell.frame.origin.y = (frame.height - (nutshell.frame.height + 10))
         
         var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1

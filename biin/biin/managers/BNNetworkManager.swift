@@ -1108,6 +1108,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     site.ubication = self.findString("ubication", dictionary: dataData)
                     site.phoneNumber = self.findString("phoneNumber", dictionary: dataData)
                     site.email = self.findString("email", dictionary: dataData)
+                    site.nutshell = "Add a nide site's nutshell here and another one here!"//self.findString("nutshell", dictionary: dataData)
                     
                     site.biinedCount = self.findInt("biinedCount", dictionary: dataData)!
                     //TODO: Pending "comments": "23", in web service
@@ -1258,7 +1259,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     loyalty.isSubscribed = true
                     
                     if loyalty.isSubscribed {
-                        loyalty.points = self.findInt("points", dictionary:loyaltyData!)!
+                        loyalty.points = 459// self.findInt("points", dictionary:loyaltyData!)!
                         loyalty.subscriptionDate = self.findNSDate("subscriptionDate", dictionary:loyaltyData!)
                         loyalty.level = self.findInt("level", dictionary:loyaltyData!)!
                         //TODO: Add achievements and badges.

@@ -31,17 +31,17 @@ class SiteView_Bottom:BNView {
         self.layer.masksToBounds = false
         self.layer.shadowOffset = CGSizeMake(3, 0)
         self.layer.shadowRadius = 2
-        self.layer.shadowOpacity = 0.25
+        self.layer.shadowOpacity = 0.5
         
-        pointsLbl = UILabel(frame: CGRectMake(40, 8, (SharedUIManager.instance.screenWidth - 50), 14))
-        pointsLbl!.textAlignment = NSTextAlignment.Right
-        pointsLbl!.font = UIFont(name: "Lato-Light", size: 12)
+        pointsLbl = UILabel(frame: CGRectMake(10, 8, (SharedUIManager.instance.screenWidth - 50), 14))
+        pointsLbl!.textAlignment = NSTextAlignment.Left
+        pointsLbl!.font = UIFont(name: "Lato-Black", size: 12)
         pointsLbl!.textColor = UIColor.appTextColor()
         self.addSubview(pointsLbl!)
         
         informationBtn = BNUIButton_Information(frame: CGRectMake(5, 2, 26, 26))
         informationBtn!.addTarget(father, action: "showInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(informationBtn!)
+        //self.addSubview(informationBtn!)
 
     }
 
@@ -76,6 +76,7 @@ class SiteView_Bottom:BNView {
     
     //Instance methods
     func updateForSite(site: BNSite?){
-        //pointsLbl!.text = "Points: \(site!.loyalty!.points)"
+        var points = NSLocalizedString("Points", comment: "Points")
+        pointsLbl!.text = "\(points): \(site!.loyalty!.points)"
     }
 }

@@ -28,6 +28,7 @@ class UIManager {
     //MiniView
     //Sites MiniView sizes
     var miniView_headerHeight:CGFloat = 55
+    var siteMiniView_headerHeight:CGFloat = 40
     
     //Font sizes
     var miniView_titleSize:CGFloat = 0

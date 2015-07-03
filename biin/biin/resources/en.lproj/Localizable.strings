@@ -116,3 +116,6 @@ ShareBody3 = "The best offers and places in your hand. Download Biin at ";
 
 /*Alert messages*/
 PleaseWait = "Saving, please wait a moment!";
+
+/*Loyalty*/
+Points = "Points";
