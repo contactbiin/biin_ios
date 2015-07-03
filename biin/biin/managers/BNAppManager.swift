@@ -11,6 +11,7 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 class BNAppManager {
     
     var IS_PRODUCTION_RELEASE = false
+    var IS_DEVELOPMENT = false
     
     var counter = 0
     var version = "0.1.8"

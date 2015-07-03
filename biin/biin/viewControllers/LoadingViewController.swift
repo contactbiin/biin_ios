@@ -162,18 +162,26 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
         
-        if value {
-            UIView.animateWithDuration(0.5, animations: {()-> Void in
-                self.loadingView!.loadingLbl!.alpha = 0
-                self.enterBtn!.alpha = 1
-                self.addActionBtn!.alpha = 1
-                self.addSiteNeighbors!.alpha = 1
-                self.addLocalNotification!.alpha = 1
-                self.removeLocalNotification!.alpha = 1
-            })
-        } else {
-            self.enterBtn!.alpha = 0
-            self.addActionBtn!.alpha = 0
+        
+        if BNAppSharedManager.instance.IS_DEVELOPMENT {
+            if value {
+                UIView.animateWithDuration(0.5, animations: {()-> Void in
+                    self.loadingView!.loadingLbl!.alpha = 0
+                    self.enterBtn!.alpha = 1
+                    self.addActionBtn!.alpha = 1
+                    self.addSiteNeighbors!.alpha = 1
+                    self.addLocalNotification!.alpha = 1
+                    self.removeLocalNotification!.alpha = 1
+                })
+            } else {
+                self.enterBtn!.alpha = 0
+                self.addActionBtn!.alpha = 0
+            }
+        } else  {
+            var vc = MainViewController()
+            vc.initViewController(self.view.frame)
+            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            self.presentViewController(vc, animated: true, completion: nil)
         }
     }
     
