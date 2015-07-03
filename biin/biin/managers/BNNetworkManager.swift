@@ -2762,18 +2762,18 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         if requests.count == 0 {
             
-            println("NOT requests pending: \(self.requests.count)")
+            //println("NOT requests pending: \(self.requests.count)")
             self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
             
             if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
-                println("Ready to refresh")
+                //println("Ready to refresh")
                 BNAppSharedManager.instance.mainViewController!.refresh()
                 BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = false
             }
             
         } else {
             //self.delegateVC!.manager!(self, didReceivedAllInitialData: false)
-            println("Requests Pending:\(requests.count)")
+            //println("Requests Pending:\(requests.count)")
         }
         
     }
