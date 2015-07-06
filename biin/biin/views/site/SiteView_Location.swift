@@ -59,7 +59,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         var headerWidth = screenWidth - 30
         var xpos:CGFloat = (screenWidth - headerWidth) / 2
-        var ypos:CGFloat = 10
+        var ypos:CGFloat = 20
     
         //var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         //line.backgroundColor = UIColor.appButtonColor()
@@ -80,6 +80,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         //BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: siteAvatar)
 
+        ypos = 10
         xpos += 100
         
         title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 22))
@@ -285,10 +286,12 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
         }
 
+
+        
         //commentBtn!.icon!.color = site!.titleColor!
         //commentBtn!.showDisable()
        
-        ypos += 10
+        ypos += 25
         var total:CGFloat = (ypos - siteAvatarView!.frame.height) / 2
         siteAvatarView!.frame.origin.y = total
         
@@ -318,9 +321,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             siteAvatar!.image =  UIImage(named: "noImage.jpg")
             siteAvatar!.showAfterDownload()
         }
-        
-        
-
     }
     
     func call(sender:BNUIButton_Contact){

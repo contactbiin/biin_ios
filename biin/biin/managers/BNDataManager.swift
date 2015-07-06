@@ -455,15 +455,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 if organizations[biin.organizationIdentifier!] == nil {
                     //1. Add organization
                     //2. set site organizarion
-                    organizations[biin.organizationIdentifier!] = BNOrganization(identifier: biin.organizationIdentifier!, loyalty:site.loyalty!)
+                    organizations[biin.organizationIdentifier!] = BNOrganization(identifier: biin.organizationIdentifier!)
+                    delegateNM!.manager!(self, requestOrganizationData:organizations[biin.organizationIdentifier!]!, user: self.bnUser!)
                     site.organization = organizations[biin.organizationIdentifier!]
                     
                     //HACK, add site's media to organization until it can be download.
-                    if site.media.count > 0 {
-                        organizations[biin.organizationIdentifier!]?.media = site.media
-                        organizations[biin.organizationIdentifier!]?.title = site.title!
-                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
-                    }
+//                    if site.media.count > 0 {
+//                        organizations[biin.organizationIdentifier!]?.media = site.media
+//                        organizations[biin.organizationIdentifier!]?.title = site.title!
+//                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
+//                    }
                     
                 } else  {
                     //2. set site organization
@@ -1106,6 +1107,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNDataManager that store all data.
     ///:param: BNSite requesting the data.
     optional func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie)
+    
+    
+    ///Request a organization's data
+    ///
+    ///:param: BNDataManager that store all data.
+    ///:param: BNOrganization requesting the data.
+    optional func manager(manager:BNDataManager!, requestOrganizationData organization:BNOrganization, user:Biinie)
+    
     
     
     ///Request showcase's data

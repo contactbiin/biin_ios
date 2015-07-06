@@ -264,7 +264,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                     totalPoints = self.elements!.count * pointsByElement
                     currentPoints = self.site!.organization!.loyalty!.points
                     self.updatePointCounter()
-                    self.site!.organization!.loyalty!.points += totalPoints
+                    self.site!.organization!.addPoints(totalPoints)
                     showcase!.isShowcaseGameCompleted = true
                     father!.changeJoinBtnText("You have \(self.site!.organization!.loyalty!.points) points with us!")
                 }
@@ -278,17 +278,17 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     func updatePoints(sender:NSTimer){
         
-        currentPoints++
+//        currentPoints++
         
-        if currentPoints <= self.site!.organization!.loyalty!.points {
+//        if currentPoints <= self.site!.organization!.loyalty!.points {
             //gameView!.updatePointLbl("\(currentPoints)")
             //TODO: update bottom label on site
             (father! as! SiteView).updateLoyaltyPoints()
             
-        }else {
+//        }else {
             timer!.invalidate()
             gameView!.startToAnimateCirclesOnCompleted()
-        }
+//        }
     }
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {

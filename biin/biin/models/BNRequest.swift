@@ -25,6 +25,7 @@ enum BNRequestType
     case RegionData             //request region data on BNNetworkManager
     case UserCategories         //request user categories data on BNNetworkManager
     case SiteData
+    case OrganizationData
     case HighlightsData
     case ShowcaseData           //request showcase data on BNNetworkManager
     case ElementData     //request element data for a user

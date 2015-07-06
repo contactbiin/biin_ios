@@ -63,7 +63,7 @@ class LoyaltiesMiniView: BNView {
         xpos += (avatarWidth + 5)
         ypos = 20
         title = UILabel(frame: CGRectMake(xpos, ypos, (screenWidth - 110), 20))
-        title!.text = self.organization!.title!
+        title!.text = self.organization!.brand!
         title!.textColor = UIColor.appTextColor()
         title!.font = UIFont(name: "Lato-Black", size: 18)
         title!.textAlignment = NSTextAlignment.Left

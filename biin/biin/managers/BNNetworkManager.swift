@@ -495,6 +495,84 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     }
 
+    func sendBiiniePoints(user:Biinie, organization:BNOrganization, points:Int) {
+        
+        println("sendBiiniePoints(\(user.email))")
+        
+        var request:BNRequest?
+        
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
+        }else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        //{"model":{"points”:Number}}
+//        var model = ["model":Array<Dictionary <String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
+//        model["model"]?.append(["points":"\(organization.loyalty!.points)"])
+//        
+        var model = Dictionary<String, Dictionary <String, Int>>()
+        
+        //for (key, value) in categories {
+        var modelContent = Dictionary<String, Int>()
+        modelContent["points"] = points
+        model["model"] = modelContent
+        
+        var httpError: NSError?
+        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        
+        var response:BNResponse?
+        
+        epsNetwork!.put(request!.requestString, htttpBody:htttpBody, callback: {
+            
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            println("*** data: \(data)")
+            
+            if (error != nil) {
+                println("Error on sending points")
+                self.handleFailedRequest(request!, error: error )
+                
+                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                println("*** Posting points for user \(user.email!) SUCK - FAILED!")
+                println("*** data \(data)")
+                
+                
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    
+                    var status = self.findInt("status", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: dataData)
+                    //var identifier = self.findString("identifier", dictionary: dataData)
+                    
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        println("*** Register points for user: \(user.email!) COOL!")
+                        //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
+                    } else {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        println("*** Register points for user: \(user.email!) SUCK!")
+                    }
+                    
+                    self.delegateVC!.manager!(self, didReceivedCategoriesSavedConfirmation: response)
+                    //                    self.delegateVC!.manager!(self, didReceivedRegisterConfirmation: response)
+                    
+                    if self.isRequestTimerAllow {
+                        self.runRequest()
+                    }
+                }
+                
+                self.removeRequestOnCompleted(request!.identifier)
+                
+            }
+            
+        })
+    }
+
+    
     
     
 //    func requestInitialData() {
@@ -1248,18 +1326,19 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     }
                     
                     
-                    var loyaltyData = self.findNSDictionary("loyalty", dictionary: dataData)
-                    var loyalty = BNLoyalty()
-                    loyalty.isSubscribed = self.findBool("isSubscribed", dictionary: loyaltyData!)
-                    
-                    if loyalty.isSubscribed {
-                        loyalty.points = 459// self.findInt("points", dictionary:loyaltyData!)!
-                        loyalty.subscriptionDate = self.findNSDate("subscriptionDate", dictionary:loyaltyData!)
-                        loyalty.level = self.findInt("level", dictionary:loyaltyData!)!
-                        //TODO: Add achievements and badges.
-                    }
-
-                    site.loyalty = loyalty
+//                    var loyaltyData = self.findNSDictionary("loyalty", dictionary: dataData)
+//                    var loyalty = BNLoyalty()
+//                    loyalty.isSubscribed = self.findBool("isSubscribed", dictionary: loyaltyData!)
+//                    
+//                    loyalty.isSubscribed = true
+//                    if loyalty.isSubscribed {
+//                        loyalty.points = 100// self.findInt("points", dictionary:loyaltyData!)!
+//                        //loyalty.subscriptionDate = self.findNSDate("subscriptionDate", dictionary:loyaltyData!)
+//                        loyalty.level = self.findInt("level", dictionary:loyaltyData!)!
+//                        //TODO: Add achievements and badges.
+//                    }
+//
+//                    site.loyalty = loyalty
                     
                     self.delegateDM!.manager!(self, didReceivedSite:site)
                     
@@ -1274,6 +1353,279 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             }
         }
     }
+    
+    
+    
+    ///Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
+    func manager(manager: BNDataManager!, requestOrganizationData organization: BNOrganization, user: Biinie) {
+        
+        // /mobile/biinies/:identifier/organizations/:organizationIdentifier
+        
+        var request:BNRequest?
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
+        } else {
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
+        }
+        
+        self.requests[request!.identifier] = request
+        
+        if !isRequestTimerAllow {
+            self.requestOrganizationData(request!, organization:organization)
+        }
+    }
+    
+    ///Handles the request for a site's data.
+    ///
+    ///:param: The request to be process.
+    func requestOrganizationData(request:BNRequest, organization:BNOrganization) {
+        
+        println("\(request.requestString)")
+        
+        epsNetwork!.getJson(request.requestString) {
+            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
+            if (error != nil) {
+                println("Error on requestOrganizationData()")
+                println("\(error!.description)")
+                self.handleFailedRequest(request, error: error )
+            } else {
+                
+                if let dataData = data["data"] as? NSDictionary {
+                    /*
+                    {
+                        "data": {
+                            "organization": {
+                                "_id": "55884b460b9a480300f3a898",
+                                "media": [
+                                {
+                                "_id": "55884bd20b9a480300f3a899",
+                                "imgUrl": "https://s3-us-west-2.amazonaws.com/biin/dd67a4a7-1d9e-4e78-96c8-a5f39d9aefb1/media/dd67a4a7-1d9e-4e78-96c8-a5f39d9aefb1/6398e1fa-2e04-41f6-ba88-fe2fa5b661c8/media/img.png",
+                                "title1": ""
+                                }
+                                ],
+                                "extraInfo": "NA",
+                                "description": "Convertimos sueños emprendedores en realidades, mediante el desarrollo y prueba de prototipos",
+                                "brand": "Agencia Universitaria de Gestión del emprendimiento",
+                                "name": "Auge"
+                            },
+                            "loyalty": {
+                                "_id": "559aaa73152b3d03005f8053",
+                                "badges": [],
+                                "achievements": [],
+                                "level": "0",
+                                "points": "110",
+                                "subscriptionDate": "2015-07-06 16:18:59",
+                                "isSubscribed": "1",
+                                "organizationIdentifier": "6398e1fa-2e04-41f6-ba88-fe2fa5b661c8"
+                            }
+                        },
+                        "status": 0
+                    }
+                    */
+
+                    var organizationData = self.findNSDictionary("organization", dictionary: dataData)
+
+                    
+                    organization.name = self.findString("name", dictionary: organizationData!)
+                    organization.brand = self.findString("brand", dictionary: organizationData!)
+                    organization.extraInfo = self.findString("extraInfo", dictionary: organizationData!)
+                    organization.organizationDescription = self.findString("description", dictionary: organizationData!)
+                    
+                    var mediaArray = self.findNSArray("media", dictionary: organizationData!)
+
+                    for var i = 0; i < mediaArray?.count; i++ {
+                        var mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
+                        var url = self.findString("imgUrl", dictionary:mediaData)
+                        var type = self.findMediaType("mediaType", dictionary: mediaData)
+                        var domainColor = self.findUIColor("domainColor", dictionary: mediaData)
+                        var media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
+                        organization.media.append(media)
+                    }
+   
+                    var loyaltyData = self.findNSDictionary("loyalty", dictionary: dataData)
+                    var loyalty = BNLoyalty()
+                    loyalty.isSubscribed = self.findBool("isSubscribed", dictionary: loyaltyData!)
+
+                    loyalty.isSubscribed = true
+                    
+                    if loyalty.isSubscribed {
+                        loyalty.points = self.findInt("points", dictionary:loyaltyData!)!
+                        loyalty.subscriptionDate = self.findNSDate("subscriptionDate", dictionary:loyaltyData!)
+                        loyalty.level = self.findInt("level", dictionary:loyaltyData!)!
+                    }
+                    
+                    organization.loyalty = loyalty
+                    
+                    
+//                    var site = BNSite()
+//                    site.biinieProximity = psite.biinieProximity!
+//                    site.jsonUrl = request.requestString
+//                    site.identifier = self.findString("identifier", dictionary: dataData)
+//                    site.proximityUUID = self.findNSUUID("proximityUUID", dictionary: dataData)
+//                    site.major = self.findInt("major", dictionary: dataData)
+//                    site.title = self.findString("title", dictionary: dataData)
+//                    site.subTitle = self.findString("subTitle", dictionary: dataData)
+//                    site.titleColor = self.findUIColor("titleColor", dictionary: dataData)
+//                    site.country = self.findString("country", dictionary: dataData)
+//                    site.state = self.findString("state", dictionary: dataData)
+//                    site.city = self.findString("city", dictionary: dataData)
+//                    site.zipCode = self.findString("zipCode", dictionary: dataData)
+//                    site.streetAddress1 = self.findString("streetAddress1", dictionary: dataData)
+//                    site.ubication = self.findString("ubication", dictionary: dataData)
+//                    site.phoneNumber = self.findString("phoneNumber", dictionary: dataData)
+//                    site.email = self.findString("email", dictionary: dataData)
+//                    site.nutshell = self.findString("nutshell", dictionary: dataData)
+//                    
+//                    site.biinedCount = self.findInt("biinedCount", dictionary: dataData)!
+//                    //TODO: Pending "comments": "23", in web service
+//                    site.commentedCount = self.findInt("commentedCount", dictionary: dataData)!
+//                    site.userBiined = self.findBool("userBiined", dictionary: dataData)
+//                    site.userCommented = self.findBool("userCommented", dictionary: dataData)
+//                    site.userShared = self.findBool("userShared", dictionary: dataData)
+//                    
+//                    site.latitude = self.findFloat("latitude", dictionary:dataData)
+//                    site.longitude = self.findFloat("longitude", dictionary:dataData)
+//                    
+//                    var neighbors = self.findNSArray("neighbors", dictionary: dataData)
+//                    
+//                    if neighbors?.count > 0{
+//                        
+//                        site.neighbors = Array<String>()
+//                        
+//                        for var i = 0; i < neighbors?.count; i++ {
+//                            var neighborData = neighbors!.objectAtIndex(i) as! NSDictionary
+//                            var neighbor = self.findString("siteIdentifier", dictionary:neighborData)
+//                            site.neighbors!.append(neighbor!)
+//                        }
+//                    }
+//                    
+//                    var mediaArray = self.findNSArray("media", dictionary: dataData)
+//                    
+//                    for var i = 0; i < mediaArray?.count; i++ {
+//                        var mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
+//                        var url = self.findString("imgUrl", dictionary:mediaData)
+//                        var type = self.findMediaType("mediaType", dictionary: mediaData)
+//                        var domainColor = self.findUIColor("domainColor", dictionary: mediaData)
+//                        var media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
+//                        site.media.append(media)
+//                    }
+//                    
+//                    var showcases = self.findNSArray("showcases", dictionary: dataData)
+//                    
+//                    if showcases?.count > 0 {
+//                        
+//                        site.showcases = Array<BNShowcase>()
+//                        
+//                        for var i = 0; i < showcases?.count; i++ {
+//                            var showcaseData = showcases!.objectAtIndex(i) as! NSDictionary
+//                            var identifier = self.findString("identifier", dictionary:showcaseData)
+//                            var showcase = BNShowcase()
+//                            showcase.identifier = identifier
+//                            showcase.siteIdentifier = site.identifier!
+//                            site.showcases!.append(showcase)
+//                        }
+//                    }
+//                    
+//                    var biins = self.findNSArray("biins", dictionary: dataData)
+//                    
+//                    for var j = 0; j < biins?.count; j++ {
+//                        if let biinData = biins!.objectAtIndex(j) as? NSDictionary {
+//                            var biin = BNBiin()
+//                            biin.identifier = self.findString("identifier", dictionary: biinData)
+//                            biin.accountIdentifier = self.findString("accountIdentifier", dictionary: biinData)
+//                            biin.siteIdentifier = self.findString("siteIdentifier", dictionary: biinData)
+//                            biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
+//                            biin.major = self.findInt("major", dictionary: biinData)
+//                            biin.minor = self.findInt("minor", dictionary: biinData)
+//                            biin.proximityUUID = self.findNSUUID("proximityUUID", dictionary: biinData)
+//                            biin.venue = self.findString("venue", dictionary: biinData)
+//                            biin.name = self.findString("name", dictionary: biinData)
+//                            biin.biinType = self.findBNBiinType("biinType", dictionary: biinData)
+//                            biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
+//                            
+//                            //REMOVE ->
+//                            biin.site = site
+//                            //biin.lastUpdate = self.findNSDate("lastUpdate", dictionary: biinData)
+//                            //REMOVE <-
+//                            
+//                            
+//                            var children = self.findNSArray("children", dictionary: biinData)
+//                            
+//                            if children?.count > 0 {
+//                                
+//                                biin.children = Array<Int>()
+//                                
+//                                for var i = 0; i < children?.count; i++ {
+//                                    var child = (children!.objectAtIndex(i) as? String)?.toInt()
+//                                    biin.children!.append(child!)
+//                                }
+//                            }
+//                            
+//                            var objects = self.findNSArray("objects", dictionary: biinData)
+//                            
+//                            if objects!.count > 0 {
+//                                biin.objects = Array<BNBiinObject>()
+//                                for var k = 0; k < objects!.count; k++ {
+//                                    if let objectData = objects!.objectAtIndex(k) as? NSDictionary {
+//                                        var object = BNBiinObject()
+//                                        object._id = self.findString("_id", dictionary: objectData)
+//                                        object.identifier = self.findString("identifier", dictionary: objectData)
+//                                        object.isDefault = self.findBool("isDefault", dictionary: objectData)
+//                                        object.onMonday = self.findBool("onMonday", dictionary: objectData)
+//                                        object.onTuesday = self.findBool("onTuesday", dictionary: objectData)
+//                                        object.onWednesday = self.findBool("onWednesday", dictionary: objectData)
+//                                        object.onThursday = self.findBool("onThursday", dictionary: objectData)
+//                                        object.onFriday = self.findBool("onFriday", dictionary: objectData)
+//                                        object.onSaturday = self.findBool("onSaturday", dictionary: objectData)
+//                                        object.onSunday = self.findBool("onSunday", dictionary: objectData)
+//                                        object.startTime = self.findFloat("startTime", dictionary: objectData)!
+//                                        object.endTime = self.findFloat("endTime", dictionary: objectData)!
+//                                        object.hasTimeOptions = self.findBool("hasTimeOptions", dictionary: objectData)
+//                                        object.hasNotification = self.findBool("hasNotification", dictionary: objectData)
+//                                        object.notification = self.findString("notification", dictionary: objectData)
+//                                        object.isUserNotified = self.findBool("isUserNotified", dictionary: objectData)
+//                                        object.isBiined = self.findBool("isBiined", dictionary: objectData)
+//                                        object.objectType = self.findBiinObjectType("objectType", dictionary: objectData)
+//                                        biin.objects!.append(object)
+//                                    }
+//                                }
+//                            }
+//                            
+//                            site.biins.append(biin)
+//                        }
+//                    }
+                    
+                    
+//                    var loyaltyData = self.findNSDictionary("loyalty", dictionary: dataData)
+//                    var loyalty = BNLoyalty()
+//                    loyalty.isSubscribed = self.findBool("isSubscribed", dictionary: loyaltyData!)
+//                    
+//                    loyalty.isSubscribed = true
+//                    if loyalty.isSubscribed {
+//                        loyalty.points = 100// self.findInt("points", dictionary:loyaltyData!)!
+//                        //loyalty.subscriptionDate = self.findNSDate("subscriptionDate", dictionary:loyaltyData!)
+//                        loyalty.level = self.findInt("level", dictionary:loyaltyData!)!
+//                        //TODO: Add achievements and badges.
+//                    }
+//                    
+//                    site.loyalty = loyalty
+//                    
+//                    self.delegateDM!.manager!(self, didReceivedSite:site)
+//                    
+//                    if self.isRequestTimerAllow {
+//                        self.runRequest()
+//                    }
+//                }
+                }
+                self.removeRequestOnCompleted(request.identifier)
+
+            }
+        }
+    }
+
+    
+    
     
     func manager(manager: BNDataManager!, requestHighlightsData user: Biinie) {
 
