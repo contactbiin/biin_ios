@@ -141,7 +141,108 @@ class BNBiin:NSObject
     
     func assingCurrectObject(){
         //TODO: get the correct object depending on the time and properties.
-        currentObjectIndex = 0
+        var isCurrentObjectSet = false
+        
+        if objects!.count > 0 {
+        
+            let date = NSDate()
+            let calendar = NSCalendar.currentCalendar()
+            let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
+            let hour = components.hour
+            let minutes = components.minute
+            let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
+            
+            var isAvailableToday = false
+            
+            for var i = 0; i < objects?.count; i++ {
+                if currentTime >= objects![i].startTime {
+                    if currentTime <= objects![i].endTime {
+                        if let dayNumber = getDayOfWeek() {
+                            switch dayNumber {
+                            case 1://Sunday
+                                if objects![i].onSunday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 2://Monday
+                                if objects![i].onMonday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 3://Tuesday
+                                if objects![i].onTuesday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 4://Wednesday
+                                if objects![i].onWednesday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 5://Thurday
+                                if objects![i].onThursday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 6://Friday
+                                if objects![i].onFriday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 7://Saturday
+                                if objects![i].onSaturday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            default:
+                                isAvailableToday = false
+                                break
+                            }
+                        }
+                        
+                        if isAvailableToday {
+                            currentObjectIndex = i
+                            isCurrentObjectSet = true
+                            println("Day:\(getDayOfWeek())")
+                            println("CUrrent object:\(objects![i].identifier!) index;\(currentObjectIndex)")
+                            println("Start time:\(objects![currentObjectIndex].startTime)")
+                            println("End time: \(objects![currentObjectIndex].endTime)")
+
+                        } else {
+                            currentObjectIndex = 0
+                            isCurrentObjectSet = true
+                            println("Day:\(getDayOfWeek())")
+                            println("CUrrent object index;\(currentObjectIndex)")
+                            println("Start time:\(objects![currentObjectIndex].startTime)")
+                            println("End time: \(objects![currentObjectIndex].endTime)")
+                        }
+                    }
+                }
+            }
+        }
+        
+        if !isCurrentObjectSet {
+            println("Setting defaul!")
+            currentObjectIndex = 0
+            println("CUrrent object index;\(currentObjectIndex)")
+            println("Start time:\(objects![currentObjectIndex].startTime)")
+            println("End time: \(objects![currentObjectIndex].endTime)")
+        }
+    }
+    
+    func getDayOfWeek()->Int? {
+        
+        let formatter  = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        var today = NSDate().bnShortDateFormat()
+        if let todayDate = formatter.dateFromString(today) {
+            let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            let myComponents = myCalendar.components(.CalendarUnitWeekday, fromDate: todayDate)
+            let weekDay = myComponents.weekday
+            return weekDay
+        } else {
+            return nil
+        }
     }
     
     func didUserBiinedSomethingInBiinObjects()->Bool {

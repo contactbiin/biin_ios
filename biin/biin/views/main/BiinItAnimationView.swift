@@ -26,7 +26,7 @@ class BiinItAnimationView:UIView {
         self.addSubview(animatedCircle!)
         animatedCircle!.alpha = 0
 
-        println("w: \(frame.width) , h:\(frame.height)")
+        //println("w: \(frame.width) , h:\(frame.height)")
         
         var x:CGFloat = ((frame.width - 86) / 2 )
         var y:CGFloat = ((frame.height - 86 ) / 2 )

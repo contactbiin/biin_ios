@@ -179,7 +179,6 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
                 scroll!.addSubview(elementMiniView)
                 
                 if columnCounter < 3 {
-                    println("request image")
                     elementMiniView.requestImage()
                 }
                 
@@ -222,7 +221,6 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
     }
     
     override func refresh() {
-        println("refresh all biins")
     }
     
     /* UIScrollViewDelegate Methods */

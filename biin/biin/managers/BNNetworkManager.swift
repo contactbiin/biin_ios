@@ -71,7 +71,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func checkConnectivity() {
         
-        println("checkConnectivity()")
         var request = BNRequest(requestString:connectibityUrl, dataIdentifier: "", requestType:.ConnectivityCheck)
         self.requests[request.identifier] = request
         
@@ -79,12 +78,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("Error on regions data - Not connection available")
+                //println("Error on regions data - Not connection available")
                 self.errorManager!.showInternetError()
                 self.handleFailedRequest(request, error: error )
             } else {
-                
-                println("Connection OK")
+
                 self.delegateDM!.manager!(self, didReceivedConnectionStatus: true)
                 self.removeRequestOnCompleted(request.identifier)
 //                self.requests.removeValueForKey(request.identifier)
@@ -103,7 +101,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
         
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
             
@@ -120,12 +118,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("Error on regions data")
+                
                 self.handleFailedRequest(request!, error: error)
                 
                 response = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
                 self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
-                println("*** Register for user \(email) SUCK - FAILED!")
+                
                 
             } else {
                 
@@ -137,11 +135,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                        println("*** Login for user \(email) COOL!")
+//                        println("*** Login for user \(email) COOL!")
                         self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                        println("*** Login for user \(email) SUCK - NO USER!")
+//                        println("*** Login for user \(email) SUCK - NO USER!")
                     }
                     
                     self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
@@ -156,16 +154,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 
             }
         }
-
     }
     
     func register(user:Biinie) {
         
-        println("login(\(user.email))")
 
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
         } else  {
             
@@ -184,20 +180,20 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.handleFailedRequest(request!, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
-                println("*** Register for user \(user.email!) SUCK - FAILED!")
+//                println("*** Register for user \(user.email!) SUCK - FAILED!")
                 
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    println("REGISTER DATA: \(dataData)")
+//                    println("REGISTER DATA: \(dataData)")
                     var status = self.findInt("status", dictionary: dataData)
                     var result = self.findBool("result", dictionary: dataData)
                     var identifier = self.findString("identifier", dictionary: dataData)
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                        println("*** Register for user \(user.email!) COOL!")
+//                        println("*** Register for user \(user.email!) COOL!")
                         self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
                         
                     } else {
@@ -226,7 +222,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
@@ -301,7 +297,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
@@ -394,7 +390,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
@@ -556,7 +552,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 break
             }
             
-            println("Request pending: \(requests.count)")
+            //println("Request pending: \(requests.count)")
             return
         }
         
@@ -564,11 +560,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func manager(manager:BNDataManager!, checkIsEmailVerified identifier:String) {
 
-        println("checkIsEmailVerified for identifier: \(identifier)")
+        //println("checkIsEmailVerified for identifier: \(identifier)")
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
         } else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
@@ -621,7 +617,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func requestRegions() {
         println("requestRegions")
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/regions", dataIdentifier: "", requestType:.Regions)
         } else  {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/regions", dataIdentifier: "", requestType:.Regions)
@@ -686,7 +682,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString: "https://www.biinapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
         } else {
             request = BNRequest(requestString: "http://biin.herokuapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
@@ -762,7 +758,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //https://biin-qa.herokuapp.com/mobile/biinies/0742cc4b-cc5e-48cb-ab86-9acbc2577548/bnHome/categories
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
@@ -785,7 +781,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //        }
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             //nota simulator
@@ -961,7 +957,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             //nota simulator
@@ -1047,7 +1043,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
         } else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
@@ -1175,6 +1171,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                             biin.venue = self.findString("venue", dictionary: biinData)
                             biin.name = self.findString("name", dictionary: biinData)
                             biin.biinType = self.findBNBiinType("biinType", dictionary: biinData)
+                            biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
                             
                             //REMOVE ->
                             biin.site = site
@@ -1255,9 +1252,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     var loyalty = BNLoyalty()
                     loyalty.isSubscribed = self.findBool("isSubscribed", dictionary: loyaltyData!)
                     
-                    //HACK:
-                    loyalty.isSubscribed = true
-                    
                     if loyalty.isSubscribed {
                         loyalty.points = 459// self.findInt("points", dictionary:loyaltyData!)!
                         loyalty.subscriptionDate = self.findNSDate("subscriptionDate", dictionary:loyaltyData!)
@@ -1288,7 +1282,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var runRequest = false
         var request:BNRequest?
         var showcase:BNShowcase?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
             showcase = BNShowcase()
             request!.showcase = showcase!
@@ -1389,7 +1383,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var runRequest = false
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
             request!.showcase = showcase
             self.requests[request!.identifier] = request
@@ -1486,7 +1480,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func manager(manager: BNDataManager!, requestHightlightDataForBNUser element: BNElement, user: Biinie) {
         var runRequest = false
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             //TODO: Add highlight url
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
@@ -1514,7 +1508,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var runRequest = false
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
             self.requests[request!.identifier] = request
@@ -1813,7 +1807,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
         } else  {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
@@ -1941,7 +1935,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
@@ -2016,7 +2010,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
 
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
@@ -2088,7 +2082,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
@@ -2161,7 +2155,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
@@ -2241,7 +2235,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
@@ -2313,7 +2307,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
@@ -2384,7 +2378,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         //localhost:5000/mobile/biinies/:biinieIdentifier/biin/:biinIdentifier/object/:objectIdentifier/notified
 
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
         }else {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
@@ -2590,7 +2584,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_RELEASE {
+        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
         } else  {
             request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
@@ -3135,6 +3129,12 @@ extension NSDate {
     func bnDisplayDateFormatt()->String{
         let formatter = NSDateFormatter()
         formatter.dateFormat = "dd MMM yyyy"
+        return formatter.stringFromDate(self)
+    }
+    
+    func bnShortDateFormat()->String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
         return formatter.stringFromDate(self)
     }
     

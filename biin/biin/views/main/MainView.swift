@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate, LoyaltiesView_Delegate {
     
     var delegate:MainViewDelegate?
     var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -20,13 +20,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     //var isSectionOrShowcase = false
     var lastOption = 1
     
-    
     //states
     var biinieCategoriesState:BiinieCategoriesState?
     var siteState:SiteState?
     var profileState:ProfileState?
     var collectionsState:CollectionsState?    
     var notificationsState:NotificationsState?
+    var loyaltiesState:LoyaltiesState?
     
     var searchState:SearchState?
     var settingsState:SettingsState?
@@ -95,6 +95,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         notificationsState = NotificationsState(context: self, view: notificationsView)
         notificationsView.delegate = self
         self.addSubview(notificationsView)
+        
+        
+        var loyaltiesView = LoyaltiesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        loyaltiesState = LoyaltiesState(context: self, view: loyaltiesView)
+        loyaltiesView.delegate = self
+        self.addSubview(loyaltiesView)
+        
         
         /*
         //Create views
@@ -249,7 +256,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             self.bringSubviewToFront(state!.view!)
             break
         case 7:
-
+            state!.next(self.loyaltiesState)
+            (state!.view as! LoyaltiesView).updateLoyaltiesMiniViews()
+            self.bringSubviewToFront(state!.view!)
             break
         default:
             break
@@ -315,6 +324,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(lastOption)
     }
     
+    func hideLoyaltiesView(view: LoyaltiesView) {
+        setNextState(lastOption)
+        
+    }
+    
+    func showLoyalties(){
+        
+        println("showLoyalties()")
+    }
     
     func showNotification(){
         //header!.showNotification(quantity)
@@ -326,6 +344,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         //header!.hideNotification()
         (biinieCategoriesState!.view as! BiinieCategoriesView).hideNotification()
     }
+    
+    
     
     override func refresh() {
         biinieCategoriesState!.view!.refresh()

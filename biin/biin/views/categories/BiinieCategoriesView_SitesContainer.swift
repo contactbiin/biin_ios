@@ -275,7 +275,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                     
                     var siteIdentifier = category.sitesDetails[i].identifier!
                     var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
-                    println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
+                    //println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
                     
                     if site!.showInView {
                         sitesArray.append(site!)
@@ -303,7 +303,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         for site in sitesArray {
                     if site.showInView {
                         if !isSiteAdded(site.identifier!) {
-                            println("***** ADDING SITE:\(site.identifier!) title: \(site.title!)")
+                            //println("***** ADDING SITE:\(site.identifier!) title: \(site.title!)")
                             
                             if columnCounter < columns {
                                 columnCounter++
@@ -329,7 +329,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                             for siteView in sites! {
                                 if siteView.site!.identifier == site.identifier! && !siteView.isPositionedInFather {
                                     
-                                    println("***** POSITIONING SITE:\(site.identifier!) title: \(site.title!)")
+                                    //println("***** POSITIONING SITE:\(site.identifier!) title: \(site.title!)")
                                     if columnCounter < columns {
                                         columnCounter++
                                         xpos = xpos + siteSpacer
@@ -386,7 +386,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         var sitesCount = sites!.count
         for var i = 0; i < sites!.count; i++ {
             if sites![i].isReadyToRemoveFromFather {
-                println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
+                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
                 sites![i].removeFromSuperview()
                 sites!.removeAtIndex(i)
                 i = 0
@@ -398,7 +398,6 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     }
     
     override func refresh() {
-        println("refresh all sites")
         addAllSites()
         //getToWork()
     }

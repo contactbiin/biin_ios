@@ -9,10 +9,10 @@ class Biin_Notified_State: Biin_State {
     
     override init(biin: BNBiin?) {
         super.init(biin: biin)
-        println("init() Biin_Notified_State in biin: \(biin!.identifier!) and object: \(biin!.objects![biin!.currentObjectIndex].identifier!)")
+        //println("init() Biin_Notified_State in biin: \(biin!.identifier!) and object: \(biin!.objects![biin!.currentObjectIndex].identifier!)")
     }
     
     override func action() {
-        println("action() on Biin_Notified_State - Not action to follow")
+        //println("action() on Biin_Notified_State - Not action to follow")
     }
 }

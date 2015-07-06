@@ -20,6 +20,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     var regions = Dictionary<String, BNRegion>()
     var sites = Dictionary<String, BNSite>()
+    var organizations = Dictionary<String, BNOrganization>()
     var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
     var elements = Dictionary<String, BNElement>()
@@ -434,8 +435,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
         }
         
-        
-        
         if site.showcases != nil {
             for showcase in site.showcases! {
                 
@@ -452,6 +451,26 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         for biin in sites[site.identifier!]!.biins {
             
             
+            if site.organization == nil {
+                if organizations[biin.organizationIdentifier!] == nil {
+                    //1. Add organization
+                    //2. set site organizarion
+                    organizations[biin.organizationIdentifier!] = BNOrganization(identifier: biin.organizationIdentifier!, loyalty:site.loyalty!)
+                    site.organization = organizations[biin.organizationIdentifier!]
+                    
+                    //HACK, add site's media to organization until it can be download.
+                    if site.media.count > 0 {
+                        organizations[biin.organizationIdentifier!]?.media = site.media
+                        organizations[biin.organizationIdentifier!]?.title = site.title!
+                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
+                    }
+                    
+                } else  {
+                    //2. set site organization
+                    site.organization = organizations[biin.organizationIdentifier!]
+                }
+            }
+            
             //REMOVE ->
             /*
             for showcase in biin.showcases! {
@@ -465,6 +484,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
             */
             //REMOVE <-
+            
+            
+            
             
             if commercialUUID == nil {
                 commercialUUID = biin.proximityUUID

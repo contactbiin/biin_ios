@@ -191,7 +191,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func menuView(menuView: MenuView!, showLoyalty value: Bool) {
-        mainView!.setNextState(5)
+        mainView!.setNextState(7)
     }
     
     func menuView(menuView: MenuView!, showNotifications value: Bool) {
@@ -199,7 +199,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func menuView(menuView: MenuView!, showInviteFriends value: Bool) {
-        mainView!.setNextState(7)
+        //mainView!.setNextState(7)
         sendInvitation()
     }
     

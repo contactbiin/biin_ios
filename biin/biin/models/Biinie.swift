@@ -45,8 +45,6 @@ class Biinie:NSObject, NSCoding {
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String) {
-        println("Biinie init 2")
-        
         self.init()
         self.identifier = identifier
         self.firstName = firstName
@@ -57,16 +55,12 @@ class Biinie:NSObject, NSCoding {
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String, gender:String) {
-        println("Biinie init 1")
         self.init(identifier:identifier, firstName:firstName, lastName:lastName, email:email)
         
         self.gender = gender
     }
     
     required init(coder aDecoder: NSCoder) {
-        
-        println("Biinie aDecoder")
-
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
         self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
@@ -77,11 +71,8 @@ class Biinie:NSObject, NSCoding {
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
-
-        
         self.newNotificationCount = 0
         self.notificationIndex = 0
-        println("Biinie actions: \(actions.count)")
     }
     
     func encodeWithCoder(aCoder: NSCoder) {

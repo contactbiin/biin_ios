@@ -77,6 +77,6 @@ class SiteView_Bottom:BNView {
     //Instance methods
     func updateForSite(site: BNSite?){
         var points = NSLocalizedString("Points", comment: "Points")
-        pointsLbl!.text = "\(points): \(site!.loyalty!.points)"
+        pointsLbl!.text = "\(points): \(site!.organization!.loyalty!.points)"
     }
 }

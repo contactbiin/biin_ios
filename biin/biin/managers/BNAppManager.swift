@@ -10,8 +10,8 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
-    var IS_PRODUCTION_RELEASE = false
-    var IS_DEVELOPMENT = false
+    var IS_PRODUCTION_DATABASE = false
+    var IS_DEVELOPMENT = true
     
     var counter = 0
     var version = "0.1.8"
@@ -51,11 +51,10 @@ class BNAppManager {
         
         // Try loading a saved version first
         if let savedNotificationManager = BNNotificationManager.loadSaved() {
-            println("Loading notificationManager:")
+            
             notificationManager = savedNotificationManager
         } else {
             // Create a new Course List
-            println("Not notificationManager available")
             notificationManager = BNNotificationManager()
             notificationManager.save()
         }
@@ -100,14 +99,10 @@ class BNAppManager {
     }
     
     func continueAfterIntialChecking(){
-        
-        println("continueAfterIntialChecking()")
         networkManager.checkConnectivity()
     }
     
     func biinit(identifier:String, isElement:Bool){
-
-        println("Biinit: \(identifier)")
         
         if isElement {
             dataManager.elements[identifier]?.userBiined = true
@@ -127,7 +122,6 @@ class BNAppManager {
     }
     
     func shareIt(identifier:String, isElement:Bool){
-        println("Shareit: \(identifier)")
 //        mainViewController!.shareIt(identifier, view: view)
         
         if isElement {
@@ -150,14 +144,12 @@ class BNAppManager {
     }
     
     func commentit(identifier:String, comment:String){
-        println("Commentit: \(identifier) comment: \(comment)")
     }
     
     func unBiinit(identifier:String, isElement:Bool){
         
         //The identifier parameter is actually the _id of the element.
         //On site is the identifier.
-        println("unBiinit: \(identifier)")
         
         if isElement {
             dataManager.elements[identifier]?.userBiined = false

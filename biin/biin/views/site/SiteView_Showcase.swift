@@ -182,7 +182,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         xpos += spacer
         
-        if self.site!.loyalty!.isSubscribed {
+        if self.site!.organization!.loyalty!.isSubscribed {
             //Add game view
             gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
             scroll!.addSubview(gameView!)
@@ -231,7 +231,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             return
         }
         
-        if self.site!.loyalty!.isSubscribed {
+        if self.site!.organization!.loyalty!.isSubscribed {
             
             var isShowcaseGameCompleted = true
             var totalPoints = 0
@@ -262,11 +262,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                 
                 if isShowcaseGameCompleted {
                     totalPoints = self.elements!.count * pointsByElement
-                    currentPoints = self.site!.loyalty!.points
+                    currentPoints = self.site!.organization!.loyalty!.points
                     self.updatePointCounter()
-                    self.site!.loyalty!.points += totalPoints
+                    self.site!.organization!.loyalty!.points += totalPoints
                     showcase!.isShowcaseGameCompleted = true
-                    father!.changeJoinBtnText("You have \(self.site!.loyalty!.points) points with us!")
+                    father!.changeJoinBtnText("You have \(self.site!.organization!.loyalty!.points) points with us!")
                 }
             }
         }
@@ -280,7 +280,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         currentPoints++
         
-        if currentPoints <= self.site!.loyalty!.points {
+        if currentPoints <= self.site!.organization!.loyalty!.points {
             //gameView!.updatePointLbl("\(currentPoints)")
             //TODO: update bottom label on site
             (father! as! SiteView).updateLoyaltyPoints()

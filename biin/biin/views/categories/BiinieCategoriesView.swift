@@ -140,7 +140,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         //Sets all user categories on section for further use
         //BNAppSharedManager.instance.dataManager.loadUserSections()
         
-        println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
 
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
@@ -195,7 +194,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         //Sets all user categories on section for further use
         //BNAppSharedManager.instance.dataManager.loadUserSections()
         
-        println("BiinieCategoriesView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
         //println("Categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
 
         
@@ -402,7 +400,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         if page != panIndex {
             
             panIndex = page
-            println("change categories to \(panIndex)")
             
             for container in categorySitesContainers! {
                 container.getToRest()
@@ -429,7 +426,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
 
     func showElementView(elementMiniView:ElementMiniView?){
         
-        println("BiinieCategoriesView.showElementView()")
         
         elementView!.updateElementData(elementMiniView)
         
@@ -455,12 +451,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     
     
     func updateHighlightsContainer(view: MainView, update: Bool) {
-        println("updateHighlightsContainer() in BiinieCategoriesView")
         highlightsContainer!.updateHighlights()
     }
     
     func updateBiinsContainer(view: MainView, update: Bool) {
-        println("updateBiinsContainer() in BiinieCategoriesView")
         biinsContainer!.updateContainer()
     }
 }
