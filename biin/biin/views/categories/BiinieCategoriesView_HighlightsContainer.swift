@@ -201,6 +201,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
     }
     
     override func refresh() {
+        //updateHighlights()
     }
     
     /* UIScrollViewDelegate Methods */

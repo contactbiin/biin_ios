@@ -56,6 +56,7 @@ class BNBiin:NSObject
     }
     
     func currectObject() ->BNBiinObject {
+        assingCurrectObject()
         return objects![currentObjectIndex]
     }
     
@@ -154,67 +155,74 @@ class BNBiin:NSObject
             
             var isAvailableToday = false
             
+            var dayNumber = getDayOfWeek()
             for var i = 0; i < objects?.count; i++ {
+                
+//                println("Day:\(getDayOfWeek())")
+//                println("CUrrent object:\(objects![i].identifier!) index;\(i)")
+//                println("Start time:\(objects![i].startTime)")
+//                println("End time: \(objects![i].endTime)")
+                
                 if currentTime >= objects![i].startTime {
                     if currentTime <= objects![i].endTime {
-                        if let dayNumber = getDayOfWeek() {
-                            switch dayNumber {
-                            case 1://Sunday
-                                if objects![i].onSunday {
-                                    isAvailableToday = true
-                                }
-                                break
-                            case 2://Monday
-                                if objects![i].onMonday {
-                                    isAvailableToday = true
-                                }
-                                break
-                            case 3://Tuesday
-                                if objects![i].onTuesday {
-                                    isAvailableToday = true
-                                }
-                                break
-                            case 4://Wednesday
-                                if objects![i].onWednesday {
-                                    isAvailableToday = true
-                                }
-                                break
-                            case 5://Thurday
-                                if objects![i].onThursday {
-                                    isAvailableToday = true
-                                }
-                                break
-                            case 6://Friday
-                                if objects![i].onFriday {
-                                    isAvailableToday = true
-                                }
-                                break
-                            case 7://Saturday
-                                if objects![i].onSaturday {
-                                    isAvailableToday = true
-                                }
-                                break
-                            default:
-                                isAvailableToday = false
-                                break
+
+                        switch dayNumber {
+                        case 1://Sunday
+                            if objects![i].onSunday {
+                                isAvailableToday = true
                             }
+                            break
+                        case 2://Monday
+                            if objects![i].onMonday {
+                                isAvailableToday = true
+                            }
+                            break
+                        case 3://Tuesday
+                            if objects![i].onTuesday {
+                                isAvailableToday = true
+                            }
+                            break
+                        case 4://Wednesday
+                            if objects![i].onWednesday {
+                                isAvailableToday = true
+                            }
+                            break
+                        case 5://Thurday
+                            if objects![i].onThursday {
+                                isAvailableToday = true
+                            }
+                            break
+                        case 6://Friday
+                            if objects![i].onFriday {
+                                isAvailableToday = true
+                            }
+                            break
+                        case 7://Saturday
+                            if objects![i].onSaturday {
+                                isAvailableToday = true
+                            }
+                            break
+                        default:
+                            isAvailableToday = false
+                            break
                         }
+
                         
                         if isAvailableToday {
                             currentObjectIndex = i
                             isCurrentObjectSet = true
-                            println("Day:\(getDayOfWeek())")
-                            println("CUrrent object:\(objects![i].identifier!) index;\(currentObjectIndex)")
-                            println("Start time:\(objects![currentObjectIndex].startTime)")
-                            println("End time: \(objects![currentObjectIndex].endTime)")
+//                            println("Day:\(getDayOfWeek())")
+//                            println("CUrrent object:\(objects![i].identifier!) index;\(currentObjectIndex)")
+//                            println("Start time:\(objects![currentObjectIndex].startTime)")
+//                            println("End time: \(objects![currentObjectIndex].endTime)")
 
                         } else {
                             currentObjectIndex = 0
                             isCurrentObjectSet = true
-                            println("Day:\(getDayOfWeek())")
-                            println("CUrrent object index;\(currentObjectIndex)")
-                            println("Start time:\(objects![currentObjectIndex].startTime)")
-                            println("End time: \(objects![currentObjectIndex].endTime)")
+//                            println("Day:\(getDayOfWeek())")
+//                            println("CUrrent object index;\(currentObjectIndex)")
+//                            println("Start time:\(objects![currentObjectIndex].startTime)")
+//                            println("End time: \(objects![currentObjectIndex].endTime)")
                         }
                     }
                 }
@@ -230,7 +238,7 @@ class BNBiin:NSObject
         }
     }
     
-    func getDayOfWeek()->Int? {
+    func getDayOfWeek()->Int {
         
         let formatter  = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -241,7 +249,7 @@ class BNBiin:NSObject
             let weekDay = myComponents.weekday
             return weekDay
         } else {
-            return nil
+            return 0
         }
     }
     

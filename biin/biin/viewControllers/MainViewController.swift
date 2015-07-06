@@ -56,6 +56,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.delegate = self
+        BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, (frame.height - 10)), father:nil, rootViewController: self)
         mainView!.delegate = self

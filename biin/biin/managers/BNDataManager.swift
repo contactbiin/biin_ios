@@ -571,6 +571,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         /*
         for element in showcase.elements {
 
+
             //Check if element exist.
             if elements[element._id!] == nil {
                 //Element does not exist, store it and request it's data.
@@ -587,6 +588,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         */
     }
     
+    func checkAllShowcasesCompleted(){
+        for (identifier, showcase) in showcases {
+            showcase.isShowcaseGameCompleted = true
+            for element in showcase.elements {
+                if !BNAppSharedManager.instance.dataManager.elements[element._id!]!.userViewed {
+                    showcase.isShowcaseGameCompleted = false
+                    break
+                }
+            }
+        }
+    }
     ///Received biined element list and start proccesing depending on data store.
     ///:param: Network manager that handled the request.
     ///:param: BNElement list received from web service in json format already parse in an array object.
@@ -729,6 +741,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 element._id = key
                 elements[key] = element.clone()
                 println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
+                
+                if bnUser!.elementsViewed[element._id!] != nil {
+                    elements[key]?.userViewed = true
+                }
             }
         }
     }

@@ -227,6 +227,7 @@ class ElementMiniView: BNView {
     }
     
     func userViewedElement(){
+        BNAppSharedManager.instance.dataManager.bnUser!.addElementView(element!._id!)
         element!.userViewed  = true
         header!.circleLabel?.animateCircleIn()
     }

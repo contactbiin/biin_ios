@@ -165,6 +165,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         var elementPosition:Int = 1
         var xpos:CGFloat = spacer
+        var elementsViewed = 0
         elements = Array<ElementMiniView>()
         
         for element in showcase!.elements {
@@ -174,6 +175,12 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             scroll!.addSubview(elementView)
             elements!.append(elementView)
             elementPosition++
+            
+  
+            
+            if element.userViewed {
+                elementsViewed++
+            }
             
             if elementPosition < 3 {
                 elementView.requestImage()
@@ -197,6 +204,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.bounces = false
         scroll!.pagingEnabled = false
+        
+        if !self.showcase!.isShowcaseGameCompleted {
+            var of = NSLocalizedString("Of", comment: "Of")
+            gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
+        }
     }
     
     /* UIScrollViewDelegate Methods */
@@ -258,7 +270,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                     }
                 }
                 
-                gameView!.updateYouSeenLbl("\(elementsViewed) of \(self.elements!.count)")
+                var of = NSLocalizedString("Of", comment: "Of")
+                gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
                 
                 if isShowcaseGameCompleted {
                     totalPoints = self.elements!.count * pointsByElement
