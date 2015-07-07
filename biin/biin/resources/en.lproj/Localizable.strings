@@ -18,11 +18,12 @@ EmailUs = "Email us";
 CallUs = "Call us";
 Phone = "Phone";
 Password = "Password";
-Login = "Log in";
-ImNewHere = "I'm new here!";
+Login = "Sign In";
+ImNewHere = "Or, create an account";
 SignUpMsj = "Sign up using your email address.";
 LetsGetStarted = "Let's get started!";
-DontForget = "Don't forget to check your inbox and verify your email address later on.";
+DontForget = "* Don't forget to check your inbox and verify your email address later on.";
+HardwareError = "Your device does not support Biin due to harware requirements, please close this app.";
 PleaseWait = "Please wait a moment!";
 Yes = "yes";
 No = "no";
@@ -39,6 +40,7 @@ Discount = "DISCOUNT";
 Savings = "SAVINGS";
 YouSave = "YOU SAVE";
 Value = "VALUE";
+Calcel = "Cancel";
 
 /* Menu buttons */
 Profile = "Profile";
@@ -90,8 +92,7 @@ Done = "Done!";
 ThankYouStop = "Thank you for stoping by.";
 
 /* Login View*/
-Wellcome = "Welcome to biin!";
-
+Wellcome = "Welcome!";
 
 /* Email messaje*/
 EmailMsj = "Hello there!";
@@ -104,3 +105,18 @@ Places = "Sites";
 HightLights = "HightLights";
 Biins = "Biins";
 Biined = "Biined!";
+NotBiins = "It seems there are not Biins around here!";
+
+/*Invite friends   hey check out the Salmon al Limo from Spoon  */
+InviteSubject = "Shoping and having fun with Biin";
+InviteBody = "The best offers and places in your hand. Download Biin at ";
+ShareBody1 = "Hey, check out the ";
+ShareBody2 = "from ";
+ShareBody3 = "The best offers and places in your hand. Download Biin at ";
+
+/*Alert messages*/
+PleaseWait = "Saving, please wait a moment!";
+
+/*Loyalty*/
+Points = "Points";
+Of = "of";

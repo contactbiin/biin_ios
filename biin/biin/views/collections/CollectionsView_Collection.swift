@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate, CollectionView_ItemView_Delegate {
+class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate, ElementMiniView_Delegate {
     
     var title:UILabel?
     var subTitle:UILabel?
@@ -123,7 +123,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     }
     
     func addElementAndSitesViews(){
-        /*
+
         if let elementsList = self.elements {
             for elementView in elements! {
                 elementView.removeFromSuperview()
@@ -131,7 +131,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             
             elements!.removeAll(keepCapacity: false)
         }
-
+        
+        /*
         if let siteList = self.sites {
             for siteView in sites! {
                 siteView.removeFromSuperview()
@@ -140,7 +141,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             sites!.removeAll(keepCapacity: false)
         }
 
-        */
+
         
         if let itemsList = self.items {
             for itemView in items! {
@@ -149,54 +150,61 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             
             items!.removeAll(keepCapacity: false)
         }
-
+        */
         
         var itemPosition:Int = 1
         var xpos:CGFloat = spacer
         elementRequestPreviousLimit = 0
         lastColumnRequested = 0
         isWorking = true
-        //elements = Array<ElementMiniView>()
-//        sites = Array<SiteMiniView>()
-        items = Array<CollectionView_ItemView>()
+        elements = Array<ElementMiniView>()
+        //sites = Array<SiteMiniView>()
+        //items = Array<CollectionView_ItemView>()
         
         println("collection!.items.count: \(collection!.items.count)")
         
-        for item in collection!.items {
+        for (key, value) in collection!.elements {
             
-            var itemView:CollectionView_ItemView?
-            //var elementView:ElementMiniView?
-            if let element = collection!.elements[item] {
-                
-                
-                itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
-                //elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true)
-                    //ElementView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, showBiinItBtn: false)
-    
-                
-            /*} else if let site = collection!.sites[item] {
-                
-                itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: nil, isElement: false, site: site)
-            */
-
-
             
-                if itemPosition < 3 {
-                    itemView!.requestImage()
-                }
+            if let element = BNAppSharedManager.instance.dataManager.elements[value._id!] {
+
+                //var itemView:CollectionView_ItemView?
+                var elementView:ElementMiniView?
+                //if let element = collection!.elements[key] {
                     
+                    
+                    //itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
+                    elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true, isNumberVisible:false)
+                        //ElementView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, showBiinItBtn: false)
+        
+                    
+                /*} else if let site = collection!.sites[item] {
+                    
+                    itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: nil, isElement: false, site: site)
+                */
 
-            
-                itemView!.collectionScrollPosition = itemPosition
-                itemView!.delegate = self
-                xpos += SharedUIManager.instance.miniView_width + spacer
-                //elementView!.delegate = self
-                scroll!.addSubview(itemView!)
-                items!.append(itemView!)
-    //            elements!.append(elementView!)
 
+                
+                    if itemPosition < 3 {
+                        elementView!.requestImage()
+                    }
+                        
+
+                
+                    elementView!.collectionScrollPosition = itemPosition
+                    elementView!.delegate = self
+                    xpos += SharedUIManager.instance.miniView_width + spacer
+                    //elementView!.delegate = self
+                    scroll!.addSubview(elementView!)
+                    //items!.append(itemView!)
+                    elements!.append(elementView!)
+                    itemPosition++
+                    
+                    
+                //}
+            } else {
+                println("ELEMENT NOT FOUND IN COLLECTION: \(value.identifier!)")
             }
-
         }
         
 //        if site!.loyalty!.isSubscribed {
@@ -335,6 +343,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         
         if !isWorking { return }
         
+        if  self.elements == nil { return }
+        
         var width = SharedUIManager.instance.miniView_width + spacer
         var column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
         
@@ -343,8 +353,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             lastColumnRequested = column
             var requestLimit:Int = Int(lastColumnRequested + columns)
             
-            if requestLimit >= collection!.items.count {
-                requestLimit = collection!.items.count - 1
+            if requestLimit >= self.elements!.count {
+                requestLimit = self.elements!.count - 1
                 isWorking = false //reach the limit of requests
             }
             
@@ -357,7 +367,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
                     
                     
 //                    if let element = collection!.elements[collection!.items[i]] {
-                        (items![i] as CollectionView_ItemView).requestImage()
+                        (elements![i] as ElementMiniView).requestImage()
                         
                         
 //                    } else if let site = collection!.sites[collection!.items[i]] {
@@ -382,36 +392,39 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         (father! as! CollectionsView).showElementView(view)
     }
     
-    func resizeScrollOnRemoved(view:CollectionView_ItemView) {
+    func resizeScrollOnRemoved(view:ElementMiniView) {
         var startPosition = 0
-        /*
-        for var i = 0; i < elements!.count; i++ {
-            if elements![i].header!.elementPosition! == view.header!.elementPosition! {
+        
+        for var i = 0; i < self.elements!.count; i++ {
+            if self.elements![i].collectionScrollPosition == view.collectionScrollPosition {
                 startPosition = i
-                elements!.removeAtIndex(i)
+                self.elements!.removeAtIndex(i)
             }
         }
-        */
+        
+        /*
         for var i = 0; i < items!.count; i++ {
             if items![i].collectionScrollPosition == view.collectionScrollPosition {
                 startPosition = i
                 items!.removeAtIndex(i)
             }
         }
+        */
+        
+        println("startPosition: \(startPosition)")
         
         var width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
         var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
-        
-        /*
-        for var i = startPosition; i < elements!.count; i++ {
+
+        for var i = startPosition; i < self.elements!.count; i++ {
             UIView.animateWithDuration(0.2, animations: {()->Void in
                 self.elements![i].frame.origin.x = xpos
             })
             
             xpos += SharedUIManager.instance.miniView_width + spacer
         }
-        */
-        
+
+        /*
         for var i = startPosition; i < items!.count; i++ {
             UIView.animateWithDuration(0.2, animations: {()->Void in
                 self.items![i].frame.origin.x = xpos
@@ -419,7 +432,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
             
             xpos += SharedUIManager.instance.miniView_width + spacer
         }
-        
+        */
         xpos += spacer
         
         //        if site!.loyalty!.isSubscribed {
@@ -437,6 +450,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         //scroll!.setContentOffset(CGPointZero, animated: false)
         //scroll!.bounces = false
         //scroll!.pagingEnabled = false
+        
+        (father as! CollectionsView).updateHighlightsContainer()
         
     }
 

@@ -181,9 +181,19 @@ class CollectionView_ItemView: BNView {
         
         imageRequested = true
         if self.isElement {
-            BNAppSharedManager.instance.networkManager.requestImageData(element!.media[0].url!, image: image)
+            if element!.media.count > 0 {
+                BNAppSharedManager.instance.networkManager.requestImageData(element!.media[0].url!, image: image)
+            } else {
+                image!.image =  UIImage(named: "noImage.jpg")
+                image!.showAfterDownload()
+            }
         } else {
-            BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: image)
+            if site!.media.count > 0 {
+                BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: image)
+            } else {
+                image!.image =  UIImage(named: "noImage.jpg")
+                image!.showAfterDownload()
+            }
         }
     }
     

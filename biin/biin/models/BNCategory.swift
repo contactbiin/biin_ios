@@ -9,6 +9,7 @@ struct BNCategorySiteDetails {
     init(){ }
     var identifier:String?
     var json:String?
+    var biinieProximity:Float?
 }
 
 class BNCategory:NSObject {
@@ -19,6 +20,8 @@ class BNCategory:NSObject {
     var sitesDetails:Array<BNCategorySiteDetails> = Array<BNCategorySiteDetails>()
     var isDownloaded = false
     var isUserCategory = false
+    var hasSites = false
+    var backgroundSites:Dictionary<String, BNSite>?
     
     override init(){
         super.init()

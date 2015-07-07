@@ -146,7 +146,10 @@ class ElementView: BNView {
         self.elementMiniView = elementMiniView
         header!.updateForElement(elementMiniView!.element!)
         imagesScrollView!.updateImages(elementMiniView!.element!.media)
+        buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
 
+        println("element identifier: \(elementMiniView!.element!.identifier!)")
+        
         var ypos:CGFloat = 25
         /*
         if elementMiniView!.element!.hasDiscount {
@@ -169,24 +172,38 @@ class ElementView: BNView {
             priceView!.removeFromSuperview()
             priceView = nil
         }
-
-        if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false)
+        
+        if !elementMiniView!.element!.hasPrice && elementMiniView!.element!.hasDiscount{
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(elementMiniView!.element!.discount!)%", isMini:false, isDiscount:true)
+            scroll!.addSubview(priceView!)
+            ypos += 40
+            
+        } else if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false, isDiscount:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
             
-        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice {
+        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && elementMiniView!.element!.hasDiscount {
             
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
+            
+        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
+            //TODO
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
+            scroll!.addSubview(priceView!)
+            hasPrice = true
+            ypos += 40
+            
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
             
             //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:     NSLocalizedString("From", comment: "From")
-, isMini:false)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:NSLocalizedString("From", comment: "From")
+, isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
             scroll!.addSubview(priceView!)
             hasPrice = true
             ypos += 40
@@ -213,7 +230,7 @@ class ElementView: BNView {
             biinItButton?.showDisable()
             detailsView!.showBiinItButton(false)
         }else {
-            biinItButton?.showEnable()
+            biinItButton!.showEnable()
             detailsView!.showBiinItButton(true)
         }
         
@@ -248,7 +265,6 @@ class ElementView: BNView {
     }
     
     func applyBiinIt(){
-//        header!.updateSocialButtonsForElement(elementMiniView!.element!)
         buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
         biinItButton!.showDisable()
         detailsView!.showBiinItButton(false)
@@ -258,7 +274,6 @@ class ElementView: BNView {
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareIt(elementMiniView!.element!._id!, isElement: true)
         elementMiniView!.element!.userShared = true
-//        header!.updateSocialButtonsForElement(elementMiniView!.element!)
         buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
     }
 }

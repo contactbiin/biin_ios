@@ -10,7 +10,8 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
-    var IS_PRODUCTION_RELEASE = true
+    var IS_PRODUCTION_DATABASE = false
+    var IS_DEVELOPMENT = false
     
     var counter = 0
     var version = "0.1.8"
@@ -21,6 +22,7 @@ class BNAppManager {
     var positionManager:BNPositionManager
     var networkManager:BNNetworkManager
     var errorManager:BNErrorManager
+    var notificationManager:BNNotificationManager
     
     var areNewNotificationsPendingToShow = false
     
@@ -29,6 +31,8 @@ class BNAppManager {
     weak var appDelegate:AppDelegate?
     
     var IS_APP_UP:Bool = false
+    var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
+    var IS_APP_REQUESTING_NEW_DATA = false
     var isWaitingForLocationServicesPermision = false
     
     var elementColorIndex = 0
@@ -43,6 +47,17 @@ class BNAppManager {
         dataManager = BNDataManager(errorManager:errorManager)
         positionManager = BNPositionManager(errorManager:errorManager)
         networkManager = BNNetworkManager(errorManager:errorManager)
+        positionManager.delegateNM = networkManager
+        
+        // Try loading a saved version first
+        if let savedNotificationManager = BNNotificationManager.loadSaved() {
+            
+            notificationManager = savedNotificationManager
+        } else {
+            // Create a new Course List
+            notificationManager = BNNotificationManager()
+            notificationManager.save()
+        }
         
         self.addElementColors()
         
@@ -57,35 +72,37 @@ class BNAppManager {
 
     func continueAppInitialization(){
         
-        if positionManager.checkLocationServicesStatus() {
-            //errorManager.showAlertOnStart(NSError(domain: "Location serives ENABLED", code: 1, userInfo: nil))
-            isWaitingForLocationServicesPermision = false
-            
-            if positionManager.checkHardwareStatus() {
-                if positionManager.checkBluetoothServicesStatus() {
-                    continueAfterIntialChecking()
-                } else {
-                    errorManager.showBluetoothError()
+        if !SimulatorUtility.isRunningSimulator {
+            if positionManager.checkLocationServicesStatus() {
+                //errorManager.showAlertOnStart(NSError(domain: "Location serives ENABLED", code: 1, userInfo: nil))
+                isWaitingForLocationServicesPermision = false
+                
+                if positionManager.checkHardwareStatus() {
+                    if positionManager.checkBluetoothServicesStatus() {
+                        continueAfterIntialChecking()
+                    } else {
+                        errorManager.showBluetoothError()
+                    }
+                } else  {
+                    errorManager.showHardwareNotSupportedError()
                 }
-            } else  {
-                errorManager.showHardwareNotSupportedError()
+                
+            } else {
+                if dataManager.isUserLoaded {
+                    isWaitingForLocationServicesPermision = true
+                    errorManager.showLocationServiceError()
+                }
             }
-            
         } else {
-            isWaitingForLocationServicesPermision = true
-            errorManager.showLocationServiceError()
+            continueAfterIntialChecking()
         }
     }
     
     func continueAfterIntialChecking(){
-        
-        println("continueAfterIntialChecking()")
         networkManager.checkConnectivity()
     }
     
     func biinit(identifier:String, isElement:Bool){
-
-        println("Biinit: \(identifier)")
         
         if isElement {
             dataManager.elements[identifier]?.userBiined = true
@@ -101,11 +118,10 @@ class BNAppManager {
             networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
         }
         
-        dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.append(identifier)
+        //dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.append(identifier)
     }
     
     func shareIt(identifier:String, isElement:Bool){
-        println("Shareit: \(identifier)")
 //        mainViewController!.shareIt(identifier, view: view)
         
         if isElement {
@@ -114,7 +130,7 @@ class BNAppManager {
             
             //dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
             
-            //networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+            networkManager.sendSharedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!)
 
             mainViewController?.shareElement(dataManager.elements[identifier]!)
             
@@ -122,29 +138,30 @@ class BNAppManager {
             dataManager.sites[identifier]?.userShared = true
 //            dataManager.sites[identifier]?.biinedCount++
 //            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
-//            networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+            networkManager.sendSharedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!)
             mainViewController?.shareSite(dataManager.sites[identifier]!)
         }
     }
     
     func commentit(identifier:String, comment:String){
-        println("Commentit: \(identifier) comment: \(comment)")
     }
     
     func unBiinit(identifier:String, isElement:Bool){
         
-        println("unBiinit: \(identifier)")
+        //The identifier parameter is actually the _id of the element.
+        //On site is the identifier.
         
         if isElement {
             dataManager.elements[identifier]?.userBiined = false
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[identifier] = nil
-            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[dataManager.elements[identifier]!.identifier!] = nil
+            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:dataManager.elements[identifier]!.identifier!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         } else {
             dataManager.sites[identifier]?.userBiined = false
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
             networkManager.sendUnBiinedSite(dataManager.bnUser!, siteIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         }
 
+        /*
         if dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.count > 0 {
             var index:Int = 0
             for item in dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items {
@@ -158,7 +175,7 @@ class BNAppManager {
             
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items.removeAtIndex(index)
         }
-        
+        */
         //TODO: inform backend the user remove biined element
     }
     
@@ -166,7 +183,7 @@ class BNAppManager {
         areNewNotificationsPendingToShow = true
         dataManager.bnUser!.newNotificationCount!++
         dataManager.bnUser!.notificationIndex! = notification.identifier
-        dataManager.notifications.append(notification)
+        notificationManager.notifications.append(notification)
 
         //Notify main view to show circle
         delegate!.manager!(showNotifications: true)
@@ -184,6 +201,35 @@ class BNAppManager {
         elementColors.append(UIColor.bnBlueDark())
         elementColors.append(UIColor.bnOrangeBase())
     }
+    
+    /*
+    +(BOOL) runningInBackground
+    {
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    BOOL result = (state == UIApplicationStateBackground);
+    
+    return result;
+    }
+    
+    +(BOOL) runningInForeground
+    {
+    UIApplicationState state = [UIApplication sharedApplication].applicationState;
+    BOOL result = (state == UIApplicationStateActive);
+    
+    return result;
+    }
+*/
+    func runningInBackground()->Bool {
+        var state = UIApplication.sharedApplication().applicationState
+        return state == UIApplicationState.Background
+    }
+    
+    func runningInForeground()->Bool {
+        var state = UIApplication.sharedApplication().applicationState
+        return state == UIApplicationState.Active
+    }
+    
+    
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {

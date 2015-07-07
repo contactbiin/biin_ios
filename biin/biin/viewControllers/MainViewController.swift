@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, UIDocumentInteractionControllerDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -38,7 +38,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         
-        BNAppSharedManager.instance.dataManager.setSitesBiinsCurrentState()
+        BNAppSharedManager.instance.dataManager.startCommercialBiinMonitoring()
+        BNAppSharedManager.instance.positionManager.delegateView = self
         
     }
     
@@ -55,6 +56,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.delegate = self
+        BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, (frame.height - 10)), father:nil, rootViewController: self)
         mainView!.delegate = self
@@ -78,6 +80,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         menuView!.addGestureRecognizer(hideMenuSwipe)
         
+        BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST = true
+        
         //showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         //showMenuSwipe!.edges = UIRectEdge.Left
         //self.view.addGestureRecognizer(showMenuSwipe!)
@@ -86,6 +90,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //statusBarLine.backgroundColor = UIColor.appMainColor()
         //self.view.addSubview(statusBarLine)
         
+    }
+    
+    func refresh(){
+        mainView!.refresh()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
@@ -184,7 +192,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func menuView(menuView: MenuView!, showLoyalty value: Bool) {
-        mainView!.setNextState(5)
+        mainView!.setNextState(7)
     }
     
     func menuView(menuView: MenuView!, showNotifications value: Bool) {
@@ -192,7 +200,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func menuView(menuView: MenuView!, showInviteFriends value: Bool) {
-        mainView!.setNextState(7)
+        //mainView!.setNextState(7)
         sendInvitation()
     }
     
@@ -225,23 +233,29 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
         if response!.code == 0 {
+
+           
+            
             if (alert?.isOn != nil) {
-                alert!.hideWithCallback({() -> Void in
-                    //var vc = LoadingViewController()
-                    //vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-                    //self.presentViewController(vc, animated: true, completion: nil)
-                })
+                alert!.hide()
+                
+//                alert!.hideWithCallback({() -> Void in
+//                    //var vc = LoadingViewController()
+//                    //vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//                    //self.presentViewController(vc, animated: true, completion: nil)
+//                })
             }
             
-        } else {
-            if (alert?.isOn != nil) {
-                alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
-                    self.view.addSubview(self.alert!)
-                    self.alert!.show()
-                })
-            }
         }
+//        else {
+//            if (alert?.isOn != nil) {
+//                alert!.hideWithCallback({() -> Void in
+//                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+//                    self.view.addSubview(self.alert!)
+//                    self.alert!.showAndHide()
+//                })
+//            }
+//        }
         
     }
     
@@ -249,19 +263,18 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Saved, text:"Changes saved!")
-                    self.view.addSubview(self.alert!)
-                    self.alert!.show()
+//                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Saved, text:"Changes saved!")
+//                    self.view.addSubview(self.alert!)
+//                    self.alert!.showAndHide()
+                    BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
                 })
             }
-
-            
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
                     self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
                     self.view.addSubview(self.alert!)
-                    self.alert!.show()
+                    self.alert!.showAndHide()
                 })
             }
         }
@@ -278,7 +291,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func showProgressView(){
-        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:"Please wait a moment!")
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
         self.view.addSubview(alert!)
         alert!.show()
     }
@@ -295,6 +308,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     var fullPath = ""
     
     func shareSite(site:BNSite){
+        
+        /*
         var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site )
         
         var image = imageFromView(view)
@@ -306,25 +321,147 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             uiDocumentInteractionController!.delegate = self
             uiDocumentInteractionController!.presentPreviewAnimated(false)
         }
+        */
+        
+        
+        var siteTitle = ""
+        if let site = BNAppSharedManager.instance.dataManager.sites[site.identifier!] {
+            siteTitle = site.title!
+        }
+        
+        var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site)
+        let imageToShare:UIImage?
+        imageToShare = imageFromView(view)
+        
+        
+        let subjectToShare:String?
+        subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")
+        
+        //        let imageToShate:UIImage?
+        //        imageToShate = UIImage(named: "biinShare")
+        
+        let textToShare:String?
+        var string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
+        var string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
+        var string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
+        
+        textToShare = "\(string1)\(site.title!) \(string2)\(siteTitle). \(string3)"
+        
+        let myWebsite:NSURL?
+        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        
+        var sharingItems = [AnyObject]()
+        
+        //        if let text = subjectToShare {
+        //            sharingItems.append(text)
+        //        }
+        
+        if let image = imageToShare {
+            sharingItems.append(image)
+        }
+        
+        if let text = textToShare {
+            sharingItems.append(text)
+        }
+        
+        if let url = myWebsite {
+            sharingItems.append(url)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+        activityVC.setValue(subjectToShare, forKey: "subject")
+        
+        //New Excluded Activities Code
+        activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll]
+        
+        
+        self.presentViewController(activityVC, animated: true, completion: nil)
+        //mainView!.setNextState(1)  
     }
     
     func findSiteForElement(element:BNElement) -> BNSite? {
-        for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
-            for biin in site.biins {
-                for showcase in biin.showcases! {
-                    for elementSC in showcase.elements {
-                        if element.identifier! == elementSC.identifier! {
-                            return site
+        
+//        if element.isHighlight {
+                return BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!]
+//        } else {
+        /*
+            for (identifier, site) in BNAppSharedManager.instance.dataManager.sites {
+                for biin in site.biins {
+                    for showcase in biin.showcases! {
+                        for elementSC in showcase.elements {
+                            if element.identifier! == elementSC.identifier! {
+                                return site
+                            }
                         }
                     }
+
                 }
             }
-        }
-        return nil
+*/
+//        }
+//        return nil
     }
     
     func shareElement(element:BNElement){
         
+        var siteTitle = ""
+        if let site = BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!] {
+            siteTitle = site.title!
+        }
+        
+        var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
+        let imageToShare:UIImage?
+        imageToShare = imageFromView(view)
+        
+        
+        let subjectToShare:String?
+        subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")
+        
+//        let imageToShate:UIImage?
+//        imageToShate = UIImage(named: "biinShare")
+        
+        let textToShare:String?
+        var string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
+        var string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
+        var string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
+        
+        textToShare = "\(string1)\(element.title!) \(string2)\(siteTitle). \(string3)"
+        
+        let myWebsite:NSURL?
+        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        
+        var sharingItems = [AnyObject]()
+        
+        //        if let text = subjectToShare {
+        //            sharingItems.append(text)
+        //        }
+        
+        if let image = imageToShare {
+            sharingItems.append(image)
+        }
+        
+        if let text = textToShare {
+            sharingItems.append(text)
+        }
+        
+        if let url = myWebsite {
+            sharingItems.append(url)
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+        activityVC.setValue(subjectToShare, forKey: "subject")
+        
+        //New Excluded Activities Code
+        activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll]
+        
+        
+        self.presentViewController(activityVC, animated: true, completion: nil)
+        //mainView!.setNextState(1)
+        
+        
+        
+        /*
+        return
         var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
         
         var image = imageFromView(view)
@@ -336,6 +473,17 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             uiDocumentInteractionController!.delegate = self
             uiDocumentInteractionController!.presentPreviewAnimated(false)
         }
+        */
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     func documentsPathForFileName(name: String) -> String {
@@ -388,17 +536,28 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func sendInvitation(){
+    
+        let subjectToShare:String?
+        subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")
         
+//        let imageToShate:UIImage?
+//        imageToShate = UIImage(named: "biinShare")
+    
         let textToShare:String?
-        textToShare = "Biin is awesome!  Check out this new amazing app!"
-        
-        let imageToShate:UIImage?
-        imageToShate = UIImage(named: "biinShare")
+        textToShare = NSLocalizedString("InviteBody", comment: "InviteBody")
         
         let myWebsite:NSURL?
         myWebsite = NSURL(string: "https:/www.biinapp.com")
         
         var sharingItems = [AnyObject]()
+        
+//        if let text = subjectToShare {
+//            sharingItems.append(text)
+//        }
+        
+//        if let image = imageToShate {
+//            sharingItems.append(image)
+//        }
         
         if let text = textToShare {
             sharingItems.append(text)
@@ -408,11 +567,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             sharingItems.append(url)
         }
         
-        if let image = imageToShate {
-         sharingItems.append(image)
-        }
-        
         let activityVC = UIActivityViewController(activityItems: sharingItems, applicationActivities: nil)
+        activityVC.setValue(subjectToShare, forKey: "subject")
 
         //New Excluded Activities Code
         activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll]
@@ -421,5 +577,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.presentViewController(activityVC, animated: true, completion: nil)
         mainView!.setNextState(1)
 
+    }
+    
+    func manager(manager: BNPositionManager!, updateMainViewController biins: Array<BNBiin>) {
+        mainView!.updateBiinsContainer()
     }
 }

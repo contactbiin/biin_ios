@@ -317,18 +317,15 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         for category in BNAppSharedManager.instance.dataManager.categories! {
             
-            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.appButtonColor())
+            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.biinDarkColor())
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
             scroll!.addSubview(button)
             buttonCounter++
-            
-            
 
-            
             for userCategory in BNAppSharedManager.instance.dataManager.bnUser!.categories {
                 if userCategory.identifier! == category.identifier! {
                     button.showSelected()
-                    categoriesSelected[button.categoryIdentifier!] = button.categoryIdentifier!
+                    categoriesSelected[category.identifier!] = category.identifier!
                 }
             }
             
@@ -342,9 +339,9 @@ class ProfileView: BNView, UITextFieldDelegate {
         }
         
         ypos += 10
-        saveBtn = BNUIButton_Loging(frame: CGRectMake(((screenWidth - 150) / 2), ypos, 150, 60), color: UIColor.biinColor(), text:NSLocalizedString("Save", comment: "Save") )
+        saveBtn = BNUIButton_Loging(frame: CGRectMake(0, ypos, screenWidth, 60), color: UIColor.biinColor(), text:NSLocalizedString("Save", comment: "Save"), textColor:UIColor.whiteColor())
         saveBtn!.addTarget(self, action: "saveBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        //saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColor
+        //saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColors
         scroll!.addSubview(saveBtn!)
         
         ypos += 100
@@ -480,7 +477,8 @@ class ProfileView: BNView, UITextFieldDelegate {
                 //Save categories for user
                 areCategoriesChanged = false
                 BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
-                (father as! MainView).reloadCategories()
+                //(father as! MainView).refresh()
+                
             }
             
             delegate!.showProgress!(self)

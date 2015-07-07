@@ -178,10 +178,10 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         var ypos:CGFloat = 5
         var height:CGFloat = 60
         
-        BNAppSharedManager.instance.dataManager.notifications = sorted(BNAppSharedManager.instance.dataManager.notifications){ $0.identifier > $1.identifier }
+        BNAppSharedManager.instance.notificationManager.notifications = sorted(BNAppSharedManager.instance.notificationManager.notifications){ $0.identifier > $1.identifier }
         
         
-        for value in BNAppSharedManager.instance.dataManager.notifications {
+        for value in BNAppSharedManager.instance.notificationManager.notifications {
             
             //if notifications[key] == nil {
                 var notification = NotificationsView_Notification(frame: CGRectMake(5, ypos, (SharedUIManager.instance.screenWidth - 10), height), father: self, notification: value)
@@ -200,7 +200,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     
     func resizeScrollOnRemoved(identifier: Int) {
         
-        BNAppSharedManager.instance.dataManager.removeNotification(identifier)
+        BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
         
         var startPosition = 0
         for var i = 0; i < notifications.count; i++ {

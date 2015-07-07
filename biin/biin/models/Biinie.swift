@@ -35,6 +35,9 @@ class Biinie:NSObject, NSCoding {
     var notificationIndex:Int?
     
     var isInStore = false
+    var actionCounter:Int = 0
+    var storedElementsViewed:[String] = [String]()
+    var elementsViewed = Dictionary<String, String>()
     
     override init() {
         super.init()
@@ -54,7 +57,6 @@ class Biinie:NSObject, NSCoding {
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String, gender:String) {
-
         self.init(identifier:identifier, firstName:firstName, lastName:lastName, email:email)
         
         self.gender = gender
@@ -70,9 +72,14 @@ class Biinie:NSObject, NSCoding {
         self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
-        
+        self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
         self.newNotificationCount = 0
         self.notificationIndex = 0
+        self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
+        
+        for _id in storedElementsViewed {
+            elementsViewed[_id] = _id
+        }
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -109,6 +116,18 @@ class Biinie:NSObject, NSCoding {
         }
         
         aCoder.encodeObject(actions, forKey: "actions")
+        
+        aCoder.encodeInteger(actionCounter, forKey: "actionCounter")
+
+        storedElementsViewed.removeAll(keepCapacity: false)
+        
+        for (_id, element_id) in elementsViewed {
+            storedElementsViewed.append(element_id)
+            println("elementViwed:\(_id)")
+        }
+        
+        aCoder.encodeObject(storedElementsViewed, forKey: "storedElementsViewed")
+
     }
     
     deinit {
@@ -131,5 +150,25 @@ class Biinie:NSObject, NSCoding {
         }
         
         return nil
+    }
+    
+    func addAction(at:NSDate, did:BiinieActionType, to:String) {
+        self.actionCounter++
+        self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
+    }
+    
+    func deleteAllActions(){
+        self.actionCounter = 0
+        self.actions.removeAll(keepCapacity: false)
+    }
+    
+    func addElementView(_id:String){
+        if elementsViewed[_id] == nil {
+            elementsViewed[_id] = _id
+        } else {
+            elementsViewed[_id] = _id
+        }
+        
+        save()
     }
 }

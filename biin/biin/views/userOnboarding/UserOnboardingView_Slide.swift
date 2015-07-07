@@ -21,7 +21,7 @@ class UserOnboardingView_Slide:UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.biinColor()
+        self.backgroundColor = UIColor.whiteColor()
     }
     
     convenience init(frame: CGRect, title:String?) {
@@ -30,8 +30,8 @@ class UserOnboardingView_Slide:UIView {
         var screenWidth = SharedUIManager.instance.screenWidth
         self.title = UILabel(frame: CGRectMake(0, 50, screenWidth, 30))
         self.title!.text = title!
-        self.title!.font = UIFont(name: "Lato-Regular", size: 22)
-        self.title!.textColor = UIColor.appMainColor()
+        self.title!.font = UIFont(name: "Lato-Black", size: 22)
+        self.title!.textColor = UIColor.appTextColor()
         self.title!.textAlignment = NSTextAlignment.Center
         self.addSubview(self.title!)
     }

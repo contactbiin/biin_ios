@@ -12,6 +12,7 @@ class BNSite:NSObject {
     var jsonUrl:String?
     
     var identifier:String?
+    weak var organization:BNOrganization?
     var proximityUUID:NSUUID?
     var major:Int?
     
@@ -29,9 +30,10 @@ class BNSite:NSObject {
     var zipCode:String?
     var streetAddress1:String?
     var streetAddress2:String?
+    var ubication:String?
     var phoneNumber:String?
     var email:String?
-    
+    var nutshell:String?
     //Gallery
     var media:Array<BNMedia> = Array<BNMedia>()
 //    var images:Array<UIImageView> = Array<UIImageView>()
@@ -52,11 +54,25 @@ class BNSite:NSObject {
     
     var latitude:Float?
     var longitude:Float?
+    var biinieProximity:Float?
     
     var isUserInside:Bool = false
+
+    //Neighbors are set by geo distance on backend.
+    var neighbors:Array<String>?
+    
+//    var showcases:Array<String>?
+    var showcases:Array<BNShowcase>?
+    
+    var showInView = true
     
     override init(){
         super.init()
+    }
+    
+    convenience init(identifier:String){
+        self.init()
+        self.identifier = identifier
     }
 
     deinit{

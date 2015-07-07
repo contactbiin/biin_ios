@@ -137,9 +137,9 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             
             isAlertOn = true
             
-            let alertController = UIAlertController(title: "Your devide is not supported.", message: "Biin is not able to run on this device", preferredStyle: .Alert)
+            let alertController = UIAlertController(title:  NSLocalizedString("DevideNotSupported", comment: "DevideNotSupported"), message: NSLocalizedString("BiinIsNotAbleToRun", comment: "BiinIsNotAbleToRun"), preferredStyle: .Alert)
             
-            let closeAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
+            let closeAction = UIAlertAction(title:NSLocalizedString("Close", comment: "Close"), style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
                 
                 println("")
                 self.isAlertOn = false

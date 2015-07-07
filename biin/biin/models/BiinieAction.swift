@@ -8,39 +8,45 @@
 
 import Foundation
 
-struct BiinieActionData
-{
-    static var actionCounter = 0
-}
-
 class BiinieAction:NSObject, NSCoding {
 
     var key:String?
     var at:NSDate?
-    var did:Int?
+    var did:BiinieActionType?
     var to:String?
-    var toType:String?
 
     override init() {
         super.init()
     }
     
-    convenience init(at:NSDate, did:Int, to:String, toType:String) {
+    convenience init(at:NSDate, did:BiinieActionType, to:String, actionCounter:Int) {
         self.init()
-        var actionCounter = BiinieActionData.actionCounter++
         self.key = "key\(actionCounter)"
         self.at = at
         self.did = did
         self.to = to
-        self.toType = toType
     }
     
     required init(coder aDecoder: NSCoder) {
         self.key = aDecoder.decodeObjectForKey("key") as? String
         self.at  = aDecoder.decodeObjectForKey("at") as? NSDate
-        self.did = aDecoder.decodeIntegerForKey("did")
         self.to  = aDecoder.decodeObjectForKey("to") as? String
-        self.toType  = aDecoder.decodeObjectForKey("toType") as? String
+        
+        var value = aDecoder.decodeIntForKey("did")
+        switch value {
+        case 0:
+            self.did = .NONE
+        case 1:
+            self.did = .ENTER_BIIN_REGION
+        case 2:
+            self.did = .EXIT_BIIN_REGION
+        case 3:
+            self.did = .ENTER_BIIN
+        case 4:
+            self.did = .EXIT_BIIN
+        default:
+            break
+        }
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -53,16 +59,12 @@ class BiinieAction:NSObject, NSCoding {
             aCoder.encodeObject(at, forKey: "at")
         }
         
-        if let did = self.did {
-            aCoder.encodeObject(did, forKey: "did")
+        if let did = self.did?.hashValue {
+            aCoder.encodeInteger(did, forKey: "did")
         }
         
-        if let to = self.did {
+        if let to = self.to {
             aCoder.encodeObject(to, forKey: "to")
-        }
-        
-        if let toType = self.did {
-            aCoder.encodeObject(toType, forKey: "toType")
         }
     }
     
@@ -87,6 +89,12 @@ class BiinieAction:NSObject, NSCoding {
         
         return nil
     }
+}
 
-
+enum BiinieActionType {
+    case NONE
+    case ENTER_BIIN_REGION
+    case EXIT_BIIN_REGION
+    case ENTER_BIIN
+    case EXIT_BIIN
 }

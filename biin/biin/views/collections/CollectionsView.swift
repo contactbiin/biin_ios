@@ -239,6 +239,10 @@ class CollectionsView: BNView, ElementView_Delegate {
                 self.elementView!.clean()
         })
     }
+    
+    func updateHighlightsContainer() {
+        (father as! MainView).updateHighlightsContainer()
+    }
 }
 
 @objc protocol CollectionsView_Delegate:NSObjectProtocol {

@@ -23,6 +23,10 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        UIApplication.sharedApplication().statusBarHidden = false
+        self.setNeedsStatusBarAppearanceUpdate()
+        
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
@@ -31,30 +35,39 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
 
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, 25, screenWidth, (screenHeight - 25)))
+        scroll!.layer.cornerRadius = 5
+        scroll!.layer.masksToBounds = true
         scroll!.pagingEnabled = true
         scroll!.bounces = false
+        scroll!.backgroundColor = UIColor.whiteColor()
+        scroll!.showsHorizontalScrollIndicator = false
+        scroll!.showsVerticalScrollIndicator = false
         self.view.addSubview(scroll!)
         
-        slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title: "PAGE 1")
+        slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title: "PAGE 1")
         scroll!.addSubview(slide1!)
         xpos += screenWidth
         
-        slide2 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title: "PAGE 2")
+        slide2 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title: "PAGE 2")
         scroll!.addSubview(slide2!)
         xpos += screenWidth
         
-        slide3 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title: "PAGE 3")
+        slide3 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title: "PAGE 3")
         scroll!.addSubview(slide3!)
         xpos += screenWidth
         
-        categoriesView = UserOnboardingView_Categories(frame:CGRectMake(xpos, 0, screenWidth, screenHeight))
+        categoriesView = UserOnboardingView_Categories(frame:CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)))
         scroll!.addSubview(categoriesView!)
         categoriesView!.delegate = self
         xpos += screenWidth
         
-        scroll!.contentSize = CGSize(width: xpos, height: screenHeight)
+        scroll!.contentSize = CGSize(width: xpos, height: (screenHeight - 25))
         
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     override func didReceiveMemoryWarning() {
@@ -139,7 +152,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
                 alert!.hideWithCallback({() -> Void in
                     self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
                     self.view.addSubview(self.alert!)
-                    self.alert!.show()
+                    self.alert!.showAndHide()
                 })
             }
         }

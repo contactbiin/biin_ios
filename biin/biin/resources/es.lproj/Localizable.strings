@@ -19,7 +19,10 @@ Login = "Iniciar";
 ImNewHere = "Soy nuevo aquí!";
 SignUpMsj = "Iniciar con tu dirección de correo";
 LetsGetStarted = "Empecemos!";
-DontForget = "No olvides de revisar tu buzón y verificar tu dirección de correo.";
+DontForget = "* No olvides de revisar tu buzón y verificar tu dirección de correo.";
+HardwareError = "Este dispositivo no soporta Biin, porfavor cierra esta applicación.";
+DevideNotSupported = "Your devide is not supported.";
+BiinIsNotAbleToRun = "Biin is not able to run on this device";
 PleaseWait = "Espera un momento!";
 Yes = "si";
 No = "no";
@@ -36,6 +39,7 @@ Discount = "DESCUENTO";
 Savings = "AHORROS";
 YouSave = "USTED AHORRA";
 Value = "VALOR";
+Calcel = "Cancelar";
 
 /* Menu buttons */
 Profile = "Perfil";
@@ -87,7 +91,7 @@ Done = "Completo!";
 ThankYouStop = "Muchas gracias!";
 
 /* Login View*/
-Wellcome = "Bienvenido a Biin!";
+Wellcome = "Bienvenido!";
 
 /* Email messaje*/
 EmailMsj = "Saludos, esto es Biin!";
@@ -100,3 +104,18 @@ Places = "Lugares";
 HightLights = "Recomendados";
 Biins = "Biins";
 Biined = "Biined!";
+NotBiins = "Parece que no hay Biins por aquí!";
+
+/*Invite friends*/
+InviteSubject = "De compras y diversión con Biin";
+InviteBody = "Las mejores ofertas y lugares en tu celular. Descarga Biin en ";
+ShareBody1 = "Hey, mira ";
+ShareBody2 = "de ";
+ShareBody3 = "Las mejores ofertas y lugares en tu celular. Descarga Biin en ";
+
+/*Alert messages*/
+PleaseWait = "Salvando, espera un momento!";
+
+/*Loyalty*/
+Points = "Puntos";
+Of = "de";

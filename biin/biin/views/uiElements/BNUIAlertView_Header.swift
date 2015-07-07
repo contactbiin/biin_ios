@@ -38,19 +38,19 @@ class BNUIAlertView_Header:UIView {
         self.type = type
         self.father = father
         
-        self.layer.shadowOffset = CGSizeMake(0, 2)
-        self.layer.shadowOpacity = 0.15
+        //self.layer.shadowOffset = CGSizeMake(0, 2)
+        //self.layer.shadowOpacity = 0.15
         
-        radius = 5.0
+        //radius = 5.0
         self.position = CGPoint(x:0, y:0 )
         self.size = CGSize(width: frame.width, height: frame.height)
         
         self.text = text
         
-        label = UILabel(frame: CGRectMake(49, 88, SharedUIManager.instance.screenWidth, 16))
-        label!.font = UIFont(name: "Lato-Regular", size: 14)
+        label = UILabel(frame: CGRectMake(0, 88, SharedUIManager.instance.screenWidth, 18))
+        label!.font = UIFont(name: "Lato-Black", size: 16)
         label!.textColor = UIColor.appMainColor()
-        label!.textAlignment = NSTextAlignment.Left
+        label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)
         addIcon()
     }
@@ -61,39 +61,41 @@ class BNUIAlertView_Header:UIView {
         let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
         
         //// back Drawing
-        var backPath = UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), byRoundingCorners: UIRectCorner.BottomLeft | UIRectCorner.BottomRight, cornerRadii: CGSizeMake(radius!, radius!))
+        var backPath = UIBezierPath(rect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height))//UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), byRoundingCorners: UIRectCorner.BottomLeft | UIRectCorner.BottomRight, cornerRadii: CGSizeMake(radius!, radius!))
+        
+
         backPath.closePath()
         color!.setFill()
         backPath.fill()
         
-        icon?.drawCanvas()
+        //icon?.drawCanvas()
     }
     
     func addIcon(){
         switch self.type! {
         case .Bad_credentials:
-            icon = BNIcon_KeyholeSmall(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))
-            self.color = UIColor.bnRed()
+            //icon = BNIcon_KeyholeSmall(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))
+            self.color = UIColor.bnOrange()
             self.label!.text = text!
             
-            var closeBtn = BNUIButton_CloseAlert(frame: CGRectMake((SharedUIManager.instance.screenWidth - 40), 82, 30, 30))
-            closeBtn.addTarget(father!, action: "closeBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-            self.addSubview(closeBtn)
+//            var closeBtn = BNUIButton_CloseAlert(frame: CGRectMake((SharedUIManager.instance.screenWidth - 40), 82, 30, 30))
+//            closeBtn.addTarget(father!, action: "closeBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+//            self.addSubview(closeBtn)
             
             break
         case .Please_wait:
-            icon = BNIcon_SmileFace1(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))
-            self.color = UIColor.bnGrayDark()
+            //icon = BNIcon_SmileFace1(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))
+            self.color = UIColor.blackColor()
             self.label!.text = text!
             break
         case .Saved:
-            icon = BNIcon_SmileFace1(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))
-            self.color = UIColor.bnGreen()
+            //icon = BNIcon_SmileFace1(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))
+            self.color = UIColor.biinColor()
             self.label!.text = text!
             
-            var closeBtn = BNUIButton_CloseAlert(frame: CGRectMake((SharedUIManager.instance.screenWidth - 40), 82, 30, 30), iconColor:self.color!)
-            closeBtn.addTarget(father!, action: "closeBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-            self.addSubview(closeBtn)
+//            var closeBtn = BNUIButton_CloseAlert(frame: CGRectMake((SharedUIManager.instance.screenWidth - 40), 82, 30, 30), iconColor:self.color!)
+//            closeBtn.addTarget(father!, action: "closeBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+//            self.addSubview(closeBtn)
             
             break
         default:

@@ -6,7 +6,7 @@
 import UIKit
 import CoreData
 
-@UIApplicationMain
+//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -14,28 +14,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
         self.window!.backgroundColor = UIColor.blackColor()
         self.window!.makeKeyAndVisible()
+        
+//        let objects = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil)
+//        (objects[0] as? UIView)?.layer.backgroundColor = UIColor.greenColor().CGColor
+//        (objects[0] as? UIView)?.setNeedsDisplay()
+        
         appManager.appDelegate = self
         appManager.IS_APP_UP = true
+        appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
+        appManager.IS_APP_REQUESTING_NEW_DATA = false
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
         if BNAppSharedManager.instance.dataManager.isUserLoaded {
             var lvc = LoadingViewController()
             self.window!.rootViewController = lvc
-            println("loading vc...")
             //appManager.networkManager.delegateVC = lvc
         } else {
             var lvc = SingupViewController()
             self.window!.rootViewController = lvc
-            println("signup vc...")
             //appManager.networkManager.delegateVC = lvc
         }
-        
-        
         
         //var localNotification:UILocalNotification = UILocalNotification()
         //localNotification.alertAction = "Testing notifications on iOS8"
@@ -43,46 +47,100 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
         //UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound |
-            UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound |
+//            UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        setupNotificationSettings()
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
+
+
         
         
         return true
     }
     
 
-    
+    func setupNotificationSettings() {
+        
+        let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
+        
+        if (notificationSettings.types == UIUserNotificationType.None){
+            
+            // Specify the notification types.
+            var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound
+            
+            // Specify the notification actions.
+            var externalAction = UIMutableUserNotificationAction()
+            externalAction.identifier = "externalAction"
+            externalAction.title = "Visit Site!"
+            externalAction.activationMode = UIUserNotificationActivationMode.Background
+            externalAction.destructive = false
+            externalAction.authenticationRequired = false
+            
+            var internalAction = UIMutableUserNotificationAction()
+            internalAction.identifier = "internalAction"
+            internalAction.title = "Visit Site!"
+            internalAction.activationMode = UIUserNotificationActivationMode.Foreground
+            internalAction.destructive = false
+            internalAction.authenticationRequired = false
+            
+            var productAction = UIMutableUserNotificationAction()
+            productAction.identifier = "productAction"
+            productAction.title = "See product!"
+            productAction.activationMode = UIUserNotificationActivationMode.Background
+            productAction.destructive = false
+            productAction.authenticationRequired = false
+            
+            let actionsArray = NSArray(objects: externalAction, internalAction, productAction)
+            //let actionsArrayMinimal = NSArray(objects: productAction, internalAction)
+            
+            // Specify the category related to the above actions.
+            var biinNotificationCategory = UIMutableUserNotificationCategory()
+            biinNotificationCategory.identifier = "biinNotificationCategory"
+            biinNotificationCategory.setActions(actionsArray as [AnyObject], forContext: UIUserNotificationActionContext.Default)
+            //biinNotificationCategory.setActions(actionsArrayMinimal as [AnyObject], forContext: UIUserNotificationActionContext.Minimal)
+//
+            
+            let categoriesForSettings = NSSet(objects: biinNotificationCategory)
+
+            // Register the notification settings.
+            let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings as Set<NSObject>)
+            UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
+        }
+    }
 
     func applicationWillResignActive(application: UIApplication) {
-        println("applicationWillResignActive()")
         appManager.IS_APP_UP = false
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        println("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
+        appManager.positionManager.start_SITES_MONITORING()
+//        appManager.positionManager.requestStateForMonitoredRegions()
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        println("applicationWillEnterForeground")
         appManager.IS_APP_UP = true
         appManager.continueAppInitialization()
+        appManager.positionManager.start_BEACON_RANGING()
+        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        println("applicationDidBecomeActive")
         appManager.IS_APP_UP = true
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(application: UIApplication) {
-        println("applicationWillTerminate")
         appManager.IS_APP_UP = false
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
@@ -160,7 +218,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         uiManager.screenHeight = screenHeight
         uiManager.setDeviceVariables()
     }
+
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        // Do something serious in a real app.
+        
+        if appManager.notificationManager.currentNotification != nil {
+            appManager.mainViewController!.mainView!.showNotificationContext()
+        }
+    }
     
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        
+        if identifier == "externalAction" {
+            NSNotificationCenter.defaultCenter().postNotificationName("modifyListNotification", object: nil)
+        }
+        else if identifier == "internalAction" {
+            NSNotificationCenter.defaultCenter().postNotificationName("deleteListNotification", object: nil)
+        }
+        
+        completionHandler()
+    }
+    
+    func handleModifyListNotification() {
+    }
+    
+    func handleDeleteListNotification() {
+    }
 
 }
 

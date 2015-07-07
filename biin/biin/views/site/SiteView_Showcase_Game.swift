@@ -57,14 +57,14 @@ class SiteView_Showcase_Game:BNView {
         youSeenTitleLbl = UILabel(frame: CGRectMake(0, (frame.height * 0.44), frame.width, 16))
         youSeenTitleLbl!.font = UIFont(name: "Lato-Regular", size: 14)
         youSeenTitleLbl!.textColor = UIColor.appTextColor()
-        youSeenTitleLbl!.text = NSLocalizedString("YouSeen", comment: "title")
+        youSeenTitleLbl!.text = NSLocalizedString("YouSeen", comment: "YouSeen")
         youSeenTitleLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(youSeenTitleLbl!)
         
         youSeenLbl = UILabel(frame: CGRectMake(0, (frame.height * 0.52), frame.width, 22))
         youSeenLbl!.font = UIFont(name: "Lato-Light", size: 20)
         youSeenLbl!.textColor = UIColor.appTextColor()
-        youSeenLbl!.text = "0 of 10"
+        youSeenLbl!.text = ""
         youSeenLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(youSeenLbl!)
         
@@ -75,7 +75,7 @@ class SiteView_Showcase_Game:BNView {
         if !showcase.isShowcaseGameCompleted {
             
             var xSpace:CGFloat = (SharedUIManager.instance.screenWidth / 2) - 17
-            var ySpace:CGFloat = 110
+            var ySpace:CGFloat = 130
             
             var quantity = Double(showcase.elements.count)
             var angle = Double(360.0 / quantity)
