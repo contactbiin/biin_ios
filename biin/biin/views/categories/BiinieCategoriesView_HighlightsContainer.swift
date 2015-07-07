@@ -116,8 +116,16 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         
         var columnCounter = 0
         
-        elements = Array<ElementMiniView>()
-        
+        if elements != nil {
+            for elementView in elements! {
+                elementView.removeFromSuperview()
+            }
+            
+            elements!.removeAll(keepCapacity: false)
+            
+        } else {
+            elements = Array<ElementMiniView>()
+        }
         switch SharedUIManager.instance.deviceType {
         case .iphone4s, .iphone5, .iphone6:
             siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
