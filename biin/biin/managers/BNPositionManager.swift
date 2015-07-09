@@ -24,7 +24,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var firstBeaconUUID:String?
     
     var counter = 0
-    var counterLimmit = 30
+    var counterLimmit = 20
     
     var firstBeaconProximity = BNProximity.None
     var counterProximity = 0
@@ -1041,10 +1041,10 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     //TESTING <-
                     
                     //if value.0 || value.1 {
-                    if isBiinsViewContainerEmpty {
+                    //if isBiinsViewContainerEmpty {
                         isBiinsViewContainerEmpty = false
                         self.orderAndSentBiinsToDisplay(self.myBeacons)
-                    }
+                    //}
                     //}
                     
                     //if myBeacons.count > 0 {
@@ -1284,7 +1284,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     if beacon.major.integerValue == site.major {
                         var minorAdded = 0
                         for biin in site.biins {
-                            
                             if beacon.minor.integerValue == biin.minor && minorAdded != biin.minor {
                                 minorAdded = biin.minor!
                                 println("ADDING BIIN TO DISPLAY \(site.major) \(biin.minor)")
@@ -1326,7 +1325,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.biins.removeAll(keepCapacity: false)
         BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
         self.delegateView?.manager!(self, updateMainViewController: self.biins)
-
+        self.myBeaconsPrevious.removeAll(keepCapacity: false)
+        self.myBeacons.removeAll(keepCapacity: false)
     }
     
     func locationManager(manager: CLLocationManager!, rangingBeaconsDidFailForRegion region: CLBeaconRegion!, withError error: NSError!) {
