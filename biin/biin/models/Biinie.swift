@@ -168,7 +168,5 @@ class Biinie:NSObject, NSCoding {
         } else {
             elementsViewed[_id] = _id
         }
-        
-        save()
     }
 }

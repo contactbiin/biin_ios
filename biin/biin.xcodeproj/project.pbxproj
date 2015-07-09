@@ -11,6 +11,7 @@
 		5B047D601A81604600281B17 /* BNUIButton_Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D5F1A81604600281B17 /* BNUIButton_Information.swift */; };
 		5B047D621A8160B500281B17 /* BNIcon_InformationSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */; };
 		5B047D641A816B3F00281B17 /* SiteView_Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D631A816B3F00281B17 /* SiteView_Information.swift */; };
+		5B129FFF1B4C2C9D00F8083E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B129FFE1B4C2C9D00F8083E /* ErrorView.swift */; };
 		5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */; };
 		5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */; };
 		5B1E2C1E1A830B2400633C46 /* SiteView_Showcase_Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */; };
@@ -292,6 +293,7 @@
 		5B047D5F1A81604600281B17 /* BNUIButton_Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Information.swift; sourceTree = "<group>"; };
 		5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_InformationSmall.swift; sourceTree = "<group>"; };
 		5B047D631A816B3F00281B17 /* SiteView_Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Information.swift; sourceTree = "<group>"; };
+		5B129FFE1B4C2C9D00F8083E /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialButtonsView.swift; sourceTree = "<group>"; };
 		5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton.swift; sourceTree = "<group>"; };
 		5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase_Join.swift; sourceTree = "<group>"; };
@@ -1025,6 +1027,7 @@
 				5B2907821A687B070000658A /* MainView.swift */,
 				5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */,
 				5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */,
+				5B129FFE1B4C2C9D00F8083E /* ErrorView.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -1421,6 +1424,7 @@
 				5B3D75F41A6816B300CB0D1C /* EPSNetworking.swift in Sources */,
 				5BB3BCF11AC8594300C46A09 /* CollectionView_ItemView.swift in Sources */,
 				5BA46FAB1A83F90B006C685D /* BNUIStickerView.swift in Sources */,
+				5B129FFF1B4C2C9D00F8083E /* ErrorView.swift in Sources */,
 				5B4894EA1ADD983F006789E2 /* BNUIDetailView_Discount.swift in Sources */,
 				5BEE61351A97E59300DE334E /* NotificationsView.swift in Sources */,
 				5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */,

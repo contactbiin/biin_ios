@@ -44,6 +44,8 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .ENTER_BIIN
         case 4:
             self.did = .EXIT_BIIN
+        case 5:
+            self.did = .VIEWED_ELEMENT
         default:
             break
         }
@@ -92,9 +94,10 @@ class BiinieAction:NSObject, NSCoding {
 }
 
 enum BiinieActionType {
-    case NONE
-    case ENTER_BIIN_REGION
-    case EXIT_BIIN_REGION
-    case ENTER_BIIN
-    case EXIT_BIIN
+    case NONE //0
+    case ENTER_BIIN_REGION //1
+    case EXIT_BIIN_REGION //2
+    case ENTER_BIIN //3
+    case EXIT_BIIN //4
+    case VIEWED_ELEMENT //5
 }
