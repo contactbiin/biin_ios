@@ -212,6 +212,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         mainView!.setNextState(9)
     }
     
+    func menuView(menuView: MenuView!, showAbout value: Bool) {
+        mainView!.setNextState(8)
+    }
+    
     //MainViewDelegate
     func mainView(mainView: MainView!, hideMenu value: Bool) {
         self.hideMenu(UIGestureRecognizer())

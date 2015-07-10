@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate, LoyaltiesView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate, LoyaltiesView_Delegate, AboutView_Delegate {
     
     var delegate:MainViewDelegate?
     var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -27,6 +27,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var collectionsState:CollectionsState?    
     var notificationsState:NotificationsState?
     var loyaltiesState:LoyaltiesState?
+    var aboutState:AboutState?
     
     var searchState:SearchState?
     var settingsState:SettingsState?
@@ -102,6 +103,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltiesView.delegate = self
         self.addSubview(loyaltiesView)
         
+        var aboutView = AboutView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        aboutState = AboutState(context: self, view: aboutView)
+        aboutView.delegate = self
+        self.addSubview(aboutView)
         
         /*
         //Create views
@@ -260,6 +265,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             (state!.view as! LoyaltiesView).updateLoyaltiesMiniViews()
             self.bringSubviewToFront(state!.view!)
             break
+        case 8:
+            state!.next(self.aboutState)
+            self.bringSubviewToFront(state!.view!)
+            break
         default:
             break
         }
@@ -329,8 +338,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
     }
     
+    func hideAboutView(view: AboutView) {
+        setNextState(lastOption)
+    }
+    
     func showLoyalties(){
-        
         println("showLoyalties()")
     }
     

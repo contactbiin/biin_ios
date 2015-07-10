@@ -99,18 +99,21 @@ class BNNotificationManager:NSObject, NSCoding {
 
     func activateNotificationForSite(siteIdentifier:String) {
         
+        NSLog("activateNotificationForSite()")
+
+        
         self.currentNotification = nil
         
         //FALLO
         if let site = BNAppSharedManager.instance.dataManager.sites[siteIdentifier] {
-            println("site: \(site.title!)")
+            NSLog("site: \(site.title!)")
             
             for biin in site.biins {
-                println("biin: \(biin.identifier!)")
+                NSLog("biin: \(biin.identifier!)")
                 if biin.biinType == BNBiinType.EXTERNO {
                     for localNotification in localNotifications {
-                        println("notification id: \(localNotification.objectIdentifier!)")
-                        println("current biin object: \(biin.currectObject()._id!)")
+                        NSLog("notification id: \(localNotification.objectIdentifier!)")
+                        NSLog("current biin object: \(biin.currectObject()._id!)")
                         if localNotification.objectIdentifier == biin.currectObject()._id! {
                             self.currentNotification = localNotification
                             sendCurrentNotification()
@@ -122,18 +125,22 @@ class BNNotificationManager:NSObject, NSCoding {
         }
         
         if  self.currentNotification == nil {
-            println("NOTIFICATION NOT FOUND FOR BIIN in SITE: \(siteIdentifier)")
+            NSLog("NOTIFICATION NOT FOUND FOR BIIN in SITE: \(siteIdentifier)")
+            self.currentNotification = BNLocalNotification(objectIdentifier: "TEST", notificationText: "TEST", notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: "TEST", biinIdentifier: "TEST", elementIdentifier: "TEST")
+            sendCurrentNotification()
         }
     }
     
     
     func activateNotificationForBiin(biinIdentifier:String) {
         
+        NSLog("BIIN - activateNotificationForBiin - \(biinIdentifier)")
+
         //Get the closes local notification asociates to the biin
         for localNotification in localNotifications {
 
-            println("biin: \(biinIdentifier)")
-            println("notification-biin: \(localNotification.biinIdentifier!)")
+            NSLog("biin: \(biinIdentifier)")
+            NSLog("notification-biin: \(localNotification.biinIdentifier!)")
 
             
             if localNotification.biinIdentifier == biinIdentifier {
@@ -141,7 +148,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 break
             } else {
                 self.currentNotification = nil
-                println("NOTIFICATION NOT FOUND FOR BIIN: \(biinIdentifier)")
+                NSLog("NOTIFICATION NOT FOUND FOR BIIN: \(biinIdentifier)")
             }
         }
         

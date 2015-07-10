@@ -25,9 +25,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        (objects[0] as? UIView)?.setNeedsDisplay()
         
         appManager.appDelegate = self
-        appManager.IS_APP_UP = true
         appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
         appManager.IS_APP_REQUESTING_NEW_DATA = false
+        
+        switch application.applicationState {
+        case .Active:
+            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+            appManager.IS_APP_UP = true
+            break
+        case .Background:
+            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+            appManager.IS_APP_UP = false
+            break
+        case .Inactive:
+            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
+            appManager.IS_APP_UP = false
+            break
+        default:
+            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
+            break
+        }
+        
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
@@ -55,9 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
 
-
-        
-        
         return true
     }
     
@@ -141,7 +156,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(application: UIApplication) {
+        
+        NSLog("BIIN - applicationWillTerminate")
         appManager.IS_APP_UP = false
+        appManager.positionManager.start_SITES_MONITORING()
+        
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()

@@ -68,6 +68,9 @@ class BNUIButton_Menu:BNUIButton {
         case .searchMedium:
             icon = BNIcon_SearchMedium(color: UIColor.appButtonColor(), position: CGPointMake(35, 8))
             break
+        case .informationMedium:
+            icon = BNIcon_InformationMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
+            break
         default:
             break
         }

@@ -108,6 +108,9 @@
 		5B3D761F1A6816B300CB0D1C /* view1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75EB1A6816B300CB0D1C /* view1.jpg */; };
 		5B3D76201A6816B300CB0D1C /* view2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75EC1A6816B300CB0D1C /* view2.jpg */; };
 		5B3D76211A6816B300CB0D1C /* view3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75ED1A6816B300CB0D1C /* view3.jpg */; };
+		5B406C491B4F01C1005807EA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C481B4F01C1005807EA /* AboutView.swift */; };
+		5B406C4B1B4F029C005807EA /* AboutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C4A1B4F029C005807EA /* AboutState.swift */; };
+		5B406C4D1B4F05C1005807EA /* BNIcon_InformationMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C4C1B4F05C1005807EA /* BNIcon_InformationMedium.swift */; };
 		5B44C5C01A816FC700E5AC68 /* SiteView_Showcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44C5BF1A816FC700E5AC68 /* SiteView_Showcase.swift */; };
 		5B4744861B386FB80079FC88 /* BNAppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4744851B386FB80079FC88 /* BNAppAction.swift */; };
 		5B4894E81ADD85C2006789E2 /* BNUIDetailView_From.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4894E71ADD85C2006789E2 /* BNUIDetailView_From.swift */; };
@@ -395,6 +398,9 @@
 		5B3D75EB1A6816B300CB0D1C /* view1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = view1.jpg; sourceTree = "<group>"; };
 		5B3D75EC1A6816B300CB0D1C /* view2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = view2.jpg; sourceTree = "<group>"; };
 		5B3D75ED1A6816B300CB0D1C /* view3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = view3.jpg; sourceTree = "<group>"; };
+		5B406C481B4F01C1005807EA /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		5B406C4A1B4F029C005807EA /* AboutState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutState.swift; sourceTree = "<group>"; };
+		5B406C4C1B4F05C1005807EA /* BNIcon_InformationMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_InformationMedium.swift; sourceTree = "<group>"; };
 		5B44C5BF1A816FC700E5AC68 /* SiteView_Showcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase.swift; sourceTree = "<group>"; };
 		5B4744851B386FB80079FC88 /* BNAppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BNAppAction.swift; path = biin/models/BNAppAction.swift; sourceTree = SOURCE_ROOT; };
 		5B4894E71ADD85C2006789E2 /* BNUIDetailView_From.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_From.swift; sourceTree = "<group>"; };
@@ -705,6 +711,7 @@
 				5B5D77DB1A8E6DDF001C4A34 /* BNIcon_GamesMedium.swift */,
 				5BB917DA1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift */,
 				5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */,
+				5B406C4C1B4F05C1005807EA /* BNIcon_InformationMedium.swift */,
 				5BA5389C1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift */,
 				5B1E2C211A830EBF00633C46 /* BNIcon_JoinGameIcon.swift */,
 				5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */,
@@ -1028,6 +1035,7 @@
 				5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */,
 				5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */,
 				5B129FFE1B4C2C9D00F8083E /* ErrorView.swift */,
+				5B406C481B4F01C1005807EA /* AboutView.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -1119,6 +1127,7 @@
 				5B9AD35B1A7C15A8001C9B5A /* SiteState.swift */,
 				5BEE61381A97E8CE00DE334E /* NotificationsState.swift */,
 				5B28B9E91B483DA1007277A0 /* LoyaltiesState.swift */,
+				5B406C4A1B4F029C005807EA /* AboutState.swift */,
 			);
 			path = states;
 			sourceTree = "<group>";
@@ -1349,6 +1358,7 @@
 				5B5253EF1B3C9E7F00F1FD52 /* SiteView_MiniLocation.swift in Sources */,
 				5B3D76001A6816B300CB0D1C /* BNLoyalty.swift in Sources */,
 				5B2907AC1A687C040000658A /* BNUIButton_Social.swift in Sources */,
+				5B406C4B1B4F029C005807EA /* AboutState.swift in Sources */,
 				5B285B4A1A8D142500A2356B /* BNIcon_MaleSmall.swift in Sources */,
 				5B047D5E1A815B8F00281B17 /* SiteView_Bottom.swift in Sources */,
 				5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */,
@@ -1399,6 +1409,7 @@
 				5B5D77F21A8E7DE0001C4A34 /* BNIcon_EntertaimentMedium.swift in Sources */,
 				5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */,
 				5B3D75F81A6816B300CB0D1C /* BNBiin.swift in Sources */,
+				5B406C491B4F01C1005807EA /* AboutView.swift in Sources */,
 				5BEA779B1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift in Sources */,
 				5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */,
 				5B2F5B941A8BAF78004133D4 /* BNIcon_SmileFace1.swift in Sources */,
@@ -1549,6 +1560,7 @@
 				5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */,
 				5B3D76091A6816B300CB0D1C /* BNSticker.swift in Sources */,
 				5B48C8291A700992009FC4D4 /* BNUINotificationView_RedCircle.swift in Sources */,
+				5B406C4D1B4F05C1005807EA /* BNIcon_InformationMedium.swift in Sources */,
 				5B6246381A9EA33C009C979D /* BNIcon_XSmall.swift in Sources */,
 				5BEA77931A97934E00F6D1F5 /* BNIcon_HomeMedium.swift in Sources */,
 				5BC0D81E1B0BA344003B7F22 /* BiinieCategoriesView_HighlightsContainer.swift in Sources */,

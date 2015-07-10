@@ -1732,7 +1732,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //println("requestShowcaseData for:\(showcase.identifier!) ")
         
         //https://biin-qa.herokuapp.com/mobile/showcases/6d6c93b1-2877-41a6-ac40-ec41a9a50be0
-
+        ///mobile/biinies/3c37be3c-bbf2-47ac-aaca-1deb0db0e2cc/showcases/cff7e3da-b959-47c0-b7e0-1ef351cfde21
+        
         var runRequest = false
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
