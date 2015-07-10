@@ -304,7 +304,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
         
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:beaconRegion.identifier!)
-        BNAppSharedManager.instance.dataManager.bnUser!.save()
         
         //Add all site exterior monitoring regions (neighbors and interior)
         var region_counter = 0
@@ -393,7 +392,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             var regions_available = 20
             
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:interiorBeaconRegion.identifier!)
-            BNAppSharedManager.instance.dataManager.bnUser!.save()
             
             if let site = BNAppSharedManager.instance.dataManager.sites[currentExteriorRegion!.identifier!] {
                 if site.showInView {
@@ -594,7 +592,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                                     }
                                     
                                     BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:productRegion.identifier!)
-                                    BNAppSharedManager.instance.dataManager.bnUser!.save()
                                 }
                                 break
                             case .INTERNO:
@@ -770,7 +767,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             println("EXIT region: \(beaconRegion.identifier!), \(beaconRegion.major), \(beaconRegion.minor)")
             
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier!)
-            BNAppSharedManager.instance.dataManager.bnUser!.save()
             
             switch nowMonitoring {
             case .NONE:
@@ -1041,6 +1037,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             println("proximity: Unknown")
                         case .Immediate:
                             println("proximity: Immediate")
+                            
                         case .Near:
                             println("proximity: Near")
                         case .Far:

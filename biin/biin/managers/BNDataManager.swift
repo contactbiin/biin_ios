@@ -442,7 +442,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     //Showcase does not exist, store it and request it's data.
                     showcases[showcase.identifier!] = showcase
                     //println("CRASH: \(biin.showcase!.identifier!)")
-                    delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+                    delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
                 }
             }
         }
@@ -541,7 +541,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             showcase.isDefault = object.isDefault
                             showcases[object.identifier!] = showcase
                             
-                            delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+                            delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
                         }
                         break
                     default:
@@ -644,6 +644,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 var newElement = BNElement()
                 newElement.identifier = element.identifier!
                 newElement._id = element._id
+                newElement.userViewed = element.userViewed
+                newElement.siteIdentifier = element.siteIdentifier
                 //newElement.jsonUrl = element.jsonUrl!
                 elements[newElement._id!] = newElement
                 
@@ -682,6 +684,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 var newElement = BNElement()
                 newElement.identifier = element.identifier!
                 newElement._id = element._id
+                newElement.siteIdentifier = element.siteIdentifier
+                newElement.userViewed = element.userViewed
                 //newElement.jsonUrl = element.jsonUrl!
                 elements[newElement._id!] = newElement
                 
@@ -1143,7 +1147,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///
     ///:param: BNDataManager that store all data.
     ///:param: BNShowcase requesting the data.
-    optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase)
+    optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase, user:Biinie)
     
     ///Request element's data for BNUser (app user)
     ///
