@@ -91,9 +91,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
 //        nutshell!.shadowOffset = CGSize(width: 1, height: 1)
         nutshell!.numberOfLines = 0
         nutshell!.sizeToFit()
-        nutshell!.layer.shadowRadius = 3.0
-        nutshell!.layer.shadowColor = UIColor.blackColor().CGColor
-        nutshell!.layer.shadowOffset = CGSize(width: 2, height: 2)
+//        nutshell!.layer.shadowRadius = 3.0
+//        nutshell!.layer.shadowColor = UIColor.blackColor().CGColor
+//        nutshell!.layer.shadowOffset = CGSize(width: 2, height: 2)
         scroll!.addSubview(nutshell!)
         
         nutshell!.frame.origin.y = (imagesScrollView!.frame.height - (nutshell!.frame.height + 10))

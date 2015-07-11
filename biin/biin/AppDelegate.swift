@@ -141,17 +141,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
+        NSLog("applicationWillEnterForeground()")
         appManager.IS_APP_UP = true
         appManager.continueAppInitialization()
         appManager.positionManager.start_BEACON_RANGING()
-        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
 
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
+        NSLog("applicationDidBecomeActive()")
         appManager.IS_APP_UP = true
+        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 

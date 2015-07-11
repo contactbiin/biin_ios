@@ -132,8 +132,6 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to: "04eb8e15-2ded-4081-b92f-cf745cfc1e60")
 
         BNAppSharedManager.instance.dataManager.bnUser!.save()
-        
-        //BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
     }
     
     func addSiteNeighborsAction(sender:UIButton){
@@ -144,9 +142,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     
     var notificationCounter = 0
     func addLocalNotificationAction(sender:UIButton){
-//        notificationCounter++
-//        BNAppSharedManager.instance.notificationManager.addLocalNotification("\(notificationCounter)", text: "Just a local notification number: \(notificationCounter)")
-        BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+
     }
     
     func removeLocalNotificationAction(sender:UIButton){
