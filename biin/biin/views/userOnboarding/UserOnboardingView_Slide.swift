@@ -29,19 +29,19 @@ class UserOnboardingView_Slide:UIView {
         self.init(frame:frame)
         
         var screenWidth = SharedUIManager.instance.screenWidth
-        var ypos:CGFloat = 50
+        var ypos:CGFloat = 20
         var titleText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), (SharedUIManager.instance.siteView_titleSize + 3)))
         titleText.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         titleText.textColor = UIColor.appTextColor()
         titleText.textAlignment = NSTextAlignment.Center
         titleText.text = title//NSLocalizedString("AboutText", comment: "AboutText")
         titleText.numberOfLines = 0
-        titleText.sizeToFit()
+        //titleText.sizeToFit()
         self.addSubview(titleText)
         
         ypos += ( titleText.frame.height + 20 )
         self.image = UIImageView(frame: CGRectMake(0, ypos, screenWidth, screenWidth))
-        self.image!.image = UIImage(named:"view1.jpg")
+        self.image!.image = UIImage(named:imageString)
         self.addSubview(image!)
         
         ypos += ( self.image!.frame.height + 20 )

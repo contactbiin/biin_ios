@@ -181,7 +181,7 @@ class BNNotificationManager:NSObject, NSCoding {
             var localNotification:UILocalNotification = UILocalNotification()
             localNotification.alertBody = currentNotification!.notificationText
             localNotification.alertTitle = "Alert title here!"
-            localNotification.alertLaunchImage = "biinLogoLS"
+            //localNotification.alertLaunchImage = "biinLogoLS"
             
             
             switch self.currentNotification!.notificationType! {
