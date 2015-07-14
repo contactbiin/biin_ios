@@ -91,6 +91,11 @@ class UIManager {
 //    var loginView_ypos_2:CGFloat = 0
 //    var loginView_ypos_3:CGFloat = 0
     
+    //Error views
+    var errorView_title:CGFloat = 20
+    var errorView_text:CGFloat = 22
+    var errorView_button:CGFloat = 18
+    
     func setDeviceVariables(){
         
         switch screenWidth {

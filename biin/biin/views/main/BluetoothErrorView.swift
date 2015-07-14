@@ -1,53 +1,46 @@
-//  ErrorView.swift
+//  BluetoothErrorView.swift
 //  biin
-//  Created by Esteban Padilla on 7/7/15.
+//  Created by Esteban Padilla on 7/14/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class ErrorView: BNView {
+class BluetoothErrorView: BNView {
     
-    var delegate:ErrorView_Delegate?
+    var delegate:BluetoothErrorView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
     var fade:UIView?
-    var biinLogo:BNUIBiinView?
-    
-    
-    var scroll:UIScrollView?
-    
+    var warningLogo:BNUIWarningView?
+    var errorViewController:ErrorViewController?
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
         self.backgroundColor = UIColor.appMainColor()
+        self.layer.borderColor = UIColor.clearColor().CGColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
         
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 12
+        var ypos:CGFloat = 8
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.appTextColor()
         title!.textAlignment = NSTextAlignment.Center
-        title!.text = NSLocalizedString("About", comment: "About")
+        title!.text = NSLocalizedString("BluetoothErrorTitle", comment: "BluetoothErrorTitle")
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(backBtn!)
-        
-        var headerWidth = screenWidth - 60
-        var xpos:CGFloat = (screenWidth - headerWidth) / 2
+        //        var headerWidth = screenWidth - 60
+        //        var xpos:CGFloat = (screenWidth - headerWidth) / 2
         
         ypos = SharedUIManager.instance.siteView_headerHeight
         var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
-        
-        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
-        scroll!.backgroundColor = UIColor.appMainColor()
-        self.addSubview(scroll!)
         self.addSubview(line)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
@@ -55,44 +48,43 @@ class ErrorView: BNView {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        ypos = 30
-        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:5.0)
-        biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
-        scroll!.addSubview(biinLogo!)
-        biinLogo!.setNeedsDisplay()
+        ypos = 110
+        warningLogo = BNUIWarningView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:2.0)
+        warningLogo!.frame.origin.x = ((screenWidth - warningLogo!.frame.width) / 2)
+        self.addSubview(warningLogo!)
+        warningLogo!.setNeedsDisplay()
         
-        ypos += (biinLogo!.frame.height + 50)
-        var aboutTitle = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        aboutTitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
-        aboutTitle.textColor = UIColor.appTextColor()
-        aboutTitle.textAlignment = NSTextAlignment.Center
-        aboutTitle.text = NSLocalizedString("AboutTitle", comment: "AboutTitle")
-        scroll!.addSubview(aboutTitle)
+        ypos += (warningLogo!.frame.height + 10)
         
-        ypos += (aboutTitle.frame.height + 5)
-        var text = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.siteView_subTittleSize + 3)))
-        text.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
+        var text = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.errorView_text + 3)))
+        text.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_text)
         text.textColor = UIColor.appTextColor()
         text.textAlignment = NSTextAlignment.Center
-        text.text = NSLocalizedString("InternetError", comment: "InternetError")
+        text.text = NSLocalizedString("BluetoothErrorText", comment: "BluetoothErrorText")
         text.numberOfLines = 0
         text.sizeToFit()
-        scroll!.addSubview(text)
+        self.addSubview(text)
         
-        ypos += (text.frame.height + 20)
-        var siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 20))
-        siteUrl.setTitle("Try again!", forState: UIControlState.Normal)
-        siteUrl.setTitleColor(UIColor.biinColor(), forState: UIControlState.Normal)
-        siteUrl.setTitleColor(UIColor.appTextColor(), forState: UIControlState.Selected)
-        siteUrl.titleLabel!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
+        ypos = (screenHeight - 100)
+        var siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 55))
+        siteUrl.setTitle(NSLocalizedString("BluetoothErrorButton", comment: "BluetoothErrorButton"), forState: UIControlState.Normal)
+        siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        siteUrl.backgroundColor = UIColor.biinColor()
+        siteUrl.titleLabel!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_button)
         siteUrl.addTarget(self, action: "tryAgainAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(siteUrl)
+        self.addSubview(siteUrl)
     }
     
     func tryAgainAction(sender:UILabel) {
-        var targetURL = NSURL(string:"http://www.biinapp.com")
-        let application=UIApplication.sharedApplication()
-        application.openURL(targetURL!)
+        
+        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+
+        
+        BNAppSharedManager.instance.errorManager.isAlertOn = false
+        var vc = LoadingViewController()
+        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+        BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
+        //BNAppSharedManager.instance.dataManager.requestInitialData()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -149,10 +141,9 @@ class ErrorView: BNView {
     //Instance Methods
     func backBtnAction(sender:UIButton) {
         delegate!.hideErrorView!(self)
-        //delegate!.hideElementView!(elementMiniView)
     }
 }
 
-@objc protocol ErrorView_Delegate:NSObjectProtocol {
-    optional func hideErrorView(view:ErrorView)
+@objc protocol BluetoothErrorView_Delegate:NSObjectProtocol {
+    optional func hideErrorView(view:BluetoothErrorView)
 }

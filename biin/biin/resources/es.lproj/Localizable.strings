@@ -127,14 +127,28 @@ AboutText = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accu
 
 
 /*Internet Error View*/
-InternetError = "InternetError";
+InternetErrorTitle = "Oops, Intenet needed!";
+InternetErrorText = "Hay problemas con el Internet, por favor revisa tu connección y trata nuevamente.";
+InternetErrorButton = "Continuar";
+
+HardwareErrorTitle = "Oops!";
+HardwareErrorText = "Lo sentimos mucho pero este dispositivo no soporta Biin, porfavor cierra esta applicación.";
+HardwareErrorButton = "Continuar";
+
+BluetoothErrorTitle = "Olle, Biin necesita el bluetooth!";
+BluetoothErrorText = "Por favor enciende el bluetooth en tu dispositivo y habilita Biin para usarlo.";
+BluetoothErrorButton = "Ir a ajustes!";
+
+LocationErrorTitle = "Olle, Biin necesita tu posición!";
+LocationErrorText = "Por favor enciende los servicios de localización en tu dispositivo y habilita Biin para usarlos.";
+LocationErrorButton = "Ir a ajustes!";
 
 /*Onboarding*/
-OnboardingTitle1 = "Titulo 1";
-OnboardingText1 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.";
+OnboardingTitle1 = "Descubre!";
+OnboardingText1 = "Descubre los beneficios que ofrecen tus comercios favoritos.";
 
-OnboardingTitle2 = "Titulo 2";
-OnboardingText2 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.";
+OnboardingTitle2 = "Guarda y comparte!";
+OnboardingText2 = "Con Biin puedes guardar y compartir los beneficios de tus comercios favoritos.";
 
-OnboardingTitle3 = "Titulo 3";
-OnboardingText3 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.";
+OnboardingTitle3 = "Beneficios!";
+OnboardingText3 = "Aprovecha los beneficios que ofrecen tus comercios favoritos.";

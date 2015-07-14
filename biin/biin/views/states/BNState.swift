@@ -44,4 +44,5 @@ enum BNStateType {
     case BoardsState
     case LoyaltiesState
     case AboutState
+    case ErrorState
 }

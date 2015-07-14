@@ -81,6 +81,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 //println("Error on regions data - Not connection available")
                 self.errorManager!.showInternetError()
                 self.handleFailedRequest(request, error: error )
+                self.requests.removeAll(keepCapacity: false)
             } else {
 
                 self.delegateDM!.manager!(self, didReceivedConnectionStatus: true)
@@ -3105,7 +3106,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         requestAttempts = 0
         
         
-        //println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier)")
+        println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier) \(self.requests[0]?.requestString)")
         
         if requests.count == 0 {
             

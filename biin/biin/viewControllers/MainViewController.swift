@@ -214,6 +214,18 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func menuView(menuView: MenuView!, showAbout value: Bool) {
         mainView!.setNextState(8)
+        //For testing
+//        
+//        
+//        
+//        var vc = ErrorViewController()
+//        vc.addInternet_ErrorView()
+//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func showError(){
+//        mainView!.setNextState(9)
     }
     
     //MainViewDelegate

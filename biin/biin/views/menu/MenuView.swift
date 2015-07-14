@@ -163,7 +163,6 @@ class MenuView:UIView {
     
     func aboutBtnActon(sender:BNUIButton ) {
         delegate!.menuView!(self, showAbout: true)
-
     }
 
     func disableButton(index:Int) {
@@ -191,6 +190,4 @@ class MenuView:UIView {
     optional func menuView(menuView:MenuView!, showSettings value:Bool)
     optional func menuView(menuView:MenuView!, showSearch value:Bool)
     optional func menuView(menuView:MenuView!, showAbout value:Bool)
-
-
 }

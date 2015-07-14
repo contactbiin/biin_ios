@@ -28,6 +28,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var notificationsState:NotificationsState?
     var loyaltiesState:LoyaltiesState?
     var aboutState:AboutState?
+    //var errorState:ErrorState?
     
     var searchState:SearchState?
     var settingsState:SettingsState?
@@ -107,6 +108,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         aboutState = AboutState(context: self, view: aboutView)
         aboutView.delegate = self
         self.addSubview(aboutView)
+        
+//        var errorView = ErrorView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+//        errorState = ErrorState(context: self, view: errorView)
+//        errorView.delegate = self
+//        self.addSubview(errorView)
         
         /*
         //Create views
@@ -269,6 +275,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.next(self.aboutState)
             self.bringSubviewToFront(state!.view!)
             break
+        case 9:
+            
+            break
         default:
             break
         }
@@ -341,6 +350,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideAboutView(view: AboutView) {
         setNextState(lastOption)
     }
+    
+    //func hideErrorView(view: ErrorView) {
+        //setNextState(lastOption)
+        
+        //For testing
+//        var vc = LoadingViewController()
+//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//        self.rootViewController!.presentViewController(vc, animated: true, completion: nil)
+//        BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
+    //}
     
     func showLoyalties(){
         println("showLoyalties()")

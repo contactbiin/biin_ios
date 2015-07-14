@@ -11,7 +11,7 @@
 		5B047D601A81604600281B17 /* BNUIButton_Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D5F1A81604600281B17 /* BNUIButton_Information.swift */; };
 		5B047D621A8160B500281B17 /* BNIcon_InformationSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */; };
 		5B047D641A816B3F00281B17 /* SiteView_Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D631A816B3F00281B17 /* SiteView_Information.swift */; };
-		5B129FFF1B4C2C9D00F8083E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B129FFE1B4C2C9D00F8083E /* ErrorView.swift */; };
+		5B129FFF1B4C2C9D00F8083E /* InternetErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */; };
 		5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */; };
 		5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */; };
 		5B1E2C1E1A830B2400633C46 /* SiteView_Showcase_Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */; };
@@ -202,6 +202,13 @@
 		5BA7B46C1B5565CB00AFD326 /* onbordingImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7B4691B5565CB00AFD326 /* onbordingImage1.jpg */; };
 		5BA7B46D1B5565CB00AFD326 /* onbordingImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7B46A1B5565CB00AFD326 /* onbordingImage2.jpg */; };
 		5BA7B46E1B5565CB00AFD326 /* onbordingImage3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BA7B46B1B5565CB00AFD326 /* onbordingImage3.jpg */; };
+		5BA7B4701B5567A100AFD326 /* ErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B46F1B5567A100AFD326 /* ErrorState.swift */; };
+		5BA7B4721B558A2500AFD326 /* BNIcon_Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B4711B558A2500AFD326 /* BNIcon_Warning.swift */; };
+		5BA7B4741B558BCC00AFD326 /* BNUIWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B4731B558BCC00AFD326 /* BNUIWarningView.swift */; };
+		5BA7B4761B55A2F800AFD326 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B4751B55A2F800AFD326 /* ErrorViewController.swift */; };
+		5BA7B4781B55ABDE00AFD326 /* BluetoothErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B4771B55ABDE00AFD326 /* BluetoothErrorView.swift */; };
+		5BA7B47A1B55AC1D00AFD326 /* HardwareErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B4791B55AC1D00AFD326 /* HardwareErrorView.swift */; };
+		5BA7B47C1B55B64C00AFD326 /* LocationErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7B47B1B55B64C00AFD326 /* LocationErrorView.swift */; };
 		5BA83E511AAFBC670072EEE6 /* BNIcon_FashionSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA83E501AAFBC670072EEE6 /* BNIcon_FashionSmall.swift */; };
 		5BAA81551A8D5E000098FA11 /* BNUIButton_Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAA81541A8D5E000098FA11 /* BNUIButton_Category.swift */; };
 		5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD31A828B9F0081B335 /* BNIcon_BiinItButton.swift */; };
@@ -293,7 +300,7 @@
 		5B047D5F1A81604600281B17 /* BNUIButton_Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Information.swift; sourceTree = "<group>"; };
 		5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_InformationSmall.swift; sourceTree = "<group>"; };
 		5B047D631A816B3F00281B17 /* SiteView_Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Information.swift; sourceTree = "<group>"; };
-		5B129FFE1B4C2C9D00F8083E /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetErrorView.swift; sourceTree = "<group>"; };
 		5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialButtonsView.swift; sourceTree = "<group>"; };
 		5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton.swift; sourceTree = "<group>"; };
 		5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase_Join.swift; sourceTree = "<group>"; };
@@ -489,6 +496,13 @@
 		5BA7B4691B5565CB00AFD326 /* onbordingImage1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onbordingImage1.jpg; sourceTree = "<group>"; };
 		5BA7B46A1B5565CB00AFD326 /* onbordingImage2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onbordingImage2.jpg; sourceTree = "<group>"; };
 		5BA7B46B1B5565CB00AFD326 /* onbordingImage3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onbordingImage3.jpg; sourceTree = "<group>"; };
+		5BA7B46F1B5567A100AFD326 /* ErrorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorState.swift; sourceTree = "<group>"; };
+		5BA7B4711B558A2500AFD326 /* BNIcon_Warning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Warning.swift; sourceTree = "<group>"; };
+		5BA7B4731B558BCC00AFD326 /* BNUIWarningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIWarningView.swift; sourceTree = "<group>"; };
+		5BA7B4751B55A2F800AFD326 /* ErrorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
+		5BA7B4771B55ABDE00AFD326 /* BluetoothErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothErrorView.swift; sourceTree = "<group>"; };
+		5BA7B4791B55AC1D00AFD326 /* HardwareErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HardwareErrorView.swift; sourceTree = "<group>"; };
+		5BA7B47B1B55B64C00AFD326 /* LocationErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationErrorView.swift; sourceTree = "<group>"; };
 		5BA83E501AAFBC670072EEE6 /* BNIcon_FashionSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_FashionSmall.swift; sourceTree = "<group>"; };
 		5BAA81541A8D5E000098FA11 /* BNUIButton_Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Category.swift; sourceTree = "<group>"; };
 		5BAD8AD31A828B9F0081B335 /* BNIcon_BiinItButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BiinItButton.swift; sourceTree = "<group>"; };
@@ -641,6 +655,7 @@
 				5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */,
 				5BA46FAE1A840776006C685D /* BNUIPricesView.swift */,
 				5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */,
+				5BA7B4731B558BCC00AFD326 /* BNUIWarningView.swift */,
 				5B650E141ADECA2B0050ED5E /* BNUIBiinMiniView.swift */,
 				5BF78A691A9BCDB200F9E7AD /* BNUITexfield.swift */,
 				5BECEFE41AE5505500ECDE28 /* BNUIView_PriceX.swift */,
@@ -714,6 +729,7 @@
 				5B5D77DF1A8E70E7001C4A34 /* BNIcon_HealthMedium.swift */,
 				5B5D77E11A8E722E001C4A34 /* BNIcon_FoodMedium.swift */,
 				5B5339621A8514910049FB00 /* BNIcon_Biin.swift */,
+				5BA7B4711B558A2500AFD326 /* BNIcon_Warning.swift */,
 				5B650E161ADECB040050ED5E /* BNIcon_MiniBiin.swift */,
 				5B60A4C71AA21D420025ACBA /* BNIcon_PhoneMedium.swift */,
 				5B60A4C91AA21D620025ACBA /* BNIcon_EmailSmall.swift */,
@@ -923,6 +939,7 @@
 			children = (
 				5B2907801A687A9E0000658A /* MainViewController.swift */,
 				5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */,
+				5BA7B4751B55A2F800AFD326 /* ErrorViewController.swift */,
 				5B5339641A85188C0049FB00 /* SingupViewController.swift */,
 				5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */,
 				5B1F54FD1AE6F16300130CFE /* BNUIActivityItemProvider.swift */,
@@ -1025,7 +1042,10 @@
 				5B2907821A687B070000658A /* MainView.swift */,
 				5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */,
 				5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */,
-				5B129FFE1B4C2C9D00F8083E /* ErrorView.swift */,
+				5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */,
+				5BA7B4771B55ABDE00AFD326 /* BluetoothErrorView.swift */,
+				5BA7B4791B55AC1D00AFD326 /* HardwareErrorView.swift */,
+				5BA7B47B1B55B64C00AFD326 /* LocationErrorView.swift */,
 				5B406C481B4F01C1005807EA /* AboutView.swift */,
 			);
 			path = main;
@@ -1119,6 +1139,7 @@
 				5BEE61381A97E8CE00DE334E /* NotificationsState.swift */,
 				5B28B9E91B483DA1007277A0 /* LoyaltiesState.swift */,
 				5B406C4A1B4F029C005807EA /* AboutState.swift */,
+				5BA7B46F1B5567A100AFD326 /* ErrorState.swift */,
 			);
 			path = states;
 			sourceTree = "<group>";
@@ -1378,6 +1399,7 @@
 				5B28B9E41B47388E007277A0 /* main.swift in Sources */,
 				5B7453C11A829F8E00D656D8 /* BNUICircleLabel.swift in Sources */,
 				5B2E3C851A83A95E0008EA10 /* ElementView_Header.swift in Sources */,
+				5BA7B4721B558A2500AFD326 /* BNIcon_Warning.swift in Sources */,
 				5B48C8271A6FFFA6009FC4D4 /* BNIcon_NotificationMedium.swift in Sources */,
 				5BA0B7961A686AF400DBEB74 /* LoadingView.swift in Sources */,
 				5B8B075C1A6F141A00780F74 /* BNIcon_ShareSmall.swift in Sources */,
@@ -1406,6 +1428,7 @@
 				5B3D76071A6816B300CB0D1C /* BNShowcase.swift in Sources */,
 				5B5D82631A961C4C007C88AB /* UserOnboardingView_Slide.swift in Sources */,
 				5BA0B78E1A686A6700DBEB74 /* BoardsState.swift in Sources */,
+				5BA7B4781B55ABDE00AFD326 /* BluetoothErrorView.swift in Sources */,
 				5B48C8251A6FFF97009FC4D4 /* BNIcon_SearchMedium.swift in Sources */,
 				5B7036921A840AF100C01BF9 /* BNIcon_PigSmall.swift in Sources */,
 				5B8B075E1A6F143400780F74 /* BNIcon_BiinSmall.swift in Sources */,
@@ -1422,7 +1445,7 @@
 				5B3D75F41A6816B300CB0D1C /* EPSNetworking.swift in Sources */,
 				5BB3BCF11AC8594300C46A09 /* CollectionView_ItemView.swift in Sources */,
 				5BA46FAB1A83F90B006C685D /* BNUIStickerView.swift in Sources */,
-				5B129FFF1B4C2C9D00F8083E /* ErrorView.swift in Sources */,
+				5B129FFF1B4C2C9D00F8083E /* InternetErrorView.swift in Sources */,
 				5B4894EA1ADD983F006789E2 /* BNUIDetailView_Discount.swift in Sources */,
 				5BEE61351A97E59300DE334E /* NotificationsView.swift in Sources */,
 				5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */,
@@ -1430,6 +1453,7 @@
 				5B64D46B1A7195FD0082B9EA /* BNIcon_WeightMedium.swift in Sources */,
 				5B3D76011A6816B300CB0D1C /* BNMedia.swift in Sources */,
 				5BEA2D1D1A68834B00AB65AB /* UIManager.swift in Sources */,
+				5BA7B4761B55A2F800AFD326 /* ErrorViewController.swift in Sources */,
 				5B7036941A84197700C01BF9 /* BNIcon_RedX.swift in Sources */,
 				5BF966AC1AA78DAC00994BEA /* Biined_Not_Notified_NEAR_State.swift in Sources */,
 				5B3D75FE1A6816B300CB0D1C /* BNElementDetail.swift in Sources */,
@@ -1473,6 +1497,7 @@
 				5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */,
 				5BA0B78D1A686A6700DBEB74 /* BNState.swift in Sources */,
 				5B44C5C01A816FC700E5AC68 /* SiteView_Showcase.swift in Sources */,
+				5BA7B47A1B55AC1D00AFD326 /* HardwareErrorView.swift in Sources */,
 				5BDB05581A697788006EBB1E /* BiinieCategoriesState.swift in Sources */,
 				5BF78A6A1A9BCDB200F9E7AD /* BNUITexfield.swift in Sources */,
 				5BA0B78F1A686A6700DBEB74 /* CollectionsState.swift in Sources */,
@@ -1517,6 +1542,7 @@
 				5B1E2C201A830DEE00633C46 /* BNUIJoinGameIconView.swift in Sources */,
 				5B64D4691A71929F0082B9EA /* BNIcon_UmbrellaMedium.swift in Sources */,
 				5BA0B7941A686A6700DBEB74 /* ShowcaseState.swift in Sources */,
+				5BA7B4701B5567A100AFD326 /* ErrorState.swift in Sources */,
 				5B5D77EA1A8E7762001C4A34 /* BNIcon_MusicMedium.swift in Sources */,
 				5BA0B7901A686A6700DBEB74 /* ProfileState.swift in Sources */,
 				5B5D77F01A8E7C90001C4A34 /* BNIcon_CarsMedium.swift in Sources */,
@@ -1542,8 +1568,10 @@
 				5B28B9EA1B483DA1007277A0 /* LoyaltiesState.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,
 				5B4744861B386FB80079FC88 /* BNAppAction.swift in Sources */,
+				5BA7B47C1B55B64C00AFD326 /* LocationErrorView.swift in Sources */,
 				5BAD8AD61A828BAA0081B335 /* BNIcon_ShareItButton.swift in Sources */,
 				5BEE61311A97C15500DE334E /* ProfileView.swift in Sources */,
+				5BA7B4741B558BCC00AFD326 /* BNUIWarningView.swift in Sources */,
 				5BF966A91AA78DAC00994BEA /* Biin_Notified_State.swift in Sources */,
 				5BDB05521A6972AD006EBB1E /* BiinieCategoriesView.swift in Sources */,
 				5B3D76091A6816B300CB0D1C /* BNSticker.swift in Sources */,

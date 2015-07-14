@@ -127,14 +127,27 @@ AboutTitle = "AboutTitle";
 AboutText = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.";
 
 /*Internet Error View*/
-InternetError = "InternetError";
+InternetErrorTitle = "You're offline.";
+InternetErrorText = "Connect to the internet, then give it another shot.";
+InternetErrorButton = "Continue";
 
-/*Onboarding*/
-OnboardingTitle1 = "Titulo 1";
-OnboardingText1 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.";
+HardwareErrorTitle = "Oops!";
+HardwareErrorText = "We are sorry but your device does not support Biin due to harware requirements, please close this app.";
+HardwareErrorButton = "Continue";
 
-OnboardingTitle2 = "Titulo 2";
-OnboardingText2 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.";
+BluetoothErrorTitle = "Oops, Biin needs bluetooth!";
+BluetoothErrorText = "Please turn on blutooth and enable Biin to use it.";
+BluetoothErrorButton = "Go to settings.";
 
-OnboardingTitle3 = "Titulo 3";
-OnboardingText3 = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.";
+LocationErrorTitle = "Hey, Biin needs location services enabled!";
+LocationErrorText = "Please, turn on location services on your device and enable Biin to use them.";
+LocationErrorButton = "Go to settings.";
+
+OnboardingTitle1 = "Descubre!";
+OnboardingText1 = "Descubre los beneficios que ofrecen tus comercios favoritos.";
+
+OnboardingTitle2 = "Guarda y comparte!";
+OnboardingText2 = "Con Biin puedes guardar y compartir los beneficios de tus comercios favoritos.";
+
+OnboardingTitle3 = "Beneficios!";
+OnboardingText3 = "Aprovecha los beneficios que ofrecen tus comercios favoritos.";
