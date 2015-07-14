@@ -9,8 +9,9 @@ import UIKit
 class UserOnboardingView_Slide:UIView {
     
     
-    var title:UILabel?
-    
+//    var title:UILabel?
+//    var text:UILabel?
+    var image:UIImageView?
 //    override init() {
 //        super.init()
 //    }
@@ -24,16 +25,34 @@ class UserOnboardingView_Slide:UIView {
         self.backgroundColor = UIColor.whiteColor()
     }
     
-    convenience init(frame: CGRect, title:String?) {
+    convenience init(frame: CGRect, title:String, text:String, imageString:String) {
         self.init(frame:frame)
         
         var screenWidth = SharedUIManager.instance.screenWidth
-        self.title = UILabel(frame: CGRectMake(0, 50, screenWidth, 30))
-        self.title!.text = title!
-        self.title!.font = UIFont(name: "Lato-Black", size: 22)
-        self.title!.textColor = UIColor.appTextColor()
-        self.title!.textAlignment = NSTextAlignment.Center
-        self.addSubview(self.title!)
+        var ypos:CGFloat = 50
+        var titleText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), (SharedUIManager.instance.siteView_titleSize + 3)))
+        titleText.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
+        titleText.textColor = UIColor.appTextColor()
+        titleText.textAlignment = NSTextAlignment.Center
+        titleText.text = title//NSLocalizedString("AboutText", comment: "AboutText")
+        titleText.numberOfLines = 0
+        titleText.sizeToFit()
+        self.addSubview(titleText)
+        
+        ypos += ( titleText.frame.height + 20 )
+        self.image = UIImageView(frame: CGRectMake(0, ypos, screenWidth, screenWidth))
+        self.image!.image = UIImage(named:"view1.jpg")
+        self.addSubview(image!)
+        
+        ypos += ( self.image!.frame.height + 20 )
+        var descriptionText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), (SharedUIManager.instance.siteView_subTittleSize + 3)))
+        descriptionText.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
+        descriptionText.textColor = UIColor.appTextColor()
+        descriptionText.textAlignment = NSTextAlignment.Center
+        descriptionText.text = text//NSLocalizedString("AboutText", comment: "AboutText")
+        descriptionText.numberOfLines = 0
+        descriptionText.sizeToFit()
+        self.addSubview(descriptionText)
     }
 }
 

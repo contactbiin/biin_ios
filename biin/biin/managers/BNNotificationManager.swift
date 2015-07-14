@@ -207,7 +207,8 @@ class BNNotificationManager:NSObject, NSCoding {
             localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
             //                localNotification.category = "biinNotificationCategory"
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-            
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.objectIdentifier!)
+
         }
 
     }

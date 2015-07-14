@@ -46,6 +46,8 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .EXIT_BIIN
         case 5:
             self.did = .VIEWED_ELEMENT
+        case 6:
+            self.did = .BIIN_NOTIFIED
         default:
             break
         }
@@ -100,4 +102,5 @@ enum BiinieActionType {
     case ENTER_BIIN //3
     case EXIT_BIIN //4
     case VIEWED_ELEMENT //5
+    case BIIN_NOTIFIED // 6
 }
