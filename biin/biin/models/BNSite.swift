@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BNSite:NSObject {
+class BNSite:NSObject, NSCoding {
     
     //TODO: jsonUrl only for testing, remove later
     var jsonUrl:String?
@@ -83,5 +83,49 @@ class BNSite:NSObject {
         for biin in biins {
             biin.setBiinState()
         }
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+//        self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
+//        self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
+//        self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
+//        self.lastName  = aDecoder.decodeObjectForKey("lastName") as? String
+//        self.email  = aDecoder.decodeObjectForKey("email") as? String
+//        self.birthDate = aDecoder.decodeObjectForKey("birthDate") as? NSDate
+//        self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
+//        self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
+//        self.gender  = aDecoder.decodeObjectForKey("gender") as? String
+//        self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
+//        self.newNotificationCount = 0
+//        self.notificationIndex = 0
+//        self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
+//        
+//        println("**** Action: \(actions.count)")
+//        
+//        for _id in storedElementsViewed {
+//            elementsViewed[_id] = _id
+//        }
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        
+    }
+    
+    func save() {
+        let data = NSKeyedArchiver.archivedDataWithRootObject(self)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.identifier!)
+    }
+    
+    func clear() {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(self.identifier!)
+    }
+    
+    class func loadSaved(identifier:String) -> BNSite? {
+        
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey(identifier) as? NSData {
+            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNSite
+        }
+        
+        return nil
     }
 }

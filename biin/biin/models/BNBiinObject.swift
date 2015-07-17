@@ -30,6 +30,10 @@ class BNBiinObject:NSObject
     
     var objectType = BNBiinObjectType.NONE
     
+    //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
+    var minor:Int = 0
+    var major:Int = 0
+    
     override init() {
         super.init()
     }

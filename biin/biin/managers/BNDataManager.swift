@@ -246,7 +246,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 //        println("Request region: \(self.currentRegionIdentifier!)")
         
     }
-    
+    /*
     func manager(manager: BNNetworkManager!, didReceivedUserCategoriesOnBackground categories: Array<BNCategory>) {
         
         println("didReceivedUserCategoriesOnBackground(): \(categories.count)")
@@ -339,7 +339,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             delegatePM!.manager!(self, startSiteBiinsBackgroundMonitoring: false)
         }
     }
-    
+    */
 
     ///Receives user categories data and start requests depending on data store.
     ///:param: Network manager that handled the request.
@@ -512,14 +512,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             case .EXTERNO:
                                 if !isExternalBiinAdded {
                                     isExternalBiinAdded = true
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                 }
                                 break
                             case .INTERNO:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                 break
                             case .PRODUCT:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
                                 break
                             default:
                                 break
@@ -934,7 +934,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 //}
             
                 //TODO: Remove this call temporary
-                //requestElements(collection.elements)
+                //requestElements(collection.elements.values.array)
             }
         }
     }

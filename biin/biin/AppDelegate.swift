@@ -32,14 +32,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case .Active:
             NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
             appManager.IS_APP_UP = true
+            appManager.IS_APP_DOWN = false
             break
         case .Background:
             NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
             appManager.IS_APP_UP = false
+            appManager.IS_APP_DOWN = true
             break
         case .Inactive:
             NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
             appManager.IS_APP_UP = false
+            appManager.IS_APP_DOWN = true
             break
         default:
             NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")

@@ -103,4 +103,5 @@ enum BiinieActionType {
     case EXIT_BIIN //4
     case VIEWED_ELEMENT //5
     case BIIN_NOTIFIED // 6
+    case NOTIFICATION_OPENED //7
 }

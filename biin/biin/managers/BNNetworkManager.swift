@@ -1294,6 +1294,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                                         object.isUserNotified = self.findBool("isUserNotified", dictionary: objectData)
                                         object.isBiined = self.findBool("isBiined", dictionary: objectData)
                                         object.objectType = self.findBiinObjectType("objectType", dictionary: objectData)
+                                        
+                                        //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
+                                        object.major = biin.major!
+                                        object.minor = biin.minor!
+                                        
                                         biin.objects!.append(object)
                                     }
                                 }

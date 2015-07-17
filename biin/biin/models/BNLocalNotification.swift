@@ -14,6 +14,24 @@ class BNLocalNotification:NSObject, NSCoding {
     var biinIdentifier:String?
     var elementIdentifier:String?
     
+    
+    //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
+    var onMonday = false
+    var onTuesday = false
+    var onWednesday = false
+    var onThursday = false
+    var onFriday = false
+    var onSaturday = false
+    var onSunday = false
+    
+    var endTime:Float = 0.0
+    var startTime:Float = 0.0
+    var isUserNotified = false
+    
+    var minor:Int = 0
+    var major:Int = 0
+
+    
     override init() {
         super.init()
     }
@@ -26,7 +44,6 @@ class BNLocalNotification:NSObject, NSCoding {
         self.siteIdentifier = siteIdentifier
         self.biinIdentifier = biinIdentifier
         self.elementIdentifier = elementIdentifier
-        
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -49,7 +66,22 @@ class BNLocalNotification:NSObject, NSCoding {
         default:
             break
         }
-    }
+        
+        
+        //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
+        self.onMonday = aDecoder.decodeBoolForKey("onMonday")
+        self.onTuesday = aDecoder.decodeBoolForKey("onTuesday")
+        self.onWednesday = aDecoder.decodeBoolForKey("onWednesday")
+        self.onThursday = aDecoder.decodeBoolForKey("onThursday")
+        self.onFriday = aDecoder.decodeBoolForKey("onFriday")
+        self.onSaturday = aDecoder.decodeBoolForKey("onSaturday")
+        self.onSunday = aDecoder.decodeBoolForKey("onSunday")
+        self.endTime = aDecoder.decodeFloatForKey("endTime")
+        self.startTime = aDecoder.decodeFloatForKey("startTime")
+        self.isUserNotified = aDecoder.decodeBoolForKey("isUserNotified")
+        self.major = aDecoder.decodeIntegerForKey("major")
+        self.minor = aDecoder.decodeIntegerForKey("minor")
+}
     
     func encodeWithCoder(aCoder: NSCoder) {
         if let objectIdentifier = self.objectIdentifier {
@@ -75,6 +107,19 @@ class BNLocalNotification:NSObject, NSCoding {
         if let elementIdentifier = self.elementIdentifier {
             aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
         }
+        
+        aCoder.encodeBool(self.onMonday, forKey: "onMonday")
+        aCoder.encodeBool(self.onTuesday, forKey: "onTuesday")
+        aCoder.encodeBool(self.onWednesday, forKey: "onWednesday")
+        aCoder.encodeBool(self.onThursday, forKey: "onThursday")
+        aCoder.encodeBool(self.onFriday, forKey: "onFriday")
+        aCoder.encodeBool(self.onSaturday, forKey: "onSaturday")
+        aCoder.encodeBool(self.onSunday, forKey: "onSunday")
+        aCoder.encodeBool(self.isUserNotified, forKey: "isUserNotified")
+        aCoder.encodeFloat(self.startTime, forKey: "startTime")
+        aCoder.encodeFloat(self.endTime, forKey: "endTime")
+        aCoder.encodeInteger(self.major, forKey: "major")
+        aCoder.encodeInteger(self.minor, forKey: "minor")
     }
     
     deinit {

@@ -166,7 +166,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     }
     
     func addNotifications(){
-        
+        /*
         if notifications.count > 0 {
             for value in notifications {
                 value.removeFromSuperview()
@@ -195,12 +195,13 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         }
         
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+*/
     }
     
     
     func resizeScrollOnRemoved(identifier: Int) {
         
-        BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
+        //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
         
         var startPosition = 0
         for var i = 0; i < notifications.count; i++ {

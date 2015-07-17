@@ -508,7 +508,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 
                 NSLog("BIIN - .SITES_MONITORING - \(monitoredBeaconRegions.count)")
                 
-                BNAppSharedManager.instance.notificationManager.activateNotificationForSite(beaconRegion.identifier!)
+                BNAppSharedManager.instance.notificationManager.activateNotificationForSite(beaconRegion.identifier!, major:beaconRegion.major!.integerValue)
                 
                 NSLog("BIIN - .SITES_MONITORING B)")
                 
@@ -518,7 +518,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                         currentInteriorRegion = nil
                         currentProductRegion = nil
                         start_SITE_EXTERIOR_MONITORING(beaconRegion)
-                        BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!)
+                        BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!, major:beaconRegion.major!.integerValue)
                         println("1")
                     }
                 }
@@ -555,7 +555,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             currentInteriorRegion = nil
                             currentProductRegion = nil
                             start_SITE_EXTERIOR_MONITORING(beaconRegion)
-                            BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!)
+                            BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!, major:beaconRegion.major!.integerValue)
                             NSLog("4")
                         }
                         
@@ -565,7 +565,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                         currentInteriorRegion = nil
                         currentProductRegion = nil
                         start_SITE_EXTERIOR_MONITORING(beaconRegion)
-                        BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!)
+                        BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!, major:beaconRegion.major!.integerValue)
                         NSLog("5")
                     }
                 }
@@ -610,7 +610,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                         currentInteriorRegion = nil
                         currentProductRegion = nil
                         start_SITE_EXTERIOR_MONITORING(beaconRegion)
-                        BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!)
+                        BNAppSharedManager.instance.notificationManager.activateNotificationForSite(currentExteriorRegion!.identifier!, major:beaconRegion.major!.integerValue)
                         NSLog("9")
                     }
                 }
