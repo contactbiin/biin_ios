@@ -199,8 +199,6 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
                     //items!.append(itemView!)
                     elements!.append(elementView!)
                     itemPosition++
-                    
-                    
                 //}
             } else {
                 println("ELEMENT NOT FOUND IN COLLECTION: \(value.identifier!)")

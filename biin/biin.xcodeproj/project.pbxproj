@@ -22,6 +22,7 @@
 		5B1F550C1AE8519500130CFE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F550E1AE8519500130CFE /* Localizable.strings */; };
 		5B1F55111AE851BB00130CFE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F55131AE851BB00130CFE /* Localizable.strings */; };
 		5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */; };
+		5B25B25A1B5980510094B378 /* notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B25B2591B5980510094B378 /* notification.wav */; };
 		5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */; };
 		5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */; };
 		5B285B4A1A8D142500A2356B /* BNIcon_MaleSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B491A8D142500A2356B /* BNIcon_MaleSmall.swift */; };
@@ -312,6 +313,7 @@
 		5B1F550D1AE8519500130CFE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5B1F55121AE851BB00130CFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIScrollView.swift; sourceTree = "<group>"; };
+		5B25B2591B5980510094B378 /* notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notification.wav; sourceTree = "<group>"; };
 		5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Gender.swift; sourceTree = "<group>"; };
 		5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_FemaleSmall.swift; sourceTree = "<group>"; };
 		5B285B491A8D142500A2356B /* BNIcon_MaleSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MaleSmall.swift; sourceTree = "<group>"; };
@@ -885,6 +887,7 @@
 		5B3D75D31A6816B300CB0D1C /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				5B25B2591B5980510094B378 /* notification.wav */,
 			);
 			path = audio;
 			sourceTree = "<group>";
@@ -1333,6 +1336,7 @@
 				5B3D759B1A67052100CB0D1C /* Images.xcassets in Resources */,
 				5BA7B46E1B5565CB00AFD326 /* onbordingImage3.jpg in Resources */,
 				5B3D76111A6816B300CB0D1C /* Lato-Heavy.ttf in Resources */,
+				5B25B25A1B5980510094B378 /* notification.wav in Resources */,
 				5B3D76141A6816B300CB0D1C /* Lato-Light.ttf in Resources */,
 				5B3D76191A6816B300CB0D1C /* Lato-Semibold.ttf in Resources */,
 			);

@@ -82,7 +82,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func setupNotificationSettings() {
         
-        let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
+        
+        var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound
+        var notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+        
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        
+        return
+        //let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
+        
+        
         
         if (notificationSettings.types == UIUserNotificationType.None){
             
@@ -136,6 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
+        NSLog("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
 //        appManager.positionManager.requestStateForMonitoredRegions()
@@ -165,7 +175,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSLog("BIIN - applicationWillTerminate")
         appManager.IS_APP_UP = false
-        appManager.positionManager.start_SITES_MONITORING()
+        //appManager.positionManager.start_SITES_MONITORING()
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
