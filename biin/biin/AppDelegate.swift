@@ -256,7 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         // Do something serious in a real app.
-        
+        NSLog("BIIN - didReceiveLocalNotification()")
         if appManager.notificationManager.currentNotification != nil {
             appManager.mainViewController!.mainView!.showNotificationContext()
         }

@@ -89,7 +89,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //var statusBarLine = UIView(frame: CGRectMake(0, 0, frame.width, 20))
         //statusBarLine.backgroundColor = UIColor.appMainColor()
         //self.view.addSubview(statusBarLine)
-        
+        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+            mainView!.showNotificationContext()
+        }
     }
     
     func refresh(){

@@ -971,6 +971,7 @@
 		5BA0B7711A68696E00DBEB74 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5BA0B7821A686A0F00DBEB74 /* BNView.swift */,
 				5BEE613C1A97EF2A00DE334E /* inviteFriends */,
 				5BEE613D1A97EF2A00DE334E /* search */,
 				5BEE613E1A97EF2A00DE334E /* settings */,
@@ -979,7 +980,6 @@
 				5B2907B41A687C0C0000658A /* uiIcons */,
 				5B2907871A687C040000658A /* uiElements */,
 				5B2907841A687B400000658A /* control */,
-				5BA0B7821A686A0F00DBEB74 /* BNView.swift */,
 				5BA0B7731A68696E00DBEB74 /* collections */,
 				5BA0B7741A68696E00DBEB74 /* element */,
 				5BA0B7751A68696E00DBEB74 /* loading */,

@@ -14,6 +14,8 @@ class BNNotificationManager:NSObject, NSCoding {
     var currentNotification:BNLocalNotification?
     //var notifications = Array<BNNotification>()//[BiinieAction]()
     var localNotifications:[BNLocalNotification] = [BNLocalNotification]()
+    var lastNotificationObjectId:String = ""
+    var didSendNotificationOnAppDown = false
     
     override init(){
         super.init()
@@ -33,11 +35,21 @@ class BNNotificationManager:NSObject, NSCoding {
 //    }
     
     required init(coder aDecoder: NSCoder) {
+        
+        super.init()
         self.localNotifications =  aDecoder.decodeObjectForKey("localNotifications") as! [BNLocalNotification]
+        self.lastNotificationObjectId = aDecoder.decodeObjectForKey("lastNotificationObjectId") as! String
+        self.didSendNotificationOnAppDown = aDecoder.decodeBoolForKey("didSendNotificationOnAppDown")
+        
+        if didSendNotificationOnAppDown {
+            self.findNotificationByObjectId()
+        }
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(localNotifications, forKey: "localNotifications")
+        aCoder.encodeObject(lastNotificationObjectId, forKey:"lastNotificationObjectId")
+        aCoder.encodeBool(didSendNotificationOnAppDown, forKey: "didSendNotificationOnAppDown")
     }
     
     func save() {
@@ -56,7 +68,22 @@ class BNNotificationManager:NSObject, NSCoding {
         return nil
     }
     
+    func findNotificationByObjectId(){
+        for notification in localNotifications {
+            if notification.objectIdentifier! == lastNotificationObjectId {
+                currentNotification = notification
+                lastNotificationObjectId = ""
+                NSLog("BIIN - \(currentNotification!.objectIdentifier!)")
+                break
+            }
+        }
+    }
     
+    func clearCurrentNotification(){
+        self.currentNotification = nil
+        didSendNotificationOnAppDown = false
+        lastNotificationObjectId = ""
+    }
     ///identifier: object identifier on the biin.
     ///
     func addLocalNotification(object:BNBiinObject, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String){
@@ -136,7 +163,7 @@ class BNNotificationManager:NSObject, NSCoding {
         NSLog("localNotifications: \(localNotifications.count)")
         
         self.currentNotification = nil
-        
+        didSendNotificationOnAppDown = false
         
         if BNAppSharedManager.instance.IS_APP_DOWN {
             NSLog("activateNotificationForSite() - WHEN APP IS DOWN")
@@ -164,8 +191,8 @@ class BNNotificationManager:NSObject, NSCoding {
             
             if  self.currentNotification == nil {
                 NSLog("NOTIFICATION NOT FOUND FOR BIIN in SITE: \(siteIdentifier)")
-                self.currentNotification = BNLocalNotification(objectIdentifier: "TEST", notificationText: "TEST", notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: "TEST", biinIdentifier: "TEST", elementIdentifier: "TEST")
-                sendCurrentNotification()
+//                self.currentNotification = BNLocalNotification(objectIdentifier: "TEST", notificationText: "TEST", notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: "TEST", biinIdentifier: "TEST", elementIdentifier: "TEST")
+//                sendCurrentNotification()
             }
         }
     }
@@ -220,6 +247,7 @@ class BNNotificationManager:NSObject, NSCoding {
        
         NSLog("BIIN - ")
         
+        didSendNotificationOnAppDown = true
         var siteNotifications:Array<BNLocalNotification> = Array<BNLocalNotification>()
         
         for notification in localNotifications {
@@ -391,6 +419,7 @@ class BNNotificationManager:NSObject, NSCoding {
     //                localNotification.category = "biinNotificationCategory"
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
                 currentNotification!.isUserNotified = true
+                lastNotificationObjectId = currentNotification!.objectIdentifier!
                 save()
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.objectIdentifier!)
             } else {
