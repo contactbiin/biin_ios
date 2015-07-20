@@ -143,11 +143,11 @@ LocationErrorTitle = "Hey, Biin needs location services enabled!";
 LocationErrorText = "Please, turn on location services on your device and enable Biin to use them.";
 LocationErrorButton = "Go to settings.";
 
-OnboardingTitle1 = "Descubre!";
-OnboardingText1 = "Descubre los beneficios que ofrecen tus comercios favoritos.";
+OnboardingTitle1 = "Discover!";
+OnboardingText1 = "The best deals and rewards just steps away from you.";
 
-OnboardingTitle2 = "Guarda y comparte!";
-OnboardingText2 = "Con Biin puedes guardar y compartir los beneficios de tus comercios favoritos.";
+OnboardingTitle2 = "Collect and share!";
+OnboardingText2 = "All the things your find in Biin with your friends.";
 
-OnboardingTitle3 = "Beneficios!";
-OnboardingText3 = "Aprovecha los beneficios que ofrecen tus comercios favoritos.";
+OnboardingTitle3 = "Enjoy!";
+OnboardingText3 = "Visit you favorite stores and take advantage the best deal and rewards.";

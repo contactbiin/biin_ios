@@ -144,7 +144,7 @@ LocationErrorText = "Por favor enciende los servicios de localización en tu dis
 LocationErrorButton = "Ir a ajustes!";
 
 /*Onboarding*/
-OnboardingTitle1 = "Descubrí!"
+OnboardingTitle1 = "Descubrí!";
 OnboardingText1 = "Las mejores ofertas y beneficios a solo pasos de donde estás.";
 
 OnboardingTitle2 = "Collecioná y compartí!";
