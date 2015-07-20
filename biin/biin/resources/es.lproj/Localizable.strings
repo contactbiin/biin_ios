@@ -144,11 +144,11 @@ LocationErrorText = "Por favor enciende los servicios de localización en tu dis
 LocationErrorButton = "Ir a ajustes!";
 
 /*Onboarding*/
-OnboardingTitle1 = "Descubre!";
-OnboardingText1 = "Descubre los beneficios que ofrecen tus comercios favoritos.";
+OnboardingTitle1 = "Descubrí!"
+OnboardingText1 = "Las mejores ofertas y beneficios a solo pasos de donde estás.";
 
-OnboardingTitle2 = "Guarda y comparte!";
-OnboardingText2 = "Con Biin puedes guardar y compartir los beneficios de tus comercios favoritos.";
+OnboardingTitle2 = "Collecioná y compartí!";
+OnboardingText2 = "Con tus amigos, las cosas interesantes que encontrarás en Biin.";
 
 OnboardingTitle3 = "Beneficios!";
-OnboardingText3 = "Aprovecha los beneficios que ofrecen tus comercios favoritos.";
+OnboardingText3 = "Visitá tus lugares favoritos y aprovechá las mejores ofertas y novedades.";

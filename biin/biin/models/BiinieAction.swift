@@ -48,6 +48,8 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .VIEWED_ELEMENT
         case 6:
             self.did = .BIIN_NOTIFIED
+        case 7:
+            self.did = .NOTIFICATION_OPENED
         default:
             break
         }
