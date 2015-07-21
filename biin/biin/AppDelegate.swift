@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
-        
+        /*
         return
         //let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
         
@@ -136,6 +136,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings as Set<NSObject>)
             UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
         }
+
+        */
     }
 
     func applicationWillResignActive(application: UIApplication) {

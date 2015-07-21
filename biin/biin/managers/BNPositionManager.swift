@@ -663,6 +663,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             }
         }
         */
+        
+        /*
         return
         if !isIN_BIIN_COMMERCIAL {
             
@@ -726,6 +728,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 
             }
         }
+        */
     }
     
     func findBiinTypeByMinor(minor:Int) ->BNBiinType {
@@ -813,7 +816,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
 
         
-        
+        /*
         return
         
         var text = "Exit region: " + region.identifier
@@ -849,7 +852,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 
             }
         }
-        
+        */
     }
     
     func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
