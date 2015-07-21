@@ -3505,4 +3505,18 @@ extension NSDate {
             return false
         }
     }
+    /*
+    NSUInteger unitFlags = NSDayCalendarUnit;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
+    return [components day]+1;
+*/
+    func daysBetweenFromAndTo(toDate:NSDate) -> Int {
+        let cal = NSCalendar.currentCalendar()
+        let unit:NSCalendarUnit = .CalendarUnitDay
+        let components = cal.components(unit, fromDate:toDate, toDate:NSDate(), options: nil)
+        return (components.day + 1)
+    }
+    
+    
 }

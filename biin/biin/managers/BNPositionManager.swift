@@ -166,12 +166,12 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             println("LAT on background:  \(userCoordinates!.latitude)")
             println("LONG on background: \(userCoordinates!.longitude)")
 
-            var time:NSTimeInterval = 1
-            var localNotification:UILocalNotification = UILocalNotification()
-            localNotification.alertBody = "Request user categories on background!"
-            localNotification.alertTitle = "Report location change."
-            localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
-            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+//            var time:NSTimeInterval = 1
+//            var localNotification:UILocalNotification = UILocalNotification()
+//            localNotification.alertBody = "Request user categories on background!"
+//            localNotification.alertTitle = "Report location change."
+//            localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
+//            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
 
             BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
         }

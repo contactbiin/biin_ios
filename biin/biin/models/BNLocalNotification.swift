@@ -31,6 +31,7 @@ class BNLocalNotification:NSObject, NSCoding {
     var minor:Int = 0
     var major:Int = 0
 
+    var fireDate:NSDate?
     
     override init() {
         super.init()
@@ -81,6 +82,8 @@ class BNLocalNotification:NSObject, NSCoding {
         self.isUserNotified = aDecoder.decodeBoolForKey("isUserNotified")
         self.major = aDecoder.decodeIntegerForKey("major")
         self.minor = aDecoder.decodeIntegerForKey("minor")
+        self.fireDate = aDecoder.decodeObjectForKey("fireDate") as? NSDate
+
 }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -120,6 +123,10 @@ class BNLocalNotification:NSObject, NSCoding {
         aCoder.encodeFloat(self.endTime, forKey: "endTime")
         aCoder.encodeInteger(self.major, forKey: "major")
         aCoder.encodeInteger(self.minor, forKey: "minor")
+        
+        if let fireDate = self.fireDate {
+            aCoder.encodeObject(fireDate, forKey: "fireDate")
+        }
     }
     
     deinit {

@@ -109,10 +109,9 @@ class BNNotificationManager:NSObject, NSCoding {
                 localNotifications[i].onSunday = object.onSunday
                 localNotifications[i].endTime = object.endTime
                 localNotifications[i].startTime = object.startTime
-                localNotifications[i].isUserNotified = object.isUserNotified
+                //localNotifications[i].isUserNotified = object.isUserNotified
                 localNotifications[i].major = object.major
                 localNotifications[i].minor = object.minor
-                
                 break
             }
         }
@@ -130,10 +129,10 @@ class BNNotificationManager:NSObject, NSCoding {
             notification.onSunday = object.onSunday
             notification.endTime = object.endTime
             notification.startTime = object.startTime
-            notification.isUserNotified = object.isUserNotified
+            //notification.isUserNotified = object.isUserNotified
             notification.major = object.major
             notification.minor = object.minor
-            
+            notification.fireDate = NSDate(timeIntervalSince1970: 0)
             localNotifications.append(notification)
         }
         
@@ -385,7 +384,12 @@ class BNNotificationManager:NSObject, NSCoding {
     func sendCurrentNotification(){
         
         if self.currentNotification != nil {
-            if !self.currentNotification!.isUserNotified {
+            
+            var days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
+            
+            NSLog("BIIN - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
+            
+            if !self.currentNotification!.isUserNotified || days > 1 {
                 var time:NSTimeInterval = 0
                 var localNotification:UILocalNotification = UILocalNotification()
                 localNotification.alertBody = currentNotification!.notificationText
@@ -419,6 +423,7 @@ class BNNotificationManager:NSObject, NSCoding {
     //                localNotification.category = "biinNotificationCategory"
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
                 currentNotification!.isUserNotified = true
+                currentNotification!.fireDate = NSDate()
                 lastNotificationObjectId = currentNotification!.objectIdentifier!
                 save()
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.objectIdentifier!)

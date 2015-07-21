@@ -14,7 +14,7 @@ class BNAppManager {
     var IS_DEVELOPMENT = false
     
     var counter = 0
-    var version = "0.1.8"
+    var version = "1.0.1"
     
     var delegate:BNAppManager_Delegate?
     
