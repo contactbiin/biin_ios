@@ -19,6 +19,7 @@ class MenuView:UIView {
     var inviteFriendsBtn:BNUIButton_Menu?
     var settingsBtn:BNUIButton_Menu?
     var searchBtn:BNUIButton_Menu?
+    var aboutBtn:BNUIButton_Menu?
     
     var buttons = Array<BNUIButton_Menu>()
 
@@ -91,6 +92,12 @@ class MenuView:UIView {
 //        searchBtn!.addTarget(self, action: "searchBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
 //        self.addSubview(searchBtn!)
         
+        
+        aboutBtn = BNUIButton_Menu(frame: CGRectMake(40, (SharedUIManager.instance.screenHeight - 80), 100, 60), text:NSLocalizedString("About", comment: "About"), iconType: BNIconType.informationMedium)
+        aboutBtn!.addTarget(self, action: "aboutBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(aboutBtn!)
+        
+        
         buttons.append(profileBtn!)
         buttons.append(homeBtn!)
         buttons.append(collectionsBtn!)
@@ -153,6 +160,10 @@ class MenuView:UIView {
         //disableButton(7)
         //delegate!.menuView!(self, showSearch: true)
     }
+    
+    func aboutBtnActon(sender:BNUIButton ) {
+        delegate!.menuView!(self, showAbout: true)
+    }
 
     func disableButton(index:Int) {
         for var i = 0; i < buttons.count; i++ {
@@ -178,6 +189,5 @@ class MenuView:UIView {
     optional func menuView(menuView:MenuView!, showInviteFriends value:Bool)
     optional func menuView(menuView:MenuView!, showSettings value:Bool)
     optional func menuView(menuView:MenuView!, showSearch value:Bool)
-
-
+    optional func menuView(menuView:MenuView!, showAbout value:Bool)
 }

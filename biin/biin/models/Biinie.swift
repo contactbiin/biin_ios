@@ -77,6 +77,8 @@ class Biinie:NSObject, NSCoding {
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         
+        println("**** Action: \(actions.count)")
+        
         for _id in storedElementsViewed {
             elementsViewed[_id] = _id
         }
@@ -155,11 +157,14 @@ class Biinie:NSObject, NSCoding {
     func addAction(at:NSDate, did:BiinieActionType, to:String) {
         self.actionCounter++
         self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
+        save()
     }
     
     func deleteAllActions(){
+        println("deleteAllActions()")
         self.actionCounter = 0
         self.actions.removeAll(keepCapacity: false)
+        save()
     }
     
     func addElementView(_id:String){
@@ -168,7 +173,5 @@ class Biinie:NSObject, NSCoding {
         } else {
             elementsViewed[_id] = _id
         }
-        
-        save()
     }
 }

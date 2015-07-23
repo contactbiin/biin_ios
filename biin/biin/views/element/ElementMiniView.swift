@@ -227,9 +227,12 @@ class ElementMiniView: BNView {
     }
     
     func userViewedElement(){
-        BNAppSharedManager.instance.dataManager.bnUser!.addElementView(element!._id!)
         element!.userViewed  = true
         header!.circleLabel?.animateCircleIn()
+
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.VIEWED_ELEMENT, to:element!._id!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addElementView(element!._id!)
+        BNAppSharedManager.instance.dataManager.bnUser!.save()
     }
     
     func biinit(sender:BNUIButton_BiinIt){

@@ -50,6 +50,7 @@ Notifications = "Notificaciones";
 InviteFriends = "Invitar Amigos";
 Settings = "Ajustes";
 Search = "Buscar";
+About = "Sobre Biin";
 
 /* Categories */
 category1 = "Cuidado Personal";
@@ -119,3 +120,34 @@ PleaseWait = "Salvando, espera un momento!";
 /*Loyalty*/
 Points = "Puntos";
 Of = "de";
+
+/*About*/
+AboutTitle = "Información importante.";
+AboutText = "Biin es una aplicación que te ayuda a conectarte mejor con los comercios que más te gustan como restaurantes, tiendas, etc. En Biin puedes encontrar los productos y las ofertas de los locales en las cercanías, ademas de poder coleccionar y compartir con tus amigos obteniendo beneficios al hacerlo. Esta aplicación solo está disponible para iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 y iPhone6Plus. En esta versión, la información se muestra con fines de prueba y no representan lugares, productos ni ofertas reales.";
+
+/*Internet Error View*/
+InternetErrorTitle = "Problemas con internet!";
+InternetErrorText = "Hay problemas con el Internet, por favor revisa tu connección y trata nuevamente.";
+InternetErrorButton = "Continuar";
+
+HardwareErrorTitle = "Oops!";
+HardwareErrorText = "Lo sentimos mucho pero este dispositivo no soporta Biin, porfavor cierra esta applicación.";
+HardwareErrorButton = "Continuar";
+
+BluetoothErrorTitle = "Olle, Biin necesita el bluetooth!";
+BluetoothErrorText = "Por favor enciende el bluetooth en tu dispositivo y habilita Biin para usarlo.";
+BluetoothErrorButton = "Ir a ajustes!";
+
+LocationErrorTitle = "Olle, Biin necesita tu posición!";
+LocationErrorText = "Por favor enciende los servicios de localización en tu dispositivo y habilita Biin para usarlos.";
+LocationErrorButton = "Ir a ajustes!";
+
+/*Onboarding*/
+OnboardingTitle1 = "Descubrí!";
+OnboardingText1 = "Las mejores ofertas y beneficios a solo pasos de donde estás.";
+
+OnboardingTitle2 = "Collecioná y compartí!";
+OnboardingText2 = "Con tus amigos, las cosas interesantes que encontrarás en Biin.";
+
+OnboardingTitle3 = "Beneficios!";
+OnboardingText3 = "Visitá tus lugares favoritos y aprovechá las mejores ofertas y novedades.";

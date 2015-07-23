@@ -87,11 +87,15 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         nutshell!.font = UIFont(name:"Lato-Black", size:16)
         nutshell!.textColor = UIColor.whiteColor()
         nutshell!.text = ""
-        nutshell!.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-        nutshell!.shadowOffset = CGSize(width: 1, height: 1)
+//        nutshell!.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+//        nutshell!.shadowOffset = CGSize(width: 1, height: 1)
         nutshell!.numberOfLines = 0
         nutshell!.sizeToFit()
+//        nutshell!.layer.shadowRadius = 3.0
+//        nutshell!.layer.shadowColor = UIColor.blackColor().CGColor
+//        nutshell!.layer.shadowOffset = CGSize(width: 2, height: 2)
         scroll!.addSubview(nutshell!)
+        
         nutshell!.frame.origin.y = (imagesScrollView!.frame.height - (nutshell!.frame.height + 10))
         
         

@@ -89,7 +89,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //var statusBarLine = UIView(frame: CGRectMake(0, 0, frame.width, 20))
         //statusBarLine.backgroundColor = UIColor.appMainColor()
         //self.view.addSubview(statusBarLine)
-        
+        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+            mainView!.showNotificationContext()
+        }
     }
     
     func refresh(){
@@ -210,6 +212,22 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func menuView(menuView: MenuView!, showSearch value: Bool) {
         mainView!.setNextState(9)
+    }
+    
+    func menuView(menuView: MenuView!, showAbout value: Bool) {
+        mainView!.setNextState(8)
+        //For testing
+//        
+//        
+//        
+//        var vc = ErrorViewController()
+//        vc.addInternet_ErrorView()
+//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func showError(){
+//        mainView!.setNextState(9)
     }
     
     //MainViewDelegate

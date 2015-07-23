@@ -81,6 +81,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 //println("Error on regions data - Not connection available")
                 self.errorManager!.showInternetError()
                 self.handleFailedRequest(request, error: error )
+                self.requests.removeAll(keepCapacity: false)
             } else {
 
                 self.delegateDM!.manager!(self, didReceivedConnectionStatus: true)
@@ -472,7 +473,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                         println("*** Register actions for user \(user.email!) COOL!")
                         //self.delegateDM!.manager!(self, didReceivedUserIdentifier: identifier)
                         user.deleteAllActions()
-                        user.save()
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
                         println("*** Register actions for user \(user.email!) SUCK!")
@@ -1294,6 +1294,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                                         object.isUserNotified = self.findBool("isUserNotified", dictionary: objectData)
                                         object.isBiined = self.findBool("isBiined", dictionary: objectData)
                                         object.objectType = self.findBiinObjectType("objectType", dictionary: objectData)
+                                        
+                                        //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
+                                        object.major = biin.major!
+                                        object.minor = biin.minor!
+                                        
                                         biin.objects!.append(object)
                                     }
                                 }
@@ -1727,22 +1732,23 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     
     ///Conforms optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) of BNDataManagerDelegate.
-    func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) {
-        
+    func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase, user:Biinie) {
+
         //println("requestShowcaseData for:\(showcase.identifier!) ")
         
         //https://biin-qa.herokuapp.com/mobile/showcases/6d6c93b1-2877-41a6-ac40-ec41a9a50be0
+        ///mobile/biinies/3c37be3c-bbf2-47ac-aaca-1deb0db0e2cc/showcases/cff7e3da-b959-47c0-b7e0-1ef351cfde21
 
         var runRequest = false
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
+            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
             request!.showcase = showcase
             self.requests[request!.identifier] = request
             runRequest = true
             
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
+            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
             request!.showcase = showcase
             self.requests[request!.identifier] = request
             runRequest = true
@@ -1803,12 +1809,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                         var elements = self.findNSArray("elements", dictionary: showcaseData)
 
                         for var i = 0; i < elements?.count; i++ {
-
+                            
                             var elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
                             var element = BNElement()
                             element._id = self.findString("_id", dictionary: elementData)
                             element.identifier = self.findString("elementIdentifier", dictionary: elementData)
                             element.jsonUrl = self.findString("jsonUrl", dictionary: elementData)
+                            element.userViewed = self.findBool("hasBeenSeen", dictionary: elementData)
                             element.color = UIColor.elementColor()
                             element.siteIdentifier = showcase.siteIdentifier!
                             showcase.elements.append(element)
@@ -3104,7 +3111,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         requestAttempts = 0
         
         
-        //println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier)")
+        println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier) \(self.requests[0]?.requestString)")
         
         if requests.count == 0 {
             
@@ -3498,4 +3505,18 @@ extension NSDate {
             return false
         }
     }
+    /*
+    NSUInteger unitFlags = NSDayCalendarUnit;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
+    return [components day]+1;
+*/
+    func daysBetweenFromAndTo(toDate:NSDate) -> Int {
+        let cal = NSCalendar.currentCalendar()
+        let unit:NSCalendarUnit = .CalendarUnitDay
+        let components = cal.components(unit, fromDate:toDate, toDate:NSDate(), options: nil)
+        return (components.day + 1)
+    }
+    
+    
 }

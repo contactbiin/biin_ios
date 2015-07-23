@@ -44,6 +44,12 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .ENTER_BIIN
         case 4:
             self.did = .EXIT_BIIN
+        case 5:
+            self.did = .VIEWED_ELEMENT
+        case 6:
+            self.did = .BIIN_NOTIFIED
+        case 7:
+            self.did = .NOTIFICATION_OPENED
         default:
             break
         }
@@ -92,9 +98,18 @@ class BiinieAction:NSObject, NSCoding {
 }
 
 enum BiinieActionType {
-    case NONE
-    case ENTER_BIIN_REGION
-    case EXIT_BIIN_REGION
-    case ENTER_BIIN
-    case EXIT_BIIN
+    case NONE //0
+    case ENTER_BIIN_REGION //1
+    case EXIT_BIIN_REGION //2
+    case ENTER_BIIN //3
+    case EXIT_BIIN //4
+    case VIEWED_ELEMENT //5
+    case BIIN_NOTIFIED // 6
+    case NOTIFICATION_OPENED //7
+    case ENTER_SITE_VIEW  //8
+    case LEAVE_SITE_VIEW  //9
+    case ENTER_ELEMENT_VIEW  //10
+    case LEAVE_ELEMENT_VIEW  //11
+    case BIINED_ELEMENT // 12
+    case BIINED_SITE // 13
 }

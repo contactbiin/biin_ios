@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate, LoyaltiesView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate, LoyaltiesView_Delegate, AboutView_Delegate {
     
     var delegate:MainViewDelegate?
     var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -27,6 +27,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var collectionsState:CollectionsState?    
     var notificationsState:NotificationsState?
     var loyaltiesState:LoyaltiesState?
+    var aboutState:AboutState?
+    //var errorState:ErrorState?
     
     var searchState:SearchState?
     var settingsState:SettingsState?
@@ -102,6 +104,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltiesView.delegate = self
         self.addSubview(loyaltiesView)
         
+        var aboutView = AboutView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        aboutState = AboutState(context: self, view: aboutView)
+        aboutView.delegate = self
+        self.addSubview(aboutView)
+        
+//        var errorView = ErrorView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+//        errorState = ErrorState(context: self, view: errorView)
+//        errorView.delegate = self
+//        self.addSubview(errorView)
         
         /*
         //Create views
@@ -260,6 +271,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             (state!.view as! LoyaltiesView).updateLoyaltiesMiniViews()
             self.bringSubviewToFront(state!.view!)
             break
+        case 8:
+            state!.next(self.aboutState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case 9:
+            
+            break
         default:
             break
         }
@@ -329,8 +347,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
     }
     
-    func showLoyalties(){
+    func hideAboutView(view: AboutView) {
+        setNextState(lastOption)
+    }
+    
+    //func hideErrorView(view: ErrorView) {
+        //setNextState(lastOption)
         
+        //For testing
+//        var vc = LoadingViewController()
+//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//        self.rootViewController!.presentViewController(vc, animated: true, completion: nil)
+//        BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
+    //}
+    
+    func showLoyalties(){
         println("showLoyalties()")
     }
     
@@ -360,38 +391,40 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showNotificationContext(){
+        NSLog("BIIN - showNotificationContext")
+        
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
             switch BNAppSharedManager.instance.notificationManager.currentNotification!.notificationType! {
             case .PRODUCT:
-                println("GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
+                NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
                 if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     //setNextState(2)
-                    println("Show element view for element: \(element._id!)")
+                    NSLog("BIIN - Show element view for element: \(element._id!)")
                     var elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
                 }
                 break
             case .INTERNAL:
-                println("GOTO TO SITE VIEW on Internal notification")
+                NSLog("BIIN - GOTO TO SITE VIEW on Internal notification")
                 if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
                     (siteState!.view as! SiteView).updateSiteData(site)
                     setNextState(2)
                 }
                 break
             case .EXTERNAL:
-                println("GOTO TO SITE VIEW on external notification")
+                NSLog("BIIN - GOTO TO SITE VIEW on external notification")
 //                if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
 //                    (siteState!.view as! SiteView).updateSiteData(site)
 //                    setNextState(2)
 //                }
 //                
                 
-                println("GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
+                NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
                 if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     //setNextState(2)
-                    println("Show element view for element: \(element._id!)")
+                    NSLog("BIIN - Show element view for element: \(element._id!)")
                     var elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
                 }
@@ -401,7 +434,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             }
         }
         
-        BNAppSharedManager.instance.notificationManager.currentNotification = nil
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)
+        BNAppSharedManager.instance.notificationManager.clearCurrentNotification()
+        
     }
     
     func showSiteView(view: SiteView_MiniLocation, site: BNSite) {

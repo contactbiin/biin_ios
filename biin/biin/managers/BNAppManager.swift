@@ -14,7 +14,7 @@ class BNAppManager {
     var IS_DEVELOPMENT = false
     
     var counter = 0
-    var version = "0.1.8"
+    var version = "1.0.0"
     
     var delegate:BNAppManager_Delegate?
     
@@ -31,6 +31,7 @@ class BNAppManager {
     weak var appDelegate:AppDelegate?
     
     var IS_APP_UP:Bool = false
+    var IS_APP_DOWN:Bool = false
     var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
     var IS_APP_REQUESTING_NEW_DATA = false
     var isWaitingForLocationServicesPermision = false
@@ -183,7 +184,7 @@ class BNAppManager {
         areNewNotificationsPendingToShow = true
         dataManager.bnUser!.newNotificationCount!++
         dataManager.bnUser!.notificationIndex! = notification.identifier
-        notificationManager.notifications.append(notification)
+        //notificationManager.notifications.append(notification)
 
         //Notify main view to show circle
         delegate!.manager!(showNotifications: true)

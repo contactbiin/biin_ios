@@ -51,6 +51,7 @@ Notifications = "Notifications";
 InviteFriends = "Invite Friends";
 Settings = "Settings";
 Search = "Search";
+About = "About";
 
 /* Categories */
 category1 = "Personal Care";
@@ -120,3 +121,33 @@ PleaseWait = "Saving, please wait a moment!";
 /*Loyalty*/
 Points = "Points";
 Of = "of";
+
+/*About*/
+AboutTitle = "Please read!";
+AboutText = "Biin is the app the helps brick and mortar business to have mobile presence and create better relationships with their customers.Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 and iPhone6Plus. All current data is not real and is only for testing purposes on this beta release.";
+
+/*Internet Error View*/
+InternetErrorTitle = "You're offline.";
+InternetErrorText = "Connect to the internet, then give it another shot.";
+InternetErrorButton = "Continue";
+
+HardwareErrorTitle = "Oops!";
+HardwareErrorText = "We are sorry but your device does not support Biin due to harware requirements, please close this app.";
+HardwareErrorButton = "Continue";
+
+BluetoothErrorTitle = "Oops, Biin needs bluetooth!";
+BluetoothErrorText = "Please turn on blutooth and enable Biin to use it.";
+BluetoothErrorButton = "Go to settings.";
+
+LocationErrorTitle = "Hey, Biin needs location services enabled!";
+LocationErrorText = "Please, turn on location services on your device and enable Biin to use them.";
+LocationErrorButton = "Go to settings.";
+
+OnboardingTitle1 = "Discover!";
+OnboardingText1 = "The best deals and rewards just steps away from you.";
+
+OnboardingTitle2 = "Collect and share!";
+OnboardingText2 = "All the things your find in Biin with your friends.";
+
+OnboardingTitle3 = "Enjoy!";
+OnboardingText3 = "Visit you favorite stores and take advantage the best deal and rewards.";

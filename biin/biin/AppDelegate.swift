@@ -25,9 +25,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        (objects[0] as? UIView)?.setNeedsDisplay()
         
         appManager.appDelegate = self
-        appManager.IS_APP_UP = true
         appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
         appManager.IS_APP_REQUESTING_NEW_DATA = false
+        
+        switch application.applicationState {
+        case .Active:
+            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+            appManager.IS_APP_UP = true
+            appManager.IS_APP_DOWN = false
+            break
+        case .Background:
+            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+            appManager.IS_APP_UP = false
+            appManager.IS_APP_DOWN = true
+            break
+        case .Inactive:
+            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
+            appManager.IS_APP_UP = false
+            appManager.IS_APP_DOWN = true
+            break
+        default:
+            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
+            break
+        }
+        
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
@@ -55,16 +76,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
 
-
-        
-        
         return true
     }
     
 
     func setupNotificationSettings() {
         
-        let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
+        
+        var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound
+        var notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+        
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        /*
+        return
+        //let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
+        
+        
         
         if (notificationSettings.types == UIUserNotificationType.None){
             
@@ -109,6 +136,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings as Set<NSObject>)
             UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
         }
+
+        */
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -118,6 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
+        NSLog("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
 //        appManager.positionManager.requestStateForMonitoredRegions()
@@ -126,22 +156,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
+        NSLog("applicationWillEnterForeground()")
         appManager.IS_APP_UP = true
         appManager.continueAppInitialization()
         appManager.positionManager.start_BEACON_RANGING()
-        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
 
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
+        NSLog("applicationDidBecomeActive()")
         appManager.IS_APP_UP = true
+        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(application: UIApplication) {
+        
+        NSLog("BIIN - applicationWillTerminate")
         appManager.IS_APP_UP = false
+        //appManager.positionManager.start_SITES_MONITORING()
+        
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
@@ -221,7 +258,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         // Do something serious in a real app.
-        
+        NSLog("BIIN - didReceiveLocalNotification()")
         if appManager.notificationManager.currentNotification != nil {
             appManager.mainViewController!.mainView!.showNotificationContext()
         }

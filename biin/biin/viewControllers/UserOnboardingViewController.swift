@@ -45,15 +45,15 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         scroll!.showsVerticalScrollIndicator = false
         self.view.addSubview(scroll!)
         
-        slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title: "PAGE 1")
+        slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title:NSLocalizedString("OnboardingTitle1", comment: "OnboardingTitle1"), text:NSLocalizedString("OnboardingText1", comment: "OnboardingText1"), imageString:"onbordingImage1.jpg")
         scroll!.addSubview(slide1!)
         xpos += screenWidth
         
-        slide2 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title: "PAGE 2")
+        slide2 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title:NSLocalizedString("OnboardingTitle2", comment: "OnboardingTitle2"), text:NSLocalizedString("OnboardingText2", comment: "OnboardingText2"), imageString:"onbordingImage2.jpg")
         scroll!.addSubview(slide2!)
         xpos += screenWidth
         
-        slide3 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title: "PAGE 3")
+        slide3 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title:NSLocalizedString("OnboardingTitle3", comment: "OnboardingTitle3"), text:NSLocalizedString("OnboardingText3", comment: "OnboardingText3"), imageString:"onbordingImage3.jpg")
         scroll!.addSubview(slide3!)
         xpos += screenWidth
         
