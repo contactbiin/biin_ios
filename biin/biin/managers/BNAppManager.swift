@@ -10,11 +10,11 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
-    var IS_PRODUCTION_DATABASE = false
+    var IS_PRODUCTION_DATABASE = true
     var IS_DEVELOPMENT = false
     
     var counter = 0
-    var version = "1.0.0"
+    var version = "1.0.1"
     
     var delegate:BNAppManager_Delegate?
     
