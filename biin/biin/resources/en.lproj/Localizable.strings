@@ -123,8 +123,8 @@ Points = "Points";
 Of = "of";
 
 /*About*/
-AboutTitle = "AboutTitle";
-AboutText = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.";
+AboutTitle = "Please read!";
+AboutText = "Biin is the app the helps brick and mortar business to have mobile presence and create better relationships with their customers.Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 and iPhone6Plus. All current data is not real and is only for testing purposes on this beta release.";
 
 /*Internet Error View*/
 InternetErrorTitle = "You're offline.";

@@ -122,12 +122,11 @@ Points = "Puntos";
 Of = "de";
 
 /*About*/
-AboutTitle = "Acerca Titulo";
-AboutText = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.";
-
+AboutTitle = "Información importante.";
+AboutText = "Biin es una aplicación que te ayuda a conectarte mejor con los comercios que más te gustan como restaurantes, tiendas, etc. En Biin puedes encontrar los productos y las ofertas de los locales en las cercanías, ademas de poder coleccionar y compartir con tus amigos obteniendo beneficios al hacerlo. Esta aplicación solo está disponible para iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 y iPhone6Plus. En esta versión, la información se muestra con fines de prueba y no representan lugares, productos ni ofertas reales.";
 
 /*Internet Error View*/
-InternetErrorTitle = "Oops, Intenet needed!";
+InternetErrorTitle = "Problemas con internet!";
 InternetErrorText = "Hay problemas con el Internet, por favor revisa tu connección y trata nuevamente.";
 InternetErrorButton = "Continuar";
 
