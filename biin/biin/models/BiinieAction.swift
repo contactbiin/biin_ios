@@ -106,4 +106,10 @@ enum BiinieActionType {
     case VIEWED_ELEMENT //5
     case BIIN_NOTIFIED // 6
     case NOTIFICATION_OPENED //7
+    case ENTER_SITE_VIEW  //8
+    case LEAVE_SITE_VIEW  //9
+    case ENTER_ELEMENT_VIEW  //10
+    case LEAVE_ELEMENT_VIEW  //11
+    case BIINED_ELEMENT // 12
+    case BIINED_SITE // 13
 }
