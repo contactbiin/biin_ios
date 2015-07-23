@@ -20,12 +20,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     var regions = Dictionary<String, BNRegion>()
     var sites = Dictionary<String, BNSite>()
+    var organizations = Dictionary<String, BNOrganization>()
+    var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
     var elements = Dictionary<String, BNElement>()
+    var highlights = Dictionary<String, String>()//list of hightlight element
+    var availableBiins = Array<String>()//list of biins detected
     var elementsRequested = Dictionary<String, BNElement>()
     //var elementsBiined = Dictionary<String, String>()
     
-    var notifications = Array<BNNotification>()
+    //var notifications = Array<BNNotification>()
     
     //var showcasesIdentifiersToRequest:Dictionary<String, String> = Dictionary<String, String>()
     var sharedBiins = Dictionary<String, BNBiin>()
@@ -36,6 +40,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var currentRegionIdentifier:String?
     
     var timer:NSTimer?
+    
+    var commercialUUID:NSUUID?
     
     init(errorManager:BNErrorManager){
         
@@ -73,26 +79,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //}
     
     func requestInitialData(){
-        
-        //Verified email
-        //if !bnUser!.isEmailVerified! {
-            //delegateNM!.manager!(self, checkIsEmailVerified: bnUser!.identifier!)
-        //}
-        
-        //Request regions
-        BNAppSharedManager.instance.networkManager.requestRegions()
-
-        //1. Request user biined data
+        //Request
         delegateNM!.manager!(self, requestBiinieData: bnUser!)
-        
-        //delegateNM!.manager!(self, requestBiinedElementListForBNUser: bnUser!)
-        //delegateNM!.manager!(self, requestBoardsForBNUser:bnUser!)
-        
-        //2. Request user categories data.
-        //delegateNM!.manager!(self, requestCategoriesData:bnUser!)
-        
-//        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:         regions["bnHome"]!)
 
+        delegateNM!.manager!(self, requestCategoriesData: bnUser!)
+    
+        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
+        
+        //delegateNM!.manager!(self, requestHighlightsData: bnUser!)
+
+    }
+    
+    func requestDataForNewPosition(){
+        println("requestDataForNewPosition()")
+        delegateNM!.manager!(self, requestCategoriesData: bnUser!)
+        BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = true
+//        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
     /*
@@ -166,22 +168,21 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         categories!.append(BNCategory(identifier: "category16", name: "Bars"))
     }
 
+//    func removeNotification(identifier:Int){
+//        for var i = 0; i < notifications.count; i++ {
+//            if notifications[i].identifier == identifier {
+//                notifications.removeAtIndex(i)
+//                return
+//            }
+//        }
+//    }
     
-    func removeNotification(identifier:Int){
-        for var i = 0; i < notifications.count; i++ {
-            if notifications[i].identifier == identifier {
-                notifications.removeAtIndex(i)
-                return
-            }
-        }
+    func startSitesMonitoring(){
+        delegatePM!.manager!(self, startSitesMonitoring: true)
     }
     
-    func setSitesBiinsCurrentState(){
-        for (key, site) in sites {
-            site.setBiinsStates()
-        }
-        
-        delegatePM!.manager!(self, startSitesMonitoring: true)
+    func startCommercialBiinMonitoring() {
+        delegatePM!.manager!(self, startCommercialBiinMonitoring:self.commercialUUID!)
     }
     
     
@@ -205,6 +206,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
         bnUser!.identifier = idetifier
         bnUser!.save()
+        isUserLoaded = true
     }
     
     func manager(manager: BNNetworkManager!, didReceivedEmailVerification value: Bool) {
@@ -218,6 +220,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: Regions received from web service in json format already parse in an nice array.
     func manager(manager:BNNetworkManager!, didReceivedRegions regions:Array<BNRegion>) {
         
+        
+        /*
         for region in regions {
             //Check if regions exist.
             if self.regions[region.identifier!] == nil {
@@ -225,24 +229,117 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 self.regions[region.identifier!] = region
             }
         }
-        
+        */
 //        delegateNM!.manager!(self, requestCategoriesDataByBiinieAndRegion: bnUser!, region:self.regions["bnHome"]!)
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
         
+        /*
         if self.regions.count > 0 {
             //TESTING
-        
-            
             self.delegatePM!.manager!(self, startRegionsMonitoring:Array(self.regions.values))
         }
-
+        */
+        
         //FIXME: This few lines are only for testing when not entering a regions.
 //        self.currentRegionIdentifier = "bnHome"
 //        self.delegateNM!.manager!(self, requestRegionData:self.currentRegionIdentifier!)
 //        println("Request region: \(self.currentRegionIdentifier!)")
         
     }
-    
+    /*
+    func manager(manager: BNNetworkManager!, didReceivedUserCategoriesOnBackground categories: Array<BNCategory>) {
+        
+        println("didReceivedUserCategoriesOnBackground(): \(categories.count)")
+        
+        var isExternalBiinAdded = false
+        var start_background_monitor = false
+        
+        sites_OnBackground = Dictionary<String, BNSite>()
+        
+        for category in categories {
+            
+            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            
+            category.name = findCategoryNameByIdentifier(category.identifier!)
+            
+            if category.backgroundSites != nil {
+
+                for (identifier, site) in category.backgroundSites! {
+                    
+                    sites_OnBackground[site.identifier!] = site
+                    
+                    for biin in site.biins {
+                        
+                        start_background_monitor = true
+                        
+                        if commercialUUID == nil {
+                            commercialUUID = biin.proximityUUID
+                        }
+                        
+                        if biin.objects != nil && biin.objects!.count > 0 {
+                            
+                            biin.setBiinState()
+                            
+                            for object in biin.objects! {
+                                
+                                println("Object: \(object._id!)")
+                                
+                                switch object.objectType {
+                                case .ELEMENT:
+                                    if object.hasNotification {
+                                        switch biin.biinType {
+                                        case .EXTERNO:
+                                            if !isExternalBiinAdded {
+                                                isExternalBiinAdded = true
+                                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                            }
+                                            break
+                                        case .INTERNO:
+                                            BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                            break
+                                        case .PRODUCT:
+                                            BNAppSharedManager.instance.notificationManager.addLocalNotification(object._id!, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+                                            break
+                                        default:
+                                            break
+                                        }
+                                    }
+                                    
+                                    //var element = BNElement()
+                                    //element.identifier = object.identifier!
+                                    //element._id = object._id!
+                                    //element.siteIdentifier = site.identifier
+                                    //requestElement(element)
+                                    
+                                    break
+                                case .SHOWCASE:
+                                    if showcases[object.identifier!] == nil {
+                                        //Showcase does not exist, store it and request it's data.
+                                        //var showcase = BNShowcase()
+                                        //showcase.identifier = object.identifier!
+                                        //showcase.isDefault = object.isDefault
+                                        //showcases[object.identifier!] = showcase
+                                        
+                                        //delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
+                                    }
+                                    break
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        //self.sites = sorted(self.sites){ $0.rssi > $1.rssi  }
+        
+        if start_background_monitor {
+            delegatePM!.manager!(self, startSiteBiinsBackgroundMonitoring: false)
+        }
+    }
+    */
 
     ///Receives user categories data and start requests depending on data store.
     ///:param: Network manager that handled the request.
@@ -253,14 +350,20 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         println("didReceivedUserCategories(): \(categories.count)")
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
-
+        
+        
+        for (identifier, site) in sites {
+            site.showInView = false
+        }
 
         
         for category in categories {
             
-            //println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
 
             category.name = findCategoryNameByIdentifier(category.identifier!)
+            
+            //BNAppSharedManager.instance.biinieCategoriesBckup[category.name!] = category
             
             for siteDetails in category.sitesDetails {
                 //Check if site exist.
@@ -268,10 +371,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     
                     var site = BNSite()
                     site.identifier = siteDetails.identifier!
+                    site.biinieProximity = siteDetails.biinieProximity!
                     //site.jsonUrl = siteDetails.json!
                     sites[siteDetails.identifier!] = site
                     //Site does not exist, store it and request it's data.
                     delegateNM!.manager!(self, requestSiteData: site, user:bnUser!)
+                } else {
+                    self.sites[siteDetails.identifier!]?.showInView = true
                 }
             }
             
@@ -279,8 +385,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
         }
         
+        //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
         println("user categories(): \(bnUser!.categories.count)")
         
+//        var sitesArray:Array<BNSite> = Array<BNSite>()
+//        
+//        for (key, value) in sites {
+//            sitesArray.append(value)
+//        }
+//        
+//        sitesArray = sorted(sitesArray){ $0.biinieProximity < $1.biinieProximity  }
+//
+//        sites.removeAll(keepCapacity: false)
+//        
+//        for orderedSite in sitesArray {
+//            sites[orderedSite.identifier!] = orderedSite
+//        }
     }
     
     func findCategoryNameByIdentifier(identifier:String) -> String {
@@ -303,16 +423,57 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNSite received from web service in json format already parse in an site object.
     func manager(manager: BNNetworkManager!, didReceivedSite site: BNSite) {
         
+        
+        var isExternalBiinAdded = false
+        //site.biinieProximity = sites[site.identifier!]?.biinieProximity!
+        
         sites[site.identifier!] = site
+        //BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL, itemIdentifier:site.identifier!)
         println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
             println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
         }
         
+        if site.showcases != nil {
+            for showcase in site.showcases! {
+                
+                if showcases[showcase.identifier!] == nil {
+                    //Showcase does not exist, store it and request it's data.
+                    showcases[showcase.identifier!] = showcase
+                    //println("CRASH: \(biin.showcase!.identifier!)")
+                    delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
+                }
+            }
+        }
+        
+        
         for biin in sites[site.identifier!]!.biins {
-            //Check if showcase exist.
             
+            
+            if site.organization == nil {
+                if organizations[biin.organizationIdentifier!] == nil {
+                    //1. Add organization
+                    //2. set site organizarion
+                    organizations[biin.organizationIdentifier!] = BNOrganization(identifier: biin.organizationIdentifier!)
+                    delegateNM!.manager!(self, requestOrganizationData:organizations[biin.organizationIdentifier!]!, user: self.bnUser!)
+                    site.organization = organizations[biin.organizationIdentifier!]
+                    
+                    //HACK, add site's media to organization until it can be download.
+//                    if site.media.count > 0 {
+//                        organizations[biin.organizationIdentifier!]?.media = site.media
+//                        organizations[biin.organizationIdentifier!]?.title = site.title!
+//                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
+//                    }
+                    
+                } else  {
+                    //2. set site organization
+                    site.organization = organizations[biin.organizationIdentifier!]
+                }
+            }
+            
+            //REMOVE ->
+            /*
             for showcase in biin.showcases! {
             
                 if showcases[showcase.identifier!] == nil {
@@ -322,24 +483,94 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!)
                 }
             }
+            */
+            //REMOVE <-
+            
+            
+            
+            
+            if commercialUUID == nil {
+                commercialUUID = biin.proximityUUID
+            }
+            
+            if biin.objects != nil && biin.objects!.count > 0 {
+                
+                //Set biin state.
+                biin.setBiinState()
+                println("Add notification for biin: \(biin.identifier!)")
+                //HACK for biinType
+                //biin.updateBiinType()
+                
+                for object in biin.objects! {
+                    
+                    println("Object: \(object._id!)")
+                    
+                    switch object.objectType {
+                    case .ELEMENT:
+                        if object.hasNotification {
+                            switch biin.biinType {
+                            case .EXTERNO:
+                                if !isExternalBiinAdded {
+                                    isExternalBiinAdded = true
+                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                }
+                                break
+                            case .INTERNO:
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                break
+                            case .PRODUCT:
+                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+                                break
+                            default:
+                                break
+                            }
+                        }
+                        
+                        var element = BNElement()
+                        element.identifier = object.identifier!
+                        element._id = object._id!
+                        element.siteIdentifier = site.identifier
+                        requestElement(element)
+                        
+                        break
+                    case .SHOWCASE:
+                        if showcases[object.identifier!] == nil {
+                            //Showcase does not exist, store it and request it's data.
+                            var showcase = BNShowcase()
+                            showcase.identifier = object.identifier!
+                            showcase.isDefault = object.isDefault
+                            showcases[object.identifier!] = showcase
+                            
+                            delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
+                        }
+                        break
+                    default:
+                        break
+                    }
+                }
+            }
         }
     }
+    
+    func manager(manager: BNNetworkManager!, didReceivedHihglightList showcase: BNShowcase) {
+        requestElements(showcase.elements)
+    }
+    
     
     ///Received site and start proccesing depending on data store.
     ///:param: Network manager that handled the request.
     ///:param: BNShowcase received from web service in json format already parse in an showcase object.
     func manager(manager:BNNetworkManager!, didReceivedShowcase showcase:BNShowcase) {
 
-        //println("Received showcase: \(showcase.identifier!)")
+        println("Received showcase: \(showcase.identifier!)")
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
-        
-        
         
         requestElements(showcase.elements)
         
         /*
         for element in showcase.elements {
+
 
             //Check if element exist.
             if elements[element._id!] == nil {
@@ -357,6 +588,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         */
     }
     
+    func checkAllShowcasesCompleted(){
+        for (identifier, showcase) in showcases {
+            showcase.isShowcaseGameCompleted = true
+            for element in showcase.elements {
+                if !BNAppSharedManager.instance.dataManager.elements[element._id!]!.userViewed {
+                    showcase.isShowcaseGameCompleted = false
+                    break
+                }
+            }
+        }
+    }
     ///Received biined element list and start proccesing depending on data store.
     ///:param: Network manager that handled the request.
     ///:param: BNElement list received from web service in json format already parse in an array object.
@@ -402,6 +644,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 var newElement = BNElement()
                 newElement.identifier = element.identifier!
                 newElement._id = element._id
+                newElement.userViewed = element.userViewed
+                newElement.siteIdentifier = element.siteIdentifier
                 //newElement.jsonUrl = element.jsonUrl!
                 elements[newElement._id!] = newElement
                 
@@ -427,11 +671,51 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     
+    func requestElement(element:BNElement){
+        //for element in elementList {
+        
+        
+            println("request element: \(element.identifier!)")
+        
+        
+            //Check if element exist.
+            if elements[element._id!] == nil {
+                //Element does not exist, store it and request it's data.
+                var newElement = BNElement()
+                newElement.identifier = element.identifier!
+                newElement._id = element._id
+                newElement.siteIdentifier = element.siteIdentifier
+                newElement.userViewed = element.userViewed
+                //newElement.jsonUrl = element.jsonUrl!
+                elements[newElement._id!] = newElement
+                
+                //Check is element is has been requested by it's identifier
+                if elementsRequested[element.identifier!] == nil {
+                    //println("Request element: \(element._id!) and \(element.identifier!)")
+                    elementsRequested[element.identifier!] = element
+                    delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
+                } else {
+                    //println("############# element is already in list \(element.identifier!) for \(element._id!)")
+                    var value = elementsRequested[element.identifier!]!.isDownloadCompleted
+                    
+                    if value {
+                        manageElementRelationShips(elementsRequested[element.identifier!]!)
+                    }else {
+                        //println("Request element Pending: \(element._id!) and \(element.identifier!)")
+                        //                        elementsRequestedIdentifiers[element.identifier!] = element
+                        //                        delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
+                    }
+                }
+            }
+        //}
+    }
+    
+    
     ///Received element and start proccesing depending on data store.
     ///:param: Network manager that handled the request.
     ///:param: BNElement received from web service in json format already parse in an element object.
     func manager(manager: BNNetworkManager!, didReceivedElement element: BNElement) {
-        //println("Received element: \(element.identifier!) id:\(element._id?) media \(element.media.count)")
+        println("Received element: \(element.identifier!) id:\(element._id!) media \(element.media.count)")
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
@@ -447,6 +731,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         */
     }
     
+    func manager(manager: BNNetworkManager!, didReceivedHightlight element: BNElement) {
+        elementsRequested[element.identifier!] = element
+        highlights[element._id!] = element._id!
+        manageElementRelationShips(element)
+    }
+    
     func manageElementRelationShips(element:BNElement){
         
         //Checks if element received is reference on element and clone it self.
@@ -454,7 +744,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             if value.identifier! == element.identifier! {
                 element._id = key
                 elements[key] = element.clone()
-                //println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
+                println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
+                
+                if bnUser!.elementsViewed[element._id!] != nil {
+                    elements[key]?.userViewed = true
+                }
             }
         }
     }
@@ -603,7 +897,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             self.bnUser = user
             self.bnUser!.save()
         }
-        /*
+        /*x
         //Add a temporal BNCollection
         bnUser!.collections = Dictionary<String, BNCollection>()
         var collection = BNCollection()
@@ -613,7 +907,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         bnUser!.collections![collection.identifier!] = collection
         */
         
-        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
+       // delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
     func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
@@ -640,7 +934,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 //}
             
                 //TODO: Remove this call temporary
-                //requestElements(collection.elements)
+                //requestElements(collection.elements.values.array)
             }
         }
     }
@@ -730,6 +1024,67 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //}
         //return 0
     }
+    
+    
+    var isSiteNeighborSet = false
+    //FOR TESTING ON BEACON REGION MONITORING
+    func setSiteNeighbors() {
+        
+        if !isSiteNeighborSet {
+
+            isSiteNeighborSet = true
+
+            //SITE A
+            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors = Array<String>()
+            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
+            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
+            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
+            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
+            
+//            for var i = 0; i < sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins.count; i++ {
+//                
+//                if sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].minor == 6 {
+//                   sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].children = [8, 9]
+//                }
+//                
+//                if sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].minor == 7 {
+//                    sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].children = [10, 11, 12]
+//                }
+//            }
+
+            //SITE B
+            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors = Array<String>()
+            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
+            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
+            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
+            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
+            
+            //SITE C
+            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors = Array<String>()
+            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
+            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
+            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
+            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
+            
+            //SITE D
+            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors = Array<String>()
+            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
+            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
+            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
+            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
+
+            //SITE E
+            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors = Array<String>()
+            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
+            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
+            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
+            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
+
+            println("Site neighbors set")
+        }
+        
+    }
+    
 }
 
 @objc protocol BNDataManagerDelegate:NSObjectProtocol {
@@ -773,11 +1128,26 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNSite requesting the data.
     optional func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie)
     
+    
+    ///Request a organization's data
+    ///
+    ///:param: BNDataManager that store all data.
+    ///:param: BNOrganization requesting the data.
+    optional func manager(manager:BNDataManager!, requestOrganizationData organization:BNOrganization, user:Biinie)
+    
+    
+    
     ///Request showcase's data
     ///
     ///:param: BNDataManager that store all data.
     ///:param: BNShowcase requesting the data.
-    optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase)
+    optional func manager(manager:BNDataManager!, requestHighlightsData user:Biinie)
+    
+    ///Request showcase's data
+    ///
+    ///:param: BNDataManager that store all data.
+    ///:param: BNShowcase requesting the data.
+    optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase, user:Biinie)
     
     ///Request element's data for BNUser (app user)
     ///
@@ -810,6 +1180,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     optional func manager(manager:BNDataManager!, requestBiinieData biinie:Biinie)
     
     
+    
+    optional func manager(manager:BNDataManager!, startSiteBiinsBackgroundMonitoring value:Bool)
+
     
     
     
@@ -845,6 +1218,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:returns: none
     optional func manager(manager:BNDataManager, startSitesMonitoring value:Bool)
     
+    optional func manager(manager:BNDataManager, startCommercialBiinMonitoring proximityUUID:NSUUID)
     ///Request position manager to stop a site monitoring.
     ///
     ///:param: Data manager that stores the sites.

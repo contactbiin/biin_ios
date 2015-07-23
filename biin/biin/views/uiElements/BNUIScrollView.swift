@@ -56,11 +56,13 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             var scrollXPos:CGFloat = 0
             
             for var i:Int = 0; i < self.media!.count; i++ {
-                
-                var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
-                self.points!.append(point)
-                self.addSubview(point)
-                xpos += 20
+
+                if self.media!.count > 1 {
+                    var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
+                    self.points!.append(point)
+                    self.addSubview(point)
+                    xpos += 20
+                }
                 
                 //Add images to scroll
                 var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
@@ -79,7 +81,9 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
                 scrollXPos += SharedUIManager.instance.screenWidth
             }
             
-            points![previousPoint].setActive()
+            if points!.count > 0 {
+                points![previousPoint].setActive()
+            }
             scroll!.contentSize = CGSizeMake(scrollXPos, 0)
             scroll!.setContentOffset(CGPointZero, animated: false)
             scroll!.bounces = false

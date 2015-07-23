@@ -25,6 +25,8 @@ class ElementMiniView: BNView {
     
     var animationView:BiinItAnimationView?
     
+    var isNumberVisible = true
+    
 //    override init() {
 //        super.init()
 //    }
@@ -41,8 +43,25 @@ class ElementMiniView: BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool){
+    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
+        self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible)
+        
+        biinItButton!.frame.origin.y = (frame.height - 92)
+        shareItButton!.frame.origin.y = (frame.height - 92)
+
+        var siteMiniLocation:SiteView_MiniLocation?
+        if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
+            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 50), frame.width, 50), father: self, site:site)
+            self.addSubview(siteMiniLocation!)
+        }
+        
+        
+    }
+    
+    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool){
+        
         self.init(frame: frame, father:father )
+        self.isNumberVisible = isNumberVisible
         
         self.layer.borderColor = UIColor.appMainColor().CGColor
         self.layer.borderWidth = 1
@@ -52,7 +71,7 @@ class ElementMiniView: BNView {
         //self.layer.shadowOffset = CGSizeMake(0, 0.5)
         //self.layer.shadowRadius = 1
         //self.layer.shadowOpacity = 0.25
-        self.element = BNAppSharedManager.instance.dataManager.elements[element!._id!]
+        self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
         
         if self.element!.media.count > 0 {
             if let color = self.element!.media[0].domainColor {
@@ -68,14 +87,16 @@ class ElementMiniView: BNView {
         image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize))
         //image!.alpha = 1
         self.addSubview(image!)
-        
-        
-        
-        
-        header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
-        self.addSubview(header!)
-        header!.updateSocialButtonsForElement(self.element)
-        
+ 
+        if !isNumberVisible {
+            header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:false)
+            self.addSubview(header!)
+            header!.updateSocialButtonsForElement(self.element)
+        } else {
+            header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
+            self.addSubview(header!)
+            header!.updateSocialButtonsForElement(self.element)
+        }
         
         var ypos:CGFloat = SharedUIManager.instance.miniView_headerHeight + 5
         /*
@@ -86,22 +107,33 @@ class ElementMiniView: BNView {
         }
         */
         
-        if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
+        if !element!.hasPrice && element!.hasDiscount{
             
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(element!.currency!)\(element!.price!)", isMini:true)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(element!.discount!)%", isMini:true, isDiscount:true)
             self.addSubview(priceView!)
             ypos += 40
             
-        } else if element!.hasPrice &&  element!.hasDiscount {
+        } else if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
             
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 38), oldPrice:"\(element!.currency!)\(element!.listPrice!)", newPrice:"\(element!.currency!)\(element!.price!)", percentage:"\(element!.discount!)%", isMini:true)
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 25), price: "\(element!.currency!)\(element!.price!)", isMini:true, isDiscount:false)
             self.addSubview(priceView!)
             ypos += 40
             
+        } else if element!.hasPrice && element!.hasListPrice && element!.hasDiscount{
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 38), oldPrice:"\(element!.currency!)\(element!.price!)", newPrice:"\(element!.currency!)\(element!.listPrice!)", percentage:"\(element!.discount!)%", isMini:true, isHighlight:element!.isHighlight)
+            self.addSubview(priceView!)
+            ypos += 40
+            
+        } else if element!.hasPrice && element!.hasListPrice && !element!.hasDiscount {
+            
+            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 38), oldPrice:"\(element!.currency!)\(element!.price!)", newPrice:"\(element!.currency!)\(element!.listPrice!)", isMini:true, isHighlight:element!.isHighlight)
+            self.addSubview(priceView!)
+            ypos += 40
         } else if element!.hasPrice &&  element!.hasFromPrice {
 
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 37), price: "\(element!.currency!)\(element!.price!)", from:NSLocalizedString("From", comment: "From")
- , isMini:true)
+ , isMini:true, isHighlight:element!.isHighlight)
             self.addSubview(priceView!)
 
             ypos += 40
@@ -197,6 +229,10 @@ class ElementMiniView: BNView {
     func userViewedElement(){
         element!.userViewed  = true
         header!.circleLabel?.animateCircleIn()
+
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.VIEWED_ELEMENT, to:element!._id!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addElementView(element!._id!)
+        BNAppSharedManager.instance.dataManager.bnUser!.save()
     }
     
     func biinit(sender:BNUIButton_BiinIt){
@@ -218,8 +254,8 @@ class ElementMiniView: BNView {
         UIView.animateWithDuration(0.1, animations: {()->Void in
                 self.alpha = 0
             }, completion: {(completed:Bool)->Void in
+                BNAppSharedManager.instance.unBiinit(self.element!._id!, isElement:true)
                 self.delegate!.resizeScrollOnRemoved!(self)
-                BNAppSharedManager.instance.unBiinit(self.element!.identifier!, isElement:true)
                 self.removeFromSuperview()
         })
     }

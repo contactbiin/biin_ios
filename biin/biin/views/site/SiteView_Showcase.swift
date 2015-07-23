@@ -11,8 +11,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     var title:UILabel?
     var subTitle:UILabel?
     var scroll:UIScrollView?
-    weak var biin:BNBiin?
-    var showcase:BNShowcase?
+    //weak var biin:BNBiin?
+    weak var showcase:BNShowcase?
 
     var isWorking = true
     var spacer:CGFloat = 5
@@ -25,11 +25,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     var joinView:SiteView_Showcase_Join?
     
 
-    //weak var site:BNSite?
+    weak var site:BNSite?
     var currentPoints = 0
     var timer:NSTimer?
     
-    var addNotificationBtn:UIButton?
+    //var addNotificationBtn:UIButton?
     
 //    override init() {
 //        super.init()
@@ -47,14 +47,15 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame: CGRect, father:BNView?, biin:BNBiin?) {
+    convenience init(frame: CGRect, father:BNView?, showcase:BNShowcase?, site:BNSite?) {
         self.init(frame: frame, father:father )
         
-        self.biin = biin
+        //self.biin = biin
         
         self.backgroundColor = UIColor.appMainColor()
-        self.showcase = BNAppSharedManager.instance.dataManager.showcases[self.biin!.currectShowcase().identifier!]
-
+        self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
+        self.site = site
+        
         //TODO: Add all showcase data here
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
@@ -65,7 +66,13 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.text = self.showcase!.title
-        title!.textColor = self.showcase!.titleColor!
+        
+        if let color = self.showcase!.titleColor {
+            title!.textColor = self.showcase!.titleColor!
+        } else {
+            title!.textColor = UIColor.appTextColor()
+        }
+        
         self.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_titleSize + 3
@@ -77,10 +84,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         self.addSubview(subTitle!)
         
         //TESTING NOTIFICATIONS
-        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
-        addNotificationBtn!.backgroundColor = UIColor.redColor()
-        addNotificationBtn!.addTarget(self, action: "addNotificationBtn:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(addNotificationBtn!)
+//        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
+//        addNotificationBtn!.backgroundColor = UIColor.redColor()
+//        addNotificationBtn!.addTarget(self, action: "addNotificationBtn:", forControlEvents: UIControlEvents.TouchUpInside)
+//        self.addSubview(addNotificationBtn!)
         
         //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
         var scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 10
@@ -98,13 +105,13 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
     }
     
-    func addNotificationBtn(sender:UIButton){
+//    func addNotificationBtn(sender:UIButton){
         //TEST: Add some notifications
-        var notification = BNNotification(title: "\(self.biin!.site!.title!)", text: "A test notification for site \(self.biin!.site!.title!)", biin: self.biin!, notificationType: BNNotificationType.STIMULUS, time:NSDate())
+        //var notification = BNNotification(title: "\(self.biin!.site!.title!)", text: "A test notification for site \(self.biin!.site!.title!)", biin: self.biin!, notificationType: BNNotificationType.STIMULUS, time:NSDate())
         
-        BNAppSharedManager.instance.processNotification(notification)
+        //BNAppSharedManager.instance.processNotification(notification)
 
-    }
+//    }
     
     override func transitionIn() {
 
@@ -138,14 +145,14 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     //Instance methods
     //instance methods
     //Start all category work, download etc.
-    func getToWork(){
+    override func getToWork(){
         isWorking = true
         manageElementMiniViewImageRequest()
         println("\(showcase!.identifier!) is working")
     }
     
     //Stop all category work, download etc.
-    func getToRest(){
+    override func getToRest(){
         isWorking = false
         println("\(showcase!.identifier!) is resting")
     }
@@ -158,20 +165,31 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         var elementPosition:Int = 1
         var xpos:CGFloat = spacer
+        var elementsViewed = 0
         elements = Array<ElementMiniView>()
         
         for element in showcase!.elements {
-            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false)
+            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
             xpos += SharedUIManager.instance.miniView_width + spacer
             elementView.delegate = self
             scroll!.addSubview(elementView)
             elements!.append(elementView)
             elementPosition++
+            
+  
+            
+            if element.userViewed {
+                elementsViewed++
+            }
+            
+            if elementPosition < 3 {
+                elementView.requestImage()
+            }
         }
         
         xpos += spacer
         
-        if biin!.site!.loyalty!.isSubscribed {
+        if self.site!.organization!.loyalty!.isSubscribed {
             //Add game view
             gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
             scroll!.addSubview(gameView!)
@@ -186,6 +204,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.bounces = false
         scroll!.pagingEnabled = false
+        
+        if !self.showcase!.isShowcaseGameCompleted {
+            var of = NSLocalizedString("Of", comment: "Of")
+            gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
+        }
     }
     
     /* UIScrollViewDelegate Methods */
@@ -220,7 +243,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             return
         }
         
-        if biin!.site!.loyalty!.isSubscribed {
+        if self.site!.organization!.loyalty!.isSubscribed {
             
             var isShowcaseGameCompleted = true
             var totalPoints = 0
@@ -247,15 +270,16 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                     }
                 }
                 
-                gameView!.updateYouSeenLbl("\(elementsViewed) of \(self.elements!.count)")
+                var of = NSLocalizedString("Of", comment: "Of")
+                gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
                 
                 if isShowcaseGameCompleted {
                     totalPoints = self.elements!.count * pointsByElement
-                    currentPoints = biin!.site!.loyalty!.points
+                    currentPoints = self.site!.organization!.loyalty!.points
                     self.updatePointCounter()
-                    biin!.site!.loyalty!.points += totalPoints
+                    self.site!.organization!.addPoints(totalPoints)
                     showcase!.isShowcaseGameCompleted = true
-                    father!.changeJoinBtnText("You have \(biin!.site!.loyalty!.points) points with us!")
+                    father!.changeJoinBtnText("You have \(self.site!.organization!.loyalty!.points) points with us!")
                 }
             }
         }
@@ -267,17 +291,17 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     func updatePoints(sender:NSTimer){
         
-        currentPoints++
+//        currentPoints++
         
-        if currentPoints <= biin!.site!.loyalty!.points {
+//        if currentPoints <= self.site!.organization!.loyalty!.points {
             //gameView!.updatePointLbl("\(currentPoints)")
             //TODO: update bottom label on site
             (father! as! SiteView).updateLoyaltyPoints()
             
-        }else {
+//        }else {
             timer!.invalidate()
             gameView!.startToAnimateCirclesOnCompleted()
-        }
+//        }
     }
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {

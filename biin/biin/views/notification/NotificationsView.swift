@@ -29,20 +29,20 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        title = UILabel(frame: CGRectMake(0, 25, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.text = NSLocalizedString("Notifications", comment: "title")
+        var ypos:CGFloat = 12
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.appTextColor()
-        title!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_titleSize )
         title!.textAlignment = NSTextAlignment.Center
+        title!.text = NSLocalizedString("Notifications", comment: "title")
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 22, 50, 50))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
         var headerWidth = screenWidth - 60
         var xpos:CGFloat = (screenWidth - headerWidth) / 2
-        var ypos:CGFloat = 15
         
         /*
         var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
@@ -88,7 +88,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         self.addSubview(biinieUserNameLbl!)
         */
         
-        ypos += 40
+        ypos = SharedUIManager.instance.siteView_headerHeight
         var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         
@@ -166,7 +166,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     }
     
     func addNotifications(){
-        
+        /*
         if notifications.count > 0 {
             for value in notifications {
                 value.removeFromSuperview()
@@ -178,10 +178,10 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         var ypos:CGFloat = 5
         var height:CGFloat = 60
         
-        BNAppSharedManager.instance.dataManager.notifications = sorted(BNAppSharedManager.instance.dataManager.notifications){ $0.identifier > $1.identifier }
+        BNAppSharedManager.instance.notificationManager.notifications = sorted(BNAppSharedManager.instance.notificationManager.notifications){ $0.identifier > $1.identifier }
         
         
-        for value in BNAppSharedManager.instance.dataManager.notifications {
+        for value in BNAppSharedManager.instance.notificationManager.notifications {
             
             //if notifications[key] == nil {
                 var notification = NotificationsView_Notification(frame: CGRectMake(5, ypos, (SharedUIManager.instance.screenWidth - 10), height), father: self, notification: value)
@@ -195,12 +195,13 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         }
         
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+*/
     }
     
     
     func resizeScrollOnRemoved(identifier: Int) {
         
-        BNAppSharedManager.instance.dataManager.removeNotification(identifier)
+        //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
         
         var startPosition = 0
         for var i = 0; i < notifications.count; i++ {

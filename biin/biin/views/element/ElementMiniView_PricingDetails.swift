@@ -23,6 +23,8 @@ class ElementMiniView_PricingDetails:BNView {
     convenience init(frame: CGRect, father:BNView?, element:BNElement?) {
         self.init(frame:frame, father:father)
         
+        println("element identifier: \(element!.identifier!)")
+        
         var ypos:CGFloat = 5
         var spacer:CGFloat = 5
         
@@ -33,7 +35,7 @@ class ElementMiniView_PricingDetails:BNView {
         }
         
         if element!.hasFromPrice {
-            var fromPrice = BNUIDetailView_From(position: CGPointMake(5, ypos), text:"\(element!.currency!)\(element!.fromPrice!)", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            var fromPrice = BNUIDetailView_From(position: CGPointMake(5, ypos), text:"\(element!.currency!)\(element!.price!)", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(fromPrice)
             ypos += 32
         }

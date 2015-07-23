@@ -52,9 +52,27 @@ class BNUIAlertView:UIView {
         })
     }
     
+    func showAndHide(){
+        isOn = true
+        UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
+            self.header!.frame = CGRectMake(self.frame.origin.x, -60, self.frame.width, self.frame.height)
+            self.fade!.alpha = 0.3
+            }, completion: {(completed:Bool)-> Void in
+
+                self.isOn = false
+                UIView.animateWithDuration(0.2, delay: 1.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
+                    self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
+                    self.fade!.alpha = 0
+                    }, completion: {(completed:Bool)-> Void in
+                        self.removeFromSuperview()
+                })
+                
+        })
+    }
+    
     func hide(){
         isOn = false
-        UIView.animateWithDuration(0.2, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
+        UIView.animateWithDuration(0.2, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
                 self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
                 self.fade!.alpha = 0
             }, completion: {(completed:Bool)-> Void in
@@ -65,7 +83,7 @@ class BNUIAlertView:UIView {
     func hideWithCallback(callback:() -> Void) {
         isOn = false
         
-        UIView.animateWithDuration(0.2, delay: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
+        UIView.animateWithDuration(0.2, delay: 1.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
                 self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
             }, completion: {(completed:Bool)->Void in
                 callback()

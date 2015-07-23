@@ -13,6 +13,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     var isWorking = false
     var category:BNCategory?
     var sites:Array<SiteMiniView>?
+    var addedSitesIdentifiers:Dictionary<String, SiteMiniView>?
     var scroll:UIScrollView?
     var isScrollDecelerating = false
     
@@ -63,6 +64,25 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         addSites()
     }
     
+    convenience init(frame: CGRect, father: BNView?, allSites:Bool) {
+        self.init(frame: frame, father:father )
+        
+        self.backgroundColor = UIColor.appBackground()
+        
+        var screenWidth = SharedUIManager.instance.screenWidth
+        var screenHeight = SharedUIManager.instance.screenHeight
+        
+        scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20))))
+        //        scroll!.backgroundColor = UIColor.biinColor()
+        scroll!.showsHorizontalScrollIndicator = false
+        scroll!.showsVerticalScrollIndicator = false
+        scroll!.delegate = self
+        scroll!.bounces = false
+        self.addSubview(scroll!)
+        
+        addAllSites()
+    }
+    
     override func transitionIn() {
 
     }
@@ -94,19 +114,22 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
     //instance methods
     //Start all category work, download etc.
-    func getToWork(){
+    override func getToWork(){
         isWorking = true
         manageSitesImageRequest()
-        println("\(category!.identifier!) is working")
+        //println("\(category!.identifier!) is working")
     }
     
     //Stop all category work, download etc.
-    func getToRest(){
+    override func getToRest(){
         isWorking = false
-        println("\(category!.identifier!) is resting")
+        //println("\(category!.identifier!) is resting")
     }
     
     func addSites() {
+        
+        siteRequestPreviousLimit = 0
+        lastRowRequested = 0
         
         var xpos:CGFloat = 0
         var ypos:CGFloat = siteSpacer
@@ -138,27 +161,32 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         for var i = 0; i < category?.sitesDetails.count; i++ {
             
-            if columnCounter < columns {
-                columnCounter++
-                xpos = xpos + siteSpacer
-                
-            } else {
-                ypos = ypos + siteViewHeight + siteSpacer
-                xpos = siteSpacer
-                columnCounter = 1
-            }
             
             var siteIdentifier = category?.sitesDetails[i].identifier!
-            var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier! ]
-            
-            var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-            
-            miniSiteView.delegate = father?.father! as! MainView
-            
-            sites!.append(miniSiteView)
-            scroll!.addSubview(miniSiteView)
+            var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier!]
+  
+            if !isSiteAdded(siteIdentifier!) {
+                if columnCounter < columns {
+                    columnCounter++
+                    xpos = xpos + siteSpacer
+                    
+                } else {
+                    ypos = ypos + siteViewHeight + siteSpacer
+                    xpos = siteSpacer
+                    columnCounter = 1
+                }
+                
+                var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                
+                miniSiteView.delegate = father?.father! as! MainView
+                
+                sites!.append(miniSiteView)
+                scroll!.addSubview(miniSiteView)
 
-            xpos = xpos + siteViewWidth
+                xpos = xpos + siteViewWidth
+            } else {
+                
+            }
         }
         
         ypos = ypos + siteViewHeight + siteSpacer
@@ -167,6 +195,211 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         SharedUIManager.instance.miniView_height = siteViewHeight
         SharedUIManager.instance.miniView_width = siteViewWidth
         SharedUIManager.instance.miniView_columns = columns
+    }
+    
+    func addAllSites(){
+        
+        siteRequestPreviousLimit = 0
+        lastRowRequested = 0
+        
+        var xpos:CGFloat = 0
+        var ypos:CGFloat = siteSpacer
+        
+        var columnCounter = 0
+        
+        if sites != nil {
+            addedSitesIdentifiers!.removeAll(keepCapacity: false)
+            for view in sites! {
+                view.isPositionedInFather = false
+                view.isReadyToRemoveFromFather = true
+            }
+//
+//            sites!.removeAll(keepCapacity: false)
+            
+        } else {
+            sites = Array<SiteMiniView>()
+            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
+        }
+        
+        switch SharedUIManager.instance.deviceType {
+        case .iphone4s, .iphone5, .iphone6:
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
+            siteViewHeight = 240.0
+            columns = 2
+            break
+        case .iphone6Plus:
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 30) / 2
+            siteViewHeight = SharedUIManager.instance.screenHeight / 3
+            columns = 2
+            break
+        case .ipad:
+            siteViewWidth = (SharedUIManager.instance.screenWidth - 40) / 3
+            siteViewHeight = SharedUIManager.instance.screenHeight / 3
+            columns = 3
+            break
+        default:
+            break
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+        //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
+        println("user categories(): \(bnUser!.categories.count)")
+        
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        for (key, value) in sites {
+            sitesArray.append(value)
+        }
+        
+        sitesArray = sorted(sitesArray){ $0.biinieProximity > $1.biinieProximity  }
+        
+        sites.removeAll(keepCapacity: false)
+        
+        for orderedSite in sitesArray {
+            sites[orderedSite.identifier!] = orderedSite
+        }
+        */
+        
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            if category.hasSites {
+                for var i = 0; i < category.sitesDetails.count; i++ {
+                    
+                    var siteIdentifier = category.sitesDetails[i].identifier!
+                    var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                    //println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
+                    
+                    if site!.showInView {
+                        sitesArray.append(site!)
+                    }
+                }
+            }
+        }
+        
+        sitesArray = sorted(sitesArray){ $0.biinieProximity < $1.biinieProximity  }
+
+        /*
+        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            if category.hasSites {
+                
+                println("----------------------------------------------------------------")
+                println("Category:\(category.name!), sites:\(category.sitesDetails.count)")
+                
+                for var i = 0; i < category.sitesDetails.count; i++ {
+
+                    var siteIdentifier = category.sitesDetails[i].identifier!
+
+                    var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                    println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
+*/
+        for site in sitesArray {
+                    if site.showInView {
+                        if !isSiteAdded(site.identifier!) {
+                            //println("***** ADDING SITE:\(site.identifier!) title: \(site.title!)")
+                            
+                            if columnCounter < columns {
+                                columnCounter++
+                                xpos = xpos + siteSpacer
+                                
+                            } else {
+                                ypos = ypos + siteViewHeight + siteSpacer
+                                xpos = siteSpacer
+                                columnCounter = 1
+                            }
+
+                            var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                            miniSiteView.isPositionedInFather = true
+                            miniSiteView.isReadyToRemoveFromFather = false
+                            miniSiteView.delegate = father?.father! as! MainView
+                            
+                            sites!.append(miniSiteView)
+                            scroll!.addSubview(miniSiteView)
+                            
+                            xpos = xpos + siteViewWidth
+                        
+                        } else {
+                            for siteView in sites! {
+                                if siteView.site!.identifier == site.identifier! && !siteView.isPositionedInFather {
+                                    
+                                    //println("***** POSITIONING SITE:\(site.identifier!) title: \(site.title!)")
+                                    if columnCounter < columns {
+                                        columnCounter++
+                                        xpos = xpos + siteSpacer
+                                        
+                                    } else {
+                                        ypos = ypos + siteViewHeight + siteSpacer
+                                        xpos = siteSpacer
+                                        columnCounter = 1
+                                    }
+                                    siteView.isPositionedInFather = true
+                                    siteView.isReadyToRemoveFromFather = false
+                                    siteView.frame = CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight)
+                                    xpos = xpos + siteViewWidth
+                                    
+                                    break
+                                }
+                            }
+                            
+                            //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                            
+                            //miniSiteView.delegate = father?.father! as! MainView
+  
+//                            sites!.append(miniSiteView)
+//                            scroll!.addSubview(miniSiteView)
+                            
+
+
+                        }
+                    }
+        }
+                    /*
+                    else {
+//                        for var i = 0; i < sites!.count; i++ {
+//                            if sites![i].site!.identifier == siteIdentifier {
+//                                println("***** REMOVE SITE:\(siteIdentifier) title: \(sites![i].site!.title!)")
+//                                sites![i].removeFromSuperview()
+//                                sites!.removeAtIndex(i)
+//                                break
+//                            }
+//                        }
+                    }
+                }
+            }
+        }
+        */
+        ypos = ypos + siteViewHeight + siteSpacer
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        
+        SharedUIManager.instance.miniView_height = siteViewHeight
+        SharedUIManager.instance.miniView_width = siteViewWidth
+        SharedUIManager.instance.miniView_columns = columns
+
+        
+        var sitesCount = sites!.count
+        for var i = 0; i < sites!.count; i++ {
+            if sites![i].isReadyToRemoveFromFather {
+                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
+                sites![i].removeFromSuperview()
+                sites!.removeAtIndex(i)
+                i = 0
+    
+            }
+        }
+        
+        
+    }
+    
+    override func refresh() {
+        addAllSites()
+        //getToWork()
     }
     
     /* UIScrollViewDelegate Methods */
@@ -210,46 +443,56 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     
     func manageSitesImageRequest(){
         
-        if !isWorking { return }
+        if !isWorking || sites == nil { return }
         
-        var height = self.siteViewHeight + self.siteSpacer
-        var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
+        if sites!.count > 0 {
+            var height = self.siteViewHeight + self.siteSpacer
+            var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
 
-        if lastRowRequested < row {
-            
-            lastRowRequested = row
-            var requestLimit:Int = Int((lastRowRequested + columns) * columns)
+            if lastRowRequested < row {
+                
+                lastRowRequested = row
+                var requestLimit:Int = Int((lastRowRequested + columns) * columns)
 
-            if requestLimit >= sites?.count {
-                requestLimit = sites!.count - 1
-            }
-            
+                if requestLimit >= sites?.count {
+                    requestLimit = sites!.count - 1
+                }
 
-            var i:Int = requestLimit
-            var stop:Bool = false
-            
-            while !stop {
+                var i:Int = requestLimit
+                var stop:Bool = false
+                
+                while !stop {
 
-                if i >= siteRequestPreviousLimit {
+                    if i >= siteRequestPreviousLimit {
+                        var siteView = sites![i] as SiteMiniView
+                        siteView.requestImage()
+                        i--
+                    } else  {
+                        stop = true
+                    }
+                }
+                
+                //Error when archiving: command failed due to signal: segmentation fault: 11
+                /*
+                for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
+                    //println("requesting for  \(i)")
                     var siteView = sites![i] as SiteMiniView
                     siteView.requestImage()
-                    i--
-                } else  {
-                    stop = true
                 }
+                */
+                
+                siteRequestPreviousLimit = requestLimit + 1
             }
-            
-            //Error when archiving: command failed due to signal: segmentation fault: 11
-            /*
-            for var i = requestLimit; i >= siteRequestPreviousLimit ; i-- {
-                //println("requesting for  \(i)")
-                var siteView = sites![i] as SiteMiniView
-                siteView.requestImage()
-            }
-            */
-            
-            siteRequestPreviousLimit = requestLimit + 1
         }
+    }
+    
+    func isSiteAdded(identifier:String) -> Bool {
+        for siteView in sites! {
+            if siteView.site!.identifier == identifier {
+                return true
+            }
+        }
+        return false
     }
 }
 

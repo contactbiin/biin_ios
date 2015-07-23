@@ -24,22 +24,29 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
-        self.view.layer.cornerRadius = 5
-        self.view.layer.masksToBounds = true
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        UIApplication.sharedApplication().statusBarHidden = false
+        self.setNeedsStatusBarAppearanceUpdate()
+    
         self.becomeFirstResponder()
         
-        loginView = LoginView(frame: self.view.frame)
+        loginView = LoginView(frame:CGRectMake(0, 25, self.view.frame.width, (self.view.frame.height - 25)))
+        loginView!.layer.cornerRadius = 5
+        loginView!.layer.masksToBounds = true
         loginView!.delegate = self
         self.view.addSubview(loginView!)
         
-        fadeView = UIView(frame:self.view.frame)
+        fadeView = UIView(frame:CGRectMake(0, 25, self.view.frame.width, (self.view.frame.height - 25)))
         fadeView!.backgroundColor = UIColor.blackColor()
         fadeView!.alpha = 0
         self.view.addSubview(fadeView!)
         fadeView!.frame.origin.x = SharedUIManager.instance.screenWidth
         
-        signupView = SignupView(frame: self.view.frame)
+        signupView = SignupView(frame:CGRectMake(0, 25, self.view.frame.width, (self.view.frame.height - 25)))
+        signupView!.layer.cornerRadius = 5
+        signupView!.layer.masksToBounds = true
         signupView!.delegate = self
+        
         self.view.addSubview(signupView!)
         signupView!.frame.origin.x = SharedUIManager.instance.screenWidth
         
@@ -51,6 +58,10 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
 //        localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
 //        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     override func didReceiveMemoryWarning() {
@@ -158,6 +169,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
+                    BNAppSharedManager.instance.dataManager.requestInitialData()
                     var vc = LoadingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
@@ -169,7 +181,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 alert!.hideWithCallback({() -> Void in
                     self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
                     self.view.addSubview(self.alert!)
-                    self.alert!.show()
+                    self.alert!.showAndHide()
                     self.loginView!.clean()
                 })
             }
@@ -191,7 +203,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 alert!.hideWithCallback({() -> Void in
                     self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
                     self.view.addSubview(self.alert!)
-                    self.alert!.show()
+                    self.alert!.showAndHide()
                     self.loginView!.clean()
                 })
             }

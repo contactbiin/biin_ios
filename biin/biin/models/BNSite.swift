@@ -6,12 +6,13 @@
 import Foundation
 import UIKit
 
-class BNSite:NSObject {
+class BNSite:NSObject, NSCoding {
     
     //TODO: jsonUrl only for testing, remove later
     var jsonUrl:String?
     
     var identifier:String?
+    weak var organization:BNOrganization?
     var proximityUUID:NSUUID?
     var major:Int?
     
@@ -29,9 +30,10 @@ class BNSite:NSObject {
     var zipCode:String?
     var streetAddress1:String?
     var streetAddress2:String?
+    var ubication:String?
     var phoneNumber:String?
     var email:String?
-    
+    var nutshell:String?
     //Gallery
     var media:Array<BNMedia> = Array<BNMedia>()
 //    var images:Array<UIImageView> = Array<UIImageView>()
@@ -52,11 +54,25 @@ class BNSite:NSObject {
     
     var latitude:Float?
     var longitude:Float?
+    var biinieProximity:Float?
     
     var isUserInside:Bool = false
+
+    //Neighbors are set by geo distance on backend.
+    var neighbors:Array<String>?
+    
+//    var showcases:Array<String>?
+    var showcases:Array<BNShowcase>?
+    
+    var showInView = true
     
     override init(){
         super.init()
+    }
+    
+    convenience init(identifier:String){
+        self.init()
+        self.identifier = identifier
     }
 
     deinit{
@@ -67,5 +83,49 @@ class BNSite:NSObject {
         for biin in biins {
             biin.setBiinState()
         }
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+//        self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
+//        self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
+//        self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
+//        self.lastName  = aDecoder.decodeObjectForKey("lastName") as? String
+//        self.email  = aDecoder.decodeObjectForKey("email") as? String
+//        self.birthDate = aDecoder.decodeObjectForKey("birthDate") as? NSDate
+//        self.isEmailVerified = aDecoder.decodeBoolForKey("isEmailVerified")
+//        self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
+//        self.gender  = aDecoder.decodeObjectForKey("gender") as? String
+//        self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
+//        self.newNotificationCount = 0
+//        self.notificationIndex = 0
+//        self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
+//        
+//        println("**** Action: \(actions.count)")
+//        
+//        for _id in storedElementsViewed {
+//            elementsViewed[_id] = _id
+//        }
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        
+    }
+    
+    func save() {
+        let data = NSKeyedArchiver.archivedDataWithRootObject(self)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.identifier!)
+    }
+    
+    func clear() {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(self.identifier!)
+    }
+    
+    class func loadSaved(identifier:String) -> BNSite? {
+        
+        if let data = NSUserDefaults.standardUserDefaults().objectForKey(identifier) as? NSData {
+            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNSite
+        }
+        
+        return nil
     }
 }

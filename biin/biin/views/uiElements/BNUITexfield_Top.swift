@@ -34,24 +34,29 @@ class BNUITexfield_Top:UIView {
     convenience init(frame: CGRect, placeHolderText:String) {
         self.init(frame:frame)
     
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.appButtonColor_Disable()
+//        self.layer.borderColor = UIColor.appButtonColor_Disable().CGColor
+//        self.layer.borderWidth = 1
         
         textField = UITextField(frame: CGRectMake(15, 0, (frame.width - 30), frame.height))
-        textField!.font = UIFont(name: "Lato-Light", size: 16)
-        textField!.textColor = UIColor.appBackground()
-        textField!.placeholder = placeHolderText
+        textField!.font = UIFont(name: "Lato-Light", size: 18)
+        textField!.textColor = UIColor.appTextColor()
+//        textField!.placeholder = placeHolderText
         textField!.returnKeyType = UIReturnKeyType.Next
         textField!.keyboardAppearance = UIKeyboardAppearance.Light
         textField!.clearsOnBeginEditing = true
         self.addSubview(textField!)
+        
+        let str = NSAttributedString(string: placeHolderText, attributes: [NSForegroundColorAttributeName:UIColor.appButtonColor()])
+        textField!.attributedPlaceholder = str
     
         radius = 15.0
-        self.color = UIColor.appMainColor()
+        self.color = UIColor.appBackground()
         self.position = CGPoint(x:0, y:0 )
         self.size = CGSize(width: frame.width, height: frame.height)
         
         point = UIView(frame: CGRectMake((self.frame.width - 15), 5, 10, 10))
-        point!.backgroundColor = UIColor.appMainColor()
+        point!.backgroundColor = UIColor.appButtonColor_Disable()
         point!.layer.cornerRadius = 5
         self.addSubview(point!)
     }
@@ -59,13 +64,13 @@ class BNUITexfield_Top:UIView {
     override func drawRect(rect: CGRect) {
     
         //// Frames
-        let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
+        //let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
         
         //// back Drawing
-        var backPath = UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), byRoundingCorners: UIRectCorner.TopLeft | UIRectCorner.TopRight, cornerRadii: CGSizeMake(radius!, radius!))
-        backPath.closePath()
-        color!.setFill()
-        backPath.fill()
+        //var backPath = UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), byRoundingCorners: UIRectCorner.TopLeft | UIRectCorner.TopRight, cornerRadii: CGSizeMake(radius!, radius!))
+        //backPath.closePath()
+        //color!.setFill()
+        //backPath.fill()
         
     }
     

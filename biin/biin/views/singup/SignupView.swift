@@ -11,7 +11,8 @@ class SignupView:UIView, UITextFieldDelegate {
     var delegate:SignupView_Delegate?
     
     var biinLogo:BNUIBiinView?
-    var backBtn:BNUIButton_Back_SignupView?
+    //var biinLogoImage:UIImageView?
+    var backBtn:BNUIButton_Loging?
     
     var firstNameTxt:BNUITexfield_Top?
     var lastNameTxt:BNUITexfield_Center?
@@ -21,7 +22,7 @@ class SignupView:UIView, UITextFieldDelegate {
     
     var singupBtn:BNUIButton_Loging?
     var signupLbl:UILabel?
-    var welcomeLbl:UILabel?
+    //var welcomeLbl:UILabel?
     
     var isKeyboardUp = false
     
@@ -40,85 +41,103 @@ class SignupView:UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.biinColor()
+        self.backgroundColor = UIColor.whiteColor()
         //        self.layer.cornerRadius = 5
         //        self.layer.masksToBounds = true
         //        self.becomeFirstResponder()
         
         var screenWidth = SharedUIManager.instance.screenWidth
         var ypos:CGFloat = 20
-        biinLogo = BNUIBiinView(frame: CGRectMake(((screenWidth - 110) / 2), ypos, 110, 65))
-        self.addSubview(biinLogo!)
-        //biinLogo!.setNeedsDisplay()
-        
-        ypos += (10 + biinLogo!.frame.height)
-        welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 18))
-        welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
 
-        welcomeLbl!.textAlignment = NSTextAlignment.Center
-        welcomeLbl!.textColor = UIColor.appMainColor()
-        welcomeLbl!.font = UIFont(name: "Lato-Light", size: 16)
-        self.addSubview(welcomeLbl!)
         
-        ypos += (20 + welcomeLbl!.frame.height)
-        firstNameTxt = BNUITexfield_Top(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Name", comment: "Name"))
+        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:4.0)
+        biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
+        
+        if SharedUIManager.instance.signupView_showLogo {
+            self.addSubview(biinLogo!)
+            biinLogo!.setNeedsDisplay()
+            ypos +=  (20 + biinLogo!.frame.height)
+        }
+//        biinLogoImage = UIImageView(image: UIImage(named: "biinLogoLS"))
+//        biinLogoImage!.frame = CGRectMake(60, -35, SharedUIManager.instance.signupView_logoSize, SharedUIManager.instance.signupView_logoSize)
+//        self.addSubview(biinLogoImage!)
+        
+//        welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 23))
+//        welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
+//        welcomeLbl!.textAlignment = NSTextAlignment.Center
+//        welcomeLbl!.textColor = UIColor.appTextColor()
+//        welcomeLbl!.font = UIFont(name: "Lato-Black", size: 20)
+//        //self.addSubview(welcomeLbl!)
+        
+        //ypos += (20 + welcomeLbl!.frame.height)
+        firstNameTxt = BNUITexfield_Top(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Name", comment: "Name"))
         firstNameTxt!.textField!.delegate = self
         //emailTxt!.textField!.becomeFirstResponder()
         self.addSubview(firstNameTxt!)
         
-        ypos += (2 + firstNameTxt!.frame.height)
-        lastNameTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Lastnane", comment: "Lastnane"))
+        ypos += (1 + firstNameTxt!.frame.height)
+        lastNameTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Lastnane", comment: "Lastnane"))
         lastNameTxt!.textField!.delegate = self
         self.addSubview(lastNameTxt!)
         
-        ypos += (2 + lastNameTxt!.frame.height)
-        genderTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Gender", comment: "Gender"))
+        ypos += (1 + lastNameTxt!.frame.height)
+        genderTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Gender", comment: "Gender"))
         genderTxt!.textField!.enabled = false
         genderTxt!.textField!.delegate = self
         self.addSubview(genderTxt!)
         
-        femaleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 90, 5, 30, 30), iconType: BNIconType.femaleSmall)
+        femaleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 90, 8, 30, 30), iconType: BNIconType.femaleSmall)
         femaleBtn!.addTarget(self, action: "femaleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         genderTxt!.addSubview(femaleBtn!)
         genderStr = ""
         
-        maleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 55, 5, 30, 30), iconType: BNIconType.maleSmall)
+        maleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 55, 8, 30, 30), iconType: BNIconType.maleSmall)
         maleBtn!.addTarget(self, action: "maleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         genderTxt!.addSubview(maleBtn!)
         
-        ypos += (2 + genderTxt!.frame.height)
-        emailTxt = BNUITexfield_Center(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Email", comment: "Email"))
+        ypos += (1 + genderTxt!.frame.height)
+        emailTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         self.addSubview(emailTxt!)
         
         
-        ypos += (2 + emailTxt!.frame.height)
-        passwordTxt = BNUITexfield_Bottom(frame: CGRectMake(20, ypos, (screenWidth - 40), 40), placeHolderText:NSLocalizedString("Password", comment: "Password"))
+        ypos += (1 + emailTxt!.frame.height)
+        passwordTxt = BNUITexfield_Bottom(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Password", comment: "Password"))
         passwordTxt!.textField!.delegate = self
         passwordTxt!.textField!.secureTextEntry = true
         passwordTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         self.addSubview(passwordTxt!)
         
 
-        ypos += (20 + passwordTxt!.frame.height)
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"))
+        ypos += (5 + passwordTxt!.frame.height)
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 65), color:UIColor.biinColor(), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), textColor:UIColor.whiteColor())
         singupBtn!.addTarget(self, action: "singup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         
-        ypos += (10 + singupBtn!.frame.height)
-        signupLbl = UILabel(frame: CGRectMake(20, ypos, (screenWidth - 40), 16))
+        
+        ypos += singupBtn!.frame.height + 10
+        backBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 20), color:UIColor.clearColor(), text:NSLocalizedString("Calcel", comment: "Calcel"), textColor:UIColor.bnOrange())
+        backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(backBtn!)
+        
+        ypos = SharedUIManager.instance.screenHeight - 70
+        signupLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 16))
         signupLbl!.text = NSLocalizedString("DontForget", comment: "DontForget")
         signupLbl!.textAlignment = NSTextAlignment.Left
-        signupLbl!.textColor = UIColor.appMainColor()
+        signupLbl!.textColor = UIColor.appTextColor()
         signupLbl!.numberOfLines = 0
-        signupLbl!.font = UIFont(name: "Lato-Light", size: 14)
+        signupLbl!.font = UIFont(name: "Lato-Light", size: 13)
         signupLbl!.sizeToFit()
         self.addSubview(signupLbl!)
         
-        backBtn = BNUIButton_Back_SignupView(frame: CGRect(x: 10, y: 10, width: 40, height: 20))
-        backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(backBtn!)
+        //backBtn = BNUIButton_Back_SignupView(frame: CGRect(x: 10, y: 10, width: 40, height: 20))
+        //backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
+        //self.addSubview(backBtn!)
+        
+
+        
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
         
@@ -174,6 +193,7 @@ class SignupView:UIView, UITextFieldDelegate {
         if ready {
             var user = Biinie(identifier:emailTxt!.textField!.text, firstName: firstNameTxt!.textField!.text, lastName: lastNameTxt!.textField!.text, email: emailTxt!.textField!.text, gender:genderStr!)
             user.password = passwordTxt!.textField!.text
+            BNAppSharedManager.instance.dataManager.bnUser = user
             BNAppSharedManager.instance.networkManager.register(user)
             
             delegate!.showProgress!(self)
@@ -191,18 +211,24 @@ class SignupView:UIView, UITextFieldDelegate {
         if !isKeyboardUp {
             isKeyboardUp = true
             println("keyboardDidShow")
+            
+            UIView.animateWithDuration(0.1, animations: {() -> Void in
+                //self.biinLogoImage!.alpha = 0
+                self.backBtn!.alpha = 0
+                self.biinLogo!.alpha = 0
+                //self.welcomeLbl!.alpha = 0
+                self.signupLbl!.alpha = 0
+            })
+
+            
             UIView.animateWithDuration(0.35, animations: {() -> Void in
                 self.firstNameTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
                 self.lastNameTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
                 self.genderTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
                 self.emailTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
                 self.passwordTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-                self.singupBtn!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_2
-                self.signupLbl!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_2
-                
-                self.backBtn!.alpha = 0
-                self.biinLogo!.alpha = 0
-                self.welcomeLbl!.alpha = 0
+                self.singupBtn!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
+//                self.signupLbl!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
             })
         }
     }
@@ -212,18 +238,23 @@ class SignupView:UIView, UITextFieldDelegate {
         if isKeyboardUp {
             isKeyboardUp = false
             println("keyboardDidShow")
-            UIView.animateWithDuration(0.25, animations: {() -> Void in
+            UIView.animateWithDuration(0.1, animations: {() -> Void in
                 self.firstNameTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
                 self.lastNameTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
                 self.genderTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
                 self.emailTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
                 self.passwordTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-                self.singupBtn!.frame.origin.y += SharedUIManager.instance.signupView_ypos_2
-                self.signupLbl!.frame.origin.y += SharedUIManager.instance.signupView_ypos_2
+                self.singupBtn!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
+//                self.signupLbl!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
 
+            })
+            
+            UIView.animateWithDuration(0.25, animations: {() -> Void in
+                //self.biinLogoImage!.alpha = 1
                 self.backBtn!.alpha = 1
                 self.biinLogo!.alpha = 1
-                self.welcomeLbl!.alpha = 1
+                //self.welcomeLbl!.alpha = 1
+                self.signupLbl!.alpha = 1
             })
         }
     }

@@ -48,4 +48,7 @@ class BNView:UIView {
     func commentBtnAction() { }
     func sendBtnAction() { }
     func removeBtnAction() { }
+    
+    func getToWork() { }
+    func getToRest() { }
 }

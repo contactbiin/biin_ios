@@ -50,8 +50,8 @@ class BNIcon_Pricing:BNIcon {
         //// Bezier Drawing
         var bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(0, 0))
-        bezierPath.addLineToPoint(CGPointMake(43, 0))
-        bezierPath.addLineToPoint(CGPointMake(0, 43))
+        bezierPath.addLineToPoint(CGPointMake(46, 0))
+        bezierPath.addLineToPoint(CGPointMake(0, 46))
         bezierPath.addLineToPoint(CGPointMake(0, 0))
         bezierPath.closePath()
         color.setFill()
@@ -60,19 +60,19 @@ class BNIcon_Pricing:BNIcon {
         
         //// Text Drawing
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 1, 20.09)
+        CGContextTranslateCTM(context, 5.95, 25.05)
         CGContextRotateCTM(context, -45 * CGFloat(M_PI) / 180)
         
-        let textRect = CGRectMake(0, 0, 27, 21)
+        let textRect = CGRectMake(0, 0, 27, 9.75)
         let textStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.Center
         
-        let textFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(6), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(8), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: textStyle]
         
         let textTextHeight: CGFloat = NSString(string: self.text!).boundingRectWithSize(CGSizeMake(textRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         CGContextSaveGState(context)
         CGContextClipToRect(context, textRect);
-        NSString(string: self.text!).drawInRect(CGRectMake(textRect.minX, textRect.minY + (textRect.height - textTextHeight) / 2, textRect.width, textTextHeight), withAttributes: textFontAttributes)
+        NSString(string: self.text!).drawInRect(CGRectMake(textRect.minX, textRect.minY + textRect.height - textTextHeight, textRect.width, textTextHeight), withAttributes: textFontAttributes)
         CGContextRestoreGState(context)
         
         CGContextRestoreGState(context)

@@ -26,11 +26,11 @@ class BiinItAnimationView:UIView {
         self.addSubview(animatedCircle!)
         animatedCircle!.alpha = 0
 
-        println("w: \(frame.width) , h:\(frame.height)")
+        //println("w: \(frame.width) , h:\(frame.height)")
         
         var x:CGFloat = ((frame.width - 86) / 2 )
         var y:CGFloat = ((frame.height - 86 ) / 2 )
-        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(x, y, 86, 86), father: nil, color: UIColor.whiteColor())
+        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(x, y, 86, 86), father: nil, color: UIColor.biinColor())
         circleIcon!.alpha = 0
         self.addSubview(circleIcon!)
         
@@ -38,7 +38,7 @@ class BiinItAnimationView:UIView {
         
         biinItLbl = UILabel(frame: CGRectMake(0, y, frame.width, 20))
         biinItLbl!.font = UIFont(name: "Lato-Light", size: 18)
-        biinItLbl!.text = "Biined!"
+        biinItLbl!.text = NSLocalizedString("Biined", comment: "Biined")
         biinItLbl!.textAlignment = NSTextAlignment.Center
         biinItLbl!.textColor = UIColor.whiteColor()
         biinItLbl!.alpha = 0

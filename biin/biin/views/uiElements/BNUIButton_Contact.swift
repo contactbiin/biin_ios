@@ -28,17 +28,19 @@ class BNUIButton_Contact:BNUIButton {
     convenience init(frame:CGRect, text:String, iconType:BNIconType){
         self.init(frame:frame)
         
-        self.layer.cornerRadius = 20
-        self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
+        //self.layer.cornerRadius = 20
+        //self.layer.borderWidth = 3
+        //self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
+        
+        self.backgroundColor = UIColor.biinColor()
         
         self.iconType = iconType
         createIcon()
         
-        label = UILabel(frame: CGRectMake(0, (frame.height), frame.width, 15))
+        label = UILabel(frame: CGRectMake(20, 0, frame.width, frame.height))
         label!.text = text
-        label!.textColor = UIColor.appTextColor()
-        label!.font = UIFont(name: "Lato-Light", size: 13)
+        label!.textColor = UIColor.appMainColor()
+        label!.font = UIFont(name: "Lato-Black", size: 15)
         label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)
     }
@@ -46,13 +48,13 @@ class BNUIButton_Contact:BNUIButton {
     override func createIcon(){
         switch iconType {
         case .phoneMedium:
-            icon = BNIcon_PhoneMedium(color: UIColor.biinColor(), position: CGPointMake(23, 11))
+            icon = BNIcon_PhoneMedium(color: UIColor.appMainColor(), position: CGPointMake(((frame.width / 2) - 40), 11))
             break
         case .emailMedium:
-            icon = BNIcon_EmailMedium(color: UIColor.biinColor(), position: CGPointMake(22.5, 14))
+            icon = BNIcon_EmailMedium(color: UIColor.appMainColor(), position: CGPointMake(((frame.width / 2) - 50), 14))
             break
         case .commentMedium:
-            icon = BNIcon_CommentMedium(color: UIColor.biinColor(), position: CGPointMake(12, 12))
+            icon = BNIcon_CommentMedium(color: UIColor.appMainColor(), position: CGPointMake(((frame.width / 2) - 50), 12))
             break
         default:
             break
@@ -66,7 +68,7 @@ class BNUIButton_Contact:BNUIButton {
     
     override func showEnable() {
         //self.icon!.color = UIColor.appButtonColor()
-        label!.textColor = UIColor.appTextColor()
+        label!.textColor = UIColor.appMainColor()
         setNeedsDisplay()
     }
     

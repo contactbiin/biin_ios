@@ -18,11 +18,12 @@ EmailUs = "Email us";
 CallUs = "Call us";
 Phone = "Phone";
 Password = "Password";
-Login = "Log in";
-ImNewHere = "I'm new here!";
+Login = "Sign In";
+ImNewHere = "Or, create an account";
 SignUpMsj = "Sign up using your email address.";
 LetsGetStarted = "Let's get started!";
-DontForget = "Don't forget to check your inbox and verify your email address later on.";
+DontForget = "* Don't forget to check your inbox and verify your email address later on.";
+HardwareError = "Your device does not support Biin due to harware requirements, please close this app.";
 PleaseWait = "Please wait a moment!";
 Yes = "yes";
 No = "no";
@@ -39,6 +40,7 @@ Discount = "DISCOUNT";
 Savings = "SAVINGS";
 YouSave = "YOU SAVE";
 Value = "VALUE";
+Calcel = "Cancel";
 
 /* Menu buttons */
 Profile = "Profile";
@@ -49,6 +51,7 @@ Notifications = "Notifications";
 InviteFriends = "Invite Friends";
 Settings = "Settings";
 Search = "Search";
+About = "About";
 
 /* Categories */
 category1 = "Personal Care";
@@ -90,12 +93,61 @@ Done = "Done!";
 ThankYouStop = "Thank you for stoping by.";
 
 /* Login View*/
-Wellcome = "Welcome to biin!";
-
+Wellcome = "Welcome!";
 
 /* Email messaje*/
 EmailMsj = "Hello there!";
 
 /* Collection View Temporal */
-CollectionTitle = "Biined stuff.";
-CollectionSubTitle = "This is a list of all your biined stuff";
+CollectionTitle = "Your biined stuff.";
+CollectionSubTitle = "This is a list of all your biined stuff.";
+
+Places = "Sites";
+HightLights = "HightLights";
+Biins = "Biins";
+Biined = "Biined!";
+NotBiins = "It seems there are not Biins around here!";
+
+/*Invite friends   hey check out the Salmon al Limo from Spoon  */
+InviteSubject = "Shoping and having fun with Biin";
+InviteBody = "The best offers and places in your hand. Download Biin at ";
+ShareBody1 = "Hey, check out the ";
+ShareBody2 = "from ";
+ShareBody3 = "The best offers and places in your hand. Download Biin at ";
+
+/*Alert messages*/
+PleaseWait = "Saving, please wait a moment!";
+
+/*Loyalty*/
+Points = "Points";
+Of = "of";
+
+/*About*/
+AboutTitle = "Please read!";
+AboutText = "Biin is the app the helps brick and mortar business to have mobile presence and create better relationships with their customers.Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 and iPhone6Plus. All current data is not real and is only for testing purposes on this beta release.";
+
+/*Internet Error View*/
+InternetErrorTitle = "You're offline.";
+InternetErrorText = "Connect to the internet, then give it another shot.";
+InternetErrorButton = "Continue";
+
+HardwareErrorTitle = "Oops!";
+HardwareErrorText = "We are sorry but your device does not support Biin due to harware requirements, please close this app.";
+HardwareErrorButton = "Continue";
+
+BluetoothErrorTitle = "Oops, Biin needs bluetooth!";
+BluetoothErrorText = "Please turn on blutooth and enable Biin to use it.";
+BluetoothErrorButton = "Go to settings.";
+
+LocationErrorTitle = "Hey, Biin needs location services enabled!";
+LocationErrorText = "Please, turn on location services on your device and enable Biin to use them.";
+LocationErrorButton = "Go to settings.";
+
+OnboardingTitle1 = "Discover!";
+OnboardingText1 = "The best deals and rewards just steps away from you.";
+
+OnboardingTitle2 = "Collect and share!";
+OnboardingText2 = "All the things your find in Biin with your friends.";
+
+OnboardingTitle3 = "Enjoy!";
+OnboardingText3 = "Visit you favorite stores and take advantage the best deal and rewards.";

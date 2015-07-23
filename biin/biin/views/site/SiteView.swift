@@ -13,10 +13,12 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var backBtn:BNUIButton_Back?
     var header:SiteView_Header?
     var bottom:SiteView_Bottom?
-    var buttonsView:SocialButtonsView?
+    //var buttonsView:SocialButtonsView?
     
     var scroll:UIScrollView?
     var showcases:Array<SiteView_Showcase>?
+    
+    var nutshell:UILabel?
     
     var imagesScrollView:BNUIScrollView?
     
@@ -31,7 +33,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var biinItButton:BNUIButton_BiinIt?
     var shareItButton:BNUIButton_ShareIt?
     
-    var locationViewHeigh:CGFloat = 380
+    var locationViewHeigh:CGFloat = 400
     var panIndex = 0
     var scrollSpaceForShowcases:CGFloat = 0
     
@@ -50,7 +52,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = UIColor.appShowcaseBackground()
 
         showcases = Array<SiteView_Showcase>()
         
@@ -64,7 +66,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.whiteColor()
+        scroll!.backgroundColor = UIColor.appShowcaseBackground()
         scroll!.delegate = self
         self.addSubview(scroll!)
         
@@ -77,8 +79,25 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         self.addSubview(header!)
         
-        buttonsView = SocialButtonsView(frame: CGRectMake(0, 5, frame.width, 15), father: self, site: nil, showShareButton:true)
-        scroll!.addSubview(buttonsView!)
+        //buttonsView = SocialButtonsView(frame: CGRectMake(0, 5, frame.width, 15), father: self, site: nil, showShareButton:true)
+        //scroll!.addSubview(buttonsView!)
+        
+        
+        nutshell = UILabel(frame: CGRectMake(10, 100, (frame.width - 20), 18))
+        nutshell!.font = UIFont(name:"Lato-Black", size:16)
+        nutshell!.textColor = UIColor.whiteColor()
+        nutshell!.text = ""
+//        nutshell!.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+//        nutshell!.shadowOffset = CGSize(width: 1, height: 1)
+        nutshell!.numberOfLines = 0
+        nutshell!.sizeToFit()
+//        nutshell!.layer.shadowRadius = 3.0
+//        nutshell!.layer.shadowColor = UIColor.blackColor().CGColor
+//        nutshell!.layer.shadowOffset = CGSize(width: 2, height: 2)
+        scroll!.addSubview(nutshell!)
+        
+        nutshell!.frame.origin.y = (imagesScrollView!.frame.height - (nutshell!.frame.height + 10))
+        
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -97,9 +116,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
         biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(biinItButton!)
+        //scroll!.addSubview(biinItButton!)
 
-        
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - 41), 4, 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(shareItButton!)
@@ -123,7 +141,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     override func transitionIn() {
     
-        UIView.animateWithDuration(0.3, animations: {()->Void in
+        UIView.animateWithDuration(0.2, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }
@@ -167,11 +185,26 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func updateSiteData(site:BNSite?) {
         self.site = site
         header!.updateForSite(site)
-        buttonsView!.updateSocialButtonsForSite(site)
+        //buttonsView!.updateSocialButtonsForSite(site)
         bottom!.updateForSite(site)
         imagesScrollView!.updateImages(site!.media)
         updateShowcases(site)
         location!.updateForSite(site)
+        
+        nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
+        nutshell!.text = site!.nutshell!
+        nutshell!.numberOfLines = 0
+        nutshell!.sizeToFit()
+        scroll!.addSubview(nutshell!)
+        var ypos:CGFloat = 0
+        
+        if site!.media.count > 1 {
+            ypos = 30
+        } else {
+            ypos = 10
+        }
+        
+        nutshell!.frame.origin.y = (self.imagesScrollView!.frame.height - (nutshell!.frame.height + ypos))
         
         if site!.userBiined {
             biinItButton!.showDisable()
@@ -235,16 +268,18 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
 
         //scroll!.addSubview(imagesScrollView!)
         
-        var ypos:CGFloat = SharedUIManager.instance.screenWidth + 5
+        var ypos:CGFloat = SharedUIManager.instance.screenWidth + 2
         scrollSpaceForShowcases = 0
         
-        for biin in site!.biins {
-            
-            var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, biin:biin)
-            scroll!.addSubview(showcaseView)
-            showcases!.append(showcaseView)
-            ypos += showcaseHeight
-            //ypos += 1
+        if site!.showcases != nil {
+            for showcase in site!.showcases! {
+                
+                var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site)
+                scroll!.addSubview(showcaseView)
+                showcases!.append(showcaseView)
+                ypos += showcaseHeight
+                //ypos += 1
+            }
         }
 
         scrollSpaceForShowcases = ypos
@@ -260,7 +295,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
             showcases![0].getToWork()
         }
         
-        println("scrollSpaceForShowcases: \(scrollSpaceForShowcases)")
+        //println("scrollSpaceForShowcases: \(scrollSpaceForShowcases)")
         
     }
     

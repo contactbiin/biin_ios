@@ -282,7 +282,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         var httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        println("HTTPBody: \(httpString)")
+        NSLog("BIIN - HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -352,6 +352,10 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         }
     }
     
+    func getImageInCache(urlString:NSString, image:BNUIImageView) {
+        ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
+    }
+    
     func getImage(urlString:NSString, image:BNUIImageView, callback:(NSError?) -> Void) {
 
         //add requesting image to queue
@@ -360,6 +364,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             println("image already in cache...")
             image.image = cacheImage
             image.showAfterDownload()
+            BNAppSharedManager.instance.networkManager.removeImageRequest(urlString as String)
         }else {
         
         // Jump in to a background thread to get the image for this item
@@ -395,9 +400,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                         callback(error)
                     } else {
                         //Send image to be store in image dictionary
-                        
-                        
-                        
+
                         //println("Store image: \(urlString)")
                         ShareEPSNetworking.cacheImages[urlString as String] = UIImage(data: data)
 //                        image.image = UIImage(data: data)
