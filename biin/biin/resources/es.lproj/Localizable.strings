@@ -82,6 +82,7 @@ Gender = "Yo soy ...";
 GenderMale = "Yo soy un hombre.";
 GenderFemale = "Yo soy una mujer";
 WhatAreYouInterest = "Qué te interesa?";
+CategoriesMsj = "*** Hemos seleccionado las categorías más populares para vos!";
 EnterYourBirthDate = "Fecha de nacimiento";
 
 /* Showcase - Game View*/
@@ -146,7 +147,7 @@ LocationErrorButton = "Ir a ajustes!";
 OnboardingTitle1 = "Descubrí!";
 OnboardingText1 = "Las mejores ofertas y beneficios a solo pasos de donde estás.";
 
-OnboardingTitle2 = "Collecioná y compartí!";
+OnboardingTitle2 = "Colecioná y compartí!";
 OnboardingText2 = "Con tus amigos, las cosas interesantes que encontrarás en Biin.";
 
 OnboardingTitle3 = "Beneficios!";

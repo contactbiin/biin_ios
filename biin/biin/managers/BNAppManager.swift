@@ -10,7 +10,7 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
-    var IS_PRODUCTION_DATABASE = true
+    var IS_PRODUCTION_DATABASE = false
     var IS_DEVELOPMENT = false
     
     var counter = 0

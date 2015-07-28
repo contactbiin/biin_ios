@@ -34,8 +34,8 @@ class UserOnboardingView_Slide:UIView {
         var container = UIView(frame: CGRectMake(0, 0, frame.width, frame.height))
         self.addSubview(container)
         
-        var titleText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), 26))
-        titleText.font = UIFont(name:"Lato-Black", size:23)
+        var titleText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), (SharedUIManager.instance.onboardingSlide_TitleSize + 3)))
+        titleText.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.onboardingSlide_TitleSize)
         titleText.textColor = UIColor.appTextColor()
         titleText.textAlignment = NSTextAlignment.Center
         titleText.text = title//NSLocalizedString("AboutText", comment: "AboutText")
@@ -48,9 +48,9 @@ class UserOnboardingView_Slide:UIView {
         self.image!.image = UIImage(named:imageString)
         container.addSubview(image!)
         
-        ypos += ( self.image!.frame.height + 20 )
-        var descriptionText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), 24))
-        descriptionText.font = UIFont(name:"Lato-Light", size:21)
+        ypos += ( self.image!.frame.height + 5 )
+        var descriptionText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), (SharedUIManager.instance.onboardingSlide_DescriptionSize + 3)))
+        descriptionText.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.onboardingSlide_DescriptionSize)
         descriptionText.textColor = UIColor.appTextColor()
         descriptionText.textAlignment = NSTextAlignment.Center
         descriptionText.text = text//NSLocalizedString("AboutText", comment: "AboutText")

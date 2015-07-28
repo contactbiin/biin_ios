@@ -25,7 +25,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     //URL requests
     //let connectibityUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
     //let regionsUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getRegions.json"
-    let categoriesUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getCategories.json"
+    //let categoriesUrl = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getCategories.json"
     let biinedElements = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons, /getBiinedElements.json"
     let boards = "https://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getBoards.json"
 
@@ -54,6 +54,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     var epsNetwork:EPSNetworking?
     
+    var qa_URL = "https://qa-biinapp.herokuapp.com"
+    var production_URL = ""
     
     init(errorManager:BNErrorManager) {
         //Initialize here any data or variables.
@@ -70,6 +72,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     
     func checkConnectivity() {
+        
+        self.delegateDM!.manager!(self, didReceivedConnectionStatus: Reachability.isConnectedToNetwork())
+        
+        return
         
         var request = BNRequest(requestString:connectibityUrl, dataIdentifier: "", requestType:.ConnectivityCheck)
         self.requests[request.identifier] = request
@@ -108,7 +114,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             
         } else  {
 
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
         
         }
         
@@ -166,7 +172,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
         } else  {
             
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
         }
         
             
@@ -226,7 +232,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
         }
         
         self.requests[request!.identifier] = request
@@ -301,7 +307,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
         }
         
         self.requests[request!.identifier] = request
@@ -394,7 +400,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
         }
         
         self.requests[request!.identifier] = request
@@ -504,7 +510,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
         }
         
         self.requests[request!.identifier] = request
@@ -645,7 +651,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
         }
         
         self.requests[request!.identifier] = request
@@ -698,7 +704,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/regions", dataIdentifier: "", requestType:.Regions)
         } else  {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/regions", dataIdentifier: "", requestType:.Regions)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
         }
         
         self.requests[request!.identifier] = request!
@@ -763,7 +769,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString: "https://www.biinapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
         } else {
-            request = BNRequest(requestString: "http://biin.herokuapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
+            request = BNRequest(requestString: "\(qa_URL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
         }
 
         self.requests[request!.identifier] = request!
@@ -839,7 +845,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         }
         self.requests[request!.identifier] = request
         
@@ -863,7 +869,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             //nota simulator
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         }
         
         self.requests[request!.identifier] = request
@@ -1039,7 +1045,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             //nota simulator
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         }
         self.requests[request!.identifier] = request
         
@@ -1124,7 +1130,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
         }
         
         //println("requestSiteData() \(request!.requestString)")
@@ -1370,7 +1376,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
         }
         
         self.requests[request!.identifier] = request
@@ -1647,7 +1653,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             runRequest = true
             
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
 
             showcase = BNShowcase()
             request!.showcase = showcase!
@@ -1748,7 +1754,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             runRequest = true
             
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
             request!.showcase = showcase
             self.requests[request!.identifier] = request
             runRequest = true
@@ -1846,7 +1852,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             self.requests[request!.identifier] = request
             runRequest = true
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
             self.requests[request!.identifier] = request
             runRequest = true
@@ -1873,7 +1879,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             self.requests[request!.identifier] = request
             runRequest = true
         } else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
             self.requests[request!.identifier] = request
             runRequest = true
@@ -2118,11 +2124,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func manager(manager: BNDataManager!, requestBiinedElementListForBNUser user: Biinie) {
         
         var request = BNRequest(requestString:biinedElements, dataIdentifier:user.email!, requestType:.BiinedElements)
-        self.requests[request.identifier] = request
-        
-        if !isRequestTimerAllow {
-            self.requestBiinedElementListForBNUser(request)
-        }
+//        self.requests[request.identifier] = request
+//        
+//        if !isRequestTimerAllow {
+//            self.requestBiinedElementListForBNUser(request)
+//        }
     }
     
     ///Handles the request for user biined element's data.
@@ -2169,7 +2175,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
         } else  {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
         }
         
         
@@ -2297,7 +2303,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }
         
         self.requests[request!.identifier] = request
@@ -2372,7 +2378,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }
         
         self.requests[request!.identifier] = request
@@ -2444,7 +2450,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
         }
         
         self.requests[request!.identifier] = request
@@ -2517,7 +2523,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }
         
         self.requests[request!.identifier] = request
@@ -2597,7 +2603,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
         }
         
         self.requests[request!.identifier] = request
@@ -2669,7 +2675,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
         }
         
         self.requests[request!.identifier] = request
@@ -2740,7 +2746,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
         }else {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
         }
         
         self.requests[request!.identifier] = request
@@ -2946,7 +2952,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
         } else  {
-            request = BNRequest(requestString:"https://biin-qa.herokuapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
         }
         
         self.requests[request!.identifier] = request

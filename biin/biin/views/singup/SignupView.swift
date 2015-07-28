@@ -72,12 +72,14 @@ class SignupView:UIView, UITextFieldDelegate {
         //ypos += (20 + welcomeLbl!.frame.height)
         firstNameTxt = BNUITexfield_Top(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Name", comment: "Name"))
         firstNameTxt!.textField!.delegate = self
+        firstNameTxt!.textField!.keyboardType = UIKeyboardType.Default
         //emailTxt!.textField!.becomeFirstResponder()
         self.addSubview(firstNameTxt!)
         
         ypos += (1 + firstNameTxt!.frame.height)
-        lastNameTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Lastnane", comment: "Lastnane"))
+        lastNameTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Lastname", comment: "Lastname"))
         lastNameTxt!.textField!.delegate = self
+        lastNameTxt!.textField!.keyboardType = UIKeyboardType.Default
         self.addSubview(lastNameTxt!)
         
         ypos += (1 + lastNameTxt!.frame.height)
@@ -99,6 +101,7 @@ class SignupView:UIView, UITextFieldDelegate {
         emailTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        emailTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
         self.addSubview(emailTxt!)
         
         
@@ -107,6 +110,7 @@ class SignupView:UIView, UITextFieldDelegate {
         passwordTxt!.textField!.delegate = self
         passwordTxt!.textField!.secureTextEntry = true
         passwordTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        passwordTxt!.textField!.keyboardType = UIKeyboardType.Default
         self.addSubview(passwordTxt!)
         
 

@@ -96,6 +96,11 @@ class UIManager {
     var errorView_text:CGFloat = 22
     var errorView_button:CGFloat = 18
     
+    
+    //Onboarding
+    var onboardingSlide_TitleSize:CGFloat = 23
+    var onboardingSlide_DescriptionSize:CGFloat = 21
+    
     func setDeviceVariables(){
         
         switch screenWidth {
@@ -133,7 +138,7 @@ class UIManager {
         signupView_ypos_2 = 0
         signupView_logoSize = 100
         
-        loginView_isAnimatingLogo = false
+        loginView_isAnimatingLogo = true
         loginView_ypos_1 = 220
 //        loginView_ypos_2 = 130
 //        loginView_ypos_3 = 150
@@ -143,6 +148,7 @@ class UIManager {
         
         loadingView_logoSize = 5
         
+        onboardingSlide_DescriptionSize = 16
     }
     
     func setIPhone5Variables(){

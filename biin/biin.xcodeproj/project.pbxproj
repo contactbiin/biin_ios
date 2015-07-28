@@ -222,6 +222,7 @@
 		5BB5D1CD1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */; };
 		5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1CE1A83DB3800C3FB43 /* BNUIDetailView_Price.swift */; };
 		5BB5D1D11A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB5D1D01A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift */; };
+		5BB880961B68109100627355 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB880951B68109000627355 /* Reachability.swift */; };
 		5BB917DB1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB917DA1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift */; };
 		5BB917DD1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB917DC1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift */; };
 		5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */; };
@@ -517,6 +518,7 @@
 		5BB5D1CC1A83DA6D00C3FB43 /* BNUIDetailView_Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Time.swift; sourceTree = "<group>"; };
 		5BB5D1CE1A83DB3800C3FB43 /* BNUIDetailView_Price.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Price.swift; sourceTree = "<group>"; };
 		5BB5D1D01A83DE2A00C3FB43 /* BNUIDetailView_Quantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_Quantity.swift; sourceTree = "<group>"; };
+		5BB880951B68109000627355 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		5BB917DA1A8A5FC2007BDEEC /* BNIcon_LeftArrowMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LeftArrowMedium.swift; sourceTree = "<group>"; };
 		5BB917DC1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Back_SignupView.swift; sourceTree = "<group>"; };
 		5BB99B5C1A8B99AB00BE57A6 /* BNUIAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIAlertView.swift; sourceTree = "<group>"; };
@@ -833,6 +835,7 @@
 				5B3D75BA1A6816B300CB0D1C /* EPSNetworking.swift */,
 				5B3D75BB1A6816B300CB0D1C /* server.key */,
 				5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */,
+				5BB880951B68109000627355 /* Reachability.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -1412,6 +1415,7 @@
 				5B64D4671A718F590082B9EA /* BNIcon_TVMedium.swift in Sources */,
 				5BA83E511AAFBC670072EEE6 /* BNIcon_FashionSmall.swift in Sources */,
 				5B9AD3581A7BF6B8001C9B5A /* SiteMiniView_Header.swift in Sources */,
+				5BB880961B68109100627355 /* Reachability.swift in Sources */,
 				5B2F5B921A8BAADC004133D4 /* BNIcon_CloseSmall.swift in Sources */,
 				5B6615BF1B33130900ECE508 /* BNNotificationManager.swift in Sources */,
 				5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */,

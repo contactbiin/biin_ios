@@ -61,6 +61,7 @@ class LoginView:UIView, UITextFieldDelegate {
         emailTxt = BNUITexfield_Top(frame: CGRectMake(0, ypos, screenWidth, 55), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        emailTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
         self.addSubview(emailTxt!)
         //emailTxt!.setNeedsDisplay()
         
@@ -69,6 +70,7 @@ class LoginView:UIView, UITextFieldDelegate {
         passwordTxt!.textField!.delegate = self
         passwordTxt!.textField!.secureTextEntry = true
         passwordTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        passwordTxt!.textField!.keyboardType = UIKeyboardType.Default
         self.addSubview(passwordTxt!)
         
         ypos += (5 + passwordTxt!.frame.height)
