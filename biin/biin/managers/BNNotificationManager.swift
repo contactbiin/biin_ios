@@ -242,8 +242,8 @@ class BNNotificationManager:NSObject, NSCoding {
     }
     
     func setCurrentNotificationWhenAppIsDown(siteIdentifier:String, major:Int){
+        
         NSLog("BIIN - setCurrentNotificationWhenAppIsDown()")
-       
         NSLog("BIIN - ")
         
         didSendNotificationOnAppDown = true
@@ -255,6 +255,8 @@ class BNNotificationManager:NSObject, NSCoding {
                 NSLog("major: \(notification.major)")
                 NSLog("minor: \(notification.minor)")
                 siteNotifications.append(notification)
+            } else {
+                NSLog("BIIN - Site identifier: \(siteIdentifier) major:\(major) NOT IN LIST")
             }
         }
         

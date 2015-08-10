@@ -64,8 +64,9 @@ class SocialButtonsView:BNView {
         var ypos:CGFloat = 0.0
         var buttonWidth:CGFloat = 43.0
         var buttonHeight:CGFloat = 18.0
-        
+
         biinBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
+        
         self.addSubview(biinBtn!)
         
         xpos += biinBtn!.frame.width + xSpace
@@ -89,7 +90,7 @@ class SocialButtonsView:BNView {
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
 
-        }else{
+        } else {
             father!.showUserControl(value, son:son, point:point)
         }
     }

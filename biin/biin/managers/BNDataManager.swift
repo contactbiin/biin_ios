@@ -193,9 +193,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     :param: Network status.
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
-        
-        println("\(status)")
-        
         if status && BNAppSharedManager.instance.IS_APP_UP {
 
             requestInitialData()
