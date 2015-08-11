@@ -41,6 +41,8 @@ class BNAppManager {
     
     var biinieCategoriesBckup = Dictionary<String, BNCategory>()
     
+    let biinCacheImagesFolder = "/BiinCacheImages"
+    
     init(){
         self.counter++
         

@@ -353,18 +353,24 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     }
     
     func getImageInCache(urlString:NSString, image:BNUIImageView) {
+        
+        //OLD
         ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
+
+        
     }
     
     func getImage(urlString:NSString, image:BNUIImageView, callback:(NSError?) -> Void) {
 
         //add requesting image to queue
         
-        if let cacheImage = ShareEPSNetworking.cacheImages[urlString as String] {
+//        if let cacheImage = ShareEPSNetworking.cacheImages[urlString as String] {
+        if let cacheImage = findImageInBiinChacheLocalFolder(urlString as String, image: image) {
             println("image already in cache...")
             image.image = cacheImage
             image.showAfterDownload()
             BNAppSharedManager.instance.networkManager.removeImageRequest(urlString as String)
+            self.sentImages(urlString as String)
         }else {
         
         // Jump in to a background thread to get the image for this item
@@ -408,6 +414,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                         self.sentImages(urlString as String)
                         //println("image cache count \(ShareEPSNetworking.cacheImages.count)")
                         
+                        self.saveImageInBiinChacheLocalFolder(urlString as String, image:UIImage(data: data)!)
+                        
                         callback(nil)
                     }
                 })
@@ -434,6 +442,12 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         }
         
         println("pending: \(ShareEPSNetworking.requestingImages.count) ")
+        
+        
+        if ShareEPSNetworking.requestingImages.count == 0 {
+            ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)
+            ShareEPSNetworking.requestingImages.removeAll(keepCapacity: false)
+        }
     }
     
     
@@ -445,5 +459,76 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
         println("didReceiveResponse")
+    }
+    
+    func findImageInBiinChacheLocalFolder(urlString:String, image:BNUIImageView) -> UIImage? {
+        //NEW
+        // path to documents directory
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+
+        // create the custom folder path
+        let biinCacheImagesFolder = documentDirectoryPath.stringByAppendingPathComponent(BNAppSharedManager.instance.biinCacheImagesFolder)
+        
+
+        //let imageData = UIImagePNGRepresentation(selectedImage)
+        //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+        
+        
+        
+        
+        //println("-----------------     \(urlString)")
+        var index2 = urlString.rangeOfString("/", options: .BackwardsSearch)?.endIndex
+        var substring2 = urlString.substringFromIndex(index2!)
+        //println("-----------------     \(index2)")
+        //println("-----------------     \(substring2)")
+        
+        let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(substring2)
+        
+//        let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(urlString)
+        
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
+            
+            //println("Image:\(urlString) does not exist on BiinCacheImages folder, request and Save!")
+            return nil
+            
+        } else {
+            
+            //println("Loading image:\(urlString) from on BiinCacheImages folder.")
+            //TODO: LOAD IMAGE HERE
+//            var loadedImage = UIImage(contentsOfFile:imagePath)
+            return UIImage(contentsOfFile:imagePath)
+        }
+    }
+    
+    
+    func saveImageInBiinChacheLocalFolder(urlString:String, image:UIImage) {
+        //NEW
+        // path to documents directory
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+        
+        // create the custom folder path
+        let biinCacheImagesFolder = documentDirectoryPath.stringByAppendingPathComponent(BNAppSharedManager.instance.biinCacheImagesFolder)
+        
+        let imageData = UIImagePNGRepresentation(image)// UIImageJPEGRepresentation(image, 1)
+        //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+        
+        println("-----------------     \(urlString)")
+        var index2 = urlString.rangeOfString("/", options: .BackwardsSearch)?.endIndex
+        var substring2 = urlString.substringFromIndex(index2!)
+        println("-----------------     \(index2)")
+        println("-----------------     \(substring2)")
+        
+        let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(substring2)
+
+        if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
+        
+            if !imageData.writeToFile(imagePath, atomically: false) {
+                println("not saved:\(imagePath)")
+            } else {
+                println("Saving image:\(urlString) on BiinCacheImages folder!")
+                NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey:urlString)
+            }
+        }
     }
 }

@@ -62,6 +62,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //appManager.networkManager.delegateVC = lvc
         }
         
+        
+        // path to documents directory
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+        
+        // create the custom folder path
+        let biinCacheImagesFolder = documentDirectoryPath.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
+        
+        // check if directory does not exist
+        if NSFileManager.defaultManager().fileExistsAtPath(biinCacheImagesFolder) == false {
+            
+            // create the directory
+            var createDirectoryError: NSError? = nil
+            NSFileManager.defaultManager().createDirectoryAtPath(biinCacheImagesFolder, withIntermediateDirectories: false, attributes: nil, error: &createDirectoryError)
+            
+            println("creating BiinCacheImages folder!")
+
+            // handle the error, you may call an exception
+            if createDirectoryError != nil {
+                println("Handle directory creation error...")
+            }
+            
+        } else {
+            
+            println("biinCacheImagesFolder already exist!")
+            var selectedImage = UIImage(named:"1d5455b33081-4010-9774-0cbd8f70407a.png")
+            let imageData = UIImagePNGRepresentation(selectedImage)
+            //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+            let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("1d5455b33081-4010-9774-0cbd8f70407a.png")
+            
+//            let imagePath = paths.stringByAppendingPathComponent("1d5455b33081-4010-9774-0cbd8f70407a.png")
+            
+            println("imagePath: \(imagePath)")
+            
+            if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
+                
+                println("Image does not exist on BiinCacheImages folder.")
+                if !imageData.writeToFile(imagePath, atomically: false) {
+                    println("not saved: \(imagePath)")
+                } else {
+                    println("saved")
+                    NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "1d5455b33081-4010-9774-0cbd8f70407a.png")
+                }
+                
+            } else {
+                
+                println("Image exist on BiinCacheImages folder.")
+            }
+
+            
+            
+        }
+        
         //var localNotification:UILocalNotification = UILocalNotification()
         //localNotification.alertAction = "Testing notifications on iOS8"
 //        localNotification = "Woww it works!!”
