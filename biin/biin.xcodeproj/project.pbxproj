@@ -1049,11 +1049,11 @@
 			isa = PBXGroup;
 			children = (
 				5B2907821A687B070000658A /* MainView.swift */,
-				5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */,
 				5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */,
 				5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */,
 				5BA7B4771B55ABDE00AFD326 /* BluetoothErrorView.swift */,
 				5BA7B4791B55AC1D00AFD326 /* HardwareErrorView.swift */,
+				5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */,
 				5BA7B47B1B55B64C00AFD326 /* LocationErrorView.swift */,
 				5B406C481B4F01C1005807EA /* AboutView.swift */,
 			);

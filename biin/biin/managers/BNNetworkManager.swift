@@ -55,7 +55,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     var epsNetwork:EPSNetworking?
     
     var qa_URL = "https://qa-biinapp.herokuapp.com"
-    var production_URL = ""
+    var production_URL = "https://www.biin.io"
     
     init(errorManager:BNErrorManager) {
         //Initialize here any data or variables.
@@ -110,7 +110,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
         
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
             
         } else  {
 
@@ -169,7 +169,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
         } else  {
             
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
@@ -230,7 +230,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
         }
@@ -305,7 +305,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
         }
@@ -398,7 +398,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
         }
@@ -508,7 +508,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
         }
@@ -649,7 +649,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
         } else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
         }
@@ -702,7 +702,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         println("requestRegions")
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/regions", dataIdentifier: "", requestType:.Regions)
+            request = BNRequest(requestString:"\(production_URL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
         } else  {
             request = BNRequest(requestString:"\(qa_URL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
         }
@@ -767,7 +767,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString: "https://www.biinapp.com/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
+            request = BNRequest(requestString: "\(production_URL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
         } else {
             request = BNRequest(requestString: "\(qa_URL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
         }
@@ -843,7 +843,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         }
@@ -866,7 +866,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             //nota simulator
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
@@ -1042,7 +1042,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
         } else {
             //nota simulator
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
@@ -1128,7 +1128,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
         } else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
         }
@@ -1374,7 +1374,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
         } else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
         }
@@ -1646,7 +1646,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         var showcase:BNShowcase?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
             showcase = BNShowcase()
             request!.showcase = showcase!
             self.requests[request!.identifier] = request
@@ -1748,7 +1748,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var runRequest = false
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
             request!.showcase = showcase
             self.requests[request!.identifier] = request
             runRequest = true
@@ -1847,7 +1847,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             //TODO: Add highlight url
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
             self.requests[request!.identifier] = request
             runRequest = true
@@ -1874,7 +1874,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var runRequest = false
         var request:BNRequest?
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
             self.requests[request!.identifier] = request
             runRequest = true
@@ -2173,7 +2173,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"http://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
         } else  {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
         }
@@ -2301,7 +2301,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }
@@ -2376,7 +2376,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }
@@ -2448,7 +2448,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
         }
@@ -2521,7 +2521,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
         }
@@ -2601,7 +2601,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
         }
@@ -2673,7 +2673,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
         }
@@ -2744,7 +2744,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //localhost:5000/mobile/biinies/:biinieIdentifier/biin/:biinIdentifier/object/:objectIdentifier/notified
 
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
         }else {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
         }
@@ -2950,7 +2950,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var request:BNRequest?
         
         if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"https://www.biinapp.com/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
         } else  {
             request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
         }

@@ -30,7 +30,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var commentBtn:BNUIButton_Contact?
     
     var siteLocation:CLLocationCoordinate2D?
-    var annotation:MKPointAnnotation?
+//    var annotation:MKPointAnnotation?
     
     var yStop:CGFloat = 0
 
@@ -141,13 +141,13 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
     
-        annotation = MKPointAnnotation()
-        //annotation!.setCoordinate(siteLocation!)
-        annotation!.coordinate = siteLocation!
-        annotation!.title = "Annotation title"
-        annotation!.subtitle = "Annotation subtitle"
-        
-        map!.addAnnotation(annotation!)
+//        annotation = MKPointAnnotation()
+//        //annotation!.setCoordinate(siteLocation!)
+//        annotation!.coordinate = siteLocation!
+//        annotation!.title = "Annotation title"
+//        annotation!.subtitle = "Annotation subtitle"
+//        
+//        map!.addAnnotation(annotation!)
         
         ypos += 180
         xpos = (screenWidth - 140) / 2
@@ -295,17 +295,31 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var total:CGFloat = (ypos - siteAvatarView!.frame.height) / 2
         siteAvatarView!.frame.origin.y = total
         
-        siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
-
         ypos += 10
+//        map!.removeFromSuperview()
+//        map = MKMapView(frame:CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, 160))
+//        map!.delegate = self
+//        self.addSubview(map!)
+
+        map!.frame.origin.y = ypos
+        siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
         let span = MKCoordinateSpanMake(0.01, 0.01)
         let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
-        map!.frame.origin.y = ypos
+
         
-        annotation!.coordinate = siteLocation!
-        annotation!.title = site!.title!
-        annotation!.subtitle = site!.streetAddress1!
+        let annotationsToRemove = map!.annotations
+        map!.removeAnnotations( annotationsToRemove )
+        
+//        (map!.annotations[0] as! MKPointAnnotation).coordinate = siteLocation!
+//        (map!.annotations[0] as! MKPointAnnotation).title = site!.title!
+//        (map!.annotations[0] as! MKPointAnnotation).subtitle = site!.streetAddress1!
+//        map!.selectAnnotation((map!.annotations[0] as! MKPointAnnotation), animated: true)
+        var annotation = MKPointAnnotation()
+        annotation.coordinate = siteLocation!
+        annotation.title = site!.title!
+        annotation.subtitle = site!.streetAddress1!
+        map!.addAnnotation(annotation)
         
         ypos += (map!.frame.height + 10)
         
@@ -317,8 +331,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         if site!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: siteAvatar)
+
         } else {
-            siteAvatar!.image =  UIImage(named: "noImage.jpg")
+            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
             siteAvatar!.showAfterDownload()
         }
     }

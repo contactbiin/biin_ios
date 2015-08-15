@@ -46,7 +46,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         clean()
         
         if media.count > 0 {
-
+        //if false {
             self.media = media
             
             var totalLength:CGFloat = CGFloat((media.count - 1) * 20)
@@ -66,6 +66,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
                 
                 //Add images to scroll
                 var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+                
                 image.backgroundColor = self.media![i].domainColor
                 
                 if i == 0 {
@@ -108,7 +109,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
                 
                 //Add images to scroll
                 var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
-                image.image =  UIImage(named: "noImage.jpg")
+                image.image =  UIImage(contentsOfFile: "noImage.jpg")
                 image.showAfterDownload()
                 //image.backgroundColor = self.media![i].domainColor
                 
@@ -153,6 +154,10 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
                     view.removeFromSuperview()
                 }
             }
+        }
+        
+        for (var i = 0; i < images.count; i++) {
+            self.images[i].image.removeFromSuperview()
         }
         
         self.images = []

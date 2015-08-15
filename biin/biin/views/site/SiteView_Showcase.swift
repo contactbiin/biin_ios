@@ -113,16 +113,40 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
 
 //    }
     
+    deinit{
+        println("-------------- deinit in siteView_showcase")
+    }
+    
+    
     override func transitionIn() {
 
     }
     
     override func transitionOut( state:BNState? ) {
-
+        println("SiteView_Showcase transitionOut")
+        
+        //clean()
+        if elements?.count > 0 {
+            
+            for view in scroll!.subviews {
+                
+                if view is ElementMiniView {
+                    (view as! ElementMiniView).removeFromSuperview()
+                }
+            }
+            
+            //            for view in showcases! {
+            //                view.removeFromSuperview()
+            //            }
+            //
+            elements!.removeAll(keepCapacity: false)
+        }
+        
     }
     
     override func setNextState(option:Int){
         //Start transition on root view controller
+        println("SiteView_Showcase setNextState")
         father!.setNextState(option)
     }
     

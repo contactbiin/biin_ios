@@ -30,6 +30,10 @@ class BNUIImageView:UIImageView {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        loadingIndicator = nil
+    }
+    
     ///Set it's alpha to 1 once download is completed.
     func showAfterDownload(){
         

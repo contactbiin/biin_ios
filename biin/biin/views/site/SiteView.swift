@@ -184,12 +184,30 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func updateSiteData(site:BNSite?) {
         self.site = site
+        
+
+        
         header!.updateForSite(site)
+        
+        
+        
         //buttonsView!.updateSocialButtonsForSite(site)
         bottom!.updateForSite(site)
-        imagesScrollView!.updateImages(site!.media)
-        updateShowcases(site)
-        location!.updateForSite(site)
+        
+        
+        if true {
+            imagesScrollView!.updateImages(site!.media)
+        }
+        
+
+        if true {
+            updateShowcases(site)
+        }
+        
+        
+        if true {
+            location!.updateForSite(site)
+        }
         
         nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
         nutshell!.text = site!.nutshell!
@@ -257,10 +275,18 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         //clean()
         if showcases?.count > 0 {
             
-            for view in showcases! {
-                view.removeFromSuperview()
+            for view in scroll!.subviews {
+                
+                if view is SiteView_Showcase {
+                    (view as! SiteView_Showcase).transitionOut(nil)
+                    (view as! SiteView_Showcase).removeFromSuperview()
+                }
             }
             
+//            for view in showcases! {
+//                view.removeFromSuperview()
+//            }
+
             showcases!.removeAll(keepCapacity: false)
         }
         
@@ -273,7 +299,6 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         if site!.showcases != nil {
             for showcase in site!.showcases! {
-                
                 var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site)
                 scroll!.addSubview(showcaseView)
                 showcases!.append(showcaseView)
