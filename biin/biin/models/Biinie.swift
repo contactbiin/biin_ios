@@ -125,7 +125,7 @@ class Biinie:NSObject, NSCoding {
         
         for (_id, element_id) in elementsViewed {
             storedElementsViewed.append(element_id)
-            println("elementViwed:\(_id)")
+            //println("elementViwed:\(_id)")
         }
         
         aCoder.encodeObject(storedElementsViewed, forKey: "storedElementsViewed")

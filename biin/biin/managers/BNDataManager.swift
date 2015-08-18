@@ -347,7 +347,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedUserCategories categories: Array<BNCategory>) {
 
 
-        println("didReceivedUserCategories(): \(categories.count)")
+        //println("didReceivedUserCategories(): \(categories.count)")
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
         
@@ -359,7 +359,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         for category in categories {
             
-            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            //println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
 
             category.name = findCategoryNameByIdentifier(category.identifier!)
             
@@ -386,7 +386,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
         
         //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
-        println("user categories(): \(bnUser!.categories.count)")
+        //println("user categories(): \(bnUser!.categories.count)")
         
 //        var sitesArray:Array<BNSite> = Array<BNSite>()
 //        
@@ -429,7 +429,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         sites[site.identifier!] = site
         //BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL, itemIdentifier:site.identifier!)
-        println("site:\(site.identifier!) biins: \(site.biins.count)")
+        //println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
             println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
@@ -497,13 +497,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 
                 //Set biin state.
                 biin.setBiinState()
-                println("Add notification for biin: \(biin.identifier!)")
+                //println("Add notification for biin: \(biin.identifier!)")
                 //HACK for biinType
                 //biin.updateBiinType()
                 
                 for object in biin.objects! {
                     
-                    println("Object: \(object._id!)")
+                    //println("Object: \(object._id!)")
                     
                     switch object.objectType {
                     case .ELEMENT:
@@ -562,7 +562,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: BNShowcase received from web service in json format already parse in an showcase object.
     func manager(manager:BNNetworkManager!, didReceivedShowcase showcase:BNShowcase) {
 
-        println("Received showcase: \(showcase.identifier!)")
+        //println("Received showcase: \(showcase.identifier!)")
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
         
@@ -675,7 +675,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //for element in elementList {
         
         
-            println("request element: \(element.identifier!)")
+            //println("request element: \(element.identifier!)")
         
         
             //Check if element exist.
@@ -715,7 +715,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///:param: Network manager that handled the request.
     ///:param: BNElement received from web service in json format already parse in an element object.
     func manager(manager: BNNetworkManager!, didReceivedElement element: BNElement) {
-        println("Received element: \(element.identifier!) id:\(element._id!) media \(element.media.count)")
+        //println("Received element: \(element.identifier!) id:\(element._id!) media \(element.media.count)")
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
@@ -744,7 +744,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             if value.identifier! == element.identifier! {
                 element._id = key
                 elements[key] = element.clone()
-                println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
+                //println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
                 
                 if bnUser!.elementsViewed[element._id!] != nil {
                     elements[key]?.userViewed = true
@@ -912,7 +912,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
         
-        println("Received collections: \(collectionList.count)")
+        //println("Received collections: \(collectionList.count)")
         
         if collectionList.count > 0 {
             

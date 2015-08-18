@@ -73,7 +73,7 @@ class BNNotificationManager:NSObject, NSCoding {
             if notification.objectIdentifier! == lastNotificationObjectId {
                 currentNotification = notification
                 lastNotificationObjectId = ""
-                NSLog("BIIN - \(currentNotification!.objectIdentifier!)")
+                //NSLog("BIIN - \(currentNotification!.objectIdentifier!)")
                 break
             }
         }
@@ -93,7 +93,7 @@ class BNNotificationManager:NSObject, NSCoding {
         
         for var i = 0; i < localNotifications.count; i++ {
             
-            println("\(localNotifications[i].objectIdentifier!) : \(i)")
+            //println("\(localNotifications[i].objectIdentifier!) : \(i)")
             
             if localNotifications[i].objectIdentifier == object._id! {
                 
@@ -138,7 +138,7 @@ class BNNotificationManager:NSObject, NSCoding {
         
         save()
         
-        println("localNotification count: \(localNotifications.count)")
+        //println("localNotification count: \(localNotifications.count)")
     }
     
     func removeLocalNotification(objectIdentifier:String) {
@@ -267,7 +267,7 @@ class BNNotificationManager:NSObject, NSCoding {
     
     func assingCurrectNotificationByDate(siteNotifications:Array<BNLocalNotification>){
         //TODO: get the correct object depending on the time and properties.
-       NSLog("BIIN - assingCurrectNotificationByDate: \(siteNotifications.count)")
+//       NSLog("BIIN - assingCurrectNotificationByDate: \(siteNotifications.count)")
         var currentNotificationIndex = 0
         var isCurrentObjectSet = false
         
@@ -285,10 +285,10 @@ class BNNotificationManager:NSObject, NSCoding {
             var dayNumber = getDayOfWeek()
             for var i = 0; i < siteNotifications.count; i++ {
                 
-                NSLog("Day:\(getDayOfWeek())")
-                NSLog("CUrrent object:\(siteNotifications[i].siteIdentifier!) index;\(i)")
-                NSLog("Start time:\(siteNotifications[i].startTime)")
-                NSLog("End time: \(siteNotifications[i].endTime)")
+//                NSLog("Day:\(getDayOfWeek())")
+//                NSLog("CUrrent object:\(siteNotifications[i].siteIdentifier!) index;\(i)")
+//                NSLog("Start time:\(siteNotifications[i].startTime)")
+//                NSLog("End time: \(siteNotifications[i].endTime)")
                 
                 if currentTime >= siteNotifications[i].startTime {
                     if currentTime <= siteNotifications[i].endTime {
@@ -339,10 +339,10 @@ class BNNotificationManager:NSObject, NSCoding {
                             currentNotificationIndex = i
                             currentNotification = siteNotifications[currentNotificationIndex]
                             isCurrentObjectSet = true
-                            NSLog("Day:\(getDayOfWeek())")
-                            NSLog("Current notification:\(siteNotifications[currentNotificationIndex].siteIdentifier!) index:\(currentNotificationIndex)")
-                            NSLog("Start time:\(siteNotifications[currentNotificationIndex].startTime)")
-                            NSLog("End time: \(siteNotifications[currentNotificationIndex].endTime)")
+//                            NSLog("Day:\(getDayOfWeek())")
+//                            NSLog("Current notification:\(siteNotifications[currentNotificationIndex].siteIdentifier!) index:\(currentNotificationIndex)")
+//                            NSLog("Start time:\(siteNotifications[currentNotificationIndex].startTime)")
+//                            NSLog("End time: \(siteNotifications[currentNotificationIndex].endTime)")
                             
                         } else {
                             currentNotificationIndex = 0
@@ -358,12 +358,12 @@ class BNNotificationManager:NSObject, NSCoding {
         }
         
         if !isCurrentObjectSet {
-            NSLog("Setting defaul!")
+//            NSLog("Setting defaul!")
             currentNotificationIndex = 0
             currentNotification = siteNotifications[currentNotificationIndex]
-            NSLog("CUrrent object index;\(currentNotificationIndex)")
-            NSLog("Start time:\(siteNotifications[currentNotificationIndex].startTime)")
-            NSLog("End time: \(siteNotifications[currentNotificationIndex].endTime)")
+//            NSLog("CUrrent object index;\(currentNotificationIndex)")
+//            NSLog("Start time:\(siteNotifications[currentNotificationIndex].startTime)")
+//            NSLog("End time: \(siteNotifications[currentNotificationIndex].endTime)")
         }
     }
 
@@ -389,7 +389,7 @@ class BNNotificationManager:NSObject, NSCoding {
             
             var days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
             
-            NSLog("BIIN - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
+            //NSLog("BIIN - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
             
             if !self.currentNotification!.isUserNotified || days > 1 {
                 var time:NSTimeInterval = 0
@@ -402,17 +402,17 @@ class BNNotificationManager:NSObject, NSCoding {
                 
                 switch self.currentNotification!.notificationType! {
                 case .EXTERNAL:
-                    println("Activating notification \(self.currentNotification!.biinIdentifier!), EXTERNAL")
+                    //println("Activating notification \(self.currentNotification!.biinIdentifier!), EXTERNAL")
                     //localNotification.alertAction = "externalAction"
                     time = 1
                     break
                 case .INTERNAL:
-                    println("Activating notification \(self.currentNotification!.biinIdentifier!), INTERNAL")
+                    //println("Activating notification \(self.currentNotification!.biinIdentifier!), INTERNAL")
                     //localNotification.alertAction = "internalAction"
                     time = 1
                     break
                 case .PRODUCT:
-                    println("Activating notification \(self.currentNotification!.biinIdentifier!), PRODUCT")
+                    //println("Activating notification \(self.currentNotification!.biinIdentifier!), PRODUCT")
                     //localNotification.alertAction = "productAction"
                     time = 1
                     break
@@ -430,10 +430,10 @@ class BNNotificationManager:NSObject, NSCoding {
                 save()
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.objectIdentifier!)
             } else {
-                NSLog("USER ALREADY NOTIFIED!")
-                NSLog("Current notification:\(currentNotification!.objectIdentifier!)")
-                NSLog("Start time:\(currentNotification!.startTime)")
-                NSLog("End time: \(currentNotification!.endTime)")
+//                NSLog("USER ALREADY NOTIFIED!")
+//                NSLog("Current notification:\(currentNotification!.objectIdentifier!)")
+//                NSLog("Start time:\(currentNotification!.startTime)")
+//                NSLog("End time: \(currentNotification!.endTime)")
             }
         }
 

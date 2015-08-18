@@ -366,7 +366,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
 //        if let cacheImage = ShareEPSNetworking.cacheImages[urlString as String] {
         if let cacheImage = findImageInBiinChacheLocalFolder(urlString as String, image: image) {
-            println("image already in cache...")
+            //println("image already in cache...")
             image.image = cacheImage
             image.showAfterDownload()
             BNAppSharedManager.instance.networkManager.removeImageRequest(urlString as String)
@@ -441,7 +441,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             }
         }
         
-        println("pending: \(ShareEPSNetworking.requestingImages.count) ")
+        //println("pending: \(ShareEPSNetworking.requestingImages.count) ")
         
         
         if ShareEPSNetworking.requestingImages.count == 0 {

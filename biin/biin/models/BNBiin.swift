@@ -230,11 +230,11 @@ class BNBiin:NSObject
         }
         
         if !isCurrentObjectSet {
-            println("Setting defaul!")
+//            println("Setting defaul!")
             currentObjectIndex = 0
-            println("CUrrent object index;\(currentObjectIndex)")
-            println("Start time:\(objects![currentObjectIndex].startTime)")
-            println("End time: \(objects![currentObjectIndex].endTime)")
+//            println("CUrrent object index;\(currentObjectIndex)")
+//            println("Start time:\(objects![currentObjectIndex].startTime)")
+//            println("End time: \(objects![currentObjectIndex].endTime)")
         }
     }
     

@@ -1827,6 +1827,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                             showcase.elements.append(element)
                         }
                         
+                        println("showcase url: \(request.requestString)")
                         self.delegateDM!.manager!(self, didReceivedShowcase: showcase)
                         
                         if self.isRequestTimerAllow {
@@ -2099,12 +2100,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                             }
                         }
                         
+
+                        println("Element url: \(request.requestString)")
                         
                         if element.isHighlight {
                            self.delegateDM!.manager!(self, didReceivedHightlight:element)
                         } else {
                             self.delegateDM!.manager!(self, didReceivedElement:element)
                         }
+                        
+
                         
                         if self.isRequestTimerAllow {
                             self.runRequest()
@@ -3117,7 +3122,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         requestAttempts = 0
         
         
-        println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier) \(self.requests[0]?.requestString)")
+        //println("Requests pending: \(self.requests.count) \(self.requests[0]?.identifier) \(self.requests[0]?.requestString)")
         
         if requests.count == 0 {
             
