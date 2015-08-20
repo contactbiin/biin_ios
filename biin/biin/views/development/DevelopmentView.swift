@@ -147,12 +147,13 @@ class DevelopmentView:UIView {
         ypos += 65
         
         
-        label = UILabel(frame: CGRect(x:70, y:ypos, width:frame.width, height:15))
+        label = UILabel(frame: CGRect(x:25, y:ypos, width:(frame.width - 50), height:30))
+        label.text = "** If you make any changes you will need to relaunch the application."
         label.font = UIFont(name: "Lato-Light", size: 14)
         label.textColor = UIColor.bnRed()
-        label.textAlignment = NSTextAlignment.Left
+        label.textAlignment = NSTextAlignment.Center
         label.numberOfLines = 0
-        label.text = "** If you make any changes you will need to relaunch the application."
+        label.sizeToFit()
         self.addSubview(label)
     }
     
