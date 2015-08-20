@@ -10,6 +10,8 @@ class LoadingView:UIView {
 
     var loadingLbl:UILabel?
     var biinLogo:BNUIBiinView?
+    var loadingIndicator:UIActivityIndicatorView?
+    var progressView:UIProgressView?
 //    override init() {
 //        super.init()
 //    }
@@ -36,19 +38,45 @@ class LoadingView:UIView {
         biinLogo!.setNeedsDisplay()
         
 
+        var barWidth:CGFloat = biinLogo!.frame.width - 20.0
+        var xpos:CGFloat = ((screenWidth - barWidth ) / 2)
         var ypos:CGFloat = biinLogo!.frame.height + biinLogo!.frame.origin.y
-        loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:25))
-        loadingLbl!.font = UIFont(name: "Lato-Black", size: 22)
+        ypos += 10
+        
+        var loadingView = UIView()
+        loadingView.frame = CGRectMake((xpos - 3), (ypos - 3), (barWidth + 6), 9)
+        loadingView.backgroundColor = UIColor.appBackground()
+        loadingView.layer.cornerRadius = 3
+        loadingView.layer.masksToBounds = true
+        loadingView.layer.borderColor = UIColor.biinColor().CGColor
+        loadingView.layer.borderWidth = 1
+        self.addSubview(loadingView)
+        
+        progressView = UIProgressView(frame: CGRectMake(xpos, ypos, barWidth, 8))
+        progressView!.setProgress(0.0, animated: false)
+        progressView!.progressViewStyle = UIProgressViewStyle.Bar
+        progressView!.trackTintColor = UIColor.grayColor()
+        progressView!.progressTintColor = UIColor.biinColor()
+        self.addSubview(progressView!)
+        
+        ypos += 8
+        loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:18))
+        loadingLbl!.font = UIFont(name: "Lato-Light", size: 15)
         loadingLbl!.textColor = UIColor.appTextColor()
         loadingLbl!.textAlignment = NSTextAlignment.Center
         loadingLbl!.numberOfLines = 0
         loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
+        
   
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func updateProgressView(value:Float){
+        progressView!.setProgress(value, animated: true)
     }
     
     func showHardwareError() {

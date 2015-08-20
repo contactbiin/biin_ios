@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        (objects[0] as? UIView)?.setNeedsDisplay()
         
         appManager.appDelegate = self
+        appManager.networkManager.setRootURLForRequest()
         appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
         appManager.IS_APP_REQUESTING_NEW_DATA = false
         

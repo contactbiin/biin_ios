@@ -10,8 +10,15 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
-    var IS_PRODUCTION_DATABASE = false
-    var IS_DEVELOPMENT = false
+    var settings:BNSettings?
+    
+    //var IS_PRODUCTION_DATABASE = false
+//    var IS_DEVELOPMENT_DATABASE = false
+//    var IS_QA_DATABASE = true
+//    var IS_DEMO_DATABASE = false
+    
+    var IS_DEVELOPMENT_BUILD = true
+//    var IS_USING_CACHE = false
     
     var counter = 0
     var version = "1.0.1"
@@ -35,6 +42,7 @@ class BNAppManager {
     var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
     var IS_APP_REQUESTING_NEW_DATA = false
     var isWaitingForLocationServicesPermision = false
+    var IS_APP_ON_MAIN_VIEW:Bool = false
     
     var elementColorIndex = 0
     var elementColors:Array<UIColor> = Array<UIColor>()
@@ -43,8 +51,18 @@ class BNAppManager {
     
     let biinCacheImagesFolder = "/BiinCacheImages"
     
+    
     init(){
+        
         self.counter++
+
+        if let settings = BNSettings.loadSaved() {
+            println("Loading settings")
+            self.settings = settings
+        } else {
+            println("Not settings available")
+            self.settings = BNSettings()
+        }
         
         errorManager = BNErrorManager()
         dataManager = BNDataManager(errorManager:errorManager)
@@ -232,7 +250,9 @@ class BNAppManager {
         return state == UIApplicationState.Active
     }
     
-    
+    func saveSettings(){
+        self.settings!.save()
+    }
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {

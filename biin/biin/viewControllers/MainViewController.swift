@@ -28,6 +28,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         BNAppSharedManager.instance.errorManager.currentViewController = self
         BNAppSharedManager.instance.mainViewController = self
+        BNAppSharedManager.instance.IS_APP_ON_MAIN_VIEW = true
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
@@ -599,5 +600,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func manager(manager: BNPositionManager!, updateMainViewController biins: Array<BNBiin>) {
         mainView!.updateBiinsContainer()
+    }
+    
+    
+    func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
+        
     }
 }

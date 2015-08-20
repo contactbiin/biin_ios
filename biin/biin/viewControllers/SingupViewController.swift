@@ -26,6 +26,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.setNeedsStatusBarAppearanceUpdate()
     
         self.becomeFirstResponder()
@@ -214,5 +215,9 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:"Please wait a moment!")
         self.view.addSubview(alert!)
         alert!.show()
+    }
+    
+    func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
+        
     }
 }

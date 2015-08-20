@@ -158,5 +158,9 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         }
 
     }
+    
+    func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
+        
+    }
 
 }

@@ -80,4 +80,8 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.Popover
     }
+    
+    func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
+        
+    }
 }

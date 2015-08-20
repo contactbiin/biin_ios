@@ -273,6 +273,8 @@
 		5BEE61401A97EF3A00DE334E /* InviteFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE613F1A97EF3A00DE334E /* InviteFriendsView.swift */; };
 		5BEE61421A97EF4500DE334E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61411A97EF4500DE334E /* SearchView.swift */; };
 		5BEE61441A97EF6100DE334E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEE61431A97EF6100DE334E /* SettingsView.swift */; };
+		5BEF3B041B8634C300B10BEC /* DevelopmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF3B031B8634C300B10BEC /* DevelopmentView.swift */; };
+		5BEF3B061B864F8D00B10BEC /* BNSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF3B051B864F8D00B10BEC /* BNSettings.swift */; };
 		5BF2B5AC1A852A0800598FB7 /* BNUIBiinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */; };
 		5BF60D6E1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF60D6D1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift */; };
 		5BF78A6A1A9BCDB200F9E7AD /* BNUITexfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF78A691A9BCDB200F9E7AD /* BNUITexfield.swift */; };
@@ -570,6 +572,8 @@
 		5BEE613F1A97EF3A00DE334E /* InviteFriendsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsView.swift; sourceTree = "<group>"; };
 		5BEE61411A97EF4500DE334E /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		5BEE61431A97EF6100DE334E /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5BEF3B031B8634C300B10BEC /* DevelopmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevelopmentView.swift; sourceTree = "<group>"; };
+		5BEF3B051B864F8D00B10BEC /* BNSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BNSettings.swift; path = "biin states/BNSettings.swift"; sourceTree = "<group>"; };
 		5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBiinView.swift; sourceTree = "<group>"; };
 		5BF60D6D1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingView_Categories.swift; sourceTree = "<group>"; };
 		5BF78A691A9BCDB200F9E7AD /* BNUITexfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield.swift; sourceTree = "<group>"; };
@@ -847,6 +851,7 @@
 			children = (
 				5BF9669A1AA78DAC00994BEA /* biin states */,
 				5B3D75BD1A6816B300CB0D1C /* BNAchievement.swift */,
+				5BEF3B051B864F8D00B10BEC /* BNSettings.swift */,
 				5B4744851B386FB80079FC88 /* BNAppAction.swift */,
 				5B3D75BE1A6816B300CB0D1C /* BNBadge.swift */,
 				5B3D75BF1A6816B300CB0D1C /* BNBiin.swift */,
@@ -977,6 +982,7 @@
 		5BA0B7711A68696E00DBEB74 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				5BEF3B021B8634B200B10BEC /* development */,
 				5BA0B7821A686A0F00DBEB74 /* BNView.swift */,
 				5BEE613C1A97EF2A00DE334E /* inviteFriends */,
 				5BEE613D1A97EF2A00DE334E /* search */,
@@ -1188,6 +1194,14 @@
 				5BEE61431A97EF6100DE334E /* SettingsView.swift */,
 			);
 			path = settings;
+			sourceTree = "<group>";
+		};
+		5BEF3B021B8634B200B10BEC /* development */ = {
+			isa = PBXGroup;
+			children = (
+				5BEF3B031B8634C300B10BEC /* DevelopmentView.swift */,
+			);
+			path = development;
 			sourceTree = "<group>";
 		};
 		5BF9669A1AA78DAC00994BEA /* biin states */ = {
@@ -1452,6 +1466,7 @@
 				5B3D76041A6816B300CB0D1C /* BNRegion.swift in Sources */,
 				5BB99B5D1A8B99AB00BE57A6 /* BNUIAlertView.swift in Sources */,
 				5B5D77F61A8E84FE001C4A34 /* BNIcon_BarMedium.swift in Sources */,
+				5BEF3B061B864F8D00B10BEC /* BNSettings.swift in Sources */,
 				5B5606CF1A818C0E00DAEB88 /* ElementMiniView_Header.swift in Sources */,
 				5B3D75F71A6816B300CB0D1C /* BNBadge.swift in Sources */,
 				5B3D75F41A6816B300CB0D1C /* EPSNetworking.swift in Sources */,
@@ -1517,6 +1532,7 @@
 				5B8B07601A6F144B00780F74 /* BNIcon_CommentSmall.swift in Sources */,
 				5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */,
 				5BF966A71AA78DAC00994BEA /* Biin_Not_Notified_NEAR_State.swift in Sources */,
+				5BEF3B041B8634C300B10BEC /* DevelopmentView.swift in Sources */,
 				5B5D77E01A8E70E7001C4A34 /* BNIcon_HealthMedium.swift in Sources */,
 				5B871B0E1A71893C0064714B /* BNIcon_ShoeMedium.swift in Sources */,
 				5B3D75F11A6816B300CB0D1C /* BNNetworkManager.swift in Sources */,

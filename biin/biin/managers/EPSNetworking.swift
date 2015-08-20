@@ -112,7 +112,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     
     func getWithConnection(request: NSURLRequest, callback: (String, NSError?) -> Void) {
-        
+
+
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 //            var queue = NSOperationQueue()
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
@@ -123,7 +124,17 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 }
                 
                 if (data != nil) {
-                    callback(NSString(data: data, encoding: NSUTF8StringEncoding)! as String, nil)
+                    
+//                    var zipData = NSData(contentsOfURL:request.URL!)
+//                    var gzipString = NSString(data: zipData!, encoding:NSUTF8StringEncoding )! as String
+//                    var gzipData = NSData(base64EncodedString: gzipString, options: NSDataBase64DecodingOptions.allZeros)
+//                    
+//                    
+//                    println("------------------------------------------------------------")
+//                    println("------------------------------------------------------------")
+//                    println("jsonString received: \(gzipData)")
+                    
+                    callback(NSString(data: data, encoding:NSUTF8StringEncoding)! as String, nil)
                 } else {
                     callback("", error)
                 }
@@ -133,10 +144,26 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func getJson( url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
-        var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
-
+        //var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
+        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        
+        if BNAppSharedManager.instance.settings!.IS_USING_CACHE {
+            request.cachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
+        } else {
+            request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
+        }
+        
+        request.timeoutInterval = 25.0
+        //request.setValue("gzip, deflate", forHTTPHeaderField: "Accept-Encoding")
+        //request.addValue("gzip", forHTTPHeaderField: "Content-Encoding")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept-Encoding")
+        
+        
+        var session = NSURLSession.sharedSession()
 //        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
 //        request.setValue("application/json", forHTTPHeaderField:"Accept")
+        
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -144,9 +171,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
                 
-                //println("------------------------------------------------------------")
-                //println("------------------------------------------------------------")
-                //println("jsonString received: \(data)")
+//                println("------------------------------------------------------------")
+//                println("------------------------------------------------------------")
+//                println("jsonString received: \(data)")
                 
                 var jsonData = self.parseJson(data)
                 callback(jsonData, nil)

@@ -54,8 +54,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     var epsNetwork:EPSNetworking?
     
-    var qa_URL = "https://qa-biinapp.herokuapp.com"
-    var production_URL = "https://www.biin.io"
+    //var qa_URL = "https://qa-biinapp.herokuapp.com"
+    //var production_URL = "https://www.biin.io"
+    var rootURL = ""
     
     init(errorManager:BNErrorManager) {
         //Initialize here any data or variables.
@@ -64,13 +65,23 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         epsNetwork = EPSNetworking()
     }
     
+    func setRootURLForRequest(){
+        if BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE {
+            rootURL = "https://www.biin.io"
+        } else if BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE {
+            rootURL = "https://demo-biinapp.herokuapp.com"
+        } else if BNAppSharedManager.instance.settings!.IS_QA_DATABASE {
+            rootURL = "https://qa-biinapp.herokuapp.com"
+        } else if BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE {
+            rootURL = "https://dev-biinapp.herokuapp.com"
+        }
+    }
     
     //Saving data
     func manager(manager: BNDataManager!, saveUserCategories user: Biinie) {
         
     }
-    
-    
+ 
     func checkConnectivity() {
         
         //self.delegateDM!.manager!(self, didReceivedConnectionStatus: Reachability.isConnectedToNetwork())
@@ -108,15 +119,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
         
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
             
-        } else  {
+//        } else  {
 
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/auth/\(email)/\(password)", dataIdentifier: "", requestType:.Login)
         
-        }
+//        }
         
         self.requests[request!.identifier] = request
         var response:BNResponse?
@@ -168,12 +179,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
-        } else  {
-            
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+//        } else  {
+        
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+//        }
         
             
         self.requests[request!.identifier] = request
@@ -229,11 +240,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -304,11 +315,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)", dataIdentifier: "", requestType:.SendBiinie)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -397,11 +408,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
-        }
+//        if BNAppSharedManager.rootURLinstance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/history", dataIdentifier: "", requestType:.SendBiinieCategories)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -507,11 +518,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", dataIdentifier: "", requestType:.SendBiinieCategories)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -648,11 +659,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(identifier)/isactivate", dataIdentifier: "", requestType:.CheckIsEmailVerified)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -701,11 +712,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func requestRegions() {
         println("requestRegions")
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
-        } else  {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
+//        } else  {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
+//        }
         
         self.requests[request!.identifier] = request!
         
@@ -766,11 +777,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString: "\(production_URL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
-        } else {
-            request = BNRequest(requestString: "\(qa_URL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString: "\(rootURL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
+//        } else {
+//            request = BNRequest(requestString: "\(qa_URL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
+//        }
 
         self.requests[request!.identifier] = request!
         println("Region data: \(request!.requestString)")
@@ -842,11 +853,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //https://biin-qa.herokuapp.com/mobile/biinies/0742cc4b-cc5e-48cb-ab86-9acbc2577548/bnHome/categories
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+//        }
         self.requests[request!.identifier] = request
         
         if !isRequestTimerAllow {
@@ -865,12 +876,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //        }
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
-        } else {
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+//        } else {
             //nota simulator
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
-        }
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -1041,12 +1052,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
-        } else {
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+//        } else {
             //nota simulator
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
-        }
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
+//        }
         self.requests[request!.identifier] = request
         
         if !isRequestTimerAllow {
@@ -1127,11 +1138,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier:"userCategories", requestType:.SiteData)
+//        }
         
         //println("requestSiteData() \(request!.requestString)")
         
@@ -1373,11 +1384,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         // /mobile/biinies/:identifier/organizations/:organizationIdentifier
         
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier:"userCategories", requestType:.OrganizationData)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -1645,21 +1656,21 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var runRequest = false
         var request:BNRequest?
         var showcase:BNShowcase?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
             showcase = BNShowcase()
             request!.showcase = showcase!
             self.requests[request!.identifier] = request
             runRequest = true
             
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
-
-            showcase = BNShowcase()
-            request!.showcase = showcase!
-            self.requests[request!.identifier] = request
-            runRequest = true
-        }
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/highlights", dataIdentifier:"userHightlights", requestType:.HighlightsData)
+//
+//            showcase = BNShowcase()
+//            request!.showcase = showcase!
+//            self.requests[request!.identifier] = request
+//            runRequest = true
+//        }
         
         if runRequest {
             self.requestHighlightsData(request!, showcase:request!.showcase!)
@@ -1747,18 +1758,18 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var runRequest = false
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
             request!.showcase = showcase
             self.requests[request!.identifier] = request
             runRequest = true
             
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
-            request!.showcase = showcase
-            self.requests[request!.identifier] = request
-            runRequest = true
-        }
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", dataIdentifier:"userCategories", requestType:.ShowcaseData)
+//            request!.showcase = showcase
+//            self.requests[request!.identifier] = request
+//            runRequest = true
+//        }
         
         if runRequest {
             self.requestShowcaseData(request!, showcase:showcase)
@@ -1846,18 +1857,18 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func manager(manager: BNDataManager!, requestHightlightDataForBNUser element: BNElement, user: Biinie) {
         var runRequest = false
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
             //TODO: Add highlight url
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
             self.requests[request!.identifier] = request
             runRequest = true
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
-            request!.element = element
-            self.requests[request!.identifier] = request
-            runRequest = true
-        }
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+//            request!.element = element
+//            self.requests[request!.identifier] = request
+//            runRequest = true
+//        }
         
         if runRequest {
             self.self.requestElementData(request!, element:element)
@@ -1874,17 +1885,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var runRequest = false
         var request:BNRequest?
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
             request!.element = element
             self.requests[request!.identifier] = request
             runRequest = true
-        } else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
-            request!.element = element
-            self.requests[request!.identifier] = request
-            runRequest = true
-        }
+//        } else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier:"userCategories", requestType:.ElementData)
+//            request!.element = element
+//            self.requests[request!.identifier] = request
+//            runRequest = true
+//        }
         
         if runRequest {
             self.self.requestElementData(request!, element:element)
@@ -2177,11 +2188,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
-        } else  {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
+//        } else  {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections", dataIdentifier: "", requestType:.Collections)
+//        }
         
         
         //var request = BNRequest(requestString:boards, dataIdentifier:user.email!, requestType:.Boards)
@@ -2305,11 +2316,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -2380,11 +2391,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
 
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -2452,11 +2463,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -2525,11 +2536,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -2605,11 +2616,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -2677,11 +2688,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -2748,11 +2759,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         //localhost:5000/mobile/biinies/:biinieIdentifier/biin/:biinIdentifier/object/:objectIdentifier/notified
 
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
-        }else {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
+//        }else {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
+//        }
         
         self.requests[request!.identifier] = request
         
@@ -2954,11 +2965,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
         var request:BNRequest?
         
-        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(production_URL)/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
-        } else  {
-            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
-        }
+//        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
+            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+//        } else  {
+//            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(biinie.identifier!)", dataIdentifier:biinie.identifier!, requestType:.BiinieData)
+//        }
         
         self.requests[request!.identifier] = request
         self.requestBiinieData(request!, biinie:biinie)
@@ -3140,6 +3151,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             //println("Requests Pending:\(requests.count)")
         }
         
+        var value:CGFloat = ((CGFloat(requests.count) * 100.0 ) / 30.0)
+        delegateVC!.manager!(self, updateProgressView:Float(value))
+
     }
     
     //Parse Methods
@@ -3452,7 +3466,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     
     
-    
+    optional func manager(manager:BNNetworkManager!, updateProgressView value:Float)
+
     
 
     
