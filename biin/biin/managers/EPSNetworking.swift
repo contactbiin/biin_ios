@@ -133,7 +133,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func getJson( url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
-        var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
+        var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
 
 //        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
 //        request.setValue("application/json", forHTTPHeaderField:"Accept")
