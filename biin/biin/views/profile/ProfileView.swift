@@ -317,7 +317,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         for category in BNAppSharedManager.instance.dataManager.categories! {
             
-            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.biinDarkColor())
+            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.appBackground())
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
             scroll!.addSubview(button)
             buttonCounter++
