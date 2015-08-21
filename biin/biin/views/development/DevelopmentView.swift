@@ -228,7 +228,9 @@ class DevelopmentView:UIView {
     }
     
     func enterBtnAction(sender: UIButton!){
+        //NSLog("BIIN - enterBtnAction()")
         
+
         var vc = MainViewController()
         vc.initViewController(self.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext

@@ -85,13 +85,35 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func checkConnectivity() {
         
         //self.delegateDM!.manager!(self, didReceivedConnectionStatus: Reachability.isConnectedToNetwork())
-        
         //return
         
         var request = BNRequest(requestString:connectibityUrl, dataIdentifier: "", requestType:.ConnectivityCheck)
         self.requests[request.identifier] = request
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(false, url: request.requestString, callback:{
+                (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+                
+                if (error != nil) {
+                    //println("Error on regions data - Not connection available")
+                    self.errorManager!.showInternetError()
+                    self.handleFailedRequest(request, error: error )
+                    self.requests.removeAll(keepCapacity: false)
+                } else {
+                    
+                    self.delegateDM!.manager!(self, didReceivedConnectionStatus: true)
+                    self.removeRequestOnCompleted(request.identifier)
+                    //                self.requests.removeValueForKey(request.identifier)
+                    //                self.requestAttempts = 0
+                    
+                    //self.requestTimer = NSTimer(timeInterval: 1.0, target: self, selector: "runRequest", userInfo: nil, repeats: false)
+                    
+                    if self.isRequestTimerAllow {
+                        self.requestTimer!.fire()
+                    }
+                }
+            })
+/*
+        epsNetwork!.getJson(false, url:request.requestString ) {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -103,16 +125,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
                 self.delegateDM!.manager!(self, didReceivedConnectionStatus: true)
                 self.removeRequestOnCompleted(request.identifier)
-//                self.requests.removeValueForKey(request.identifier)
-//                self.requestAttempts = 0
-                
-                //self.requestTimer = NSTimer(timeInterval: 1.0, target: self, selector: "runRequest", userInfo: nil, repeats: false)
-                
+
                 if self.isRequestTimerAllow {
                     self.requestTimer!.fire()
                 }
             }
         }
+*/
     }
     
     func login(email:String, password:String){
@@ -132,7 +151,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.requests[request!.identifier] = request
         var response:BNResponse?
         
-        epsNetwork!.getJson(request!.requestString) {
+        epsNetwork!.getJson(false, url:request!.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -171,7 +190,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request!.identifier)
                 
             }
-        }
+        })
     }
     
     func register(user:Biinie) {
@@ -191,7 +210,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         var response:BNResponse?
         
-        epsNetwork!.getJson(request!.requestString) {
+        epsNetwork!.getJson(false, url: request!.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -231,7 +250,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request!.identifier)
                 
             }
-        }
+        })
     }
     
     func sendBiinieCategories(user:Biinie, categories:Dictionary<String, String>) {
@@ -673,7 +692,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //            self.requestRegions(request)
 //        }
         
-        epsNetwork!.getJson(request!.requestString) {
+        epsNetwork!.getJson(false, url: request!.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -702,7 +721,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request!.identifier)
 
             }
-        }
+        })
     }
 
     
@@ -734,7 +753,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///:param:The request to be process.
     func requestRegions(request:BNRequest) {
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -768,7 +787,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //                self.requests.removeValueForKey(request.identifier)
 //                self.requestAttempts = 0
             }
-        }
+        })
     }
     
     
@@ -802,7 +821,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///:param:The request to be process.
     func requestRegionData(request:BNRequest) {
  
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on biinie data")
@@ -844,7 +863,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
                 }
             }
-        }
+        })
     }
     
     
@@ -1073,7 +1092,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         println("\(request.requestString)")
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(false, url: request.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -1127,7 +1146,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //                self.requestAttempts = 0
                 
             }
-        }
+        })
     }
     
     ///Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
@@ -1171,7 +1190,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         println("\(request.requestString)")
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -1373,7 +1392,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //                self.requests.removeValueForKey(request.identifier)
 //                self.requestAttempts = 0
             }
-        }
+        })
     }
     
     
@@ -1404,7 +1423,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         println("\(request.requestString)")
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -1643,7 +1662,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request.identifier)
 
             }
-        }
+        })
     }
 
     
@@ -1686,7 +1705,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         println("\(request.requestString)")
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on hightlights data")
@@ -1744,7 +1763,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 //                self.requests.removeValueForKey(request.identifier)
                 //                self.requestAttempts = 0
             }
-        }
+        })
     }
     
     
@@ -1792,7 +1811,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///:param: The request to be process.
     func requestShowcaseData(request:BNRequest, showcase:BNShowcase) {
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on showcase data")
@@ -1851,7 +1870,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //                self.requests.removeValueForKey(request.identifier)
 //                self.requestAttempts = 0
             }
-        }
+        })
     }
     
     func manager(manager: BNDataManager!, requestHightlightDataForBNUser element: BNElement, user: Biinie) {
@@ -1921,7 +1940,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         var response:BNResponse?
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on element data")
@@ -2133,7 +2152,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //                self.requests.removeValueForKey(request.identifier)
 //                self.requestAttempts = 0
             }
-        }
+        })
     }
     
     ///Conforms optional func manager(manager: BNDataManager!, requestBiinedElementListForBNUser user: BNUser) of BNDataManagerDelegate.
@@ -2152,7 +2171,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///:param: The request to be process.
     func requestBiinedElementListForBNUser(request:BNRequest) {
     
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on user elements biined data")
@@ -2180,7 +2199,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 
                 self.removeRequestOnCompleted(request.identifier)
             }
-        }
+        })
     }
     
     ///Conforms optional func manager(manager: BNDataManager!, requestBoardsForBNUser user: BNUser) of BNDataManagerDelegate.
@@ -2207,7 +2226,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         println("requestCollectionsForBNUser() url: \(request.requestString)")
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on user colletion data")
@@ -2306,7 +2325,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 
                 self.removeRequestOnCompleted(request.identifier)
             }
-        }
+        })
     }
     
     
@@ -2841,7 +2860,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///:param: The request to be process.
     func requestElementNotificationForBNUser(request:BNRequest, element:BNElement, user:Biinie) {
         
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on showcase data")
@@ -2871,7 +2890,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //                self.requests.removeValueForKey(request.identifier)
 //                self.requestAttempts = 0
             }
-        }
+        })
     }
     
 
@@ -2978,7 +2997,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     func requestBiinieData(request:BNRequest, biinie:Biinie) {
      
-        epsNetwork!.getJson(request.requestString) {
+        epsNetwork!.getJson(false, url: request.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on biinie data")
@@ -3048,7 +3067,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 
                 self.removeRequestOnCompleted(request.identifier)
             }
-        }
+        })
     }
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {

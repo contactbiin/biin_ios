@@ -12,10 +12,10 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        println("LoadingViewController - viewDidLoad()")
+        NSLog("BIIN - LoadingViewController - viewDidLoad()")
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
-        BNAppSharedManager.instance.IS_APP_ON_MAIN_VIEW = false
+
 //        BNAppSharedManager.instance.dataManager.requestInitialData()
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -33,16 +33,12 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
+//        var bgView = UIView(frame:CGRectMake(0, 20, screenWidth, screenHeight))
+//        bgView.backgroundColor = UIColor.whiteColor()
+//        self.view.addSubview(bgView)
+        
         loadingView = LoadingView(frame: CGRectMake(0, 20, screenWidth, screenHeight))
         self.view.addSubview(loadingView!)
-        
-        var version = UILabel(frame: CGRectMake(0, (screenHeight - 40), screenWidth, 20))
-        version.font = UIFont(name: "Lato-Light", size: 18)
-        version.textColor = UIColor.appTextColor()
-        version.textAlignment = NSTextAlignment.Center
-        var versionTxt = NSLocalizedString("Version", comment: "the version title")
-        version.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
-        self.view.addSubview(version)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -65,8 +61,19 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
             
-            var developmentView = DevelopmentView(frame:CGRectMake(0, 20, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 20)), viewController:self)
-            self.view.addSubview(developmentView)
+
+            loadingView!.hideProgressView()
+            
+//            UIView.animateWithDuration(0.1, animations: {() -> Void in
+//                self.loadingView!.alpha = 0
+//
+//                }, completion: {(completed:Bool)-> Void in
+            
+                    var developmentView = DevelopmentView(frame:CGRectMake(0, 20, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 20)), viewController:self)
+                    self.view.addSubview(developmentView)
+                    
+//            })
+            
             
 //            if value {
 //
@@ -83,10 +90,20 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 //                self.addActionBtn!.alpha = 0
 //            }
         } else  {
-            var vc = MainViewController()
-            vc.initViewController(self.view.frame)
-            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-            self.presentViewController(vc, animated: true, completion: nil)
+            
+//            UIView.animateWithDuration(0.1, animations: {() -> Void in
+//                    self.loadingView!.alpha = 0
+//                
+//                }, completion: {(completed:Bool)-> Void in
+
+                    loadingView!.hideProgressView()
+                    var vc = MainViewController()
+                    vc.initViewController(self.view.frame)
+                    vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+                    self.presentViewController(vc, animated: true, completion: nil)
+                    
+//            })
+
         }
     }
     

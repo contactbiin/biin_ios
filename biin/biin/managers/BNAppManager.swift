@@ -18,6 +18,7 @@ class BNAppManager {
 //    var IS_DEMO_DATABASE = false
     
     var IS_DEVELOPMENT_BUILD = true
+
 //    var IS_USING_CACHE = false
     
     var counter = 0
@@ -42,7 +43,6 @@ class BNAppManager {
     var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
     var IS_APP_REQUESTING_NEW_DATA = false
     var isWaitingForLocationServicesPermision = false
-    var IS_APP_ON_MAIN_VIEW:Bool = false
     
     var elementColorIndex = 0
     var elementColors:Array<UIColor> = Array<UIColor>()
@@ -57,11 +57,17 @@ class BNAppManager {
         self.counter++
 
         if let settings = BNSettings.loadSaved() {
-            println("Loading settings")
+            NSLog("Loading settings")
             self.settings = settings
         } else {
-            println("Not settings available")
+            NSLog("Not settings available")
             self.settings = BNSettings()
+        }
+        
+        
+        if self.settings!.IS_QA_DATABASE {
+            NSLog("QA DB")
+
         }
         
         errorManager = BNErrorManager()

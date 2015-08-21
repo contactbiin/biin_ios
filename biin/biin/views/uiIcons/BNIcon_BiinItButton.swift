@@ -20,50 +20,52 @@ class BNIcon_BiinItButton:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        //let color0 = UIColor(red: 0.237, green: 0.727, blue: 0.935, alpha: 1.000)
-        let colorLogo = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        //let colorLogo = UIColor(red:63/255, green: 169/255, blue: 245/199, alpha: 1)
+        let color1 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
         
-        //// Group
+        //// biinButton.svg Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        //// back Drawing
-        var backPath = UIBezierPath()
-        backPath.moveToPoint(CGPointMake(24, 35))
-        backPath.addLineToPoint(CGPointMake(11, 35))
-        backPath.addCurveToPoint(CGPointMake(0, 24), controlPoint1: CGPointMake(4.9, 35), controlPoint2: CGPointMake(0, 30.1))
-        backPath.addLineToPoint(CGPointMake(0, 11))
-        backPath.addCurveToPoint(CGPointMake(11, 0), controlPoint1: CGPointMake(0, 4.9), controlPoint2: CGPointMake(4.9, 0))
-        backPath.addLineToPoint(CGPointMake(24, 0))
-        backPath.addCurveToPoint(CGPointMake(35, 11), controlPoint1: CGPointMake(30.1, 0), controlPoint2: CGPointMake(35, 4.9))
-        backPath.addLineToPoint(CGPointMake(35, 24))
-        backPath.addCurveToPoint(CGPointMake(24, 35), controlPoint1: CGPointMake(35, 30.1), controlPoint2: CGPointMake(30, 35))
-        backPath.closePath()
-        backPath.miterLimit = 4;
+        
+        
+        //// Bezier Drawing
+        var bezierPath = UIBezierPath()
+        bezierPath.moveToPoint(CGPointMake(24, 35))
+        bezierPath.addLineToPoint(CGPointMake(11, 35))
+        bezierPath.addCurveToPoint(CGPointMake(0, 24), controlPoint1: CGPointMake(4.9, 35), controlPoint2: CGPointMake(0, 30.1))
+        bezierPath.addLineToPoint(CGPointMake(0, 11))
+        bezierPath.addCurveToPoint(CGPointMake(11, 0), controlPoint1: CGPointMake(0, 4.9), controlPoint2: CGPointMake(4.9, 0))
+        bezierPath.addLineToPoint(CGPointMake(24, 0))
+        bezierPath.addCurveToPoint(CGPointMake(35, 11), controlPoint1: CGPointMake(30.1, 0), controlPoint2: CGPointMake(35, 4.9))
+        bezierPath.addLineToPoint(CGPointMake(35, 24))
+        bezierPath.addCurveToPoint(CGPointMake(24, 35), controlPoint1: CGPointMake(35, 30.1), controlPoint2: CGPointMake(30, 35))
+        bezierPath.closePath()
+        bezierPath.miterLimit = 4;
         
         color!.setFill()
-        backPath.fill()
+        bezierPath.fill()
         
         
-        //// logo Drawing
-        var logoPath = UIBezierPath()
-        logoPath.moveToPoint(CGPointMake(14.7, 14.5))
-        logoPath.addCurveToPoint(CGPointMake(17.5, 13.8), controlPoint1: CGPointMake(15.5, 14.1), controlPoint2: CGPointMake(16.5, 13.8))
-        logoPath.addCurveToPoint(CGPointMake(23.6, 19.9), controlPoint1: CGPointMake(20.9, 13.8), controlPoint2: CGPointMake(23.6, 16.5))
-        logoPath.addCurveToPoint(CGPointMake(17.5, 26), controlPoint1: CGPointMake(23.6, 23.3), controlPoint2: CGPointMake(20.9, 26))
-        logoPath.addCurveToPoint(CGPointMake(11.4, 19.9), controlPoint1: CGPointMake(14.1, 26), controlPoint2: CGPointMake(11.4, 23.3))
-        logoPath.addLineToPoint(CGPointMake(11.4, 9.1))
-        logoPath.lineCapStyle = kCGLineCapRound;
+        //// Bezier 2 Drawing
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, (position.x + 8.25), (position.y + 10))
         
-        logoPath.lineJoinStyle = kCGLineJoinRound;
-        
-        colorLogo.setStroke()
-        logoPath.lineWidth = 2.5
-        logoPath.stroke()
-        
-        
+        var bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPointMake(12.13, 0))
+        bezier2Path.addCurveToPoint(CGPointMake(8.53, 1.7), controlPoint1: CGPointMake(10.69, 0), controlPoint2: CGPointMake(9.37, 0.67))
+        bezier2Path.addCurveToPoint(CGPointMake(4.87, 0), controlPoint1: CGPointMake(7.63, 0.67), controlPoint2: CGPointMake(6.37, 0))
+        bezier2Path.addCurveToPoint(CGPointMake(0, 4.98), controlPoint1: CGPointMake(2.16, 0), controlPoint2: CGPointMake(0, 2.25))
+        bezier2Path.addCurveToPoint(CGPointMake(8.53, 15), controlPoint1: CGPointMake(0, 11.23), controlPoint2: CGPointMake(8.53, 15))
+        bezier2Path.addCurveToPoint(CGPointMake(17, 4.98), controlPoint1: CGPointMake(8.53, 15), controlPoint2: CGPointMake(17, 11.23))
+        bezier2Path.addCurveToPoint(CGPointMake(12.13, 0), controlPoint1: CGPointMake(17, 2.19), controlPoint2: CGPointMake(14.84, 0))
+        bezier2Path.closePath()
+        color1.setStroke()
+        bezier2Path.lineWidth = 2.84
+        bezier2Path.stroke()
         
         CGContextRestoreGState(context)
+        
+        
+
     }
 }

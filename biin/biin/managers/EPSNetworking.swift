@@ -113,6 +113,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func getWithConnection(request: NSURLRequest, callback: (String, NSError?) -> Void) {
 
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 //            var queue = NSOperationQueue()
@@ -135,6 +136,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
 //                    println("jsonString received: \(gzipData)")
                     
                     callback(NSString(data: data, encoding:NSUTF8StringEncoding)! as String, nil)
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 } else {
                     callback("", error)
                 }
@@ -142,15 +144,19 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         })
     }
     
-    func getJson( url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
+    func getJson(useCache:Bool, url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
         //var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
         var request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        //NSLog("BIIN - getJson 1")
         
-        if BNAppSharedManager.instance.settings!.IS_USING_CACHE {
+        
+        if BNAppSharedManager.instance.settings!.IS_USING_CACHE && useCache {
             request.cachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
+            //NSLog("BIIN - getJson 2")
         } else {
             request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
+            //NSLog("BIIN - getJson 3 -- \(url)")
         }
         
         request.timeoutInterval = 25.0
@@ -309,7 +315,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         var httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        NSLog("BIIN - HTTPBody: \(httpString)")
+        //NSLog("BIIN - HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -317,9 +323,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
                 
-                println("------------------------------------------------------------")
-                println("------------------------------------------------------------")
-                println("jsonString received: \(data)")
+//                println("------------------------------------------------------------")
+//                println("------------------------------------------------------------")
+//                println("jsonString received: \(data)")
                 
                 var jsonData = self.parseJson(data)
                 callback(jsonData, nil)
@@ -403,6 +409,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         // Jump in to a background thread to get the image for this item
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 
+            
+            
             // Check our image cache for the existing key. This is just a dictionary of UIImages
 //            if let cacheImage = ShareEPSNetworking.cacheImages[urlString] {
 //                println("image already in cache...")
@@ -425,7 +433,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 var request: NSURLRequest = NSURLRequest(URL:url)
 //                var urlConnection: NSURLConnection = NSURLConnection(request: request, delegate: self)!
             
-                
+            
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
                         
                     if (error != nil) {
@@ -442,6 +452,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                         //println("image cache count \(ShareEPSNetworking.cacheImages.count)")
                         
                         self.saveImageInBiinChacheLocalFolder(urlString as String, image:UIImage(data: data)!)
+                        
+                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                        
                         
                         callback(nil)
                     }

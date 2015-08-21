@@ -12,6 +12,8 @@ class LoadingView:UIView {
     var biinLogo:BNUIBiinView?
     var loadingIndicator:UIActivityIndicatorView?
     var progressView:UIProgressView?
+    var progressViewBG:UIView?
+    var version:UILabel?
 //    override init() {
 //        super.init()
 //    }
@@ -37,20 +39,17 @@ class LoadingView:UIView {
         self.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-
         var barWidth:CGFloat = biinLogo!.frame.width - 20.0
         var xpos:CGFloat = ((screenWidth - barWidth ) / 2)
         var ypos:CGFloat = biinLogo!.frame.height + biinLogo!.frame.origin.y
         ypos += 10
         
-        var loadingView = UIView()
-        loadingView.frame = CGRectMake((xpos - 3), (ypos - 3), (barWidth + 6), 9)
-        loadingView.backgroundColor = UIColor.appBackground()
-        loadingView.layer.cornerRadius = 3
-        loadingView.layer.masksToBounds = true
-        loadingView.layer.borderColor = UIColor.biinColor().CGColor
-        loadingView.layer.borderWidth = 1
-        self.addSubview(loadingView)
+        progressViewBG = UIView()
+        progressViewBG!.frame = CGRectMake((xpos - 3), (ypos - 3), (barWidth + 6), 9)
+        progressViewBG!.backgroundColor = UIColor.appBackground()
+        progressViewBG!.layer.cornerRadius = 3
+        progressViewBG!.layer.masksToBounds = true
+        self.addSubview(progressViewBG!)
         
         progressView = UIProgressView(frame: CGRectMake(xpos, ypos, barWidth, 8))
         progressView!.setProgress(0.0, animated: false)
@@ -68,8 +67,17 @@ class LoadingView:UIView {
         loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
         
+        version = UILabel(frame: CGRectMake(0, (screenHeight - 60), screenWidth, 20))
+        version!.font = UIFont(name: "Lato-Light", size: 18)
+        version!.textColor = UIColor.appTextColor()
+        version!.textAlignment = NSTextAlignment.Center
+        var versionTxt = NSLocalizedString("Version", comment: "the version title")
+        version!.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
+        self.addSubview(version!)
+        
   
     }
+    
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -95,5 +103,14 @@ class LoadingView:UIView {
 
         self.addSubview(errorLbl)
 
+    }
+    
+    func hideProgressView(){
+        UIView.animateWithDuration(0.1, animations: {() -> Void in
+            self.loadingLbl!.alpha = 0
+            self.progressView!.alpha = 0
+            self.progressViewBG!.alpha = 0
+            self.version!.alpha = 0
+        })
     }
 }

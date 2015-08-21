@@ -31,7 +31,6 @@ class CollectionsView: BNView, ElementView_Delegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-
         var ypos:CGFloat = 12
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)

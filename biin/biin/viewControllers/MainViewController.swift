@@ -23,15 +23,13 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        println("MainViewController - viewDidLoad()")
-        
+    
         BNAppSharedManager.instance.errorManager.currentViewController = self
         BNAppSharedManager.instance.mainViewController = self
-        BNAppSharedManager.instance.IS_APP_ON_MAIN_VIEW = true
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         self.setNeedsStatusBarAppearanceUpdate()
         
         self.view.backgroundColor = UIColor.blackColor()
@@ -40,8 +38,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.becomeFirstResponder()
         
         BNAppSharedManager.instance.dataManager.startCommercialBiinMonitoring()
-        BNAppSharedManager.instance.positionManager.delegateView = self
         
+        BNAppSharedManager.instance.positionManager.delegateView = self
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -54,9 +52,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func initViewController(frame:CGRect){
-    
+        
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.delegate = self
+        
         BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, (frame.height - 10)), father:nil, rootViewController: self)
@@ -90,6 +89,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //var statusBarLine = UIView(frame: CGRectMake(0, 0, frame.width, 20))
         //statusBarLine.backgroundColor = UIColor.appMainColor()
         //self.view.addSubview(statusBarLine)
+        
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
             mainView!.showNotificationContext()
         }

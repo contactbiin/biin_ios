@@ -63,7 +63,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        
         //Create views
         var categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
@@ -72,7 +71,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         delegate_HighlightsContainer = categoriesView
         delegate_BiinsContainer = categoriesView
-        
         
         var siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
             SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
@@ -86,12 +84,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         profileView.delegateFather = self
         self.addSubview(profileView)
         
-        
         var collectionsView = CollectionsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         collectionsState = CollectionsState(context: self, view: collectionsView)
         collectionsView.delegate = self
         self.addSubview(collectionsView)
-        
         
         var notificationsView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         notificationsState = NotificationsState(context: self, view: notificationsView)
@@ -108,7 +104,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         aboutState = AboutState(context: self, view: aboutView)
         aboutView.delegate = self
         self.addSubview(aboutView)
-        
+
 //        var errorView = ErrorView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
 //        errorState = ErrorState(context: self, view: errorView)
 //        errorView.delegate = self
