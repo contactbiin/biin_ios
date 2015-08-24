@@ -191,25 +191,25 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func register(user:Biinie) {
         
 
-        var request:BNRequest?
+//        var request:BNRequest?
         
 //        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
+           var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
 //        } else  {
         
 //            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", dataIdentifier: "", requestType:.Register)
 //        }
         
             
-        self.requests[request!.identifier] = request
+        self.requests[request.identifier] = request
         
         var response:BNResponse?
         
-        epsNetwork!.getJson(false, url: request!.requestString, callback: {
+        epsNetwork!.getJson(false, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                self.handleFailedRequest(request!, error: error )
+                self.handleFailedRequest(request, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
 //                println("*** Register for user \(user.email!) SUCK - FAILED!")
@@ -242,7 +242,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     }
                 }
                 
-                self.removeRequestOnCompleted(request!.identifier)
+                self.removeRequestOnCompleted(request.identifier)
                 
             }
         })
@@ -252,15 +252,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         println("sendBiinieCategories(\(user.email))")
         
-        var request:BNRequest?
+//        var request:BNRequest?
         
 //        if BNAppSharedManager.instance.IS_PRODUCTION_DATABASE {
-            request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
+           var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
 //        }else {
 //            request = BNRequest(requestString:"\(qa_URL)/mobile/biinies/\(user.identifier!)/categories", dataIdentifier: "", requestType:.SendBiinieCategories)
 //        }
         
-        self.requests[request!.identifier] = request
+        self.requests[request.identifier] = request
         
         var model = ["model":Array<Dictionary <String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
         
@@ -273,7 +273,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
   
         var response:BNResponse?
         
-        epsNetwork!.post(request!.requestString, htttpBody:htttpBody, callback: {
+        epsNetwork!.post(request.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
@@ -281,7 +281,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             
             if (error != nil) {
                 println("Error on posting categoies")
-                self.handleFailedRequest(request!, error: error )
+                self.handleFailedRequest(request, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** Posting categories for user \(user.email!) SUCK - FAILED!")
@@ -313,7 +313,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     }
                 }
                 
-                self.removeRequestOnCompleted(request!.identifier)
+                self.removeRequestOnCompleted(request.identifier)
                 
             }
         
