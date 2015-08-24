@@ -31,16 +31,16 @@ class BNUIPricesView:UIView {
         self.init(frame: frame)
         
         if isDiscount {
-            newPriceColor = UIColor.percentageColor()
+            newPriceColor = UIColor.blackColor() //UIColor.percentageColor()
         } else {
-            newPriceColor = UIColor.appMainColor()
+            newPriceColor =  UIColor.blackColor() //UIColor.appMainColor()
         }
-        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
-        self.layer.cornerRadius = 5
+        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+        //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
         //var fontSize1:CGFloat = 18
-        var fontSize2:CGFloat = 28
+        var fontSize2:CGFloat = 25
         //var ypos1:CGFloat = 6
         var ypos2:CGFloat = 5
         var x_ypos:CGFloat = 10
@@ -48,14 +48,14 @@ class BNUIPricesView:UIView {
         
         if isMini {
             //fontSize1 = 10
-            fontSize2 = 16
+            fontSize2 = 14
             //ypos1 = 6
             ypos2 = 3
             x_ypos = 5
             spacer = 15
         }
         
-        var size2 = getStringLength(price, fontName: "Lato-Black", fontSize: fontSize2)
+        var size2 = getStringLength(price, fontName: "Lato-Light", fontSize: fontSize2)
         var width:CGFloat = size2 + spacer
         
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
@@ -70,7 +70,7 @@ class BNUIPricesView:UIView {
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
         self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
-        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.font = UIFont(name: "Lato-Light", size:fontSize2)
         self.newPrice!.text = price
         self.addSubview(self.newPrice!)
     }
@@ -80,12 +80,12 @@ class BNUIPricesView:UIView {
     
         newPriceColor = UIColor.yellowColor()
 
-        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
-        self.layer.cornerRadius = 5
+        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+//        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
         var fontSize1:CGFloat = 20
-        var fontSize2:CGFloat = 28
+        var fontSize2:CGFloat = 25
         var ypos1:CGFloat = 3
         var ypos2:CGFloat = 25
         var x_ypos:CGFloat = 4
@@ -94,7 +94,7 @@ class BNUIPricesView:UIView {
         
         if isMini {
             fontSize1 = 11
-            fontSize2 = 16
+            fontSize2 = 14
             ypos1 = 3
             ypos2 = 15
             x_ypos = 0
@@ -102,8 +102,8 @@ class BNUIPricesView:UIView {
             strokeWidth = 1
         }
         
-        var size1 = getStringLength(oldPrice, fontName: "Lato-Regular", fontSize: (fontSize1 + 2))
-        var size2 = getStringLength(newPrice, fontName: "Lato-Black", fontSize: (fontSize2 + 2))
+        var size1 = getStringLength(oldPrice, fontName: "Lato-Light", fontSize: (fontSize1 + 2))
+        var size2 = getStringLength(newPrice, fontName: "Lato-Light", fontSize: (fontSize2 + 2))
         
         var width:CGFloat = 0
         if size2 > size1 {
@@ -118,14 +118,14 @@ class BNUIPricesView:UIView {
         self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
         self.oldPrice!.textColor = UIColor.appButtonColor()
         self.oldPrice!.textAlignment = NSTextAlignment.Center
-        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
+        self.oldPrice!.font = UIFont(name: "Lato-Light", size:fontSize1)
         self.oldPrice!.text = oldPrice
         self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
         self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
-        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.font = UIFont(name: "Lato-Light", size:fontSize2)
         self.newPrice!.text = newPrice
         self.addSubview(self.newPrice!)
         
@@ -148,12 +148,12 @@ class BNUIPricesView:UIView {
         
         newPriceColor = UIColor.yellowColor()
         
-        self.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
-        self.layer.cornerRadius = 5
+        self.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
+//        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
         var fontSize1:CGFloat = 20
-        var fontSize2:CGFloat = 28
+        var fontSize2:CGFloat = 25
         var ypos1:CGFloat = 3
         var ypos2:CGFloat = 25
         var x_ypos:CGFloat = 4
@@ -162,7 +162,7 @@ class BNUIPricesView:UIView {
         
         if isMini {
             fontSize1 = 11
-            fontSize2 = 16
+            fontSize2 = 14
             ypos1 = 3
             ypos2 = 15
             x_ypos = 0
@@ -171,8 +171,8 @@ class BNUIPricesView:UIView {
         }
         
         
-        var size1 = getStringLength(oldPrice, fontName: "Lato-Regular", fontSize: (fontSize1 + 2))
-        var size2 = getStringLength(newPrice, fontName: "Lato-Black", fontSize: (fontSize2 + 2))
+        var size1 = getStringLength(oldPrice, fontName: "Lato-Light", fontSize: (fontSize1 + 2))
+        var size2 = getStringLength(newPrice, fontName: "Lato-Light", fontSize: (fontSize2 + 2))
         
         var width:CGFloat = 0
         if size2 > size1 {
@@ -187,14 +187,14 @@ class BNUIPricesView:UIView {
         self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
         self.oldPrice!.textColor = UIColor.appButtonColor()
         self.oldPrice!.textAlignment = NSTextAlignment.Center
-        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
+        self.oldPrice!.font = UIFont(name: "Lato-Light", size:fontSize1)
         self.oldPrice!.text = oldPrice
         self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
         self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
-        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.font = UIFont(name: "Lato-Light", size:fontSize2)
         self.newPrice!.text = newPrice
         self.addSubview(self.newPrice!)
 
@@ -221,7 +221,7 @@ class BNUIPricesView:UIView {
         self.layer.masksToBounds = true
         
         var fontSize1:CGFloat = 18
-        var fontSize2:CGFloat = 28
+        var fontSize2:CGFloat = 25
         var ypos1:CGFloat = 3
         var ypos2:CGFloat = 25
         var x_ypos:CGFloat = 10
@@ -229,14 +229,14 @@ class BNUIPricesView:UIView {
         
         if isMini {
             fontSize1 = 10
-            fontSize2 = 16
+            fontSize2 = 14
             ypos1 = 3
             ypos2 = 15
             x_ypos = 5
             spacer = 20
         }
         
-        var size2 = getStringLength(price, fontName: "Lato-Black", fontSize: fontSize2)
+        var size2 = getStringLength(price, fontName: "Lato-Light", fontSize: fontSize2)
         var width:CGFloat = size2 + spacer
 
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
@@ -244,14 +244,14 @@ class BNUIPricesView:UIView {
         self.oldPrice = UILabel(frame: CGRectMake(0, ypos1, width, (fontSize1 + 2)))
         self.oldPrice!.textColor = self.newPriceColor!
         self.oldPrice!.textAlignment = NSTextAlignment.Center
-        self.oldPrice!.font = UIFont(name: "Lato-Regular", size:fontSize1)
+        self.oldPrice!.font = UIFont(name: "Lato-Light", size:fontSize1)
         self.oldPrice!.text = from
         self.addSubview(self.oldPrice!)
         
         self.newPrice = UILabel(frame: CGRectMake(0, ypos2, width, (fontSize2 + 2)))
         self.newPrice!.textColor = self.newPriceColor!
         self.newPrice!.textAlignment = NSTextAlignment.Center
-        self.newPrice!.font = UIFont(name: "Lato-Black", size:fontSize2)
+        self.newPrice!.font = UIFont(name: "Lato-Light", size:fontSize2)
         self.newPrice!.text = price
         self.addSubview(self.newPrice!)
     }

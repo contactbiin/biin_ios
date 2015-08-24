@@ -159,6 +159,8 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         }
         
         
+        println("Number of sites: \(category?.sitesDetails.count)")
+        
         for var i = 0; i < category?.sitesDetails.count; i++ {
             
             
@@ -274,12 +276,16 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                 for var i = 0; i < category.sitesDetails.count; i++ {
                     
                     var siteIdentifier = category.sitesDetails[i].identifier!
-                    var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
+                    
+                    
+                    if let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ] {
+                        if site.showInView {
+                            sitesArray.append(site)
+                        }
+                    }
                     //println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
                     
-                    if site!.showInView {
-                        sitesArray.append(site!)
-                    }
+
                 }
             }
         }

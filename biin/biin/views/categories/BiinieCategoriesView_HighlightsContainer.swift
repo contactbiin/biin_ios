@@ -154,10 +154,11 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
                 for var i = 0; i < category.sitesDetails.count; i++ {
                     
                     var siteIdentifier = category.sitesDetails[i].identifier!
-                    var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
-                    
-                    if site!.showcases != nil {
-                        sitesArray.append(site!)
+                    if let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ] {
+                        
+                        if site.showcases != nil {
+                            sitesArray.append(site)
+                        }
                     }
                 }
             }
