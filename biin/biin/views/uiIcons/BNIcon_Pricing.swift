@@ -32,8 +32,8 @@ class BNIcon_Pricing:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let color = UIColor(red: 1.000, green: 0.488, blue: 0.000, alpha: 1.000)
-        let color2 = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let color = UIColor.biinColor()
+        let color2 = UIColor.clearColor()//UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
         
         //// Group
         CGContextSaveGState(context)

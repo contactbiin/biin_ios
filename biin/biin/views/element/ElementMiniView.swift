@@ -132,7 +132,7 @@ class ElementMiniView: BNView {
             ypos += 40
         } else if element!.hasPrice &&  element!.hasFromPrice {
 
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 37), price: "\(element!.currency!)\(element!.price!)", from:NSLocalizedString("From", comment: "From")
+            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 38), price: "\(element!.currency!)\(element!.price!)", from:NSLocalizedString("From", comment: "From")
  , isMini:true, isHighlight:element!.isHighlight)
             self.addSubview(priceView!)
 
