@@ -168,7 +168,6 @@ class ElementView: BNView {
 //            ypos += 40
 //        }
         
-        
         if priceView != nil {
             priceView!.removeFromSuperview()
             priceView = nil
@@ -217,7 +216,6 @@ class ElementView: BNView {
             hasSticker = true
         }
         */
-        
         
         if detailsView != nil {
             detailsView!.removeFromSuperview()

@@ -192,7 +192,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView ) {
         //        println("scrollViewDidEndDecelerating")
         
-        var index = Int(scrollView.contentOffset.x / 320)
+        var index = Int(scrollView.contentOffset.x / SharedUIManager.instance.screenWidth)
         
         changedPoint(index)
         
