@@ -1176,9 +1176,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     }
                     
                     self.removeRequestOnCompleted(request.identifier)
+                    
                 } else {
-                    self.removeRequestOnCompleted(request.identifier)
+                    
+                    //Remove site when is not downloaded from site list and user categories.
                     BNAppSharedManager.instance.dataManager.sites.removeValueForKey(psite.identifier!)
+                    
+                    for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+                        
+                        if category.hasSites {
+                            for var i = 0; i < category.sitesDetails.count; i++ {
+                                if category.sitesDetails[i].identifier! == psite.identifier! {
+                                    category.sitesDetails.removeAtIndex(i)
+                                }
+                            }
+                        }
+                    }
+                    
+                    self.removeRequestOnCompleted(request.identifier)
 
                 }
             }
@@ -1364,9 +1379,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     var status = self.findInt("status", dictionary: data)
                     var result = self.findBool("result", dictionary: data)
                     
-                    if status != nil {
-                        println("*** Request showcase data BAD! \(status!) request: \(request.requestString)")
-                    } else {
+                    if result {
                         showcase.identifier = self.findString("identifier", dictionary: showcaseData)
                         showcase.lastUpdate = self.findNSDate("lastUpdate", dictionary: showcaseData)
                         showcase.theme = self.findBNShowcaseTheme("theme", dictionary: showcaseData)
@@ -1696,97 +1709,106 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                println("Error on user colletion data")
                 self.handleFailedRequest(request, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var collectionList = Array<BNCollection>()
-                    var collections = self.findNSArray("biinieCollections", dictionary: dataData)
+                    var result = self.findBool("result", dictionary: data)
 
-                    for var i = 0; i < collections?.count; i++ {
+                    if result {
                         
-                        var collectionData = collections!.objectAtIndex(i) as! NSDictionary
-                        var collection = BNCollection()
-                        collection.identifier = self.findString("identifier", dictionary: collectionData)
-                        collection.title = NSLocalizedString("CollectionTitle", comment: "CollectionTitle")
-                        collection.subTitle = NSLocalizedString("CollectionSubTitle", comment: "CollectionSubTitle")
-                        
-                        //board.isMine = self.findBool("isMine", dictionary: boardData)
-                    
-//                        if !board.isMine {
-//                            var owner = BNUser()
-//                            var ownerData = boardData["owner"] as NSDictionary
-//                            owner.identifier = self.findString("identifier", dictionary: ownerData)
-//                            owner.firstName = self.findString("firstName", dictionary: ownerData)
-//                            owner.lastName = self.findString("lastName", dictionary: ownerData)
-//                            owner.email = self.findString("email", dictionary: ownerData)
-//                            owner.imgUrl = self.findString("imgUrl", dictionary: ownerData)
-//                            board.owner = owner
-//                        }
-                        
-                        var elements = self.findNSArray("elements", dictionary: collectionData)
-                        collection.items = Array<String>()
-                        
-                        if elements?.count > 0 {
+                        var collectionList = Array<BNCollection>()
+                        var collections = self.findNSArray("biinieCollections", dictionary: dataData)
 
-                            collection.elements = Dictionary<String, BNElement>()
+                        println("number of collections: \(collections?.count)")
+                        
+                        for var i = 0; i < collections?.count; i++ {
                             
-                            for ( var j = 0; j < elements?.count; j++ ) {
-                                var elementData = elements!.objectAtIndex(j) as! NSDictionary
-                                var element = BNElement()
-                                element.identifier = self.findString("identifier", dictionary: elementData)
-                                element._id = self.findString("_id", dictionary: elementData)
-                                collection.elements[element.identifier!] = element
-                                collection.items.append(element.identifier!)
+                            var collectionData = collections!.objectAtIndex(i) as! NSDictionary
+                            var collection = BNCollection()
+                            collection.identifier = self.findString("identifier", dictionary: collectionData)
+                            collection.title = NSLocalizedString("CollectionTitle", comment: "CollectionTitle")
+                            collection.subTitle = NSLocalizedString("CollectionSubTitle", comment: "CollectionSubTitle")
+                            
+                            //board.isMine = self.findBool("isMine", dictionary: boardData)
+                        
+    //                        if !board.isMine {
+    //                            var owner = BNUser()
+    //                            var ownerData = boardData["owner"] as NSDictionary
+    //                            owner.identifier = self.findString("identifier", dictionary: ownerData)
+    //                            owner.firstName = self.findString("firstName", dictionary: ownerData)
+    //                            owner.lastName = self.findString("lastName", dictionary: ownerData)
+    //                            owner.email = self.findString("email", dictionary: ownerData)
+    //                            owner.imgUrl = self.findString("imgUrl", dictionary: ownerData)
+    //                            board.owner = owner
+    //                        }
+                            
+                            var elements = self.findNSArray("elements", dictionary: collectionData)
+                            collection.items = Array<String>()
+                            
+                            if elements?.count > 0 {
+
+                                collection.elements = Dictionary<String, BNElement>()
+                                
+                                for ( var j = 0; j < elements?.count; j++ ) {
+                                    var elementData = elements!.objectAtIndex(j) as! NSDictionary
+                                    var element = BNElement()
+                                    element.identifier = self.findString("identifier", dictionary: elementData)
+                                    element._id = self.findString("_id", dictionary: elementData)
+                                    collection.elements[element.identifier!] = element
+                                    collection.items.append(element.identifier!)
+                                }
                             }
+                            
+                            var sites = self.findNSArray("sites", dictionary: collectionData)
+                            
+                            if sites?.count > 0 {
+                                
+                                collection.sites = Dictionary<String, BNSite>()
+                                
+                                for ( var i = 0; i < sites?.count; i++ ) {
+                                    var siteData = sites!.objectAtIndex(i) as! NSDictionary
+                                    var site = BNSite()
+                                    site.identifier = self.findString("identifier", dictionary: siteData)
+                                    collection.sites[site.identifier!] = site
+                                    collection.items.append(site.identifier!)
+                                }
+                            }
+                            
+                            
+                            /*
+                            var biinies = self.findNSArray("biinies", dictionary: boardData)
+                            
+                            if biinies?.count > 0 {
+                                board.biinies = Array<BNUser>()
+                                
+                                for var k = 0; k < biinies!.count; k++ {
+                                    var biinieData = biinies!.objectAtIndex(k) as NSDictionary
+                                    var biinie = BNUser()
+                                    biinie.identifier = self.findString("identifier", dictionary: biinieData)
+                                    //biinie.biinName = self.findString("biinName", dictionary: biinieData)
+                                    biinie.firstName = self.findString("firstName", dictionary: biinieData)
+                                    biinie.lastName = self.findString("lastName", dictionary: biinieData)
+                                    biinie.email = self.findString("email", dictionary: biinieData)
+                                    biinie.imgUrl = self.findString("imgUrl", dictionary: biinieData)
+                                    //biinie.biins = self.findInt("biins", dictionary: biinieData)
+                                    //biinie.following = self.findInt("following", dictionary: biinieData)
+                                    //biinie.followers = self.findInt("followers", dictionary: biinieData)
+                                    //board.biinies!.append(biinie)
+                                }
+                            }
+                            */
+                            
+                            collectionList.append(collection)
+
                         }
                         
-                        var sites = self.findNSArray("sites", dictionary: collectionData)
-                        
-                        if sites?.count > 0 {
-                            
-                            collection.sites = Dictionary<String, BNSite>()
-                            
-                            for ( var i = 0; i < sites?.count; i++ ) {
-                                var siteData = sites!.objectAtIndex(i) as! NSDictionary
-                                var site = BNSite()
-                                site.identifier = self.findString("identifier", dictionary: siteData)
-                                collection.sites[site.identifier!] = site
-                                collection.items.append(site.identifier!)
-                            }
-                        }
-                        
-                        
-                        /*
-                        var biinies = self.findNSArray("biinies", dictionary: boardData)
-                        
-                        if biinies?.count > 0 {
-                            board.biinies = Array<BNUser>()
-                            
-                            for var k = 0; k < biinies!.count; k++ {
-                                var biinieData = biinies!.objectAtIndex(k) as NSDictionary
-                                var biinie = BNUser()
-                                biinie.identifier = self.findString("identifier", dictionary: biinieData)
-                                //biinie.biinName = self.findString("biinName", dictionary: biinieData)
-                                biinie.firstName = self.findString("firstName", dictionary: biinieData)
-                                biinie.lastName = self.findString("lastName", dictionary: biinieData)
-                                biinie.email = self.findString("email", dictionary: biinieData)
-                                biinie.imgUrl = self.findString("imgUrl", dictionary: biinieData)
-                                //biinie.biins = self.findInt("biins", dictionary: biinieData)
-                                //biinie.following = self.findInt("following", dictionary: biinieData)
-                                //biinie.followers = self.findInt("followers", dictionary: biinieData)
-                                //board.biinies!.append(biinie)
-                            }
-                        }
-                        */
-                        
-                        collectionList.append(collection)
-
+                        self.delegateDM!.manager!(self, didReceivedCollections: collectionList)
                     }
-                    
-                    self.delegateDM!.manager!(self, didReceivedCollections: collectionList)
+                
+                } else {
+                    println("NOT COLLECTION FOR \(request.requestString)")
                 }
                 
                 self.removeRequestOnCompleted(request.identifier)
