@@ -306,6 +306,9 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                     var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                     println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
 */
+        
+        println("Number of sites: \(sitesArray.count)")
+
         for site in sitesArray {
                     if site.showInView {
                         if !isSiteAdded(site.identifier!) {

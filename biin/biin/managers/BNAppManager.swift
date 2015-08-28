@@ -17,12 +17,12 @@ class BNAppManager {
 //    var IS_QA_DATABASE = true
 //    var IS_DEMO_DATABASE = false
     
-    var IS_DEVELOPMENT_BUILD = true
+    var IS_DEVELOPMENT_BUILD = false
 
 //    var IS_USING_CACHE = false
     
     var counter = 0
-    var version = "1.0.1"
+    var version = "1.0.2"
     
     var delegate:BNAppManager_Delegate?
     

@@ -68,7 +68,6 @@ class BNLocalNotification:NSObject, NSCoding {
             break
         }
         
-        
         //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
         self.onMonday = aDecoder.decodeBoolForKey("onMonday")
         self.onTuesday = aDecoder.decodeBoolForKey("onTuesday")
@@ -83,7 +82,6 @@ class BNLocalNotification:NSObject, NSCoding {
         self.major = aDecoder.decodeIntegerForKey("major")
         self.minor = aDecoder.decodeIntegerForKey("minor")
         self.fireDate = aDecoder.decodeObjectForKey("fireDate") as? NSDate
-
 }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -147,7 +145,6 @@ class BNLocalNotification:NSObject, NSCoding {
         if let data = NSUserDefaults.standardUserDefaults().objectForKey(objectIdentifier) as? NSData {
             return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNLocalNotification
         }
-        
         return nil
     }
 }

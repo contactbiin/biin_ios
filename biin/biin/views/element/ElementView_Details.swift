@@ -261,7 +261,7 @@ class ElementView_Details:BNView {
         
         ypos += 50 //Last space
         
-        
+        /*
         var html = "<div style='font-family:Lato; color:#0000;'> <h1>Best coffee ever.</h1>"
         html += "<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.&nbsp;<br></p>"
         html += "<blockquote style='background: #f9f9f9;border-left: 10px solid #ccc;margin: 1.5em 10px;padding: 0.5em 10px;'>Late and shake together.</blockquote>"
@@ -276,7 +276,7 @@ class ElementView_Details:BNView {
         
         ypos += 500
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
-        
+        */
         
     }
     
