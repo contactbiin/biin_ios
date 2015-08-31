@@ -372,7 +372,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         for value in user.actions {
             var action = Dictionary <String, String>()
             action["whom"]  = user.identifier!
-            action["at"]    = value.at!.bnDateFormatt()
+            action["at"]    = value.at!.bnDateFormattForActions()
             action["did"]   = "\(value.did!.hashValue)"
             action["to"]    = value.to!
             model["model"]!["actions"]?.append(action)
@@ -1006,6 +1006,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                         site.phoneNumber = self.findString("phoneNumber", dictionary: siteData)
                         site.email = self.findString("email", dictionary: siteData)
                         site.nutshell = self.findString("nutshell", dictionary: siteData)
+                        site.organizationIdentifier = self.findString("organizationIdentifier", dictionary: siteData)
+
                         
                         site.biinedCount = self.findInt("biinedCount", dictionary: siteData)!
                         //TODO: Pending "comments": "23", in web service
@@ -1065,14 +1067,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                                 biin.identifier = self.findString("identifier", dictionary: biinData)
                                 biin.accountIdentifier = self.findString("accountIdentifier", dictionary: biinData)
                                 biin.siteIdentifier = self.findString("siteIdentifier", dictionary: biinData)
-                                biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
+//                                biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
                                 biin.major = self.findInt("major", dictionary: biinData)
                                 biin.minor = self.findInt("minor", dictionary: biinData)
                                 biin.proximityUUID = self.findNSUUID("proximityUUID", dictionary: biinData)
                                 biin.venue = self.findString("venue", dictionary: biinData)
                                 biin.name = self.findString("name", dictionary: biinData)
                                 biin.biinType = self.findBNBiinType("biinType", dictionary: biinData)
-                                biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
+                                //biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
                                 
                                 //REMOVE ->
                                 biin.site = site
@@ -2287,38 +2289,53 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         epsNetwork!.getJson(false, url: request.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
+                
                 println("Error on biinie data")
                 self.handleFailedRequest(request, error: error )
+                
             } else {
+                
+                var response:BNResponse?
                 
                 if let biinieData = data["data"] as? NSDictionary {
 
-                    biinie.identifier = self.findString("identifier", dictionary:biinieData)
-                    biinie.biinName = self.findString("biinName", dictionary: biinieData)
-                    biinie.firstName = self.findString("firstName", dictionary: biinieData)
-                    biinie.lastName = self.findString("lastName", dictionary: biinieData)
-                    biinie.email = self.findString("email", dictionary: biinieData)
-                    biinie.imgUrl = self.findString("imgUrl", dictionary: biinieData)
-                    biinie.gender = self.findString("gender", dictionary: biinieData)
-                    biinie.isEmailVerified = self.findBool("isEmailVerified", dictionary: biinieData)
-                    biinie.birthDate = self.findNSDate("birthDate", dictionary: biinieData)
-                
-                    var friends = self.findNSArray("friends", dictionary: biinieData)
-                    var categories = Array<BNCategory>()
-                    var categoriesData = self.findNSArray("categories", dictionary: biinieData)
+                    var status = self.findInt("status", dictionary: data)
+                    var result = self.findBool("result", dictionary: data)
                     
-                    for var i = 0; i < categoriesData?.count; i++ {
+                    if result {
+                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                 
+                        biinie.identifier = self.findString("identifier", dictionary:biinieData)
+                        biinie.biinName = self.findString("biinName", dictionary: biinieData)
+                        biinie.firstName = self.findString("firstName", dictionary: biinieData)
+                        biinie.lastName = self.findString("lastName", dictionary: biinieData)
+                        biinie.email = self.findString("email", dictionary: biinieData)
+                        biinie.imgUrl = self.findString("imgUrl", dictionary: biinieData)
+                        biinie.gender = self.findString("gender", dictionary: biinieData)
+                        biinie.isEmailVerified = self.findBool("isEmailVerified", dictionary: biinieData)
+                        biinie.birthDate = self.findNSDate("birthDate", dictionary: biinieData)
+                    
+                        var friends = self.findNSArray("friends", dictionary: biinieData)
+                        var categories = Array<BNCategory>()
+                        var categoriesData = self.findNSArray("categories", dictionary: biinieData)
                         
-                        var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
-                        var category = BNCategory(identifier: self.findString("identifier", dictionary: categoryData)!)
-                        
-                        category.name = self.findString("name", dictionary: categoryData)
-                        
-                        categories.append(category)
-                    }
+                        for var i = 0; i < categoriesData?.count; i++ {
+                            
+                            var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
+                            var category = BNCategory(identifier: self.findString("identifier", dictionary: categoryData)!)
+                            
+                            category.name = self.findString("name", dictionary: categoryData)
+                            
+                            categories.append(category)
+                        }
 
-                    biinie.categories = categories
-                    self.delegateDM!.manager!(self, didReceivedBiinieData: biinie)
+                        biinie.categories = categories
+                        self.delegateDM!.manager!(self, didReceivedBiinieData: biinie)
+                        
+                    } else {
+                        println("EROOR: NOT USER FOUND ON DB")
+                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                    }
                 }
                 
                 self.removeRequestOnCompleted(request.identifier)
@@ -2760,6 +2777,14 @@ extension NSDate {
     func bnDateFormatt()->String{
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        return formatter.stringFromDate(self)
+    }
+    
+    func bnDateFormattForActions()->String{
+        let formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone(abbreviation: "UTC")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         return formatter.stringFromDate(self)
     }

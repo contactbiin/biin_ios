@@ -438,6 +438,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
         }
         
+        if commercialUUID == nil {
+            commercialUUID = site.proximityUUID
+        }
+        
         if site.showcases != nil {
             for showcase in site.showcases! {
                 
@@ -451,29 +455,31 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
         
         
+        if site.organization == nil {
+            if organizations[site.organizationIdentifier!] == nil {
+                //1. Add organization
+                //2. set site organizarion
+                organizations[site.organizationIdentifier!] = BNOrganization(identifier: site.organizationIdentifier!)
+                delegateNM!.manager!(self, requestOrganizationData:organizations[site.organizationIdentifier!]!, user: self.bnUser!)
+                site.organization = organizations[site.organizationIdentifier!]
+                
+                //HACK, add site's media to organization until it can be download.
+                //                    if site.media.count > 0 {
+                //                        organizations[biin.organizationIdentifier!]?.media = site.media
+                //                        organizations[biin.organizationIdentifier!]?.title = site.title!
+                //                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
+                //                    }
+                
+            } else  {
+                //2. set site organization
+                site.organization = organizations[site.organizationIdentifier!]
+            }
+        }
+        
         for biin in sites[site.identifier!]!.biins {
             
             
-            if site.organization == nil {
-                if organizations[biin.organizationIdentifier!] == nil {
-                    //1. Add organization
-                    //2. set site organizarion
-                    organizations[biin.organizationIdentifier!] = BNOrganization(identifier: biin.organizationIdentifier!)
-                    delegateNM!.manager!(self, requestOrganizationData:organizations[biin.organizationIdentifier!]!, user: self.bnUser!)
-                    site.organization = organizations[biin.organizationIdentifier!]
-                    
-                    //HACK, add site's media to organization until it can be download.
-//                    if site.media.count > 0 {
-//                        organizations[biin.organizationIdentifier!]?.media = site.media
-//                        organizations[biin.organizationIdentifier!]?.title = site.title!
-//                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
-//                    }
-                    
-                } else  {
-                    //2. set site organization
-                    site.organization = organizations[biin.organizationIdentifier!]
-                }
-            }
+
             
             //REMOVE ->
             /*
@@ -489,12 +495,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             */
             //REMOVE <-
             
-            
-            
-            
-            if commercialUUID == nil {
-                commercialUUID = biin.proximityUUID
-            }
             
             if biin.objects != nil && biin.objects!.count > 0 {
                 

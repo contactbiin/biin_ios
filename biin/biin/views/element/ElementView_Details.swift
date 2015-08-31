@@ -259,7 +259,7 @@ class ElementView_Details:BNView {
         biinitLbl.text = "Biin it!"
         self.addSubview(biinitLbl)
         
-        ypos += 50 //Last space
+        ypos += 100 //Last space
         
         /*
         var html = "<div style='font-family:Lato; color:#0000;'> <h1>Best coffee ever.</h1>"

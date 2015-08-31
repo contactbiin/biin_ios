@@ -9,8 +9,8 @@ class BNSettings:NSObject, NSCoding {
 
     var IS_PRODUCTION_DATABASE = false
     var IS_DEVELOPMENT_DATABASE = false
-    var IS_QA_DATABASE = true
-    var IS_DEMO_DATABASE = false
+    var IS_QA_DATABASE = false
+    var IS_DEMO_DATABASE = true
     var IS_USING_CACHE = true
 
     override init() {

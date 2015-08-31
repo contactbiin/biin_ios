@@ -20,7 +20,7 @@ class BNBiin:NSObject
     //Relationship properties
     var accountIdentifier:String?
     var siteIdentifier:String?
-    var organizationIdentifier:String?
+    //var organizationIdentifier:String?
     var biinType = BNBiinType.NONE
     
     var isBiinDataCorrupted:Bool = false

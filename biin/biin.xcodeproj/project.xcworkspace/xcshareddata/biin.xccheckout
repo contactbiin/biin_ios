@@ -7,21 +7,21 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>F5CDB6D5-A9E1-4A5F-8E83-1DC8DAB8C5B2</string>
 	<key>IDESourceControlProjectName</key>
-	<string>biin</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>FE092247C8607C21F705BCC20604998E841BBD76</key>
-		<string>https://github.com/estebanpadilla/biin.git</string>
+		<string>https://github.com/biinio/biin.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>biin/biin.xcodeproj</string>
+	<string>biin/biin.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>FE092247C8607C21F705BCC20604998E841BBD76</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/estebanpadilla/biin.git</string>
+	<string>https://github.com/biinio/biin.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

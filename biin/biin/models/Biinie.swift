@@ -137,6 +137,7 @@ class Biinie:NSObject, NSCoding {
     }
     
     func save() {
+        println("SAVING BIINIE")
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "user")
     }
@@ -155,9 +156,56 @@ class Biinie:NSObject, NSCoding {
     }
     
     func addAction(at:NSDate, did:BiinieActionType, to:String) {
-        self.actionCounter++
-        self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
-        save()
+        
+        NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+        
+        var isActionReadyToAdd = false
+        
+        if actions.count > 0 {
+        
+            for action in actions {
+                
+                NSLog("BIIN 0 - action: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
+                
+                if action.did! == did {
+                    
+                    NSLog("BIIN 1 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+                    NSLog("BIIN 1 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
+                    
+                    if action.to! == to {
+                        
+                        NSLog("BIIN 2 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+                        NSLog("BIIN 2 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to)")
+                        
+                        var seconds = Int(at.timeIntervalSinceDate(action.at!))
+                        var minutes = Int( seconds / 60 )
+                        
+                        NSLog("BIIN - seconds: \(seconds)")
+                        NSLog("BIIN - minutes: \(minutes)")
+                        
+                        if minutes > 30 {
+                            NSLog("BIIN - added: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+                            isActionReadyToAdd = true
+                            break
+                        }
+                    } else {
+                        isActionReadyToAdd = true
+                    }
+                    
+                } else {
+                    isActionReadyToAdd = true
+                }
+            }
+        }
+        
+        if isActionReadyToAdd {
+            
+            self.actionCounter++
+            self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
+            save()
+            NSLog("BIIN - add first action: \(at.bnDateFormatt()), did:\(did), to:\(to)")
+            
+        }
     }
     
     func deleteAllActions(){

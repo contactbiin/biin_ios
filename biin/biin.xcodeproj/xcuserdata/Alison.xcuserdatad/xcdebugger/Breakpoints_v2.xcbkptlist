@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "299"
             endingLineNumber = "299"
-            landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
+            landmarkName = "start_SITE_EXTERIOR_MONITORING(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "266"
             endingLineNumber = "266"
-            landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
+            landmarkName = "start_SITES_MONITORING()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

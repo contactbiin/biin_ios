@@ -12,6 +12,7 @@ class BNSite:NSObject, NSCoding {
     var jsonUrl:String?
     
     var identifier:String?
+    var organizationIdentifier:String?
     weak var organization:BNOrganization?
     var proximityUUID:NSUUID?
     var major:Int?
