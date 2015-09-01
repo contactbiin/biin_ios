@@ -307,7 +307,10 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                     println("Site:\(site!.title!),  \(siteIdentifier) in category:\(category.identifier!)")
 */
         
-        println("Number of sites: \(sitesArray.count)")
+        
+        if sitesArray.count == 0 {
+            println("Number of sites: \(sitesArray.count)")
+        }
 
         for site in sitesArray {
                     if site.showInView {

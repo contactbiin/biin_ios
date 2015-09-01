@@ -177,7 +177,6 @@ class LoyaltiesView: BNView {
         var ypos:CGFloat = 5
         var height:CGFloat = 100
         
-        
         for (identifier, organization) in BNAppSharedManager.instance.dataManager.organizations {
 
             var loyaltiesMiniView = LoyaltiesMiniView(frame: CGRectMake(5, ypos, (SharedUIManager.instance.screenWidth - 10), height), father: self, organization: organization)

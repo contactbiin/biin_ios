@@ -52,6 +52,8 @@ class BNRequest:NSObject {
     weak var showcase:BNShowcase?
     weak var element:BNElement?
     
+    var requestAttemps:Int = 0
+    
     override init() {
         super.init()
     }

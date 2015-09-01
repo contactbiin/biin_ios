@@ -1450,12 +1450,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func requestElementData(request:BNRequest, element:BNElement) {
 
         var response:BNResponse?
+
         
         epsNetwork!.getJson(true, url: request.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 println("Error on element data")
-                self.handleFailedRequest(request, error: error )
+                //self.handleFailedRequest(request, error: error )
                 
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 println("*** element data SUCK - FAILED!")
@@ -2384,7 +2385,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.requestShowcaseData(request, showcase:request.showcase!)
                 break
             case .ElementData:
-                self.requestElementData(request, element:request.element!)
+                if request.requestAttemps <= 4 {
+                    request.requestAttemps++
+                    self.requestElementData(request, element:request.element!)
+                } else {
+                    
+                }
                 break
             default:
                 break
