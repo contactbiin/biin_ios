@@ -350,7 +350,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedUserCategories categories: Array<BNCategory>) {
 
 
-        //println("didReceivedUserCategories(): \(categories.count)")
+        println("didReceivedUserCategories(): \(categories.count)")
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
         

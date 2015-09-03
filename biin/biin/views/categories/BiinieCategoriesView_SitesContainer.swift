@@ -271,6 +271,10 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         var sitesArray:Array<BNSite> = Array<BNSite>()
         
+        var dataManager = BNAppSharedManager.instance.dataManager
+        var user = dataManager.bnUser!
+        var categories = user.categories
+
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             if category.hasSites {
                 for var i = 0; i < category.sitesDetails.count; i++ {
