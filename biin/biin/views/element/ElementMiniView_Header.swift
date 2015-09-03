@@ -52,7 +52,7 @@ class ElementMiniView_Header:BNView {
         
         var title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_titleSize)
-        title.textColor = element!.titleColor!
+        title.textColor = UIColor.appTextColor()
         title.text = element!.title!
         self.addSubview(title)
         
