@@ -275,8 +275,9 @@ class ElementView_Details:BNView {
         
         
         ypos += 500
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
         */
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
+
         
     }
     

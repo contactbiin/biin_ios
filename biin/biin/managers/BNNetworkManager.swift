@@ -334,8 +334,23 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
+    /**
+    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
+    */
+    func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie) {
+        var request = BNRequest_Site(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, site: site)
+        self.addToQueue(request)
+    }
     
-    
+    /**
+    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
+    */
+    func manager(manager: BNDataManager!, requestOrganizationData organization: BNOrganization, user: Biinie) {
+        
+        var request = BNRequest_Organization(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, organization: organization)
+        addToQueue(request)
+        
+    }
     
     
     
@@ -364,10 +379,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             
             switch value.requestType {
             case .Regions:
-                self.requestRegions(value)
+                //self.requestRegions(value)
                 break
             case .RegionData:
-                self.requestRegionData(value)
+                //self.requestRegionData(value)
                 break
             case .UserCategories:
                 //self.requestUserCategoriesData(value)
@@ -395,17 +410,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     BNDataManagerDelegate - Methods to conform on BNNetworkManager.
     Creates a request for all regions and calls the requestRegions(request:BNRequest) method to handle the request.
     */
+    /*
     func requestRegions() {
         println("requestRegions")
 
         var  request = BNRequest(requestString:"\(rootURL)/mobile/regions", dataIdentifier: "", requestType:.Regions)
-//        self.requests[request.identifier] = request
         addTo_OLD_QUEUE(request)
         if !isRequestTimerAllow {
             self.requestRegions(request)
         }
     }
-    
+    */
     /**
     Handles the request for all regions.
     1. If the request is succesfull it parses all of them in a nice array.  
@@ -413,6 +428,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     3. If the request fails it tells the error manager to process the failure.
     @param:The request to be process.
     */
+    /*
     func requestRegions(request:BNRequest) {
         
         epsNetwork!.getJson(true, url: request.requestString, callback: {
@@ -449,11 +465,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             }
         })
     }
-    
+    */
     /**
     Conforms optional func manager(manager:BNDataManager!, requestRegionData identifier:String) of BNDataManagerDelegate.
     @param: identifier: Biinie identifier.
     */
+    /*
     func manager(manager:BNDataManager!, requestRegionData identifier:String) {
         
         var request = BNRequest(requestString: "\(rootURL)/api/regions/\(identifier)/biins", dataIdentifier:identifier, requestType:.RegionData)
@@ -463,7 +480,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             self.requestRegionData(request)
         }
     }
-    
+    */
 
     //FIXME: Docs not complete
     ///Handles the request for a region's data.
@@ -473,6 +490,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///3. If the request fails it tells the error manager to process the failure.
     ///
     ///:param:The request to be process.
+    /*
     func requestRegionData(request:BNRequest) {
  
         epsNetwork!.getJson(true, url: request.requestString, callback: {
@@ -519,20 +537,20 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             }
         })
     }
-    
-    
+    */
+
+    /*
     func manager(manager: BNDataManager!, requestCategoriesDataByBiinieAndRegion user: Biinie, region: BNRegion) {
         
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/\(region.identifier!)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
-
-//        self.requests[request.identifier] = request
         addTo_OLD_QUEUE(request)
         
         if !isRequestTimerAllow {
             //self.requestUserCategoriesData(request)
         }
     }
-
+*/
+    /*
     func manager(manager: BNPositionManager!, requestCategoriesDataOnBackground user:Biinie) {
         
          var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", dataIdentifier:"userCategories", requestType:.UserCategories)
@@ -544,6 +562,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             //self.requestUserCategoriesData(request)
         }
     }
+*/
     
     /*
     ///Handles the request for a user categories data and packs the information on an array of BNCategory.
@@ -684,24 +703,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
 
 
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
-    */
-    func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie) {
-        var request = BNRequest_Site(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, site: site)
-        self.addToQueue(request)
-    }
-    
-    
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
-    */
-    func manager(manager: BNDataManager!, requestOrganizationData organization: BNOrganization, user: Biinie) {
-        
-        var request = BNRequest_Organization(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, organization: organization)
-        addToQueue(request)
 
-    }
     
     func manager(manager: BNDataManager!, requestHighlightsData user: Biinie) {
         var showcase:BNShowcase?
@@ -712,7 +714,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addTo_OLD_QUEUE(request)
         
         self.requestHighlightsData(request, showcase:request.showcase!)
-
     }
     
     /**
@@ -1284,10 +1285,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             
             switch request.requestType {
             case .Regions:
-                self.requestRegions(request)
+                //self.requestRegions(request)
                 break
             case .RegionData:
-                self.requestRegionData(request)
+                //self.requestRegionData(request)
                 break
             case .UserCategories:
                 //self.requestUserCategoriesData(request)

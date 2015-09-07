@@ -304,6 +304,7 @@
 		B2B64CD01B98CA370054B334 /* BNRequest_CheckEmail_IsVerified.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B64CCF1B98CA370054B334 /* BNRequest_CheckEmail_IsVerified.swift */; };
 		B2B64CD21B98CBFA0054B334 /* BNRequest_Showcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B64CD11B98CBFA0054B334 /* BNRequest_Showcase.swift */; };
 		B2B64CD41B98D0150054B334 /* BNRequest_Biinie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B64CD31B98D0150054B334 /* BNRequest_Biinie.swift */; };
+		B2B64CD61B9B36370054B334 /* BNParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B64CD51B9B36370054B334 /* BNParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -619,6 +620,7 @@
 		B2B64CCF1B98CA370054B334 /* BNRequest_CheckEmail_IsVerified.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_CheckEmail_IsVerified.swift; sourceTree = "<group>"; };
 		B2B64CD11B98CBFA0054B334 /* BNRequest_Showcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Showcase.swift; sourceTree = "<group>"; };
 		B2B64CD31B98D0150054B334 /* BNRequest_Biinie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Biinie.swift; sourceTree = "<group>"; };
+		B2B64CD51B9B36370054B334 /* BNParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -875,6 +877,7 @@
 				5B3D75BB1A6816B300CB0D1C /* server.key */,
 				5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */,
 				5BB880951B68109000627355 /* Reachability.swift */,
+				B2B64CD51B9B36370054B334 /* BNParser.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -1575,6 +1578,7 @@
 				5BEE61391A97E8CE00DE334E /* NotificationsState.swift in Sources */,
 				5B5339611A8512A00049FB00 /* SignupView.swift in Sources */,
 				5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */,
+				B2B64CD61B9B36370054B334 /* BNParser.swift in Sources */,
 				5B5339651A85188C0049FB00 /* SingupViewController.swift in Sources */,
 				5B5D77E81A8E766F001C4A34 /* BNIcon_FashionMedium.swift in Sources */,
 				5BB917DD1A8A61AA007BDEEC /* BNUIButton_Back_SignupView.swift in Sources */,

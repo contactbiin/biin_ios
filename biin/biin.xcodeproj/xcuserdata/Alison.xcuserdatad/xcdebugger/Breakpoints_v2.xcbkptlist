@@ -74,13 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000808.21123"
+            timestampString = "463157192.497859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "538"
-            endingLineNumber = "538"
-            landmarkName = "manager(_:requestCategoriesDataOnBackground:)"
-            landmarkType = "5">
+            startingLineNumber = "476"
+            endingLineNumber = "476"
+            landmarkName = "BNNetworkManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000909.69394"
+            timestampString = "463157192.497859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
-            landmarkName = "requestRegions()"
-            landmarkType = "5">
+            startingLineNumber = "496"
+            endingLineNumber = "496"
+            landmarkName = "BNNetworkManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -106,75 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000909.69394"
+            timestampString = "463157192.497859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459"
-            landmarkName = "manager(_:requestRegionData:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000909.69394"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
-            landmarkName = "requestRegionData(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "biin.BNNetworkManager.requestRegionData (biin.BNNetworkManager)(biin.BNRequest) -&gt; ()"
-                  moduleName = "biin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Alison/Documents/Development/biin/biin/biin/managers/BNNetworkManager.swift"
-                  timestampString = "463001144.654611"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "478"
-                  endingLineNumber = "478"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "biin.BNNetworkManager.(requestRegionData (biin.BNNetworkManager) -&gt; (biin.BNRequest) -&gt; ()).(closure #1)"
-                  moduleName = "biin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Alison/Documents/Development/biin/biin/biin/managers/BNNetworkManager.swift"
-                  timestampString = "463001144.654778"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "480"
-                  endingLineNumber = "480"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000909.69394"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "707"
-            endingLineNumber = "707"
+            startingLineNumber = "709"
+            endingLineNumber = "709"
             landmarkName = "manager(_:requestHighlightsData:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000909.69394"
+            timestampString = "463157192.497859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "726"
-            endingLineNumber = "726"
+            startingLineNumber = "727"
+            endingLineNumber = "727"
             landmarkName = "requestHighlightsData(_:showcase:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,93 +138,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000909.69394"
+            timestampString = "463157192.497859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "418"
-            endingLineNumber = "418"
-            landmarkName = "requestRegions(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "biin.BNNetworkManager.requestRegions (biin.BNNetworkManager)(biin.BNRequest) -&gt; ()"
-                  moduleName = "biin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Alison/Documents/Development/biin/biin/biin/managers/BNNetworkManager.swift"
-                  timestampString = "463001144.656741"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "418"
-                  endingLineNumber = "418"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "biin.BNNetworkManager.(requestRegions (biin.BNNetworkManager) -&gt; (biin.BNRequest) -&gt; ()).(closure #1)"
-                  moduleName = "biin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Alison/Documents/Development/biin/biin/biin/managers/BNNetworkManager.swift"
-                  timestampString = "463001144.656887"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "421"
-                  endingLineNumber = "421"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000909.69394"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "416"
-            endingLineNumber = "416"
-            landmarkName = "requestRegions(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "biin.BNNetworkManager.requestRegions (biin.BNNetworkManager)(biin.BNRequest) -&gt; ()"
-                  moduleName = "biin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Alison/Documents/Development/biin/biin/biin/managers/BNNetworkManager.swift"
-                  timestampString = "463000490.238465"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "386"
-                  endingLineNumber = "386"
-                  offsetFromSymbolStart = "340">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "biin.BNNetworkManager.(requestRegions (biin.BNNetworkManager) -&gt; (biin.BNRequest) -&gt; ()).(closure #1)"
-                  moduleName = "biin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Alison/Documents/Development/biin/biin/biin/managers/BNNetworkManager.swift"
-                  timestampString = "463000490.238612"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "386"
-                  endingLineNumber = "386"
-                  offsetFromSymbolStart = "2700">
-               </Location>
-            </Locations>
+            startingLineNumber = "434"
+            endingLineNumber = "434"
+            landmarkName = "BNNetworkManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -298,28 +154,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000582.374775"
+            timestampString = "463157192.497859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "runRequest()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "biin/managers/BNNetworkManager.swift"
-            timestampString = "463000810.314592"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
-            landmarkName = "manager(_:requestCategoriesDataByBiinieAndRegion:region:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

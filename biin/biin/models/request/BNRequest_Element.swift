@@ -46,8 +46,10 @@ class BNRequest_Element: BNRequest {
                 
                 if let elementData = data["data"] as? NSDictionary {
                     
-                    var status = self.networkManager!.findInt("status", dictionary: data)
-                    var result = self.networkManager!.findBool("result", dictionary: data)
+                    //var status = self.networkManager!.findInt("status", dictionary: data)
+                    //var result = self.networkManager!.findBool("result", dictionary: data)
+                    var status = BNParser.findInt("status", dictionary: data)
+                    var result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         self.element!.isDownloadCompleted = true
