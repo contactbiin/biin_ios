@@ -41,18 +41,18 @@ class BNRequest_Categories: BNRequest {
                 if let dataData = data["data"] as? NSDictionary {
                     
                     var categories = Array<BNCategory>()
-                    var categoriesData = self.networkManager!.findNSArray("categories", dictionary: dataData)
+                    var categoriesData = BNParser.findNSArray("categories", dictionary: dataData)
                     
                     for var i = 0; i < categoriesData?.count; i++ {
                         
                         var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
-                        var category = BNCategory(identifier: self.networkManager!.findString("identifier", dictionary: categoryData)!)
+                        var category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
                         
-                        category.name = self.networkManager!.findString("name", dictionary: categoryData)
-                        category.hasSites = self.networkManager!.findBool("hasSites", dictionary: categoryData)
+                        category.name = BNParser.findString("name", dictionary: categoryData)
+                        category.hasSites = BNParser.findBool("hasSites", dictionary: categoryData)
                         
                         if category.hasSites {
-                            var sites = self.networkManager!.findNSArray("sites", dictionary: categoryData)
+                            var sites = BNParser.findNSArray("sites", dictionary: categoryData)
                             
                             for var j = 0; j < sites?.count; j++ {
                                 
@@ -60,9 +60,9 @@ class BNRequest_Categories: BNRequest {
                                 
                                 //TODO: Add site details to category here.
                                 var siteDetails = BNCategorySiteDetails()
-                                siteDetails.identifier = self.networkManager!.findString("identifier", dictionary: siteData)
-                                siteDetails.json = self.networkManager!.findString("jsonUrl", dictionary: siteData)
-                                siteDetails.biinieProximity = self.networkManager!.findFloat("biinieProximity", dictionary: siteData)
+                                siteDetails.identifier = BNParser.findString("identifier", dictionary: siteData)
+                                siteDetails.json = BNParser.findString("jsonUrl", dictionary: siteData)
+                                siteDetails.biinieProximity = BNParser.findFloat("biinieProximity", dictionary: siteData)
                                 category.sitesDetails.append(siteDetails)
                                 
                             }

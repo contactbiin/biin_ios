@@ -42,12 +42,12 @@ class BNRequest_Showcase: BNRequest {
                 
                 if let showcaseData = data["data"] as? NSDictionary {
                     
-                    var status = self.networkManager!.findInt("status", dictionary: data)
-                    var result = self.networkManager!.findBool("result", dictionary: data)
+                    var status = BNParser.findInt("status", dictionary: data)
+                    var result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
-                        self.showcase!.identifier = self.networkManager!.findString("identifier", dictionary: showcaseData)
-                        self.showcase!.lastUpdate = self.networkManager!.findNSDate("lastUpdate", dictionary: showcaseData)
+                        self.showcase!.identifier = BNParser.findString("identifier", dictionary: showcaseData)
+                        self.showcase!.lastUpdate = BNParser.findNSDate("lastUpdate", dictionary: showcaseData)
                         self.showcase!.theme = self.networkManager!.findBNShowcaseTheme("theme", dictionary: showcaseData)
                         self.showcase!.showcaseType = self.networkManager!.findBNShowcaseType("showcaseType", dictionary: showcaseData)
                         self.showcase!.title = self.networkManager!.findString("title", dictionary: showcaseData)

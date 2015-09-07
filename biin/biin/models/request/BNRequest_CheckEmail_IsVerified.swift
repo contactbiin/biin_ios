@@ -40,8 +40,8 @@ class BNRequest_CheckEmail_IsVerified: BNRequest {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var status = self.networkManager!.findInt("status", dictionary: data)
-                    var result = self.networkManager!.findBool("result", dictionary: data)
+                    var status = BNParser.findInt("status", dictionary: data)
+                    var result = BNParser.findBool("result", dictionary: data)
                     
                     self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedEmailVerification: result)
       

@@ -46,9 +46,9 @@ class BNRequest_Login: BNRequest {
                 
                 if let loginData = data["data"] as? NSDictionary {
                     
-                    var status = self.networkManager!.findInt("status", dictionary: data)
-                    var result = self.networkManager!.findBool("result", dictionary: data)
-                    var identifier = self.networkManager!.findString("identifier", dictionary: loginData)
+                    var status = BNParser.findInt("status", dictionary: data)
+                    var result = BNParser.findBool("result", dictionary: data)
+                    var identifier = BNParser.findString("identifier", dictionary: loginData)
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)

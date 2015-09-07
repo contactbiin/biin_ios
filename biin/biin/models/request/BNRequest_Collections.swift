@@ -39,12 +39,12 @@ class BNRequest_Collections: BNRequest {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var result = self.networkManager!.findBool("result", dictionary: data)
+                    var result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         
                         var collectionList = Array<BNCollection>()
-                        var collections = self.networkManager!.findNSArray("biinieCollections", dictionary: dataData)
+                        var collections = BNParser.findNSArray("biinieCollections", dictionary: dataData)
                         
                         println("number of collections: \(collections?.count)")
                         
@@ -52,11 +52,11 @@ class BNRequest_Collections: BNRequest {
                             
                             var collectionData = collections!.objectAtIndex(i) as! NSDictionary
                             var collection = BNCollection()
-                            collection.identifier = self.networkManager!.findString("identifier", dictionary: collectionData)
+                            collection.identifier = BNParser.findString("identifier", dictionary: collectionData)
                             collection.title = NSLocalizedString("CollectionTitle", comment: "CollectionTitle")
                             collection.subTitle = NSLocalizedString("CollectionSubTitle", comment: "CollectionSubTitle")
                             
-                            var elements = self.networkManager!.findNSArray("elements", dictionary: collectionData)
+                            var elements = BNParser.findNSArray("elements", dictionary: collectionData)
                             collection.items = Array<String>()
                             
                             if elements?.count > 0 {
@@ -66,14 +66,14 @@ class BNRequest_Collections: BNRequest {
                                 for ( var j = 0; j < elements?.count; j++ ) {
                                     var elementData = elements!.objectAtIndex(j) as! NSDictionary
                                     var element = BNElement()
-                                    element.identifier = self.networkManager!.findString("identifier", dictionary: elementData)
-                                    element._id = self.networkManager!.findString("_id", dictionary: elementData)
+                                    element.identifier = BNParser.findString("identifier", dictionary: elementData)
+                                    element._id = BNParser.findString("_id", dictionary: elementData)
                                     collection.elements[element.identifier!] = element
                                     collection.items.append(element.identifier!)
                                 }
                             }
                             
-                            var sites = self.networkManager!.findNSArray("sites", dictionary: collectionData)
+                            var sites = BNParser.findNSArray("sites", dictionary: collectionData)
                             
                             if sites?.count > 0 {
                                 
@@ -82,7 +82,7 @@ class BNRequest_Collections: BNRequest {
                                 for ( var i = 0; i < sites?.count; i++ ) {
                                     var siteData = sites!.objectAtIndex(i) as! NSDictionary
                                     var site = BNSite()
-                                    site.identifier = self.networkManager!.findString("identifier", dictionary: siteData)
+                                    site.identifier = BNParser.findString("identifier", dictionary: siteData)
                                     collection.sites[site.identifier!] = site
                                     collection.items.append(site.identifier!)
                                 }

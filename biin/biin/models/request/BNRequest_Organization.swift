@@ -41,38 +41,38 @@ class BNRequest_Organization: BNRequest {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var result = self.networkManager!.findBool("result", dictionary: data)
+                    var result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
-                        var organizationData = self.networkManager!.findNSDictionary("organization", dictionary: dataData)
+                        var organizationData = BNParser.findNSDictionary("organization", dictionary: dataData)
                         
                         
-                        self.organization!.name = self.networkManager!.findString("name", dictionary: organizationData!)
-                        self.organization!.brand = self.networkManager!.findString("brand", dictionary: organizationData!)
-                        self.organization!.extraInfo = self.networkManager!.findString("extraInfo", dictionary: organizationData!)
-                        self.organization!.organizationDescription = self.networkManager!.findString("description", dictionary: organizationData!)
+                        self.organization!.name = BNParser.findString("name", dictionary: organizationData!)
+                        self.organization!.brand = BNParser.findString("brand", dictionary: organizationData!)
+                        self.organization!.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData!)
+                        self.organization!.organizationDescription = BNParser.findString("description", dictionary: organizationData!)
                         
-                        var mediaArray = self.networkManager!.findNSArray("media", dictionary: organizationData!)
+                        var mediaArray = BNParser.findNSArray("media", dictionary: organizationData!)
                         
                         for var i = 0; i < mediaArray?.count; i++ {
                             var mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
-                            var url = self.networkManager!.findString("imgUrl", dictionary:mediaData)
-                            var type = self.networkManager!.findMediaType("mediaType", dictionary: mediaData)
-                            var domainColor = self.networkManager!.findUIColor("domainColor", dictionary: mediaData)
+                            var url = BNParser.findString("imgUrl", dictionary:mediaData)
+                            var type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                            var domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)
                             var media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
                             self.organization!.media.append(media)
                         }
                         
-                        var loyaltyData = self.networkManager!.findNSDictionary("loyalty", dictionary: dataData)
+                        var loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: dataData)
                         var loyalty = BNLoyalty()
-                        loyalty.isSubscribed = self.networkManager!.findBool("isSubscribed", dictionary: loyaltyData!)
+                        loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
                         
                         loyalty.isSubscribed = true
                         
                         if loyalty.isSubscribed {
-                            loyalty.points = self.networkManager!.findInt("points", dictionary:loyaltyData!)!
-                            loyalty.subscriptionDate = self.networkManager!.findNSDate("subscriptionDate", dictionary:loyaltyData!)
-                            loyalty.level = self.networkManager!.findInt("level", dictionary:loyaltyData!)!
+                            loyalty.points = BNParser.findInt("points", dictionary:loyaltyData!)!
+                            loyalty.subscriptionDate = BNParser.findNSDate("subscriptionDate", dictionary:loyaltyData!)
+                            loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
                         }
                         
                         self.organization!.loyalty = loyalty

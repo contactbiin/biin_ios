@@ -39,7 +39,7 @@ class BNRequest_Site: BNRequest {
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
-                var result = self.networkManager!.findBool("result", dictionary: data)
+                var result = BNParser..findBool("result", dictionary: data)
                 
                 if result {
                     if let siteData = data["data"] as? NSDictionary {
@@ -47,35 +47,35 @@ class BNRequest_Site: BNRequest {
                         var new_site = BNSite()
                         new_site.biinieProximity = self.site!.biinieProximity!
                         new_site.jsonUrl = self.requestString
-                        new_site.identifier = self.networkManager!.findString("identifier", dictionary: siteData)
-                        new_site.proximityUUID = self.networkManager!.findNSUUID("proximityUUID", dictionary: siteData)
-                        new_site.major = self.networkManager!.findInt("major", dictionary: siteData)
-                        new_site.title = self.networkManager!.findString("title", dictionary: siteData)
-                        new_site.subTitle = self.networkManager!.findString("subTitle", dictionary: siteData)
-                        new_site.titleColor = self.networkManager!.findUIColor("titleColor", dictionary: siteData)
-                        new_site.country = self.networkManager!.findString("country", dictionary: siteData)
-                        new_site.state = self.networkManager!.findString("state", dictionary: siteData)
-                        new_site.city = self.networkManager!.findString("city", dictionary: siteData)
-                        new_site.zipCode = self.networkManager!.findString("zipCode", dictionary: siteData)
-                        new_site.streetAddress1 = self.networkManager!.findString("streetAddress1", dictionary: siteData)
-                        new_site.ubication = self.networkManager!.findString("ubication", dictionary: siteData)
-                        new_site.phoneNumber = self.networkManager!.findString("phoneNumber", dictionary: siteData)
-                        new_site.email = self.networkManager!.findString("email", dictionary: siteData)
-                        new_site.nutshell = self.networkManager!.findString("nutshell", dictionary: siteData)
-                        new_site.organizationIdentifier = self.networkManager!.findString("organizationIdentifier", dictionary: siteData)
+                        new_site.identifier = BNParser.findString("identifier", dictionary: siteData)
+                        new_site.proximityUUID = BNParser.findNSUUID("proximityUUID", dictionary: siteData)
+                        new_site.major = BNParser.findInt("major", dictionary: siteData)
+                        new_site.title = BNParser.findString("title", dictionary: siteData)
+                        new_site.subTitle = BNParser.findString("subTitle", dictionary: siteData)
+                        new_site.titleColor = BNParser.findUIColor("titleColor", dictionary: siteData)
+                        new_site.country = BNParser.findString("country", dictionary: siteData)
+                        new_site.state = BNParser.findString("state", dictionary: siteData)
+                        new_site.city = BNParser.findString("city", dictionary: siteData)
+                        new_site.zipCode = BNParser.findString("zipCode", dictionary: siteData)
+                        new_site.streetAddress1 = BNParser.findString("streetAddress1", dictionary: siteData)
+                        new_site.ubication = BNParser.findString("ubication", dictionary: siteData)
+                        new_site.phoneNumber = BNParser.findString("phoneNumber", dictionary: siteData)
+                        new_site.email = BNParser.findString("email", dictionary: siteData)
+                        new_site.nutshell = BNParser.findString("nutshell", dictionary: siteData)
+                        new_site.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: siteData)
                         
                         
-                        new_site.biinedCount = self.networkManager!.findInt("biinedCount", dictionary: siteData)!
+                        new_site.biinedCount = BNParser.findInt("biinedCount", dictionary: siteData)!
                         //TODO: Pending "comments": "23", in web service
-                        new_site.commentedCount = self.networkManager!.findInt("commentedCount", dictionary: siteData)!
-                        new_site.userBiined = self.networkManager!.findBool("userBiined", dictionary: siteData)
-                        new_site.userCommented = self.networkManager!.findBool("userCommented", dictionary: siteData)
-                        new_site.userShared = self.networkManager!.findBool("userShared", dictionary: siteData)
+                        new_site.commentedCount = BNParser.findInt("commentedCount", dictionary: siteData)!
+                        new_site.userBiined = BNParser.findBool("userBiined", dictionary: siteData)
+                        new_site.userCommented = BNParser.findBool("userCommented", dictionary: siteData)
+                        new_site.userShared = BNParser.findBool("userShared", dictionary: siteData)
                         
-                        new_site.latitude = self.networkManager!.findFloat("latitude", dictionary:siteData)
-                        new_site.longitude = self.networkManager!.findFloat("longitude", dictionary:siteData)
+                        new_site.latitude = BNParser.findFloat("latitude", dictionary:siteData)
+                        new_site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
                         
-                        var neighbors = self.networkManager!.findNSArray("neighbors", dictionary: siteData)
+                        var neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
                         
                         if neighbors?.count > 0{
                             
@@ -83,7 +83,7 @@ class BNRequest_Site: BNRequest {
                             
                             for var i = 0; i < neighbors?.count; i++ {
                                 var neighborData = neighbors!.objectAtIndex(i) as! NSDictionary
-                                var neighbor = self.networkManager!.findString("siteIdentifier", dictionary:neighborData)
+                                var neighbor = BNParser.findString("siteIdentifier", dictionary:neighborData)
                                 new_site.neighbors!.append(neighbor!)
                             }
                         }
@@ -92,14 +92,14 @@ class BNRequest_Site: BNRequest {
                         
                         for var i = 0; i < mediaArray?.count; i++ {
                             var mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
-                            var url = self.networkManager!.findString("imgUrl", dictionary:mediaData)
-                            var type = self.networkManager!.findMediaType("mediaType", dictionary: mediaData)
-                            var domainColor = self.networkManager!.findUIColor("domainColor", dictionary: mediaData)
+                            var url = BNParser.findString("imgUrl", dictionary:mediaData)
+                            var type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                            var domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)
                             var media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
                             new_site.media.append(media)
                         }
                         
-                        var showcases = self.networkManager!.findNSArray("showcases", dictionary: siteData)
+                        var showcases = BNParser.findNSArray("showcases", dictionary: siteData)
                         
                         if showcases?.count > 0 {
                             
@@ -107,7 +107,7 @@ class BNRequest_Site: BNRequest {
                             
                             for var i = 0; i < showcases?.count; i++ {
                                 var showcaseData = showcases!.objectAtIndex(i) as! NSDictionary
-                                var identifier = self.networkManager!.findString("identifier", dictionary:showcaseData)
+                                var identifier = BNParser.findString("identifier", dictionary:showcaseData)
                                 var showcase = BNShowcase()
                                 showcase.identifier = identifier
                                 showcase.siteIdentifier = new_site.identifier!
@@ -115,21 +115,21 @@ class BNRequest_Site: BNRequest {
                             }
                         }
                         
-                        var biins = self.networkManager!.findNSArray("biins", dictionary: siteData)
+                        var biins = BNParser.findNSArray("biins", dictionary: siteData)
                         
                         for var j = 0; j < biins?.count; j++ {
                             if let biinData = biins!.objectAtIndex(j) as? NSDictionary {
                                 var biin = BNBiin()
-                                biin.identifier = self.networkManager!.findString("identifier", dictionary: biinData)
-                                biin.accountIdentifier = self.networkManager!.findString("accountIdentifier", dictionary: biinData)
-                                biin.siteIdentifier = self.networkManager!.findString("siteIdentifier", dictionary: biinData)
+                                biin.identifier = BNParser.findString("identifier", dictionary: biinData)
+                                biin.accountIdentifier = BNParser.findString("accountIdentifier", dictionary: biinData)
+                                biin.siteIdentifier = BNParser.findString("siteIdentifier", dictionary: biinData)
                                 //                                biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
-                                biin.major = self.networkManager!.findInt("major", dictionary: biinData)
-                                biin.minor = self.networkManager!.findInt("minor", dictionary: biinData)
-                                biin.proximityUUID = self.networkManager!.findNSUUID("proximityUUID", dictionary: biinData)
-                                biin.venue = self.networkManager!.findString("venue", dictionary: biinData)
-                                biin.name = self.networkManager!.findString("name", dictionary: biinData)
-                                biin.biinType = self.networkManager!.findBNBiinType("biinType", dictionary: biinData)
+                                biin.major = BNParser.findInt("major", dictionary: biinData)
+                                biin.minor = BNParser.findInt("minor", dictionary: biinData)
+                                biin.proximityUUID = BNParser.findNSUUID("proximityUUID", dictionary: biinData)
+                                biin.venue = BNParser.findString("venue", dictionary: biinData)
+                                biin.name = BNParser.findString("name", dictionary: biinData)
+                                biin.biinType = BNParser.findBNBiinType("biinType", dictionary: biinData)
                                 //biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
                                 
                                 //REMOVE ->
@@ -138,7 +138,7 @@ class BNRequest_Site: BNRequest {
                                 //REMOVE <-
                                 
                                 
-                                var children = self.networkManager!.findNSArray("children", dictionary: biinData)
+                                var children = BNParser.findNSArray("children", dictionary: biinData)
                                 
                                 if children?.count > 0 {
                                     
@@ -150,31 +150,31 @@ class BNRequest_Site: BNRequest {
                                     }
                                 }
                                 
-                                var objects = self.networkManager!.findNSArray("objects", dictionary: biinData)
+                                var objects = BNParser.findNSArray("objects", dictionary: biinData)
                                 
                                 if objects!.count > 0 {
                                     biin.objects = Array<BNBiinObject>()
                                     for var k = 0; k < objects!.count; k++ {
                                         if let objectData = objects!.objectAtIndex(k) as? NSDictionary {
                                             var object = BNBiinObject()
-                                            object._id = self.networkManager!.findString("_id", dictionary: objectData)
-                                            object.identifier = self.networkManager!.findString("identifier", dictionary: objectData)
-                                            object.isDefault = self.networkManager!.findBool("isDefault", dictionary: objectData)
-                                            object.onMonday = self.networkManager!.findBool("onMonday", dictionary: objectData)
-                                            object.onTuesday = self.networkManager!.findBool("onTuesday", dictionary: objectData)
-                                            object.onWednesday = self.networkManager!.findBool("onWednesday", dictionary: objectData)
-                                            object.onThursday = self.networkManager!.findBool("onThursday", dictionary: objectData)
-                                            object.onFriday = self.networkManager!.findBool("onFriday", dictionary: objectData)
-                                            object.onSaturday = self.networkManager!.findBool("onSaturday", dictionary: objectData)
-                                            object.onSunday = self.networkManager!.findBool("onSunday", dictionary: objectData)
-                                            object.startTime = self.networkManager!.findFloat("startTime", dictionary: objectData)!
-                                            object.endTime = self.networkManager!.findFloat("endTime", dictionary: objectData)!
-                                            object.hasTimeOptions = self.networkManager!.findBool("hasTimeOptions", dictionary: objectData)
-                                            object.hasNotification = self.networkManager!.findBool("hasNotification", dictionary: objectData)
-                                            object.notification = self.networkManager!.findString("notification", dictionary: objectData)
-                                            object.isUserNotified = self.networkManager!.findBool("isUserNotified", dictionary: objectData)
-                                            object.isBiined = self.networkManager!.findBool("isBiined", dictionary: objectData)
-                                            object.objectType = self.networkManager!.findBiinObjectType("objectType", dictionary: objectData)
+                                            object._id = BNParser.findString("_id", dictionary: objectData)
+                                            object.identifier = BNParser.findString("identifier", dictionary: objectData)
+                                            object.isDefault = BNParser.findBool("isDefault", dictionary: objectData)
+                                            object.onMonday = BNParser.findBool("onMonday", dictionary: objectData)
+                                            object.onTuesday = BNParser.findBool("onTuesday", dictionary: objectData)
+                                            object.onWednesday = BNParser.findBool("onWednesday", dictionary: objectData)
+                                            object.onThursday = BNParser.findBool("onThursday", dictionary: objectData)
+                                            object.onFriday = BNParser.findBool("onFriday", dictionary: objectData)
+                                            object.onSaturday = BNParser.findBool("onSaturday", dictionary: objectData)
+                                            object.onSunday = BNParser.findBool("onSunday", dictionary: objectData)
+                                            object.startTime = BNParser.findFloat("startTime", dictionary: objectData)!
+                                            object.endTime = BNParser.findFloat("endTime", dictionary: objectData)!
+                                            object.hasTimeOptions = BNParser.findBool("hasTimeOptions", dictionary: objectData)
+                                            object.hasNotification = BNParser.findBool("hasNotification", dictionary: objectData)
+                                            object.notification = BNParser.findString("notification", dictionary: objectData)
+                                            object.isUserNotified = BNParser.findBool("isUserNotified", dictionary: objectData)
+                                            object.isBiined = BNParser.findBool("isBiined", dictionary: objectData)
+                                            object.objectType = BNParser.findBiinObjectType("objectType", dictionary: objectData)
                                             
                                             //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
                                             object.major = biin.major!
