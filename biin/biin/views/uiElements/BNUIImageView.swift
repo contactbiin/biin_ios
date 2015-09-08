@@ -40,7 +40,7 @@ class BNUIImageView:UIImageView {
         loadingIndicator!.stopAnimating()
         self.alpha = 0
         
-        UIView.animateWithDuration(0.1, animations: {()-> Void in
+        UIView.animateWithDuration(0.5, animations: {()-> Void in
             self.alpha = 1
         })
     }

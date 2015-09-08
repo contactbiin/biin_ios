@@ -132,7 +132,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ypos += 35
         yStop = ypos //To use in shareview.
         map = MKMapView(frame:CGRectMake(0, ypos, screenWidth, 160))
-        ///map!.userInteractionEnabled = false
+        map!.userInteractionEnabled = false
 //        map!.layer.cornerRadius = 3
 //        map!.layer.borderColor = UIColor.appButtonBorderColor().CGColor
 //        map!.layer.borderWidth = 1
