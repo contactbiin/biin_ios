@@ -196,10 +196,12 @@ class Biinie:NSObject, NSCoding {
                     isActionReadyToAdd = true
                 }
             }
+        } else {
+            isActionReadyToAdd = true
         }
         
-//        if isActionReadyToAdd {
-        if true {
+        if isActionReadyToAdd {
+        //if true {
             
             self.actionCounter++
             self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))

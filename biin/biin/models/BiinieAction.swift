@@ -50,6 +50,18 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .BIIN_NOTIFIED
         case 7:
             self.did = .NOTIFICATION_OPENED
+        case 8:
+            self.did = .ENTER_SITE_VIEW
+        case 9:
+            self.did = .LEAVE_SITE_VIEW
+        case 10:
+            self.did = .ENTER_ELEMENT_VIEW
+        case 11:
+            self.did = .LEAVE_ELEMENT_VIEW
+        case 12:
+            self.did = .BIINED_ELEMENT
+        case 13:
+            self.did = .BIINED_SITE
         default:
             break
         }

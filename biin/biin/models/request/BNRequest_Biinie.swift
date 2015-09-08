@@ -34,7 +34,6 @@ class BNRequest_Biinie: BNRequest {
         self.networkManager!.epsNetwork!.getJson(false, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                
                 println("Error on biinie data")
                 self.networkManager!.handleFailedRequest(self, error: error )
                 
@@ -64,14 +63,18 @@ class BNRequest_Biinie: BNRequest {
                         var categories = Array<BNCategory>()
                         var categoriesData = BNParser.findNSArray("categories", dictionary: biinieData)
                         
-                        for var i = 0; i < categoriesData?.count; i++ {
-                            
-                            var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
-                            var category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
-                            
-                            category.name = BNParser.findString("name", dictionary: categoryData)
-                            
-                            categories.append(category)
+                        if categoriesData!.count > 0 {
+                            for var i = 0; i < categoriesData?.count; i++ {
+                                
+                                var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
+                                var category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
+                                
+                                category.name = BNParser.findString("name", dictionary: categoryData)
+                                
+                                categories.append(category)
+                            }
+                        } else {
+                            println("NOT CATEGORIES IN BIINIE")
                         }
                         
                         self.user!.categories = categories

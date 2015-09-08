@@ -22,6 +22,7 @@ class DevelopmentView:UIView {
     ///Buttons
     var clearUserBtn:UIButton?
     var enterBtn:UIButton?
+    var addActionBtn:UIButton?
     
     var didSomethingChanged = false
     
@@ -146,6 +147,15 @@ class DevelopmentView:UIView {
         self.addSubview(clearUserBtn!)
         ypos += 65
         
+        addActionBtn = UIButton(frame: CGRectMake(0, ypos, screenWidth, 60))
+        addActionBtn!.backgroundColor = UIColor.appBackground()
+        addActionBtn!.setTitle("Add Action", forState: UIControlState.Normal)
+        addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
+        addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(addActionBtn!)
+        ypos += 65
+        
         
         label = UILabel(frame: CGRect(x:25, y:ypos, width:(frame.width - 50), height:30))
         label.text = "** If you make any changes you will need to relaunch the application."
@@ -232,6 +242,9 @@ class DevelopmentView:UIView {
         vc.initViewController(self.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.viewController!.presentViewController(vc, animated: true, completion: nil)
+    }
     
+    func addActionBtnAction(sender:UIButton!){
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BIINED_ELEMENT, to: "55db879e2fde320300fb9321")
     }
 }
