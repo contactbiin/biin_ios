@@ -8,10 +8,6 @@ import UIKit
 
 class ShareItView:UIView {
     
-//    override init() {
-//        super.init()
-//    }
-    
     var priceView:BNUIPricesView?
     
     override init(frame: CGRect) {
@@ -24,8 +20,6 @@ class ShareItView:UIView {
     
     convenience init(frame: CGRect, element:BNElement, site:BNSite?) {
         self.init(frame:frame)
-        
-        //var newElement = BNAppSharedManager.instance.dataManager.elements[element._id!]
         
         self.backgroundColor = UIColor.clearColor()
         self.layer.cornerRadius = 5
@@ -52,32 +46,6 @@ class ShareItView:UIView {
             priceView!.removeFromSuperview()
             priceView = nil
         }
-        
-        
-        /*
-        if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.currency!)\(element.price!)", isMini:false)
-            self.addSubview(priceView!)
-            hasPrice = true
-            ypos += 40
-            
-        } else if element.hasPrice && element.hasListPrice {
-            
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.listPrice!)", newPrice:"\(element.currency!)\(element.price!)", percentage:"\(element.discount!)%", isMini:false)
-            self.addSubview(priceView!)
-            hasPrice = true
-            ypos += 40
-        } else if element.hasPrice &&  element.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(element.currency!)\(element.price!)", from:     NSLocalizedString("From", comment: "From")
-                , isMini:false)
-            self.addSubview(priceView!)
-            hasPrice = true
-            ypos += 40
-        }
-        */
-        
-        
-        
         
         if !element.hasPrice && element.hasDiscount {
             
@@ -106,19 +74,12 @@ class ShareItView:UIView {
             ypos += 40
             
         } else if element.hasPrice && element.hasFromPrice {
-            
-            //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(element.currency!)\(element.price!)", from:NSLocalizedString("From", comment: "From")
                 , isMini:false, isHighlight:element.isHighlight)
             self.addSubview(priceView!)
             hasPrice = true
             ypos += 40
         }
-
-        
-        
-        
-
         
         ypos = 0
         var whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
@@ -141,10 +102,6 @@ class ShareItView:UIView {
         self.addSubview(subTitle)
         
         ypos = 360
-        //var pricingDetails = ElementMiniView_PricingDetails(frame: CGRectMake(0, ypos, frame.width, 0), father: nil, element: element)
-        //self.addSubview(pricingDetails)
-        //pricingDetails.frame.origin.y = 350
-        //ypos += pricingDetails.frame.height + 10
         
         var siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
         siteLocation.updateForSite(site!)
