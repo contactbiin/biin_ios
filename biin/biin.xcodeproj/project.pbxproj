@@ -305,6 +305,13 @@
 		B2B64CD21B98CBFA0054B334 /* BNRequest_Showcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B64CD11B98CBFA0054B334 /* BNRequest_Showcase.swift */; };
 		B2B64CD41B98D0150054B334 /* BNRequest_Biinie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B64CD31B98D0150054B334 /* BNRequest_Biinie.swift */; };
 		B2B64CD61B9B36370054B334 /* BNParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B64CD51B9B36370054B334 /* BNParser.swift */; };
+		B2F206C21B9DFE0D001AF5B4 /* BNRequest_SendBiinedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F206C11B9DFE0D001AF5B4 /* BNRequest_SendBiinedElement.swift */; };
+		B2F206C41B9E0588001AF5B4 /* BNRequest_SendUnBiinedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F206C31B9E0588001AF5B4 /* BNRequest_SendUnBiinedElement.swift */; };
+		B2F206C61B9E06E3001AF5B4 /* BNRequest_SendBiinedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F206C51B9E06E3001AF5B4 /* BNRequest_SendBiinedSite.swift */; };
+		B2F206C81B9E07EA001AF5B4 /* BNRequest_SendUnBiinedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F206C71B9E07EA001AF5B4 /* BNRequest_SendUnBiinedSite.swift */; };
+		B2F206CA1B9E091B001AF5B4 /* BNRequest_SendSharedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F206C91B9E091B001AF5B4 /* BNRequest_SendSharedElement.swift */; };
+		B2F206CC1B9E0A17001AF5B4 /* BNRequest_SendSharedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F206CB1B9E0A17001AF5B4 /* BNRequest_SendSharedSite.swift */; };
+		B2F206CE1B9E0F1E001AF5B4 /* BNRequest_Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F206CD1B9E0F1E001AF5B4 /* BNRequest_Image.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -621,6 +628,13 @@
 		B2B64CD11B98CBFA0054B334 /* BNRequest_Showcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Showcase.swift; sourceTree = "<group>"; };
 		B2B64CD31B98D0150054B334 /* BNRequest_Biinie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Biinie.swift; sourceTree = "<group>"; };
 		B2B64CD51B9B36370054B334 /* BNParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNParser.swift; sourceTree = "<group>"; };
+		B2F206C11B9DFE0D001AF5B4 /* BNRequest_SendBiinedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinedElement.swift; sourceTree = "<group>"; };
+		B2F206C31B9E0588001AF5B4 /* BNRequest_SendUnBiinedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendUnBiinedElement.swift; sourceTree = "<group>"; };
+		B2F206C51B9E06E3001AF5B4 /* BNRequest_SendBiinedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinedSite.swift; sourceTree = "<group>"; };
+		B2F206C71B9E07EA001AF5B4 /* BNRequest_SendUnBiinedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendUnBiinedSite.swift; sourceTree = "<group>"; };
+		B2F206C91B9E091B001AF5B4 /* BNRequest_SendSharedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendSharedElement.swift; sourceTree = "<group>"; };
+		B2F206CB1B9E0A17001AF5B4 /* BNRequest_SendSharedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendSharedSite.swift; sourceTree = "<group>"; };
+		B2F206CD1B9E0F1E001AF5B4 /* BNRequest_Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Image.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1291,6 +1305,13 @@
 				B2B64CCD1B98A6470054B334 /* BNRequest_SendBiiniePoints.swift */,
 				B2B64CD11B98CBFA0054B334 /* BNRequest_Showcase.swift */,
 				B2B64CD31B98D0150054B334 /* BNRequest_Biinie.swift */,
+				B2F206C11B9DFE0D001AF5B4 /* BNRequest_SendBiinedElement.swift */,
+				B2F206C91B9E091B001AF5B4 /* BNRequest_SendSharedElement.swift */,
+				B2F206C31B9E0588001AF5B4 /* BNRequest_SendUnBiinedElement.swift */,
+				B2F206C51B9E06E3001AF5B4 /* BNRequest_SendBiinedSite.swift */,
+				B2F206C71B9E07EA001AF5B4 /* BNRequest_SendUnBiinedSite.swift */,
+				B2F206CB1B9E0A17001AF5B4 /* BNRequest_SendSharedSite.swift */,
+				B2F206CD1B9E0F1E001AF5B4 /* BNRequest_Image.swift */,
 			);
 			path = request;
 			sourceTree = "<group>";
@@ -1436,6 +1457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2F206C81B9E07EA001AF5B4 /* BNRequest_SendUnBiinedSite.swift in Sources */,
 				5B3D76081A6816B300CB0D1C /* BNSite.swift in Sources */,
 				5B5D77F41A8E827E001C4A34 /* BNIcon_TravelMedium.swift in Sources */,
 				5B6615C11B3326D700ECE508 /* BNLocalNotification.swift in Sources */,
@@ -1454,6 +1476,7 @@
 				5B8A21DA1B87902B0072085F /* BNIcon_HeartSmall.swift in Sources */,
 				5B285B4A1A8D142500A2356B /* BNIcon_MaleSmall.swift in Sources */,
 				5B047D5E1A815B8F00281B17 /* SiteView_Bottom.swift in Sources */,
+				B2F206CC1B9E0A17001AF5B4 /* BNRequest_SendSharedSite.swift in Sources */,
 				5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */,
 				5B4894E81ADD85C2006789E2 /* BNUIDetailView_From.swift in Sources */,
 				5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */,
@@ -1491,11 +1514,13 @@
 				5B60A4CC1AA21D820025ACBA /* BNIcon_EmailMedium.swift in Sources */,
 				5BF966AE1AA78DAC00994BEA /* Biined_Notified_State.swift in Sources */,
 				5B64D4671A718F590082B9EA /* BNIcon_TVMedium.swift in Sources */,
+				B2F206C61B9E06E3001AF5B4 /* BNRequest_SendBiinedSite.swift in Sources */,
 				5BA83E511AAFBC670072EEE6 /* BNIcon_FashionSmall.swift in Sources */,
 				5B9AD3581A7BF6B8001C9B5A /* SiteMiniView_Header.swift in Sources */,
 				B2B64CD41B98D0150054B334 /* BNRequest_Biinie.swift in Sources */,
 				5BB880961B68109100627355 /* Reachability.swift in Sources */,
 				5B2F5B921A8BAADC004133D4 /* BNIcon_CloseSmall.swift in Sources */,
+				B2F206CA1B9E091B001AF5B4 /* BNRequest_SendSharedElement.swift in Sources */,
 				5B6615BF1B33130900ECE508 /* BNNotificationManager.swift in Sources */,
 				B2B64CC81B98A0D80054B334 /* BNRequest_SendBiinieCategories.swift in Sources */,
 				5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */,
@@ -1542,6 +1567,7 @@
 				5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */,
 				5BAD8AD81A828C480081B335 /* BNUIButton_BiinIt.swift in Sources */,
 				5B64D46B1A7195FD0082B9EA /* BNIcon_WeightMedium.swift in Sources */,
+				B2F206C41B9E0588001AF5B4 /* BNRequest_SendUnBiinedElement.swift in Sources */,
 				5B3D76011A6816B300CB0D1C /* BNMedia.swift in Sources */,
 				5BEA2D1D1A68834B00AB65AB /* UIManager.swift in Sources */,
 				5BA7B4761B55A2F800AFD326 /* ErrorViewController.swift in Sources */,
@@ -1590,6 +1616,7 @@
 				5BA5389D1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift in Sources */,
 				5B3D76031A6816B300CB0D1C /* BNObject.swift in Sources */,
 				5BEE61441A97EF6100DE334E /* SettingsView.swift in Sources */,
+				B2F206C21B9DFE0D001AF5B4 /* BNRequest_SendBiinedElement.swift in Sources */,
 				5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */,
 				5BA0B78D1A686A6700DBEB74 /* BNState.swift in Sources */,
 				5B44C5C01A816FC700E5AC68 /* SiteView_Showcase.swift in Sources */,
@@ -1626,6 +1653,7 @@
 				5B60A4C61AA21B3E0025ACBA /* BNUIButton_Contact.swift in Sources */,
 				5B406C4F1B505E0E005807EA /* LongShadow.swift in Sources */,
 				5BA46FAF1A840776006C685D /* BNUIPricesView.swift in Sources */,
+				B2F206CE1B9E0F1E001AF5B4 /* BNRequest_Image.swift in Sources */,
 				5B3D75EF1A6816B300CB0D1C /* BNDataManager.swift in Sources */,
 				5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */,
 				B2B64CD21B98CBFA0054B334 /* BNRequest_Showcase.swift in Sources */,

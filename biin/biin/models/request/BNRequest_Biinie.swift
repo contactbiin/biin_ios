@@ -5,7 +5,6 @@
 
 import Foundation
 
-
 class BNRequest_Biinie: BNRequest {
     override init(){
         super.init()
@@ -45,32 +44,32 @@ class BNRequest_Biinie: BNRequest {
                 
                 if let biinieData = data["data"] as? NSDictionary {
                     
-                    var status = self.networkManager!.findInt("status", dictionary: data)
-                    var result = self.networkManager!.findBool("result", dictionary: data)
+                    var status = BNParser.findInt("status", dictionary: data)
+                    var result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         
-                        self.user!.identifier = self.networkManager!.findString("identifier", dictionary:biinieData)
-                        self.user!.biinName = self.networkManager!.findString("biinName", dictionary: biinieData)
-                        self.user!.firstName = self.networkManager!.findString("firstName", dictionary: biinieData)
-                        self.user!.lastName = self.networkManager!.findString("lastName", dictionary: biinieData)
-                        self.user!.email = self.networkManager!.findString("email", dictionary: biinieData)
-                        self.user!.imgUrl = self.networkManager!.findString("imgUrl", dictionary: biinieData)
-                        self.user!.gender = self.networkManager!.findString("gender", dictionary: biinieData)
-                        self.user!.isEmailVerified = self.networkManager!.findBool("isEmailVerified", dictionary: biinieData)
-                        self.user!.birthDate = self.networkManager!.findNSDate("birthDate", dictionary: biinieData)
+                        self.user!.identifier = BNParser.findString("identifier", dictionary:biinieData)
+                        self.user!.biinName = BNParser.findString("biinName", dictionary: biinieData)
+                        self.user!.firstName = BNParser.findString("firstName", dictionary: biinieData)
+                        self.user!.lastName = BNParser.findString("lastName", dictionary: biinieData)
+                        self.user!.email = BNParser.findString("email", dictionary: biinieData)
+                        self.user!.imgUrl = BNParser.findString("imgUrl", dictionary: biinieData)
+                        self.user!.gender = BNParser.findString("gender", dictionary: biinieData)
+                        self.user!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
+                        self.user!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
                         
-                        var friends = self.networkManager!.findNSArray("friends", dictionary: biinieData)
+                        var friends = BNParser.findNSArray("friends", dictionary: biinieData)
                         var categories = Array<BNCategory>()
-                        var categoriesData = self.networkManager!.findNSArray("categories", dictionary: biinieData)
+                        var categoriesData = BNParser.findNSArray("categories", dictionary: biinieData)
                         
                         for var i = 0; i < categoriesData?.count; i++ {
                             
                             var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
-                            var category = BNCategory(identifier: self.networkManager!.findString("identifier", dictionary: categoryData)!)
+                            var category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
                             
-                            category.name = self.networkManager!.findString("name", dictionary: categoryData)
+                            category.name = BNParser.findString("name", dictionary: categoryData)
                             
                             categories.append(category)
                         }

@@ -48,21 +48,21 @@ class BNRequest_Showcase: BNRequest {
                     if result {
                         self.showcase!.identifier = BNParser.findString("identifier", dictionary: showcaseData)
                         self.showcase!.lastUpdate = BNParser.findNSDate("lastUpdate", dictionary: showcaseData)
-                        self.showcase!.theme = self.networkManager!.findBNShowcaseTheme("theme", dictionary: showcaseData)
-                        self.showcase!.showcaseType = self.networkManager!.findBNShowcaseType("showcaseType", dictionary: showcaseData)
-                        self.showcase!.title = self.networkManager!.findString("title", dictionary: showcaseData)
-                        self.showcase!.subTitle = self.networkManager!.findString("subTitle", dictionary: showcaseData)
-                        self.showcase!.titleColor = self.networkManager!.findUIColor("titleColor", dictionary: showcaseData)!
-                        var elements = self.networkManager!.findNSArray("elements", dictionary: showcaseData)
+                        self.showcase!.theme = BNParser.findBNShowcaseTheme("theme", dictionary: showcaseData)
+                        self.showcase!.showcaseType = BNParser.findBNShowcaseType("showcaseType", dictionary: showcaseData)
+                        self.showcase!.title = BNParser.findString("title", dictionary: showcaseData)
+                        self.showcase!.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
+                        self.showcase!.titleColor = BNParser.findUIColor("titleColor", dictionary: showcaseData)!
+                        var elements = BNParser.findNSArray("elements", dictionary: showcaseData)
                         
                         for var i = 0; i < elements?.count; i++ {
                             
                             var elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
                             var element = BNElement()
-                            element._id = self.networkManager!.findString("_id", dictionary: elementData)
-                            element.identifier = self.networkManager!.findString("elementIdentifier", dictionary: elementData)
-                            element.jsonUrl = self.networkManager!.findString("jsonUrl", dictionary: elementData)
-                            element.userViewed = self.networkManager!.findBool("hasBeenSeen", dictionary: elementData)
+                            element._id = BNParser.findString("_id", dictionary: elementData)
+                            element.identifier = BNParser.findString("elementIdentifier", dictionary: elementData)
+                            element.jsonUrl = BNParser.findString("jsonUrl", dictionary: elementData)
+                            element.userViewed = BNParser.findBool("hasBeenSeen", dictionary: elementData)
                             element.color = UIColor.elementColor()
                             element.siteIdentifier = self.showcase!.siteIdentifier!
                             self.showcase!.elements.append(element)

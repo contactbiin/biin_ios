@@ -147,6 +147,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         runQueue()
         println("ADD: requests in queue:\(requestsQueue.count)")
     }
+    
+    func isQueued(stringUrl:String) -> Bool {
+        
+        for (identifier, request) in self.requestsQueue {
+            if stringUrl == request.requestString {
+                return true
+            }
+        }
+        return false
+    }
  
     func checkConnectivity() {
         
@@ -703,7 +713,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
 
 
-
+/*
     
     func manager(manager: BNDataManager!, requestHighlightsData user: Biinie) {
         var showcase:BNShowcase?
@@ -715,12 +725,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         self.requestHighlightsData(request, showcase:request.showcase!)
     }
-    
+  */
     /**
     Handles the request for a showcase's data.
 
     :param: The request to be process.
     */
+    /*
     func requestHighlightsData(request:BNRequest, showcase:BNShowcase) {
         
         
@@ -773,15 +784,18 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         })
     }
     
-
+*/
     
 
     
     
     func sendBiinedElement(user: Biinie, element: BNElement, collectionIdentifier:String) {
         
-        println("saveBiinedElement(\(user.email)) element: \(element.identifier!)")
-
+        var request = BNRequest_SendBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
+        addToQueue(request)
+        
+        
+        /*
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
 //        self.requests[request.identifier] = request
         addTo_OLD_QUEUE(request)
@@ -839,10 +853,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request.identifier)
             }
         })
+        
+        */
     }
     
     func sendUnBiinedElement(user: Biinie, elementIdentifier:String, collectionIdentifier:String) {
         
+        var request = BNRequest_SendUnBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", errorManager: self.errorManager!, networkManager: self)
+        
+        
+        /*
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(elementIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
 //        self.requests[request.identifier] = request
         addTo_OLD_QUEUE(request)
@@ -888,11 +908,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request.identifier)
             }
         })
+
+        */
     }
 
     
     func sendBiinedSite(user: Biinie, site: BNSite, collectionIdentifier:String) {
+
+        var request = BNRequest_SendBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
+        addToQueue(request)
         
+        /*
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", dataIdentifier: "", requestType:.SendBiinedSite)
 
 //        self.requests[request.identifier] = request
@@ -940,11 +966,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request.identifier)
             }
         })
+        
+        */
     }
     
     
     func sendUnBiinedSite(user: Biinie, siteIdentifier:String, collectionIdentifier:String) {
         
+        var request = BNRequest_SendUnBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", errorManager: self.errorManager!, networkManager: self)
+        addToQueue(request)
+
+        /*
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(siteIdentifier)", dataIdentifier: "", requestType:.SendBiinedElement)
 //        self.requests[request.identifier] = request
         addTo_OLD_QUEUE(request)
@@ -988,6 +1020,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request.identifier)
             }
         })
+
+*/
     }
     
 
@@ -1000,6 +1034,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     */
     func sendSharedElement(user: Biinie, element: BNElement) {
 
+        var request = BNRequest_SendSharedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/share", errorManager: self.errorManager!, networkManager: self, element: element)
+        addToQueue(request)
+        
+        /*
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedElement)
 //        self.requests[request.identifier] = request
         addTo_OLD_QUEUE(request)
@@ -1046,10 +1084,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request.identifier)
             }
         })
+*/
     }
     
     func sendSharedSite(user:Biinie, site:BNSite ) {
         
+        var request = BNRequest_SendSharedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/share", errorManager: self.errorManager!, networkManager: self, site: site)
+        addToQueue(request)
+        
+        /*
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/share", dataIdentifier: "", requestType:.SendBiinedSite)
 //        self.requests[request.identifier] = request
         addTo_OLD_QUEUE(request)
@@ -1097,6 +1140,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 self.removeRequestOnCompleted(request.identifier)
             }
         })
+
+*/
     }
     
     /**
@@ -1114,7 +1159,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.self.requestElementData(request, element:element)
         */
     }
-    
+    /*
     func sendNotifiedObject(user: Biinie, biin: BNBiin, object:BNBiinObject) {
         
         var request = BNRequest(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/biin/\(biin.identifier!)/object/\(object.identifier!)/notified", dataIdentifier: "", requestType:.SendNotifiedObject)
@@ -1160,9 +1205,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             }
         })
     }
+*/
 
     
-    
+    /*
     //TODO: Impelement later.
     ///Conforms optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
     func manager(manager:BNDataManager!, requestElementNotificationForBNUser element:BNElement, user:Biinie){
@@ -1210,13 +1256,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             }
         })
     }
-    
+    */
 
-    func manager(manager: BNDataManager!, requestImageData stringUrl: String, image: UIImageView!) {
-        var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
-//        self.requests[request.identifier] = request
-        addTo_OLD_QUEUE(request)
-    }
+//    func manager(manager: BNDataManager!, requestImageData stringUrl: String, image: UIImageView!) {
+//        var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
+////        self.requests[request.identifier] = request
+//        addTo_OLD_QUEUE(request)
+//    }
     
     func removeImageRequest(stringUrl:String){
         for (identifier, request) in self.requests {
@@ -1230,20 +1276,25 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     func requestImageData(stringUrl:String, image:BNUIImageView!) {
         
-        var isRequestInQueue = false
+//        var isRequestInQueue = false
+//        
+//        for (identifier, request) in self.requests {
+//            if stringUrl == request.requestString {
+//                isRequestInQueue = true
+//                break
+//            }
+//        }
         
-        for (identifier, request) in self.requests {
-            if stringUrl == request.requestString {
-                isRequestInQueue = true
-                break
-            }
-        }
-        
-        if !isRequestInQueue {
+        if !isQueued(stringUrl) {
             
+            var request = BNRequest_Image(requestString: stringUrl, errorManager: self.errorManager!, networkManager: self, image:image)
+            addToQueue(request)
+   /*
             var request = BNRequest(requestString: stringUrl, dataIdentifier:"", requestType:.ImageData)
 //            self.requests[request.identifier] = request
             addTo_OLD_QUEUE(request)
+            
+            
             epsNetwork!.getImage(stringUrl, image:image, callback:{(error: NSError?) -> Void in
                 
                     if (error == nil)  {
@@ -1252,6 +1303,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                         self.handleFailedRequest(request, error:error )
                     }
                 })
+ */
         } else {
             epsNetwork!.getImageInCache(stringUrl, image: image)
         }

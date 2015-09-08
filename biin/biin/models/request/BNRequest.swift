@@ -59,6 +59,8 @@ class BNRequest:NSObject {
     weak var organization:BNOrganization?
     weak var site:BNSite?
     weak var user:Biinie?
+    weak var image:BNUIImageView?
+    
     var points:Int = 0
     var categories:Dictionary<String, String>?
     

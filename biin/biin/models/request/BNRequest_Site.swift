@@ -39,7 +39,7 @@ class BNRequest_Site: BNRequest {
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
-                var result = BNParser..findBool("result", dictionary: data)
+                var result = BNParser.findBool("result", dictionary: data)
                 
                 if result {
                     if let siteData = data["data"] as? NSDictionary {
@@ -88,7 +88,7 @@ class BNRequest_Site: BNRequest {
                             }
                         }
                         
-                        var mediaArray = self.networkManager!.findNSArray("media", dictionary: siteData)
+                        var mediaArray = BNParser.findNSArray("media", dictionary: siteData)
                         
                         for var i = 0; i < mediaArray?.count; i++ {
                             var mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
