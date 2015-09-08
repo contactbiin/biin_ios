@@ -58,7 +58,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
-        mainView = MainView(frame: CGRectMake(0, 20, frame.width, (frame.height - 10)), father:nil, rootViewController: self)
+        mainView = MainView(frame: CGRectMake(0, 20, frame.width, frame.height), father:nil, rootViewController: self)
         mainView!.delegate = self
         self.view.addSubview(self.mainView!)
         

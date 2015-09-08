@@ -63,6 +63,7 @@ class UIManager {
     var subTitleTop     = CGRectMake(5, 54, 0, 0)
     var titleBottom     = CGRectMake(7, 5, 130, 18)
     var subTitleBottom  = CGRectMake(7, 23, 120, 11)
+    var showcaseView_headerHeight:CGFloat = 60
     
     //Element positions
     var elementTitleBackground:CGRect = CGRectMake(0, 5, 320, 50)

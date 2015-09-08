@@ -281,15 +281,12 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                     
                     var siteIdentifier = category.sitesDetails[i].identifier!
                     
-                    
                     if let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ] {
                         if site.showInView {
                             sitesArray.append(site)
                             println("Adding site.....")
                         }
                     }
-                    
-
                 }
             }
         }

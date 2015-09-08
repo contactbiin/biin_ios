@@ -206,7 +206,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                 elementsViewed++
             }
             
-            if elementPosition < 3 {
+            if elementPosition < 4 {
                 elementView.requestImage()
             }
         }

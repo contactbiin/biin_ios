@@ -183,32 +183,14 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func updateSiteData(site:BNSite?) {
+
         self.site = site
-        
-
-        
         header!.updateForSite(site)
-        
-        
-        
-        //buttonsView!.updateSocialButtonsForSite(site)
         bottom!.updateForSite(site)
-        
-        
-        if true {
-            imagesScrollView!.updateImages(site!.media)
-        }
-        
-
-        if true {
-            updateShowcases(site)
-        }
-        
-        
-        if true {
-            location!.updateForSite(site)
-        }
-        
+        imagesScrollView!.updateImages(site!.media)
+        updateShowcases(site)
+        location!.updateForSite(site)
+    
         nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
         nutshell!.text = site!.nutshell!
         nutshell!.numberOfLines = 0
@@ -290,11 +272,11 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
             showcases!.removeAll(keepCapacity: false)
         }
         
-        showcaseHeight = SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.miniView_height + 15
+        showcaseHeight = SharedUIManager.instance.showcaseView_headerHeight + SharedUIManager.instance.miniView_height
 
         //scroll!.addSubview(imagesScrollView!)
         
-        var ypos:CGFloat = SharedUIManager.instance.screenWidth + 2
+        var ypos:CGFloat = SharedUIManager.instance.screenWidth + 4
         scrollSpaceForShowcases = 0
         
         if site!.showcases != nil {
