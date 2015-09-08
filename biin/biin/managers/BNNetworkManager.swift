@@ -26,6 +26,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     var epsNetwork:EPSNetworking?
     var queueCounter = 0
+    var queueLimit = 10
     
     var rootURL = ""
     
@@ -53,12 +54,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
     }
     
+
+    
     func runQueue(){
-        
+            var totalRequestRunnin = 0
         println("runQueue(): \(requestsQueue.count)")
 
         if requestsQueue.count == 0 {
             println("Queue is empty!")
+            
             self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
 
             if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
@@ -71,7 +75,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         var value:CGFloat = ((CGFloat(requestsQueue.count) * 100.0 ) / 30.0)
         delegateVC!.manager!(self, updateProgressView:Float(value))
         
-        var queueLimit = 10
+   
 
         
         for (identifier, request) in requestsQueue {
@@ -82,8 +86,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 
             } else {
                 println("Request Running: \(request.identifier)")
+                totalRequestRunnin++
             }
         }
+        
+        println("totalRequestRunnin: \(totalRequestRunnin)")
+
         
         for (identifier, request) in requestsQueue {
             
@@ -101,7 +109,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
             } else {
                 println("Pending request id: \(request.identifier)")
-                queueCounter++
+                //queueCounter++
             }
         }
     }

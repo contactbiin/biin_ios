@@ -398,12 +398,13 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         //add requesting image to queue
         
 //        if let cacheImage = ShareEPSNetworking.cacheImages[urlString as String] {
-        if let cacheImage = findImageInBiinChacheLocalFolder(urlString as String, image: image) {
+        if let cacheImage = findImageInBiinChacheLocalFolder(urlString as String, image:image) {
             //println("image already in cache...")
             image.image = cacheImage
             image.showAfterDownload()
-            BNAppSharedManager.instance.networkManager.removeImageRequest(urlString as String)
+            //BNAppSharedManager.instance.networkManager.removeImageRequest(urlString as String)
             self.sentImages(urlString as String)
+            callback(nil)
         }else {
         
         // Jump in to a background thread to get the image for this item
@@ -439,7 +440,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
                         
                     if (error != nil) {
-                        println("Error on image request\( error! )")
+                        //println("Error on image request\( error! )")
                         callback(error)
                     } else {
                         //Send image to be store in image dictionary
@@ -553,20 +554,20 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         let imageData = UIImagePNGRepresentation(image)// UIImageJPEGRepresentation(image, 1)
         //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
         
-        println("-----------------     \(urlString)")
+        //println("-----------------     \(urlString)")
         var index2 = urlString.rangeOfString("/", options: .BackwardsSearch)?.endIndex
         var substring2 = urlString.substringFromIndex(index2!)
-        println("-----------------     \(index2)")
-        println("-----------------     \(substring2)")
+        //println("-----------------     \(index2)")
+        //println("-----------------     \(substring2)")
         
         let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(substring2)
 
         if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
         
             if !imageData.writeToFile(imagePath, atomically: false) {
-                println("not saved:\(imagePath)")
+                //println("not saved:\(imagePath)")
             } else {
-                println("Saving image:\(urlString) on BiinCacheImages folder!")
+                //println("Saving image:\(urlString) on BiinCacheImages folder!")
                 NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey:urlString)
             }
         }

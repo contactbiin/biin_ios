@@ -31,11 +31,17 @@ class BNRequest_Image: BNRequest {
         isRunning = true
         
         self.networkManager!.epsNetwork!.getImage(requestString, image:self.image!, callback:{(error: NSError?) -> Void in
-            if (error == nil)  {
+           
+            println("Image OK")
+            
+            if (error != nil)  {
+                
+                self.networkManager!.handleFailedRequest(self, error:error )
+                
+            } else {
+                
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)
-            } else {
-                self.networkManager!.handleFailedRequest(self, error:error )
             }
         })
     }
