@@ -176,10 +176,16 @@ class ShareItView:UIView {
         self.layer.masksToBounds = true
         
         var ypos:CGFloat = 30
-        var image = ShareEPSNetworking.cacheImages[site.media[0].url!]!
-        var imageView = UIImageView(image: image)
-        self.addSubview(imageView)
-        imageView.frame = CGRectMake(0, ypos, 320, 320)
+        if site.media.count > 0 {
+            var organizationAvatar = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320))
+            self.addSubview(organizationAvatar)
+            BNAppSharedManager.instance.networkManager.requestImageData(site.media[0].url!, image: organizationAvatar)
+        } else {
+            var image = UIImage(named: "noImage.jpg")
+            var imageView = UIImageView(image: image)
+            self.addSubview(imageView)
+            imageView.frame = CGRectMake(0, ypos, 320, 320)
+        }
         
         ypos = 0
         var whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
