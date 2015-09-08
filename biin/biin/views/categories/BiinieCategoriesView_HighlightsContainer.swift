@@ -172,7 +172,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
                     
                     var elementData = BNAppSharedManager.instance.dataManager.elements[element._id!]
                     
-                    if elementData!.isHighlight {
+                    if elementData!.isHighlight && !isElementAdded(elementData!) {
                     
                         if columnCounter < columns {
                             columnCounter++
@@ -183,7 +183,7 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
                             xpos = siteSpacer
                             columnCounter = 1
                         }
-                        
+
                         var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: elementData, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
                         
                         if columnCounter < 3 {
@@ -207,6 +207,15 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         SharedUIManager.instance.miniView_columns = columns
         
         getToWork()
+    }
+    
+    func isElementAdded(element:BNElement) -> Bool {
+        for view in self.elements! {
+            if view.element!.identifier! == element.identifier! {
+                return true
+            }
+        }
+        return false
     }
     
     override func refresh() {
