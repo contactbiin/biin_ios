@@ -103,6 +103,7 @@ class BNAppManager {
         }
         if let dict = myDict {
             version = dict.objectForKey("CFBundleShortVersionString") as! String
+            version += " QA"
         }
         
     }
