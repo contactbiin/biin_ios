@@ -60,9 +60,10 @@ class BNUIButton_Social:BNUIButton {
     override func createIcon(){
         switch iconType {
         case .biinSmall:
-            icon = BNIcon_BiinSmall(color: UIColor.appMainColor(), position: CGPointMake(4, 3))
+            icon = BNIcon_HeartSmall(color: UIColor.appMainColor(), position: CGPointMake(3.1, 3.6))
+//            icon = BNIcon_BiinSmall(color: UIColor.appMainColor(), position: CGPointMake(4, 3))
             break
-        case .commentSmall:
+        case .biinSmall:
             icon = BNIcon_CommentSmall(color: UIColor.appMainColor(), position: CGPointMake(3, 3))
             break
         case .shareSmall:

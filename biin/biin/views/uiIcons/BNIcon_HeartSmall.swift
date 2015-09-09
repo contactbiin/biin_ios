@@ -24,12 +24,17 @@ class BNIcon_HeartSmall:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         var bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(1.75, 2.72))
-        bezierPath.addCurveToPoint(CGPointMake(3.25, 2.37), controlPoint1: CGPointMake(2.2, 2.5), controlPoint2: CGPointMake(2.71, 2.37))
-        bezierPath.addCurveToPoint(CGPointMake(6.5, 5.44), controlPoint1: CGPointMake(5.04, 2.37), controlPoint2: CGPointMake(6.5, 3.75))
-        bezierPath.addCurveToPoint(CGPointMake(3.25, 8.5), controlPoint1: CGPointMake(6.5, 7.13), controlPoint2: CGPointMake(5.05, 8.5))
-        bezierPath.addCurveToPoint(CGPointMake(0, 5.44), controlPoint1: CGPointMake(1.46, 8.5), controlPoint2: CGPointMake(0, 7.13))
-        bezierPath.addLineToPoint(CGPointMake(0, 0))
+        bezierPath.moveToPoint(CGPointMake(6.2, 0))
+        bezierPath.addCurveToPoint(CGPointMake(4.25, 1.04), controlPoint1: CGPointMake(5.38, 0), controlPoint2: CGPointMake(4.66, 0.42))
+        bezierPath.addCurveToPoint(CGPointMake(2.3, 0), controlPoint1: CGPointMake(3.84, 0.42), controlPoint2: CGPointMake(3.12, 0))
+        bezierPath.addCurveToPoint(CGPointMake(0, 2.22), controlPoint1: CGPointMake(1.03, 0), controlPoint2: CGPointMake(0, 0.99))
+        bezierPath.addCurveToPoint(CGPointMake(1.59, 5.28), controlPoint1: CGPointMake(0, 3.44), controlPoint2: CGPointMake(0.71, 4.43))
+        bezierPath.addCurveToPoint(CGPointMake(4.25, 7.5), controlPoint1: CGPointMake(2.48, 6.14), controlPoint2: CGPointMake(3.9, 7.16))
+        bezierPath.addCurveToPoint(CGPointMake(6.91, 5.28), controlPoint1: CGPointMake(4.6, 7.16), controlPoint2: CGPointMake(6.02, 6.14))
+        bezierPath.addCurveToPoint(CGPointMake(8.5, 2.22), controlPoint1: CGPointMake(7.79, 4.43), controlPoint2: CGPointMake(8.5, 3.44))
+        bezierPath.addCurveToPoint(CGPointMake(6.2, 0), controlPoint1: CGPointMake(8.5, 0.99), controlPoint2: CGPointMake(7.47, 0))
+        bezierPath.addLineToPoint(CGPointMake(6.2, 0))
+        bezierPath.closePath()
         bezierPath.lineCapStyle = kCGLineCapRound;
         
         bezierPath.lineJoinStyle = kCGLineJoinRound;
