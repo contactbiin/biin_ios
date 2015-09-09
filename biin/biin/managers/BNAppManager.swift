@@ -98,7 +98,7 @@ class BNAppManager {
         errorManager.delegateNM = networkManager
 
         var myDict: NSDictionary?
-        if let path = NSBundle.mainBundle().pathForResource("Config", ofType: "plist") {
+        if let path = NSBundle.mainBundle().pathForResource("Info", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
         if let dict = myDict {
@@ -233,7 +233,7 @@ class BNAppManager {
         elementColors.append(UIColor.bnOrange())
         elementColors.append(UIColor.bnBlue())
         elementColors.append(UIColor.bnCyan())
-        elementColors.append(UIColor.bnRed())
+        elementColors.append(UIColor.bnBrownLight())
         elementColors.append(UIColor.bnPurple())
         elementColors.append(UIColor.bnGreenDark())
         elementColors.append(UIColor.bnBlueDark())
