@@ -28,6 +28,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     var queueCounter = 0
     var queueLimit = 10
     
+    var totalNumberOfRequest = 0
+    var requestProcessed = 0
+    
     var rootURL = ""
     
     init(errorManager:BNErrorManager) {
@@ -72,9 +75,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             return
         }
         
-        var value:CGFloat = ((CGFloat(requestsQueue.count) * 100.0 ) / 30.0)
-        delegateVC!.manager!(self, updateProgressView:Float(value))
-        
    
 
         
@@ -116,6 +116,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func removeFromQueue(request:BNRequest){
         queueCounter--
+        requestProcessed++
         
         println("queueCounter: \(queueCounter)")
         requestsQueue.removeValueForKey(request.identifier)
@@ -124,6 +125,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if queueCounter < 10 {
             runQueue()
         }
+        
+        var value:CGFloat = (CGFloat(requestProcessed) / CGFloat(totalNumberOfRequest))
+        delegateVC!.manager!(self, updateProgressView:Float(value))
+        
+
         
         
 //        if requestsQueue.count == 0 {
@@ -153,6 +159,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func addToQueue(request:BNRequest){
         self.requestsQueue[request.identifier] = request
         runQueue()
+        totalNumberOfRequest++
         println("ADD: requests in queue:\(requestsQueue.count)")
     }
     
