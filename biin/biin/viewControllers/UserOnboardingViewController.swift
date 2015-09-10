@@ -141,7 +141,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
                     var vc = LoadingViewController()
-                    BNAppSharedManager.instance.dataManager.requestInitialData()
+                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
                 })

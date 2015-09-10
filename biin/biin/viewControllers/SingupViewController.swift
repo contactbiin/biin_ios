@@ -170,7 +170,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    BNAppSharedManager.instance.dataManager.requestInitialData()
+                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
                     var vc = LoadingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)

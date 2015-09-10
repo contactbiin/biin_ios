@@ -79,19 +79,13 @@ class LocationErrorView: BNView {
     }
     
     func tryAgainAction(sender:UILabel) {
-        //        delegate!.hideErrorView!(self)
-        //        BNAppSharedManager.instance.errorManager.isAlertOn = false
-        //        var vc = LoadingViewController()
-        //        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-        //        BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
-        //        BNAppSharedManager.instance.dataManager.requestInitialData()
+
         UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
         
         BNAppSharedManager.instance.errorManager.isAlertOn = false
         var vc = LoadingViewController()
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
-        //BNAppSharedManager.instance.dataManager.requestInitialData()
 
     }
     

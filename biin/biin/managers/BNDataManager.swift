@@ -73,31 +73,21 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
     }
     
-    //func startAppTimer(sender:NSTimer){
-      //  println("startAppTimer")
-        //BNAppSharedManager.instance.continueAppInitialization()
-    //}
+    func requestBiinieInitialData(){
+        NSLog("BIIN - requestBiinieInitialData()")
+        delegateNM!.manager!(self, requestBiinieData: bnUser!)
+    }
     
     func requestInitialData(){
-        
         NSLog("BIIN - requestInitialData()")
-        
-        //Request
-        delegateNM!.manager!(self, requestBiinieData: bnUser!)
-
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
-    
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
-        
-        //delegateNM!.manager!(self, requestHighlightsData: bnUser!)
-
     }
     
     func requestDataForNewPosition(){
         println("requestDataForNewPosition()")
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
         BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = true
-//        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
     /*
@@ -197,12 +187,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
         if status && BNAppSharedManager.instance.IS_APP_UP {
-
-            requestInitialData()
-            //TODO: changing flow, if user is register or loged in reques data.
-//            if isUserLoaded {
-//                requestInitialData()
-//            }
+            requestBiinieInitialData()
         }
     }
     
@@ -900,6 +885,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             self.bnUser = user
             self.bnUser!.save()
         }
+        
+        requestInitialData()
+        
         /*x
         //Add a temporal BNCollection
         bnUser!.collections = Dictionary<String, BNCollection>()

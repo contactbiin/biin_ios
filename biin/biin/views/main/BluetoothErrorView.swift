@@ -84,7 +84,6 @@ class BluetoothErrorView: BNView {
         var vc = LoadingViewController()
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
-        //BNAppSharedManager.instance.dataManager.requestInitialData()
     }
     
     required init(coder aDecoder: NSCoder) {
