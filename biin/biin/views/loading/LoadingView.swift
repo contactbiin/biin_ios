@@ -10,10 +10,10 @@ class LoadingView:UIView {
 
     var loadingLbl:UILabel?
     var biinLogo:BNUIBiinView?
-    var loadingIndicator:UIActivityIndicatorView?
     var progressView:UIProgressView?
     var progressViewBG:UIView?
     var version:UILabel?
+    var lastProgressValue:Float = 0.0
 //    override init() {
 //        super.init()
 //    }
@@ -84,7 +84,14 @@ class LoadingView:UIView {
     }
     
     func updateProgressView(value:Float){
-        progressView!.setProgress(value, animated: true)
+        if value > lastProgressValue {
+            println("------------- \(value)")
+            lastProgressValue = value
+            progressView!.setProgress(value, animated: true)
+            if value > 0.85 {
+                loadingLbl!.text = NSLocalizedString("Finishing", comment: "the Finishing title")
+            }
+        }
     }
     
     func showHardwareError() {

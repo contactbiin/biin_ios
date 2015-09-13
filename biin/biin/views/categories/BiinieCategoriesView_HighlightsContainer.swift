@@ -202,9 +202,9 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         
-        SharedUIManager.instance.miniView_height = siteViewHeight
-        SharedUIManager.instance.miniView_width = siteViewWidth
-        SharedUIManager.instance.miniView_columns = columns
+        //SharedUIManager.instance.miniView_height = siteViewHeight
+        //SharedUIManager.instance.miniView_width = siteViewWidth
+        //SharedUIManager.instance.miniView_columns = columns
         
         getToWork()
     }

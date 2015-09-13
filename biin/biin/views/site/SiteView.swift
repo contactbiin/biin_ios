@@ -18,7 +18,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var scroll:UIScrollView?
     var showcases:Array<SiteView_Showcase>?
     
-    var nutshell:UILabel?
+    //var nutshell:UILabel?
     
     var imagesScrollView:BNUIScrollView?
     
@@ -62,7 +62,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         var scrollHeight:CGFloat = screenHeight - (SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.siteView_bottomHeight + 20) + 6
         //Add here any other heights for site view.
         
-        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.siteView_headerHeight, screenWidth, scrollHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -76,27 +76,27 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         location = SiteView_Location(frame: CGRectMake(0, screenWidth, screenHeight, locationViewHeigh), father: self)
         scroll!.addSubview(location!)
         
-        header = SiteView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
-        self.addSubview(header!)
+        header = SiteView_Header(frame: CGRectMake(0, (screenWidth - SharedUIManager.instance.siteView_headerHeight), screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
+        scroll!.addSubview(header!)
         
         //buttonsView = SocialButtonsView(frame: CGRectMake(0, 5, frame.width, 15), father: self, site: nil, showShareButton:true)
         //scroll!.addSubview(buttonsView!)
         
         
-        nutshell = UILabel(frame: CGRectMake(10, 100, (frame.width - 20), 18))
-        nutshell!.font = UIFont(name:"Lato-Black", size:16)
-        nutshell!.textColor = UIColor.whiteColor()
-        nutshell!.text = ""
-//        nutshell!.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-//        nutshell!.shadowOffset = CGSize(width: 1, height: 1)
-        nutshell!.numberOfLines = 0
-        nutshell!.sizeToFit()
-//        nutshell!.layer.shadowRadius = 3.0
-//        nutshell!.layer.shadowColor = UIColor.blackColor().CGColor
-//        nutshell!.layer.shadowOffset = CGSize(width: 2, height: 2)
-        scroll!.addSubview(nutshell!)
-        
-        nutshell!.frame.origin.y = (imagesScrollView!.frame.height - (nutshell!.frame.height + 10))
+//        nutshell = UILabel(frame: CGRectMake(10, 100, (frame.width - 20), 18))
+//        nutshell!.font = UIFont(name:"Lato-Black", size:16)
+//        nutshell!.textColor = UIColor.whiteColor()
+//        nutshell!.text = ""
+////        nutshell!.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+////        nutshell!.shadowOffset = CGSize(width: 1, height: 1)
+//        nutshell!.numberOfLines = 0
+//        nutshell!.sizeToFit()
+////        nutshell!.layer.shadowRadius = 3.0
+////        nutshell!.layer.shadowColor = UIColor.blackColor().CGColor
+////        nutshell!.layer.shadowOffset = CGSize(width: 2, height: 2)
+//        //scroll!.addSubview(nutshell!)
+//        
+//        nutshell!.frame.origin.y = (imagesScrollView!.frame.height - (nutshell!.frame.height + 10))
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
@@ -191,11 +191,11 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         updateShowcases(site)
         location!.updateForSite(site)
     
-        nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
-        nutshell!.text = site!.nutshell!
-        nutshell!.numberOfLines = 0
-        nutshell!.sizeToFit()
-        scroll!.addSubview(nutshell!)
+//        nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
+//        nutshell!.text = site!.nutshell!
+//        nutshell!.numberOfLines = 0
+//        nutshell!.sizeToFit()
+//        scroll!.addSubview(nutshell!)
         var ypos:CGFloat = 0
         
         if site!.media.count > 1 {
@@ -204,7 +204,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
             ypos = 10
         }
         
-        nutshell!.frame.origin.y = (self.imagesScrollView!.frame.height - (nutshell!.frame.height + ypos))
+//        nutshell!.frame.origin.y = (self.imagesScrollView!.frame.height - (nutshell!.frame.height + ypos))
         
         if site!.userBiined {
             biinItButton!.showDisable()
@@ -272,11 +272,11 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
             showcases!.removeAll(keepCapacity: false)
         }
         
-        showcaseHeight = SharedUIManager.instance.showcaseView_headerHeight + SharedUIManager.instance.miniView_height
+        showcaseHeight = SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height
 
         //scroll!.addSubview(imagesScrollView!)
         
-        var ypos:CGFloat = SharedUIManager.instance.screenWidth + 4
+        var ypos:CGFloat = SharedUIManager.instance.screenWidth
         scrollSpaceForShowcases = 0
         
         if site!.showcases != nil {

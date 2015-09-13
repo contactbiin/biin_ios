@@ -213,6 +213,11 @@ extension UIColor {
         return UIColor.blackColor()
     }
     
+    class func appHeaderColor() -> UIColor {
+        //return UIColor(red: 89/255, green: 89/255, blue: 89/255, alpha: 1)
+        return UIColor.blackColor().colorWithAlphaComponent(0.65)
+    }
+    
     class func appButtonColor() -> UIColor {
         return UIColor(red: 165/255, green: 165/255, blue: 165/255, alpha: 1)
     }

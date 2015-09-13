@@ -11,7 +11,7 @@ class BNSettings:NSObject, NSCoding {
     var IS_DEVELOPMENT_DATABASE = true
     var IS_QA_DATABASE = false
     var IS_DEMO_DATABASE = false
-    var IS_USING_CACHE = false
+    var IS_USING_CACHE = true
 
     override init() {
         super.init()

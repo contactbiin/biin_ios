@@ -73,16 +73,16 @@ class SiteMiniView: BNView {
         self.addSubview(header!)
         header!.updateSocialButtonsForSite(site)
         
-        var nutshell = UILabel(frame: CGRectMake(10, 100, (frame.width - 20), 14))
-        nutshell.font = UIFont(name:"Lato-Black", size:12)
-        nutshell.textColor = UIColor.whiteColor()
-        nutshell.text = site!.nutshell!
-        nutshell.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-        nutshell.shadowOffset = CGSize(width: 1, height: 1)
-        nutshell.numberOfLines = 0
-        nutshell.sizeToFit()
-        self.addSubview(nutshell)
-        nutshell.frame.origin.y = (frame.height - (nutshell.frame.height + 10))
+//        var nutshell = UILabel(frame: CGRectMake(10, 100, (frame.width - 20), 14))
+//        nutshell.font = UIFont(name:"Lato-Black", size:12)
+//        nutshell.textColor = UIColor.whiteColor()
+//        nutshell.text = site!.nutshell!
+//        nutshell.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+//        nutshell.shadowOffset = CGSize(width: 1, height: 1)
+//        nutshell.numberOfLines = 0
+//        nutshell.sizeToFit()
+//        //self.addSubview(nutshell)
+//        nutshell.frame.origin.y = (frame.height - (nutshell.frame.height + 10))
         
         var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1

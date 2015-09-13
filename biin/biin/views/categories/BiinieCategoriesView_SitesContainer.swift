@@ -194,9 +194,9 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
 
-        SharedUIManager.instance.miniView_height = siteViewHeight
-        SharedUIManager.instance.miniView_width = siteViewWidth
-        SharedUIManager.instance.miniView_columns = columns
+        //SharedUIManager.instance.miniView_height = siteViewHeight
+        //SharedUIManager.instance.miniView_width = siteViewWidth
+        //SharedUIManager.instance.miniView_columns = columns
     }
     
     func addAllSites(){
@@ -391,9 +391,9 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         ypos = ypos + siteViewHeight + siteSpacer
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         
-        SharedUIManager.instance.miniView_height = siteViewHeight
-        SharedUIManager.instance.miniView_width = siteViewWidth
-        SharedUIManager.instance.miniView_columns = columns
+        //SharedUIManager.instance.miniView_height = siteViewHeight
+        //SharedUIManager.instance.miniView_width = siteViewWidth
+        //SharedUIManager.instance.miniView_columns = columns
 
         
         var sitesCount = sites!.count

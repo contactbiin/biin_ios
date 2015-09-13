@@ -27,12 +27,13 @@ class UIManager {
     
     //MiniView
     //Sites MiniView sizes
-    var miniView_headerHeight:CGFloat = 55
+    var miniView_headerHeight:CGFloat = 35
     var siteMiniView_headerHeight:CGFloat = 40
     
     //Font sizes
     var miniView_titleSize:CGFloat = 0
     var miniView_subTittleSize:CGFloat = 0
+    var miniView_nutshellSize:CGFloat = 13
     var miniView_height:CGFloat = 0
     var miniView_width:CGFloat = 0
     var miniView_columns:Int = 0
@@ -43,13 +44,20 @@ class UIManager {
 
     
     //Sites View sizes
-    var siteView_headerHeight:CGFloat = 40
-    var siteView_bottomHeight:CGFloat = 30
-    var siteView_showcaseHeight:CGFloat = 335
-    var siteView_showcaseScrollHeight:CGFloat = 255
-    var siteView_titleSize:CGFloat = 0
-    var siteView_subTittleSize:CGFloat = 0
+    var siteView_headerHeight:CGFloat = 85
     
+    var siteView_bottomHeight:CGFloat = 30
+    
+    var siteView_showcaseHeaderHeight:CGFloat = 50
+    //var siteView_showcaseHeight:CGFloat = 335
+    //var siteView_showcaseScrollHeight:CGFloat = 255
+    
+    var siteView_showcase_titleSize:CGFloat = 20
+    var siteView_showcase_subTittleSize:CGFloat = 15
+    
+    var siteView_titleSize:CGFloat = 25
+    var siteView_subTittleSize:CGFloat = 17
+    var siteView_nutshellSize:CGFloat = 12
     
     //Element view sizes
     var elementView_titleSize:CGFloat = 18
@@ -63,7 +71,7 @@ class UIManager {
     var subTitleTop     = CGRectMake(5, 54, 0, 0)
     var titleBottom     = CGRectMake(7, 5, 130, 18)
     var subTitleBottom  = CGRectMake(7, 23, 120, 11)
-    var showcaseView_headerHeight:CGFloat = 60
+//    var showcaseView_headerHeight:CGFloat = 60
     
     //Element positions
     var elementTitleBackground:CGRect = CGRectMake(0, 5, 320, 50)
@@ -101,6 +109,7 @@ class UIManager {
     //Onboarding
     var onboardingSlide_TitleSize:CGFloat = 23
     var onboardingSlide_DescriptionSize:CGFloat = 21
+    var columns:Int = 2
     
     func setDeviceVariables(){
         
@@ -124,14 +133,41 @@ class UIManager {
         default:
             break
         }
+        
+        var viewWidth:CGFloat = 0
+        var viewHeight:CGFloat = 0
+        
+        switch deviceType {
+        case .iphone4s, .iphone5, .iphone6:
+            viewWidth = (screenWidth - 30) / 2
+            viewHeight = screenHeight / 4
+            columns = 2
+            break
+        case .iphone6Plus:
+            viewWidth = (screenWidth - 40) / 3
+            viewHeight = screenHeight / 5
+            columns = 3
+            break
+        case .ipad:
+            viewWidth = (screenWidth - 40) / 3
+            viewHeight = screenHeight / 3
+            columns = 3
+            break
+        default:
+            break
+        }
+        
+        self.miniView_height = viewHeight
+        self.miniView_width = viewWidth
+        
     }
     
     func setIPhone4Variables(){
         deviceType = BNDeviceType.iphone4s
         miniView_titleSize = 14
         miniView_subTittleSize = 10
-        siteView_titleSize = 14
-        siteView_subTittleSize = 12
+//        siteView_titleSize = 30
+//        siteView_subTittleSize = 20
         
         signupView_showLogo = false
         signupView_isAnimatingLogo = true
@@ -156,8 +192,8 @@ class UIManager {
         deviceType = BNDeviceType.iphone5
         miniView_titleSize = 14
         miniView_subTittleSize = 10
-        siteView_titleSize = 14
-        siteView_subTittleSize = 12
+//        siteView_titleSize = 30
+//        siteView_subTittleSize = 20
         
         signupView_showLogo = true
         signupView_isAnimatingLogo = true
@@ -180,8 +216,8 @@ class UIManager {
         deviceType = BNDeviceType.iphone6
         miniView_titleSize = 14
         miniView_subTittleSize = 10
-        siteView_titleSize = 14
-        siteView_subTittleSize = 12
+//        siteView_titleSize = 30
+//        siteView_subTittleSize = 20
         
         signupView_showLogo = true
         signupView_isAnimatingLogo = false
@@ -204,8 +240,8 @@ class UIManager {
         deviceType = BNDeviceType.iphone6Plus
         miniView_titleSize = 14
         miniView_subTittleSize = 10
-        siteView_titleSize = 14
-        siteView_subTittleSize = 12
+//        siteView_titleSize = 30
+//        siteView_subTittleSize = 20
     
         signupView_showLogo = true
         signupView_isAnimatingLogo = false
@@ -229,8 +265,8 @@ class UIManager {
         deviceType = BNDeviceType.ipad
         miniView_titleSize = 14
         miniView_subTittleSize = 10
-        siteView_titleSize = 14
-        siteView_subTittleSize = 12
+//        siteView_titleSize = 30
+//        siteView_subTittleSize = 20
         
         signupView_showLogo = true
         signupView_isAnimatingLogo = false

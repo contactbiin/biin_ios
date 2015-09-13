@@ -107,7 +107,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
-        loadingView!.progressView!.setProgress(value, animated: true)
+//        loadingView!.progressView!.setProgress(value, animated: true)
+        loadingView!.updateProgressView(value)
     }
 
 }

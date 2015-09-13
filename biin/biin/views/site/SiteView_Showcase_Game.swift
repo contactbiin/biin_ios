@@ -42,9 +42,9 @@ class SiteView_Showcase_Game:BNView {
         
         self.backgroundColor = UIColor.appMainColor()
         //self.layer.borderWidth = 1
-        self.layer.cornerRadius = 5
+        //self.layer.cornerRadius = 5
         //self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
-        self.layer.masksToBounds = true
+        //self.layer.masksToBounds = true
         
         var textColor:UIColor?
         var borderColor:UIColor?

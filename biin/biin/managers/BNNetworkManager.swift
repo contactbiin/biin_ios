@@ -131,28 +131,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
 
         
-        
-//        if requestsQueue.count == 0 {
-//            
-//            println("NOT requests pending: \(self.requestsQueue.count)")
-//            self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
-//            
-//            if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
-//                BNAppSharedManager.instance.mainViewController!.refresh()
-//                BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = false
-//            }
-//            
-//        } else {
-//            //self.delegateVC!.manager!(self, didReceivedAllInitialData: false)
-//            println("Requests Pending:\(requestsQueue.count)")
-//            
-//            if requestsQueue.count == 1 {
-//                println("")
-//            }
-//        }
-//        
-//        var value:CGFloat = ((CGFloat(requestsQueue.count) * 100.0 ) / 30.0)
-//        delegateVC!.manager!(self, updateProgressView:Float(value))
+
 
     }
     
@@ -1417,8 +1396,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             }
         }
         
-        var value:CGFloat = ((CGFloat(requests.count) * 100.0 ) / 30.0)
-        delegateVC!.manager!(self, updateProgressView:Float(value))
 
     }
     

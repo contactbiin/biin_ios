@@ -15,7 +15,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     weak var showcase:BNShowcase?
 
     var isWorking = true
-    var spacer:CGFloat = 5
+    var spacer:CGFloat = 1
     var columns:Int = 1
     var lastColumnRequested:Int = 0
     var elementRequestPreviousLimit:Int = 0
@@ -52,7 +52,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         //self.biin = biin
         
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = site!.media[0].domainColor!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
         self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         self.site = site
         
@@ -60,26 +60,27 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 1
+        var ypos:CGFloat = SharedUIManager.instance.miniView_height + 5
         //ypos += 18
         
-        title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
-        title!.text = self.showcase!.title
+        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
+        title!.text = self.showcase!.title!.uppercaseString
+        title!.textColor = UIColor.whiteColor()
         
-        if let color = self.showcase!.titleColor {
-            title!.textColor = self.showcase!.titleColor!
-        } else {
-            title!.textColor = UIColor.appTextColor()
-        }
+//        if let color = self.showcase!.titleColor {
+//            title!.textColor = self.showcase!.titleColor!
+//        } else {
+//            title!.textColor = UIColor.appTextColor()
+//        }
         
         self.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_titleSize + 3
+        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 3
         
-        subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        subTitle!.textColor = UIColor.appTextColor()
+        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
+        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
+        subTitle!.textColor = UIColor.whiteColor()
         subTitle!.text = self.showcase!.subTitle!
         self.addSubview(subTitle!)
         
@@ -90,13 +91,13 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
 //        self.addSubview(addNotificationBtn!)
         
         //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
-        var scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 10
-        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.siteView_headerHeight, screenWidth, scrollHeight))
+        var scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
         scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.appShowcaseBackground()
+        scroll!.backgroundColor = UIColor.clearColor()
         self.addSubview(scroll!)
     
         addElementViews()
@@ -192,9 +193,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         var elementsViewed = 0
         elements = Array<ElementMiniView>()
         
+        
         for element in showcase!.elements {
             var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
             xpos += SharedUIManager.instance.miniView_width + spacer
+            
             elementView.delegate = self
             scroll!.addSubview(elementView)
             elements!.append(elementView)

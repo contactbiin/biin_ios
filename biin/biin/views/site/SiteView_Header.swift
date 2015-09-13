@@ -8,14 +8,10 @@ import UIKit
 
 class SiteView_Header:BNView {
     
-    //var buttonsView:SocialButtonsView?
     var title:UILabel?
     var subTitle:UILabel?
-    
-//    override init() {
-//        super.init()
-//    }
-    
+    var nutshell:UILabel?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -26,62 +22,37 @@ class SiteView_Header:BNView {
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
+
+        var ypos:CGFloat = 5
         
-        self.backgroundColor = UIColor.appMainColor()
+        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        visualEffectView.frame = self.bounds
+        self.addSubview(visualEffectView)
         
-        self.layer.masksToBounds = false
-        self.layer.shadowOffset = CGSizeMake(0, 3)
-        self.layer.shadowRadius = 2
-        self.layer.shadowOpacity = 0.25
-        
-        var ypos:CGFloat = 3
-//        buttonsView = SocialButtonsView(frame: CGRectMake(0, ( SharedUIManager.instance.siteView_headerHeight + 5 ), frame.width, 15), father: self, site: nil, showShareButton:true)
-//        self.addSubview(buttonsView!)
-        
-        //ypos += 0
-        
-        title = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.biinColor()
-        title!.textAlignment = NSTextAlignment.Center
+        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
+        title!.textColor = UIColor.whiteColor()
+        title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
         self.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_titleSize + 4
-        
-        subTitle = UILabel(frame: CGRectMake(6, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 4)))
+        ypos += SharedUIManager.instance.siteView_titleSize + 2
+        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        subTitle!.textColor = UIColor.appTextColor()
-        subTitle!.textAlignment = NSTextAlignment.Center
+        subTitle!.textColor = UIColor.whiteColor()
+        subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
         self.addSubview(subTitle!)
+        
+        ypos += SharedUIManager.instance.siteView_subTittleSize + 2
+        nutshell = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_nutshellSize)
+        nutshell!.textColor = UIColor.whiteColor()
+        nutshell!.textAlignment = NSTextAlignment.Left
+        nutshell!.text = "Site subtitle here"
+        self.addSubview(nutshell!)
     }
-    /*
-    convenience init(frame:CGRect, father:BNView?){
-        self.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.appMainColor()
-        
-        var ypos:CGFloat = 3
-        buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, site: site)
-        self.addSubview(buttonsView!)
-        
-        ypos += 16
-        
-        var title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 2)))
-        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-        title.textColor = UIColor.biinColor()
-        title.text = site!.title
-        self.addSubview(title)
-        
-        ypos += SharedUIManager.instance.miniView_titleSize + 2
-        
-        var subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_subTittleSize)
-        subTitle.textColor = UIColor.appTextColor()
-        subTitle.text = "Site title here"
-        self.addSubview(subTitle)
-    }
-    */
+
     override func transitionIn() {
 
     }
@@ -112,11 +83,9 @@ class SiteView_Header:BNView {
     }
     
     //Instance methods
-    //Instance methods
     func updateForSite(site: BNSite?){
-        //buttonsView!.updateSocialButtonsForSite(site)
-        title!.textColor = site!.titleColor
-        title!.text = site!.title
-        subTitle!.text = site!.subTitle
+        title!.text = site!.title!
+        subTitle!.text = site!.subTitle!
+        nutshell!.text = site!.nutshell!
     }
 }

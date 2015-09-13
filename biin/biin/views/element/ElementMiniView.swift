@@ -63,9 +63,9 @@ class ElementMiniView: BNView {
         self.init(frame: frame, father:father )
         self.isNumberVisible = isNumberVisible
         
-        self.layer.borderColor = UIColor.appMainColor().CGColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 5
+        //self.layer.borderColor = UIColor.appMainColor().CGColor
+        //self.layer.borderWidth = 1
+        //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
         //self.layer.shadowOffset = CGSizeMake(0, 0.5)
@@ -82,23 +82,23 @@ class ElementMiniView: BNView {
         }
         
         //Positioning image
-        var imageSize = frame.height - SharedUIManager.instance.miniView_headerHeight
-        var xpos = ((imageSize - frame.width) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize))
+        var imageSize = frame.width// - SharedUIManager.instance.miniView_headerHeight
+        var xpos:CGFloat = 0//((imageSize - frame.height) / 2 ) * -1
+        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize))
         //image!.alpha = 1
         self.addSubview(image!)
  
         if !isNumberVisible {
-            header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:false)
+            header = ElementMiniView_Header(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.miniView_headerHeight), frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:false)
             self.addSubview(header!)
             header!.updateSocialButtonsForElement(self.element)
         } else {
-            header = ElementMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
+            header = ElementMiniView_Header(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.miniView_headerHeight), frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
             self.addSubview(header!)
             header!.updateSocialButtonsForElement(self.element)
         }
         
-        var ypos:CGFloat = SharedUIManager.instance.miniView_headerHeight + 5
+        var ypos:CGFloat = 2//SharedUIManager.instance.miniView_headerHeight + 5
         /*
         if self.element!.hasDiscount {
             discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
@@ -156,7 +156,7 @@ class ElementMiniView: BNView {
             
             biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
             biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-            self.addSubview(biinItButton!)
+            //self.addSubview(biinItButton!)
             xpos += 37
             
             if self.element!.userBiined {
@@ -166,11 +166,11 @@ class ElementMiniView: BNView {
         
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(shareItButton!)
+        //self.addSubview(shareItButton!)
         
         animationView = BiinItAnimationView(frame:CGRectMake(0, 0, frame.width, frame.height))
         animationView!.alpha = 0
-        self.addSubview(animationView!)
+        //self.addSubview(animationView!)
         
         var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1

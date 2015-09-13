@@ -59,8 +59,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         self.backgroundColor = UIColor.appBackground()
         self.layer.borderColor = UIColor.clearColor().CGColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 5
+//        self.layer.borderWidth = 1
+//        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
         //Create views

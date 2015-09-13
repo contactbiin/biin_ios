@@ -34,7 +34,7 @@ class BNRequest_ConnectivityCheck: BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                //println("Error on regions data - Not connection available")
+                println("Error BNRequestConnectivityCheck.run()")
                 self.errorManager!.showInternetError()
                 self.networkManager!.handleFailedRequest(self, error: error )
                 self.networkManager!.requests.removeAll(keepCapacity: false)
