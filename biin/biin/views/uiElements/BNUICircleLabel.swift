@@ -41,8 +41,8 @@ class BNUICircleLabel:UIView {
         self.addSubview(label!)
         
         self.layer.cornerRadius  = frame.width / 2
-        self.layer.borderColor = UIColor.bnGray().CGColor
-        self.layer.borderWidth = 0.5
+        self.layer.borderColor = color.CGColor
+        self.layer.borderWidth = 1
 //        self.layer.backgroundColor = UIColor.appButtonColor().CGColor
         
     }

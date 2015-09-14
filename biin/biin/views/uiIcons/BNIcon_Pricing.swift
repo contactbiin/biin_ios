@@ -32,7 +32,7 @@ class BNIcon_Pricing:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let color = UIColor.biinColor()
+        //let color = UIColor.biinColor()
         let color2 = UIColor.clearColor()//UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
         
         //// Group
@@ -54,7 +54,7 @@ class BNIcon_Pricing:BNIcon {
         bezierPath.addLineToPoint(CGPointMake(0, 46))
         bezierPath.addLineToPoint(CGPointMake(0, 0))
         bezierPath.closePath()
-        color.setFill()
+        color!.setFill()
         bezierPath.fill()
         
         

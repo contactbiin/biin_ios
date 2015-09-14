@@ -92,6 +92,8 @@ StartToEnjoy = "Y empezá a disfrutar de nuestros beneficios!";
 YouSeen = "Has visto";
 Done = "Completo!";
 ThankYouStop = "Muchas gracias!";
+Follow = "Seguir";
+Following = "Siguiendo";
 
 /* Login View*/
 Wellcome = "Bienvenido!";

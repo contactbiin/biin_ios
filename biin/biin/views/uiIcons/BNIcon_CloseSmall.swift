@@ -22,14 +22,11 @@ class BNIcon_CloseSmall:BNIcon {
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+
         //// back Drawing
         var backPath = UIBezierPath(ovalInRect: CGRectMake(0, 0, 28, 28))
         UIColor.appMainColor().setFill()
         backPath.fill()
-        
         
         //// line2 Drawing
         var line2Path = UIBezierPath()
@@ -38,9 +35,8 @@ class BNIcon_CloseSmall:BNIcon {
         line2Path.lineCapStyle = kCGLineCapRound;
         
         color!.setStroke()
-        line2Path.lineWidth = 2
+        line2Path.lineWidth = 0.5
         line2Path.stroke()
-        
         
         //// line1 Drawing
         var line1Path = UIBezierPath()
@@ -49,11 +45,9 @@ class BNIcon_CloseSmall:BNIcon {
         line1Path.lineCapStyle = kCGLineCapRound;
         
         color!.setStroke()
-        line1Path.lineWidth = 2
+        line1Path.lineWidth = 0.5
         line1Path.stroke()
-        
-        
-        
+       
         CGContextRestoreGState(context)
     }
 }

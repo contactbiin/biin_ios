@@ -8,6 +8,7 @@ import UIKit
 
 class SiteView_Header:BNView {
     
+    var siteAvatar:BNUIImageView?
     var title:UILabel?
     var subTitle:UILabel?
     var nutshell:UILabel?
@@ -23,13 +24,18 @@ class SiteView_Header:BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
 
-        var ypos:CGFloat = 5
+        var ypos:CGFloat = 4
         
         var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
-        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
+        var siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight - 10)
+        siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize))
+        self.addSubview(siteAvatar!)
+        
+        var xpos:CGFloat = siteAvatarSize + 10
+        title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
@@ -37,15 +43,15 @@ class SiteView_Header:BNView {
         self.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_titleSize + 2
-        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_subTittleSize + 3)))
+        subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.bnGrayDark()
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
         self.addSubview(subTitle!)
         
-        ypos += SharedUIManager.instance.siteView_subTittleSize + 2
-        nutshell = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        ypos += SharedUIManager.instance.siteView_subTittleSize + 3
+        nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_nutshellSize + 3)))
         nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_nutshellSize)
         nutshell!.textColor = UIColor.bnGrayDark()
         nutshell!.textAlignment = NSTextAlignment.Left
@@ -87,5 +93,13 @@ class SiteView_Header:BNView {
         title!.text = site!.title!
         subTitle!.text = site!.subTitle!
         nutshell!.text = site!.nutshell!
+        
+        if site!.organization!.media.count > 0 {
+            BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
+            
+        } else {
+            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+            siteAvatar!.showAfterDownload()
+        }
     }
 }

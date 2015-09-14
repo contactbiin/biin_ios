@@ -58,7 +58,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             for var i:Int = 0; i < self.media!.count; i++ {
 
                 if self.media!.count > 1 {
-                    var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
+                    var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.siteView_headerHeight + 15)), 10, 10), categoryIdentifier:"", activeColor:media[0].domainColor!)
                     self.points!.append(point)
                     self.addSubview(point)
                     xpos += 20

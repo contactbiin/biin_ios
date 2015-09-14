@@ -20,19 +20,18 @@ class BNUIButton_BiinIt:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_BiinItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
+        icon = BNIcon_BiinItButton(color: UIColor.biinColor(), position: CGPointMake(4, 5))
     }
     
     override func showDisable() {
         self.enabled = false
-        self.icon!.color = UIColor.appButtonColor_Disable().colorWithAlphaComponent(0.5)
-        //.colorWithAlphaComponent(0.75)
-        self.setNeedsDisplay()
+        //self.icon!.color = UIColor.appButtonColor_Disable().colorWithAlphaComponent(0.5)
+        //self.setNeedsDisplay()
     }
     
     override func showEnable() {
         self.enabled = true
-        self.icon!.color = UIColor.biinColor()
-        self.setNeedsDisplay()
+        //self.icon!.color = UIColor.biinColor()
+        //self.setNeedsDisplay()
     }
 }

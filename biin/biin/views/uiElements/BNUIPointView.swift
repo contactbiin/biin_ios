@@ -10,7 +10,10 @@ class BNUIPointView:UIView {
 
     var icon:BNIcon?
     //var iconView:BNIconView?
-    var color = UIColor.appButtonColor()
+    //var color = UIColor.appButtonColor()
+    var activeColor:UIColor?
+    var inactiveColor:UIColor?
+    
     var isActive = false
     
     var label:UILabel?
@@ -29,7 +32,7 @@ class BNUIPointView:UIView {
         self.setInactive()
     }
     
-    convenience init(frame: CGRect, categoryIdentifier:String) {
+    convenience init(frame: CGRect, categoryIdentifier:String, activeColor:UIColor) {
         self.init(frame: frame)
         
         label = UILabel(frame: CGRectMake(0, 13, 100, 20))
@@ -43,11 +46,13 @@ class BNUIPointView:UIView {
         setLabelText(NSLocalizedString(categoryIdentifier, comment:categoryIdentifier))
         
         //createIcon(sectionIdentifier)
+        self.activeColor = activeColor
+        inactiveColor = UIColor.appButtonColor()
     }
     
-    convenience init(frame: CGRect, pointColor:UIColor) {
+    convenience init(frame: CGRect, activeColor:UIColor) {
         self.init(frame:frame)
-        self.color = pointColor
+        self.activeColor = activeColor
     }
     
     
@@ -55,7 +60,7 @@ class BNUIPointView:UIView {
         
         if isActive {
             var ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 8, 8))
-            UIColor.biinColor().setFill()
+            self.activeColor!.setFill()
             ovalPath.fill()
 //            UIColor.orangeColor().setStroke()
 //            ovalPath.lineWidth = 2
@@ -63,7 +68,7 @@ class BNUIPointView:UIView {
 
         }else{
             var ovalPath = UIBezierPath(ovalInRect: CGRectMake(3, 3, 6, 6))
-            self.color.setFill()
+            self.inactiveColor!.setFill()
             ovalPath.fill()
         }
     }

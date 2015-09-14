@@ -1,13 +1,13 @@
-//  BNIcon_LeftArrowSmall.swift
+//  BNIcon_CollectionItButton.swift
 //  biin
-//  Created by Esteban Padilla on 2/2/15.
+//  Created by Esteban Padilla on 9/13/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_LeftArrowSmall:BNIcon {
+class BNIcon_CollectionItButton:BNIcon {
     
     init(color:UIColor, position:CGPoint){
         super.init()
@@ -16,7 +16,6 @@ class BNIcon_LeftArrowSmall:BNIcon {
     }
     
     override func drawCanvas() {
-
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
@@ -25,10 +24,12 @@ class BNIcon_LeftArrowSmall:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(15.1, 5.96))
-        bezierPath.addLineToPoint(CGPointMake(1.45, 5.96))
-        bezierPath.lineCapStyle = kCGLineCapRound;
+        let bezierPath = UIBezierPath()
+        bezierPath.moveToPoint(CGPointMake(7.58, 0))
+        bezierPath.addLineToPoint(CGPointMake(7.58, 15))
+        bezierPath.lineCapStyle = kCGLineCapRound
+        
+        bezierPath.lineJoinStyle = kCGLineJoinRound
         
         color!.setStroke()
         bezierPath.lineWidth = 1
@@ -36,14 +37,12 @@ class BNIcon_LeftArrowSmall:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
-        bezier2Path.moveToPoint(CGPointMake(6.02, 11.6))
-        bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
-        bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
-        bezier2Path.addLineToPoint(CGPointMake(6.02, 0))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        let bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPointMake(15, 7.37))
+        bezier2Path.addLineToPoint(CGPointMake(0, 7.37))
+        bezier2Path.lineCapStyle = kCGLineCapRound
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = kCGLineJoinRound
         
         color!.setStroke()
         bezier2Path.lineWidth = 1
@@ -54,3 +53,4 @@ class BNIcon_LeftArrowSmall:BNIcon {
         CGContextRestoreGState(context)
     }
 }
+

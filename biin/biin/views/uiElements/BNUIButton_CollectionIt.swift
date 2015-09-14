@@ -1,6 +1,6 @@
-//  BNUIShareItButton.swift
+//  BNUIButton_CollectionIt.swift
 //  biin
-//  Created by Esteban Padilla on 2/4/15.
+//  Created by Esteban Padilla on 9/13/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
@@ -8,16 +8,17 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_ShareIt:BNUIButton {
-        
+class BNUIButton_CollectionIt:BNUIButton {
+
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(5, 5))
+        icon = BNIcon_CollectionItButton(color: UIColor.biinColor(), position: CGPointMake(5, 5))
     }
     
-    
 }
+

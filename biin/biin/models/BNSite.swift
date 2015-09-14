@@ -51,7 +51,11 @@ class BNSite:NSObject, NSCoding {
     
     var userBiined = false
     var userCommented = false
+    
     var userShared = false
+    var userFollowed = false
+    var userCollected = false
+    var userLiked = false
     
     var latitude:Float?
     var longitude:Float?

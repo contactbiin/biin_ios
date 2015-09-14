@@ -125,7 +125,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
 
         for var i:Int = 0; i < BNAppSharedManager.instance.dataManager.bnUser!.categories.count; i++ {
             
-            var point = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!)
+            var point = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier: BNAppSharedManager.instance.dataManager.bnUser!.categories[i].identifier!, activeColor:UIColor.blackColor())
             self.points.append(point)
             self.addSubview(point)
             /*
@@ -154,18 +154,18 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         var xpos:CGFloat = (space - 5)
         
         categoryNameLbl!.text = NSLocalizedString("Places", comment:"Places")
-        var point1 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("Places", comment:"Places"))
+        var point1 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("Places", comment:"Places"), activeColor:UIColor.blackColor())
         self.points.append(point1)
         self.addSubview(point1)
         xpos += 20
 
         
-        var point2 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("HightLights", comment:"HightLights"))
+        var point2 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("HightLights", comment:"HightLights"), activeColor:UIColor.blackColor())
         self.points.append(point2)
         self.addSubview(point2)
         xpos += 20
         
-        var point3 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("Biins", comment:"Biins"))
+        var point3 = BNUIPointView(frame: CGRectMake((xpos), 25, 14, 14), categoryIdentifier:NSLocalizedString("Biins", comment:"Biins"), activeColor:UIColor.blackColor())
         self.points.append(point3)
         self.addSubview(point3)
         xpos += 20

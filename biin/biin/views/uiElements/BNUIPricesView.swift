@@ -143,7 +143,7 @@ class BNUIPricesView:UIView {
     }
     
     
-    convenience init(frame: CGRect, oldPrice:String, newPrice:String, percentage:String, isMini:Bool, isHighlight:Bool) {
+    convenience init(frame: CGRect, oldPrice:String, newPrice:String, percentage:String, isMini:Bool, isHighlight:Bool, color:UIColor) {
         self.init(frame: frame)
         
         newPriceColor = UIColor.appTextColor()
@@ -223,9 +223,9 @@ class BNUIPricesView:UIView {
         self.addSubview(xView)
         
         if isMini {
-            icon = BNIcon_Pricing(color: UIColor.clearColor(), position: CGPoint(x: -9, y: -9), text:percentage)
+            icon = BNIcon_Pricing(color: color, position: CGPoint(x: -9, y: -9), text:percentage)
         } else {
-            icon = BNIcon_PricingBig(color: UIColor.clearColor(), position: CGPoint(x:-2, y:-2), text:percentage)
+            icon = BNIcon_PricingBig(color: color, position: CGPoint(x:-2, y:-2), text:percentage)
         }
     }
     

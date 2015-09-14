@@ -93,6 +93,8 @@ StartToEnjoy = "And start to enjoy our benefits!";
 YouSeen = "You’ve seen";
 Done = "Done!";
 ThankYouStop = "Thank you for stoping by.";
+Follow = "FOLLOW";
+Following = "FOLLOWING";
 
 /* Login View*/
 Wellcome = "Welcome!";

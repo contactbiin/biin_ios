@@ -33,7 +33,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         self.setNeedsStatusBarAppearanceUpdate()
         
         self.view.backgroundColor = UIColor.blackColor()
-        self.view.layer.cornerRadius = 5
+        //self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         

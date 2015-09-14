@@ -62,6 +62,14 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .BIINED_ELEMENT
         case 13:
             self.did = .BIINED_SITE
+        case 14:
+            self.did = .LIKE_SITE
+        case 15:
+            self.did = .UNLIKE_SITE
+        case 16:
+            self.did = .FOLLOW_SITE
+        case 17:
+            self.did = .UNFOLLOW_SITE
         default:
             break
         }
@@ -124,4 +132,8 @@ enum BiinieActionType {
     case LEAVE_ELEMENT_VIEW  //11
     case BIINED_ELEMENT // 12
     case BIINED_SITE // 13
+    case LIKE_SITE//14
+    case UNLIKE_SITE//15
+    case FOLLOW_SITE//16
+    case UNFOLLOW_SITE//17
 }
