@@ -32,7 +32,7 @@ class ElementMiniView_Header:BNView {
         self.init(frame: frame, father:father )
         //self.backgroundColor = UIColor.appMainColor()
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
@@ -53,10 +53,10 @@ class ElementMiniView_Header:BNView {
             }
         }
        
-        ypos = 3
+        ypos = 4
         var title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-        title.textColor = UIColor.whiteColor()
+        title.textColor = UIColor.bnGrayDark()
         title.text = element!.title!
         self.addSubview(title)
         
@@ -64,7 +64,7 @@ class ElementMiniView_Header:BNView {
         
         var subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 3)))
         subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
-        subTitle.textColor = UIColor.whiteColor()
+        subTitle.textColor = UIColor.bnGrayDark()
         subTitle.text = element!.subTitle!
         self.addSubview(subTitle)
     }

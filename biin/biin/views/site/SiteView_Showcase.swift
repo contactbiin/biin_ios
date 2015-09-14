@@ -52,7 +52,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         //self.biin = biin
         
-        self.backgroundColor = site!.media[0].domainColor!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
+        self.backgroundColor = site!.media[0].domainColor//!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
         self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         self.site = site
         
@@ -60,7 +60,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = SharedUIManager.instance.miniView_height + 5
+        var ypos:CGFloat = SharedUIManager.instance.miniView_height + 6
         //ypos += 18
         
         title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
@@ -76,7 +76,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         self.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 3
+        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
         
         subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
@@ -189,14 +189,27 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     func addElementViews(){
         
         var elementPosition:Int = 1
-        var xpos:CGFloat = spacer
+        var xpos:CGFloat = 0
         var elementsViewed = 0
         elements = Array<ElementMiniView>()
         
+        var elementView_width:CGFloat = 0
+        
+        
+        if showcase!.elements.count == 1 {
+            elementView_width = SharedUIManager.instance.screenWidth
+        } else if showcase!.elements.count == 2 {
+            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+        } else if showcase!.elements.count == 3 {
+            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 3)
+        } else {
+            elementView_width = SharedUIManager.instance.miniView_width
+        }
+        
         
         for element in showcase!.elements {
-            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
-            xpos += SharedUIManager.instance.miniView_width + spacer
+            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
+            xpos += elementView_width + spacer
             
             elementView.delegate = self
             scroll!.addSubview(elementView)
@@ -209,9 +222,9 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                 elementsViewed++
             }
             
-            if elementPosition < 4 {
+            //if elementPosition < 4 {
                 elementView.requestImage()
-            }
+            //}
         }
         
         xpos += spacer

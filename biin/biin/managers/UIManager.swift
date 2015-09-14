@@ -31,8 +31,8 @@ class UIManager {
     var siteMiniView_headerHeight:CGFloat = 40
     
     //Font sizes
-    var miniView_titleSize:CGFloat = 0
-    var miniView_subTittleSize:CGFloat = 0
+    var miniView_titleSize:CGFloat = 12
+    var miniView_subTittleSize:CGFloat = 10
     var miniView_nutshellSize:CGFloat = 13
     var miniView_height:CGFloat = 0
     var miniView_width:CGFloat = 0
@@ -53,7 +53,7 @@ class UIManager {
     //var siteView_showcaseScrollHeight:CGFloat = 255
     
     var siteView_showcase_titleSize:CGFloat = 20
-    var siteView_showcase_subTittleSize:CGFloat = 15
+    var siteView_showcase_subTittleSize:CGFloat = 12
     
     var siteView_titleSize:CGFloat = 25
     var siteView_subTittleSize:CGFloat = 17
@@ -164,8 +164,8 @@ class UIManager {
     
     func setIPhone4Variables(){
         deviceType = BNDeviceType.iphone4s
-        miniView_titleSize = 14
-        miniView_subTittleSize = 10
+//        miniView_titleSize = 14
+//        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
         
@@ -190,8 +190,8 @@ class UIManager {
     
     func setIPhone5Variables(){
         deviceType = BNDeviceType.iphone5
-        miniView_titleSize = 14
-        miniView_subTittleSize = 10
+//        miniView_titleSize = 14
+//        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
         
@@ -214,8 +214,8 @@ class UIManager {
     
     func setIPhone6Variables() {
         deviceType = BNDeviceType.iphone6
-        miniView_titleSize = 14
-        miniView_subTittleSize = 10
+//        miniView_titleSize = 14
+//        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
         
@@ -238,8 +238,8 @@ class UIManager {
     
     func setIPhone6PlusVariables() {
         deviceType = BNDeviceType.iphone6Plus
-        miniView_titleSize = 14
-        miniView_subTittleSize = 10
+//        miniView_titleSize = 14
+//        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
     
@@ -263,8 +263,8 @@ class UIManager {
     
     func setIPadVariables() {
         deviceType = BNDeviceType.ipad
-        miniView_titleSize = 14
-        miniView_subTittleSize = 10
+//        miniView_titleSize = 14
+//        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
         

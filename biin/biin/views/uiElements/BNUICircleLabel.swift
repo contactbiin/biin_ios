@@ -34,21 +34,22 @@ class BNUICircleLabel:UIView {
         self.addSubview(circle!)
         
         label = UILabel(frame: CGRectMake(0, -1, frame.width, frame.width))
-        label!.font = UIFont(name: "Lato-Regular", size:textSize)
+        label!.font = UIFont(name: "Lato-Light", size:textSize)
         label!.textAlignment = NSTextAlignment.Center
-        label!.textColor = UIColor.whiteColor()
+        label!.textColor = UIColor.bnGrayDark()
         label!.text = text
         self.addSubview(label!)
         
         self.layer.cornerRadius  = frame.width / 2
-        self.layer.borderColor = UIColor.whiteColor().CGColor
-        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.bnGray().CGColor
+        self.layer.borderWidth = 0.5
 //        self.layer.backgroundColor = UIColor.appButtonColor().CGColor
         
     }
     
     func animateCircleIn(){
-        //label!.textColor = UIColor.whiteColor()
+        label!.textColor = UIColor.whiteColor()
+        self.layer.borderWidth = 0
         circle!.animateIn()
     }
     

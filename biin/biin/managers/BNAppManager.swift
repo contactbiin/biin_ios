@@ -238,7 +238,6 @@ class BNAppManager {
         elementColors.append(UIColor.bnPurple())
         elementColors.append(UIColor.bnGreenDark())
         elementColors.append(UIColor.bnBlueDark())
-        elementColors.append(UIColor.bnOrangeBase())
     }
     
     /*

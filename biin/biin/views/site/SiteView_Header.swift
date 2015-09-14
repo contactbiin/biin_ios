@@ -25,13 +25,13 @@ class SiteView_Header:BNView {
 
         var ypos:CGFloat = 5
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
         title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.whiteColor()
+        title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
         self.addSubview(title!)
@@ -39,7 +39,7 @@ class SiteView_Header:BNView {
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        subTitle!.textColor = UIColor.whiteColor()
+        subTitle!.textColor = UIColor.bnGrayDark()
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
         self.addSubview(subTitle!)
@@ -47,7 +47,7 @@ class SiteView_Header:BNView {
         ypos += SharedUIManager.instance.siteView_subTittleSize + 2
         nutshell = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_nutshellSize + 3)))
         nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_nutshellSize)
-        nutshell!.textColor = UIColor.whiteColor()
+        nutshell!.textColor = UIColor.bnGrayDark()
         nutshell!.textAlignment = NSTextAlignment.Left
         nutshell!.text = "Site subtitle here"
         self.addSubview(nutshell!)

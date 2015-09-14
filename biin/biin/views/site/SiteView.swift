@@ -59,14 +59,14 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         var screenWidth = SharedUIManager.instance.screenWidth
         var screenHeight = SharedUIManager.instance.screenHeight
         
-        var scrollHeight:CGFloat = screenHeight - (SharedUIManager.instance.siteView_headerHeight + SharedUIManager.instance.siteView_bottomHeight + 20) + 6
+        var scrollHeight:CGFloat = screenHeight - (SharedUIManager.instance.siteView_bottomHeight + 20) + 6
         //Add here any other heights for site view.
         
         scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.appShowcaseBackground()
+        scroll!.backgroundColor = UIColor.whiteColor()
         scroll!.delegate = self
         self.addSubview(scroll!)
         
@@ -275,9 +275,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         showcaseHeight = SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height
 
         //scroll!.addSubview(imagesScrollView!)
-        
+
         var ypos:CGFloat = SharedUIManager.instance.screenWidth
         scrollSpaceForShowcases = 0
+        ypos += 2
         
         if site!.showcases != nil {
             for showcase in site!.showcases! {
@@ -285,7 +286,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
                 scroll!.addSubview(showcaseView)
                 showcases!.append(showcaseView)
                 ypos += showcaseHeight
-                //ypos += 1
+                ypos += 2
             }
         }
 
