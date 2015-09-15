@@ -17,7 +17,20 @@ class BNUIButton_CollectionIt:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_CollectionItButton(color: UIColor.biinColor(), position: CGPointMake(5, 5))
+        icon = BNIcon_CollectIt(color: UIColor.biinColor(), position: CGPointMake(5, 5))
+    }
+    
+    func changeToCollectIcon(value:Bool){
+
+        icon = nil
+        
+        if value {
+            icon = BNIcon_CollectedIt(color: UIColor.blackColor(), position: CGPointMake(5, 5))
+        } else {
+            icon = BNIcon_CollectIt(color: UIColor.blackColor(), position: CGPointMake(5, 5))
+        }
+        
+        setNeedsDisplay()
     }
     
 }

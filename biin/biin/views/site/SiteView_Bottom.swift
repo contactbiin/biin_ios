@@ -97,7 +97,8 @@ class SiteView_Bottom:BNView {
         if site!.showcases == nil {
             height = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.screenWidth + 20 + 2)
         } else if site!.showcases!.count == 1 {
-            height = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height + 20)
+             height = 100
+//            height = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height + 20)
         } else {
             height = 100
         }

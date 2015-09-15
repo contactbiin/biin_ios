@@ -15,10 +15,6 @@ class SiteView_Showcase_Game:BNView {
     var animatedCircle:BNUICircle?
     var circleIcon:BNUICompletedGameIconView?
     
-//    override init() {
-//        super.init()
-//    }
-    
     deinit {
         circles.removeAll(keepCapacity: false)
     }
@@ -75,11 +71,27 @@ class SiteView_Showcase_Game:BNView {
         if !showcase.isShowcaseGameCompleted {
             
             var xSpace:CGFloat = (SharedUIManager.instance.screenWidth / 2) - 17
-            var ySpace:CGFloat = 130
+            var ySpace:CGFloat = 40
             
             var quantity = Double(showcase.elements.count)
             var angle = Double(360.0 / quantity)
+           
             
+            var xpos:CGFloat = 10.0
+            var ypos:CGFloat = 30.0
+            
+            for (var i = 0; i < showcase.elements.count; i++ ){
+            
+                weak var element = BNAppSharedManager.instance.dataManager.elements[showcase.elements[i]._id!]
+                
+                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 30, 30), color:element!.color!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
+                self.circles.append(circle)
+                self.addSubview(circle)
+                
+                xpos += 10.0
+                ypos += 30.0
+            }
+            /*
             for (var i = 0; i < showcase.elements.count; i++ ){
                 
                 var value = (angle * Double(i) + 270)
@@ -89,16 +101,16 @@ class SiteView_Showcase_Game:BNView {
                 
                 
                 var sine:CGFloat = sin(DegreesToRadians(value))
-                var ypos = CGFloat(sine * 80)
+                var ypos = CGFloat(sine * 40)
                 ypos += ySpace
                 
                 weak var element = BNAppSharedManager.instance.dataManager.elements[showcase.elements[i]._id!]
                 
-                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 35, 35), color:element!.color!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
+                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 30, 30), color:element!.color!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
                 self.circles.append(circle)
                 self.addSubview(circle)
             }
-            
+            */
             animatedCircle!.alpha = 0
             
         }else {

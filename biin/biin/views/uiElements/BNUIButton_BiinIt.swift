@@ -20,7 +20,7 @@ class BNUIButton_BiinIt:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_BiinItButton(color: UIColor.biinColor(), position: CGPointMake(4, 5))
+        icon = BNIcon_LikeIt_Empty(color: UIColor.biinColor(), position: CGPointMake(4, 5))
     }
     
     override func showDisable() {
@@ -33,5 +33,15 @@ class BNUIButton_BiinIt:BNUIButton {
         self.enabled = true
         //self.icon!.color = UIColor.biinColor()
         //self.setNeedsDisplay()
+    }
+    
+    func changedIcon(value:Bool) {
+        icon = nil
+        if value {
+            icon = BNIcon_LikeIt_Full(color: UIColor.blackColor(), position: CGPointMake(4, 5))
+        } else {
+            icon = BNIcon_LikeIt_Empty(color: UIColor.blackColor(), position: CGPointMake(4, 5))
+        }
+        setNeedsDisplay()
     }
 }

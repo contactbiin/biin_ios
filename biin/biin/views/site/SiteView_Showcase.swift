@@ -195,7 +195,6 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         var elementView_width:CGFloat = 0
         
-        
         if showcase!.elements.count == 1 {
             elementView_width = SharedUIManager.instance.screenWidth
         } else if showcase!.elements.count == 2 {

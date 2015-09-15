@@ -35,7 +35,7 @@ class SiteView_Header:BNView {
         self.addSubview(siteAvatar!)
         
         var xpos:CGFloat = siteAvatarSize + 10
-        title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
@@ -43,7 +43,7 @@ class SiteView_Header:BNView {
         self.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_titleSize + 2
-        subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_subTittleSize + 3)))
+        subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.bnGrayDark()
         subTitle!.textAlignment = NSTextAlignment.Left
@@ -51,7 +51,7 @@ class SiteView_Header:BNView {
         self.addSubview(subTitle!)
         
         ypos += SharedUIManager.instance.siteView_subTittleSize + 3
-        nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_nutshellSize + 3)))
         nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_nutshellSize)
         nutshell!.textColor = UIColor.bnGrayDark()
         nutshell!.textAlignment = NSTextAlignment.Left

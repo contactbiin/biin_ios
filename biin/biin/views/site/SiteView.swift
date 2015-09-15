@@ -31,7 +31,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var isShowingElementView = false
     
     var siteLocationButton:BNUIButton_SiteLocation?
-    var biinItButton:BNUIButton_BiinIt?
+    var likeItButton:BNUIButton_BiinIt?
     var shareItButton:BNUIButton_ShareIt?
     var collectItButton:BNUIButton_CollectionIt?
     var followButton:UIButton?
@@ -132,9 +132,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         //Like button
         buttonSpace += 27
-        biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
-        biinItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
-        header!.addSubview(biinItButton!)
+        likeItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
+        likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
+        header!.addSubview(likeItButton!)
         
         //Collect button
         buttonSpace += 27
@@ -240,35 +240,40 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         siteLocationButton!.icon!.color = site!.media[0].domainColor!
         shareItButton!.icon!.color = site!.media[0].domainColor!
-        biinItButton!.icon!.color = site!.media[0].domainColor!
-        collectItButton!.icon!.color = site!.media[0].domainColor!
+        //likeItButton!.icon!.color = site!.media[0].domainColor!
+        
+        
         siteLocationButton!.setNeedsDisplay()
         shareItButton!.setNeedsDisplay()
-        biinItButton!.setNeedsDisplay()
-        collectItButton!.setNeedsDisplay()
+        //likeItButton!.setNeedsDisplay()
+
+        updateLikeItBtn()
+        
+        updateCollectItBtn()
         
         updateFollowBtn()
+        
         
 //        nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
 //        nutshell!.text = site!.nutshell!
 //        nutshell!.numberOfLines = 0
 //        nutshell!.sizeToFit()
 //        scroll!.addSubview(nutshell!)
-        var ypos:CGFloat = 0
-        
-        if site!.media.count > 1 {
-            ypos = 30
-        } else {
-            ypos = 10
-        }
+//        var ypos:CGFloat = 0
+//        
+//        if site!.media.count > 1 {
+//            ypos = 30
+//        } else {
+//            ypos = 10
+//        }
         
 //        nutshell!.frame.origin.y = (self.imagesScrollView!.frame.height - (nutshell!.frame.height + ypos))
         
-        if site!.userBiined {
-            biinItButton!.showDisable()
-        } else {
-            biinItButton!.showEnable()
-        }
+//        if site!.userBiined {
+//            biinItButton!.showDisable()
+//        } else {
+//            biinItButton!.showEnable()
+//        }
     }
     
     func showInformationView(sender:BNUIButton_SiteLocation){
@@ -412,12 +417,20 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
         header!.updateForSite(site!)
-        biinItButton!.showDisable()
+        likeItButton!.showDisable()
         animationView!.animate()
     }
     
     func likeit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to: site!.identifier!)
+        //BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to: site!.identifier!)
+        site!.userLiked = !site!.userLiked
+        updateLikeItBtn()
+        
+    }
+    
+    func updateLikeItBtn() {
+        likeItButton!.changedIcon(site!.userLiked)
+        likeItButton!.icon!.color = site!.media[0].domainColor!
     }
     
     func shareit(sender:BNUIButton_ShareIt){
@@ -425,33 +438,41 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
+        site!.userCollected = !site!.userCollected
+        updateCollectItBtn()
+        
+        return
         BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
         header!.updateForSite(site!)
-        //biinItButton!.showDisable()
-        //animationView!.animate()
+        likeItButton!.showDisable()
+        animationView!.animate()
+    }
+    
+    func updateCollectItBtn(){
+        collectItButton!.changeToCollectIcon(site!.userCollected)
+        collectItButton!.icon!.color = site!.media[0].domainColor!
     }
     
     func followit(sender:UIButton){
+        site!.userFollowed = !site!.userFollowed
         updateFollowBtn()
     }
     
     func updateFollowBtn() {
         
         followButton!.layer.borderColor = site!.media[0].domainColor!.CGColor
-        
+
         if site!.userFollowed {
             //TODO: send follow
             followButton!.setTitle(NSLocalizedString("Following", comment: "Following"), forState: UIControlState.Normal)
             followButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             followButton!.backgroundColor = site!.media[0].domainColor!
-            site!.userFollowed = false
             
         } else  {
             //TODO: send unfollow
             followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
             followButton!.setTitleColor(site!.media[0].domainColor!, forState: UIControlState.Normal)
             followButton!.backgroundColor = UIColor.clearColor()
-            site!.userFollowed = true
         }
     }
 }
