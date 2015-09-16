@@ -103,7 +103,7 @@ class SiteView_Bottom:BNView {
             height = 100
         }
         
-        self.backgroundColor = site!.media[0].domainColor!
+        self.backgroundColor = site!.media[0].vibrantColor!
         
         self.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, height)
         var points = NSLocalizedString("Points", comment: "Points")

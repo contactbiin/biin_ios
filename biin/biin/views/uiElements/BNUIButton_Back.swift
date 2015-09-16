@@ -26,7 +26,7 @@ class BNUIButton_Back:BNUIButton {
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
 
-        icon = BNIcon_LeftArrowSmall(color: UIColor.blackColor(), position: CGPointMake(10, 12))
+        icon = BNIcon_LeftArrowSmall(color: UIColor.blackColor(), position: CGPointMake(10, 11.5))
 
     }
 }

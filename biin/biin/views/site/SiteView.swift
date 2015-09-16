@@ -234,8 +234,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         updateShowcases(site)
         locationView!.updateForSite(site)
         
-        backBtn!.icon!.color = site!.media[0].vibrantDarkColor!
+        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
+        backBtn!.layer.backgroundColor = site!.media[0].vibrantColor!.CGColor
         backBtn!.setNeedsDisplay()
         
         siteLocationButton!.icon!.color = site!.media[0].vibrantColor!
