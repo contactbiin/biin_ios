@@ -29,7 +29,7 @@ class BNRequest_SendBiinedSite: BNRequest {
     
     override func run() {
         
-        println("BNRequest_SendBiinedSite.run()")
+        println("BNRequest_SendBiinedSite.run(), \(requestString)")
         isRunning = true
         
         var model = Dictionary<String, Dictionary <String, String>>()

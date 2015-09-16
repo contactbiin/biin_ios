@@ -77,6 +77,10 @@ class BNElement:NSObject {
     var userViewed = false
     var userShared = false
     
+    var userFollowed = false
+    var userCollected = false
+    var userLiked = false
+    
     //Download management
     var isDownloadCompleted = false
     var isHighlight:Bool = false
@@ -134,6 +138,9 @@ class BNElement:NSObject {
         clone.userShared = self.userShared
         clone.userCommented = self.userCommented
         clone.userViewed = self.userViewed
+        clone.userCollected = self.userCollected
+        clone.userFollowed = self.userFollowed
+        clone.userLiked = self.userLiked
         clone.isHighlight = self.isHighlight
         if let value = self.siteIdentifier { clone.siteIdentifier = value }
         return clone

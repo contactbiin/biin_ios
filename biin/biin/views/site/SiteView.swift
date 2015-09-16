@@ -31,7 +31,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var isShowingElementView = false
     
     var siteLocationButton:BNUIButton_SiteLocation?
-    var likeItButton:BNUIButton_BiinIt?
+    var likeItButton:BNUIButton_LikeIt?
     var shareItButton:BNUIButton_ShareIt?
     var collectItButton:BNUIButton_CollectionIt?
     var followButton:UIButton?
@@ -132,7 +132,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         //Like button
         buttonSpace += 27
-        likeItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
         likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
         header!.addSubview(likeItButton!)
         
@@ -441,10 +441,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         site!.userCollected = !site!.userCollected
         updateCollectItBtn()
         
-        return
+        //return
         BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
-        header!.updateForSite(site!)
-        likeItButton!.showDisable()
+        //header!.updateForSite(site!)
+        //likeItButton!.showDisable()
         animationView!.animate()
     }
     

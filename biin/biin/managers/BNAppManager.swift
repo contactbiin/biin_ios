@@ -103,7 +103,7 @@ class BNAppManager {
         }
         if let dict = myDict {
             version = dict.objectForKey("CFBundleShortVersionString") as! String
-            version += " Demo"
+            version += " Development"
         }
         
     }
@@ -156,39 +156,9 @@ class BNAppManager {
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
             networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
         }
-        
-        //dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.append(identifier)
-    }
-    
-    func shareIt(identifier:String, isElement:Bool){
-//        mainViewController!.shareIt(identifier, view: view)
-        
-        if isElement {
-            dataManager.elements[identifier]?.userShared = true
-//            dataManager.elements[identifier]?.biinedCount++
-            
-            //dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
-            
-            networkManager.sendSharedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!)
-
-            mainViewController?.shareElement(dataManager.elements[identifier]!)
-            
-        } else {
-            dataManager.sites[identifier]?.userShared = true
-//            dataManager.sites[identifier]?.biinedCount++
-//            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
-            networkManager.sendSharedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!)
-            mainViewController?.shareSite(dataManager.sites[identifier]!)
-        }
-    }
-    
-    func commentit(identifier:String, comment:String){
     }
     
     func unBiinit(identifier:String, isElement:Bool){
-        
-        //The identifier parameter is actually the _id of the element.
-        //On site is the identifier.
         
         if isElement {
             dataManager.elements[identifier]?.userBiined = false
@@ -199,23 +169,120 @@ class BNAppManager {
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
             networkManager.sendUnBiinedSite(dataManager.bnUser!, siteIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         }
-
-        /*
-        if dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.items.count > 0 {
-            var index:Int = 0
-            for item in dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items {
-
-                if item == identifier {
-                    break
-                }
-                
-                index++
-            }
+    }
+    
+    func collectIt(identifier:String, isElement:Bool){
+        
+        if isElement {
+            dataManager.elements[identifier]?.userBiined = true
+            dataManager.elements[identifier]?.biinedCount++
+            dataManager.elements[identifier]?.userCollected = true
             
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.items.removeAtIndex(index)
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
+            
+            networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+        } else {
+            dataManager.sites[identifier]?.userBiined = true
+            dataManager.sites[identifier]?.biinedCount++
+            dataManager.sites[identifier]?.userCollected = true
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
+            networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
         }
-        */
-        //TODO: inform backend the user remove biined element
+    }
+    
+    func unCollectit(identifier:String, isElement:Bool){
+        
+        if isElement {
+            dataManager.elements[identifier]?.userBiined = false
+            dataManager.elements[identifier]?.userCollected = false
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[dataManager.elements[identifier]!.identifier!] = nil
+            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:dataManager.elements[identifier]!.identifier!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+        } else {
+            dataManager.sites[identifier]?.userBiined = false
+            dataManager.sites[identifier]?.userCollected = false
+            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
+            networkManager.sendUnBiinedSite(dataManager.bnUser!, siteIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+        }
+    }
+    
+    func likeIt(identifier:String, isElement:Bool){
+        
+        if isElement {
+
+            dataManager.elements[identifier]?.userLiked = true
+            
+//            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
+            
+//            networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+        } else {
+            dataManager.sites[identifier]?.userLiked = true
+//            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
+//            networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+        }
+    }
+    
+    func unLikeit(identifier:String, isElement:Bool){
+        
+        if isElement {
+
+            dataManager.elements[identifier]?.userLiked = false
+//            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[dataManager.elements[identifier]!.identifier!] = nil
+//            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:dataManager.elements[identifier]!.identifier!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+        } else {
+
+            dataManager.sites[identifier]?.userLiked = false
+//            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
+//            networkManager.sendUnBiinedSite(dataManager.bnUser!, siteIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+        }
+    }
+    
+    func followIt(identifier:String, isElement:Bool){
+        
+        if isElement {
+            
+            dataManager.elements[identifier]?.userFollowed = true
+            
+            //            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
+            
+            //            networkManager.sendBiinedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+        } else {
+            dataManager.sites[identifier]?.userFollowed = true
+            //            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
+            //            networkManager.sendBiinedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+        }
+    }
+    
+    func unFollowit(identifier:String, isElement:Bool){
+        
+        if isElement {
+            
+            dataManager.elements[identifier]?.userFollowed = false
+            //            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[dataManager.elements[identifier]!.identifier!] = nil
+            //            networkManager.sendUnBiinedElement(dataManager.bnUser!, elementIdentifier:dataManager.elements[identifier]!.identifier!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+        } else {
+            
+            dataManager.sites[identifier]?.userFollowed = false
+            //            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
+            //            networkManager.sendUnBiinedSite(dataManager.bnUser!, siteIdentifier:identifier, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
+        }
+    }
+
+    func shareIt(identifier:String, isElement:Bool){
+        
+        if isElement {
+            dataManager.elements[identifier]?.userShared = true
+            networkManager.sendSharedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!)
+            mainViewController?.shareElement(dataManager.elements[identifier]!)
+            
+        } else {
+            dataManager.sites[identifier]?.userShared = true
+            networkManager.sendSharedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!)
+            mainViewController?.shareSite(dataManager.sites[identifier]!)
+        }
+    }
+    
+    func commentit(identifier:String, comment:String){
+        
     }
     
     func processNotification(notification:BNNotification){
