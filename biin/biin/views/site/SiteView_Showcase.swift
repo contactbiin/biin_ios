@@ -47,12 +47,22 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame: CGRect, father:BNView?, showcase:BNShowcase?, site:BNSite?) {
-        self.init(frame: frame, father:father )
+    convenience init(frame: CGRect, father:BNView?, showcase:BNShowcase?, site:BNSite?, colorIndex:Int) {
+        self.init(frame: frame, father:father)
         
-        //self.biin = biin
+        switch colorIndex {
+        case 0:
+             self.backgroundColor = site!.media[0].vibrantColor
+//        case 1:
+//             self.backgroundColor = site!.media[0].vibrantLightColor
+        case 1:
+             self.backgroundColor = site!.media[0].vibrantDarkColor
+        default:
+             self.backgroundColor = site!.media[0].vibrantColor
+            break
+        }
         
-        self.backgroundColor = site!.media[0].domainColor//!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
+       //!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
         self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         self.site = site
         

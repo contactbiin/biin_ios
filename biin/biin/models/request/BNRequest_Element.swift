@@ -154,8 +154,11 @@ class BNRequest_Element: BNRequest {
                             var mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
                             var url = BNParser.findString("url", dictionary: mediaData)!
                             var type = BNParser.findMediaType("mediaType", dictionary: mediaData)
-                            var domainColor = BNParser.findUIColor("domainColor", dictionary:mediaData)
-                            var media = BNMedia(mediaType:type, url:url, domainColor:domainColor!)
+                            var domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
+                            var vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
+                            var vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
+                            var vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                            var media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)
                         }
 

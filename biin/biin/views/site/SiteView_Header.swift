@@ -30,6 +30,7 @@ class SiteView_Header:BNView {
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
+        
         var siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight - 10)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize))
         self.addSubview(siteAvatar!)

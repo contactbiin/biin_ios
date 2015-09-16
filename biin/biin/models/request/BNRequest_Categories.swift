@@ -58,13 +58,14 @@ class BNRequest_Categories: BNRequest {
                                 
                                 var siteData = sites!.objectAtIndex(j) as! NSDictionary
                                 
-                                //TODO: Add site details to category here.
-                                var siteDetails = BNCategorySiteDetails()
-                                siteDetails.identifier = BNParser.findString("identifier", dictionary: siteData)
-                                siteDetails.json = BNParser.findString("jsonUrl", dictionary: siteData)
-                                siteDetails.biinieProximity = BNParser.findFloat("biinieProximity", dictionary: siteData)
-                                category.sitesDetails.append(siteDetails)
                                 
+                                if let siteIdentifier = BNParser.findString("identifier", dictionary: siteData) {
+                                    var siteDetails = BNCategorySiteDetails()
+                                    siteDetails.identifier = siteIdentifier
+                                    siteDetails.json = BNParser.findString("jsonUrl", dictionary: siteData)
+                                    siteDetails.biinieProximity = BNParser.findFloat("biinieProximity", dictionary: siteData)
+                                    category.sitesDetails.append(siteDetails)
+                                }
                             }
                         }
                         

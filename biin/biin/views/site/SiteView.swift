@@ -234,14 +234,13 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         updateShowcases(site)
         locationView!.updateForSite(site)
         
-        backBtn!.icon!.color = site!.media[0].domainColor!
-        backBtn!.layer.borderColor = site!.media[0].domainColor!.CGColor
+        backBtn!.icon!.color = site!.media[0].vibrantDarkColor!
+        backBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
         backBtn!.setNeedsDisplay()
         
-        siteLocationButton!.icon!.color = site!.media[0].domainColor!
-        shareItButton!.icon!.color = site!.media[0].domainColor!
+        siteLocationButton!.icon!.color = site!.media[0].vibrantColor!
+        shareItButton!.icon!.color = site!.media[0].vibrantColor!
         //likeItButton!.icon!.color = site!.media[0].domainColor!
-        
         
         siteLocationButton!.setNeedsDisplay()
         shareItButton!.setNeedsDisplay()
@@ -342,14 +341,19 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         var ypos:CGFloat = SharedUIManager.instance.screenWidth
         scrollSpaceForShowcases = 0
         ypos += 2
+        var colorIndex:Int = 0
         
         if site!.showcases != nil {
             for showcase in site!.showcases! {
-                var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site)
+                var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site, colorIndex:colorIndex )
                 scroll!.addSubview(showcaseView)
                 showcases!.append(showcaseView)
                 ypos += showcaseHeight
                 ypos += 2
+                colorIndex++
+                if colorIndex  > 1 {
+                    colorIndex = 0
+                }
             }
         }
 
@@ -430,7 +434,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(site!.userLiked)
-        likeItButton!.icon!.color = site!.media[0].domainColor!
+        likeItButton!.icon!.color = site!.media[0].vibrantColor!
     }
     
     func shareit(sender:BNUIButton_ShareIt){
@@ -450,7 +454,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func updateCollectItBtn(){
         collectItButton!.changeToCollectIcon(site!.userCollected)
-        collectItButton!.icon!.color = site!.media[0].domainColor!
+        collectItButton!.icon!.color = site!.media[0].vibrantColor!
     }
     
     func followit(sender:UIButton){
@@ -460,18 +464,18 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func updateFollowBtn() {
         
-        followButton!.layer.borderColor = site!.media[0].domainColor!.CGColor
+        followButton!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
 
         if site!.userFollowed {
             //TODO: send follow
             followButton!.setTitle(NSLocalizedString("Following", comment: "Following"), forState: UIControlState.Normal)
             followButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-            followButton!.backgroundColor = site!.media[0].domainColor!
+            followButton!.backgroundColor = site!.media[0].vibrantColor!
             
         } else  {
             //TODO: send unfollow
             followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
-            followButton!.setTitleColor(site!.media[0].domainColor!, forState: UIControlState.Normal)
+            followButton!.setTitleColor(site!.media[0].vibrantColor!, forState: UIControlState.Normal)
             followButton!.backgroundColor = UIColor.clearColor()
         }
     }
