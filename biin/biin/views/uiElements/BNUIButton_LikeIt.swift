@@ -10,7 +10,7 @@ import QuartzCore
 
 class BNUIButton_LikeIt:BNUIButton {
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

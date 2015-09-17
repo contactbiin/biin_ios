@@ -32,8 +32,8 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         self.becomeFirstResponder()
         
         var xpos:CGFloat = 0
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
 
         scroll = UIScrollView(frame: CGRectMake(0, 25, screenWidth, (screenHeight - 25)))
         scroll!.layer.cornerRadius = 5
@@ -140,7 +140,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    var vc = LoadingViewController()
+                    let vc = LoadingViewController()
                     BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)

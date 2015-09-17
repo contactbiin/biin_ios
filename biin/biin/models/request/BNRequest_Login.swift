@@ -27,7 +27,7 @@ class BNRequest_Login: BNRequest {
     
     override func run() {
         
-        println("BNRequest_Login.run()")
+        print("BNRequest_Login.run()")
         isRunning = true
         
         var response:BNResponse?
@@ -46,9 +46,9 @@ class BNRequest_Login: BNRequest {
                 
                 if let loginData = data["data"] as? NSDictionary {
                     
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
-                    var identifier = BNParser.findString("identifier", dictionary: loginData)
+                    let status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
+                    let identifier = BNParser.findString("identifier", dictionary: loginData)
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)

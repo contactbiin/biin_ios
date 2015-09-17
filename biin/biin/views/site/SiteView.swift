@@ -48,7 +48,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -59,10 +59,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
 
         showcases = Array<SiteView_Showcase>()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
-        var scrollHeight:CGFloat = (screenHeight - 20)
+        let scrollHeight:CGFloat = (screenHeight - 20)
         //Add here any other heights for site view.
         
         scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
@@ -167,13 +167,13 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         //showMenuSwipe.edges = UIRectEdge.Left
         //elementView!.scroll!.addGestureRecognizer(showMenuSwipe)
         
-        var backGesture = UISwipeGestureRecognizer(target: self, action: "backGestureAction:")
+        let backGesture = UISwipeGestureRecognizer(target: self, action: "backGestureAction:")
         backGesture.direction = UISwipeGestureRecognizerDirection.Right
         self.addGestureRecognizer(backGesture)
     }
     
     func backGestureAction(sender:UISwipeGestureRecognizer) {
-        println("backGestureAction()")
+        print("backGestureAction()")
         delegate!.showCategoriesView!(self)
     }
     
@@ -277,7 +277,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func showInformationView(sender:BNUIButton_SiteLocation){
-        println("show site information window")
+        print("show site information window")
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.locationView!.frame.origin.y = SharedUIManager.instance.screenHeight - self.locationViewHeigh
             self.fade!.alpha = 0.35
@@ -346,7 +346,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         if site!.showcases != nil {
             for showcase in site!.showcases! {
-                var showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site, colorIndex:colorIndex )
+                let showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site, colorIndex:colorIndex )
                 scroll!.addSubview(showcaseView)
                 showcases!.append(showcaseView)
                 ypos += showcaseHeight
@@ -380,9 +380,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
-        var imagesHeight = SharedUIManager.instance.screenWidth
+        let imagesHeight = SharedUIManager.instance.screenWidth
         var page:Int = 0
-        var ypos:CGFloat = floor(scrollView.contentOffset.y)
+        let ypos:CGFloat = floor(scrollView.contentOffset.y)
         
         if (ypos - imagesHeight) > 0 {
             page = Int(floor(ypos / showcaseHeight))

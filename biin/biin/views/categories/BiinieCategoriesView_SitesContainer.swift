@@ -35,7 +35,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -50,8 +50,8 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         self.backgroundColor = UIColor.appBackground()
         self.category = category
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - SharedUIManager.instance.categoriesHeaderHeight)))
 //        scroll!.backgroundColor = UIColor.biinColor()
@@ -69,8 +69,8 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         self.backgroundColor = UIColor.appBackground()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20))))
         //        scroll!.backgroundColor = UIColor.biinColor()
@@ -159,13 +159,13 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         }
         
         
-        println("Number of sites: \(category?.sitesDetails.count)")
+        print("Number of sites: \(category?.sitesDetails.count)")
         
         for var i = 0; i < category?.sitesDetails.count; i++ {
             
             
-            var siteIdentifier = category?.sitesDetails[i].identifier!
-            var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier!]
+            let siteIdentifier = category?.sitesDetails[i].identifier!
+            let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier!]
   
             if !isSiteAdded(siteIdentifier!) {
                 if columnCounter < columns {
@@ -178,7 +178,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                     columnCounter = 1
                 }
                 
-                var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
                 
                 miniSiteView.delegate = father?.father! as! MainView
                 
@@ -271,27 +271,27 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         
         var sitesArray:Array<BNSite> = Array<BNSite>()
         
-        var dataManager = BNAppSharedManager.instance.dataManager
-        var user = dataManager.bnUser!
-        var categories = user.categories
+        //let dataManager = BNAppSharedManager.instance.dataManager
+        //let user = dataManager.bnUser!
+        //var categories = user.categories
 
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             if category.hasSites {
                 for var i = 0; i < category.sitesDetails.count; i++ {
                     
-                    var siteIdentifier = category.sitesDetails[i].identifier!
+                    let siteIdentifier = category.sitesDetails[i].identifier!
                     
                     if let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ] {
                         if site.showInView {
                             sitesArray.append(site)
-                            println("Adding site.....")
+                            print("Adding site.....")
                         }
                     }
                 }
             }
         }
         
-        sitesArray = sorted(sitesArray){ $0.biinieProximity < $1.biinieProximity  }
+        sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
 
         /*
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
@@ -309,9 +309,9 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
 */
         
         
-        if sitesArray.count == 0 {
-            println("Number of sites: \(sitesArray.count)")
-        }
+//        if sitesArray.count == 0 {
+//            print("Number of sites: \(sitesArray.count)")
+//        }
 
         for site in sitesArray {
                     if site.showInView {
@@ -328,7 +328,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                                 columnCounter = 1
                             }
 
-                            var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                            let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
                             miniSiteView.isPositionedInFather = true
                             miniSiteView.isReadyToRemoveFromFather = false
                             miniSiteView.delegate = father?.father! as! MainView
@@ -396,7 +396,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         //SharedUIManager.instance.miniView_columns = columns
 
         
-        var sitesCount = sites!.count
+        //var sitesCount = sites!.count
         for var i = 0; i < sites!.count; i++ {
             if sites![i].isReadyToRemoveFromFather {
                 //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
@@ -424,7 +424,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
     // called on start of dragging (may require some time and or distance to move)
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         //handlePan(scrollView.panGestureRecognizer)
-        var mainView = father!.father! as! MainView
+        let mainView = father!.father! as! MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
     }
     
@@ -459,8 +459,8 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         if !isWorking || sites == nil { return }
         
         if sites!.count > 0 {
-            var height = self.siteViewHeight + self.siteSpacer
-            var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
+            let height = self.siteViewHeight + self.siteSpacer
+            let row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
 
             if lastRowRequested < row {
                 
@@ -477,7 +477,7 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
                 while !stop {
 
                     if i >= siteRequestPreviousLimit {
-                        var siteView = sites![i] as SiteMiniView
+                        let siteView = sites![i] as SiteMiniView
                         siteView.requestImage()
                         i--
                     } else  {

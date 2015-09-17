@@ -43,36 +43,42 @@ class BNRequest_SendBiinieActions: BNRequest {
             model["model"]!["actions"]?.append(action)
         }
         
-        var httpError: NSError?
-        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        //var httpError: NSError?
+        var htttpBody:NSData?
+        do {
+            htttpBody = try NSJSONSerialization.dataWithJSONObject(model, options:[])
+        } catch _ as NSError {
+            //httpError = error
+            htttpBody = nil
+        }
         
-        var response:BNResponse?
+        //var response:BNResponse?
         
         self.networkManager!.epsNetwork!.put(requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("Error on posting categoies")
+                print("Error on posting categoies")
                 self.networkManager!.handleFailedRequest(self, error: error )
-                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                //response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
                 
-                if let dataData = data["data"] as? NSDictionary {
-                    
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
-                    
-                    if result {
-                        //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                        self.user!.deleteAllActions()
-                    } else {
-                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                    }
-                    
+//                if let dataData = data["data"] as? NSDictionary {
+//                    
+//                    var status = BNParser.findInt("status", dictionary: data)
+//                    let result = BNParser.findBool("result", dictionary: data)
+//                    
+//                    if result {
+//                        //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+//                        self.user!.deleteAllActions()
+//                    } else {
+//                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+//                    }
+//                    
                     BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
 
-                }
+//                }
                 
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)

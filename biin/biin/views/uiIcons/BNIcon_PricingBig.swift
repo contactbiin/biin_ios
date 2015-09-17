@@ -45,7 +45,7 @@ class BNIcon_PricingBig:BNIcon {
         
         
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(0.05, 0.5))
         bezierPath.addLineToPoint(CGPointMake(49.05, 0.5))
         bezierPath.addLineToPoint(CGPointMake(0.05, 49.5))

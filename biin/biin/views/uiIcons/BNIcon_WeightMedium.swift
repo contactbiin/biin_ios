@@ -26,7 +26,7 @@ class BNIcon_WeightMedium:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(9.5, 13.6))
         bezier2Path.addLineToPoint(CGPointMake(8, 13.6))
         bezier2Path.addCurveToPoint(CGPointMake(6, 11.6), controlPoint1: CGPointMake(6.9, 13.6), controlPoint2: CGPointMake(6, 12.7))
@@ -43,7 +43,7 @@ class BNIcon_WeightMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(4.6, 11.2))
         bezier4Path.addLineToPoint(CGPointMake(3, 11.2))
         bezier4Path.addCurveToPoint(CGPointMake(1, 9.2), controlPoint1: CGPointMake(1.9, 11.2), controlPoint2: CGPointMake(1, 10.3))
@@ -59,10 +59,10 @@ class BNIcon_WeightMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(12, 6.9))
         bezier6Path.addLineToPoint(CGPointMake(14, 6.9))
-        bezier6Path.lineCapStyle = kCGLineCapRound;
+        bezier6Path.lineCapStyle = CGLineCap.Round;
         
         color!.setStroke()
         bezier6Path.lineWidth = 1
@@ -70,7 +70,7 @@ class BNIcon_WeightMedium:BNIcon {
         
         
         //// Bezier 8 Drawing
-        var bezier8Path = UIBezierPath()
+        let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(16, 13.6))
         bezier8Path.addLineToPoint(CGPointMake(17.5, 13.6))
         bezier8Path.addCurveToPoint(CGPointMake(19.5, 11.6), controlPoint1: CGPointMake(18.6, 13.6), controlPoint2: CGPointMake(19.5, 12.7))
@@ -87,7 +87,7 @@ class BNIcon_WeightMedium:BNIcon {
         
         
         //// Bezier 10 Drawing
-        var bezier10Path = UIBezierPath()
+        let bezier10Path = UIBezierPath()
         bezier10Path.moveToPoint(CGPointMake(21, 11.2))
         bezier10Path.addLineToPoint(CGPointMake(22.5, 11.2))
         bezier10Path.addCurveToPoint(CGPointMake(24.5, 9.2), controlPoint1: CGPointMake(23.6, 11.2), controlPoint2: CGPointMake(24.5, 10.3))
@@ -102,10 +102,10 @@ class BNIcon_WeightMedium:BNIcon {
         
         
         //// Bezier 12 Drawing
-        var bezier12Path = UIBezierPath()
+        let bezier12Path = UIBezierPath()
         bezier12Path.moveToPoint(CGPointMake(25, 6.9))
         bezier12Path.addLineToPoint(CGPointMake(26, 6.9))
-        bezier12Path.lineCapStyle = kCGLineCapRound;
+        bezier12Path.lineCapStyle = CGLineCap.Round;
         
         color!.setStroke()
         bezier12Path.lineWidth = 1
@@ -113,10 +113,10 @@ class BNIcon_WeightMedium:BNIcon {
         
         
         //// Bezier 14 Drawing
-        var bezier14Path = UIBezierPath()
+        let bezier14Path = UIBezierPath()
         bezier14Path.moveToPoint(CGPointMake(0, 6.9))
         bezier14Path.addLineToPoint(CGPointMake(1, 6.9))
-        bezier14Path.lineCapStyle = kCGLineCapRound;
+        bezier14Path.lineCapStyle = CGLineCap.Round;
         
         color!.setStroke()
         bezier14Path.lineWidth = 1

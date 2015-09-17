@@ -17,7 +17,7 @@ class BNUIButton_Social:BNUIButton {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -41,10 +41,10 @@ class BNUIButton_Social:BNUIButton {
         self.layer.cornerRadius  = 3
         self.layer.masksToBounds = true
         
-        var iconWidth:CGFloat = 10
-        var xSpace:CGFloat = 6
-        var ypos:CGFloat = 1
-        var xpos:CGFloat = xSpace + iconWidth
+        let iconWidth:CGFloat = 10
+        let xSpace:CGFloat = 6
+        let ypos:CGFloat = 1
+        let xpos:CGFloat = xSpace + iconWidth
         
         label = UILabel(frame: CGRectMake(xpos, ypos, 200, 10))
         label!.text = text
@@ -53,7 +53,7 @@ class BNUIButton_Social:BNUIButton {
         label!.sizeToFit()
         self.addSubview(label!)
         
-        var width:CGFloat = label!.frame.width + xpos + xSpace
+        let width:CGFloat = label!.frame.width + xpos + xSpace
         self.frame = CGRectMake(frame.origin.x, frame.origin.y, width, 15)
     }
     
@@ -63,9 +63,9 @@ class BNUIButton_Social:BNUIButton {
             icon = BNIcon_HeartSmall(color: UIColor.appMainColor(), position: CGPointMake(3.1, 3.6))
 //            icon = BNIcon_BiinSmall(color: UIColor.appMainColor(), position: CGPointMake(4, 3))
             break
-        case .biinSmall:
-            icon = BNIcon_CommentSmall(color: UIColor.appMainColor(), position: CGPointMake(3, 3))
-            break
+//        case .biinSmall:
+//            icon = BNIcon_CommentSmall(color: UIColor.appMainColor(), position: CGPointMake(3, 3))
+//            break
         case .shareSmall:
             icon = BNIcon_ShareSmall(color: UIColor.appMainColor(), position: CGPointMake(6, 3.5))
             break
@@ -88,14 +88,14 @@ class BNUIButton_Social:BNUIButton {
     
     func updateText(text:String) {
         
-        var iconWidth:CGFloat = 10
-        var xSpace:CGFloat = 6
-        var xpos:CGFloat = xSpace + iconWidth
+        let iconWidth:CGFloat = 10
+        let xSpace:CGFloat = 6
+        let xpos:CGFloat = xSpace + iconWidth
         
         label!.text = text
         label!.sizeToFit()
         
-        var width:CGFloat = label!.frame.width + xpos + xSpace
+        let width:CGFloat = label!.frame.width + xpos + xSpace
         self.frame = CGRectMake(frame.origin.x, frame.origin.y, width, 15)
         
         setNeedsDisplay()

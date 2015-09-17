@@ -28,7 +28,7 @@ class BNRequest_SendSharedElement: BNRequest {
     
     override func run() {
         
-        println("BNRequest_SendSharedElement.run()")
+        print("BNRequest_SendSharedElement.run()")
         isRunning = true
       
         var model = Dictionary<String, Dictionary <String, String>>()
@@ -38,8 +38,14 @@ class BNRequest_SendSharedElement: BNRequest {
         modelContent["type"] = "element"
         model["model"] = modelContent
         
-        var httpError: NSError?
-        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        //var httpError: NSError?
+        var htttpBody:NSData?
+        do {
+            htttpBody = try NSJSONSerialization.dataWithJSONObject(model, options:[])
+        } catch _ as NSError {
+            //httpError = error
+            htttpBody = nil
+        }
         
         var response:BNResponse?
         
@@ -52,10 +58,10 @@ class BNRequest_SendSharedElement: BNRequest {
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
                 
-                if let dataData = data["data"] as? NSDictionary {
+                //if let dataData = data["data"] as? NSDictionary {
                     
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
+                    let status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
@@ -65,7 +71,7 @@ class BNRequest_SendSharedElement: BNRequest {
                     }
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
-                }
+                //}
                 
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)

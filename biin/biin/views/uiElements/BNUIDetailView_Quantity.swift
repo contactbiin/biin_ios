@@ -19,15 +19,15 @@ class BNUIDetailView_Quantity:UIView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     convenience init(position:CGPoint, title:String?, value:String?, textColor:UIColor!, borderColor:UIColor ) {
         
         
-        var boxWidth = (SharedUIManager.instance.screenWidth - 14) / 3
-        var frame = CGRectMake(position.x, position.y, boxWidth, 30)
+        let boxWidth = (SharedUIManager.instance.screenWidth - 14) / 3
+        let frame = CGRectMake(position.x, position.y, boxWidth, 30)
         self.init(frame:frame)
         self.backgroundColor = UIColor.appBackground()
         self.layer.borderColor = borderColor.CGColor

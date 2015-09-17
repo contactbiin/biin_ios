@@ -27,9 +27,9 @@ class BNIcon_CollectIt:BNIcon {
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(7.58, 0))
         bezierPath.addLineToPoint(CGPointMake(7.58, 15))
-        bezierPath.lineCapStyle = kCGLineCapRound
+        bezierPath.lineCapStyle = CGLineCap.Round
         
-        bezierPath.lineJoinStyle = kCGLineJoinRound
+        bezierPath.lineJoinStyle = CGLineJoin.Round
         
         color!.setStroke()
         bezierPath.lineWidth = 1
@@ -40,9 +40,9 @@ class BNIcon_CollectIt:BNIcon {
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(15, 7.37))
         bezier2Path.addLineToPoint(CGPointMake(0, 7.37))
-        bezier2Path.lineCapStyle = kCGLineCapRound
+        bezier2Path.lineCapStyle = CGLineCap.Round
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound
+        bezier2Path.lineJoinStyle = CGLineJoin.Round
         
         color!.setStroke()
         bezier2Path.lineWidth = 1

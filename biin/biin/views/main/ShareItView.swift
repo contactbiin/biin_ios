@@ -14,7 +14,7 @@ class ShareItView:UIView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -28,9 +28,9 @@ class ShareItView:UIView {
         self.layer.masksToBounds = true
 
         var ypos:CGFloat = 30
-        var hasPrice = false
+        //var hasPrice = false
         
-        var image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320))
+        let image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320))
         
         if site!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(element.media[0].url!, image: image)
@@ -56,46 +56,46 @@ class ShareItView:UIView {
         } else if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.currency!)\(element.price!)", isMini:false, isDiscount:false)
             self.addSubview(priceView!)
-            hasPrice = true
+            //hasPrice = true
             ypos += 40
             
         } else if element.hasPrice && element.hasListPrice && element.hasDiscount {
             
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.price!)", newPrice:"\(element.currency!)\(element.listPrice!)", percentage:"\(element.discount!)%", isMini:false, isHighlight:element.isHighlight, color:element.media[0].domainColor!)
             self.addSubview(priceView!)
-            hasPrice = true
+            //hasPrice = true
             ypos += 40
             
         } else if element.hasPrice && element.hasListPrice && element.hasDiscount {
             //TODO
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.price!)", newPrice:"\(element.currency!)\(element.listPrice!)", isMini:false, isHighlight:element.isHighlight)
             self.addSubview(priceView!)
-            hasPrice = true
+            //hasPrice = true
             ypos += 40
             
         } else if element.hasPrice && element.hasFromPrice {
             priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(element.currency!)\(element.price!)", from:NSLocalizedString("From", comment: "From")
                 , isMini:false, isHighlight:element.isHighlight)
             self.addSubview(priceView!)
-            hasPrice = true
+            //hasPrice = true
             ypos += 40
         }
         
         ypos = 0
-        var whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
+        let whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
         whiteBackground.backgroundColor = UIColor.appMainColor()
         
         self.addSubview(whiteBackground)
 
         ypos += 6
-        var title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
+        let title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
         title.font = UIFont(name:"Lato-Black", size:25)
         title.textColor = element.titleColor!
         title.text = element.title
         self.addSubview(title)
         
         ypos += 28
-        var subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
+        let subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
         subTitle.font = UIFont(name:"Lato-Light", size:13)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = element.subTitle
@@ -103,7 +103,7 @@ class ShareItView:UIView {
         
         ypos = 360
         
-        var siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
+        let siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
         siteLocation.updateForSite(site!)
         siteLocation.map!.alpha = 0
         siteLocation.frame.origin.y = ypos
@@ -112,11 +112,11 @@ class ShareItView:UIView {
         ypos += siteLocation.yStop
         ypos += 40
         
-        var whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
+        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
         whiteBackground2.backgroundColor = UIColor.biinColor()
         self.addSubview(whiteBackground2)
         
-        var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
+        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
         whiteBackground2.addSubview(biinLogo)
         
         ypos += 35
@@ -134,48 +134,48 @@ class ShareItView:UIView {
         
         var ypos:CGFloat = 30
         if site.media.count > 0 {
-            var organizationAvatar = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320))
+            let organizationAvatar = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320))
             self.addSubview(organizationAvatar)
             BNAppSharedManager.instance.networkManager.requestImageData(site.media[0].url!, image: organizationAvatar)
         } else {
-            var image = UIImage(named: "noImage.jpg")
-            var imageView = UIImageView(image: image)
+            let image = UIImage(named: "noImage.jpg")
+            let imageView = UIImageView(image: image)
             self.addSubview(imageView)
             imageView.frame = CGRectMake(0, ypos, 320, 320)
         }
         
         ypos = 0
-        var whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
+        let whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
         whiteBackground.backgroundColor = UIColor.appMainColor()
         self.addSubview(whiteBackground)
         
         ypos += 6
-        var title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
+        let title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
         title.font = UIFont(name:"Lato-Black", size:25)
         title.textColor = site.titleColor!
         title.text = site.title
         self.addSubview(title)
         
         ypos += 28
-        var subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
+        let subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
         subTitle.font = UIFont(name:"Lato-Light", size:13)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = site.subTitle
         self.addSubview(subTitle)
         
         ypos = 370
-        var siteLocation = SiteView_Location(frame: CGRectMake(0, ypos, 0, 0), father: nil)
+        let siteLocation = SiteView_Location(frame: CGRectMake(0, ypos, 0, 0), father: nil)
         siteLocation.updateForSite(site)
         siteLocation.map!.alpha = 0
         siteLocation.frame.origin.y = ypos
         self.addSubview(siteLocation)
         
         ypos += 110
-        var whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
+        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
         whiteBackground2.backgroundColor = UIColor.biinColor()
         self.addSubview(whiteBackground2)
         
-        var biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
+        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
         whiteBackground2.addSubview(biinLogo)
         
         ypos += 35

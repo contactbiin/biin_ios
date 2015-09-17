@@ -34,7 +34,7 @@ class SignupView:UIView, UITextFieldDelegate {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -46,7 +46,7 @@ class SignupView:UIView, UITextFieldDelegate {
         //        self.layer.masksToBounds = true
         //        self.becomeFirstResponder()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
+        let screenWidth = SharedUIManager.instance.screenWidth
         var ypos:CGFloat = 20
 
         
@@ -186,7 +186,7 @@ class SignupView:UIView, UITextFieldDelegate {
                 genderTxt!.showError()
             }
                 
-            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text) {
+            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text!) {
                 ready = true
             }else{
                 emailTxt!.showError()
@@ -195,7 +195,7 @@ class SignupView:UIView, UITextFieldDelegate {
         
         
         if ready {
-            var user = Biinie(identifier:emailTxt!.textField!.text, firstName: firstNameTxt!.textField!.text, lastName: lastNameTxt!.textField!.text, email: emailTxt!.textField!.text, gender:genderStr!)
+            let user = Biinie(identifier:emailTxt!.textField!.text!, firstName: firstNameTxt!.textField!.text!, lastName: lastNameTxt!.textField!.text!, email: emailTxt!.textField!.text!, gender:genderStr!)
             user.password = passwordTxt!.textField!.text
             BNAppSharedManager.instance.dataManager.bnUser = user
             BNAppSharedManager.instance.networkManager.register(user)
@@ -214,7 +214,7 @@ class SignupView:UIView, UITextFieldDelegate {
 
         if !isKeyboardUp {
             isKeyboardUp = true
-            println("keyboardDidShow")
+            print("keyboardDidShow")
             
             UIView.animateWithDuration(0.1, animations: {() -> Void in
                 //self.biinLogoImage!.alpha = 0
@@ -241,7 +241,7 @@ class SignupView:UIView, UITextFieldDelegate {
         
         if isKeyboardUp {
             isKeyboardUp = false
-            println("keyboardDidShow")
+            print("keyboardDidShow")
             UIView.animateWithDuration(0.1, animations: {() -> Void in
                 self.firstNameTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
                 self.lastNameTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
@@ -267,13 +267,13 @@ class SignupView:UIView, UITextFieldDelegate {
 //        self.endEditing(true)
 //    }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.endEditing(true)
     }
     
     //UITextFieldDelegate Methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        println("textFieldShouldBeginEditing")
+        print("textFieldShouldBeginEditing")
         
 //        if !isKeyboardUp {
 //            
@@ -298,11 +298,11 @@ class SignupView:UIView, UITextFieldDelegate {
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        println("textFieldDidBeginEditing")
+        print("textFieldDidBeginEditing")
     }// became first responder
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        println("textFieldShouldEndEditing")
+        print("textFieldShouldEndEditing")
         
 //        if textField.placeholder == "Password" {
 //            if countElements(textField.text) <= 7 {
@@ -314,7 +314,7 @@ class SignupView:UIView, UITextFieldDelegate {
     }// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
     
     func textFieldDidEndEditing(textField: UITextField) {
-        println("textFieldDidEndEditing")
+        print("textFieldDidEndEditing")
         
 //        if isKeyboardUp {
 //
@@ -337,13 +337,13 @@ class SignupView:UIView, UITextFieldDelegate {
     }// may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        println("textField")
+        print("textField")
         
         textField.textColor = UIColor.appTextColor()
         
-        if !textField.text.isEmpty {
+        if !textField.text!.isEmpty {
             
-            textField.text = SharedUIManager.instance.removeSpecielCharacter(textField.text)
+            textField.text = SharedUIManager.instance.removeSpecielCharacter(textField.text!)
             
 //            if !passwordTxt!.textField!.text.isEmpty {
 //                singupBtn!.showEnable()
@@ -356,13 +356,13 @@ class SignupView:UIView, UITextFieldDelegate {
     }// return NO to not change text
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
-        println("textFieldShouldClear")
+        print("textFieldShouldClear")
         //singupBtn!.showDisable()
         return false
     }// called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        println("textFieldShouldReturn")
+        print("textFieldShouldReturn")
     
         return false
     }// called when 'return' key pressed. return NO to ignore.

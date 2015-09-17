@@ -29,7 +29,7 @@ class BNRequest_SendBiinie:BNRequest {
     
     override func run() {
         
-        println("BNRequest_SendBiinie.run()")
+        print("BNRequest_SendBiinie.run()")
         isRunning = true
         
         var model = Dictionary<String, Dictionary <String, String>>()
@@ -41,8 +41,14 @@ class BNRequest_SendBiinie:BNRequest {
         modelContent["birthDate"] = self.user!.birthDate!.bnDateFormatt()
         model["model"] = modelContent
         
-        var httpError: NSError?
-        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        //var httpError: NSError?
+        var htttpBody:NSData?
+        do {
+            htttpBody = try NSJSONSerialization.dataWithJSONObject(model, options:[])
+        } catch _ as NSError {
+            //httpError = error
+            htttpBody = nil
+        }
         
         var response:BNResponse?
         
@@ -51,15 +57,15 @@ class BNRequest_SendBiinie:BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("ERROR on sendBiinie()")
+                print("ERROR on sendBiinie()")
                 self.networkManager!.handleFailedRequest(self, error: error )
                 response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
                 
-                if let dataData = data["data"] as? NSDictionary {
+                //if let dataData = data["data"] as? NSDictionary {
                     
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
+                    let status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
@@ -69,7 +75,7 @@ class BNRequest_SendBiinie:BNRequest {
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
          
-                }
+                //}
                 
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)

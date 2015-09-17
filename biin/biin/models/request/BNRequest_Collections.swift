@@ -27,7 +27,7 @@ class BNRequest_Collections: BNRequest {
     
     override func run() {
         
-        println("BNRequest_Collections.run()")
+        print("BNRequest_Collections.run()")
         isRunning = true
         
         
@@ -39,24 +39,24 @@ class BNRequest_Collections: BNRequest {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var result = BNParser.findBool("result", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         
                         var collectionList = Array<BNCollection>()
-                        var collections = BNParser.findNSArray("biinieCollections", dictionary: dataData)
+                        let collections = BNParser.findNSArray("biinieCollections", dictionary: dataData)
                         
-                        println("number of collections: \(collections?.count)")
+                        print("number of collections: \(collections?.count)")
                         
                         for var i = 0; i < collections?.count; i++ {
                             
-                            var collectionData = collections!.objectAtIndex(i) as! NSDictionary
-                            var collection = BNCollection()
+                            let collectionData = collections!.objectAtIndex(i) as! NSDictionary
+                            let collection = BNCollection()
                             collection.identifier = BNParser.findString("identifier", dictionary: collectionData)
                             collection.title = NSLocalizedString("CollectionTitle", comment: "CollectionTitle")
                             collection.subTitle = NSLocalizedString("CollectionSubTitle", comment: "CollectionSubTitle")
                             
-                            var elements = BNParser.findNSArray("elements", dictionary: collectionData)
+                            let elements = BNParser.findNSArray("elements", dictionary: collectionData)
                             collection.items = Array<String>()
                             
                             if elements?.count > 0 {
@@ -64,8 +64,8 @@ class BNRequest_Collections: BNRequest {
                                 collection.elements = Dictionary<String, BNElement>()
                                 
                                 for ( var j = 0; j < elements?.count; j++ ) {
-                                    var elementData = elements!.objectAtIndex(j) as! NSDictionary
-                                    var element = BNElement()
+                                    let elementData = elements!.objectAtIndex(j) as! NSDictionary
+                                    let element = BNElement()
                                     element.identifier = BNParser.findString("identifier", dictionary: elementData)
                                     element._id = BNParser.findString("_id", dictionary: elementData)
                                     collection.elements[element.identifier!] = element
@@ -73,15 +73,15 @@ class BNRequest_Collections: BNRequest {
                                 }
                             }
                             
-                            var sites = BNParser.findNSArray("sites", dictionary: collectionData)
+                            let sites = BNParser.findNSArray("sites", dictionary: collectionData)
                             
                             if sites?.count > 0 {
                                 
                                 collection.sites = Dictionary<String, BNSite>()
                                 
                                 for ( var i = 0; i < sites?.count; i++ ) {
-                                    var siteData = sites!.objectAtIndex(i) as! NSDictionary
-                                    var site = BNSite()
+                                    let siteData = sites!.objectAtIndex(i) as! NSDictionary
+                                    let site = BNSite()
                                     site.identifier = BNParser.findString("identifier", dictionary: siteData)
                                     collection.sites[site.identifier!] = site
                                     collection.items.append(site.identifier!)
@@ -96,7 +96,7 @@ class BNRequest_Collections: BNRequest {
                     }
                     
                 } else {
-                    println("NOT COLLECTION FOR \(self.requestString)")
+                    print("NOT COLLECTION FOR \(self.requestString)")
                 }
                 
                 self.inCompleted = true

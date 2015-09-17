@@ -13,7 +13,7 @@ class BNParser {
     }
 
     class func findBool(name:String, dictionary:NSDictionary) -> Bool {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return true
@@ -23,7 +23,7 @@ class BNParser {
     }
     
     class func findInt(name:String, dictionary:NSDictionary) ->Int? {
-        return (dictionary[name] as? String)?.toInt()
+        return Int(((dictionary[name] as? String))!)
     }
     
     class func findFloat(name:String, dictionary:NSDictionary) ->Float? {
@@ -49,12 +49,12 @@ class BNParser {
     }
     
     class func findNSDate(name:String, dictionary:NSDictionary) ->NSDate? {
-        var date:NSDate? = NSDate(dateString:(dictionary[name] as? String)!)
+        let date:NSDate? = NSDate(dateString:(dictionary[name] as? String)!)
         return date
     }
     
     class func findBNBiinType(name:String, dictionary:NSDictionary) -> BNBiinType {
-        var value:Int = self.findInt(name, dictionary: dictionary)!
+        let value:Int = self.findInt(name, dictionary: dictionary)!
         switch value {
         case 0:
             return BNBiinType.NONE
@@ -70,7 +70,7 @@ class BNParser {
     }
     
     class func findBNElementType(name:String, dictionary:NSDictionary) -> BNElementType {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return BNElementType.Simple
@@ -84,7 +84,7 @@ class BNParser {
     }
     
     class func findBNElementDetailType(name:String, dictionary:NSDictionary) -> BNElementDetailType {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return BNElementDetailType.Title
@@ -104,7 +104,7 @@ class BNParser {
     }
     
     class func findBNShowcaseTheme(name:String, dictionary:NSDictionary) -> BNShowcaseTheme {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return BNShowcaseTheme.Dark
@@ -116,7 +116,7 @@ class BNParser {
     }
     
     class func findBNShowcaseType(name:String, dictionary:NSDictionary) -> BNShowcaseType {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return BNShowcaseType.SimpleProduct
@@ -129,7 +129,7 @@ class BNParser {
     
     
     class func findBNStickerType(name:String, dictionary:NSDictionary) -> BNStickerType {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return BNStickerType.CIRCLE_FREE
@@ -145,7 +145,7 @@ class BNParser {
     }
     
     class func findNotificationType(name:String, dictionary:NSDictionary) -> BNNotificationType {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         if value == 1 {
             return BNNotificationType.STIMULUS
         } else if value == 2 {
@@ -158,7 +158,7 @@ class BNParser {
     }
     
     class func findMediaType(name:String, dictionary:NSDictionary) -> BNMediaType {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return BNMediaType.Image
@@ -170,7 +170,7 @@ class BNParser {
     }
     
     class func findBiinObjectType(name:String, dictionary:NSDictionary) -> BNBiinObjectType {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return BNBiinObjectType.ELEMENT
@@ -186,7 +186,7 @@ class BNParser {
     }
     
     class func findCurrency(name:String, dictionary:NSDictionary) -> String {
-        var value = self.findInt(name, dictionary: dictionary)
+        let value = self.findInt(name, dictionary: dictionary)
         
         if value == 1 {
             return "$"
@@ -209,11 +209,11 @@ class BNParser {
         var g = ""
         var b = ""
         
-        var isNumber = false
+        //var isNumber = false
         var counter = 0
         
-        for c in color! {
-            isNumber = false
+        for c in (color!).characters {
+            //isNumber = false
             switch (c) {
             case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9":
                 if counter == 0 {
@@ -232,6 +232,6 @@ class BNParser {
             }
         }
         
-        return UIColor(red: (CGFloat(r.toInt()!) / 255), green: (CGFloat(g.toInt()!) / 255), blue:(CGFloat(b.toInt()!) / 255), alpha: 1.0)
+        return UIColor(red: (CGFloat(Int(r)!) / 255), green: (CGFloat(Int(g)!) / 255), blue:(CGFloat(Int(b)!) / 255), alpha: 1.0)
     }
 }

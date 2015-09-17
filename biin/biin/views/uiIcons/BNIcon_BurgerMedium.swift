@@ -25,7 +25,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         //// Group 2
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(6.5, 3.5))
         bezier2Path.addCurveToPoint(CGPointMake(6, 4), controlPoint1: CGPointMake(6.2, 3.5), controlPoint2: CGPointMake(6, 3.7))
         bezier2Path.addCurveToPoint(CGPointMake(6.5, 4.5), controlPoint1: CGPointMake(6, 4.3), controlPoint2: CGPointMake(6.2, 4.5))
@@ -40,7 +40,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         //// Group 3
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(9, 2.5))
         bezier4Path.addCurveToPoint(CGPointMake(8.5, 3), controlPoint1: CGPointMake(8.7, 2.5), controlPoint2: CGPointMake(8.5, 2.7))
         bezier4Path.addCurveToPoint(CGPointMake(9, 3.5), controlPoint1: CGPointMake(8.5, 3.3), controlPoint2: CGPointMake(8.7, 3.5))
@@ -58,7 +58,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         //// Group 4
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(14, 2.5))
         bezier6Path.addCurveToPoint(CGPointMake(13.5, 3), controlPoint1: CGPointMake(13.7, 2.5), controlPoint2: CGPointMake(13.5, 2.7))
         bezier6Path.addCurveToPoint(CGPointMake(14, 3.5), controlPoint1: CGPointMake(13.5, 3.3), controlPoint2: CGPointMake(13.7, 3.5))
@@ -76,7 +76,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         //// Group 5
         //// Bezier 8 Drawing
-        var bezier8Path = UIBezierPath()
+        let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(11.5, 3.5))
         bezier8Path.addCurveToPoint(CGPointMake(11, 4), controlPoint1: CGPointMake(11.2, 3.5), controlPoint2: CGPointMake(11, 3.7))
         bezier8Path.addCurveToPoint(CGPointMake(11.5, 4.5), controlPoint1: CGPointMake(11, 4.3), controlPoint2: CGPointMake(11.2, 4.5))
@@ -94,7 +94,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         //// Group 6
         //// Bezier 10 Drawing
-        var bezier10Path = UIBezierPath()
+        let bezier10Path = UIBezierPath()
         bezier10Path.moveToPoint(CGPointMake(16.5, 3.5))
         bezier10Path.addCurveToPoint(CGPointMake(16, 4), controlPoint1: CGPointMake(16.2, 3.5), controlPoint2: CGPointMake(16, 3.7))
         bezier10Path.addCurveToPoint(CGPointMake(16.5, 4.5), controlPoint1: CGPointMake(16, 4.3), controlPoint2: CGPointMake(16.2, 4.5))
@@ -111,13 +111,13 @@ class BNIcon_BurgerMedium:BNIcon {
         
         
         //// Bezier 12 Drawing
-        var bezier12Path = UIBezierPath()
+        let bezier12Path = UIBezierPath()
         bezier12Path.moveToPoint(CGPointMake(11.5, 16))
         bezier12Path.addLineToPoint(CGPointMake(17.5, 19))
         bezier12Path.addLineToPoint(CGPointMake(20.5, 16))
-        bezier12Path.lineCapStyle = kCGLineCapRound;
+        bezier12Path.lineCapStyle = CGLineCap.Round;
         
-        bezier12Path.lineJoinStyle = kCGLineJoinRound;
+        bezier12Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier12Path.lineWidth = 1
@@ -125,7 +125,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         
         //// Bezier 14 Drawing
-        var bezier14Path = UIBezierPath()
+        let bezier14Path = UIBezierPath()
         bezier14Path.moveToPoint(CGPointMake(23, 18))
         bezier14Path.addCurveToPoint(CGPointMake(21, 20), controlPoint1: CGPointMake(23, 19.1), controlPoint2: CGPointMake(22.1, 20))
         bezier14Path.addLineToPoint(CGPointMake(2, 20))
@@ -134,9 +134,9 @@ class BNIcon_BurgerMedium:BNIcon {
         bezier14Path.addLineToPoint(CGPointMake(21, 16))
         bezier14Path.addCurveToPoint(CGPointMake(23, 18), controlPoint1: CGPointMake(22.1, 16), controlPoint2: CGPointMake(23, 16.9))
         bezier14Path.closePath()
-        bezier14Path.lineCapStyle = kCGLineCapRound;
+        bezier14Path.lineCapStyle = CGLineCap.Round;
         
-        bezier14Path.lineJoinStyle = kCGLineJoinRound;
+        bezier14Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier14Path.lineWidth = 1
@@ -144,16 +144,16 @@ class BNIcon_BurgerMedium:BNIcon {
         
         
         //// Bezier 16 Drawing
-        var bezier16Path = UIBezierPath()
+        let bezier16Path = UIBezierPath()
         bezier16Path.moveToPoint(CGPointMake(21, 12))
         bezier16Path.addCurveToPoint(CGPointMake(23, 14), controlPoint1: CGPointMake(22.1, 12), controlPoint2: CGPointMake(23, 12.9))
         bezier16Path.addCurveToPoint(CGPointMake(21, 16), controlPoint1: CGPointMake(23, 15.1), controlPoint2: CGPointMake(22.1, 16))
         bezier16Path.addLineToPoint(CGPointMake(2, 16))
         bezier16Path.addCurveToPoint(CGPointMake(0, 14), controlPoint1: CGPointMake(0.9, 16), controlPoint2: CGPointMake(0, 15.1))
         bezier16Path.addCurveToPoint(CGPointMake(2, 12), controlPoint1: CGPointMake(0, 12.9), controlPoint2: CGPointMake(0.9, 12))
-        bezier16Path.lineCapStyle = kCGLineCapRound;
+        bezier16Path.lineCapStyle = CGLineCap.Round;
         
-        bezier16Path.lineJoinStyle = kCGLineJoinRound;
+        bezier16Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier16Path.lineWidth = 1
@@ -161,7 +161,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         
         //// Bezier 18 Drawing
-        var bezier18Path = UIBezierPath()
+        let bezier18Path = UIBezierPath()
         bezier18Path.moveToPoint(CGPointMake(2, 20))
         bezier18Path.addLineToPoint(CGPointMake(2, 21))
         bezier18Path.addCurveToPoint(CGPointMake(4, 23), controlPoint1: CGPointMake(2, 22.1), controlPoint2: CGPointMake(2.9, 23))
@@ -170,24 +170,24 @@ class BNIcon_BurgerMedium:BNIcon {
         bezier18Path.addLineToPoint(CGPointMake(21, 20))
         bezier18Path.addLineToPoint(CGPointMake(2, 20))
         bezier18Path.closePath()
-        bezier18Path.lineCapStyle = kCGLineCapRound;
+        bezier18Path.lineCapStyle = CGLineCap.Round;
         
-        bezier18Path.lineJoinStyle = kCGLineJoinRound;
+        bezier18Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier18Path.lineWidth = 1
         bezier18Path.stroke()
         
         //// Bezier 20 Drawing
-        var bezier20Path = UIBezierPath()
+        let bezier20Path = UIBezierPath()
         bezier20Path.moveToPoint(CGPointMake(21, 9))
         bezier20Path.addCurveToPoint(CGPointMake(11.5, 0), controlPoint1: CGPointMake(21, 3.8), controlPoint2: CGPointMake(16.7, 0))
         bezier20Path.addCurveToPoint(CGPointMake(2, 9), controlPoint1: CGPointMake(6.3, 0), controlPoint2: CGPointMake(2, 3.8))
         bezier20Path.addLineToPoint(CGPointMake(21, 9))
         bezier20Path.closePath()
-        bezier20Path.lineCapStyle = kCGLineCapRound;
+        bezier20Path.lineCapStyle = CGLineCap.Round;
         
-        bezier20Path.lineJoinStyle = kCGLineJoinRound;
+        bezier20Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier20Path.lineWidth = 1
@@ -195,7 +195,7 @@ class BNIcon_BurgerMedium:BNIcon {
         
         
         //// Bezier 22 Drawing
-        var bezier22Path = UIBezierPath()
+        let bezier22Path = UIBezierPath()
         bezier22Path.moveToPoint(CGPointMake(2, 9))
         bezier22Path.addCurveToPoint(CGPointMake(0, 10.5), controlPoint1: CGPointMake(2, 9), controlPoint2: CGPointMake(0, 9.4))
         bezier22Path.addCurveToPoint(CGPointMake(2, 12), controlPoint1: CGPointMake(0, 11.6), controlPoint2: CGPointMake(0.9, 12))
@@ -209,9 +209,9 @@ class BNIcon_BurgerMedium:BNIcon {
         bezier22Path.addCurveToPoint(CGPointMake(21, 12), controlPoint1: CGPointMake(19.9, 11.8), controlPoint2: CGPointMake(20.5, 12))
         bezier22Path.addCurveToPoint(CGPointMake(23, 10.5), controlPoint1: CGPointMake(22.1, 12), controlPoint2: CGPointMake(23, 11.6))
         bezier22Path.addCurveToPoint(CGPointMake(21, 9), controlPoint1: CGPointMake(23, 9.4), controlPoint2: CGPointMake(21, 9))
-        bezier22Path.lineCapStyle = kCGLineCapRound;
+        bezier22Path.lineCapStyle = CGLineCap.Round;
         
-        bezier22Path.lineJoinStyle = kCGLineJoinRound;
+        bezier22Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier22Path.lineWidth = 1

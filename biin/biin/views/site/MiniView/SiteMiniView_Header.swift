@@ -18,7 +18,7 @@ class SiteMiniView_Header:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -35,7 +35,7 @@ class SiteMiniView_Header:BNView {
         //self.addSubview(buttonsView!)
         //ypos += 16
         
-        var title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 3)))
+        let title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = site!.titleColor
         title.text = site!.title
@@ -43,7 +43,7 @@ class SiteMiniView_Header:BNView {
         
         ypos += SharedUIManager.instance.miniView_titleSize + 3
         
-        var subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
+        let subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
         subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.appTextColor()
         subTitle.text = site!.subTitle!//"\(site!.biinieProximity!)"c
@@ -51,11 +51,11 @@ class SiteMiniView_Header:BNView {
     }
     
     override func transitionIn() {
-        println("trasition in on SiteMiniView_Header")
+        print("trasition in on SiteMiniView_Header")
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteMiniView_Header")
+        print("trasition out on SiteMiniView_Header")
     }
     
     override func setNextState(option:Int){
@@ -65,7 +65,7 @@ class SiteMiniView_Header:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteMiniView_Header")
+            print("showUserControl: SiteMiniView_Header")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -73,7 +73,7 @@ class SiteMiniView_Header:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteMiniView_Header")
+            print("updateUserControl: SiteMiniView_Header")
         }else{
             father!.updateUserControl(position)
         }

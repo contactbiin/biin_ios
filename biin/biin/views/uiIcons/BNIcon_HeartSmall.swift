@@ -23,7 +23,7 @@ class BNIcon_HeartSmall:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(6.2, 0))
         bezierPath.addCurveToPoint(CGPointMake(4.25, 1.04), controlPoint1: CGPointMake(5.38, 0), controlPoint2: CGPointMake(4.66, 0.42))
         bezierPath.addCurveToPoint(CGPointMake(2.3, 0), controlPoint1: CGPointMake(3.84, 0.42), controlPoint2: CGPointMake(3.12, 0))
@@ -35,9 +35,9 @@ class BNIcon_HeartSmall:BNIcon {
         bezierPath.addCurveToPoint(CGPointMake(6.2, 0), controlPoint1: CGPointMake(8.5, 0.99), controlPoint2: CGPointMake(7.47, 0))
         bezierPath.addLineToPoint(CGPointMake(6.2, 0))
         bezierPath.closePath()
-        bezierPath.lineCapStyle = kCGLineCapRound;
+        bezierPath.lineCapStyle = CGLineCap.Round;
         
-        bezierPath.lineJoinStyle = kCGLineJoinRound;
+        bezierPath.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezierPath.lineWidth = 1.5

@@ -325,12 +325,12 @@ class BNAppManager {
     }
 */
     func runningInBackground()->Bool {
-        var state = UIApplication.sharedApplication().applicationState
+        let state = UIApplication.sharedApplication().applicationState
         return state == UIApplicationState.Background
     }
     
     func runningInForeground()->Bool {
-        var state = UIApplication.sharedApplication().applicationState
+        let state = UIApplication.sharedApplication().applicationState
         return state == UIApplicationState.Active
     }
     

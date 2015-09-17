@@ -28,8 +28,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
 //        var bgView = UIView(frame:CGRectMake(0, 20, screenWidth, screenHeight))
 //        bgView.backgroundColor = UIColor.whiteColor()
@@ -67,7 +67,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 //
 //                }, completion: {(completed:Bool)-> Void in
             
-                    var developmentView = DevelopmentView(frame:CGRectMake(0, 20, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 20)), viewController:self)
+                    let developmentView = DevelopmentView(frame:CGRectMake(0, 20, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 20)), viewController:self)
                     self.view.addSubview(developmentView)
                     
 //            })
@@ -95,7 +95,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 //                }, completion: {(completed:Bool)-> Void in
 
                     loadingView!.hideProgressView()
-                    var vc = MainViewController()
+                    let vc = MainViewController()
                     vc.initViewController(self.view.frame)
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)

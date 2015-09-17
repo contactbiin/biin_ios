@@ -39,7 +39,7 @@ class CollectionView_ItemView: BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -90,7 +90,7 @@ class CollectionView_ItemView: BNView {
 
         
         //Positioning image
-        var imageSize = frame.height - SharedUIManager.instance.miniView_headerHeight
+        let imageSize = frame.height - SharedUIManager.instance.miniView_headerHeight
         var xpos = ((imageSize - frame.width) / 2 ) * -1
         image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize))
         self.addSubview(image!)
@@ -140,7 +140,7 @@ class CollectionView_ItemView: BNView {
             }
         }
         
-        var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()

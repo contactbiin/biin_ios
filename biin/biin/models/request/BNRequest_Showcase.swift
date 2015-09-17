@@ -36,29 +36,29 @@ class BNRequest_Showcase: BNRequest {
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                println("Error on showcase data")
+                print("Error on showcase data")
                 self.networkManager!.handleFailedRequest(self, error: error)
             } else {
                 
                 if let showcaseData = data["data"] as? NSDictionary {
                     
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
+                    //var status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         self.showcase!.identifier = BNParser.findString("identifier", dictionary: showcaseData)
                         self.showcase!.lastUpdate = BNParser.findNSDate("lastUpdate", dictionary: showcaseData)
-                        self.showcase!.theme = BNParser.findBNShowcaseTheme("theme", dictionary: showcaseData)
+                        //self.showcase!.theme = BNParser.findBNShowcaseTheme("theme", dictionary: showcaseData)
                         self.showcase!.showcaseType = BNParser.findBNShowcaseType("showcaseType", dictionary: showcaseData)
                         self.showcase!.title = BNParser.findString("title", dictionary: showcaseData)
                         self.showcase!.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
                         self.showcase!.titleColor = BNParser.findUIColor("titleColor", dictionary: showcaseData)!
-                        var elements = BNParser.findNSArray("elements", dictionary: showcaseData)
+                        let elements = BNParser.findNSArray("elements", dictionary: showcaseData)
                         
                         for var i = 0; i < elements?.count; i++ {
                             
-                            var elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
-                            var element = BNElement()
+                            let elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
+                            let element = BNElement()
                             element._id = BNParser.findString("_id", dictionary: elementData)
                             element.identifier = BNParser.findString("elementIdentifier", dictionary: elementData)
                             element.jsonUrl = BNParser.findString("jsonUrl", dictionary: elementData)

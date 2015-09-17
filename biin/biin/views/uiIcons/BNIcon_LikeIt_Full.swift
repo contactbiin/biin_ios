@@ -31,7 +31,7 @@ class BNIcon_LikeIt_Full:BNIcon {
         bezierPath.addCurveToPoint(CGPointMake(0, 4.73), controlPoint1: CGPointMake(7.76, -1.57), controlPoint2: CGPointMake(0, -1.15))
         bezierPath.addCurveToPoint(CGPointMake(8.75, 15.5), controlPoint1: CGPointMake(0, 10.6), controlPoint2: CGPointMake(8.75, 15.5))
         bezierPath.closePath()
-        bezierPath.lineJoinStyle = kCGLineJoinRound
+        bezierPath.lineJoinStyle = CGLineJoin.Round
         
         color!.setFill()
         bezierPath.fill()

@@ -27,7 +27,7 @@ class MenuView:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -39,7 +39,7 @@ class MenuView:UIView {
         self.layer.masksToBounds = true
         
         var ypos:CGFloat = 20
-        var distance:CGFloat = 65
+        let distance:CGFloat = 65
 
         /*
         Profile = "Profile";

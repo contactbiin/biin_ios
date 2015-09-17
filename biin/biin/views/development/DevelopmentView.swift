@@ -38,11 +38,11 @@ class DevelopmentView:UIView {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
 
         var ypos:CGFloat = 10
-        var xpos:CGFloat = 10
+        let xpos:CGFloat = 10
         
         biinLogo = BNUIBiinView(position:CGPoint(x:xpos, y:ypos), scale:1)
         self.addSubview(biinLogo!)
@@ -115,7 +115,7 @@ class DevelopmentView:UIView {
         self.addSubview(label)
         ypos += 35
         
-        var isUsingCache = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
+        let isUsingCache = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
         isUsingCache.setOn(BNAppSharedManager.instance.settings!.IS_USING_CACHE, animated: false)
         isUsingCache.addTarget(self, action: "isUsingCacheAction:", forControlEvents: UIControlEvents.ValueChanged)
         self.addSubview(isUsingCache)
@@ -167,7 +167,7 @@ class DevelopmentView:UIView {
         self.addSubview(label)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
@@ -238,7 +238,7 @@ class DevelopmentView:UIView {
     }
     
     func enterBtnAction(sender: UIButton!){
-        var vc = MainViewController()
+        let vc = MainViewController()
         vc.initViewController(self.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.viewController!.presentViewController(vc, animated: true, completion: nil)

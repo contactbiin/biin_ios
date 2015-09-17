@@ -39,7 +39,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -67,8 +67,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         self.site = site
         
         //TODO: Add all showcase data here
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         
         var ypos:CGFloat = SharedUIManager.instance.miniView_height + 6
         //ypos += 18
@@ -101,7 +101,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
 //        self.addSubview(addNotificationBtn!)
         
         //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
-        var scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
+        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
         scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
         scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
@@ -125,7 +125,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
 //    }
     
     deinit{
-        println("-------------- deinit in siteView_showcase")
+        print("-------------- deinit in siteView_showcase")
     }
     
     
@@ -134,7 +134,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     }
     
     override func transitionOut( state:BNState? ) {
-        println("SiteView_Showcase transitionOut")
+        print("SiteView_Showcase transitionOut")
         
         //clean()
         if elements?.count > 0 {
@@ -157,7 +157,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     override func setNextState(option:Int){
         //Start transition on root view controller
-        println("SiteView_Showcase setNextState")
+        print("SiteView_Showcase setNextState")
         father!.setNextState(option)
     }
     
@@ -183,13 +183,13 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     override func getToWork(){
         isWorking = true
         manageElementMiniViewImageRequest()
-        println("\(showcase!.identifier!) is working")
+        print("\(showcase!.identifier!) is working")
     }
     
     //Stop all category work, download etc.
     override func getToRest(){
         isWorking = false
-        println("\(showcase!.identifier!) is resting")
+        print("\(showcase!.identifier!) is resting")
     }
     
     func updateForSite(site: BNSite?){
@@ -217,7 +217,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         
         for element in showcase!.elements {
-            var elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
             xpos += elementView_width + spacer
             
             elementView.delegate = self
@@ -255,7 +255,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         scroll!.pagingEnabled = false
         
         if !self.showcase!.isShowcaseGameCompleted {
-            var of = NSLocalizedString("Of", comment: "Of")
+            let of = NSLocalizedString("Of", comment: "Of")
             gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
         }
     }
@@ -268,7 +268,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     // called on start of dragging (may require some time and or distance to move)
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         //handlePan(scrollView.panGestureRecognizer)
-        var mainView = father!.father! as! MainView
+        let mainView = father!.father! as! MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
     }
     
@@ -297,15 +297,15 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             var isShowcaseGameCompleted = true
             var totalPoints = 0
             currentPoints = 0
-            var pointsByElement = 5
+            let pointsByElement = 5
             var elementsViewed = 0
-            var position = scrollView.bounds.origin.x
-            var width = scrollView.contentSize.width
-            var showcaseGameWidth = SharedUIManager.instance.screenWidth
+            let position = scrollView.bounds.origin.x
+            let width = scrollView.contentSize.width
+            let showcaseGameWidth = SharedUIManager.instance.screenWidth
             
-            println("position: \(scrollView.bounds.origin.x)")
-            println("height: \(width)")
-            println("showcaseGameHeight: \(showcaseGameWidth)")
+            print("position: \(scrollView.bounds.origin.x)")
+            print("height: \(width)")
+            print("showcaseGameHeight: \(showcaseGameWidth)")
             
             if (position >= (width - showcaseGameWidth)){
                 
@@ -319,7 +319,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                     }
                 }
                 
-                var of = NSLocalizedString("Of", comment: "Of")
+                let of = NSLocalizedString("Of", comment: "Of")
                 gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
                 
                 if isShowcaseGameCompleted {
@@ -370,8 +370,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         if !isWorking { return }
         
-        var width = SharedUIManager.instance.miniView_width + spacer
-        var column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
+        let width = SharedUIManager.instance.miniView_width + spacer
+        let column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
         
 
         
@@ -392,7 +392,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             while !stop {
                 
                 if i >= elementRequestPreviousLimit {
-                    var elementView = elements![i] as ElementMiniView
+                    let elementView = elements![i] as ElementMiniView
                     elementView.requestImage()
                     i--
                 } else  {

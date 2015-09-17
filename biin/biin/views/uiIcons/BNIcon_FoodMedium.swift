@@ -26,7 +26,7 @@ class BNIcon_FoodMedium:BNIcon {
     
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(23.45, 16.9))
         bezier2Path.addLineToPoint(CGPointMake(23.02, 16.9))
         bezier2Path.addLineToPoint(CGPointMake(13.03, 16.9))
@@ -49,7 +49,7 @@ class BNIcon_FoodMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(23.45, 22.1))
         bezier4Path.addLineToPoint(CGPointMake(2.61, 22.1))
         bezier4Path.addCurveToPoint(CGPointMake(2.17, 22.53), controlPoint1: CGPointMake(2.35, 22.1), controlPoint2: CGPointMake(2.17, 22.27))
@@ -67,7 +67,7 @@ class BNIcon_FoodMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(25.36, 12.78))
         bezier6Path.addCurveToPoint(CGPointMake(26.1, 11.27), controlPoint1: CGPointMake(25.8, 12.57), controlPoint2: CGPointMake(26.1, 12.13))
         bezier6Path.addCurveToPoint(CGPointMake(23.71, 8.71), controlPoint1: CGPointMake(26.1, 10.23), controlPoint2: CGPointMake(24.28, 9.06))
@@ -114,7 +114,7 @@ class BNIcon_FoodMedium:BNIcon {
         
         
         //// Bezier 8 Drawing
-        var bezier8Path = UIBezierPath()
+        let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(2.61, 8.23))
         bezier8Path.addLineToPoint(CGPointMake(23.45, 8.23))
         bezier8Path.addCurveToPoint(CGPointMake(23.89, 7.8), controlPoint1: CGPointMake(23.71, 8.23), controlPoint2: CGPointMake(23.89, 8.06))

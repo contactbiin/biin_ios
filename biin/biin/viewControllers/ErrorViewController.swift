@@ -16,7 +16,7 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("ErrorViewController - viewDidLoad()")
+        print("ErrorViewController - viewDidLoad()")
         BNAppSharedManager.instance.networkManager.delegateVC = self
         //BNAppSharedManager.instance.errorManager.currentViewController = self
         
@@ -35,32 +35,32 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
     }
     
     func addInternet_ErrorView(){
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        //var screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         internetErrorView = InternetErrorView(frame: CGRectMake(0, 20, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
         internetErrorView!.errorViewController = self
         self.view.addSubview(internetErrorView!)
     }
     
     func addBluetooth_ErrorView(){
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+       // var screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         bluetoothErrorView = BluetoothErrorView(frame: CGRectMake(0, 20, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
         bluetoothErrorView!.errorViewController = self
         self.view.addSubview(bluetoothErrorView!)
     }
     
     func addHardware_ErrorView(){
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        //var screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         hardwareErrorView = HardwareErrorView(frame: CGRectMake(0, 20, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
         hardwareErrorView!.errorViewController = self
         self.view.addSubview(hardwareErrorView!)
     }
     
     func addLocation_ErrorView(){
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        //var screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         locationErrorView = LocationErrorView(frame: CGRectMake(0, 20, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
         locationErrorView!.errorViewController = self
         self.view.addSubview(locationErrorView!)

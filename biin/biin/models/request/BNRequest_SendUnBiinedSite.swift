@@ -27,7 +27,7 @@ class BNRequest_SendUnBiinedSite: BNRequest {
     
     override func run() {
         
-        println("BNRequest_SendUnBiinedSite.run()")
+        print("BNRequest_SendUnBiinedSite.run()")
         isRunning = true
         
         var model = Dictionary<String, Dictionary <String, String>>()
@@ -36,10 +36,16 @@ class BNRequest_SendUnBiinedSite: BNRequest {
         modelContent["type"] = "site"
         model["model"] = modelContent
         
-        var httpError: NSError?
-        var htttpBody:NSData? = NSJSONSerialization.dataWithJSONObject(model, options:nil, error: &httpError)
+        //var httpError: NSError?
+        var htttpBody:NSData?
+        do {
+            htttpBody = try NSJSONSerialization.dataWithJSONObject(model, options:[])
+        } catch _ as NSError {
+            //httpError = error
+            htttpBody = nil
+        }
         
-        var response:BNResponse?
+        //var response:BNResponse?
         
         self.networkManager!.epsNetwork!.delete(self.requestString, htttpBody:htttpBody, callback: {
             
@@ -47,14 +53,14 @@ class BNRequest_SendUnBiinedSite: BNRequest {
             
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
-                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                //response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
-                
+                /*
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
-                    
+                    let status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
+
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                     } else {
@@ -62,7 +68,7 @@ class BNRequest_SendUnBiinedSite: BNRequest {
                     }
 
                 }
-                
+                */
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)
             }

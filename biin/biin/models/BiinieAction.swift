@@ -27,12 +27,12 @@ class BiinieAction:NSObject, NSCoding {
         self.to = to
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.key = aDecoder.decodeObjectForKey("key") as? String
         self.at  = aDecoder.decodeObjectForKey("at") as? NSDate
         self.to  = aDecoder.decodeObjectForKey("to") as? String
         
-        var value = aDecoder.decodeIntForKey("did")
+        let value = aDecoder.decodeIntForKey("did")
         switch value {
         case 0:
             self.did = .NONE

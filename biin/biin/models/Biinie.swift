@@ -62,7 +62,7 @@ class Biinie:NSObject, NSCoding {
         self.gender = gender
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
         self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
@@ -77,7 +77,7 @@ class Biinie:NSObject, NSCoding {
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         
-        println("**** Action: \(actions.count)")
+        print("**** Action: \(actions.count)")
         
         for _id in storedElementsViewed {
             elementsViewed[_id] = _id
@@ -123,7 +123,7 @@ class Biinie:NSObject, NSCoding {
 
         storedElementsViewed.removeAll(keepCapacity: false)
         
-        for (_id, element_id) in elementsViewed {
+        for (_, element_id) in elementsViewed {
             storedElementsViewed.append(element_id)
             //println("elementViwed:\(_id)")
         }
@@ -137,7 +137,7 @@ class Biinie:NSObject, NSCoding {
     }
     
     func save() {
-        println("SAVING BIINIE")
+        print("SAVING BIINIE")
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "user")
     }
@@ -177,8 +177,8 @@ class Biinie:NSObject, NSCoding {
                         NSLog("BIIN 2 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
                         NSLog("BIIN 2 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to)")
                         
-                        var seconds = Int(at.timeIntervalSinceDate(action.at!))
-                        var minutes = Int( seconds / 60 )
+                        let seconds = Int(at.timeIntervalSinceDate(action.at!))
+                        let minutes = Int( seconds / 60 )
                         
                         NSLog("BIIN - seconds: \(seconds)")
                         NSLog("BIIN - minutes: \(minutes)")
@@ -212,7 +212,7 @@ class Biinie:NSObject, NSCoding {
     }
     
     func deleteAllActions(){
-        println("deleteAllActions()")
+        print("deleteAllActions()")
         self.actionCounter = 0
         self.actions.removeAll(keepCapacity: false)
         save()

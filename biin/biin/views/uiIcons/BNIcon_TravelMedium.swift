@@ -24,7 +24,7 @@ class BNIcon_TravelMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(21.56, 23.83))
         bezier2Path.addCurveToPoint(CGPointMake(21.12, 24.27), controlPoint1: CGPointMake(21.3, 23.83), controlPoint2: CGPointMake(21.12, 24.01))
         bezier2Path.addCurveToPoint(CGPointMake(20.24, 25.13), controlPoint1: CGPointMake(21.12, 24.74), controlPoint2: CGPointMake(20.72, 25.13))
@@ -115,7 +115,7 @@ class BNIcon_TravelMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(14.48, 8.23))
         bezier4Path.addCurveToPoint(CGPointMake(14.04, 7.8), controlPoint1: CGPointMake(14.48, 7.97), controlPoint2: CGPointMake(14.3, 7.8))
         bezier4Path.addLineToPoint(CGPointMake(7.88, 7.8))
@@ -131,7 +131,7 @@ class BNIcon_TravelMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(13.16, 0.43))
         bezier6Path.addCurveToPoint(CGPointMake(12.72, 0), controlPoint1: CGPointMake(13.16, 0.17), controlPoint2: CGPointMake(12.98, 0))
         bezier6Path.addLineToPoint(CGPointMake(9.2, 0))

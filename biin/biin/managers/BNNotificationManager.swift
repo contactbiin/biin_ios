@@ -34,7 +34,7 @@ class BNNotificationManager:NSObject, NSCoding {
 //        }
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         
         super.init()
         self.localNotifications =  aDecoder.decodeObjectForKey("localNotifications") as! [BNLocalNotification]
@@ -125,7 +125,7 @@ class BNNotificationManager:NSObject, NSCoding {
         }
         
         if !isNotificationSaved {
-            var notification = BNLocalNotification(objectIdentifier:object._id!, notificationText:notificationText, notificationType:notificationType, siteIdentifier:siteIdentifier, biinIdentifier:biinIdentifier, elementIdentifier:elementIdentifier)
+            let notification = BNLocalNotification(objectIdentifier:object._id!, notificationText:notificationText, notificationType:notificationType, siteIdentifier:siteIdentifier, biinIdentifier:biinIdentifier, elementIdentifier:elementIdentifier)
             
             //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
             notification.onMonday = object.onMonday
@@ -286,14 +286,14 @@ class BNNotificationManager:NSObject, NSCoding {
         
             let date = NSDate()
             let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
+            let components = calendar.components([.Hour, .Minute], fromDate: date)
             let hour = components.hour
             let minutes = components.minute
             let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
             
             var isAvailableToday = false
             
-            var dayNumber = getDayOfWeek()
+            let dayNumber = getDayOfWeek()
             for var i = 0; i < siteNotifications.count; i++ {
                 
                 NSLog("Day:\(getDayOfWeek())")
@@ -383,10 +383,10 @@ class BNNotificationManager:NSObject, NSCoding {
         
         let formatter  = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        var today = NSDate().bnShortDateFormat()
+        let today = NSDate().bnShortDateFormat()
         if let todayDate = formatter.dateFromString(today) {
             let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            let myComponents = myCalendar.components(.CalendarUnitWeekday, fromDate: todayDate)
+            let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
             let weekDay = myComponents.weekday
             return weekDay
         } else {
@@ -398,7 +398,7 @@ class BNNotificationManager:NSObject, NSCoding {
         
         if self.currentNotification != nil {
             
-            var days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
+            let days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
             
             NSLog("BIIN - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
             
@@ -406,7 +406,7 @@ class BNNotificationManager:NSObject, NSCoding {
 //            if !self.currentNotification!.isUserNotified || days > 1 {
             if !self.currentNotification!.isUserNotified  {
                 var time:NSTimeInterval = 0
-                var localNotification:UILocalNotification = UILocalNotification()
+                let localNotification:UILocalNotification = UILocalNotification()
                 localNotification.alertBody = currentNotification!.notificationText
                 localNotification.alertTitle = "Biin"
                 localNotification.soundName = "notification.wav"//UILocalNotificationDefaultSoundName

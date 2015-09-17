@@ -24,7 +24,7 @@ class BNIcon_PersonalCareMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(6.6, 4.41))
         bezier2Path.addLineToPoint(CGPointMake(4.4, 4.41))
         bezier2Path.addCurveToPoint(CGPointMake(1.47, 7.35), controlPoint1: CGPointMake(3.01, 4.41), controlPoint2: CGPointMake(1.47, 5.96))
@@ -47,7 +47,7 @@ class BNIcon_PersonalCareMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(32.27, 0))
         bezier4Path.addLineToPoint(CGPointMake(29.33, 0))
         bezier4Path.addCurveToPoint(CGPointMake(26.4, 2.94), controlPoint1: CGPointMake(27.5, 0), controlPoint2: CGPointMake(26.4, 1.1))
@@ -77,7 +77,7 @@ class BNIcon_PersonalCareMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(43.27, 11.76))
         bezier6Path.addLineToPoint(CGPointMake(42.53, 11.76))
         bezier6Path.addLineToPoint(CGPointMake(42.53, 7.35))

@@ -17,7 +17,7 @@ class SiteView_Header:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -26,16 +26,16 @@ class SiteView_Header:BNView {
 
         var ypos:CGFloat = 4
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
         
-        var siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight - 10)
+        let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight - 10)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize))
         self.addSubview(siteAvatar!)
         
-        var xpos:CGFloat = siteAvatarSize + 10
+        let xpos:CGFloat = siteAvatarSize + 10
         title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.bnGrayDark()

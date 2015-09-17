@@ -20,7 +20,7 @@ class BNIcon_BiinItLargeButton:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let fillColor = UIColor(red: 0.278, green: 0.776, blue: 0.949, alpha: 1.000)
+        //let fillColor = UIColor(red: 0.278, green: 0.776, blue: 0.949, alpha: 1.000)
         let strokeColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
         
         //// biinitLarge.svg Group
@@ -30,7 +30,7 @@ class BNIcon_BiinItLargeButton:BNIcon {
         
         
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(48.5, 81.6))
         bezierPath.addLineToPoint(CGPointMake(33, 81.6))
         bezierPath.addCurveToPoint(CGPointMake(0, 48.6), controlPoint1: CGPointMake(14.8, 81.6), controlPoint2: CGPointMake(0, 66.8))
@@ -51,7 +51,7 @@ class BNIcon_BiinItLargeButton:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, (position.x + 20), (position.y + 25))
         
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(28.55, 0))
         bezier2Path.addCurveToPoint(CGPointMake(20.07, 3.97), controlPoint1: CGPointMake(25.16, 0), controlPoint2: CGPointMake(22.05, 1.56))
         bezier2Path.addCurveToPoint(CGPointMake(11.45, 0), controlPoint1: CGPointMake(17.95, 1.56), controlPoint2: CGPointMake(14.98, 0))

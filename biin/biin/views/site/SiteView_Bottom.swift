@@ -22,7 +22,7 @@ class SiteView_Bottom:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -62,11 +62,11 @@ class SiteView_Bottom:BNView {
     }
 
     override func transitionIn() {
-        println("trasition in on SiteView_Bottom")
+        print("trasition in on SiteView_Bottom")
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView_Bottom")
+        print("trasition out on SiteView_Bottom")
     }
     
     override func setNextState(option:Int){
@@ -76,7 +76,7 @@ class SiteView_Bottom:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteView_Bottom")
+            print("showUserControl: SiteView_Bottom")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -84,7 +84,7 @@ class SiteView_Bottom:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteView_Bottom")
+            print("updateUserControl: SiteView_Bottom")
         }else{
             father!.updateUserControl(position)
         }
@@ -106,7 +106,7 @@ class SiteView_Bottom:BNView {
         self.backgroundColor = site!.media[0].vibrantColor!
         
         self.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, height)
-        var points = NSLocalizedString("Points", comment: "Points")
+        let points = NSLocalizedString("Points", comment: "Points")
         pointsLbl!.text = "\(points): \(site!.organization!.loyalty!.points)"
         
         self.title!.text = "More Comming soon!"

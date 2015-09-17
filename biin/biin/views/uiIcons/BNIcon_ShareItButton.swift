@@ -38,9 +38,9 @@ class BNIcon_ShareItButton:BNIcon {
         bezierPath.addLineToPoint(CGPointMake(15, 7.43))
         bezierPath.addCurveToPoint(CGPointMake(11.79, 5.33), controlPoint1: CGPointMake(15, 6.27), controlPoint2: CGPointMake(13.55, 5.33))
         bezierPath.addLineToPoint(CGPointMake(9.86, 5.33))
-        bezierPath.lineCapStyle = kCGLineCapRound
+        bezierPath.lineCapStyle = CGLineCap.Round
         
-        bezierPath.lineJoinStyle = kCGLineJoinRound
+        bezierPath.lineJoinStyle = CGLineJoin.Round
         
         color!.setStroke()
         bezierPath.lineWidth = 1
@@ -52,9 +52,9 @@ class BNIcon_ShareItButton:BNIcon {
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(7.47, 0))
         bezier2Path.addLineToPoint(CGPointMake(7.47, 8.8))
-        bezier2Path.lineCapStyle = kCGLineCapRound
+        bezier2Path.lineCapStyle = CGLineCap.Round
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound
+        bezier2Path.lineJoinStyle = CGLineJoin.Round
         
         color!.setStroke()
         bezier2Path.lineWidth = 1
@@ -66,9 +66,9 @@ class BNIcon_ShareItButton:BNIcon {
         bezier3Path.moveToPoint(CGPointMake(4, 3.76))
         bezier3Path.addLineToPoint(CGPointMake(7.47, 0))
         bezier3Path.addLineToPoint(CGPointMake(11, 3.76))
-        bezier3Path.lineCapStyle = kCGLineCapRound
+        bezier3Path.lineCapStyle = CGLineCap.Round
         
-        bezier3Path.lineJoinStyle = kCGLineJoinRound
+        bezier3Path.lineJoinStyle = CGLineJoin.Round
         
         color!.setStroke()
         bezier3Path.lineWidth = 1

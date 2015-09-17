@@ -28,8 +28,8 @@ class BNIcon_CollectedIt:BNIcon {
         bezierPath.moveToPoint(CGPointMake(15, 0))
         bezierPath.addLineToPoint(CGPointMake(4.26, 15))
         bezierPath.addLineToPoint(CGPointMake(0, 10.77))
-        bezierPath.lineCapStyle = kCGLineCapRound
-        bezierPath.lineJoinStyle = kCGLineJoinRound
+        bezierPath.lineCapStyle = CGLineCap.Round
+        bezierPath.lineJoinStyle = CGLineJoin.Round
         
         color!.setStroke()
         bezierPath.lineWidth = 1

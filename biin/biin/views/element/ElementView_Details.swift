@@ -19,7 +19,7 @@ class ElementView_Details:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -33,18 +33,18 @@ class ElementView_Details:BNView {
         self.backgroundColor = UIColor.appMainColor()
         
         elementIdentifier = element!._id
-        var titleSize:CGFloat = SharedUIManager.instance.elementView_titleSize
-        var textSize:CGFloat = SharedUIManager.instance.elementView_textSize
-        var quoteSize:CGFloat = SharedUIManager.instance.elementView_quoteSize + 2
-        var priceListSize:CGFloat = SharedUIManager.instance.elementView_priceList
+        let titleSize:CGFloat = SharedUIManager.instance.elementView_titleSize
+        let textSize:CGFloat = SharedUIManager.instance.elementView_textSize
+        let quoteSize:CGFloat = SharedUIManager.instance.elementView_quoteSize + 2
+        let priceListSize:CGFloat = SharedUIManager.instance.elementView_priceList
         var ypos:CGFloat = 0
-        var spacer:CGFloat = 5
+        //var spacer:CGFloat = 5
 
         for detail in element!.details {
             switch detail.elementDetailType! {
             case .Title:      //1
                 ypos += 20
-                var title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 20))
+                let title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 20))
                 title.font = UIFont(name: "Lato-Black", size: titleSize)
                 title.text = detail.text
                 title.textColor = UIColor.appTextColor()
@@ -56,7 +56,7 @@ class ElementView_Details:BNView {
                 break
             case .Paragraph:  //2
                 ypos += 5
-                var paragraph = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 0))
+                let paragraph = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 0))
                 paragraph.font = UIFont(name: "Lato-Light", size: textSize)
                 paragraph.text = detail.text
                 paragraph.textColor = UIColor.appTextColor()
@@ -68,7 +68,7 @@ class ElementView_Details:BNView {
                 break
             case .Quote:      //3
                 ypos += 25
-                var quote = UILabel(frame: CGRectMake(20, ypos, (frame.width - 40), 0))
+                let quote = UILabel(frame: CGRectMake(20, ypos, (frame.width - 40), 0))
                 quote.text = detail.text
                 quote.textColor = element!.color!
                 quote.font = UIFont(name: "Lato-Regular", size: quoteSize)
@@ -77,7 +77,7 @@ class ElementView_Details:BNView {
                 quote.alpha = 1
                 self.addSubview(quote)
                 
-                var quoteView = UIView(frame: CGRectMake(10, (ypos - 5), 2, (quote.frame.height + 10)))
+                let quoteView = UIView(frame: CGRectMake(10, (ypos - 5), 2, (quote.frame.height + 10)))
                 quoteView.backgroundColor = element!.color!
                 self.addSubview(quoteView)
                 
@@ -87,7 +87,7 @@ class ElementView_Details:BNView {
                 ypos += 5
                 for listItem in detail.body! {
                     ypos += 5
-                    var item = UILabel(frame: CGRectMake(25, ypos, (frame.width - 50), 0))
+                    let item = UILabel(frame: CGRectMake(25, ypos, (frame.width - 50), 0))
                     item.text = listItem
                     item.textColor = UIColor.appTextColor()
                     item.font = UIFont(name: "Lato-Light", size: textSize)
@@ -96,8 +96,8 @@ class ElementView_Details:BNView {
                     item.alpha = 1
                     self.addSubview(item)
                     
-                    var yposition = ypos + 6
-                    var pointView = UIView(frame: CGRectMake(10, (yposition), 6, 6))
+                    let yposition = ypos + 6
+                    let pointView = UIView(frame: CGRectMake(10, (yposition), 6, 6))
                     pointView.backgroundColor = UIColor.appTextColor()
                     pointView.layer.cornerRadius = 3
                     self.addSubview(pointView)
@@ -108,7 +108,7 @@ class ElementView_Details:BNView {
                 break
             case .Link:       //5
                 ypos += 25
-                var link = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 0))
+                let link = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 0))
                 link.text = detail.text
                 link.textColor = UIColor.appTextColor()
                 link.font = UIFont(name: "Lato-Light", size: textSize)
@@ -122,7 +122,7 @@ class ElementView_Details:BNView {
                 ypos += 5
                 for priceItem in detail.priceList! {
                     ypos += 5
-                    var price = UILabel(frame: CGRectMake(0, ypos, (frame.width - 50), 0))
+                    let price = UILabel(frame: CGRectMake(0, ypos, (frame.width - 50), 0))
                     price.text = "\(priceItem.currency!) \(priceItem.price!)"
                     price.textColor = UIColor.appTextColor()
                     price.font = UIFont(name: "Lato-Black", size: priceListSize)
@@ -133,7 +133,7 @@ class ElementView_Details:BNView {
                     
                     price.frame.origin.x = frame.width - (price.frame.width + 10)
                     
-                    var desc = UILabel(frame: CGRectMake(10, ypos, (frame.width - 50), 0))
+                    let desc = UILabel(frame: CGRectMake(10, ypos, (frame.width - 50), 0))
                     desc.text = priceItem.description!
                     desc.textColor = UIColor.appTextColor()
                     desc.font = UIFont(name: "Lato-Light", size: priceListSize)
@@ -149,8 +149,8 @@ class ElementView_Details:BNView {
                 ypos += 15
                 break
 
-            default:
-                break
+//            default:
+//                break
             }
         }
         
@@ -161,7 +161,7 @@ class ElementView_Details:BNView {
         
         ypos += 90
         
-        var biinitLbl = UILabel(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, (titleSize + 2)))
+        let biinitLbl = UILabel(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, (titleSize + 2)))
         biinitLbl.font = UIFont(name: "Lato-Regular", size:titleSize)
         biinitLbl.textColor = UIColor.appTextColor()
         biinitLbl.textAlignment = NSTextAlignment.Center

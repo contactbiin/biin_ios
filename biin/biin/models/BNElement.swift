@@ -95,7 +95,7 @@ class BNElement:NSObject {
     }
     
     func clone()->BNElement {
-        var clone = BNElement()
+        let clone = BNElement()
         clone.jsonUrl = self.jsonUrl
         clone.color = self.color
         if let value = self.elementType { clone.elementType = value }

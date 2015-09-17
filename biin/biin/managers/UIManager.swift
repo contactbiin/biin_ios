@@ -290,7 +290,7 @@ class UIManager {
         
         var formatted = ""
         
-        for c in text {
+        for c in text.characters {
             switch (c) {
             case "\"", "/", "*", " ", "&", "{", "}", "[", "]", "+", "=", "^", "'", ",", "#", "(", ")", ":", ";", "-", "?":
                 continue
@@ -305,7 +305,7 @@ class UIManager {
     
     func isValidEmail(testStr:String) -> Bool {
         
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        //let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         
 //        if let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx) {
 //            return emailTest.evaluateWithObject(testStr)

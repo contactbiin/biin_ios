@@ -33,7 +33,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -42,8 +42,8 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         
         self.backgroundColor = UIColor.appBackground()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         scroll = UIScrollView(frame:CGRectMake(0, SharedUIManager.instance.categoriesHeaderHeight, screenWidth, (screenHeight - SharedUIManager.instance.categoriesHeaderHeight)))
         
@@ -125,9 +125,9 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     //Instance methods
     func addCategoriesSitesContainers(){
 
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
-        var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
+        let sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
         
         var xpos:CGFloat = 0.0
         var counter = 0
@@ -144,8 +144,8 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
-            var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
-            var sitesContainer = BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
+            let frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+            let sitesContainer = BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
             
             categorySitesContainers!.append(sitesContainer)
             scroll!.addSubview(sitesContainer)
@@ -179,12 +179,12 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     
     func addSitesToOneContainer(){
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
-        var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
+        let sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
         
         var xpos:CGFloat = 0.0
-        var counter = 0
+        let counter = 0
         
         categorySitesContainers?.removeAll(keepCapacity: false)
         categorySitesContainers = Array<BiinieCategoriesView_SitesContainer>()
@@ -199,8 +199,8 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         
         //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
-            var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
-            var sitesContainer = BiinieCategoriesView_SitesContainer(frame: frame, father: self, allSites: true) //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
+            let frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+            let sitesContainer = BiinieCategoriesView_SitesContainer(frame: frame, father: self, allSites: true) //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
             
             categorySitesContainers!.append(sitesContainer)
             scroll!.addSubview(sitesContainer)
@@ -251,13 +251,13 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         
         if highlightsContainer == nil {
             
-            var screenWidth = SharedUIManager.instance.screenWidth
-            var screenHeight = SharedUIManager.instance.screenHeight
-            var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+            let screenWidth = SharedUIManager.instance.screenWidth
+            let screenHeight = SharedUIManager.instance.screenHeight
+            let sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
             
             var xpos:CGFloat = screenWidth + 1
             
-            var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+            let frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
             highlightsContainer = BiinieCategoriesView_HighlightsContainer(frame: frame, father: self, allElements: true)
             //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
             
@@ -294,9 +294,9 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     func addRangedBiinsContainer() {
         
         if biinsContainer == nil {
-            var screenWidth = SharedUIManager.instance.screenWidth
-            var screenHeight = SharedUIManager.instance.screenHeight
-            var sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
+            let screenWidth = SharedUIManager.instance.screenWidth
+            let screenHeight = SharedUIManager.instance.screenHeight
+            let sitesContainerHeight = screenHeight - SharedUIManager.instance.categoriesHeaderHeight
             
             var xpos:CGFloat = screenWidth + 2
             //var counter = 0
@@ -316,7 +316,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
             //for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
 
             xpos += screenWidth
-            var frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
+            let frame = CGRectMake(xpos, 0, screenWidth, sitesContainerHeight)
             biinsContainer = BiinieCategoriesView_BiinsContainer(frame: frame, father: self, allElements: true)
             //BiinieCategoriesView_SitesContainer(frame: frame, father: self, category:category)
             
@@ -367,7 +367,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     // called on start of dragging (may require some time and or distance to move)
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         //handlePan(scrollView.panGestureRecognizer)
-        var mainView = father! as! MainView
+        let mainView = father! as! MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
     }
     
@@ -385,15 +385,15 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
         var width = SharedUIManager.instance.screenWidth
-        var page:Int = Int(floor(scrollView.contentOffset.x / width))
+        let page:Int = Int(floor(scrollView.contentOffset.x / width))
         
         if page < 0 {
             return
         }
         
         width = width + 1
-        var xpos:CGFloat = CGFloat(page) * width
-        var position = CGPointMake(xpos, 0)
+        let xpos:CGFloat = CGFloat(page) * width
+        let position = CGPointMake(xpos, 0)
         
         scroll!.setContentOffset(position, animated: true)
         

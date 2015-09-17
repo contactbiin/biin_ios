@@ -29,18 +29,18 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
-        println("BNRequest_Element.run()")
+        print("BNRequest_Element.run()")
         isRunning = true
-        var response:BNResponse?
+        //var response:BNResponse?
         
         networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                println("Error on element data")
+                print("Error on element data")
                 //self.handleFailedRequest(request, error: error )
                 
-                response = BNResponse(code:10, type: BNResponse_Type.Suck)
-                println("*** element data SUCK - FAILED!")
+                //response = BNResponse(code:10, type: BNResponse_Type.Suck)
+                print("*** element data SUCK - FAILED!")
                 
             } else {
                 
@@ -48,8 +48,8 @@ class BNRequest_Element: BNRequest {
                     
                     //var status = self.networkManager!.findInt("status", dictionary: data)
                     //var result = self.networkManager!.findBool("result", dictionary: data)
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
+                    //var status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         self.element!.isDownloadCompleted = true
@@ -107,22 +107,22 @@ class BNRequest_Element: BNRequest {
                         
                         self.element!.isHighlight = BNParser.findBool("isHighlight", dictionary: elementData)
                         
-                        var details = BNParser.findNSArray("details", dictionary: elementData)
+                        let details = BNParser.findNSArray("details", dictionary: elementData)
                         
                         for var i = 0; i < details?.count; i++ {
-                            var detailData = details!.objectAtIndex(i) as! NSDictionary
+                            let detailData = details!.objectAtIndex(i) as! NSDictionary
                             
-                            var detail = BNElementDetail()
+                            let detail = BNElementDetail()
                             detail.text = BNParser.findString("text", dictionary: detailData)!
                             detail.elementDetailType = BNParser.findBNElementDetailType("elementDetailType", dictionary: detailData)
                             
                             if (detail.elementDetailType! == BNElementDetailType.ListItem){
                                 
-                                var body = BNParser.findNSArray("body", dictionary: detailData)
+                                let body = BNParser.findNSArray("body", dictionary: detailData)
                                 detail.body = Array<String>()
                                 
                                 for (var i = 0; i < body?.count; i++) {
-                                    var line = body!.objectAtIndex(i) as! NSDictionary
+                                    let line = body!.objectAtIndex(i) as! NSDictionary
                                     detail.body!.append( BNParser.findString("line", dictionary:line)! )
                                 }
                                 
@@ -130,11 +130,11 @@ class BNRequest_Element: BNRequest {
                             
                             if (detail.elementDetailType! == BNElementDetailType.PriceList){
                                 
-                                var body = BNParser.findNSArray("body", dictionary: detailData)
+                                let body = BNParser.findNSArray("body", dictionary: detailData)
                                 detail.priceList = Array<BNElementDetail_PriceLlist>()
                                 
                                 for (var i = 0; i < body?.count; i++) {
-                                    var line = body!.objectAtIndex(i) as! NSDictionary
+                                    let line = body!.objectAtIndex(i) as! NSDictionary
                                     var priceListItem = BNElementDetail_PriceLlist()
                                     priceListItem.currency = BNParser.findCurrency("currencyType", dictionary: line)
                                     priceListItem.description = BNParser.findString("description", dictionary: line)
@@ -148,17 +148,17 @@ class BNRequest_Element: BNRequest {
                             self.element!.details.append(detail)
                         }
                         
-                        var mediaArray = BNParser.findNSArray("media", dictionary: elementData)
+                        let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                         
                         for var j = 0; j < mediaArray?.count; j++ {
-                            var mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
-                            var url = BNParser.findString("url", dictionary: mediaData)!
-                            var type = BNParser.findMediaType("mediaType", dictionary: mediaData)
-                            var domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
-                            var vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
-                            var vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
-                            var vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
-                            var media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
+                            let mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
+                            let url = BNParser.findString("url", dictionary: mediaData)!
+                            let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                            let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
+                            let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
+                            let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
+                            let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                            let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)
                         }
 
@@ -169,14 +169,14 @@ class BNRequest_Element: BNRequest {
                         self.element!.userCommented = BNParser.findBool("userCommented", dictionary: elementData)
                         self.element!.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
                         
-                        var hasSticker = BNParser.findBool("hasSticker", dictionary: elementData)
+                        let hasSticker = BNParser.findBool("hasSticker", dictionary: elementData)
                         
                         if (hasSticker) {
                             if let stickerData = elementData["sticker"] as? NSDictionary {
                                 self.element!.hasSticker = hasSticker
-                                var stickerColor = BNParser.findUIColor("color", dictionary: stickerData)
-                                var stickerType = BNParser.findBNStickerType("type", dictionary: stickerData)
-                                var sticker = BNSticker(type:stickerType, color:stickerColor!)
+                                let stickerColor = BNParser.findUIColor("color", dictionary: stickerData)
+                                let stickerType = BNParser.findBNStickerType("type", dictionary: stickerData)
+                                let sticker = BNSticker(type:stickerType, color:stickerColor!)
                                 self.element!.sticker = sticker
                             }
                         }

@@ -46,70 +46,74 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appManager.IS_APP_UP = false
             appManager.IS_APP_DOWN = true
             break
-        default:
-            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
-            break
+//        default:
+//            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
+//            break
         }
         
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
         if BNAppSharedManager.instance.dataManager.isUserLoaded {
-            var lvc = LoadingViewController()
+            let lvc = LoadingViewController()
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
         } else {
-            var lvc = SingupViewController()
+            let lvc = SingupViewController()
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
         }
         
         
         // path to documents directory
-        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
         
         // create the custom folder path
-        let biinCacheImagesFolder = documentDirectoryPath.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
+        let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
         
         // check if directory does not exist
         if NSFileManager.defaultManager().fileExistsAtPath(biinCacheImagesFolder) == false {
             
             // create the directory
-            var createDirectoryError: NSError? = nil
-            NSFileManager.defaultManager().createDirectoryAtPath(biinCacheImagesFolder, withIntermediateDirectories: false, attributes: nil, error: &createDirectoryError)
+            //var createDirectoryError: NSError? = nil
+            do {
+                try NSFileManager.defaultManager().createDirectoryAtPath(biinCacheImagesFolder, withIntermediateDirectories: false, attributes: nil)
+            } catch _ as NSError {
+                //createDirectoryError = error
+            }
             
-            println("creating BiinCacheImages folder!")
+            print("creating BiinCacheImages folder!")
 
             // handle the error, you may call an exception
-            if createDirectoryError != nil {
-                println("Handle directory creation error...")
-            }
+//            if createDirectoryError != nil {
+//                print("Handle directory creation error...")
+//            }
             
         } else {
             
-            println("biinCacheImagesFolder already exist!")
-            var selectedImage = UIImage(named:"1d5455b33081-4010-9774-0cbd8f70407a.png")
-            let imageData = UIImagePNGRepresentation(selectedImage)
+            print("biinCacheImagesFolder already exist!")
+            let selectedImage = UIImage(named:"1d5455b33081-4010-9774-0cbd8f70407a.png")
+            let imageData = UIImagePNGRepresentation(selectedImage!)
             //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
             let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("1d5455b33081-4010-9774-0cbd8f70407a.png")
             
 //            let imagePath = paths.stringByAppendingPathComponent("1d5455b33081-4010-9774-0cbd8f70407a.png")
             
-            println("imagePath: \(imagePath)")
+            print("imagePath: \(imagePath)")
             
             if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
                 
-                println("Image does not exist on BiinCacheImages folder.")
-                if !imageData.writeToFile(imagePath, atomically: false) {
-                    println("not saved: \(imagePath)")
+                print("Image does not exist on BiinCacheImages folder.")
+                if !imageData!.writeToFile(imagePath, atomically: false) {
+                    print("not saved: \(imagePath)")
                 } else {
-                    println("saved")
+                    print("saved")
                     NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "1d5455b33081-4010-9774-0cbd8f70407a.png")
                 }
                 
             } else {
                 
-                println("Image exist on BiinCacheImages folder.")
+                print("Image exist on BiinCacheImages folder.")
             }
 
             
@@ -137,8 +141,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupNotificationSettings() {
         
         
-        var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert | UIUserNotificationType.Sound
-        var notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
+        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound]
+        let notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
         /*
@@ -243,7 +247,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "BN.biin" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -259,18 +263,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("biin.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+        } catch var error1 as NSError {
+            error = error1
             coordinator = nil
             // Report any error we got.
             let dict = NSMutableDictionary()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
+            //error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            //NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
         
         return coordinator
@@ -292,11 +301,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
             }
         }
     }
@@ -304,7 +318,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //App methods
     func setDeviceType(screenWidth:CGFloat, screenHeight:CGFloat){
         
-        var uiManager = SharedUIManager.instance
+        let uiManager = SharedUIManager.instance
         uiManager.screenWidth = screenWidth
         uiManager.screenHeight = screenHeight
         uiManager.setDeviceVariables()

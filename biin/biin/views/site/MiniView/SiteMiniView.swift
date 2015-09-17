@@ -29,7 +29,7 @@ class SiteMiniView: BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -63,8 +63,8 @@ class SiteMiniView: BNView {
 
 
         //Positioning image
-        var imageSize = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
-        var xpos = ((imageSize - frame.width) / 2 ) * -1
+        let imageSize = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
+        let xpos = ((imageSize - frame.width) / 2 ) * -1
         image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.siteMiniView_headerHeight, imageSize, imageSize))
         //image!.alpha = 0
         self.addSubview(image!)
@@ -84,18 +84,18 @@ class SiteMiniView: BNView {
 //        //self.addSubview(nutshell)
 //        nutshell.frame.origin.y = (frame.height - (nutshell.frame.height + 10))
         
-        var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()
     }
     
     override func transitionIn() {
-        println("trasition in on SiteMiniView")
+        print("trasition in on SiteMiniView")
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteMiniView")
+        print("trasition out on SiteMiniView")
     }
     
     override func setNextState(option:Int){
@@ -105,7 +105,7 @@ class SiteMiniView: BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteMiniView")
+            print("showUserControl: SiteMiniView")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -113,7 +113,7 @@ class SiteMiniView: BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteMiniView")
+            print("updateUserControl: SiteMiniView")
         }else{
             father!.updateUserControl(position)
         }
@@ -136,8 +136,8 @@ class SiteMiniView: BNView {
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
         
-        var siteContainer = father as! BiinieCategoriesView_SitesContainer
-        var position = father!.father!.convertRect(self.frame, fromView: siteContainer.scroll!)
+        let siteContainer = father as! BiinieCategoriesView_SitesContainer
+        let position = father!.father!.convertRect(self.frame, fromView: siteContainer.scroll!)
         delegate!.showSiteView!(self, site: site, position:position)
         
         //Trigered transition to showcase view.

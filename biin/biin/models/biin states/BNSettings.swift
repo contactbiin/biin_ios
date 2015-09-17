@@ -17,7 +17,7 @@ class BNSettings:NSObject, NSCoding {
         super.init()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.IS_PRODUCTION_DATABASE  = aDecoder.decodeBoolForKey("IS_PRODUCTION_DATABASE")
         self.IS_DEVELOPMENT_DATABASE  = aDecoder.decodeBoolForKey("IS_DEVELOPMENT_DATABASE")
         self.IS_QA_DATABASE  = aDecoder.decodeBoolForKey("IS_QA_DATABASE")

@@ -27,7 +27,7 @@ class NotificationsView_Notification: BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -47,10 +47,10 @@ class NotificationsView_Notification: BNView {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
-        var xpos:CGFloat = ((screenHeight) / 2)
-        var ypos:CGFloat = 10
+        let screenWidth = SharedUIManager.instance.screenWidth
+        //let screenHeight = SharedUIManager.instance.screenHeight
+        //var xpos:CGFloat = ((screenHeight) / 2)
+        let ypos:CGFloat = 10
         
         notificationAvatarView = UIView(frame: CGRectMake(10, ypos, 40, 40))
         notificationAvatarView!.layer.cornerRadius = 15
@@ -89,7 +89,7 @@ class NotificationsView_Notification: BNView {
         removeBtn!.addTarget(self, action: "remove:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(removeBtn!)
         
-        var tap = UITapGestureRecognizer(target: self, action: "tap:")
+        let tap = UITapGestureRecognizer(target: self, action: "tap:")
         self.addGestureRecognizer(tap)
     }
     
@@ -98,10 +98,10 @@ class NotificationsView_Notification: BNView {
     }
     
     func tap(sender:UITapGestureRecognizer){
-        println("Tap on notification: \(notification!.identifier)")
-        println("Biin: \(notification!.biin!.identifier!)")
-        println("Site: \(notification!.biin!.site!.identifier!)")
-        println("Showcase: \(notification!.biin!.currectShowcase().identifier!)")
+        print("Tap on notification: \(notification!.identifier)")
+        print("Biin: \(notification!.biin!.identifier!)")
+        print("Site: \(notification!.biin!.site!.identifier!)")
+        print("Showcase: \(notification!.biin!.currectShowcase().identifier!)")
     }
 }
 

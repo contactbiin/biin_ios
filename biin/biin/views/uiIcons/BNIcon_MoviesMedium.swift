@@ -24,7 +24,7 @@ class BNIcon_MoviesMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(25, 9.77))
         bezier2Path.addCurveToPoint(CGPointMake(25.83, 7.69), controlPoint1: CGPointMake(25, 8.99), controlPoint2: CGPointMake(25.31, 8.21))
         bezier2Path.addCurveToPoint(CGPointMake(25.83, 7.08), controlPoint1: CGPointMake(26, 7.51), controlPoint2: CGPointMake(26, 7.25))
@@ -71,7 +71,7 @@ class BNIcon_MoviesMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(16.03, 4.99))
         bezier4Path.addCurveToPoint(CGPointMake(15.12, 4.6), controlPoint1: CGPointMake(15.77, 4.73), controlPoint2: CGPointMake(15.47, 4.6))
         bezier4Path.addCurveToPoint(CGPointMake(14.21, 4.99), controlPoint1: CGPointMake(14.78, 4.6), controlPoint2: CGPointMake(14.43, 4.73))

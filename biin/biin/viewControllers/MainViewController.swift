@@ -348,7 +348,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             siteTitle = site.title!
         }
         
-        var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site)
+        let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site)
         let imageToShare:UIImage?
         imageToShare = imageFromView(view)
         
@@ -360,9 +360,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //        imageToShate = UIImage(named: "biinShare")
         
         let textToShare:String?
-        var string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
-        var string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
-        var string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
+        let string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
+        let string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
+        let string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
         
         textToShare = "\(string1)\(site.title!) \(string2)\(siteTitle). \(string3)"
         
@@ -428,7 +428,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             siteTitle = site.title!
         }
         
-        var view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
+        let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
         let imageToShare:UIImage?
         imageToShare = imageFromView(view)
         
@@ -440,9 +440,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
 //        imageToShate = UIImage(named: "biinShare")
         
         let textToShare:String?
-        var string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
-        var string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
-        var string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
+        let string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
+        let string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
+        let string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
         
         textToShare = "\(string1)\(element.title!) \(string2)\(siteTitle). \(string3)"
         
@@ -507,9 +507,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func documentsPathForFileName(name: String) -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true);
-        let path = paths[0] as! String;
+        let path = paths[0] ;
         fullPath = path.stringByAppendingPathComponent(name)
-        println("\(fullPath)")
+        print("\(fullPath)")
         return fullPath
     }
     
@@ -532,8 +532,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     func imageFromView(view:UIView) -> UIImage {
         
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0.0)
-        view.layer.renderInContext(UIGraphicsGetCurrentContext())
-        var image = UIGraphicsGetImageFromCurrentImageContext()
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         //NSUserDefaults.standardUserDefaults().setObject(UIImagePNGRepresentation(image), forKey: "shareIt")
@@ -542,7 +542,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         let imageData = UIImageJPEGRepresentation(image, 1)
         let relativePath = "image_\(NSDate.timeIntervalSinceReferenceDate()).jpg"
         let path = self.documentsPathForFileName(relativePath)
-        imageData.writeToFile(path, atomically: true)
+        imageData!.writeToFile(path, atomically: true)
         NSUserDefaults.standardUserDefaults().setObject(relativePath, forKey: "path")
         NSUserDefaults.standardUserDefaults().synchronize()
         

@@ -20,7 +20,7 @@ class ElementMiniView_Header:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -32,7 +32,7 @@ class ElementMiniView_Header:BNView {
         self.init(frame: frame, father:father )
         //self.backgroundColor = UIColor.appMainColor()
         
-        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
@@ -54,7 +54,7 @@ class ElementMiniView_Header:BNView {
         }
        
         ypos = 4
-        var title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 3)))
+        let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = UIColor.bnGrayDark()
         title.text = element!.title!
@@ -62,7 +62,7 @@ class ElementMiniView_Header:BNView {
         
         ypos += SharedUIManager.instance.miniView_titleSize
         
-        var subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 3)))
+        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 3)))
         subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.bnGrayDark()
         subTitle.text = element!.subTitle!

@@ -34,7 +34,7 @@ class BNNotification:NSObject {
         self.time = time
         
         let timestamp = NSDateFormatter.localizedStringFromDate(time, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
-        println("---- Notification at: \(timestamp)")
+        print("---- Notification at: \(timestamp)")
     }
     
     deinit {

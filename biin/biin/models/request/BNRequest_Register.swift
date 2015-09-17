@@ -28,7 +28,7 @@ class BNRequest_Register: BNRequest {
     
     override func run() {
         
-        println("BNRequest_Register.run()")
+        print("BNRequest_Register.run()")
         isRunning = true
 
         var response:BNResponse?
@@ -43,9 +43,9 @@ class BNRequest_Register: BNRequest {
                 
                 if let registerData = data["data"] as? NSDictionary {
                     
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
-                    var identifier = BNParser.findString("identifier", dictionary: registerData)
+                    let status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
+                    let identifier = BNParser.findString("identifier", dictionary: registerData)
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
@@ -53,7 +53,7 @@ class BNRequest_Register: BNRequest {
                         
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                        println("*** Register for user \(self.requestString) SUCK!")
+                        print("*** Register for user \(self.requestString) SUCK!")
                     }
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)

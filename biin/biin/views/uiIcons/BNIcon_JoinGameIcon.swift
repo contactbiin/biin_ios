@@ -24,7 +24,7 @@ class BNIcon_JoinGameIcon:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(48.5, 81.6))
         bezier2Path.addLineToPoint(CGPointMake(33, 81.6))
         bezier2Path.addCurveToPoint(CGPointMake(0, 48.6), controlPoint1: CGPointMake(14.8, 81.6), controlPoint2: CGPointMake(0, 66.8))
@@ -37,9 +37,9 @@ class BNIcon_JoinGameIcon:BNIcon {
         bezier2Path.closePath()
         bezier2Path.miterLimit = 4;
         
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier2Path.lineWidth = 3
@@ -47,7 +47,7 @@ class BNIcon_JoinGameIcon:BNIcon {
         
         //// Group 2
         //// Oval 2 Drawing
-        var oval2Path = UIBezierPath(ovalInRect: CGRectMake(17.7, 27.3, 6.4, 6.4))
+        let oval2Path = UIBezierPath(ovalInRect: CGRectMake(17.7, 27.3, 6.4, 6.4))
         color!.setFill()
         oval2Path.fill()
         color!.setStroke()
@@ -56,7 +56,7 @@ class BNIcon_JoinGameIcon:BNIcon {
         
         
         //// Oval 4 Drawing
-        var oval4Path = UIBezierPath(ovalInRect: CGRectMake(57.5, 27.3, 6.4, 6.4))
+        let oval4Path = UIBezierPath(ovalInRect: CGRectMake(57.5, 27.3, 6.4, 6.4))
         color!.setFill()
         oval4Path.fill()
         color!.setStroke()
@@ -64,12 +64,12 @@ class BNIcon_JoinGameIcon:BNIcon {
         oval4Path.stroke()
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(24.9, 59.9))
         bezier6Path.addLineToPoint(CGPointMake(56.7, 59.9))
-        bezier6Path.lineCapStyle = kCGLineCapRound;
+        bezier6Path.lineCapStyle = CGLineCap.Round;
         
-        bezier6Path.lineJoinStyle = kCGLineJoinRound;
+        bezier6Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setFill()
         bezier6Path.fill()
@@ -78,7 +78,7 @@ class BNIcon_JoinGameIcon:BNIcon {
         bezier6Path.stroke()
         
         //// Bezier 8 Drawing
-        var bezier8Path = UIBezierPath()
+        let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(24.9, 56.7))
         bezier8Path.addLineToPoint(CGPointMake(20.9, 33.6))
         bezier8Path.addCurveToPoint(CGPointMake(31.2, 43.9), controlPoint1: CGPointMake(20.9, 33.6), controlPoint2: CGPointMake(23.2, 43.9))
@@ -88,9 +88,9 @@ class BNIcon_JoinGameIcon:BNIcon {
         bezier8Path.addLineToPoint(CGPointMake(56.7, 56.7))
         bezier8Path.addLineToPoint(CGPointMake(24.9, 56.7))
         bezier8Path.closePath()
-        bezier8Path.lineCapStyle = kCGLineCapRound;
+        bezier8Path.lineCapStyle = CGLineCap.Round;
         
-        bezier8Path.lineJoinStyle = kCGLineJoinRound;
+        bezier8Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setFill()
         bezier8Path.fill()
@@ -99,7 +99,7 @@ class BNIcon_JoinGameIcon:BNIcon {
         bezier8Path.stroke()
         
         //// Oval 6 Drawing
-        var oval6Path = UIBezierPath(ovalInRect: CGRectMake(36.8, 21.7, 8, 8))
+        let oval6Path = UIBezierPath(ovalInRect: CGRectMake(36.8, 21.7, 8, 8))
         color!.setFill()
         oval6Path.fill()
         color!.setStroke()

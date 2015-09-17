@@ -24,7 +24,7 @@ class BNIcon_ShoeMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(26.8, 4.14))
         bezier2Path.addLineToPoint(CGPointMake(16.63, 4.14))
         bezier2Path.addCurveToPoint(CGPointMake(14.5, 6.22), controlPoint1: CGPointMake(16.63, 5.54), controlPoint2: CGPointMake(15.94, 6.22))
@@ -61,7 +61,7 @@ class BNIcon_ShoeMedium:BNIcon {
         
         //// Group 2
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(0, 18.55))
         bezier4Path.addLineToPoint(CGPointMake(0, 21.66))
         bezier4Path.addLineToPoint(CGPointMake(4.21, 21.66))
@@ -74,7 +74,7 @@ class BNIcon_ShoeMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(30.61, 20.15))
         bezier6Path.addLineToPoint(CGPointMake(24.11, 17.72))
         bezier6Path.addCurveToPoint(CGPointMake(21.87, 20.62), controlPoint1: CGPointMake(23.89, 19.58), controlPoint2: CGPointMake(22.88, 20.62))
@@ -89,7 +89,7 @@ class BNIcon_ShoeMedium:BNIcon {
         bezier6Path.fill()
         
         //// Bezier 8 Drawing
-        var bezier8Path = UIBezierPath()
+        let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(0, 25.28))
         bezier8Path.addCurveToPoint(CGPointMake(0.53, 25.8), controlPoint1: CGPointMake(0, 25.59), controlPoint2: CGPointMake(0.21, 25.8))
         bezier8Path.addLineToPoint(CGPointMake(31.47, 25.8))
@@ -104,7 +104,7 @@ class BNIcon_ShoeMedium:BNIcon {
         bezier8Path.fill()
         
         //// Bezier 10 Drawing
-        var bezier10Path = UIBezierPath()
+        let bezier10Path = UIBezierPath()
         bezier10Path.moveToPoint(CGPointMake(5.33, 21.66))
         bezier10Path.addLineToPoint(CGPointMake(15.47, 21.66))
         bezier10Path.addCurveToPoint(CGPointMake(17.6, 19.58), controlPoint1: CGPointMake(15.47, 20.26), controlPoint2: CGPointMake(16.16, 19.58))
@@ -141,7 +141,7 @@ class BNIcon_ShoeMedium:BNIcon {
         
         
         //// Bezier 12 Drawing
-        var bezier12Path = UIBezierPath()
+        let bezier12Path = UIBezierPath()
         bezier12Path.moveToPoint(CGPointMake(32, 7.25))
         bezier12Path.addLineToPoint(CGPointMake(32, 4.14))
         bezier12Path.addLineToPoint(CGPointMake(27.79, 4.14))
@@ -154,7 +154,7 @@ class BNIcon_ShoeMedium:BNIcon {
         
         
         //// Bezier 14 Drawing
-        var bezier14Path = UIBezierPath()
+        let bezier14Path = UIBezierPath()
         bezier14Path.moveToPoint(CGPointMake(31.47, 0))
         bezier14Path.addLineToPoint(CGPointMake(0.53, 0))
         bezier14Path.addCurveToPoint(CGPointMake(0, 0.52), controlPoint1: CGPointMake(0.21, 0), controlPoint2: CGPointMake(0, 0.21))
@@ -170,7 +170,7 @@ class BNIcon_ShoeMedium:BNIcon {
         
         
         //// Bezier 16 Drawing
-        var bezier16Path = UIBezierPath()
+        let bezier16Path = UIBezierPath()
         bezier16Path.moveToPoint(CGPointMake(7.95, 8.08))
         bezier16Path.addCurveToPoint(CGPointMake(10.19, 5.18), controlPoint1: CGPointMake(8.16, 6.27), controlPoint2: CGPointMake(9.17, 5.18))
         bezier16Path.addLineToPoint(CGPointMake(14.45, 5.18))

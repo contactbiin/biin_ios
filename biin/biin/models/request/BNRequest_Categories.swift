@@ -27,36 +27,36 @@ class BNRequest_Categories: BNRequest {
     
     override func run() {
         
-        println("BNRequest_Categories.run()")
+        print("BNRequest_Categories.run()")
         isRunning = true
         
         self.networkManager!.epsNetwork!.getJson(false, url:self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("Error on requestUserCategoriesData()")
+                print("Error on requestUserCategoriesData()")
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
                     var categories = Array<BNCategory>()
-                    var categoriesData = BNParser.findNSArray("categories", dictionary: dataData)
+                    let categoriesData = BNParser.findNSArray("categories", dictionary: dataData)
                     
                     for var i = 0; i < categoriesData?.count; i++ {
                         
-                        var categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
-                        var category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
+                        let categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
+                        let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
                         
                         category.name = BNParser.findString("name", dictionary: categoryData)
                         category.hasSites = BNParser.findBool("hasSites", dictionary: categoryData)
                         
                         if category.hasSites {
-                            var sites = BNParser.findNSArray("sites", dictionary: categoryData)
+                            let sites = BNParser.findNSArray("sites", dictionary: categoryData)
                             
                             for var j = 0; j < sites?.count; j++ {
                                 
-                                var siteData = sites!.objectAtIndex(j) as! NSDictionary
+                                let siteData = sites!.objectAtIndex(j) as! NSDictionary
                                 
                                 
                                 if let siteIdentifier = BNParser.findString("identifier", dictionary: siteData) {
@@ -70,7 +70,7 @@ class BNRequest_Categories: BNRequest {
                         }
                         
                         if category.sitesDetails.count == 0 {
-                            println("Category issue")
+                            print("Category issue")
                         }
                         
                         categories.append(category)

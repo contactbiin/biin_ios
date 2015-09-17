@@ -24,8 +24,8 @@ class HardwareErrorView: BNView {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         var ypos:CGFloat = 8
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
@@ -39,7 +39,7 @@ class HardwareErrorView: BNView {
         //        var xpos:CGFloat = (screenWidth - headerWidth) / 2
         
         ypos = SharedUIManager.instance.siteView_headerHeight
-        var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         self.addSubview(line)
         
@@ -56,7 +56,7 @@ class HardwareErrorView: BNView {
         
         ypos += (warningLogo!.frame.height + 10)
         
-        var text = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.errorView_text + 3)))
+        let text = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.errorView_text + 3)))
         text.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_text)
         text.textColor = UIColor.appTextColor()
         text.textAlignment = NSTextAlignment.Center
@@ -66,7 +66,7 @@ class HardwareErrorView: BNView {
         self.addSubview(text)
         
         ypos = (screenHeight - 100)
-        var siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 55))
+        let siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 55))
         siteUrl.setTitle(NSLocalizedString("HardwareErrorButton", comment: "HardwareErrorButton"), forState: UIControlState.Normal)
         siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         siteUrl.backgroundColor = UIColor.biinColor()
@@ -83,7 +83,7 @@ class HardwareErrorView: BNView {
 //        BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

@@ -35,7 +35,7 @@ class ElementMiniView: BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -82,7 +82,7 @@ class ElementMiniView: BNView {
         }
         
         //Positioning image
-        var imageSize = frame.width// - SharedUIManager.instance.miniView_headerHeight
+        let imageSize = frame.width// - SharedUIManager.instance.miniView_headerHeight
         var xpos:CGFloat = 0//((imageSize - frame.height) / 2 ) * -1
         image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize))
         //image!.alpha = 1
@@ -172,7 +172,7 @@ class ElementMiniView: BNView {
         animationView!.alpha = 0
         //self.addSubview(animationView!)
         
-        var tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()

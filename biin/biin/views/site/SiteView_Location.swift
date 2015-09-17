@@ -43,7 +43,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -55,21 +55,21 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         site_phoneNumber = ""
         site_email = ""
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         
-        var headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
+        let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
         var ypos:CGFloat = 4
 
         closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
         closeBtn!.addTarget(father, action: "hideInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(closeBtn!)
         
-        var siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
+        let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize))
         self.addSubview(siteAvatar!)
         
-        var xpos:CGFloat = siteAvatarSize + 10
+        let xpos:CGFloat = siteAvatarSize + 10
         
         title = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
@@ -247,7 +247,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     //Instance methods
     func updateForSite(site: BNSite?){
         
-        var ypos:CGFloat = title!.frame.origin.y
+        //var ypos:CGFloat = title!.frame.origin.y
         
         //title!.textColor = site!.titleColor
         title!.text = site!.title!
@@ -334,7 +334,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        (map!.annotations[0] as! MKPointAnnotation).title = site!.title!
 //        (map!.annotations[0] as! MKPointAnnotation).subtitle = site!.streetAddress1!
 //        map!.selectAnnotation((map!.annotations[0] as! MKPointAnnotation), animated: true)
-        var annotation = MKPointAnnotation()
+        let annotation = MKPointAnnotation()
         annotation.coordinate = siteLocation!
         annotation.title = site!.title!
         annotation.subtitle = site!.streetAddress1!
@@ -364,14 +364,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     func call(sender:BNUIButton_Contact){
         
         if site_phoneNumber! != "" {
-            var url:NSURL = NSURL(string:"tel://\(site_phoneNumber!)")!
+            let url:NSURL = NSURL(string:"tel://\(site_phoneNumber!)")!
             UIApplication.sharedApplication().openURL(url)
         }
     }
     
     func sendMail(sender: BNUIButton_Contact) {
-        var picker = MFMailComposeViewController()
-        var toRecipents = [site_email!]
+        let picker = MFMailComposeViewController()
+        let toRecipents = [site_email!]
         picker.setToRecipients(toRecipents)
         picker.mailComposeDelegate = self
         picker.setSubject(NSLocalizedString("EmailMsj", comment: "EmailMsj"))
@@ -380,7 +380,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         (father!.father! as? MainView)?.rootViewController!.presentViewController(picker, animated: true, completion: nil)
     }
     
-    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         (father!.father! as? MainView)?.rootViewController!.dismissViewControllerAnimated(true, completion: nil)
     }
     

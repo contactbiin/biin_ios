@@ -29,8 +29,8 @@ class LoadingView:UIView {
 //        biinLogo!.image = UIImage(named: "biinLogoLS.png")
 //        self.addSubview(biinLogo!)
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:0), scale:SharedUIManager.instance.loadingView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
@@ -39,8 +39,8 @@ class LoadingView:UIView {
         self.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-        var barWidth:CGFloat = biinLogo!.frame.width - 20.0
-        var xpos:CGFloat = ((screenWidth - barWidth ) / 2)
+        let barWidth:CGFloat = biinLogo!.frame.width - 20.0
+        let xpos:CGFloat = ((screenWidth - barWidth ) / 2)
         var ypos:CGFloat = biinLogo!.frame.height + biinLogo!.frame.origin.y
         ypos += 10
         
@@ -71,7 +71,7 @@ class LoadingView:UIView {
         version!.font = UIFont(name: "Lato-Light", size: 18)
         version!.textColor = UIColor.appTextColor()
         version!.textAlignment = NSTextAlignment.Center
-        var versionTxt = NSLocalizedString("Version", comment: "the version title")
+        let versionTxt = NSLocalizedString("Version", comment: "the version title")
         version!.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
         self.addSubview(version!)
         
@@ -79,13 +79,13 @@ class LoadingView:UIView {
     }
     
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func updateProgressView(value:Float){
         if value > lastProgressValue {
-            println("------------- \(value)")
+            print("------------- \(value)")
             lastProgressValue = value
             progressView!.setProgress(value, animated: true)
             if value > 0.85 {
@@ -99,9 +99,9 @@ class LoadingView:UIView {
         loadingLbl!.alpha = 0
         biinLogo!.alpha = 0
         
-        var labelHeight:CGFloat = 80.0
-        var ypos:CGFloat = (frame.height / 2) - (labelHeight / 2)
-        var errorLbl = UILabel(frame: CGRect(x:25, y:ypos, width:(self.frame.width - 50), height:labelHeight))
+        let labelHeight:CGFloat = 80.0
+        let ypos:CGFloat = (frame.height / 2) - (labelHeight / 2)
+        let errorLbl = UILabel(frame: CGRect(x:25, y:ypos, width:(self.frame.width - 50), height:labelHeight))
         errorLbl.font = UIFont(name: "Lato-Light", size: 18)
         errorLbl.text = NSLocalizedString("HardwareError", comment: "HardwareError")
         errorLbl.textColor = UIColor.blackColor()

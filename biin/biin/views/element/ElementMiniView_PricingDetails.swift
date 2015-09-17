@@ -12,7 +12,7 @@ class ElementMiniView_PricingDetails:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -23,57 +23,57 @@ class ElementMiniView_PricingDetails:BNView {
     convenience init(frame: CGRect, father:BNView?, element:BNElement?) {
         self.init(frame:frame, father:father)
         
-        println("element identifier: \(element!.identifier!)")
+        print("element identifier: \(element!.identifier!)")
         
         var ypos:CGFloat = 5
-        var spacer:CGFloat = 5
+        //var spacer:CGFloat = 5
         
         if element!.hasTimming {
-            var timeStickerView = BNUIDetailView_Time(position: CGPointMake(5, ypos), text:"Calculate time", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let timeStickerView = BNUIDetailView_Time(position: CGPointMake(5, ypos), text:"Calculate time", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(timeStickerView)
             ypos += 32
         }
         
         if element!.hasFromPrice {
-            var fromPrice = BNUIDetailView_From(position: CGPointMake(5, ypos), text:"\(element!.currency!)\(element!.price!)", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let fromPrice = BNUIDetailView_From(position: CGPointMake(5, ypos), text:"\(element!.currency!)\(element!.price!)", textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(fromPrice)
             ypos += 32
         }
         
         if element!.hasListPrice {
-            var listPrice = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title: NSLocalizedString("LimitedTime", comment: "LimitedTime"), value: "\(element!.currency!)\(element!.listPrice!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let listPrice = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title: NSLocalizedString("LimitedTime", comment: "LimitedTime"), value: "\(element!.currency!)\(element!.listPrice!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(listPrice)
             ypos += 32
         }
         
         if element!.hasDiscount {
-            var discount = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title:NSLocalizedString("Discount", comment: "Discount"), value: "\(element!.discount!)%", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let discount = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title:NSLocalizedString("Discount", comment: "Discount"), value: "\(element!.discount!)%", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(discount)
             ypos += 32
         }
         
         if element!.hasSaving {
-            var savings = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title:NSLocalizedString("Savings", comment: "Savings"), value:"\(element!.currency!)\(element!.savings!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let savings = BNUIDetailView_Discount(position: CGPoint(x: 5, y: ypos), title:NSLocalizedString("Savings", comment: "Savings"), value:"\(element!.currency!)\(element!.savings!)", textColor: UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(savings)
             ypos += 32
         }
         
         if element!.hasPrice {
-            var priceStickerView = BNUIDetailView_Price(position: CGPointMake(5, ypos), listPrice:"\(element!.currency!)\(element!.price!)", textColor: UIColor.appTextColor(), borderColor: UIColor.appButtonColor())
+            let priceStickerView = BNUIDetailView_Price(position: CGPointMake(5, ypos), listPrice:"\(element!.currency!)\(element!.price!)", textColor: UIColor.appTextColor(), borderColor: UIColor.appButtonColor())
             self.addSubview(priceStickerView)
             ypos += 62
         }
         
         if element!.hasQuantity {
             var boxWidth = (SharedUIManager.instance.screenWidth - 14) / 3
-            var quantityStickerView = BNUIDetailView_Quantity(position: CGPointMake(5, ypos), title:NSLocalizedString("Quantity", comment: "Quantity"), value:element!.quantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let quantityStickerView = BNUIDetailView_Quantity(position: CGPointMake(5, ypos), title:NSLocalizedString("Quantity", comment: "Quantity"), value:element!.quantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(quantityStickerView)
             
-            var reservedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 7), ypos), title:NSLocalizedString("Reserve", comment: "Reserve"), value:element!.reservedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let reservedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 7), ypos), title:NSLocalizedString("Reserve", comment: "Reserve"), value:element!.reservedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(reservedStickerView)
             
             boxWidth += boxWidth
-            var claimedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 9), ypos), title:NSLocalizedString("Claimed", comment: "Claimed"), value:element!.claimedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
+            let claimedStickerView = BNUIDetailView_Quantity(position: CGPointMake((boxWidth + 9), ypos), title:NSLocalizedString("Claimed", comment: "Claimed"), value:element!.claimedQuantity, textColor:UIColor.appTextColor(), borderColor:UIColor.appButtonColor())
             self.addSubview(claimedStickerView)
             ypos += 32
         }

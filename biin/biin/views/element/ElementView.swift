@@ -48,8 +48,8 @@ class ElementView: BNView {
         self.init(frame: frame, father:father )
         self.backgroundColor = UIColor.appMainColor()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         var scrollHeight:CGFloat = screenHeight - SharedUIManager.instance.elementView_headerHeight
         //Add here any other heights for site view.
@@ -95,7 +95,7 @@ class ElementView: BNView {
         scroll!.addSubview(animationView!)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -148,7 +148,7 @@ class ElementView: BNView {
         imagesScrollView!.updateImages(elementMiniView!.element!.media)
         buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
 
-        println("element identifier: \(elementMiniView!.element!.identifier!)")
+        print("element identifier: \(elementMiniView!.element!.identifier!)")
         
         var ypos:CGFloat = 25
         /*

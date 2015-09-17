@@ -90,7 +90,7 @@ class BNSite:NSObject, NSCoding {
         }
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
 //        self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
 //        self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
 //        self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String

@@ -22,7 +22,7 @@ class BNUIPointView:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -59,7 +59,7 @@ class BNUIPointView:UIView {
     override func drawRect(rect:CGRect){
         
         if isActive {
-            var ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 8, 8))
+            let ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 8, 8))
             self.activeColor!.setFill()
             ovalPath.fill()
 //            UIColor.orangeColor().setStroke()
@@ -67,7 +67,7 @@ class BNUIPointView:UIView {
 //            ovalPath.stroke()
 
         }else{
-            var ovalPath = UIBezierPath(ovalInRect: CGRectMake(3, 3, 6, 6))
+            let ovalPath = UIBezierPath(ovalInRect: CGRectMake(3, 3, 6, 6))
             self.inactiveColor!.setFill()
             ovalPath.fill()
         }
@@ -102,7 +102,7 @@ class BNUIPointView:UIView {
     func setLabelText(text:String){
         label!.text = text
         label!.sizeToFit()
-        var posx = (label!.frame.width / 2)
+        let posx = (label!.frame.width / 2)
         label!.frame.origin.x = 0
         label!.frame.origin.x -= (posx - 6)
     }

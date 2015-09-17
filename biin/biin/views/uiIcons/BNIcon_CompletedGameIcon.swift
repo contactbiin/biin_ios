@@ -31,7 +31,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(39.56, 66.6))
         bezier2Path.addLineToPoint(CGPointMake(26.93, 66.6))
         bezier2Path.addCurveToPoint(CGPointMake(0, 39.67), controlPoint1: CGPointMake(12.07, 66.6), controlPoint2: CGPointMake(0, 54.53))
@@ -50,7 +50,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(45.1, 18.67))
         bezier4Path.addLineToPoint(CGPointMake(27.83, 35.94))
         bezier4Path.addLineToPoint(CGPointMake(23, 31.11))
@@ -59,7 +59,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         bezier4Path.addLineToPoint(CGPointMake(49.93, 23.49))
         bezier4Path.addLineToPoint(CGPointMake(45.1, 18.67))
         bezier4Path.closePath()
-        bezier4Path.lineJoinStyle = kCGLineJoinRound;
+        bezier4Path.lineJoinStyle = CGLineJoin.Round;
         
         colorWhite.setStroke()
         bezier4Path.lineWidth = 2

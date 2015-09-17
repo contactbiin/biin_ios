@@ -9,7 +9,7 @@ class BNUIView_PriceX:UIView {
 
     var icon:BNIcon?
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

@@ -31,9 +31,9 @@ class BNIcon_SiteLocationButton:BNIcon {
         bezierPath.addCurveToPoint(CGPointMake(5.5, 0), controlPoint1: CGPointMake(0, 2.53), controlPoint2: CGPointMake(2.6, 0))
         bezierPath.addCurveToPoint(CGPointMake(11, 5.69), controlPoint1: CGPointMake(8.4, 0), controlPoint2: CGPointMake(11, 2.56))
         bezierPath.closePath()
-        bezierPath.lineCapStyle = kCGLineCapRound
+        bezierPath.lineCapStyle = CGLineCap.Round
         
-        bezierPath.lineJoinStyle = kCGLineJoinRound
+        bezierPath.lineJoinStyle = CGLineJoin.Round
         
         color!.setStroke()
         bezierPath.lineWidth = 1

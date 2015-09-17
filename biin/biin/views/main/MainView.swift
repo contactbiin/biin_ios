@@ -44,7 +44,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -64,7 +64,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         self.layer.masksToBounds = true
         
         //Create views
-        var categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
+        let categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
         self.addSubview(categoriesView)
         state = biinieCategoriesState!
@@ -72,35 +72,35 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         delegate_HighlightsContainer = categoriesView
         delegate_BiinsContainer = categoriesView
         
-        var siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
+        let siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
             SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         siteState = SiteState(context: self, view: siteView, stateType: BNStateType.SiteState)
         siteView.delegate = self
         self.addSubview(siteView)
         
-        var profileView = ProfileView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        let profileView = ProfileView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         profileState = ProfileState(context: self, view: profileView, stateType: BNStateType.ProfileState)
         profileView.delegate = rootViewController!
         profileView.delegateFather = self
         self.addSubview(profileView)
         
-        var collectionsView = CollectionsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        let collectionsView = CollectionsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         collectionsState = CollectionsState(context: self, view: collectionsView)
         collectionsView.delegate = self
         self.addSubview(collectionsView)
         
-        var notificationsView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        let notificationsView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         notificationsState = NotificationsState(context: self, view: notificationsView)
         notificationsView.delegate = self
         self.addSubview(notificationsView)
         
         
-        var loyaltiesView = LoyaltiesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        let loyaltiesView = LoyaltiesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         loyaltiesState = LoyaltiesState(context: self, view: loyaltiesView)
         loyaltiesView.delegate = self
         self.addSubview(loyaltiesView)
         
-        var aboutView = AboutView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        let aboutView = AboutView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         aboutState = AboutState(context: self, view: aboutView)
         aboutView.delegate = self
         self.addSubview(aboutView)
@@ -153,7 +153,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         userControl = UserControlView(frame:CGRectZero, father: self)
         self.addSubview(userControl!)
         */
-        var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
+        let showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         showMenuSwipe.edges = UIRectEdge.Left
         categoriesView.scroll!.addGestureRecognizer(showMenuSwipe)
         
@@ -197,12 +197,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func testButtonAction(sender:UIButton) {
-        println("testButtonAction()")
+        print("testButtonAction()")
         BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
-        println("Showmain Menu")
+        print("Showmain Menu")
         self.delegate!.mainView!(self, showMenu: true)
     }
     
@@ -358,7 +358,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     //}
     
     func showLoyalties(){
-        println("showLoyalties()")
+        print("showLoyalties()")
     }
     
     func showNotification(){
@@ -397,7 +397,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     //setNextState(2)
                     NSLog("BIIN - Show element view for element: \(element._id!)")
-                    var elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
+                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
                 }
                 break
@@ -421,7 +421,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     //setNextState(2)
                     NSLog("BIIN - Show element view for element: \(element._id!)")
-                    var elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
+                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
                 }
                 break
@@ -436,7 +436,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showSiteView(view: SiteView_MiniLocation, site: BNSite) {
-        println("showSiteView() from mini location view")
+        print("showSiteView() from mini location view")
         (siteState!.view as! SiteView).updateSiteData(site)
         setNextState(2)
     }
@@ -450,8 +450,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     ///Request a region's data.
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: Region's identifier requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter Region's: identifier requesting the data.
     optional func mainView(mainView:MainView!, hideMenu value:Bool)
     optional func mainView(mainView:MainView!, hideMenuOnChange value:Bool, index:Int)
     

@@ -20,7 +20,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("SingupViewController - viewDidLoad()")
+        print("SingupViewController - viewDidLoad()")
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
@@ -97,7 +97,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     func enterBtnAction(sender: UIButton!){
-        var vc = UserOnboardingViewController()
+        let vc = UserOnboardingViewController()
         vc.initViewController(self.view.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)
@@ -148,13 +148,13 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     func test(view: UIView) {
-        var vc = UserOnboardingViewController()
+        let vc = UserOnboardingViewController()
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func enableSignup(view: UIView) {
-        var vc = UserOnboardingViewController()
+        let vc = UserOnboardingViewController()
         vc.initViewController(self.view.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)
@@ -171,7 +171,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
                     BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
-                    var vc = LoadingViewController()
+                    let vc = LoadingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
                 })
@@ -193,7 +193,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    var vc = UserOnboardingViewController()
+                    let vc = UserOnboardingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
                 })

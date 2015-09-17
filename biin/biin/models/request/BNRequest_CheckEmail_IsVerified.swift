@@ -38,14 +38,14 @@ class BNRequest_CheckEmail_IsVerified: BNRequest {
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
-                if let dataData = data["data"] as? NSDictionary {
+                //if let dataData = data["data"] as? NSDictionary {
                     
-                    var status = BNParser.findInt("status", dictionary: data)
-                    var result = BNParser.findBool("result", dictionary: data)
+                    //var status = BNParser.findInt("status", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
                     
                     self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedEmailVerification: result)
       
-                }
+                //}
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)
             }

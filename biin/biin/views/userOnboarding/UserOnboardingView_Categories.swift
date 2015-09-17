@@ -18,7 +18,7 @@ class UserOnboardingView_Categories:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -26,7 +26,7 @@ class UserOnboardingView_Categories:UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.whiteColor()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
+        let screenWidth = SharedUIManager.instance.screenWidth
         var ypos:CGFloat = SharedUIManager.instance.onBoardingView_ypos_1
 
         title = UILabel(frame:CGRectMake(0, ypos, (screenWidth / 2), 45))
@@ -45,7 +45,7 @@ class UserOnboardingView_Categories:UIView {
         var buttonCounter:Int = 1
         xpos = (screenWidth - 295) / 2
         ypos += 60
-        var space:CGFloat = 5
+        //var space:CGFloat = 5
         
         //var line = UIView(frame: CGRectMake(5, (ypos - 10), (screenWidth - 10), 0.5))
         //line.backgroundColor = UIColor.appBackground()
@@ -53,7 +53,7 @@ class UserOnboardingView_Categories:UIView {
         
         for category in BNAppSharedManager.instance.dataManager.categories! {
             
-            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.appBackground())
+            let button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.appBackground())
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
             
             if  category.name! == "Shoes" ||
@@ -87,7 +87,7 @@ class UserOnboardingView_Categories:UIView {
 //        self.addSubview(selectedLbl!)
         
         
-        var descriptionText = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 14))
+        let descriptionText = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 14))
         descriptionText.font = UIFont(name:"Lato-Light", size:11)
         descriptionText.textColor = UIColor.appTextColor()
         descriptionText.textAlignment = NSTextAlignment.Center
@@ -96,7 +96,7 @@ class UserOnboardingView_Categories:UIView {
         descriptionText.sizeToFit()
         self.addSubview(descriptionText)
         
-        var x_space:CGFloat = ( SharedUIManager.instance.screenWidth - descriptionText.frame.width ) / 2
+        let x_space:CGFloat = ( SharedUIManager.instance.screenWidth - descriptionText.frame.width ) / 2
         descriptionText.frame.origin.x = x_space
         
         startBtn = BNUIButton_Loging(frame: CGRect(x:0, y:(SharedUIManager.instance.screenHeight - 90), width: screenWidth, height: 60), color:UIColor.biinColor(), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.whiteColor())

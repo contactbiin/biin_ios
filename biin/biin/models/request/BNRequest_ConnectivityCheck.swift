@@ -28,13 +28,13 @@ class BNRequest_ConnectivityCheck: BNRequest {
     
     override func run() {
 
-        println("BNRequestConnectivityCheck.run()")
+        print("BNRequestConnectivityCheck.run()")
         isRunning = true
         networkManager!.epsNetwork!.getJson(false, url:requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("Error BNRequestConnectivityCheck.run()")
+                print("Error BNRequestConnectivityCheck.run()")
                 self.errorManager!.showInternetError()
                 self.networkManager!.handleFailedRequest(self, error: error )
                 self.networkManager!.requests.removeAll(keepCapacity: false)

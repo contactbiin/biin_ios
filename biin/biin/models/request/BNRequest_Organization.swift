@@ -28,23 +28,23 @@ class BNRequest_Organization: BNRequest {
     
     override func run() {
         
-        println("BNRequest_Organization.run()")
+        print("BNRequest_Organization.run()")
         isRunning = true
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                println("Error on requestOrganizationData()")
-                println("\(error!.description)")
+                print("Error on requestOrganizationData()")
+                print("\(error!.description)")
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
                 if let dataData = data["data"] as? NSDictionary {
                     
-                    var result = BNParser.findBool("result", dictionary: data)
+                    let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
-                        var organizationData = BNParser.findNSDictionary("organization", dictionary: dataData)
+                        let organizationData = BNParser.findNSDictionary("organization", dictionary: dataData)
                         
                         
                         self.organization!.name = BNParser.findString("name", dictionary: organizationData!)
@@ -52,19 +52,19 @@ class BNRequest_Organization: BNRequest {
                         self.organization!.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData!)
                         self.organization!.organizationDescription = BNParser.findString("description", dictionary: organizationData!)
                         
-                        var mediaArray = BNParser.findNSArray("media", dictionary: organizationData!)
+                        let mediaArray = BNParser.findNSArray("media", dictionary: organizationData!)
                         
                         for var i = 0; i < mediaArray?.count; i++ {
-                            var mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
-                            var url = BNParser.findString("imgUrl", dictionary:mediaData)
-                            var type = BNParser.findMediaType("mediaType", dictionary: mediaData)
-                            var domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)
-                            var media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
+                            let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
+                            let url = BNParser.findString("imgUrl", dictionary:mediaData)
+                            let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                            let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)
+                            let media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
                             self.organization!.media.append(media)
                         }
                         
-                        var loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: dataData)
-                        var loyalty = BNLoyalty()
+                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: dataData)
+                        let loyalty = BNLoyalty()
                         loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
                         
                         loyalty.isSubscribed = true

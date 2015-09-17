@@ -47,14 +47,14 @@ class BNLocalNotification:NSObject, NSCoding {
         self.elementIdentifier = elementIdentifier
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.objectIdentifier  = aDecoder.decodeObjectForKey("objectIdentifier") as? String
         self.notificationText = aDecoder.decodeObjectForKey("notificationText") as? String
         self.siteIdentifier = aDecoder.decodeObjectForKey("siteIdentifier") as? String
         self.biinIdentifier = aDecoder.decodeObjectForKey("biinIdentifier") as? String
         self.elementIdentifier = aDecoder.decodeObjectForKey("elementIdentifier") as? String
         
-        var value = aDecoder.decodeIntForKey("notificationType")
+        let value = aDecoder.decodeIntForKey("notificationType")
         switch value {
         case 0:
             self.notificationType = .NONE

@@ -24,13 +24,13 @@ class BNIcon_UmbrellaMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(23, 16.02))
         bezier2Path.addLineToPoint(CGPointMake(17, 16.02))
         bezier2Path.addCurveToPoint(CGPointMake(11, 18.02), controlPoint1: CGPointMake(14.5, 16.02), controlPoint2: CGPointMake(12.4, 16.82))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier2Path.lineWidth = 1
@@ -38,12 +38,12 @@ class BNIcon_UmbrellaMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(17, 16.02))
         bezier4Path.addLineToPoint(CGPointMake(13.7, 7.62))
-        bezier4Path.lineCapStyle = kCGLineCapRound;
+        bezier4Path.lineCapStyle = CGLineCap.Round;
         
-        bezier4Path.lineJoinStyle = kCGLineJoinRound;
+        bezier4Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier4Path.lineWidth = 1
@@ -51,12 +51,12 @@ class BNIcon_UmbrellaMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(11.1, 1.12))
         bezier6Path.addLineToPoint(CGPointMake(10.8, 0.22))
-        bezier6Path.lineCapStyle = kCGLineCapRound;
+        bezier6Path.lineCapStyle = CGLineCap.Round;
         
-        bezier6Path.lineJoinStyle = kCGLineJoinRound;
+        bezier6Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier6Path.lineWidth = 1
@@ -64,7 +64,7 @@ class BNIcon_UmbrellaMedium:BNIcon {
         
         
         //// Bezier 8 Drawing
-        var bezier8Path = UIBezierPath()
+        let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(11.1, 1.12))
         bezier8Path.addCurveToPoint(CGPointMake(4.5, 10.22), controlPoint1: CGPointMake(6.2, 3.02), controlPoint2: CGPointMake(3.1, 6.62))
         bezier8Path.addLineToPoint(CGPointMake(4.9, 11.12))
@@ -78,16 +78,16 @@ class BNIcon_UmbrellaMedium:BNIcon {
         bezier8Path.addLineToPoint(CGPointMake(22.2, 3.22))
         bezier8Path.addCurveToPoint(CGPointMake(11.1, 1.12), controlPoint1: CGPointMake(20.8, -0.38), controlPoint2: CGPointMake(16, -0.78))
         bezier8Path.closePath()
-        bezier8Path.lineCapStyle = kCGLineCapRound;
+        bezier8Path.lineCapStyle = CGLineCap.Round;
         
-        bezier8Path.lineJoinStyle = kCGLineJoinRound;
+        bezier8Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier8Path.lineWidth = 1
         bezier8Path.stroke()
         
         //// Bezier 10 Drawing
-        var bezier10Path = UIBezierPath()
+        let bezier10Path = UIBezierPath()
         bezier10Path.moveToPoint(CGPointMake(23, 22.02))
         bezier10Path.addCurveToPoint(CGPointMake(21, 20.02), controlPoint1: CGPointMake(22, 22.02), controlPoint2: CGPointMake(21, 21.12))
         bezier10Path.addCurveToPoint(CGPointMake(19, 22.02), controlPoint1: CGPointMake(21, 21.12), controlPoint2: CGPointMake(20, 22.02))
@@ -101,9 +101,9 @@ class BNIcon_UmbrellaMedium:BNIcon {
         bezier10Path.addCurveToPoint(CGPointMake(3, 22.02), controlPoint1: CGPointMake(5, 21.12), controlPoint2: CGPointMake(4, 22.02))
         bezier10Path.addCurveToPoint(CGPointMake(1, 20.02), controlPoint1: CGPointMake(2, 22.02), controlPoint2: CGPointMake(1, 21.12))
         bezier10Path.addCurveToPoint(CGPointMake(0, 21.72), controlPoint1: CGPointMake(1, 20.72), controlPoint2: CGPointMake(0.5, 21.32))
-        bezier10Path.lineCapStyle = kCGLineCapRound;
+        bezier10Path.lineCapStyle = CGLineCap.Round;
         
-        bezier10Path.lineJoinStyle = kCGLineJoinRound;
+        bezier10Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier10Path.lineWidth = 1

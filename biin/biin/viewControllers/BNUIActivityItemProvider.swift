@@ -17,7 +17,7 @@ class BNUIActivityItemProvider: UIActivityItemProvider {
     
     override func activityViewController(activityViewController: UIActivityViewController, itemForActivityType activityType: String) -> AnyObject?  {
         
-        println("CALLED")
+        print("CALLED")
         
         return nil
     }// called to fetch data after an activity is selected. you can return nil.

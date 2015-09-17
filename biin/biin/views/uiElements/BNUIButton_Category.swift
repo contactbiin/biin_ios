@@ -18,7 +18,7 @@ class BNUIButton_Category:BNUIButton {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -43,10 +43,10 @@ class BNUIButton_Category:BNUIButton {
         self.layer.borderColor = self.unSelectedColor!.CGColor
         self.layer.masksToBounds = true
         
-        var iconWidth:CGFloat = 10
-        var xSpace:CGFloat = 6
-        var ypos:CGFloat = 38
-        var xpos:CGFloat = 0
+        //var iconWidth:CGFloat = 10
+        //var xSpace:CGFloat = 6
+        let ypos:CGFloat = 38
+        //var xpos:CGFloat = 0
         
         label = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), 24))
         label!.textColor = self.unSelectedColor!
