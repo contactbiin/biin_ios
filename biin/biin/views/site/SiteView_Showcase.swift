@@ -24,8 +24,9 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     var gameView:SiteView_Showcase_Game?
     var joinView:SiteView_Showcase_Join?
     
-
     weak var site:BNSite?
+    var isLoyaltyEnabled = false
+    
     var currentPoints = 0
     var timer:NSTimer?
     
@@ -215,16 +216,14 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             elementView_width = SharedUIManager.instance.miniView_width
         }
         
+        if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
+            isLoyaltyEnabled = true
+        }
         
         for element in showcase!.elements {
             
-            var showLoyalty:Bool = false
-                
-            if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
-                showLoyalty = true
-            }
             
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:showLoyalty)
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled)
 
             if element != showcase!.elements.last {
                 xpos += elementView_width + spacer
@@ -302,11 +301,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
-        if showcase!.isShowcaseGameCompleted {
-            return
-        }
-        
-        if self.site!.organization!.loyalty!.isSubscribed {
+        if isLoyaltyEnabled {
+            
+            if showcase!.isShowcaseGameCompleted {
+                return
+            }
             
             var isShowcaseGameCompleted = true
             var totalPoints = 0
