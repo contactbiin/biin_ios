@@ -23,7 +23,8 @@ class BNParser {
     }
     
     class func findInt(name:String, dictionary:NSDictionary) ->Int? {
-        return Int(((dictionary[name] as? String))!)
+        let value =  Int(dictionary[name] as! String)
+        return value
     }
     
     class func findFloat(name:String, dictionary:NSDictionary) ->Float? {
@@ -127,7 +128,6 @@ class BNParser {
         }
     }
     
-    
     class func findBNStickerType(name:String, dictionary:NSDictionary) -> BNStickerType {
         let value = self.findInt(name, dictionary: dictionary)
         
@@ -208,12 +208,11 @@ class BNParser {
         var r = ""
         var g = ""
         var b = ""
-        
-        //var isNumber = false
+    
         var counter = 0
         
         for c in (color!).characters {
-            //isNumber = false
+            
             switch (c) {
             case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9":
                 if counter == 0 {

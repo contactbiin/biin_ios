@@ -50,15 +50,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         
         self.view.addSubview(signupView!)
         signupView!.frame.origin.x = SharedUIManager.instance.screenWidth
-        
-        //[snippet caption="Creating Notifications in Swift"]
-//        var localNotification: UILocalNotification = UILocalNotification()
-//        localNotification.alertAction = "Testing notifications on iOS8"
-//        //localNotification.alertBody = "Woww it works!!”
-//        localNotification.alertBody = "Testing"
-//        localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
-//        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-        
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -67,33 +58,10 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func initViewController(frame:CGRect){
-        
-//        mainView = MainView(frame: frame, father:nil, rootViewController: self)
-//        mainView!.delegate = self
-//        self.view.addSubview(self.mainView!)
-//        
-//        fadeView = UIView(frame: frame)
-//        fadeView!.backgroundColor = UIColor.blackColor()
-//        fadeView!.alpha = 0
-//        fadeView!.userInteractionEnabled = false
-//        self.view.addSubview(fadeView!)
-//        
-//        menuView = MenuView(frame: CGRectMake(-140, 0, 140, frame.height))
-//        menuView!.delegate = self
-//        self.view.addSubview(menuView!)
-//        
-//        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
-//        hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
-//        menuView!.addGestureRecognizer(hideMenuSwipe)
-//        
-//        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
-//        showMenuSwipe!.edges = UIRectEdge.Bottom
-//        self.view.addGestureRecognizer(showMenuSwipe!)
-        
+
     }
     
     func enterBtnAction(sender: UIButton!){
@@ -110,10 +78,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-        //UIView.animateWithDuration(0.5, animations: {()-> Void in
-            //self.loadingView!.alpha = 0
-            //self.enterBtn!.alpha = 1
-        //})
+
     }
     
     func showSignupView(view: UIView) {
@@ -142,9 +107,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         }
         
         showProgressView()
-//        var vc = LoadingViewController()
-//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-//        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func test(view: UIView) {
@@ -161,10 +123,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     //BNNetworkManagerDelegate Methods
-//    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-//        
-//    }
-    
     func manager(manager: BNNetworkManager!, didReceivedLoginValidation response: BNResponse?) {
 
         if response!.code == 0 {

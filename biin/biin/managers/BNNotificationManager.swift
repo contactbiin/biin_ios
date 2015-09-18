@@ -1,10 +1,7 @@
-//
 //  BNNotificationManager.swift
 //  biin
-//
 //  Created by Esteban Padilla on 6/18/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -12,7 +9,6 @@ import UIKit
 class BNNotificationManager:NSObject, NSCoding {
 
     var currentNotification:BNLocalNotification?
-    //var notifications = Array<BNNotification>()//[BiinieAction]()
     var localNotifications:[BNLocalNotification] = [BNLocalNotification]()
     var lastNotificationObjectId:String = ""
     var didSendNotificationOnAppDown = false
@@ -24,15 +20,6 @@ class BNNotificationManager:NSObject, NSCoding {
     deinit{
         
     }
-    
-//    func removeNotification(identifier:Int){
-//        for var i = 0; i < notifications.count; i++ {
-//            if notifications[i].identifier == identifier {
-//                notifications.removeAtIndex(i)
-//                return
-//            }
-//        }
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         
