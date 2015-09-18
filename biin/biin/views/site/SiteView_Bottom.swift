@@ -106,8 +106,8 @@ class SiteView_Bottom:BNView {
         self.backgroundColor = site!.media[0].vibrantColor!
         
         self.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, height)
-        let points = NSLocalizedString("Points", comment: "Points")
-        pointsLbl!.text = "\(points): \(site!.organization!.loyalty!.points)"
+        //let points = NSLocalizedString("Points", comment: "Points")
+        //pointsLbl!.text = "\(points): \(site!.organization!.loyalty!.points)"
         
         self.title!.text = "More Comming soon!"
         self.subTitle!.text = "Come back in next few day and find more exiting infomation on our behalf."
