@@ -24,14 +24,14 @@ class BNIcon_FriendsMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Oval 2 Drawing
-        var oval2Path = UIBezierPath(ovalInRect: CGRectMake(2, 0, 7.6, 7.6))
+        let oval2Path = UIBezierPath(ovalInRect: CGRectMake(2, 0, 7.6, 7.6))
         color!.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(6.08, 10.17))
         bezier2Path.addCurveToPoint(CGPointMake(0, 20.56), controlPoint1: CGPointMake(2.71, 10.17), controlPoint2: CGPointMake(0, 14.47))
         bezier2Path.addLineToPoint(CGPointMake(3.96, 20.56))
@@ -47,14 +47,14 @@ class BNIcon_FriendsMedium:BNIcon {
         
         
         //// Oval 4 Drawing
-        var oval4Path = UIBezierPath(ovalInRect: CGRectMake(17.6, 0, 7.8, 7.8))
+        let oval4Path = UIBezierPath(ovalInRect: CGRectMake(17.6, 0, 7.8, 7.8))
         color!.setStroke()
         oval4Path.lineWidth = 2
         oval4Path.stroke()
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(27.4, 9.8))
         bezier4Path.addLineToPoint(CGPointMake(15.09, 9.8))
         bezier4Path.addCurveToPoint(CGPointMake(19.05, 18.55), controlPoint1: CGPointMake(15.09, 14.69), controlPoint2: CGPointMake(16.92, 17.37))

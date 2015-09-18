@@ -13,7 +13,8 @@ Version = "Version";
 Close = "Close";
 Save = "Save";
 Start = "Start";
-Loading = "Loading...";
+Loading = "Downloading content...";
+Finishing = "Updating...";
 EmailUs = "Email us";
 CallUs = "Call us";
 Phone = "Phone";
@@ -83,6 +84,7 @@ Gender = "I'm a ...";
 GenderMale = "I'm a male";
 GenderFemale = "I'm a female";
 WhatAreYouInterest = "What are you interested in?";
+CategoriesMsj = "*** We have selected the most popular categories for you!";
 EnterYourBirthDate = "Enter your birthDate";
 
 /* Showcase - Game View*/
@@ -91,6 +93,8 @@ StartToEnjoy = "And start to enjoy our benefits!";
 YouSeen = "You’ve seen";
 Done = "Done!";
 ThankYouStop = "Thank you for stoping by.";
+Follow = "FOLLOW";
+Following = "FOLLOWING";
 
 /* Login View*/
 Wellcome = "Welcome!";
@@ -123,15 +127,15 @@ Points = "Points";
 Of = "of";
 
 /*About*/
-AboutTitle = "Please read!";
-AboutText = "Biin is the app the helps brick and mortar business to have mobile presence and create better relationships with their customers.Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 and iPhone6Plus. All current data is not real and is only for testing purposes on this beta release.";
+AboutTitle = "About Biin";
+AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 and iPhone6Plus. All current data is not real and is only for testing purposes on this beta release.";
 
 /*Internet Error View*/
 InternetErrorTitle = "You're offline.";
 InternetErrorText = "Connect to the internet, then give it another shot.";
 InternetErrorButton = "Continue";
 
-HardwareErrorTitle = "Oops!";
+HardwareErrorTitle = "Too bad!";
 HardwareErrorText = "We are sorry but your device does not support Biin due to harware requirements, please close this app.";
 HardwareErrorButton = "Continue";
 
@@ -150,4 +154,4 @@ OnboardingTitle2 = "Collect and share!";
 OnboardingText2 = "All the things your find in Biin with your friends.";
 
 OnboardingTitle3 = "Enjoy!";
-OnboardingText3 = "Visit you favorite stores and take advantage the best deal and rewards.";
+OnboardingText3 = "Visit you favorite stores and take advantage the best deals and rewards.";

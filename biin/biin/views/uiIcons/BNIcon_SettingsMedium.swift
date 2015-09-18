@@ -24,14 +24,14 @@ class BNIcon_SettingsMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
 
         //// Oval 2 Drawing
-        var oval2Path = UIBezierPath(ovalInRect: CGRectMake(8, 8.1, 10.6, 10.6))
+        let oval2Path = UIBezierPath(ovalInRect: CGRectMake(8, 8.1, 10.6, 10.6))
         color!.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(24.33, 13.38))
         bezier2Path.addCurveToPoint(CGPointMake(24.06, 11.08), controlPoint1: CGPointMake(24.33, 12.57), controlPoint2: CGPointMake(24.2, 11.76))
         bezier2Path.addLineToPoint(CGPointMake(26.76, 9.6))
@@ -60,7 +60,7 @@ class BNIcon_SettingsMedium:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(24.2, 15.68))
         bezier2Path.addCurveToPoint(CGPointMake(24.33, 13.38), controlPoint1: CGPointMake(24.2, 15), controlPoint2: CGPointMake(24.33, 14.19))
         bezier2Path.closePath()
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier2Path.lineWidth = 2

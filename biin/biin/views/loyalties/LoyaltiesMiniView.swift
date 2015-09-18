@@ -21,7 +21,7 @@ class LoyaltiesMiniView: BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -41,11 +41,11 @@ class LoyaltiesMiniView: BNView {
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         var xpos:CGFloat = 10
         var ypos:CGFloat = 10
-        var avatarWidth:CGFloat = (frame.height - 20)
+        let avatarWidth:CGFloat = (frame.height - 20)
         
         
         organizationAvatarView = UIView(frame: CGRectMake(xpos, ypos, avatarWidth, avatarWidth))
@@ -80,7 +80,7 @@ class LoyaltiesMiniView: BNView {
 //        
 //        ypos += subtitle!.frame.height
         points = UILabel(frame: CGRectMake(xpos, ypos, (screenWidth - 90), 14))
-        var pointsText = NSLocalizedString("Points", comment: "Points")
+        let pointsText = NSLocalizedString("Points", comment: "Points")
         points!.text = "\(pointsText): \(self.organization!.loyalty!.points)"
         points!.textColor = UIColor.appTextColor()
         points!.font = UIFont(name: "Lato-Light", size: 12)

@@ -22,7 +22,7 @@ class BNUICircle:UIView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -73,7 +73,7 @@ class BNUICircle:UIView {
         self.isFilled = true
         
         CATransaction.begin()
-        var circleAnimation = CABasicAnimation(keyPath: "path")
+        let circleAnimation = CABasicAnimation(keyPath: "path")
         circleAnimation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn )
         circleAnimation.fromValue = pathEmpty
         circleAnimation.toValue = pathFull
@@ -95,7 +95,7 @@ class BNUICircle:UIView {
         self.isFilled = true
         
         CATransaction.begin()
-        var circleAnimation = CABasicAnimation(keyPath: "path")
+        let circleAnimation = CABasicAnimation(keyPath: "path")
         circleAnimation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn )
         circleAnimation.fromValue = pathEmpty
         circleAnimation.toValue = pathFull
@@ -122,7 +122,7 @@ class BNUICircle:UIView {
         self.isFilled = false
         
         CATransaction.begin()
-        var circleAnimation = CABasicAnimation(keyPath: "path")
+        let circleAnimation = CABasicAnimation(keyPath: "path")
         circleAnimation.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn )
         circleAnimation.fromValue = pathFull
         circleAnimation.toValue = pathEmpty

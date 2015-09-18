@@ -26,7 +26,7 @@ class BNIcon_GamesMedium:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(35.4, 11.9))
         bezier2Path.addLineToPoint(CGPointMake(32.4, 11.9))
         bezier2Path.addLineToPoint(CGPointMake(32.4, 8.93))

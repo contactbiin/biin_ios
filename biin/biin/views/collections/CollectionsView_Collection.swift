@@ -36,7 +36,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -69,11 +69,11 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         subTitle!.text = self.collection!.subTitle!
         self.addSubview(subTitle!)
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        //var screenHeight = SharedUIManager.instance.screenHeight
         
         //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
-        var scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 10
+        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 10
         scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.elementView_headerHeight, screenWidth, scrollHeight))
         scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
@@ -124,7 +124,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     
     func addElementAndSitesViews(){
 
-        if let elementsList = self.elements {
+        if let _ = self.elements {
             for elementView in elements! {
                 elementView.removeFromSuperview()
             }
@@ -161,9 +161,9 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         //sites = Array<SiteMiniView>()
         //items = Array<CollectionView_ItemView>()
         
-        println("collection!.items.count: \(collection!.items.count)")
+        print("collection!.items.count: \(collection!.items.count)")
         
-        for (key, value) in collection!.elements {
+        for (_, value) in collection!.elements {
             
             
             if let element = BNAppSharedManager.instance.dataManager.elements[value._id!] {
@@ -201,7 +201,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
                     itemPosition++
                 //}
             } else {
-                println("ELEMENT NOT FOUND IN COLLECTION: \(value.identifier!)")
+                print("ELEMENT NOT FOUND IN COLLECTION: \(value.identifier!)")
             }
         }
         
@@ -237,7 +237,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
 
         //handlePan(scrollView.panGestureRecognizer)
-        var mainView = father!.father! as! MainView
+        let mainView = father!.father! as! MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
     }
     
@@ -343,8 +343,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         
         if  self.elements == nil { return }
         
-        var width = SharedUIManager.instance.miniView_width + spacer
-        var column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
+        let width = SharedUIManager.instance.miniView_width + spacer
+        let column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
         
         if lastColumnRequested < column {
             
@@ -409,9 +409,9 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
         }
         */
         
-        println("startPosition: \(startPosition)")
+        print("startPosition: \(startPosition)")
         
-        var width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
+        let width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
         var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
 
         for var i = startPosition; i < self.elements!.count; i++ {

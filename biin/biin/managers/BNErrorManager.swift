@@ -28,14 +28,14 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
 //            alertView.message = error!.localizedDescription
 //            alertView.show()
             
-            var vc = ErrorViewController()
+            let vc = ErrorViewController()
             vc.addInternet_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
             BNAppSharedManager.instance.errorManager.currentViewController = vc
             
             
-            var bnError = BNError(code: "\(error!.code)", title: error!.description, errorDescription: error!.localizedDescription, proximityUUID: "none", region: "none", errorType:BNErrorType.none)
+            let bnError = BNError(code: "\(error!.code)", title: error!.description, errorDescription: error!.localizedDescription, proximityUUID: "none", region: "none", errorType:BNErrorType.none)
             delegateNM!.manager!(self, saveError: bnError)
             
             isAlertOn = true
@@ -53,13 +53,13 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
 //            alertView.message = error!.localizedDescription
 //            alertView.show()
             
-            var vc = ErrorViewController()
+            let vc = ErrorViewController()
             vc.addInternet_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
             BNAppSharedManager.instance.errorManager.currentViewController = vc
         
-            var bnError = BNError(code: "\(error!.code)", title: error!.description, errorDescription: error!.localizedDescription, proximityUUID: "none", region: "none", errorType:BNErrorType.none)
+            //var bnError = BNError(code: "\(error!.code)", title: error!.description, errorDescription: error!.localizedDescription, proximityUUID: "none", region: "none", errorType:BNErrorType.none)
             //delegateNM!.manager!(self, saveError: bnError)
             
             isAlertOn = true
@@ -98,7 +98,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
 //            BNAppSharedManager.instance.appDelegate!.window!.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
 //
 //            
-            var vc = ErrorViewController()
+            let vc = ErrorViewController()
             vc.addLocation_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
@@ -118,7 +118,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             isAlertOn = true
             
             
-            var vc = ErrorViewController()
+            let vc = ErrorViewController()
             vc.addInternet_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
@@ -167,7 +167,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
 //            
 //            BNAppSharedManager.instance.appDelegate!.window!.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
             
-            var vc = ErrorViewController()
+            let vc = ErrorViewController()
             vc.addHardware_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
@@ -198,7 +198,7 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
 //            BNAppSharedManager.instance.appDelegate!.window!.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
 //            
             
-            var vc = ErrorViewController()
+            let vc = ErrorViewController()
             vc.addBluetooth_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)

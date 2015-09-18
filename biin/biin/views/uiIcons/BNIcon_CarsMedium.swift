@@ -25,7 +25,7 @@ class BNIcon_CarsMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(35.4, 15))
         bezier2Path.addLineToPoint(CGPointMake(34.8, 15))
         bezier2Path.addLineToPoint(CGPointMake(34.8, 9.38))
@@ -74,7 +74,7 @@ class BNIcon_CarsMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(27.6, 11.88))
         bezier4Path.addCurveToPoint(CGPointMake(23.7, 15.94), controlPoint1: CGPointMake(25.44, 11.88), controlPoint2: CGPointMake(23.7, 13.69))
         bezier4Path.addCurveToPoint(CGPointMake(27.6, 20), controlPoint1: CGPointMake(23.7, 18.19), controlPoint2: CGPointMake(25.44, 20))
@@ -88,7 +88,7 @@ class BNIcon_CarsMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(6.6, 11.88))
         bezier6Path.addCurveToPoint(CGPointMake(2.7, 15.94), controlPoint1: CGPointMake(4.44, 11.88), controlPoint2: CGPointMake(2.7, 13.69))
         bezier6Path.addCurveToPoint(CGPointMake(6.6, 20), controlPoint1: CGPointMake(2.7, 18.19), controlPoint2: CGPointMake(4.44, 20))

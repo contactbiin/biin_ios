@@ -20,7 +20,7 @@ class BNBiin:NSObject
     //Relationship properties
     var accountIdentifier:String?
     var siteIdentifier:String?
-    var organizationIdentifier:String?
+    //var organizationIdentifier:String?
     var biinType = BNBiinType.NONE
     
     var isBiinDataCorrupted:Bool = false
@@ -148,14 +148,14 @@ class BNBiin:NSObject
         
             let date = NSDate()
             let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
+            let components = calendar.components([.Hour, .Minute], fromDate: date)
             let hour = components.hour
             let minutes = components.minute
             let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
             
             var isAvailableToday = false
             
-            var dayNumber = getDayOfWeek()
+            let dayNumber = getDayOfWeek()
             for var i = 0; i < objects?.count; i++ {
                 
 //                println("Day:\(getDayOfWeek())")
@@ -230,11 +230,11 @@ class BNBiin:NSObject
         }
         
         if !isCurrentObjectSet {
-            println("Setting defaul!")
+//            println("Setting defaul!")
             currentObjectIndex = 0
-            println("CUrrent object index;\(currentObjectIndex)")
-            println("Start time:\(objects![currentObjectIndex].startTime)")
-            println("End time: \(objects![currentObjectIndex].endTime)")
+//            println("CUrrent object index;\(currentObjectIndex)")
+//            println("Start time:\(objects![currentObjectIndex].startTime)")
+//            println("End time: \(objects![currentObjectIndex].endTime)")
         }
     }
     
@@ -242,10 +242,10 @@ class BNBiin:NSObject
         
         let formatter  = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        var today = NSDate().bnShortDateFormat()
+        let today = NSDate().bnShortDateFormat()
         if let todayDate = formatter.dateFromString(today) {
             let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            let myComponents = myCalendar.components(.CalendarUnitWeekday, fromDate: todayDate)
+            let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
             let weekDay = myComponents.weekday
             return weekDay
         } else {

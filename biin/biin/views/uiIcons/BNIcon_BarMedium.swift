@@ -25,7 +25,7 @@ class BNIcon_BarMedium:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(21.12, 21.67))
         bezier2Path.addLineToPoint(CGPointMake(4.74, 21.67))
         bezier2Path.addCurveToPoint(CGPointMake(2.59, 23.33), controlPoint1: CGPointMake(3.41, 21.67), controlPoint2: CGPointMake(2.59, 22.29))
@@ -41,7 +41,7 @@ class BNIcon_BarMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(22.33, 11.29))
         bezier4Path.addCurveToPoint(CGPointMake(25, 7.08), controlPoint1: CGPointMake(23.97, 10.62), controlPoint2: CGPointMake(25, 9.08))
         bezier4Path.addCurveToPoint(CGPointMake(20.26, 2.5), controlPoint1: CGPointMake(25, 4.33), controlPoint2: CGPointMake(23.1, 2.5))

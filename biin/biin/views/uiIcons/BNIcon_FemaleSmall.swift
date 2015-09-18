@@ -26,14 +26,14 @@ class BNIcon_FemaleSmall:BNIcon {
         
         
         //// head Drawing
-        var headPath = UIBezierPath(ovalInRect: CGRectMake(2, -0, 5.6, 5.6))
+        let headPath = UIBezierPath(ovalInRect: CGRectMake(2, -0, 5.6, 5.6))
         color!.setStroke()
         headPath.lineWidth = 1.5
         headPath.stroke()
         
         
         //// body Drawing
-        var bodyPath = UIBezierPath()
+        let bodyPath = UIBezierPath()
         bodyPath.moveToPoint(CGPointMake(4.35, 7.03))
         bodyPath.addCurveToPoint(CGPointMake(0, 14.21), controlPoint1: CGPointMake(1.94, 7.03), controlPoint2: CGPointMake(0, 10))
         bodyPath.addLineToPoint(CGPointMake(2.83, 14.21))

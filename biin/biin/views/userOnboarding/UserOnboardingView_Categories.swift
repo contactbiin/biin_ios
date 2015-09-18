@@ -10,6 +10,7 @@ class UserOnboardingView_Categories:UIView {
 
     var delegate:UserOnboardingView_Categories_Delegate?
     var title:UILabel?
+    var selectedLbl:UILabel?
     var startBtn:BNUIButton_Loging?
     var categoriesSelected = Dictionary<String, String>()
     
@@ -17,7 +18,7 @@ class UserOnboardingView_Categories:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -25,7 +26,7 @@ class UserOnboardingView_Categories:UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.whiteColor()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
+        let screenWidth = SharedUIManager.instance.screenWidth
         var ypos:CGFloat = SharedUIManager.instance.onBoardingView_ypos_1
 
         title = UILabel(frame:CGRectMake(0, ypos, (screenWidth / 2), 45))
@@ -44,7 +45,7 @@ class UserOnboardingView_Categories:UIView {
         var buttonCounter:Int = 1
         xpos = (screenWidth - 295) / 2
         ypos += 60
-        var space:CGFloat = 5
+        //var space:CGFloat = 5
         
         //var line = UIView(frame: CGRectMake(5, (ypos - 10), (screenWidth - 10), 0.5))
         //line.backgroundColor = UIColor.appBackground()
@@ -52,10 +53,18 @@ class UserOnboardingView_Categories:UIView {
         
         for category in BNAppSharedManager.instance.dataManager.categories! {
             
-            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.biinDarkColor())
+            let button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.appBackground())
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-            categoriesSelected[category.identifier!] = category.identifier!
-            button.showSelected()
+            
+            if  category.name! == "Shoes" ||
+                category.name! == "Food" ||
+                category.name! == "Fashion" ||
+                category.name! == "Technology" {
+                    
+                categoriesSelected[category.identifier!] = category.identifier!
+                button.showSelected()
+            }
+            
             self.addSubview(button)
             buttonCounter++
             
@@ -68,8 +77,29 @@ class UserOnboardingView_Categories:UIView {
             }
         }
         
-        ypos += SharedUIManager.instance.onBoardingView_spacer
-        startBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width: screenWidth, height: 65), color:UIColor.biinColor(), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.whiteColor())
+//        selectedLbl = UILabel(frame:CGRectMake(10, ypos, (screenWidth - 20), 12))
+//        selectedLbl!.textColor = UIColor.appTextColor()
+//        selectedLbl!.font = UIFont(name: "Lato-Light", size: 11)
+//        selectedLbl!.textAlignment  = NSTextAlignment.Center
+//        selectedLbl!.text = NSLocalizedString("CategoriesMsj", comment:"CategoriesMsj")
+//        selectedLbl!.numberOfLines = 0
+//        selectedLbl!.sizeToFit()
+//        self.addSubview(selectedLbl!)
+        
+        
+        let descriptionText = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 14))
+        descriptionText.font = UIFont(name:"Lato-Light", size:11)
+        descriptionText.textColor = UIColor.appTextColor()
+        descriptionText.textAlignment = NSTextAlignment.Center
+        descriptionText.text = NSLocalizedString("CategoriesMsj", comment:"CategoriesMsj")
+        descriptionText.numberOfLines = 0
+        descriptionText.sizeToFit()
+        self.addSubview(descriptionText)
+        
+        let x_space:CGFloat = ( SharedUIManager.instance.screenWidth - descriptionText.frame.width ) / 2
+        descriptionText.frame.origin.x = x_space
+        
+        startBtn = BNUIButton_Loging(frame: CGRect(x:0, y:(SharedUIManager.instance.screenHeight - 90), width: screenWidth, height: 60), color:UIColor.biinColor(), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.whiteColor())
         startBtn!.addTarget(self, action: "startBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(startBtn!)
     }

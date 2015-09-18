@@ -11,7 +11,10 @@ class BNMedia:NSObject {
     var mediaType:BNMediaType?
     var url:String?
     var domainColor:UIColor?
-   
+    var vibrantColor:UIColor?
+    var vibrantDarkColor:UIColor?
+    var vibrantLightColor:UIColor?
+    
     override init(){
         super.init()
     }
@@ -21,6 +24,16 @@ class BNMedia:NSObject {
         self.url = url
         self.mediaType = mediaType
         self.domainColor = domainColor
+    }
+    
+    convenience init(mediaType:BNMediaType, url:String, domainColor:UIColor, vibrantColor:UIColor, vibrantDarkColor:UIColor, vibrantLightColor:UIColor){
+        self.init()
+        self.url = url
+        self.mediaType = mediaType
+        self.domainColor = domainColor
+        self.vibrantColor = vibrantColor
+        self.vibrantDarkColor = vibrantDarkColor
+        self.vibrantLightColor = vibrantLightColor
     }
     
     deinit {

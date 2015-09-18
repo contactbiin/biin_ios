@@ -29,16 +29,16 @@ class BNIcon_InformationMedium:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(26, 12.77))
         bezier2Path.addCurveToPoint(CGPointMake(13, 26), controlPoint1: CGPointMake(26.12, 19.92), controlPoint2: CGPointMake(20.21, 25.89))
         bezier2Path.addCurveToPoint(CGPointMake(0, 13.24), controlPoint1: CGPointMake(5.85, 26.12), controlPoint2: CGPointMake(0.12, 20.39))
         bezier2Path.addCurveToPoint(CGPointMake(13, 0), controlPoint1: CGPointMake(-0.12, 6.09), controlPoint2: CGPointMake(5.79, 0.12))
         bezier2Path.addCurveToPoint(CGPointMake(26, 12.77), controlPoint1: CGPointMake(20.15, -0.12), controlPoint2: CGPointMake(25.89, 5.62))
         bezier2Path.closePath()
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color0.setStroke()
         bezier2Path.lineWidth = 2
@@ -46,12 +46,12 @@ class BNIcon_InformationMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(13, 14.78))
         bezier4Path.addLineToPoint(CGPointMake(13, 6.5))
-        bezier4Path.lineCapStyle = kCGLineCapRound;
+        bezier4Path.lineCapStyle = CGLineCap.Round;
         
-        bezier4Path.lineJoinStyle = kCGLineJoinRound;
+        bezier4Path.lineJoinStyle = CGLineJoin.Round;
         
         color0.setStroke()
         bezier4Path.lineWidth = 2
@@ -60,7 +60,7 @@ class BNIcon_InformationMedium:BNIcon {
         
         //// Group 2
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(13, 18))
         bezier6Path.addLineToPoint(CGPointMake(13, 18))
         bezier6Path.addCurveToPoint(CGPointMake(12, 19.55), controlPoint1: CGPointMake(12.43, 18), controlPoint2: CGPointMake(12, 18.7))

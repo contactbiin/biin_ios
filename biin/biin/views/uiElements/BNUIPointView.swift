@@ -10,7 +10,10 @@ class BNUIPointView:UIView {
 
     var icon:BNIcon?
     //var iconView:BNIconView?
-    var color = UIColor.appButtonColor()
+    //var color = UIColor.appButtonColor()
+    var activeColor:UIColor?
+    var inactiveColor:UIColor?
+    
     var isActive = false
     
     var label:UILabel?
@@ -19,7 +22,7 @@ class BNUIPointView:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -29,7 +32,7 @@ class BNUIPointView:UIView {
         self.setInactive()
     }
     
-    convenience init(frame: CGRect, categoryIdentifier:String) {
+    convenience init(frame: CGRect, categoryIdentifier:String, activeColor:UIColor) {
         self.init(frame: frame)
         
         label = UILabel(frame: CGRectMake(0, 13, 100, 20))
@@ -43,27 +46,29 @@ class BNUIPointView:UIView {
         setLabelText(NSLocalizedString(categoryIdentifier, comment:categoryIdentifier))
         
         //createIcon(sectionIdentifier)
+        self.activeColor = activeColor
+        inactiveColor = UIColor.appButtonColor()
     }
     
-    convenience init(frame: CGRect, pointColor:UIColor) {
+    convenience init(frame: CGRect, activeColor:UIColor) {
         self.init(frame:frame)
-        self.color = pointColor
+        self.activeColor = activeColor
     }
     
     
     override func drawRect(rect:CGRect){
         
         if isActive {
-            var ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 8, 8))
-            UIColor.biinColor().setFill()
+            let ovalPath = UIBezierPath(ovalInRect: CGRectMake(1, 1, 8, 8))
+            self.activeColor!.setFill()
             ovalPath.fill()
 //            UIColor.orangeColor().setStroke()
 //            ovalPath.lineWidth = 2
 //            ovalPath.stroke()
 
         }else{
-            var ovalPath = UIBezierPath(ovalInRect: CGRectMake(3, 3, 6, 6))
-            self.color.setFill()
+            let ovalPath = UIBezierPath(ovalInRect: CGRectMake(3, 3, 6, 6))
+            self.inactiveColor!.setFill()
             ovalPath.fill()
         }
     }
@@ -97,7 +102,7 @@ class BNUIPointView:UIView {
     func setLabelText(text:String){
         label!.text = text
         label!.sizeToFit()
-        var posx = (label!.frame.width / 2)
+        let posx = (label!.frame.width / 2)
         label!.frame.origin.x = 0
         label!.frame.origin.x -= (posx - 6)
     }

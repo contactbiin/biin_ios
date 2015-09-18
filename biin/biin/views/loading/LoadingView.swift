@@ -10,6 +10,10 @@ class LoadingView:UIView {
 
     var loadingLbl:UILabel?
     var biinLogo:BNUIBiinView?
+    var progressView:UIProgressView?
+    var progressViewBG:UIView?
+    var version:UILabel?
+    var lastProgressValue:Float = 0.0
 //    override init() {
 //        super.init()
 //    }
@@ -25,8 +29,8 @@ class LoadingView:UIView {
 //        biinLogo!.image = UIImage(named: "biinLogoLS.png")
 //        self.addSubview(biinLogo!)
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:0), scale:SharedUIManager.instance.loadingView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
@@ -35,20 +39,59 @@ class LoadingView:UIView {
         self.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-
+        let barWidth:CGFloat = biinLogo!.frame.width - 20.0
+        let xpos:CGFloat = ((screenWidth - barWidth ) / 2)
         var ypos:CGFloat = biinLogo!.frame.height + biinLogo!.frame.origin.y
-        loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:25))
-        loadingLbl!.font = UIFont(name: "Lato-Black", size: 22)
+        ypos += 10
+        
+        progressViewBG = UIView()
+        progressViewBG!.frame = CGRectMake((xpos - 3), (ypos - 3), (barWidth + 6), 9)
+        progressViewBG!.backgroundColor = UIColor.appBackground()
+        progressViewBG!.layer.cornerRadius = 3
+        progressViewBG!.layer.masksToBounds = true
+        self.addSubview(progressViewBG!)
+        
+        progressView = UIProgressView(frame: CGRectMake(xpos, ypos, barWidth, 8))
+        progressView!.setProgress(0.0, animated: false)
+        progressView!.progressViewStyle = UIProgressViewStyle.Bar
+        progressView!.trackTintColor = UIColor.grayColor()
+        progressView!.progressTintColor = UIColor.biinColor()
+        self.addSubview(progressView!)
+        
+        ypos += 8
+        loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:18))
+        loadingLbl!.font = UIFont(name: "Lato-Light", size: 15)
         loadingLbl!.textColor = UIColor.appTextColor()
         loadingLbl!.textAlignment = NSTextAlignment.Center
         loadingLbl!.numberOfLines = 0
         loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
+        
+        version = UILabel(frame: CGRectMake(0, (screenHeight - 60), screenWidth, 20))
+        version!.font = UIFont(name: "Lato-Light", size: 18)
+        version!.textColor = UIColor.appTextColor()
+        version!.textAlignment = NSTextAlignment.Center
+        let versionTxt = NSLocalizedString("Version", comment: "the version title")
+        version!.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
+        self.addSubview(version!)
+        
   
     }
     
-    required init(coder aDecoder: NSCoder) {
+    
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func updateProgressView(value:Float){
+        if value > lastProgressValue {
+            print("------------- \(value)")
+            lastProgressValue = value
+            progressView!.setProgress(value, animated: true)
+            if value > 0.85 {
+                loadingLbl!.text = NSLocalizedString("Finishing", comment: "the Finishing title")
+            }
+        }
     }
     
     func showHardwareError() {
@@ -56,9 +99,9 @@ class LoadingView:UIView {
         loadingLbl!.alpha = 0
         biinLogo!.alpha = 0
         
-        var labelHeight:CGFloat = 80.0
-        var ypos:CGFloat = (frame.height / 2) - (labelHeight / 2)
-        var errorLbl = UILabel(frame: CGRect(x:25, y:ypos, width:(self.frame.width - 50), height:labelHeight))
+        let labelHeight:CGFloat = 80.0
+        let ypos:CGFloat = (frame.height / 2) - (labelHeight / 2)
+        let errorLbl = UILabel(frame: CGRect(x:25, y:ypos, width:(self.frame.width - 50), height:labelHeight))
         errorLbl.font = UIFont(name: "Lato-Light", size: 18)
         errorLbl.text = NSLocalizedString("HardwareError", comment: "HardwareError")
         errorLbl.textColor = UIColor.blackColor()
@@ -67,5 +110,14 @@ class LoadingView:UIView {
 
         self.addSubview(errorLbl)
 
+    }
+    
+    func hideProgressView(){
+        UIView.animateWithDuration(0.1, animations: {() -> Void in
+            self.loadingLbl!.alpha = 0
+            self.progressView!.alpha = 0
+            self.progressViewBG!.alpha = 0
+            self.version!.alpha = 0
+        })
     }
 }

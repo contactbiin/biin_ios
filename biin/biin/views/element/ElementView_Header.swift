@@ -20,28 +20,34 @@ class ElementView_Header:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.appMainColor()
-        
-        self.layer.masksToBounds = false
-        self.layer.shadowOffset = CGSizeMake(0, 3)
-        self.layer.shadowRadius = 2
-        self.layer.shadowOpacity = 0.25
-        
+//        self.backgroundColor = UIColor.appMainColor()
         var ypos:CGFloat = 2
+        
+        
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        visualEffectView.frame = self.bounds
+        self.addSubview(visualEffectView)
+        
+//        self.layer.masksToBounds = false
+//        self.layer.shadowOffset = CGSizeMake(0, 3)
+//        self.layer.shadowRadius = 2
+//        self.layer.shadowOpacity = 0.25
+        
+
 //        buttonsView = SocialButtonsView(frame: CGRectMake(0, ( SharedUIManager.instance.siteView_headerHeight + 5 ), frame.width, 15), father: self, element: nil)
 //        self.addSubview(buttonsView!)
         
         //ypos += 15
         
         title = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
+        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.biinColor()
         title!.text = "site title here"
         title!.textAlignment = NSTextAlignment.Center
@@ -90,7 +96,7 @@ class ElementView_Header:BNView {
     //Instance methods
     func updateForElement(element:BNElement?) {
         //buttonsView!.updateSocialButtonsForElement(element)
-        title!.textColor = element!.titleColor!
+        title!.textColor = UIColor.appTextColor()// element!.titleColor!
         title!.text = element!.title
         subTitle!.text = element!.subTitle
     }

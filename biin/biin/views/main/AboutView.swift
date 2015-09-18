@@ -23,8 +23,8 @@ class AboutView: BNView {
         
         self.backgroundColor = UIColor.appMainColor()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         var ypos:CGFloat = 12
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
@@ -38,11 +38,11 @@ class AboutView: BNView {
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
-        var headerWidth = screenWidth - 60
-        var xpos:CGFloat = (screenWidth - headerWidth) / 2
+        //let headerWidth = screenWidth - 60
+        //var xpos:CGFloat = (screenWidth - headerWidth) / 2
     
         ypos = SharedUIManager.instance.siteView_headerHeight
-        var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
@@ -62,7 +62,7 @@ class AboutView: BNView {
         biinLogo!.setNeedsDisplay()
         
         ypos += (biinLogo!.frame.height + 50)
-        var aboutTitle = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
+        let aboutTitle = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
         aboutTitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         aboutTitle.textColor = UIColor.appTextColor()
         aboutTitle.textAlignment = NSTextAlignment.Center
@@ -70,7 +70,7 @@ class AboutView: BNView {
         scroll!.addSubview(aboutTitle)
         
         ypos += (aboutTitle.frame.height + 5)
-        var aboutText = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.siteView_subTittleSize + 3)))
+        let aboutText = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         aboutText.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         aboutText.textColor = UIColor.appTextColor()
         aboutText.textAlignment = NSTextAlignment.Center
@@ -80,7 +80,7 @@ class AboutView: BNView {
         scroll!.addSubview(aboutText)
         
         ypos += (aboutText.frame.height + 20)
-        var siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 20))
+        let siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 20))
         siteUrl.setTitle("www.biinapp.com", forState: UIControlState.Normal)
         siteUrl.setTitleColor(UIColor.biinColor(), forState: UIControlState.Normal)
         siteUrl.setTitleColor(UIColor.appTextColor(), forState: UIControlState.Selected)
@@ -90,12 +90,12 @@ class AboutView: BNView {
     }
     
     func openUrl(sender:UILabel) {
-        var targetURL = NSURL(string:"http://www.biinapp.com")
+        let targetURL = NSURL(string:"http://www.biinapp.com")
         let application=UIApplication.sharedApplication()
         application.openURL(targetURL!)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

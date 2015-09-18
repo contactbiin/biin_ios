@@ -28,14 +28,14 @@ class BNUIDetailView_Price:UIView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     convenience init(position:CGPoint, listPrice:String?, textColor:UIColor, borderColor:UIColor) {
 
-        var width = (SharedUIManager.instance.screenWidth - 10)
-        var frame = CGRectMake(position.x, position.y, width, 60)
+        let width = (SharedUIManager.instance.screenWidth - 10)
+        let frame = CGRectMake(position.x, position.y, width, 60)
         self.init(frame:frame)
         
         self.backgroundColor = UIColor.bnGreen()
@@ -61,9 +61,9 @@ class BNUIDetailView_Price:UIView {
     //TODO: Check if thei contructor is use otherwise remove
     convenience init(position:CGPoint, price:String?, listPrice:String?, discount:String?, savings:String?, textColor:UIColor, borderColor:UIColor) {
         
-        var width = (SharedUIManager.instance.screenWidth - 10)
+        let width = (SharedUIManager.instance.screenWidth - 10)
         
-        var frame = CGRectMake(position.x, position.y, width, 100)
+        let frame = CGRectMake(position.x, position.y, width, 100)
         self.init(frame:frame)
         self.backgroundColor = UIColor.appBackground()
         self.layer.borderColor = borderColor.CGColor
@@ -84,10 +84,10 @@ class BNUIDetailView_Price:UIView {
         self.price!.textColor = UIColor.bnGreen()
         self.addSubview(self.price!)
         
-        var boxWidth:CGFloat = (width / 3)
+        let boxWidth:CGFloat = (width / 3)
         var xpos:CGFloat = 0
-        var ypos1:CGFloat = 60
-        var ypos2:CGFloat = 70
+        let ypos1:CGFloat = 60
+        let ypos2:CGFloat = 70
         
         self.listPriceTitle = UILabel(frame: CGRectMake(xpos, ypos1, boxWidth, 13))
         self.listPriceTitle!.text = NSLocalizedString("Value", comment: "Value")

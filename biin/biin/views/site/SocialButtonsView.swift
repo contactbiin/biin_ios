@@ -21,7 +21,7 @@ class SocialButtonsView:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -33,11 +33,11 @@ class SocialButtonsView:BNView {
         self.init(frame: frame, father:father )
         
         //Social buttons
-        var xSpace:CGFloat = 2
+        let xSpace:CGFloat = 2
         var xpos:CGFloat = 4
-        var ypos:CGFloat = 0.0
-        var buttonWidth:CGFloat = 43.0
-        var buttonHeight:CGFloat = 18.0
+        let ypos:CGFloat = 0.0
+        //var buttonWidth:CGFloat = 43.0
+        //var buttonHeight:CGFloat = 18.0
         self.showShareButton = showShareButton
         
         biinBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
@@ -59,13 +59,14 @@ class SocialButtonsView:BNView {
         self.init(frame: frame, father:father )
         
         //Social buttons
-        var xSpace:CGFloat = 2
+        let xSpace:CGFloat = 2
         var xpos:CGFloat = 4
-        var ypos:CGFloat = 0.0
-        var buttonWidth:CGFloat = 43.0
-        var buttonHeight:CGFloat = 18.0
-        
+        let ypos:CGFloat = 0.0
+        //var buttonWidth:CGFloat = 43.0
+        //var buttonHeight:CGFloat = 18.0
+
         biinBtn = BNUIButton_Social(frame: CGRectMake(xpos, ypos, 0, 0), text:"00", activate:false, iconType:BNIconType.biinSmall)
+        
         self.addSubview(biinBtn!)
         
         xpos += biinBtn!.frame.width + xSpace
@@ -89,7 +90,7 @@ class SocialButtonsView:BNView {
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
 
-        }else{
+        } else {
             father!.showUserControl(value, son:son, point:point)
         }
     }
@@ -104,13 +105,13 @@ class SocialButtonsView:BNView {
     
     func updateSocialButtonsForSite(site:BNSite?){
         //Social buttons
-        var xSpace:CGFloat = 2
+        let xSpace:CGFloat = 2
         var xpos:CGFloat = 4
         
 
-        biinBtn!.updateText("\(site!.biinedCount)")
+        biinBtn!.updateText("\(site!.collectCount)")
         
-        if site!.userBiined {
+        if site!.userCollected {
             (biinBtn! as BNUIButton_Social).setActive()
         } else {
             (biinBtn! as BNUIButton_Social).setInactive()
@@ -138,13 +139,13 @@ class SocialButtonsView:BNView {
     
     func updateSocialButtonsForElement(element:BNElement?){
         //Social buttons
-        var xSpace:CGFloat = 2
+        let xSpace:CGFloat = 2
         var xpos:CGFloat = 4
         
         
-        biinBtn!.updateText("\(element!.biinedCount)")
+        biinBtn!.updateText("\(element!.collectCount)")
         
-        if element!.userBiined {
+        if element!.userCollected {
             (biinBtn! as BNUIButton_Social).setActive()
         } else {
             (biinBtn! as BNUIButton_Social).setInactive()

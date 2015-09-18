@@ -23,14 +23,14 @@ class BNIcon_LeftArrowMedium:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(10, 20))
         bezier2Path.addLineToPoint(CGPointMake(0, 10))
         bezier2Path.addLineToPoint(CGPointMake(0, 10))
         bezier2Path.addLineToPoint(CGPointMake(10, 0))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier2Path.lineWidth = 3

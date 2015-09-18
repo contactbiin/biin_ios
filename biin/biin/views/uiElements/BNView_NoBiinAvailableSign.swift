@@ -11,7 +11,7 @@ class BNView_NoBiinAvailableSign: UIView {
     var icon:BNIcon?
     var color:UIColor?
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -25,7 +25,7 @@ class BNView_NoBiinAvailableSign: UIView {
         self.icon = BNIcon_NoBiinAvailableSign(color: color, position:iconPosition)
         self.color = color
         
-        var label = UILabel(frame: CGRectMake(40, (iconPosition.y + 170 ), (SharedUIManager.instance.screenWidth - 80), 20))
+        let label = UILabel(frame: CGRectMake(40, (iconPosition.y + 170 ), (SharedUIManager.instance.screenWidth - 80), 20))
         label.text = NSLocalizedString("NotBiins", comment: "NotBiins")
         label.textColor = UIColor.appTextColor()
         label.font = UIFont(name: "Lato-Black", size: 18)

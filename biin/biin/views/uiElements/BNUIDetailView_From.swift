@@ -22,13 +22,13 @@ class BNUIDetailView_From:UIView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     convenience init(position:CGPoint, text:String?, textColor:UIColor, borderColor:UIColor) {
         
-        var frame = CGRectMake(position.x, position.y, (SharedUIManager.instance.screenWidth - 10), 30)
+        let frame = CGRectMake(position.x, position.y, (SharedUIManager.instance.screenWidth - 10), 30)
         self.init(frame:frame)
         self.backgroundColor = UIColor.appBackground()
         self.layer.borderWidth = 0.5

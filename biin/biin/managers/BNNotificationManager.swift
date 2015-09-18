@@ -1,10 +1,7 @@
-//
 //  BNNotificationManager.swift
 //  biin
-//
 //  Created by Esteban Padilla on 6/18/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -12,7 +9,6 @@ import UIKit
 class BNNotificationManager:NSObject, NSCoding {
 
     var currentNotification:BNLocalNotification?
-    //var notifications = Array<BNNotification>()//[BiinieAction]()
     var localNotifications:[BNLocalNotification] = [BNLocalNotification]()
     var lastNotificationObjectId:String = ""
     var didSendNotificationOnAppDown = false
@@ -25,16 +21,7 @@ class BNNotificationManager:NSObject, NSCoding {
         
     }
     
-//    func removeNotification(identifier:Int){
-//        for var i = 0; i < notifications.count; i++ {
-//            if notifications[i].identifier == identifier {
-//                notifications.removeAtIndex(i)
-//                return
-//            }
-//        }
-//    }
-    
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         
         super.init()
         self.localNotifications =  aDecoder.decodeObjectForKey("localNotifications") as! [BNLocalNotification]
@@ -69,11 +56,13 @@ class BNNotificationManager:NSObject, NSCoding {
     }
     
     func findNotificationByObjectId(){
+        NSLog("BIIN - findNotificationByObjectId()")
+
         for notification in localNotifications {
             if notification.objectIdentifier! == lastNotificationObjectId {
                 currentNotification = notification
                 lastNotificationObjectId = ""
-                NSLog("BIIN - \(currentNotification!.objectIdentifier!)")
+                NSLog("BIIN - Notification Pending to show: \(currentNotification!.objectIdentifier!)")
                 break
             }
         }
@@ -83,7 +72,9 @@ class BNNotificationManager:NSObject, NSCoding {
         self.currentNotification = nil
         didSendNotificationOnAppDown = false
         lastNotificationObjectId = ""
+        save()
     }
+    
     ///identifier: object identifier on the biin.
     ///
     func addLocalNotification(object:BNBiinObject, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String){
@@ -93,7 +84,7 @@ class BNNotificationManager:NSObject, NSCoding {
         
         for var i = 0; i < localNotifications.count; i++ {
             
-            println("\(localNotifications[i].objectIdentifier!) : \(i)")
+            //println("\(localNotifications[i].objectIdentifier!) : \(i)")
             
             if localNotifications[i].objectIdentifier == object._id! {
                 
@@ -112,12 +103,16 @@ class BNNotificationManager:NSObject, NSCoding {
                 //localNotifications[i].isUserNotified = object.isUserNotified
                 localNotifications[i].major = object.major
                 localNotifications[i].minor = object.minor
+                
+                //HACK
+                localNotifications[i].isUserNotified = false
+                
                 break
             }
         }
         
         if !isNotificationSaved {
-            var notification = BNLocalNotification(objectIdentifier:object._id!, notificationText:notificationText, notificationType:notificationType, siteIdentifier:siteIdentifier, biinIdentifier:biinIdentifier, elementIdentifier:elementIdentifier)
+            let notification = BNLocalNotification(objectIdentifier:object._id!, notificationText:notificationText, notificationType:notificationType, siteIdentifier:siteIdentifier, biinIdentifier:biinIdentifier, elementIdentifier:elementIdentifier)
             
             //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
             notification.onMonday = object.onMonday
@@ -134,11 +129,15 @@ class BNNotificationManager:NSObject, NSCoding {
             notification.minor = object.minor
             notification.fireDate = NSDate(timeIntervalSince1970: 0)
             localNotifications.append(notification)
+            
+            //HACK
+            notification.isUserNotified = false
+            
         }
         
         save()
         
-        println("localNotification count: \(localNotifications.count)")
+        //println("localNotification count: \(localNotifications.count)")
     }
     
     func removeLocalNotification(objectIdentifier:String) {
@@ -158,26 +157,26 @@ class BNNotificationManager:NSObject, NSCoding {
 
     func activateNotificationForSite(siteIdentifier:String, major:Int) {
         
-        NSLog("activateNotificationForSite()")
-        NSLog("localNotifications: \(localNotifications.count)")
+        NSLog("BIIN - activateNotificationForSite()")
+        NSLog("BIIN - localNotifications: \(localNotifications.count)")
         
         self.currentNotification = nil
         didSendNotificationOnAppDown = false
         
         if BNAppSharedManager.instance.IS_APP_DOWN {
-            NSLog("activateNotificationForSite() - WHEN APP IS DOWN")
+            NSLog("BIIN - activateNotificationForSite() - WHEN APP IS DOWN")
             setCurrentNotificationWhenAppIsDown(siteIdentifier, major: major)
             sendCurrentNotification()
         } else {
             if let site = BNAppSharedManager.instance.dataManager.sites[siteIdentifier] {
-                NSLog("site: \(site.title!)")
+                NSLog("BIIN - site: \(site.title!)")
                 
                 for biin in site.biins {
-                    NSLog("biin: \(biin.identifier!)")
+                    NSLog("BIIN - biin: \(biin.identifier!)")
                     if biin.biinType == BNBiinType.EXTERNO {
                         for localNotification in localNotifications {
-                            NSLog("notification id: \(localNotification.objectIdentifier!)")
-                            NSLog("current biin object: \(biin.currectObject()._id!)")
+                            NSLog("BIIN - notification id: \(localNotification.objectIdentifier!)")
+                            NSLog("BIIN - current biin object: \(biin.currectObject()._id!)")
                             if localNotification.objectIdentifier == biin.currectObject()._id! {
                                 self.currentNotification = localNotification
                                 sendCurrentNotification()
@@ -189,7 +188,7 @@ class BNNotificationManager:NSObject, NSCoding {
             }
             
             if  self.currentNotification == nil {
-                NSLog("NOTIFICATION NOT FOUND FOR BIIN in SITE: \(siteIdentifier)")
+                NSLog("BIIN - NOTIFICATION NOT FOUND FOR BIIN in SITE: \(siteIdentifier)")
 //                self.currentNotification = BNLocalNotification(objectIdentifier: "TEST", notificationText: "TEST", notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: "TEST", biinIdentifier: "TEST", elementIdentifier: "TEST")
 //                sendCurrentNotification()
             }
@@ -203,16 +202,15 @@ class BNNotificationManager:NSObject, NSCoding {
         //Get the closes local notification asociates to the biin
         for localNotification in localNotifications {
 
-            NSLog("biin: \(biinIdentifier)")
-            NSLog("notification-biin: \(localNotification.biinIdentifier!)")
-
+            NSLog("BIIN - biin: \(biinIdentifier)")
+            NSLog("BIIN - notification-biin: \(localNotification.biinIdentifier!)")
             
             if localNotification.biinIdentifier == biinIdentifier {
                 self.currentNotification = localNotification
                 break
             } else {
                 self.currentNotification = nil
-                NSLog("NOTIFICATION NOT FOUND FOR BIIN: \(biinIdentifier)")
+                NSLog("BIIN - NOTIFICATION NOT FOUND FOR BIIN: \(biinIdentifier)")
             }
         }
         
@@ -242,8 +240,8 @@ class BNNotificationManager:NSObject, NSCoding {
     }
     
     func setCurrentNotificationWhenAppIsDown(siteIdentifier:String, major:Int){
+        
         NSLog("BIIN - setCurrentNotificationWhenAppIsDown()")
-       
         NSLog("BIIN - ")
         
         didSendNotificationOnAppDown = true
@@ -251,10 +249,12 @@ class BNNotificationManager:NSObject, NSCoding {
         
         for notification in localNotifications {
             if notification.notificationType == .EXTERNAL && major == notification.major {
-                NSLog("Site identifier: \(notification.siteIdentifier!)")
-                NSLog("major: \(notification.major)")
-                NSLog("minor: \(notification.minor)")
+                NSLog("BIIN - Site identifier: \(notification.siteIdentifier!)")
+                NSLog("BIIN - major: \(notification.major)")
+                NSLog("BIIN - minor: \(notification.minor)")
                 siteNotifications.append(notification)
+            } else {
+                NSLog("BIIN - Site identifier: \(siteIdentifier) major:\(major) NOT IN LIST")
             }
         }
         
@@ -273,14 +273,14 @@ class BNNotificationManager:NSObject, NSCoding {
         
             let date = NSDate()
             let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: date)
+            let components = calendar.components([.Hour, .Minute], fromDate: date)
             let hour = components.hour
             let minutes = components.minute
             let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
             
             var isAvailableToday = false
             
-            var dayNumber = getDayOfWeek()
+            let dayNumber = getDayOfWeek()
             for var i = 0; i < siteNotifications.count; i++ {
                 
                 NSLog("Day:\(getDayOfWeek())")
@@ -356,12 +356,12 @@ class BNNotificationManager:NSObject, NSCoding {
         }
         
         if !isCurrentObjectSet {
-            NSLog("Setting defaul!")
+//            NSLog("Setting defaul!")
             currentNotificationIndex = 0
             currentNotification = siteNotifications[currentNotificationIndex]
-            NSLog("CUrrent object index;\(currentNotificationIndex)")
-            NSLog("Start time:\(siteNotifications[currentNotificationIndex].startTime)")
-            NSLog("End time: \(siteNotifications[currentNotificationIndex].endTime)")
+//            NSLog("CUrrent object index;\(currentNotificationIndex)")
+//            NSLog("Start time:\(siteNotifications[currentNotificationIndex].startTime)")
+//            NSLog("End time: \(siteNotifications[currentNotificationIndex].endTime)")
         }
     }
 
@@ -370,10 +370,10 @@ class BNNotificationManager:NSObject, NSCoding {
         
         let formatter  = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        var today = NSDate().bnShortDateFormat()
+        let today = NSDate().bnShortDateFormat()
         if let todayDate = formatter.dateFromString(today) {
             let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            let myComponents = myCalendar.components(.CalendarUnitWeekday, fromDate: todayDate)
+            let myComponents = myCalendar.components(.Weekday, fromDate: todayDate)
             let weekDay = myComponents.weekday
             return weekDay
         } else {
@@ -385,13 +385,15 @@ class BNNotificationManager:NSObject, NSCoding {
         
         if self.currentNotification != nil {
             
-            var days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
+            let days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
             
             NSLog("BIIN - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
             
-            if !self.currentNotification!.isUserNotified || days > 1 {
+            //HACK: to test all notifications.
+//            if !self.currentNotification!.isUserNotified || days > 1 {
+            if !self.currentNotification!.isUserNotified  {
                 var time:NSTimeInterval = 0
-                var localNotification:UILocalNotification = UILocalNotification()
+                let localNotification:UILocalNotification = UILocalNotification()
                 localNotification.alertBody = currentNotification!.notificationText
                 localNotification.alertTitle = "Biin"
                 localNotification.soundName = "notification.wav"//UILocalNotificationDefaultSoundName
@@ -400,17 +402,17 @@ class BNNotificationManager:NSObject, NSCoding {
                 
                 switch self.currentNotification!.notificationType! {
                 case .EXTERNAL:
-                    println("Activating notification \(self.currentNotification!.biinIdentifier!), EXTERNAL")
+                    //println("Activating notification \(self.currentNotification!.biinIdentifier!), EXTERNAL")
                     //localNotification.alertAction = "externalAction"
                     time = 1
                     break
                 case .INTERNAL:
-                    println("Activating notification \(self.currentNotification!.biinIdentifier!), INTERNAL")
+                    //println("Activating notification \(self.currentNotification!.biinIdentifier!), INTERNAL")
                     //localNotification.alertAction = "internalAction"
                     time = 1
                     break
                 case .PRODUCT:
-                    println("Activating notification \(self.currentNotification!.biinIdentifier!), PRODUCT")
+                    //println("Activating notification \(self.currentNotification!.biinIdentifier!), PRODUCT")
                     //localNotification.alertAction = "productAction"
                     time = 1
                     break
@@ -420,18 +422,22 @@ class BNNotificationManager:NSObject, NSCoding {
                 
                 localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
 
-    //                localNotification.category = "biinNotificationCategory"
+//                localNotification.category = "biinNotificationCategory"
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-                currentNotification!.isUserNotified = true
+                
+                //HACK: to shwo all notifications.
+                currentNotification!.isUserNotified = false
+                //currentNotification!.isUserNotified = true
+                
                 currentNotification!.fireDate = NSDate()
                 lastNotificationObjectId = currentNotification!.objectIdentifier!
                 save()
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.objectIdentifier!)
             } else {
-                NSLog("USER ALREADY NOTIFIED!")
-                NSLog("Current notification:\(currentNotification!.objectIdentifier!)")
-                NSLog("Start time:\(currentNotification!.startTime)")
-                NSLog("End time: \(currentNotification!.endTime)")
+                NSLog("BIIN - USER ALREADY NOTIFIED!")
+                NSLog("BIIN - Current notification:\(currentNotification!.objectIdentifier!)")
+                NSLog("BIIN - Start time:\(currentNotification!.startTime)")
+                NSLog("BIIN - End time: \(currentNotification!.endTime)")
             }
         }
 

@@ -32,8 +32,8 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         self.becomeFirstResponder()
         
         var xpos:CGFloat = 0
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
 
         scroll = UIScrollView(frame: CGRectMake(0, 25, screenWidth, (screenHeight - 25)))
         scroll!.layer.cornerRadius = 5
@@ -72,32 +72,9 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func initViewController(frame:CGRect){
-        
-        //        mainView = MainView(frame: frame, father:nil, rootViewController: self)
-        //        mainView!.delegate = self
-        //        self.view.addSubview(self.mainView!)
-        //
-        //        fadeView = UIView(frame: frame)
-        //        fadeView!.backgroundColor = UIColor.blackColor()
-        //        fadeView!.alpha = 0
-        //        fadeView!.userInteractionEnabled = false
-        //        self.view.addSubview(fadeView!)
-        //
-        //        menuView = MenuView(frame: CGRectMake(-140, 0, 140, frame.height))
-        //        menuView!.delegate = self
-        //        self.view.addSubview(menuView!)
-        //
-        //        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
-        //        hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
-        //        menuView!.addGestureRecognizer(hideMenuSwipe)
-        //
-        //        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
-        //        showMenuSwipe!.edges = UIRectEdge.Bottom
-        //        self.view.addGestureRecognizer(showMenuSwipe!)
         
     }
     
@@ -130,18 +107,15 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     }
     
     func startOnBiin(view: UIView) {
-//        var vc = MainViewController()
-//        vc.initViewController(self.view.frame)
-//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-//        self.presentViewController(vc, animated: true, completion: nil)
+
     }
     
     func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    var vc = LoadingViewController()
-                    BNAppSharedManager.instance.dataManager.requestInitialData()
+                    let vc = LoadingViewController()
+                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
                 })
@@ -158,5 +132,8 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         }
 
     }
-
+    
+    func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
+        
+    }
 }

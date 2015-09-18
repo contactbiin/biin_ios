@@ -23,7 +23,7 @@ class BNIcon_CommentMedium:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(13.48, 0))
         bezier2Path.addCurveToPoint(CGPointMake(0, 11.47), controlPoint1: CGPointMake(6.06, 0), controlPoint2: CGPointMake(0, 5.15))
         bezier2Path.addCurveToPoint(CGPointMake(3.82, 19.45), controlPoint1: CGPointMake(0, 14.49), controlPoint2: CGPointMake(1.35, 17.27))

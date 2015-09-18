@@ -14,7 +14,7 @@ class BNUINotificationView_RedCircle:UIView {
 //        super.init()
 //    }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
@@ -39,7 +39,7 @@ class BNUINotificationView_RedCircle:UIView {
         self.alpha = 1
         label!.text = "\(quantity)"
         label!.sizeToFit()
-        var width = label!.frame.width + 11
+        let width = label!.frame.width + 11
         label!.frame = CGRectMake(label!.frame.origin.x, label!.frame.origin.y, width, label!.frame.height)
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, width, self.frame.height)
     }

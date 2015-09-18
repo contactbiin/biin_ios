@@ -30,10 +30,10 @@ class BNIcon_MenuMedium:BNIcon {
         
         
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(0, 6.3))
         bezierPath.addLineToPoint(CGPointMake(16.5, 6.3))
-        bezierPath.lineCapStyle = kCGLineCapRound;
+        bezierPath.lineCapStyle = CGLineCap.Round;
         
         strokeColor.setStroke()
         bezierPath.lineWidth = 3
@@ -41,10 +41,10 @@ class BNIcon_MenuMedium:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(0, 0))
         bezier2Path.addLineToPoint(CGPointMake(16.5, 0))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
         strokeColor.setStroke()
         bezier2Path.lineWidth = 3
@@ -52,10 +52,10 @@ class BNIcon_MenuMedium:BNIcon {
         
         
         //// Bezier 3 Drawing
-        var bezier3Path = UIBezierPath()
+        let bezier3Path = UIBezierPath()
         bezier3Path.moveToPoint(CGPointMake(0, 12.6))
         bezier3Path.addLineToPoint(CGPointMake(16.5, 12.6))
-        bezier3Path.lineCapStyle = kCGLineCapRound;
+        bezier3Path.lineCapStyle = CGLineCap.Round;
         
         strokeColor.setStroke()
         bezier3Path.lineWidth = 3

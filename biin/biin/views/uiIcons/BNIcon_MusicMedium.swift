@@ -24,7 +24,7 @@ class BNIcon_MusicMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(0, 23.62))
         bezier2Path.addCurveToPoint(CGPointMake(3.73, 27.5), controlPoint1: CGPointMake(0, 25.88), controlPoint2: CGPointMake(1.59, 27.5))
         bezier2Path.addCurveToPoint(CGPointMake(7.93, 23.8), controlPoint1: CGPointMake(5.97, 27.5), controlPoint2: CGPointMake(7.93, 25.79))
@@ -39,7 +39,7 @@ class BNIcon_MusicMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(7, 5.45))
         bezier4Path.addLineToPoint(CGPointMake(7, 10.4))
         bezier4Path.addLineToPoint(CGPointMake(7, 11.09))

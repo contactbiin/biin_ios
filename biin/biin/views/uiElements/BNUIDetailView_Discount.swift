@@ -19,7 +19,7 @@ class BNUIDetailView_Discount:UIView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -27,7 +27,7 @@ class BNUIDetailView_Discount:UIView {
         
         
         //var boxWidth = (SharedUIManager.instance.screenWidth - 14) / 3
-        var frame = CGRectMake(position.x, position.y, (SharedUIManager.instance.screenWidth - 10), 30)
+        let frame = CGRectMake(position.x, position.y, (SharedUIManager.instance.screenWidth - 10), 30)
         self.init(frame:frame)
         self.backgroundColor = UIColor.appButtonColor()
         self.layer.borderColor = borderColor.CGColor

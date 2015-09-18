@@ -20,12 +20,13 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("SingupViewController - viewDidLoad()")
+        print("SingupViewController - viewDidLoad()")
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.setNeedsStatusBarAppearanceUpdate()
     
         self.becomeFirstResponder()
@@ -49,15 +50,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         
         self.view.addSubview(signupView!)
         signupView!.frame.origin.x = SharedUIManager.instance.screenWidth
-        
-        //[snippet caption="Creating Notifications in Swift"]
-//        var localNotification: UILocalNotification = UILocalNotification()
-//        localNotification.alertAction = "Testing notifications on iOS8"
-//        //localNotification.alertBody = "Woww it works!!”
-//        localNotification.alertBody = "Testing"
-//        localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
-//        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-        
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -66,37 +58,14 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func initViewController(frame:CGRect){
-        
-//        mainView = MainView(frame: frame, father:nil, rootViewController: self)
-//        mainView!.delegate = self
-//        self.view.addSubview(self.mainView!)
-//        
-//        fadeView = UIView(frame: frame)
-//        fadeView!.backgroundColor = UIColor.blackColor()
-//        fadeView!.alpha = 0
-//        fadeView!.userInteractionEnabled = false
-//        self.view.addSubview(fadeView!)
-//        
-//        menuView = MenuView(frame: CGRectMake(-140, 0, 140, frame.height))
-//        menuView!.delegate = self
-//        self.view.addSubview(menuView!)
-//        
-//        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
-//        hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
-//        menuView!.addGestureRecognizer(hideMenuSwipe)
-//        
-//        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
-//        showMenuSwipe!.edges = UIRectEdge.Bottom
-//        self.view.addGestureRecognizer(showMenuSwipe!)
-        
+
     }
     
     func enterBtnAction(sender: UIButton!){
-        var vc = UserOnboardingViewController()
+        let vc = UserOnboardingViewController()
         vc.initViewController(self.view.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)
@@ -109,10 +78,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-        //UIView.animateWithDuration(0.5, animations: {()-> Void in
-            //self.loadingView!.alpha = 0
-            //self.enterBtn!.alpha = 1
-        //})
+
     }
     
     func showSignupView(view: UIView) {
@@ -141,36 +107,29 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         }
         
         showProgressView()
-//        var vc = LoadingViewController()
-//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-//        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func test(view: UIView) {
-        var vc = UserOnboardingViewController()
+        let vc = UserOnboardingViewController()
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func enableSignup(view: UIView) {
-        var vc = UserOnboardingViewController()
+        let vc = UserOnboardingViewController()
         vc.initViewController(self.view.frame)
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
     //BNNetworkManagerDelegate Methods
-//    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-//        
-//    }
-    
     func manager(manager: BNNetworkManager!, didReceivedLoginValidation response: BNResponse?) {
 
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    BNAppSharedManager.instance.dataManager.requestInitialData()
-                    var vc = LoadingViewController()
+                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+                    let vc = LoadingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
                 })
@@ -192,7 +151,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    var vc = UserOnboardingViewController()
+                    let vc = UserOnboardingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
                 })
@@ -214,5 +173,9 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:"Please wait a moment!")
         self.view.addSubview(alert!)
         alert!.show()
+    }
+    
+    func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
+        
     }
 }

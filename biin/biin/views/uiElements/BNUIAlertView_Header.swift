@@ -23,7 +23,7 @@ class BNUIAlertView_Header:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -61,7 +61,7 @@ class BNUIAlertView_Header:UIView {
         let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
         
         //// back Drawing
-        var backPath = UIBezierPath(rect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height))//UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), byRoundingCorners: UIRectCorner.BottomLeft | UIRectCorner.BottomRight, cornerRadii: CGSizeMake(radius!, radius!))
+        let backPath = UIBezierPath(rect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height))//UIBezierPath(roundedRect: CGRectMake(frame.minX, frame.minY, frame.width, frame.height), byRoundingCorners: UIRectCorner.BottomLeft | UIRectCorner.BottomRight, cornerRadii: CGSizeMake(radius!, radius!))
         
 
         backPath.closePath()

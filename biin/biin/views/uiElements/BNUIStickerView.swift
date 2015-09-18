@@ -18,7 +18,7 @@ class BNUIStickerView:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -36,7 +36,7 @@ class BNUIStickerView:UIView {
         self.layer.backgroundColor = self.color!.CGColor
         self.layer.cornerRadius = (frame.width) / 2
         
-        var borderView = UIView(frame: CGRectMake(2, 2, (frame.width - 4), (frame.height - 4)))
+        let borderView = UIView(frame: CGRectMake(2, 2, (frame.width - 4), (frame.height - 4)))
         borderView.layer.borderColor = UIColor.appMainColor().CGColor
         borderView.layer.borderWidth = 1
         borderView.layer.cornerRadius = (frame.width - 4) / 2
@@ -51,7 +51,7 @@ class BNUIStickerView:UIView {
     func setLabelText(text:String){
         text1!.text = text
         text1!.sizeToFit()
-        var posx = (text1!.frame.width / 2)
+        let posx = (text1!.frame.width / 2)
         text1!.frame.origin.x = 0
         text1!.frame.origin.x -= (posx - 6)
     }

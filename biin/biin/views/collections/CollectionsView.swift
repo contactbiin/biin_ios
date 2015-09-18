@@ -28,10 +28,9 @@ class CollectionsView: BNView, ElementView_Delegate {
         
         self.backgroundColor = UIColor.appMainColor()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
-
         var ypos:CGFloat = 12
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
@@ -44,8 +43,8 @@ class CollectionsView: BNView, ElementView_Delegate {
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
-        var headerWidth = screenWidth - 60
-        var xpos:CGFloat = (screenWidth - headerWidth) / 2
+        //let headerWidth = screenWidth - 60
+        //var xpos:CGFloat = (screenWidth - headerWidth) / 2
         
         /*
         var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
@@ -92,7 +91,7 @@ class CollectionsView: BNView, ElementView_Delegate {
         */
         
         ypos = SharedUIManager.instance.siteView_headerHeight
-        var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
@@ -120,7 +119,7 @@ class CollectionsView: BNView, ElementView_Delegate {
         self.init(frame: frame, father:father )
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -191,12 +190,12 @@ class CollectionsView: BNView, ElementView_Delegate {
         
         collections = Array<CollectionsView_Collection>()
         
-        var height:CGFloat = SharedUIManager.instance.elementView_headerHeight + SharedUIManager.instance.miniView_height + 15
+        let height:CGFloat = SharedUIManager.instance.elementView_headerHeight + SharedUIManager.instance.miniView_height + 15
         var ypos:CGFloat = 0
         
-        for (key, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
+        for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
             
-            var collectionView = CollectionsView_Collection(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, collection: collection)
+            let collectionView = CollectionsView_Collection(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, collection: collection)
             
             collections!.append(collectionView)
             scroll!.addSubview(collectionView)

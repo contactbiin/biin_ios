@@ -23,7 +23,7 @@ class BNIcon_CommentSmall:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(9.5, 3.79))
         bezierPath.addCurveToPoint(CGPointMake(4.75, 7.51), controlPoint1: CGPointMake(9.5, 5.85), controlPoint2: CGPointMake(7.37, 7.51))
         bezierPath.addCurveToPoint(CGPointMake(3.11, 7.24), controlPoint1: CGPointMake(4.16, 7.51), controlPoint2: CGPointMake(3.63, 7.39))
@@ -33,9 +33,9 @@ class BNIcon_CommentSmall:BNIcon {
         bezierPath.addCurveToPoint(CGPointMake(4.75, 0), controlPoint1: CGPointMake(0, 1.73), controlPoint2: CGPointMake(2.13, 0))
         bezierPath.addCurveToPoint(CGPointMake(9.5, 3.79), controlPoint1: CGPointMake(7.37, 0), controlPoint2: CGPointMake(9.5, 1.73))
         bezierPath.closePath()
-        bezierPath.lineCapStyle = kCGLineCapRound;
+        bezierPath.lineCapStyle = CGLineCap.Round;
         
-        bezierPath.lineJoinStyle = kCGLineJoinRound;
+        bezierPath.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezierPath.lineWidth = 1.5

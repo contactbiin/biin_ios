@@ -23,7 +23,7 @@ class BNIcon_PigSmall:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        var pigPath = UIBezierPath()
+        let pigPath = UIBezierPath()
         pigPath.moveToPoint(CGPointMake(27.53, 9.12))
         pigPath.addCurveToPoint(CGPointMake(27.06, 9.6), controlPoint1: CGPointMake(27.27, 9.12), controlPoint2: CGPointMake(27.06, 9.33))
         pigPath.addCurveToPoint(CGPointMake(25.61, 11.48), controlPoint1: CGPointMake(27.06, 10.52), controlPoint2: CGPointMake(26.44, 11.27))

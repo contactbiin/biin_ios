@@ -23,16 +23,16 @@ class BNIcon_ShareSmall:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(0, 3.1))
         bezierPath.addLineToPoint(CGPointMake(7.5, 0))
         bezierPath.addLineToPoint(CGPointMake(4.4, 7.5))
         bezierPath.addLineToPoint(CGPointMake(3.42, 4.08))
         bezierPath.addLineToPoint(CGPointMake(0, 3.1))
         bezierPath.closePath()
-        bezierPath.lineCapStyle = kCGLineCapRound;
+        bezierPath.lineCapStyle = CGLineCap.Round;
         
-        bezierPath.lineJoinStyle = kCGLineJoinRound;
+        bezierPath.lineJoinStyle = CGLineJoin.Round;
         
         color!.setFill()
         bezierPath.fill()
