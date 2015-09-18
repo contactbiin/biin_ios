@@ -67,7 +67,8 @@ class BNRequest_Organization: BNRequest {
                             self.organization!.media.append(media)
                         }
                         
-                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: dataData)
+                        self.organization!.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData!)
+                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: organizationData!)
                         let loyalty = BNLoyalty()
                         loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
                         

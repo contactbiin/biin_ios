@@ -43,7 +43,7 @@ class BNSite:NSObject, NSCoding {
     var biins = Array<BNBiin>()
     
     //Loyalty
-    var loyalty:BNLoyalty?
+    //var loyalty:BNLoyalty?
 
     //Social interaction
     //var biinedCount:Int = 0   //How many time users have biined this element.

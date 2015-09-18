@@ -153,11 +153,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         emailBtn = UIButton(frame: CGRectMake((siteAvatarSize + 10), (siteAvatarSize - 11), 80, 16))
         emailBtn!.setTitle("EMAIL", forState: UIControlState.Normal)
         emailBtn!.setTitleColor(UIColor.biinColor(), forState: UIControlState.Normal)
-        emailBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 10)
+        emailBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 10)
         emailBtn!.layer.cornerRadius = 8
         emailBtn!.layer.masksToBounds = true
         emailBtn!.layer.borderColor = UIColor.biinColor().CGColor
-        emailBtn!.layer.borderWidth = 0.5
+        emailBtn!.layer.borderWidth = 1
         emailBtn!.backgroundColor = UIColor.clearColor()
         emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
@@ -165,11 +165,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         callBtn = UIButton(frame: CGRectMake((siteAvatarSize + 100), (siteAvatarSize - 11), 80, 16))
         callBtn!.setTitle("CALL", forState: UIControlState.Normal)
         callBtn!.setTitleColor(UIColor.biinColor(), forState: UIControlState.Normal)
-        callBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 10)
+        callBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 10)
         callBtn!.layer.cornerRadius = 8
         callBtn!.layer.masksToBounds = true
         callBtn!.layer.borderColor = UIColor.biinColor().CGColor
-        callBtn!.layer.borderWidth = 0.5
+        callBtn!.layer.borderWidth = 1
         callBtn!.backgroundColor = UIColor.clearColor()
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)

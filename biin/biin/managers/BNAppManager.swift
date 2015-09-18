@@ -208,34 +208,30 @@ class BNAppManager {
     func likeIt(identifier:String, isElement:Bool){
         
         if isElement {
-            dataManager.elements[identifier]?.userLiked = true
-            networkManager.sendLikedElement(dataManager.bnUser!, element: dataManager.elements[identifier]!, value: true)
+            //dataManager.elements[identifier]?.userLiked = true
+            networkManager.sendLikedElement(dataManager.bnUser!, element: dataManager.elements[identifier]!, value: dataManager.elements[identifier]!.userLiked)
         } else {
-            dataManager.sites[identifier]?.userLiked = true
-            networkManager.sendLikedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:true)
+            //dataManager.sites[identifier]?.userLiked = true
+            networkManager.sendLikedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:dataManager.sites[identifier]!.userLiked)
         }
     }
     
-    func unLikeit(identifier:String, isElement:Bool){
-        
-        if isElement {
-            dataManager.elements[identifier]?.userLiked = false
-            networkManager.sendLikedElement(dataManager.bnUser!, element: dataManager.elements[identifier]!, value: false)
-        } else {
-            dataManager.sites[identifier]?.userLiked = false
-            networkManager.sendLikedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value: false)
-        }
-    }
+//    func unLikeit(identifier:String, isElement:Bool){
+//        
+//        if isElement {
+//            networkManager.sendLikedElement(dataManager.bnUser!, element: dataManager.elements[identifier]!, value: false)
+//        } else {
+//            networkManager.sendLikedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value: false)
+//        }
+//    }
     
     func followIt(identifier:String ){
-        dataManager.sites[identifier]?.userFollowed = true
-        networkManager.sendFollowedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:true)
+        networkManager.sendFollowedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:dataManager.sites[identifier]!.userFollowed)
     }
-    
-    func unFollowit(identifier:String ){
-        dataManager.sites[identifier]?.userFollowed = true
-        networkManager.sendFollowedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:false )
-    }
+//    
+//    func unFollowit(identifier:String ){
+//        networkManager.sendFollowedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:false )
+//    }
 
     func shareIt(identifier:String, isElement:Bool){
         

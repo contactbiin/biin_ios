@@ -39,7 +39,7 @@ class ElementMiniView_Header:BNView {
         self.elementPosition = elementPosition
         
         var ypos:CGFloat = 5
-        var xpos:CGFloat = 4
+        var xpos:CGFloat = 5
         buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, element: element)
         //self.addSubview(buttonsView!)
         
@@ -54,7 +54,7 @@ class ElementMiniView_Header:BNView {
         }
        
         ypos = 4
-        let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_titleSize + 3)))
+        let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - (xpos + 5)), (SharedUIManager.instance.miniView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = UIColor.bnGrayDark()
         title.text = element!.title!
@@ -62,7 +62,7 @@ class ElementMiniView_Header:BNView {
         
         ypos += SharedUIManager.instance.miniView_titleSize
         
-        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 35), (SharedUIManager.instance.miniView_subTittleSize + 3)))
+        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - (xpos + 5)), (SharedUIManager.instance.miniView_subTittleSize + 3)))
         subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
         subTitle.textColor = UIColor.bnGrayDark()
         subTitle.text = element!.subTitle!

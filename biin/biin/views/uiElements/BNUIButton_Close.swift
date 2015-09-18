@@ -22,7 +22,7 @@ class BNUIButton_Close:BNUIButton {
         self.init(frame: frame)
         
         self.layer.borderColor = iconColor.CGColor
-        self.layer.borderWidth = 0.5
+        self.layer.borderWidth = 1
         self.layer.cornerRadius = self.frame.width / 2
         self.layer.masksToBounds = true
         

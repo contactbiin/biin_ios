@@ -35,7 +35,7 @@ class BNIcon_CloseSmall:BNIcon {
         line2Path.lineCapStyle = CGLineCap.Round;
         
         color!.setStroke()
-        line2Path.lineWidth = 0.5
+        line2Path.lineWidth = 1
         line2Path.stroke()
         
         //// line1 Drawing
@@ -45,7 +45,7 @@ class BNIcon_CloseSmall:BNIcon {
         line1Path.lineCapStyle = CGLineCap.Round;
         
         color!.setStroke()
-        line1Path.lineWidth = 0.5
+        line1Path.lineWidth = 1
         line1Path.stroke()
        
         CGContextRestoreGState(context)

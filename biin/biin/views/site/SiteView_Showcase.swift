@@ -217,8 +217,20 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         
         for element in showcase!.elements {
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:true)
-            xpos += elementView_width + spacer
+            
+            var showLoyalty:Bool = false
+                
+            if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
+                showLoyalty = true
+            }
+            
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:showLoyalty)
+
+            if element != showcase!.elements.last {
+                xpos += elementView_width + spacer
+            } else  {
+                xpos += (elementView_width - 1)
+            }
             
             elementView.delegate = self
             scroll!.addSubview(elementView)
@@ -238,26 +250,28 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         xpos += spacer
         
-        if self.site!.organization!.loyalty!.isSubscribed {
-            //Add game view
-            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
-            scroll!.addSubview(gameView!)
-            xpos += SharedUIManager.instance.screenWidth
-        } else  {
-            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!)
-            scroll!.addSubview(joinView!)
-            xpos += SharedUIManager.instance.screenWidth
+        if self.site!.organization!.isLoyaltyEnabled {
+            if self.site!.organization!.loyalty!.isSubscribed {
+                //Add game view
+                gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
+                scroll!.addSubview(gameView!)
+                xpos += SharedUIManager.instance.screenWidth
+            } else  {
+                joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!)
+                scroll!.addSubview(joinView!)
+                xpos += SharedUIManager.instance.screenWidth
+            }
+            
+            if !self.showcase!.isShowcaseGameCompleted {
+                let of = NSLocalizedString("Of", comment: "Of")
+                gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
+            }
         }
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.bounces = false
         scroll!.pagingEnabled = false
-        
-        if !self.showcase!.isShowcaseGameCompleted {
-            let of = NSLocalizedString("Of", comment: "Of")
-            gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
-        }
     }
     
     /* UIScrollViewDelegate Methods */

@@ -419,21 +419,22 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         bottom!.updateForSite(site)
     }
     
+    /*
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
         header!.updateForSite(site!)
         likeItButton!.showDisable()
         animationView!.animate()
     }
+    */
     
     func likeit(sender:BNUIButton_BiinIt){
-        //BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to: site!.identifier!)
         site!.userLiked = !site!.userLiked
         updateLikeItBtn()
-        
     }
     
     func updateLikeItBtn() {
+        BNAppSharedManager.instance.likeIt(site!.identifier!, isElement: false)
         likeItButton!.changedIcon(site!.userLiked)
         likeItButton!.icon!.color = site!.media[0].vibrantColor!
     }
@@ -445,11 +446,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func collectIt(sender:BNUIButton_CollectionIt){
         site!.userCollected = !site!.userCollected
         updateCollectItBtn()
-        
-        //return
         BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
         //header!.updateForSite(site!)
-        //likeItButton!.showDisable()
         animationView!.animate()
     }
     
@@ -466,15 +464,13 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func updateFollowBtn() {
         
         followButton!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
-
+        BNAppSharedManager.instance.followIt(site!.identifier!)
+        
         if site!.userFollowed {
-            //TODO: send follow
             followButton!.setTitle(NSLocalizedString("Following", comment: "Following"), forState: UIControlState.Normal)
             followButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             followButton!.backgroundColor = site!.media[0].vibrantColor!
-            
         } else  {
-            //TODO: send unfollow
             followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
             followButton!.setTitleColor(site!.media[0].vibrantColor!, forState: UIControlState.Normal)
             followButton!.backgroundColor = UIColor.clearColor()
