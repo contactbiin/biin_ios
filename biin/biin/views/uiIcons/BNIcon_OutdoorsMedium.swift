@@ -26,7 +26,7 @@ class BNIcon_OutdoorsMedium:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        var treePath = UIBezierPath()
+        let treePath = UIBezierPath()
         treePath.moveToPoint(CGPointMake(18.4, 20.89))
         treePath.addLineToPoint(CGPointMake(13.25, 14.41))
         treePath.addLineToPoint(CGPointMake(16.29, 14.41))

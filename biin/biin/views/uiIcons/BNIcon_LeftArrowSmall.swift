@@ -25,28 +25,28 @@ class BNIcon_LeftArrowSmall:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(15.1, 5.96))
         bezierPath.addLineToPoint(CGPointMake(1.45, 5.96))
-        bezierPath.lineCapStyle = kCGLineCapRound;
+        bezierPath.lineCapStyle = CGLineCap.Round;
         
         color!.setStroke()
-        bezierPath.lineWidth = 3
+        bezierPath.lineWidth = 1
         bezierPath.stroke()
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(6.02, 11.6))
         bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
         bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
         bezier2Path.addLineToPoint(CGPointMake(6.02, 0))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
-        bezier2Path.lineWidth = 3
+        bezier2Path.lineWidth = 1
         bezier2Path.stroke()
         
         

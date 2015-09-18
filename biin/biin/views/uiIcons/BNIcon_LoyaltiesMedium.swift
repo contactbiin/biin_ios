@@ -26,7 +26,7 @@ class BNIcon_LoyaltiesMedium:BNIcon {
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(12.5, 0))
         bezier2Path.addLineToPoint(CGPointMake(15.52, 9.86))
         bezier2Path.addLineToPoint(CGPointMake(25, 9.86))

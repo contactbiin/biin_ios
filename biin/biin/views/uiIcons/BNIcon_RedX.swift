@@ -28,10 +28,10 @@ class BNIcon_RedX:BNIcon {
         CGContextTranslateCTM(context, (position.x + 2), (position.y + 10))
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(0, 0))
         bezier2Path.addLineToPoint(CGPointMake(width, 0))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
         color!.setStroke()
         bezier2Path.lineWidth = strokeWidth

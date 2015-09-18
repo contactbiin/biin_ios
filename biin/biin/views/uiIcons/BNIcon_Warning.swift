@@ -37,7 +37,7 @@ class BNIcon_Warning:BNIcon {
         CGContextTranslateCTM(context, 44, 44)
         CGContextRotateCTM(context, 44.85 * CGFloat(M_PI) / 180)
         
-        var ballPath = UIBezierPath(ovalInRect: CGRectMake(-30.93, -31.3, 61.86, 62.6))
+        let ballPath = UIBezierPath(ovalInRect: CGRectMake(-30.93, -31.3, 61.86, 62.6))
         color!.setStroke()
         ballPath.lineWidth = 2.5
         ballPath.stroke()
@@ -46,12 +46,12 @@ class BNIcon_Warning:BNIcon {
         
         
         //// stick Drawing
-        var stickPath = UIBezierPath()
+        let stickPath = UIBezierPath()
         stickPath.moveToPoint(CGPointMake(43.98, 48.24))
         stickPath.addLineToPoint(CGPointMake(43.98, 28.44))
-        stickPath.lineCapStyle = kCGLineCapRound;
+        stickPath.lineCapStyle = CGLineCap.Round;
         
-        stickPath.lineJoinStyle = kCGLineJoinRound;
+        stickPath.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         stickPath.lineWidth = 4
@@ -59,7 +59,7 @@ class BNIcon_Warning:BNIcon {
         
         
         //// point Drawing
-        var pointPath = UIBezierPath()
+        let pointPath = UIBezierPath()
         pointPath.moveToPoint(CGPointMake(43.98, 55.28))
         pointPath.addLineToPoint(CGPointMake(43.94, 55.28))
         pointPath.addCurveToPoint(CGPointMake(41.16, 58.15), controlPoint1: CGPointMake(42.39, 55.32), controlPoint2: CGPointMake(41.12, 56.59))

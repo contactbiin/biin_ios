@@ -25,7 +25,7 @@ class LoginView:UIView, UITextFieldDelegate {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -37,7 +37,7 @@ class LoginView:UIView, UITextFieldDelegate {
 //        self.layer.masksToBounds = true
 //        self.becomeFirstResponder()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
+        let screenWidth = SharedUIManager.instance.screenWidth
         var ypos:CGFloat = 50
         
         biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:5.0)
@@ -61,6 +61,7 @@ class LoginView:UIView, UITextFieldDelegate {
         emailTxt = BNUITexfield_Top(frame: CGRectMake(0, ypos, screenWidth, 55), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        emailTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
         self.addSubview(emailTxt!)
         //emailTxt!.setNeedsDisplay()
         
@@ -69,6 +70,7 @@ class LoginView:UIView, UITextFieldDelegate {
         passwordTxt!.textField!.delegate = self
         passwordTxt!.textField!.secureTextEntry = true
         passwordTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        passwordTxt!.textField!.keyboardType = UIKeyboardType.Default
         self.addSubview(passwordTxt!)
         
         ypos += (5 + passwordTxt!.frame.height)
@@ -117,7 +119,7 @@ class LoginView:UIView, UITextFieldDelegate {
         if !isKeyboardUp {
             
             isKeyboardUp = true
-            println("keyboardDidShow")
+            print("keyboardDidShow")
             
             UIView.animateWithDuration(0.1, animations: {() -> Void in
                 if SharedUIManager.instance.loginView_isAnimatingLogo {
@@ -150,7 +152,7 @@ class LoginView:UIView, UITextFieldDelegate {
         
         if isKeyboardUp {
             isKeyboardUp = false
-            println("keyboardDidShow")
+            print("keyboardDidShow")
             UIView.animateWithDuration(0.5, animations: {() -> Void in
                 
                 if SharedUIManager.instance.loginView_isAnimatingLogo {
@@ -186,7 +188,7 @@ class LoginView:UIView, UITextFieldDelegate {
         if  emailTxt!.isValid() &&
             passwordTxt!.isValid() {
             
-            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text) {
+            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text!) {
                 ready = true
             }else{
                 emailTxt!.showError()
@@ -195,8 +197,8 @@ class LoginView:UIView, UITextFieldDelegate {
 
         if ready {
             
-            var password = passwordTxt!.textField!.text.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            var email = emailTxt!.textField!.text.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            let password = passwordTxt!.textField!.text!.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            let email = emailTxt!.textField!.text!.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             
             BNAppSharedManager.instance.networkManager.login(email, password: password)
             
@@ -220,31 +222,31 @@ class LoginView:UIView, UITextFieldDelegate {
     //    self.endEditing(true)
     //}
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.endEditing(true)
     }
     
     //UITextFieldDelegate Methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        println("textFieldShouldBeginEditing")
+        print("textFieldShouldBeginEditing")
         
         return true
     }// return NO to disallow editing.
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        println("textFieldDidBeginEditing")
+        print("textFieldDidBeginEditing")
         
     }// became first responder
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        println("textFieldShouldEndEditing")
+        print("textFieldShouldEndEditing")
         
         return true
     }// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
     
     func textFieldDidEndEditing(textField: UITextField) {
-        println("textFieldDidEndEditing")
+        print("textFieldDidEndEditing")
 
         
     }// may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
@@ -254,9 +256,9 @@ class LoginView:UIView, UITextFieldDelegate {
         
         textField.textColor = UIColor.appTextColor()
         
-        if !textField.text.isEmpty {
+        if !textField.text!.isEmpty {
             
-            textField.text = SharedUIManager.instance.removeSpecielCharacter(textField.text)
+            textField.text = SharedUIManager.instance.removeSpecielCharacter(textField.text!)
             
         }
         
@@ -264,13 +266,13 @@ class LoginView:UIView, UITextFieldDelegate {
     }// return NO to not change text
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
-        println("textFieldShouldClear")
+        print("textFieldShouldClear")
 
         return false
     }// called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        println("textFieldShouldReturn")
+        print("textFieldShouldReturn")
         
         return false
     }// called when 'return' key pressed. return NO to ignore.

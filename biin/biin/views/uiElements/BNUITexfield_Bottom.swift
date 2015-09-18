@@ -20,7 +20,7 @@ class BNUITexfield_Bottom:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -61,7 +61,7 @@ class BNUITexfield_Bottom:UIView {
     override func drawRect(rect: CGRect) {
     
         //// Frames
-        let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
+        //let frame = CGRectMake(position!.x, position!.y, size!.width, size!.height)
         
         
         //// back Drawing
@@ -85,7 +85,7 @@ class BNUITexfield_Bottom:UIView {
     }
     
     func isValid()->Bool {
-        if textField!.text.isEmpty {
+        if textField!.text!.isEmpty {
             showError()
             return false
         }else {

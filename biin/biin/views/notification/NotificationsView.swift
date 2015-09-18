@@ -26,8 +26,8 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         
         self.backgroundColor = UIColor.appMainColor()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         var ypos:CGFloat = 12
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
@@ -41,8 +41,8 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
-        var headerWidth = screenWidth - 60
-        var xpos:CGFloat = (screenWidth - headerWidth) / 2
+        //let headerWidth = screenWidth - 60
+        //var xpos:CGFloat = (screenWidth - headerWidth) / 2
         
         /*
         var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
@@ -89,7 +89,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         */
         
         ypos = SharedUIManager.instance.siteView_headerHeight
-        var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
@@ -108,7 +108,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         self.init(frame: frame, father:father )
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -212,8 +212,8 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
             }
         }
         
-        var width:CGFloat = (SharedUIManager.instance.screenWidth - 10)
-        var height:CGFloat = 65
+        //var width:CGFloat = (SharedUIManager.instance.screenWidth - 10)
+        let height:CGFloat = 65
         var ypos:CGFloat = (height * CGFloat(startPosition)) + 5
         
         for var i = startPosition; i < notifications.count; i++ {

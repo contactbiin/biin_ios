@@ -29,14 +29,14 @@ class BNIcon_MaleSmall:BNIcon {
         
         
         //// head Drawing
-        var headPath = UIBezierPath(ovalInRect: CGRectMake(2, 0, 5.8, 5.8))
+        let headPath = UIBezierPath(ovalInRect: CGRectMake(2, 0, 5.8, 5.8))
         color!.setStroke()
         headPath.lineWidth = 1.5
         headPath.stroke()
         
         
         //// body Drawing
-        var bodyPath = UIBezierPath()
+        let bodyPath = UIBezierPath()
         bodyPath.moveToPoint(CGPointMake(9.8, 6.77))
         bodyPath.addLineToPoint(CGPointMake(0, 6.77))
         bodyPath.addCurveToPoint(CGPointMake(3.15, 12.82), controlPoint1: CGPointMake(0, 10.16), controlPoint2: CGPointMake(1.46, 12))

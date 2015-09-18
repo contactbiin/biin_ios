@@ -24,7 +24,7 @@ class BNIcon_PhoneMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(17.96, 17.68))
         bezier2Path.addCurveToPoint(CGPointMake(16.17, 16.89), controlPoint1: CGPointMake(17.5, 17.2), controlPoint2: CGPointMake(16.83, 16.89))
         bezier2Path.addCurveToPoint(CGPointMake(14.37, 17.68), controlPoint1: CGPointMake(15.5, 16.89), controlPoint2: CGPointMake(14.87, 17.15))
@@ -51,7 +51,7 @@ class BNIcon_PhoneMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(12.57, 0))
         bezier4Path.addCurveToPoint(CGPointMake(12.16, 0.43), controlPoint1: CGPointMake(12.32, 0), controlPoint2: CGPointMake(12.16, 0.17))
         bezier4Path.addCurveToPoint(CGPointMake(12.57, 0.87), controlPoint1: CGPointMake(12.16, 0.69), controlPoint2: CGPointMake(12.32, 0.87))
@@ -67,7 +67,7 @@ class BNIcon_PhoneMedium:BNIcon {
         
         
         //// Bezier 6 Drawing
-        var bezier6Path = UIBezierPath()
+        let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(12.57, 5.25))
         bezier6Path.addCurveToPoint(CGPointMake(20.05, 13.03), controlPoint1: CGPointMake(16.71, 5.25), controlPoint2: CGPointMake(20.05, 8.73))
         bezier6Path.addCurveToPoint(CGPointMake(20.47, 13.46), controlPoint1: CGPointMake(20.05, 13.29), controlPoint2: CGPointMake(20.22, 13.46))
@@ -82,7 +82,7 @@ class BNIcon_PhoneMedium:BNIcon {
         bezier6Path.fill()
         
         //// Bezier 8 Drawing
-        var bezier8Path = UIBezierPath()
+        let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(12.57, 9.64))
         bezier8Path.addCurveToPoint(CGPointMake(15.83, 13.03), controlPoint1: CGPointMake(14.37, 9.64), controlPoint2: CGPointMake(15.83, 11.16))
         bezier8Path.addCurveToPoint(CGPointMake(16.25, 13.46), controlPoint1: CGPointMake(15.83, 13.29), controlPoint2: CGPointMake(16, 13.46))

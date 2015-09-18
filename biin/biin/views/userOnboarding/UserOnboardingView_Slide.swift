@@ -16,7 +16,7 @@ class UserOnboardingView_Slide:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -28,14 +28,14 @@ class UserOnboardingView_Slide:UIView {
     convenience init(frame: CGRect, title:String, text:String, imageString:String) {
         self.init(frame:frame)
         
-        var screenWidth = SharedUIManager.instance.screenWidth
+        let screenWidth = SharedUIManager.instance.screenWidth
         var ypos:CGFloat = 0
         
-        var container = UIView(frame: CGRectMake(0, 0, frame.width, frame.height))
+        let container = UIView(frame: CGRectMake(0, 0, frame.width, frame.height))
         self.addSubview(container)
         
-        var titleText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), 26))
-        titleText.font = UIFont(name:"Lato-Black", size:23)
+        let titleText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), (SharedUIManager.instance.onboardingSlide_TitleSize + 3)))
+        titleText.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.onboardingSlide_TitleSize)
         titleText.textColor = UIColor.appTextColor()
         titleText.textAlignment = NSTextAlignment.Center
         titleText.text = title//NSLocalizedString("AboutText", comment: "AboutText")
@@ -48,9 +48,9 @@ class UserOnboardingView_Slide:UIView {
         self.image!.image = UIImage(named:imageString)
         container.addSubview(image!)
         
-        ypos += ( self.image!.frame.height + 20 )
-        var descriptionText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), 24))
-        descriptionText.font = UIFont(name:"Lato-Light", size:21)
+        ypos += ( self.image!.frame.height + 5 )
+        let descriptionText = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), (SharedUIManager.instance.onboardingSlide_DescriptionSize + 3)))
+        descriptionText.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.onboardingSlide_DescriptionSize)
         descriptionText.textColor = UIColor.appTextColor()
         descriptionText.textAlignment = NSTextAlignment.Center
         descriptionText.text = text//NSLocalizedString("AboutText", comment: "AboutText")
@@ -61,7 +61,7 @@ class UserOnboardingView_Slide:UIView {
         ypos += descriptionText.frame.height
         
         
-        var containerYPos:CGFloat = (frame.height - ypos) / 2
+        let containerYPos:CGFloat = (frame.height - ypos) / 2
         container.frame.origin.y = containerYPos
     }
 }

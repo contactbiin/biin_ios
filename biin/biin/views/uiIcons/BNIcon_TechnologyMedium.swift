@@ -24,7 +24,7 @@ class BNIcon_TechnologyMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(13.48, 0))
         bezier2Path.addLineToPoint(CGPointMake(2.7, 0))
         bezier2Path.addCurveToPoint(CGPointMake(0, 2.59), controlPoint1: CGPointMake(1.21, 0), controlPoint2: CGPointMake(0, 1.17))

@@ -9,6 +9,9 @@ import UIKit
 class SiteView_Bottom:BNView {
     
     var pointsLbl:UILabel?
+    var title:UILabel?
+    var subTitle:UILabel?
+    
     var informationBtn:BNUIButton_Information?
     
 //    override init() {
@@ -19,7 +22,7 @@ class SiteView_Bottom:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -28,29 +31,42 @@ class SiteView_Bottom:BNView {
         
         self.backgroundColor = UIColor.appMainColor()
         
-        self.layer.masksToBounds = false
-        self.layer.shadowOffset = CGSizeMake(3, 0)
-        self.layer.shadowRadius = 2
-        self.layer.shadowOpacity = 0.5
+//        self.layer.masksToBounds = false
+//        self.layer.shadowOffset = CGSizeMake(3, 0)
+//        self.layer.shadowRadius = 2
+//        self.layer.shadowOpacity = 0.5
         
         pointsLbl = UILabel(frame: CGRectMake(10, 8, (SharedUIManager.instance.screenWidth - 50), 14))
         pointsLbl!.textAlignment = NSTextAlignment.Left
         pointsLbl!.font = UIFont(name: "Lato-Black", size: 12)
         pointsLbl!.textColor = UIColor.appTextColor()
-        self.addSubview(pointsLbl!)
+        //self.addSubview(pointsLbl!)
+
+        title = UILabel(frame: CGRectMake(10, 10, (SharedUIManager.instance.screenWidth - 50), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title!.textAlignment = NSTextAlignment.Left
+        title!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.siteView_titleSize)
+        title!.textColor = UIColor.whiteColor()
+        self.addSubview(title!)
         
-        informationBtn = BNUIButton_Information(frame: CGRectMake(5, 2, 26, 26))
-        informationBtn!.addTarget(father, action: "showInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        subTitle = UILabel(frame: CGRectMake(10, (SharedUIManager.instance.siteView_titleSize + 13), (SharedUIManager.instance.screenWidth - 50), (SharedUIManager.instance.siteView_subTittleSize + 3)))
+        subTitle!.textAlignment = NSTextAlignment.Left
+        subTitle!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_subTittleSize)
+        subTitle!.textColor = UIColor.whiteColor()
+        self.addSubview(subTitle!)
+        
+        //informationBtn = BNUIButton_Information(frame: CGRectMake(5, 2, 26, 26))
+        //informationBtn!.addTarget(father, action: "showInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(informationBtn!)
 
     }
 
     override func transitionIn() {
-        println("trasition in on SiteView_Bottom")
+        print("trasition in on SiteView_Bottom")
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on SiteView_Bottom")
+        print("trasition out on SiteView_Bottom")
     }
     
     override func setNextState(option:Int){
@@ -60,7 +76,7 @@ class SiteView_Bottom:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: SiteView_Bottom")
+            print("showUserControl: SiteView_Bottom")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -68,7 +84,7 @@ class SiteView_Bottom:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: SiteView_Bottom")
+            print("updateUserControl: SiteView_Bottom")
         }else{
             father!.updateUserControl(position)
         }
@@ -76,7 +92,24 @@ class SiteView_Bottom:BNView {
     
     //Instance methods
     func updateForSite(site: BNSite?){
-        var points = NSLocalizedString("Points", comment: "Points")
-        pointsLbl!.text = "\(points): \(site!.organization!.loyalty!.points)"
+        var height:CGFloat = 0
+        
+        if site!.showcases == nil {
+            height = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.screenWidth + 20 + 2)
+        } else if site!.showcases!.count == 1 {
+             height = 100
+//            height = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height + 20)
+        } else {
+            height = 100
+        }
+        
+        self.backgroundColor = site!.media[0].vibrantColor!
+        
+        self.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, height)
+        //let points = NSLocalizedString("Points", comment: "Points")
+        //pointsLbl!.text = "\(points): \(site!.organization!.loyalty!.points)"
+        
+        self.title!.text = "More Comming soon!"
+        self.subTitle!.text = "Come back in next few day and find more exiting infomation on our behalf."
     }
 }

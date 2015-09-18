@@ -23,7 +23,7 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -40,9 +40,9 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
         debugingMap!.showsUserLocation = true
         self.addSubview(debugingMap!)
         
-        var siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
+        let siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
         
-        var annotation = MKPointAnnotation()
+        let annotation = MKPointAnnotation()
 //        annotation.setCoordinate(siteLocation)
         annotation.coordinate = siteLocation
         annotation.title = "Annotation title"
@@ -112,21 +112,21 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
     
     func manager(manager:BNPositionManager!,  setPinOnMapWithLat lat:Float, long:Float, radious:Int , title:String, subtitle:String)
     {
-        var latitude = CLLocationDegrees(lat)
-        var longitude = CLLocationDegrees(long)
-        var circleRadious = CLLocationDistance(radious)
-        var coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        var point = MKPointAnnotation()
+        let latitude = CLLocationDegrees(lat)
+        let longitude = CLLocationDegrees(long)
+        let circleRadious = CLLocationDistance(radious)
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let point = MKPointAnnotation()
         point.coordinate = coordinate
         point.title = title
         point.subtitle = subtitle
         
         self.debugingMap!.addAnnotation(point)
         
-        var viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
+        let viewRegion = MKCoordinateRegionMakeWithDistance(coordinate, 1000, 1000)
         self.debugingMap!.setRegion(viewRegion, animated:true)
         
-        var circle = MKCircle(centerCoordinate: coordinate, radius:circleRadious)
+        let circle = MKCircle(centerCoordinate: coordinate, radius:circleRadious)
         self.debugingMap!.addOverlay(circle)
     }
     
@@ -141,13 +141,13 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
     //Temporal
     func manager(manager:BNPositionManager!, updateMainViewController biins:Array<BNBiin>)
     {
-        println("Update Biins on Region View controller - NOT IMPLEMENTED")
+        print("Update Biins on Region View controller - NOT IMPLEMENTED")
     }
     
     /*MKMapViewDelegate*/
-    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!)
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation)
     {
-        var viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.location.coordinate, 1000, 1000)
+        let viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.location!.coordinate, 1000, 1000)
         self.debugingMap!.setRegion(viewRegion, animated: false)
     }
     /*
@@ -170,22 +170,20 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
     }
     */
     
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer!
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer
     {
-        if overlay is MKCircle {
-            var circle = MKCircleRenderer(overlay: overlay)
+
+            let circle = MKCircleRenderer(overlay: overlay)
             circle.strokeColor = UIColor.redColor()
             circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
             circle.lineWidth = 1
             return circle
-        } else {
-            return nil
-        }
+
     }
     
     
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if !(annotation is MKPointAnnotation) {
             //if annotation is not an MKPointAnnotation (eg. MKUserLocation),
             //return nil so map draws default view for it (eg. blue dot)...
@@ -197,12 +195,12 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
         var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
         if anView == nil {
             anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            anView.image = UIImage(named:"xaxas")
-            anView.canShowCallout = true
+            anView!.image = UIImage(named:"xaxas")
+            anView!.canShowCallout = true
         }
         else {
             //we are re-using a view, update its annotation reference...
-            anView.annotation = annotation
+            anView!.annotation = annotation
         }
         
         return anView

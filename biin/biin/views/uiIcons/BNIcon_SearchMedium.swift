@@ -24,19 +24,19 @@ class BNIcon_SearchMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Oval 2 Drawing
-        var oval2Path = UIBezierPath(ovalInRect: CGRectMake(0, 0, 19, 18))
+        let oval2Path = UIBezierPath(ovalInRect: CGRectMake(0, 0, 19, 18))
         color!.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
         
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(15.98, 15.92))
         bezier2Path.addLineToPoint(CGPointMake(24, 23.7))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier2Path.lineWidth = 2

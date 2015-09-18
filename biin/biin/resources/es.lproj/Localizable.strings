@@ -1,19 +1,20 @@
-/* 
-  Localizable.strings
-  biin
-  Created by Esteban Padilla - Spanish on 4/22/15.
-  Copyright (c) 2015 Esteban Padilla. All rights reserved.
-*/
+/*
+ Localizable.strings
+ biin
+ Created by Esteban Padilla - Spanish on 4/22/15.
+ Copyright (c) 2015 Esteban Padilla. All rights reserved.
+ */
 
 /* General button and labelss */
 Version = "Versión";
 Close = "Cerrar";
 Save = "Guardar";
 Start = "Iniciar";
-Loading = "Cargando...";
-EmailUs = "Escribanos";
-CallUs = "Llamanos";
-Phone = "Telefono";
+Loading = "Descargando contenido...";
+Finishing = "Actualizando...";
+EmailUs = "Escribínos";
+CallUs = "Llamános";
+Phone = "Teléfono";
 Password = "Clave";
 Login = "Iniciar";
 ImNewHere = "Soy nuevo aquí!";
@@ -37,15 +38,15 @@ Reserve = "RESERVADOS";
 Claimed = "RECLAMADOS";
 Discount = "DESCUENTO";
 Savings = "AHORROS";
-YouSave = "USTED AHORRA";
+YouSave = "AHORRÁS";
 Value = "VALOR";
 Calcel = "Cancelar";
 
 /* Menu buttons */
 Profile = "Perfil";
 Home = "Inicio";
-Collections = "Colecciones";
-Loyalty = "Lealtad";
+Collections = "Guardado";
+Loyalty = "Puntos";
 Notifications = "Notificaciones";
 InviteFriends = "Invitar Amigos";
 Settings = "Ajustes";
@@ -79,17 +80,20 @@ Email = "Correo";
 IsEmailVerified = "Correo verificado?";
 Birthdate = "Fecha de nacimiento";
 Gender = "Yo soy ...";
-GenderMale = "Yo soy un hombre.";
-GenderFemale = "Yo soy una mujer";
+GenderMale = "Hombre.";
+GenderFemale = "Mujer";
 WhatAreYouInterest = "Qué te interesa?";
+CategoriesMsj = "*** Hemos pre-seleccionado algunas categorías para vos!";
 EnterYourBirthDate = "Fecha de nacimiento";
 
 /* Showcase - Game View*/
-JoinUs = "Unete!";
-StartToEnjoy = "Y empieza a disfrutar de nuestros beneficios!";
+JoinUs = "Uníte!";
+StartToEnjoy = "Y empezá a disfrutar de nuestros beneficios!";
 YouSeen = "Has visto";
 Done = "Completo!";
 ThankYouStop = "Muchas gracias!";
+Follow = "Seguir";
+Following = "Siguiendo";
 
 /* Login View*/
 Wellcome = "Bienvenido!";
@@ -98,24 +102,24 @@ Wellcome = "Bienvenido!";
 EmailMsj = "Saludos, esto es Biin!";
 
 /* Collection View Temporal */
-CollectionTitle = "Colección de biins";
-CollectionSubTitle = "Esta es una lista de todas tus cosas en biin.";
+CollectionTitle = "Tus cosas guardadas";
+CollectionSubTitle = "Esta es una lista de las cosas que te gustan en biin.";
 
 Places = "Lugares";
 HightLights = "Recomendados";
-Biins = "Biins";
-Biined = "Biined!";
-NotBiins = "Parece que no hay Biins por aquí!";
+Biins = "Aquí y ahora";
+Biined = "Guardado!";
+NotBiins = "Revisa esta sección cuando estés dentro de un local!";
 
 /*Invite friends*/
 InviteSubject = "De compras y diversión con Biin";
 InviteBody = "Las mejores ofertas y lugares en tu celular. Descarga Biin en ";
-ShareBody1 = "Hey, mira ";
+ShareBody1 = "Hola, mira: ";
 ShareBody2 = "de ";
 ShareBody3 = "Las mejores ofertas y lugares en tu celular. Descarga Biin en ";
 
 /*Alert messages*/
-PleaseWait = "Salvando, espera un momento!";
+PleaseWait = "Guardando, espera un momento!";
 
 /*Loyalty*/
 Points = "Puntos";
@@ -123,30 +127,30 @@ Of = "de";
 
 /*About*/
 AboutTitle = "Información importante.";
-AboutText = "Biin es una aplicación que te ayuda a conectarte mejor con los comercios que más te gustan como restaurantes, tiendas, etc. En Biin puedes encontrar los productos y las ofertas de los locales en las cercanías, ademas de poder coleccionar y compartir con tus amigos obteniendo beneficios al hacerlo. Esta aplicación solo está disponible para iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 y iPhone6Plus. En esta versión, la información se muestra con fines de prueba y no representan lugares, productos ni ofertas reales.";
+AboutText = "Biin es una aplicación que te ayuda a conectarte mejor con los comercios que más te gustan como restaurantes, tiendas, etc. En Biin puedes encontrar los productos y las ofertas de los locales en las cercanías, ademas de poder coleccionar y compartir con tus amigos obteniendo beneficios al hacerlo. Esta aplicación solo está disponible para iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 y iPhone6Plus.";
 
 /*Internet Error View*/
 InternetErrorTitle = "Problemas con internet!";
-InternetErrorText = "Hay problemas con el Internet, por favor revisa tu connección y trata nuevamente.";
+InternetErrorText = "Hay problemas con el Internet, por favor revisa tu connección e intenda de nuevo.";
 InternetErrorButton = "Continuar";
 
 HardwareErrorTitle = "Oops!";
 HardwareErrorText = "Lo sentimos mucho pero este dispositivo no soporta Biin, porfavor cierra esta applicación.";
 HardwareErrorButton = "Continuar";
 
-BluetoothErrorTitle = "Olle, Biin necesita el bluetooth!";
+BluetoothErrorTitle = "Disculpa, biin funciona mejor con el bluetooth encendido!";
 BluetoothErrorText = "Por favor enciende el bluetooth en tu dispositivo y habilita Biin para usarlo.";
 BluetoothErrorButton = "Ir a ajustes!";
 
-LocationErrorTitle = "Olle, Biin necesita tu posición!";
+LocationErrorTitle = "Biin necesita conocer tu posición!";
 LocationErrorText = "Por favor enciende los servicios de localización en tu dispositivo y habilita Biin para usarlos.";
 LocationErrorButton = "Ir a ajustes!";
 
 /*Onboarding*/
 OnboardingTitle1 = "Descubrí!";
-OnboardingText1 = "Las mejores ofertas y beneficios a solo pasos de donde estás.";
+OnboardingText1 = "Las mejores ofertas y beneficios desde tu casa a solo pasos de donde estás.";
 
-OnboardingTitle2 = "Collecioná y compartí!";
+OnboardingTitle2 = "Colecioná y compartí!";
 OnboardingText2 = "Con tus amigos, las cosas interesantes que encontrarás en Biin.";
 
 OnboardingTitle3 = "Beneficios!";

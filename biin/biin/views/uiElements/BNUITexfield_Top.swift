@@ -23,7 +23,7 @@ class BNUITexfield_Top:UIView {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -87,7 +87,7 @@ class BNUITexfield_Top:UIView {
     }
     
     func isValid()->Bool {
-        if textField!.text.isEmpty {
+        if textField!.text!.isEmpty {
             showError()
             return false
         }else {

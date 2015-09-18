@@ -21,7 +21,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -46,11 +46,11 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         clean()
         
         if media.count > 0 {
-
+        //if false {
             self.media = media
             
-            var totalLength:CGFloat = CGFloat((media.count - 1) * 20)
-            var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
+            let totalLength:CGFloat = CGFloat((media.count - 1) * 20)
+            let space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
             var xpos:CGFloat = (space - 5)
             
             var scrollXPos:CGFloat = 0
@@ -58,14 +58,15 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             for var i:Int = 0; i < self.media!.count; i++ {
 
                 if self.media!.count > 1 {
-                    var point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - 25), 14, 14), categoryIdentifier:"")
+                    let point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.siteView_headerHeight + 15)), 10, 10), categoryIdentifier:"", activeColor:media[0].domainColor!)
                     self.points!.append(point)
                     self.addSubview(point)
                     xpos += 20
                 }
                 
                 //Add images to scroll
-                var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+                let image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+                
                 image.backgroundColor = self.media![i].domainColor
                 
                 if i == 0 {
@@ -93,9 +94,9 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             
             self.media = Array<BNMedia>()
             
-            var totalLength:CGFloat = CGFloat((media.count - 1) * 20)
-            var space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
-            var xpos:CGFloat = (space - 5)
+            //let totalLength:CGFloat = CGFloat((media.count - 1) * 20)
+            //let space:CGFloat = (SharedUIManager.instance.screenWidth - totalLength) / 2.0
+            //var xpos:CGFloat = (space - 5)
             
             var scrollXPos:CGFloat = 0
             
@@ -107,8 +108,8 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
                 //xpos += 20
                 
                 //Add images to scroll
-                var image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
-                image.image =  UIImage(named: "noImage.jpg")
+                let image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+                image.image =  UIImage(contentsOfFile: "noImage.jpg")
                 image.showAfterDownload()
                 //image.backgroundColor = self.media![i].domainColor
                 
@@ -155,6 +156,10 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             }
         }
         
+        for (var i = 0; i < images.count; i++) {
+            self.images[i].image.removeFromSuperview()
+        }
+        
         self.images = []
         self.points = Array<BNUIPointView>()
     }
@@ -187,7 +192,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(scrollView: UIScrollView ) {
         //        println("scrollViewDidEndDecelerating")
         
-        var index = Int(scrollView.contentOffset.x / 320)
+        let index = Int(scrollView.contentOffset.x / SharedUIManager.instance.screenWidth)
         
         changedPoint(index)
         

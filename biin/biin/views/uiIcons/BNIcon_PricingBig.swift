@@ -29,8 +29,8 @@ class BNIcon_PricingBig:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let color = UIColor(red: 1.000, green: 0.488, blue: 0.000, alpha: 1.000)
-        let color2 = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+        let color = UIColor.biinColor()
+        let color2 = UIColor.clearColor()//UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
         
         //// Group
         CGContextSaveGState(context)
@@ -45,7 +45,7 @@ class BNIcon_PricingBig:BNIcon {
         
         
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(0.05, 0.5))
         bezierPath.addLineToPoint(CGPointMake(49.05, 0.5))
         bezierPath.addLineToPoint(CGPointMake(0.05, 49.5))

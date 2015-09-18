@@ -53,13 +53,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         // Try loading a saved version first
         if let user = Biinie.loadSaved() {
-            println("Loading bnUser:")
+            print("Loading bnUser:")
             bnUser = user
             isUserLoaded = true
             //bnUser!.clear()
         } else {
             // Create a new Course List
-            println("Not user available")
+            print("Not user available")
             isUserLoaded = false
             bnUser = Biinie(identifier:"", firstName: "guess", lastName:"guess", email: "guess@biinapp.com")
             bnUser!.isEmailVerified = false
@@ -73,28 +73,21 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
     }
     
-    //func startAppTimer(sender:NSTimer){
-      //  println("startAppTimer")
-        //BNAppSharedManager.instance.continueAppInitialization()
-    //}
+    func requestBiinieInitialData(){
+        NSLog("BIIN - requestBiinieInitialData()")
+        delegateNM!.manager!(self, requestBiinieData: bnUser!)
+    }
     
     func requestInitialData(){
-        //Request
-        delegateNM!.manager!(self, requestBiinieData: bnUser!)
-
+        NSLog("BIIN - requestInitialData()")
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
-    
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
-        
-        //delegateNM!.manager!(self, requestHighlightsData: bnUser!)
-
     }
     
     func requestDataForNewPosition(){
-        println("requestDataForNewPosition()")
+        print("requestDataForNewPosition()")
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
         BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = true
-//        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
     /*
@@ -189,17 +182,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //BNNetworkManagerDelegate
     /**
     Start initial network requests.
-    :param: Network manager that handled the regions request.
-    :param: Network status.
+    - parameter Network: manager that handled the regions request.
+    - parameter Network: status.
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
         if status && BNAppSharedManager.instance.IS_APP_UP {
-
-            requestInitialData()
-            //TODO: changing flow, if user is register or loged in reques data.
-//            if isUserLoaded {
-//                requestInitialData()
-//            }
+            requestBiinieInitialData()
         }
     }
     
@@ -216,8 +204,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
 
     ///Stores regions and request monitoring (Geofancing) on all regions.
-    ///:param: Network manager that handled request.
-    ///:param: Regions received from web service in json format already parse in an nice array.
+    ///- parameter Network: manager that handled request.
+    ///- parameter Regions: received from web service in json format already parse in an nice array.
     func manager(manager:BNNetworkManager!, didReceivedRegions regions:Array<BNRegion>) {
         
         
@@ -342,24 +330,24 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
 
     ///Receives user categories data and start requests depending on data store.
-    ///:param: Network manager that handled the request.
-    ///:param: Categories received from web service in json format already parse in an nice array.
+    ///- parameter Network: manager that handled the request.
+    ///- parameter Categories: received from web service in json format already parse in an nice array.
     func manager(manager: BNNetworkManager!, didReceivedUserCategories categories: Array<BNCategory>) {
 
 
-        println("didReceivedUserCategories(): \(categories.count)")
+        print("didReceivedUserCategories(): \(categories.count)")
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
         
         
-        for (identifier, site) in sites {
+        for (_, site) in sites {
             site.showInView = false
         }
 
         
         for category in categories {
             
-            println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
+            //println("*****   Category received: \(category.identifier!) sites:\(category.sitesDetails.count)")
 
             category.name = findCategoryNameByIdentifier(category.identifier!)
             
@@ -369,7 +357,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 //Check if site exist.
                 if self.sites[siteDetails.identifier!] == nil {
                     
-                    var site = BNSite()
+                    let site = BNSite()
                     site.identifier = siteDetails.identifier!
                     site.biinieProximity = siteDetails.biinieProximity!
                     //site.jsonUrl = siteDetails.json!
@@ -386,7 +374,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
         
         //println("categories backup \(BNAppSharedManager.instance.biinieCategoriesBckup.count)")
-        println("user categories(): \(bnUser!.categories.count)")
+        //println("user categories(): \(bnUser!.categories.count)")
         
 //        var sitesArray:Array<BNSite> = Array<BNSite>()
 //        
@@ -419,8 +407,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     
     ///Received site and start proccesing depending on data store.
-    ///:param: Network manager that handled the request.
-    ///:param: BNSite received from web service in json format already parse in an site object.
+    ///- parameter Network: manager that handled the request.
+    ///- parameter BNSite: received from web service in json format already parse in an site object.
     func manager(manager: BNNetworkManager!, didReceivedSite site: BNSite) {
         
         
@@ -429,10 +417,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         sites[site.identifier!] = site
         //BNAppSharedManager.instance.notificationManager.addLocalNotification(site.identifier!, text: "Bienvenido a \(site.title!)", notificationType:BNLocalNotificationType.EXTERNAL, itemIdentifier:site.identifier!)
-        println("site:\(site.identifier!) biins: \(site.biins.count)")
+        //println("site:\(site.identifier!) biins: \(site.biins.count)")
         
         if sites[site.identifier!] == nil {
-            println("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
+            print("ERROR: Site: \(site.identifier!) was requested but not added to sites list.")
+        }
+        
+        if commercialUUID == nil {
+            commercialUUID = site.proximityUUID
         }
         
         if site.showcases != nil {
@@ -448,29 +440,31 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
         
         
+        if site.organization == nil {
+            if organizations[site.organizationIdentifier!] == nil {
+                //1. Add organization
+                //2. set site organizarion
+                organizations[site.organizationIdentifier!] = BNOrganization(identifier: site.organizationIdentifier!)
+                delegateNM!.manager!(self, requestOrganizationData:organizations[site.organizationIdentifier!]!, user: self.bnUser!)
+                site.organization = organizations[site.organizationIdentifier!]
+                
+                //HACK, add site's media to organization until it can be download.
+                //                    if site.media.count > 0 {
+                //                        organizations[biin.organizationIdentifier!]?.media = site.media
+                //                        organizations[biin.organizationIdentifier!]?.title = site.title!
+                //                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
+                //                    }
+                
+            } else  {
+                //2. set site organization
+                site.organization = organizations[site.organizationIdentifier!]
+            }
+        }
+        
         for biin in sites[site.identifier!]!.biins {
             
             
-            if site.organization == nil {
-                if organizations[biin.organizationIdentifier!] == nil {
-                    //1. Add organization
-                    //2. set site organizarion
-                    organizations[biin.organizationIdentifier!] = BNOrganization(identifier: biin.organizationIdentifier!)
-                    delegateNM!.manager!(self, requestOrganizationData:organizations[biin.organizationIdentifier!]!, user: self.bnUser!)
-                    site.organization = organizations[biin.organizationIdentifier!]
-                    
-                    //HACK, add site's media to organization until it can be download.
-//                    if site.media.count > 0 {
-//                        organizations[biin.organizationIdentifier!]?.media = site.media
-//                        organizations[biin.organizationIdentifier!]?.title = site.title!
-//                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
-//                    }
-                    
-                } else  {
-                    //2. set site organization
-                    site.organization = organizations[biin.organizationIdentifier!]
-                }
-            }
+
             
             //REMOVE ->
             /*
@@ -487,23 +481,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             //REMOVE <-
             
             
-            
-            
-            if commercialUUID == nil {
-                commercialUUID = biin.proximityUUID
-            }
-            
             if biin.objects != nil && biin.objects!.count > 0 {
                 
                 //Set biin state.
                 biin.setBiinState()
-                println("Add notification for biin: \(biin.identifier!)")
+                //println("Add notification for biin: \(biin.identifier!)")
                 //HACK for biinType
                 //biin.updateBiinType()
                 
                 for object in biin.objects! {
                     
-                    println("Object: \(object._id!)")
+                    //println("Object: \(object._id!)")
                     
                     switch object.objectType {
                     case .ELEMENT:
@@ -526,7 +514,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             }
                         }
                         
-                        var element = BNElement()
+                        let element = BNElement()
                         element.identifier = object.identifier!
                         element._id = object._id!
                         element.siteIdentifier = site.identifier
@@ -536,7 +524,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     case .SHOWCASE:
                         if showcases[object.identifier!] == nil {
                             //Showcase does not exist, store it and request it's data.
-                            var showcase = BNShowcase()
+                            let showcase = BNShowcase()
                             showcase.identifier = object.identifier!
                             showcase.isDefault = object.isDefault
                             showcases[object.identifier!] = showcase
@@ -558,11 +546,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     
     ///Received site and start proccesing depending on data store.
-    ///:param: Network manager that handled the request.
-    ///:param: BNShowcase received from web service in json format already parse in an showcase object.
+    ///- parameter Network: manager that handled the request.
+    ///- parameter BNShowcase: received from web service in json format already parse in an showcase object.
     func manager(manager:BNNetworkManager!, didReceivedShowcase showcase:BNShowcase) {
 
-        println("Received showcase: \(showcase.identifier!)")
+        //println("Received showcase: \(showcase.identifier!)")
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
         
@@ -589,7 +577,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func checkAllShowcasesCompleted(){
-        for (identifier, showcase) in showcases {
+        for (_, showcase) in showcases {
             showcase.isShowcaseGameCompleted = true
             for element in showcase.elements {
                 if !BNAppSharedManager.instance.dataManager.elements[element._id!]!.userViewed {
@@ -600,8 +588,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
     }
     ///Received biined element list and start proccesing depending on data store.
-    ///:param: Network manager that handled the request.
-    ///:param: BNElement list received from web service in json format already parse in an array object.
+    ///- parameter Network: manager that handled the request.
+    ///- parameter BNElement: list received from web service in json format already parse in an array object.
     func manager(manager: BNNetworkManager!, didReceivedBiinedElementList elementList: Array<BNElement>) {
         
         //for element in elementList {
@@ -641,7 +629,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             //Check if element exist.
             if elements[element._id!] == nil {
                 //Element does not exist, store it and request it's data.
-                var newElement = BNElement()
+                let newElement = BNElement()
                 newElement.identifier = element.identifier!
                 newElement._id = element._id
                 newElement.userViewed = element.userViewed
@@ -656,7 +644,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
                 } else {
                     //println("############# element is already in list \(element.identifier!) for \(element._id!)")
-                    var value = elementsRequested[element.identifier!]!.isDownloadCompleted
+                    let value = elementsRequested[element.identifier!]!.isDownloadCompleted
                     
                     if value {
                         manageElementRelationShips(elementsRequested[element.identifier!]!)
@@ -675,13 +663,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //for element in elementList {
         
         
-            println("request element: \(element.identifier!)")
+            //println("request element: \(element.identifier!)")
         
         
             //Check if element exist.
             if elements[element._id!] == nil {
                 //Element does not exist, store it and request it's data.
-                var newElement = BNElement()
+                let newElement = BNElement()
                 newElement.identifier = element.identifier!
                 newElement._id = element._id
                 newElement.siteIdentifier = element.siteIdentifier
@@ -696,7 +684,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
                 } else {
                     //println("############# element is already in list \(element.identifier!) for \(element._id!)")
-                    var value = elementsRequested[element.identifier!]!.isDownloadCompleted
+                    let value = elementsRequested[element.identifier!]!.isDownloadCompleted
                     
                     if value {
                         manageElementRelationShips(elementsRequested[element.identifier!]!)
@@ -712,10 +700,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     
     ///Received element and start proccesing depending on data store.
-    ///:param: Network manager that handled the request.
-    ///:param: BNElement received from web service in json format already parse in an element object.
+    ///- parameter Network: manager that handled the request.
+    ///- parameter BNElement: received from web service in json format already parse in an element object.
     func manager(manager: BNNetworkManager!, didReceivedElement element: BNElement) {
-        println("Received element: \(element.identifier!) id:\(element._id!) media \(element.media.count)")
+        //println("Received element: \(element.identifier!) id:\(element._id!) media \(element.media.count)")
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
@@ -744,7 +732,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             if value.identifier! == element.identifier! {
                 element._id = key
                 elements[key] = element.clone()
-                println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
+                //println("Stored element: \(elements[key]?.identifier!) id:\(elements[key]?._id!) media \(elements[key]?.media.count)")
                 
                 if bnUser!.elementsViewed[element._id!] != nil {
                     elements[key]?.userViewed = true
@@ -773,7 +761,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //2. If biin is already in region check for lastupdate
         //2.2 If update is needed request showcase data
         
-        var requestShowcaseData = false
+        //var requestShowcaseData = false
 
         /*
         for biin in biins {
@@ -829,7 +817,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manager(manager:BNNetworkManager!, didReveivedSharedBiins biins:Array<BNBiin>, identifier:String ) {
         
-        var requestShowcaseData = false
+        
+        
+        //var requestShowcaseData = false
         
         /*
         for biin in biins {
@@ -897,6 +887,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             self.bnUser = user
             self.bnUser!.save()
         }
+        
+        requestInitialData()
+        
         /*x
         //Add a temporal BNCollection
         bnUser!.collections = Dictionary<String, BNCollection>()
@@ -912,7 +905,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
         
-        println("Received collections: \(collectionList.count)")
+        //println("Received collections: \(collectionList.count)")
         
         if collectionList.count > 0 {
             
@@ -925,7 +918,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     bnUser!.temporalCollectionIdentifier = collection.identifier!
                 }
                 
-                println("\(bnUser!.collections![collection.identifier!]?.elements.count)")
+                print("\(bnUser!.collections![collection.identifier!]?.elements.count)")
                 
                 //for (key, element) in collection.elements {
                 //    if elementsBiined[element._id!] == nil {
@@ -969,7 +962,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if self.delegateNM is BNNetworkManagerDelegate
         {
             
-            println("Requesting data for region: \(identifier)")
+            print("Requesting data for region: \(identifier)")
             self.delegateNM!.manager!(self, requestRegionData: identifier)
             self.currentRegionIdentifier = identifier
             //self.viewController?.reloadTable(self.regions[identifier]?.biins, dataManager:self)
@@ -989,19 +982,19 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //TODO:Remove later
     func createTemporalShowcases() {
         
-        var iconSite = BNSite()
+        let iconSite = BNSite()
         iconSite.identifier = "iCon"
         iconSite.title =  "iCon"
         iconSite.subTitle = "Multiplaza del Este"
         iconSite.titleColor = UIColor.bnRed()
         sites[iconSite.identifier!] = iconSite
         
-        var iconShowcase = BNShowcase()
+        let iconShowcase = BNShowcase()
         iconShowcase.identifier = "icon.identifier"
 //        iconShowcase.site = iconSite
         showcases[iconShowcase.identifier!] = iconShowcase
         
-        var iphone = BNElement()
+        let iphone = BNElement()
         iphone.position = 1
         iphone.title = "iPhone"
         iphone.subTitle = "None"
@@ -1017,9 +1010,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func addElementBiined(_id:String) -> Int{
         //if elementsBiined[_id] == nil {
             //elementsBiined[_id] = _id
-            elements[_id]!.userBiined = true
-            elements[_id]!.biinedCount++
-            return elements[_id]!.biinedCount
+            elements[_id]!.userCollected = true
+            elements[_id]!.collectCount++
+            return elements[_id]!.collectCount
             //TODO: Post user just biined an element
         //}
         //return 0
@@ -1080,7 +1073,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
             sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
 
-            println("Site neighbors set")
+            print("Site neighbors set")
         }
         
     }
@@ -1098,75 +1091,75 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     ///Checks is biinies email is verified.
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: Biinie's identifier.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter Biinie's: identifier.
     optional func manager(manager:BNDataManager!, checkIsEmailVerified identifier:String)
     
     ///Request a region's data.
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: Region's identifier requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter Region's: identifier requesting the data.
     optional func manager(manager:BNDataManager!, requestRegionData identifier:String)
     
     
     ///Request user categories.
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNUser requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNUser: requesting the data.
     optional func manager(manager:BNDataManager!, requestCategoriesData user:Biinie)
     
     
     ///Request user categories.
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNUser requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNUser: requesting the data.
     optional func manager(manager:BNDataManager!, requestCategoriesDataByBiinieAndRegion user:Biinie, region:BNRegion)
     
     ///Request a site's data
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNSite requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNSite: requesting the data.
     optional func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie)
     
     
     ///Request a organization's data
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNOrganization requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNOrganization: requesting the data.
     optional func manager(manager:BNDataManager!, requestOrganizationData organization:BNOrganization, user:Biinie)
     
     
     
     ///Request showcase's data
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNShowcase requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNShowcase: requesting the data.
     optional func manager(manager:BNDataManager!, requestHighlightsData user:Biinie)
     
     ///Request showcase's data
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNShowcase requesting the data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNShowcase: requesting the data.
     optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase, user:Biinie)
     
     ///Request element's data for BNUser (app user)
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNElement requesting the data.
-    ///:param: BNUser requesting the element's data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNElement: requesting the data.
+    ///- parameter BNUser: requesting the element's data.
     optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:Biinie)
     
     ///Request user biined element's.
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNUser requesting the element's data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNUser: requesting the element's data.
     optional func manager(manager:BNDataManager!, requestBiinedElementListForBNUser user:Biinie)
     
     
     ///Request user boards.
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNUser requesting the element's data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNUser: requesting the element's data.
     optional func manager(manager:BNDataManager!, requestCollectionsForBNUser user:Biinie)
 
     //optional func manager(manager:BNDataManager!, sendBiinedElement user:BNUser, element:BNElement, collection:BNCollection)
@@ -1175,8 +1168,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     ///Request user (biinie) data
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNUser requesting the element's data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNUser: requesting the element's data.
     optional func manager(manager:BNDataManager!, requestBiinieData biinie:Biinie)
     
     
@@ -1197,9 +1190,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     ///Request element's notification for a BNUser (app user)
     ///
-    ///:param: BNDataManager that store all data.
-    ///:param: BNElement requesting the data.
-    ///:param: BNUser requesting the element's data.
+    ///- parameter BNDataManager: that store all data.
+    ///- parameter BNElement: requesting the data.
+    ///- parameter BNUser: requesting the element's data.
     optional func manager(manager:BNDataManager!, requestElementNotificationForBNUser element:BNElement, user:Biinie)
     
     optional func manager(manager:BNDataManager!, requestImageData stringUrl:String, image:UIImageView!)
@@ -1213,17 +1206,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     ///Request BNPositionManager to starts a site monitoring.
     ///
-    ///:param: BNDataManager
-    ///:param: Site to be monitor bu BNPositionManager.
-    ///:returns: none
+    ///- parameter BNDataManager:
+    ///- parameter Site: to be monitor bu BNPositionManager.
+    ///- returns: none
     optional func manager(manager:BNDataManager, startSitesMonitoring value:Bool)
     
     optional func manager(manager:BNDataManager, startCommercialBiinMonitoring proximityUUID:NSUUID)
     ///Request position manager to stop a site monitoring.
     ///
-    ///:param: Data manager that stores the sites.
-    ///:param: Site to be monitor.
-    ///:returns: none
+    ///- parameter Data: manager that stores the sites.
+    ///- parameter Site: to be monitor.
+    ///- returns: none
     optional func manager(manager:BNDataManager, stopSitesMonitoring value:Bool)
     
     //TODO: Remove this two methods later

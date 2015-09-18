@@ -12,6 +12,7 @@ class BNSite:NSObject, NSCoding {
     var jsonUrl:String?
     
     var identifier:String?
+    var organizationIdentifier:String?
     weak var organization:BNOrganization?
     var proximityUUID:NSUUID?
     var major:Int?
@@ -42,15 +43,20 @@ class BNSite:NSObject, NSCoding {
     var biins = Array<BNBiin>()
     
     //Loyalty
-    var loyalty:BNLoyalty?
+    //var loyalty:BNLoyalty?
 
     //Social interaction
-    var biinedCount:Int = 0   //How many time users have biined this element.
+    //var biinedCount:Int = 0   //How many time users have biined this element.
+    var collectCount:Int = 0   //How many time users have collect this site.
     var commentedCount:Int = 0    //How many time users have commented this element.
     
-    var userBiined = false
+    //var userBiined = false
     var userCommented = false
+    
     var userShared = false
+    var userFollowed = false
+    var userCollected = false
+    var userLiked = false
     
     var latitude:Float?
     var longitude:Float?
@@ -85,7 +91,7 @@ class BNSite:NSObject, NSCoding {
         }
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
 //        self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
 //        self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
 //        self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String

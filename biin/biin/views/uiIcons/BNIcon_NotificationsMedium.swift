@@ -24,7 +24,7 @@ class BNIcon_NotificationsMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
 
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(22.92, 18.67))
         bezier2Path.addLineToPoint(CGPointMake(22.92, 12.21))
         bezier2Path.addCurveToPoint(CGPointMake(16.74, 2.94), controlPoint1: CGPointMake(22.92, 7.99), controlPoint2: CGPointMake(20.47, 4.34))
@@ -36,9 +36,9 @@ class BNIcon_NotificationsMedium:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(26.6, 21.9))
         bezier2Path.addCurveToPoint(CGPointMake(22.92, 18.67), controlPoint1: CGPointMake(24.79, 21.43), controlPoint2: CGPointMake(22.92, 20.61))
         bezier2Path.closePath()
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = CGLineCap.Round;
         
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier2Path.lineWidth = 1
@@ -46,13 +46,13 @@ class BNIcon_NotificationsMedium:BNIcon {
         
         
         //// Bezier 4 Drawing
-        var bezier4Path = UIBezierPath()
+        let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(16.51, 21.9))
         bezier4Path.addCurveToPoint(CGPointMake(13.3, 25.6), controlPoint1: CGPointMake(16.51, 23.84), controlPoint2: CGPointMake(15.22, 25.6))
         bezier4Path.addCurveToPoint(CGPointMake(10.09, 21.9), controlPoint1: CGPointMake(11.38, 25.6), controlPoint2: CGPointMake(10.09, 23.84))
-        bezier4Path.lineCapStyle = kCGLineCapRound;
+        bezier4Path.lineCapStyle = CGLineCap.Round;
         
-        bezier4Path.lineJoinStyle = kCGLineJoinRound;
+        bezier4Path.lineJoinStyle = CGLineJoin.Round;
         
         color!.setStroke()
         bezier4Path.lineWidth = 1

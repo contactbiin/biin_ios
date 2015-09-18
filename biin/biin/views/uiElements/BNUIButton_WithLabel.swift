@@ -14,7 +14,7 @@ class BNUIButton_WithLabel:BNUIButton {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -33,10 +33,10 @@ class BNUIButton_WithLabel:BNUIButton {
         self.layer.masksToBounds = true
         
         if hasLabel {
-            var iconWidth:CGFloat = 10
-            var xSpace:CGFloat = 6
-            var ypos:CGFloat = 1
-            var xpos:CGFloat = xSpace + iconWidth
+            let iconWidth:CGFloat = 10
+            let xSpace:CGFloat = 6
+            let ypos:CGFloat = 1
+            let xpos:CGFloat = xSpace + iconWidth
             
             label = UILabel(frame: CGRectMake(xpos, ypos, 200, 10))
             label!.text = text
@@ -45,7 +45,7 @@ class BNUIButton_WithLabel:BNUIButton {
             label!.sizeToFit()
             self.addSubview(label!)
             
-            var width:CGFloat = label!.frame.width + xpos + xSpace
+            let width:CGFloat = label!.frame.width + xpos + xSpace
             self.frame = CGRectMake(frame.origin.x, frame.origin.y, width, 15)
         }
     }

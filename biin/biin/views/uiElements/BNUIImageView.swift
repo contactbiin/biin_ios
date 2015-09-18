@@ -26,8 +26,12 @@ class BNUIImageView:UIImageView {
         self.addSubview(loadingIndicator!)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    deinit {
+        loadingIndicator = nil
     }
     
     ///Set it's alpha to 1 once download is completed.
@@ -36,7 +40,7 @@ class BNUIImageView:UIImageView {
         loadingIndicator!.stopAnimating()
         self.alpha = 0
         
-        UIView.animateWithDuration(0.1, animations: {()-> Void in
+        UIView.animateWithDuration(0.5, animations: {()-> Void in
             self.alpha = 1
         })
     }

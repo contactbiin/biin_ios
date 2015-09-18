@@ -18,6 +18,7 @@ class BNOrganization:NSObject {
     var organizationDescription:String?
     var extraInfo:String?
     
+    var isLoyaltyEnabled:Bool = false
     var loyalty:BNLoyalty?
 
     var media:Array<BNMedia> = Array<BNMedia>()

@@ -69,13 +69,16 @@ class BNElement:NSObject {
     var notifications:Array<BNNotification>?
     
     //Social interaction
-    var biinedCount:Int = 0       //How many time users have biined this element.
+    //var biinedCount:Int = 0       //How many time users have biined this element.
+    var collectCount:Int = 0   //How many time users have collect this element.
     var commentedCount:Int = 0    //How many time users have commented this element.
     
-    var userBiined = false
+    //var userBiined = false
     var userCommented = false
     var userViewed = false
     var userShared = false
+    var userCollected = false
+    var userLiked = false
     
     //Download management
     var isDownloadCompleted = false
@@ -91,7 +94,7 @@ class BNElement:NSObject {
     }
     
     func clone()->BNElement {
-        var clone = BNElement()
+        let clone = BNElement()
         clone.jsonUrl = self.jsonUrl
         clone.color = self.color
         if let value = self.elementType { clone.elementType = value }
@@ -128,12 +131,13 @@ class BNElement:NSObject {
         if let value = self.sticker { clone.sticker = value }
         clone.activateNotification = self.activateNotification
         if let value = self.notifications { clone.notifications = value }
-        clone.biinedCount = self.biinedCount
+        clone.collectCount = self.collectCount
         clone.commentedCount = self.commentedCount
-        clone.userBiined = self.userBiined
         clone.userShared = self.userShared
         clone.userCommented = self.userCommented
         clone.userViewed = self.userViewed
+        clone.userCollected = self.userCollected
+        clone.userLiked = self.userLiked
         clone.isHighlight = self.isHighlight
         if let value = self.siteIdentifier { clone.siteIdentifier = value }
         return clone

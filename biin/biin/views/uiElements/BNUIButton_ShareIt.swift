@@ -9,17 +9,15 @@ import CoreGraphics
 import QuartzCore
 
 class BNUIButton_ShareIt:BNUIButton {
-    
-//    override init() {
-//        super.init()
-//    }
-    
-    required init(coder aDecoder: NSCoder) {
+        
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
+        icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(5, 5))
     }
+    
+    
 }

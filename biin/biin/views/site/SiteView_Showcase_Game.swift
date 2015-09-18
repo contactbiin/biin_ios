@@ -15,10 +15,6 @@ class SiteView_Showcase_Game:BNView {
     var animatedCircle:BNUICircle?
     var circleIcon:BNUICompletedGameIconView?
     
-//    override init() {
-//        super.init()
-//    }
-    
     deinit {
         circles.removeAll(keepCapacity: false)
     }
@@ -27,7 +23,7 @@ class SiteView_Showcase_Game:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -42,13 +38,13 @@ class SiteView_Showcase_Game:BNView {
         
         self.backgroundColor = UIColor.appMainColor()
         //self.layer.borderWidth = 1
-        self.layer.cornerRadius = 5
+        //self.layer.cornerRadius = 5
         //self.layer.borderColor = UIColor.appButtonBorderColor().CGColor
-        self.layer.masksToBounds = true
+        //self.layer.masksToBounds = true
         
-        var textColor:UIColor?
-        var borderColor:UIColor?
-        var titlesBackgroundColor:UIColor?
+        //var textColor:UIColor?
+        //var borderColor:UIColor?
+        //var titlesBackgroundColor:UIColor?
         
         //self.animatedCircleColor = animatedCircleColor
         animatedCircle = BNUICircle(fullFrame:CGRectMake(0, 0, 1024, 1024), emptyFrame: CGRectMake((self.frame.width / 2), (self.frame.height / 2), 35, 35), color:showcase.titleColor!, isFilled: true)
@@ -74,12 +70,28 @@ class SiteView_Showcase_Game:BNView {
         
         if !showcase.isShowcaseGameCompleted {
             
-            var xSpace:CGFloat = (SharedUIManager.instance.screenWidth / 2) - 17
-            var ySpace:CGFloat = 130
+            //var xSpace:CGFloat = (SharedUIManager.instance.screenWidth / 2) - 17
+            //var ySpace:CGFloat = 40
             
-            var quantity = Double(showcase.elements.count)
-            var angle = Double(360.0 / quantity)
+            //let quantity = Double(showcase.elements.count)
+            //var angle = Double(360.0 / quantity)
+           
             
+            var xpos:CGFloat = 10.0
+            var ypos:CGFloat = 30.0
+            
+            for (var i = 0; i < showcase.elements.count; i++ ){
+            
+                weak var element = BNAppSharedManager.instance.dataManager.elements[showcase.elements[i]._id!]
+                
+                let circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 30, 30), color:element!.color!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
+                self.circles.append(circle)
+                self.addSubview(circle)
+                
+                xpos += 10.0
+                ypos += 30.0
+            }
+            /*
             for (var i = 0; i < showcase.elements.count; i++ ){
                 
                 var value = (angle * Double(i) + 270)
@@ -89,16 +101,16 @@ class SiteView_Showcase_Game:BNView {
                 
                 
                 var sine:CGFloat = sin(DegreesToRadians(value))
-                var ypos = CGFloat(sine * 80)
+                var ypos = CGFloat(sine * 40)
                 ypos += ySpace
                 
                 weak var element = BNAppSharedManager.instance.dataManager.elements[showcase.elements[i]._id!]
                 
-                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 35, 35), color:element!.color!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
+                var circle = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 30, 30), color:element!.color!, text: "\(i + 1)", textSize:15, isFilled:element!.userViewed)
                 self.circles.append(circle)
                 self.addSubview(circle)
             }
-            
+            */
             animatedCircle!.alpha = 0
             
         }else {
@@ -111,9 +123,9 @@ class SiteView_Showcase_Game:BNView {
     }
     
     func DegreesToRadians (value:Double) -> CGFloat {
-        var r:Double = value * M_PI
-        var result:CGFloat = CGFloat(r)
-        var returnValue:CGFloat = result / 180
+        let r:Double = value * M_PI
+        let result:CGFloat = CGFloat(r)
+        let returnValue:CGFloat = result / 180
         return returnValue
     }
     
@@ -138,7 +150,7 @@ class SiteView_Showcase_Game:BNView {
     }
     
     func startToAnimateCirclesOnCompleted(){
-        var timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCirclesOnCompleted:", userInfo: nil, repeats: false)
+        //var timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCirclesOnCompleted:", userInfo: nil, repeats: false)
     }
     
     func animateCirclesOnCompleted(sender:NSTimer){

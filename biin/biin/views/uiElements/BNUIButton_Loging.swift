@@ -15,7 +15,7 @@ class BNUIButton_Loging:BNUIButton {
 //        super.init()
 //    }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -37,7 +37,7 @@ class BNUIButton_Loging:BNUIButton {
         self.position = CGPoint(x:3, y:3 )
         self.size = CGSize(width: (frame.width - 5), height: (frame.height - 5))
         
-        var label = UILabel(frame: CGRectMake(0, ((frame.height - 20) / 2), frame.width, 20))
+        let label = UILabel(frame: CGRectMake(0, ((frame.height - 20) / 2), frame.width, 20))
         label.text = text
         label.textColor = textColor
         label.font = UIFont(name: "Lato-Black", size: 18)

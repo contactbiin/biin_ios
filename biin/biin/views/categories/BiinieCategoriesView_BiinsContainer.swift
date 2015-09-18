@@ -36,7 +36,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -50,8 +50,8 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
         
         self.backgroundColor = UIColor.appBackground()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
         scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20))))
         //        scroll!.backgroundColor = UIColor.biinColor()
@@ -154,7 +154,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
             
             for value in BNAppSharedManager.instance.dataManager.availableBiins {
                 
-                var element = BNAppSharedManager.instance.dataManager.elements[value]
+                let element = BNAppSharedManager.instance.dataManager.elements[value]
                 
                 //for var i = 0; i < category.sitesDetails.count; i++ {
                 
@@ -172,7 +172,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
                 //var site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ]
                 
                 //var miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                var elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
+                let elementMiniView = ElementMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible:false, isHighlight:true)
                 
                 elementMiniView.delegate = self
                 elements!.append(elementMiniView)
@@ -197,8 +197,8 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
             //Show not biins view
             if notBiinsView == nil {
                 
-                var xpos = (( SharedUIManager.instance.screenWidth - 170) / 2 )
-                var ypos = (( SharedUIManager.instance.screenHeight / 4 ))
+                let xpos = (( SharedUIManager.instance.screenWidth - 170) / 2 )
+                let ypos = (( SharedUIManager.instance.screenHeight / 4 ))
                 
                 notBiinsView = BNView_NoBiinAvailableSign(frame: CGRectMake(0, 0, self.frame.width, self.frame.height), color: UIColor.appButtonColor_Disable(), iconPosition: CGPointMake(xpos, ypos))
                 self.addSubview(notBiinsView!)
@@ -232,7 +232,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
     // called on start of dragging (may require some time and or distance to move)
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         //handlePan(scrollView.panGestureRecognizer)
-        var mainView = father!.father! as! MainView
+        let mainView = father!.father! as! MainView
         mainView.delegate!.mainView!(mainView, hideMenu: false)
     }
     
@@ -268,8 +268,8 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
         
         if elements != nil {
         
-            var height = self.siteViewHeight + self.siteSpacer
-            var row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
+            let height = self.siteViewHeight + self.siteSpacer
+            let row:Int = Int(floor(self.scroll!.contentOffset.y / height)) + 1
             
             if lastRowRequested < row {
                 
@@ -286,7 +286,7 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
                 while !stop {
                     
                     if i >= siteRequestPreviousLimit {
-                        var siteView = elements![i] as ElementMiniView
+                        let siteView = elements![i] as ElementMiniView
                         siteView.requestImage()
                         i--
                     } else  {

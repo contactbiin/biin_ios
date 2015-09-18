@@ -17,6 +17,9 @@ enum BNRequestType
     case Register
     case SendBiinieCategories
     case SendBiinie
+    case SendBiinieActions
+    case SendBiiniePoints
+    case CategoriesData
     case ConnectivityCheck
     case CheckIsEmailVerified
     case TimeNone
@@ -44,6 +47,8 @@ enum BNRequestType
 
 class BNRequest:NSObject {
     
+    var isRunning = false
+    var inCompleted = false
     var identifier:Int = 0
     var requestString:String = ""
     var dataIdentifier:String = ""//identifier for the object data is requested for.
@@ -51,6 +56,18 @@ class BNRequest:NSObject {
     
     weak var showcase:BNShowcase?
     weak var element:BNElement?
+    weak var organization:BNOrganization?
+    weak var site:BNSite?
+    weak var user:Biinie?
+    weak var image:BNUIImageView?
+    
+    var points:Int = 0
+    var categories:Dictionary<String, String>?
+    
+    var requestAttemps:Int = 0
+    
+    weak var errorManager:BNErrorManager?
+    weak var networkManager:BNNetworkManager?
     
     override init() {
         super.init()
@@ -65,7 +82,21 @@ class BNRequest:NSObject {
         self.requestType = requestType
     }
     
+    convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType, errorManager:BNErrorManager, networkManager:BNNetworkManager){
+
+        self.init()
+        self.identifier = BNRequestData.requestCounter++
+        //println("NEW REQUEST \(self.identifier) for \(requestString)")
+        self.requestString = requestString
+        self.dataIdentifier = dataIdentifier
+        self.requestType = requestType
+        self.errorManager = errorManager
+        self.networkManager = networkManager
+    }
+    
     deinit{
         
     }
+    
+    func run() { }
 }

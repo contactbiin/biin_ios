@@ -49,8 +49,8 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         self.backgroundColor = UIColor.appMainColor()
         
-        var screenWidth = SharedUIManager.instance.screenWidth
-        var screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
 //        title = UILabel(frame: CGRectMake(0, 25, screenWidth, (SharedUIManager.instance.siteView_titleSize + 2)))
 //        title!.text = NSLocalizedString("Profile", comment: "title")
@@ -71,7 +71,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
 
-        var headerWidth = screenWidth - 60
+        let headerWidth = screenWidth - 60
         var xpos:CGFloat = (screenWidth - headerWidth) / 2
         ypos = 15
         
@@ -127,11 +127,11 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(scroll!)
         self.addSubview(line)
 
-        var fontSize:CGFloat = 14
-        var labelHeight:CGFloat = fontSize + 3
+        let fontSize:CGFloat = 14
+        let labelHeight:CGFloat = fontSize + 3
         
         ypos = 5
-        var nameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
+        let nameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
         nameLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         nameLbl.text = NSLocalizedString("Name", comment: "name")
         nameLbl.textColor = UIColor.biinColor()
@@ -149,7 +149,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         line.backgroundColor = UIColor.appBackground()
         scroll!.addSubview(line)
 
-        var lastNameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
+        let lastNameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
         lastNameLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         lastNameLbl.text = NSLocalizedString("Lastname", comment: "Lastname")
         lastNameLbl.textColor = UIColor.biinColor()
@@ -167,7 +167,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         line.backgroundColor = UIColor.appBackground()
         scroll!.addSubview(line)
         
-        var userNameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
+        let userNameLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
         userNameLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         userNameLbl.text = NSLocalizedString("Username", comment: "Username")
         userNameLbl.textColor = UIColor.biinColor()
@@ -186,7 +186,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         line.backgroundColor = UIColor.appBackground()
         scroll!.addSubview(line)
         
-        var emailLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
+        let emailLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
         emailLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         emailLbl.text = NSLocalizedString("Email", comment: "Email")
         emailLbl.textColor = UIColor.biinColor()
@@ -204,7 +204,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         line.backgroundColor = UIColor.appBackground()
         scroll!.addSubview(line)
         
-        var emailVerifyLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
+        let emailVerifyLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
         emailVerifyLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         emailVerifyLbl.text = NSLocalizedString("IsEmailVerified", comment: "IsEmailVerified")
         emailVerifyLbl.textColor = UIColor.biinColor()
@@ -230,7 +230,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         line.backgroundColor = UIColor.appBackground()
         scroll!.addSubview(line)
         
-        var birthDateLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
+        let birthDateLbl = UILabel(frame: CGRectMake(-10, (ypos + 8), (screenWidth / 2), labelHeight))
         birthDateLbl.font = UIFont(name: "Lato-Black", size: fontSize)
         birthDateLbl.text = NSLocalizedString("Birthdate", comment: "Birthdate")
         birthDateLbl.textColor = UIColor.biinColor()
@@ -310,14 +310,14 @@ class ProfileView: BNView, UITextFieldDelegate {
         var buttonCounter:Int = 1
         xpos = (screenWidth - 295) / 2
         ypos += 50
-        var space:CGFloat = 5
+        //var space:CGFloat = 5
         
         
-        println("ProfileView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
+        print("ProfileView: \(BNAppSharedManager.instance.dataManager.bnUser!.categories.count)")
         
         for category in BNAppSharedManager.instance.dataManager.categories! {
             
-            var button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.biinDarkColor())
+            let button = BNUIButton_Category(frame: CGRectMake(xpos, ypos, 70, 70), categoryIdentifier:category.identifier!, iconType: BNIconType.burgerSmall, text:category.name!, selectedColor:UIColor.biinColor(), unSelectedColor:UIColor.appBackground())
             button.addTarget(self, action: "categoryBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
             scroll!.addSubview(button)
             buttonCounter++
@@ -352,7 +352,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        var tap = UITapGestureRecognizer(target: self, action: "tapped:")
+        let tap = UITapGestureRecognizer(target: self, action: "tapped:")
         self.addGestureRecognizer(tap)
     }
     
@@ -360,12 +360,12 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.init(frame: frame, father:father )
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func transitionIn() {
-        println("trasition in on ProfileView")
+        print("trasition in on ProfileView")
         
         UIView.animateWithDuration(0.2, animations: {()->Void in
             self.frame.origin.x = 0
@@ -373,7 +373,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        println("trasition out on ProfileView")
+        print("trasition out on ProfileView")
         state!.action()
         
         if state!.stateType == BNStateType.BiinieCategoriesState
@@ -406,7 +406,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            println("showUserControl: ElementView")
+            print("showUserControl: ElementView")
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -414,7 +414,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            println("updateUserControl: ElementView")
+            print("updateUserControl: ElementView")
         }else{
             father!.updateUserControl(position)
         }
@@ -447,7 +447,7 @@ class ProfileView: BNView, UITextFieldDelegate {
             lastNameTxt!.isValid() &&
             emailTxt!.isValid() {
             
-            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text) {
+            if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text!) {
                 ready = true
             }else{
                 emailTxt!.showError()
@@ -504,17 +504,17 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     //UITextFieldDelegate Methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        println("textFieldShouldBeginEditing")
+        print("textFieldShouldBeginEditing")
         
         return true
     }// return NO to disallow editing.
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        println("textFieldDidBeginEditing")
+        print("textFieldDidBeginEditing")
         
         if textField.placeholder == "Enter your birthDate" {
-            var datePickerView  : UIDatePicker = UIDatePicker()
+            let datePickerView  : UIDatePicker = UIDatePicker()
             datePickerView.datePickerMode = UIDatePickerMode.Date
             textField.inputView = datePickerView
             datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
@@ -526,17 +526,17 @@ class ProfileView: BNView, UITextFieldDelegate {
     func handleDatePicker(sender: UIDatePicker) {
         birthDateTxt!.textField!.text = sender.date.bnDisplayDateFormatt()
         BNAppSharedManager.instance.dataManager.bnUser!.birthDate = sender.date
-        println("\(sender.date.bnDisplayDateFormatt())")
-        println("\(sender.date.bnDateFormatt())")
+        print("\(sender.date.bnDisplayDateFormatt())")
+        print("\(sender.date.bnDateFormatt())")
     }
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        println("textFieldShouldEndEditing")
+        print("textFieldShouldEndEditing")
         return true
     }// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
     
     func textFieldDidEndEditing(textField: UITextField) {
-        println("textFieldDidEndEditing")
+        print("textFieldDidEndEditing")
         
         /*
         if textField.placeholder == "Name" || textField.placeholder == "Lastname" {
@@ -555,14 +555,14 @@ class ProfileView: BNView, UITextFieldDelegate {
     }// return NO to not change text
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
-        println("textFieldShouldClear")
+        print("textFieldShouldClear")
         
         return false
     }// called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        println("textFieldShouldReturn")
-        var uuu = ""
+        print("textFieldShouldReturn")
+        //var uuu = ""
         return false
     }// called when 'return' key pressed. return NO to ignore.
 }
@@ -576,14 +576,14 @@ extension String
 {
     subscript(integerIndex: Int) -> Character
         {
-            let index = advance(startIndex, integerIndex)
+            let index = startIndex.advancedBy(integerIndex)
             return self[index]
     }
     
     subscript(integerRange: Range<Int>) -> String
         {
-            let start = advance(startIndex, integerRange.startIndex)
-            let end = advance(startIndex, integerRange.endIndex)
+            let start = startIndex.advancedBy(integerRange.startIndex)
+            let end = startIndex.advancedBy(integerRange.endIndex)
             let range = start..<end
             return self[range]
     }

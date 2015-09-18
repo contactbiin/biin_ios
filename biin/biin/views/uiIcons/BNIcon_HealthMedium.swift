@@ -24,7 +24,7 @@ class BNIcon_HealthMedium:BNIcon {
         CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(25.04, 15.92))
         bezier2Path.addLineToPoint(CGPointMake(19.36, 12.7))
         bezier2Path.addLineToPoint(CGPointMake(25.04, 9.49))

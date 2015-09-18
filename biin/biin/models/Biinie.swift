@@ -62,7 +62,7 @@ class Biinie:NSObject, NSCoding {
         self.gender = gender
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
         self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
@@ -77,7 +77,7 @@ class Biinie:NSObject, NSCoding {
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         
-        println("**** Action: \(actions.count)")
+        print("**** Action: \(actions.count)")
         
         for _id in storedElementsViewed {
             elementsViewed[_id] = _id
@@ -123,9 +123,9 @@ class Biinie:NSObject, NSCoding {
 
         storedElementsViewed.removeAll(keepCapacity: false)
         
-        for (_id, element_id) in elementsViewed {
+        for (_, element_id) in elementsViewed {
             storedElementsViewed.append(element_id)
-            println("elementViwed:\(_id)")
+            //println("elementViwed:\(_id)")
         }
         
         aCoder.encodeObject(storedElementsViewed, forKey: "storedElementsViewed")
@@ -137,6 +137,7 @@ class Biinie:NSObject, NSCoding {
     }
     
     func save() {
+        print("SAVING BIINIE")
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "user")
     }
@@ -155,13 +156,63 @@ class Biinie:NSObject, NSCoding {
     }
     
     func addAction(at:NSDate, did:BiinieActionType, to:String) {
-        self.actionCounter++
-        self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
-        save()
+        
+        NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+        
+        var isActionReadyToAdd = false
+        
+        if actions.count > 0 {
+        
+            for action in actions {
+                
+                NSLog("BIIN 0 - action: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
+                
+                if action.did! == did {
+                    
+                    NSLog("BIIN 1 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+                    NSLog("BIIN 1 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
+                    
+                    if action.to! == to {
+                        
+                        NSLog("BIIN 2 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+                        NSLog("BIIN 2 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to)")
+                        
+                        let seconds = Int(at.timeIntervalSinceDate(action.at!))
+                        let minutes = Int( seconds / 60 )
+                        
+                        NSLog("BIIN - seconds: \(seconds)")
+                        NSLog("BIIN - minutes: \(minutes)")
+                        
+                        if minutes > 30 {
+                            NSLog("BIIN - added: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+                            isActionReadyToAdd = true
+                            break
+                        }
+                    } else {
+                        isActionReadyToAdd = true
+                    }
+                    
+                } else {
+                    isActionReadyToAdd = true
+                }
+            }
+        } else {
+            isActionReadyToAdd = true
+        }
+        
+        if isActionReadyToAdd {
+        //if true {
+            
+            self.actionCounter++
+            self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
+            save()
+            NSLog("BIIN - add first action: \(at.bnDateFormatt()), did:\(did), to:\(to)")
+            
+        }
     }
     
     func deleteAllActions(){
-        println("deleteAllActions()")
+        print("deleteAllActions()")
         self.actionCounter = 0
         self.actions.removeAll(keepCapacity: false)
         save()

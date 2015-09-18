@@ -48,7 +48,7 @@ class ControlView:BNView {
         super.init(frame: frame)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -101,7 +101,7 @@ class ControlView:BNView {
     }
     
     override func transitionIn() {
-        println("transitionIn on UserControlView")
+        print("transitionIn on UserControlView")
         
         isTransitioning = true
         
@@ -126,7 +126,7 @@ class ControlView:BNView {
     
     override func transitionOut( nextState:BNState? ) {
         
-        println("transitionOut on UserControlView")
+        print("transitionOut on UserControlView")
         
         isTransitioning = true
         

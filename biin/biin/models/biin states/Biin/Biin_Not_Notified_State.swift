@@ -26,8 +26,8 @@ class Biin_Not_Notified_State: Biin_State {
             biin!.state = Biin_Not_Notified_NEAR_State(biin: self.biin)
             //println("action() on Biin_Not_Notified_State - NEAR")
             break
-        default:
-            break
+//        default:
+//            break
         }
     }
 }
