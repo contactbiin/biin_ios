@@ -420,7 +420,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func biinit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
+        BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
         header!.updateForSite(site!)
         likeItButton!.showDisable()
         animationView!.animate()
@@ -447,7 +447,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         updateCollectItBtn()
         
         //return
-        BNAppSharedManager.instance.biinit(site!.identifier!, isElement:false)
+        BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
         //header!.updateForSite(site!)
         //likeItButton!.showDisable()
         animationView!.animate()

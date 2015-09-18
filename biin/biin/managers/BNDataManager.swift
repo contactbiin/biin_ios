@@ -1010,9 +1010,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func addElementBiined(_id:String) -> Int{
         //if elementsBiined[_id] == nil {
             //elementsBiined[_id] = _id
-            elements[_id]!.userBiined = true
-            elements[_id]!.biinedCount++
-            return elements[_id]!.biinedCount
+            elements[_id]!.userCollected = true
+            elements[_id]!.collectCount++
+            return elements[_id]!.collectCount
             //TODO: Post user just biined an element
         //}
         //return 0

@@ -65,13 +65,14 @@ class BNRequest_Site: BNRequest {
                         new_site.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: siteData)
                         
                         
-                        new_site.biinedCount = BNParser.findInt("biinedCount", dictionary: siteData)!
-                        //TODO: Pending "comments": "23", in web service
                         new_site.commentedCount = BNParser.findInt("commentedCount", dictionary: siteData)!
-                        new_site.userBiined = BNParser.findBool("userBiined", dictionary: siteData)
                         new_site.userCommented = BNParser.findBool("userCommented", dictionary: siteData)
-                        new_site.userShared = BNParser.findBool("userShared", dictionary: siteData)
                         
+                        new_site.collectCount = BNParser.findInt("collectCount", dictionary: siteData)!
+                        new_site.userCollected = BNParser.findBool("userCollected", dictionary: siteData)
+                        new_site.userShared = BNParser.findBool("userShared", dictionary: siteData)
+                        new_site.userFollowed = BNParser.findBool("userFollowed", dictionary: siteData)
+                        new_site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
                         new_site.latitude = BNParser.findFloat("latitude", dictionary:siteData)
                         new_site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
                         
@@ -92,14 +93,13 @@ class BNRequest_Site: BNRequest {
                         
                         for var i = 0; i < mediaArray?.count; i++ {
                             let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
-                            let url = BNParser.findString("imgUrl", dictionary:mediaData)!
+                            let url = BNParser.findString("url", dictionary:mediaData)!
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
                             let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
                             let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
-                            //var media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
                             new_site.media.append(media)
                         }
                         
@@ -233,10 +233,6 @@ class BNRequest_Site: BNRequest {
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedSite:new_site)
                         self.inCompleted = true
                         self.networkManager!.removeFromQueue(self)
-                        
-//                        if self.isRequestTimerAllow {
-//                            self.runRequest()
-//                        }
                     }
                     
                     //self.removeRequestOnCompleted(request.identifier)
@@ -262,8 +258,5 @@ class BNRequest_Site: BNRequest {
                 }
             }
         })
-
-        
-        
     }
 }

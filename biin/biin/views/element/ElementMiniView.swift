@@ -159,7 +159,7 @@ class ElementMiniView: BNView {
             //self.addSubview(biinItButton!)
             xpos += 37
             
-            if self.element!.userBiined {
+            if self.element!.userCollected {
                 biinItButton!.showDisable()
             }
         }
@@ -236,7 +236,7 @@ class ElementMiniView: BNView {
     }
     
     func biinit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.biinit(element!._id!, isElement:true)
+        BNAppSharedManager.instance.collectIt(element!._id!, isElement:true)
         header!.updateSocialButtonsForElement(element!)        
         biinItButton!.showDisable()
         animationView!.animate()
@@ -254,7 +254,7 @@ class ElementMiniView: BNView {
         UIView.animateWithDuration(0.1, animations: {()->Void in
                 self.alpha = 0
             }, completion: {(completed:Bool)->Void in
-                BNAppSharedManager.instance.unBiinit(self.element!._id!, isElement:true)
+                BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement:true)
                 self.delegate!.resizeScrollOnRemoved!(self)
                 self.removeFromSuperview()
         })
@@ -262,7 +262,7 @@ class ElementMiniView: BNView {
     
     override func refresh() {
         
-        if element!.userBiined {
+        if element!.userCollected {
             header!.updateSocialButtonsForElement(element!)
             biinItButton?.showDisable()
         }

@@ -162,9 +162,10 @@ class BNRequest_Element: BNRequest {
                             self.element!.media.append(media)
                         }
 
-                        self.element!.biinedCount = BNParser.findInt("biinedCount", dictionary: elementData)!
                         self.element!.commentedCount = BNParser.findInt("commentedCount", dictionary: elementData)!
-                        self.element!.userBiined = BNParser.findBool("userBiined", dictionary: elementData)
+                        self.element!.collectCount = BNParser.findInt("collectCount", dictionary: elementData)!
+                        self.element!.userCollected = BNParser.findBool("userCollected", dictionary: elementData)
+                        self.element!.userLiked = BNParser.findBool("userLiked", dictionary: elementData)
                         self.element!.userShared = BNParser.findBool("userShared", dictionary: elementData)
                         self.element!.userCommented = BNParser.findBool("userCommented", dictionary: elementData)
                         self.element!.userViewed = BNParser.findBool("userViewed", dictionary: elementData)

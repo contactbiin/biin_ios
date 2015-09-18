@@ -220,7 +220,7 @@ class ElementView_Details:BNView {
     }
     
     func biinIt(sender:BNUIButton_BiinItLarge) {
-        BNAppSharedManager.instance.biinit(elementIdentifier!, isElement:true)
+        BNAppSharedManager.instance.collectIt(elementIdentifier!, isElement:true)
         (father as! ElementView).applyBiinIt()
         biinitBtn!.showDisable()
     }

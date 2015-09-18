@@ -56,10 +56,14 @@ class BNRequest_Organization: BNRequest {
                         
                         for var i = 0; i < mediaArray?.count; i++ {
                             let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
-                            let url = BNParser.findString("imgUrl", dictionary:mediaData)
+                            let url = BNParser.findString("url", dictionary:mediaData)
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
                             let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)
-                            let media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
+                            let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
+                            let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
+                            let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
+                            let media = BNMedia(mediaType:type, url:url!, domainColor: domainColor!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
+//                            let media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
                             self.organization!.media.append(media)
                         }
                         

@@ -109,9 +109,9 @@ class SocialButtonsView:BNView {
         var xpos:CGFloat = 4
         
 
-        biinBtn!.updateText("\(site!.biinedCount)")
+        biinBtn!.updateText("\(site!.collectCount)")
         
-        if site!.userBiined {
+        if site!.userCollected {
             (biinBtn! as BNUIButton_Social).setActive()
         } else {
             (biinBtn! as BNUIButton_Social).setInactive()
@@ -143,9 +143,9 @@ class SocialButtonsView:BNView {
         var xpos:CGFloat = 4
         
         
-        biinBtn!.updateText("\(element!.biinedCount)")
+        biinBtn!.updateText("\(element!.collectCount)")
         
-        if element!.userBiined {
+        if element!.userCollected {
             (biinBtn! as BNUIButton_Social).setActive()
         } else {
             (biinBtn! as BNUIButton_Social).setInactive()

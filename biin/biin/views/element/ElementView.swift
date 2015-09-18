@@ -225,7 +225,7 @@ class ElementView: BNView {
         detailsView = ElementView_Details(frame: CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
         scroll!.addSubview(detailsView!)
         
-        if elementMiniView!.element!.userBiined {
+        if elementMiniView!.element!.userCollected {
             biinItButton?.showDisable()
             detailsView!.showBiinItButton(false)
         }else {
@@ -258,7 +258,7 @@ class ElementView: BNView {
     }
     
     func biinit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.biinit(elementMiniView!.element!._id!, isElement:true)
+        BNAppSharedManager.instance.collectIt(elementMiniView!.element!._id!, isElement: true)
         detailsView!.showBiinItButton(false)
         applyBiinIt()
     }

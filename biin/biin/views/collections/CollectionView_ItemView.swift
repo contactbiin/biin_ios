@@ -236,11 +236,11 @@ class CollectionView_ItemView: BNView {
             }, completion: {(completed:Bool)->Void in
                 if self.isElement {
                     self.delegate!.resizeScrollOnRemoved!(self)
-                    BNAppSharedManager.instance.unBiinit(self.element!.identifier!, isElement:true)
+                    BNAppSharedManager.instance.unCollectit(self.element!.identifier!, isElement:true)
                     self.removeFromSuperview()
                 } else  {
                     self.delegate!.resizeScrollOnRemoved!(self)
-                    BNAppSharedManager.instance.unBiinit(self.site!.identifier!, isElement:false)
+                    BNAppSharedManager.instance.unCollectit(self.site!.identifier!, isElement:false)
                     self.removeFromSuperview()
                 }
         })
@@ -249,7 +249,7 @@ class CollectionView_ItemView: BNView {
     override func refresh() {
         
         if self.isElement {
-            if element!.userBiined {
+            if element!.userCollected {
                 header!.updateSocialButtonsForElement(element!)
                 //biinItButton?.showDisable()
             }

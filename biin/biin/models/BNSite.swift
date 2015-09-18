@@ -46,10 +46,11 @@ class BNSite:NSObject, NSCoding {
     var loyalty:BNLoyalty?
 
     //Social interaction
-    var biinedCount:Int = 0   //How many time users have biined this element.
+    //var biinedCount:Int = 0   //How many time users have biined this element.
+    var collectCount:Int = 0   //How many time users have collect this site.
     var commentedCount:Int = 0    //How many time users have commented this element.
     
-    var userBiined = false
+    //var userBiined = false
     var userCommented = false
     
     var userShared = false
