@@ -44,7 +44,7 @@ class SiteView_MiniLocation:BNView {
         siteAvatarView!.layer.masksToBounds = true
         self.addSubview(siteAvatarView!)
         
-        siteAvatar = BNUIImageView(frame: CGRectMake(1, 1, 42, 42))
+        siteAvatar = BNUIImageView(frame: CGRectMake(1, 1, 42, 42), color:site!.media[0].vibrantColor!)
         siteAvatar!.layer.cornerRadius = 13
         siteAvatar!.layer.masksToBounds = true
         siteAvatarView!.addSubview(siteAvatar!)

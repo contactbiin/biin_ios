@@ -184,13 +184,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     override func getToWork(){
         isWorking = true
         manageElementMiniViewImageRequest()
-        print("\(showcase!.identifier!) is working")
     }
     
     //Stop all category work, download etc.
     override func getToRest(){
         isWorking = false
-        print("\(showcase!.identifier!) is resting")
     }
     
     func updateForSite(site: BNSite?){
@@ -316,9 +314,11 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             let width = scrollView.contentSize.width
             let showcaseGameWidth = SharedUIManager.instance.screenWidth
             
+            /*
             print("position: \(scrollView.bounds.origin.x)")
             print("height: \(width)")
             print("showcaseGameHeight: \(showcaseGameWidth)")
+            */
             
             if (position >= (width - showcaseGameWidth)){
                 

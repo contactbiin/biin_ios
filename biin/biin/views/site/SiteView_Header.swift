@@ -26,12 +26,12 @@ class SiteView_Header:BNView {
 
         var ypos:CGFloat = 4
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight - 10)
-        siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize))
+        siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
         self.addSubview(siteAvatar!)
         
         let xpos:CGFloat = siteAvatarSize + 10
@@ -96,7 +96,7 @@ class SiteView_Header:BNView {
         
         if site!.organization!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
-            
+            siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
         } else {
             siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
             siteAvatar!.showAfterDownload()

@@ -25,13 +25,13 @@ class ElementView_Header:BNView {
         var ypos:CGFloat = 2
         let xpos:CGFloat =  10
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
         title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.bnGrayDark()
+        title!.textColor = UIColor.appTextColor()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
         self.addSubview(title!)
@@ -39,7 +39,7 @@ class ElementView_Header:BNView {
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        subTitle!.textColor = UIColor.bnGrayDark()
+        subTitle!.textColor = UIColor.appTextColor()
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
         self.addSubview(subTitle!)

@@ -84,7 +84,7 @@ class ElementMiniView: BNView {
         //Positioning image
         let imageSize = frame.width// - SharedUIManager.instance.miniView_headerHeight
         var xpos:CGFloat = 0//((imageSize - frame.height) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize))
+        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.backgroundColor!)
         //image!.alpha = 1
         self.addSubview(image!)
  

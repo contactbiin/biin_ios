@@ -32,7 +32,7 @@ class ElementMiniView_Header:BNView {
         self.init(frame: frame, father:father )
         //self.backgroundColor = UIColor.appMainColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         

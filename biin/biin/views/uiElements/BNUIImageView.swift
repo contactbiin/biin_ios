@@ -16,8 +16,30 @@ class BNUIImageView:UIImageView {
 //        super.init()
 //    }
     
+    var cover:UIView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+//        cover = UIView(frame: frame)
+//        cover!.backgroundColor = UIColor.whiteColor()
+//        self.addSubview(cover!)
+//        
+//        loadingIndicator = UIActivityIndicatorView(frame: CGRectMake(((frame.width / 2) - 20), ((frame.width / 2) - 20), 40, 40))
+//        loadingIndicator!.hidesWhenStopped = true
+//        loadingIndicator!.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//        loadingIndicator!.startAnimating();
+//        self.addSubview(loadingIndicator!)
+    }
+    
+    convenience init(frame: CGRect, color:UIColor) {
+        self.init(frame:frame)
+        
+        self.backgroundColor = color
+        
+        cover = UIView(frame: frame)
+        cover!.backgroundColor = color
+        self.addSubview(cover!)
         
         loadingIndicator = UIActivityIndicatorView(frame: CGRectMake(((frame.width / 2) - 20), ((frame.width / 2) - 20), 40, 40))
         loadingIndicator!.hidesWhenStopped = true
@@ -38,10 +60,11 @@ class BNUIImageView:UIImageView {
     func showAfterDownload(){
         
         loadingIndicator!.stopAnimating()
-        self.alpha = 0
+        //self.alpha = 0
         
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.alpha = 1
+        UIView.animateWithDuration(0.25, animations: {()-> Void in
+            //self.alpha = 1
+            self.cover!.alpha = 0
         })
     }
     

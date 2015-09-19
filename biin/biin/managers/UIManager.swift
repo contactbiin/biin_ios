@@ -64,7 +64,7 @@ class UIManager {
     var elementView_textSize:CGFloat = 14
     var elementView_quoteSize:CGFloat = 14
     var elementView_priceList:CGFloat = 14
-    var elementView_headerHeight:CGFloat = 40
+    var elementView_headerHeight:CGFloat = 75
     
     //Showcase and Main view positions
     var titleTop        = CGRectMake(5, 20, 0, 0)
@@ -110,6 +110,12 @@ class UIManager {
     var onboardingSlide_TitleSize:CGFloat = 23
     var onboardingSlide_DescriptionSize:CGFloat = 21
     var columns:Int = 2
+    
+    //Detail View
+    var detailView_title:CGFloat = 20
+    var detailView_text:CGFloat = 13
+    var detailView_quoteSize:CGFloat = 15
+    var detailView_priceList:CGFloat = 13
     
     func setDeviceVariables(){
         

@@ -22,6 +22,9 @@ class ElementView: BNView {
     
     var biinItButton:BNUIButton_BiinIt?
     var shareItButton:BNUIButton_ShareIt?
+    var likeItButton:BNUIButton_LikeIt?
+    var collectItButton:BNUIButton_CollectionIt?
+    
     
     var detailsView:ElementView_Details?
     
@@ -46,40 +49,41 @@ class ElementView: BNView {
     convenience init(frame: CGRect, father: BNView?, showBiinItBtn:Bool) {
         
         self.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = UIColor.whiteColor()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        var scrollHeight:CGFloat = screenHeight - SharedUIManager.instance.elementView_headerHeight
+//        var scrollHeight:CGFloat = screenHeight// - SharedUIManager.instance.elementView_headerHeight
         //Add here any other heights for site view.
         
-        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.elementView_headerHeight, screenWidth, scrollHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.appBackground()
+        scroll!.backgroundColor = UIColor.whiteColor()
         self.addSubview(scroll!)
         
-        scrollHeight = screenWidth
+//        scrollHeight = screenWidth
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
+        header = ElementView_Header(frame: CGRectMake(0, (screenWidth - SharedUIManager.instance.elementView_headerHeight), screenWidth, SharedUIManager.instance.elementView_headerHeight), father: self)
+        scroll!.addSubview(header!)
+        
         buttonsView = SocialButtonsView(frame: CGRectMake(1, 5, frame.width, 15), father: self, element: nil)
-        scroll!.addSubview(buttonsView!)
+        //scroll!.addSubview(buttonsView!)
         
-        header = ElementView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.elementView_headerHeight), father: self)
-        self.addSubview(header!)
-        
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
+        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(backBtn!)
+        scroll!.addSubview(backBtn!)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
         
+        /*
         if showBiinItBtn {
             biinItButton = BNUIButton_BiinIt(frame: CGRectMake((screenWidth - 80), 4, 37, 37))
             biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -89,6 +93,23 @@ class ElementView: BNView {
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - 41), 4, 37, 37))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(shareItButton!)
+        */
+        var buttonSpace:CGFloat = 26
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.elementView_headerHeight - 27), 25, 25))
+        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        header!.addSubview(shareItButton!)
+        
+        //Like button
+        buttonSpace += 27
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.elementView_headerHeight - 27), 25, 25))
+        likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
+        header!.addSubview(likeItButton!)
+        
+        //Collect button
+        buttonSpace += 27
+        collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.elementView_headerHeight - 27), 25, 25))
+        collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
+        header!.addSubview(collectItButton!)
         
         animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, screenWidth))
         animationView!.alpha = 0
@@ -145,12 +166,11 @@ class ElementView: BNView {
         
         self.elementMiniView = elementMiniView
         header!.updateForElement(elementMiniView!.element!)
-        imagesScrollView!.updateImages(elementMiniView!.element!.media)
-        buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
+        imagesScrollView!.updateImages(elementMiniView!.element!.media, isElement:true)
+        //buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
 
         print("element identifier: \(elementMiniView!.element!.identifier!)")
         
-        var ypos:CGFloat = 25
         /*
         if elementMiniView!.element!.hasDiscount {
             //Add pig
@@ -167,7 +187,12 @@ class ElementView: BNView {
 //            hasPrice = true
 //            ypos += 40
 //        }
+        updateBackBtn()
+        updateLikeItBtn()
+        updateCollectItBtn()
+        updateShareBtn()
         
+        var ypos:CGFloat = 10
         if priceView != nil {
             priceView!.removeFromSuperview()
             priceView = nil
@@ -177,19 +202,22 @@ class ElementView: BNView {
             
             priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 40), price: "\(elementMiniView!.element!.discount!)%", isMini:false, isDiscount:true)
             scroll!.addSubview(priceView!)
+            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
             ypos += 40
             
         } else if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
             priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false, isDiscount:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
+            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
             ypos += 40
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && elementMiniView!.element!.hasDiscount {
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false, isHighlight:elementMiniView!.element!.isHighlight, color:elementMiniView!.element!.media[0].domainColor!)
+            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false, isHighlight:elementMiniView!.element!.isHighlight, color:elementMiniView!.element!.media[0].vibrantColor!)
             scroll!.addSubview(priceView!)
             hasPrice = true
+            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
             ypos += 40
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
@@ -197,6 +225,7 @@ class ElementView: BNView {
             priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
             scroll!.addSubview(priceView!)
             hasPrice = true
+            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
             ypos += 40
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
@@ -206,6 +235,7 @@ class ElementView: BNView {
 , isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
             scroll!.addSubview(priceView!)
             hasPrice = true
+            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
             ypos += 40
         }
         
@@ -225,13 +255,13 @@ class ElementView: BNView {
         detailsView = ElementView_Details(frame: CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
         scroll!.addSubview(detailsView!)
         
-        if elementMiniView!.element!.userCollected {
-            biinItButton?.showDisable()
-            detailsView!.showBiinItButton(false)
-        }else {
-            biinItButton!.showEnable()
-            detailsView!.showBiinItButton(true)
-        }
+//        if elementMiniView!.element!.userCollected {
+//            //biinItButton?.showDisable()
+//            detailsView!.showBiinItButton(false)
+//        }else {
+//            //biinItButton!.showEnable()
+//            detailsView!.showBiinItButton(true)
+//        }
         
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenWidth + detailsView!.frame.height))
     }
@@ -257,6 +287,7 @@ class ElementView: BNView {
         detailsView = nil
     }
     
+    /*
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.collectIt(elementMiniView!.element!._id!, isElement: true)
         detailsView!.showBiinItButton(false)
@@ -269,11 +300,49 @@ class ElementView: BNView {
         detailsView!.showBiinItButton(false)
         animationView!.animate()
     }
-    
+    */
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareIt(elementMiniView!.element!._id!, isElement: true)
-        elementMiniView!.element!.userShared = true
-        buttonsView!.updateSocialButtonsForElement(elementMiniView!.element!)
+    }
+    
+    func likeit(sender:BNUIButton_BiinIt){
+        elementMiniView!.element!.userLiked = !elementMiniView!.element!.userLiked
+        updateLikeItBtn()
+    }
+    
+    func updateLikeItBtn() {
+        BNAppSharedManager.instance.likeIt(elementMiniView!.element!._id!, isElement: true)
+        likeItButton!.changedIcon(elementMiniView!.element!.userLiked)
+        likeItButton!.icon!.color = elementMiniView!.element!.media[0].vibrantColor!
+    }
+    
+    func collectIt(sender:BNUIButton_CollectionIt){
+        
+        if !elementMiniView!.element!.userCollected {
+            BNAppSharedManager.instance.collectIt(elementMiniView!.element!._id!, isElement: true)
+        } else {
+            BNAppSharedManager.instance.unCollectit(elementMiniView!.element!._id!, isElement: true)
+        }
+        
+        updateCollectItBtn()
+    }
+    
+    func updateCollectItBtn(){
+        collectItButton!.changeToCollectIcon(elementMiniView!.element!.userCollected)
+        collectItButton!.icon!.color = elementMiniView!.element!.media[0].vibrantColor!
+        collectItButton!.setNeedsDisplay()
+    }
+    
+    func updateShareBtn() {
+        shareItButton!.icon!.color = elementMiniView!.element!.media[0].vibrantColor!
+        shareItButton!.setNeedsDisplay()
+    }
+    
+    func updateBackBtn(){
+        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
+        backBtn!.layer.borderColor = elementMiniView!.element!.media[0].vibrantColor!.CGColor
+        backBtn!.layer.backgroundColor = elementMiniView!.element!.media[0].vibrantColor!.CGColor
+        backBtn!.setNeedsDisplay()
     }
 }
 

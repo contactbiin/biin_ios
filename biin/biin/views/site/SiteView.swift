@@ -230,7 +230,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         self.site = site
         header!.updateForSite(site)
         bottom!.updateForSite(site)
-        imagesScrollView!.updateImages(site!.media)
+        imagesScrollView!.updateImages(site!.media, isElement:false)
         updateShowcases(site)
         locationView!.updateForSite(site)
         
@@ -292,7 +292,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     }
     
     func showElementView(elementMiniView:ElementMiniView?){
-        
+
         elementView!.updateElementData(elementMiniView)
         
         UIView.animateWithDuration(0.3, animations: {()-> Void in

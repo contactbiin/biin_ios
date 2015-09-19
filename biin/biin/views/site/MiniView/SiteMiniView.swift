@@ -65,7 +65,7 @@ class SiteMiniView: BNView {
         //Positioning image
         let imageSize = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
         let xpos = ((imageSize - frame.width) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.siteMiniView_headerHeight, imageSize, imageSize))
+        image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.siteMiniView_headerHeight, imageSize, imageSize), color:site!.media[0].vibrantColor!)
         //image!.alpha = 0
         self.addSubview(image!)
         

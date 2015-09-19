@@ -41,9 +41,15 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         
     }
     
-    func updateImages(media:Array<BNMedia>){
+    func updateImages(media:Array<BNMedia>, isElement:Bool){
         
         clean()
+        
+        var distance:CGFloat = (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.siteView_headerHeight + 15))
+        
+        if isElement {
+            distance = (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.elementView_headerHeight + 15))
+        }
         
         if media.count > 0 {
         //if false {
@@ -58,16 +64,16 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             for var i:Int = 0; i < self.media!.count; i++ {
 
                 if self.media!.count > 1 {
-                    let point = BNUIPointView(frame: CGRectMake((xpos), (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.siteView_headerHeight + 15)), 10, 10), categoryIdentifier:"", activeColor:media[0].domainColor!)
+                    let point = BNUIPointView(frame: CGRectMake((xpos), distance, 10, 10), categoryIdentifier:"", activeColor:media[0].domainColor!)
                     self.points!.append(point)
                     self.addSubview(point)
                     xpos += 20
                 }
                 
                 //Add images to scroll
-                let image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
-                
-                image.backgroundColor = self.media![i].domainColor
+//                let image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+                let image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), color:self.media![i].vibrantColor!)
+                //image.backgroundColor = self.media![i].vibrantColor
                 
                 if i == 0 {
                     
@@ -108,7 +114,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
                 //xpos += 20
                 
                 //Add images to scroll
-                let image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth))
+            let image = BNUIImageView(frame: CGRectMake(scrollXPos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), color:UIColor.whiteColor())
                 image.image =  UIImage(contentsOfFile: "noImage.jpg")
                 image.showAfterDownload()
                 //image.backgroundColor = self.media![i].domainColor

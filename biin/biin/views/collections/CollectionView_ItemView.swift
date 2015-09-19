@@ -92,7 +92,7 @@ class CollectionView_ItemView: BNView {
         //Positioning image
         let imageSize = frame.height - SharedUIManager.instance.miniView_headerHeight
         var xpos = ((imageSize - frame.width) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize))
+        image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.miniView_headerHeight, imageSize, imageSize), color:self.backgroundColor!)
         self.addSubview(image!)
         
         if self.isElement {

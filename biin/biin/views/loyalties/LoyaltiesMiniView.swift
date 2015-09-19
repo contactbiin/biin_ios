@@ -55,7 +55,7 @@ class LoyaltiesMiniView: BNView {
         organizationAvatarView!.layer.masksToBounds = true
         self.addSubview(organizationAvatarView!)
         
-        organizationAvatar = BNUIImageView(frame: CGRectMake(1, 1, (avatarWidth - 2), (avatarWidth - 2)))
+        organizationAvatar = BNUIImageView(frame: CGRectMake(1, 1, (avatarWidth - 2), (avatarWidth - 2)), color:organization!.media[0].vibrantColor!)
         organizationAvatarView!.addSubview(organizationAvatar!)
         
         BNAppSharedManager.instance.networkManager.requestImageData(organization!.media[0].url!, image: organizationAvatar)
