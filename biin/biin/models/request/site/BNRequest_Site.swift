@@ -4,6 +4,7 @@
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
+import UIKit
 
 class BNRequest_Site: BNRequest {
     override init(){
@@ -91,14 +92,27 @@ class BNRequest_Site: BNRequest {
                         
                         let mediaArray = BNParser.findNSArray("media", dictionary: siteData)
                         
+                        print("Site:\(new_site.title!)")
+                        
                         for var i = 0; i < mediaArray?.count; i++ {
                             let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                             let url = BNParser.findString("url", dictionary:mediaData)!
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
                             let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
-                            let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
+                            var vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                            
+                            var white:CGFloat = 0.0
+                            var alpha:CGFloat = 0.0
+                            _ = vibrantColor.getWhite(&white, alpha: &alpha)
+                            print("vibrant s:\(white)")
+                            
+                            if white > 0.5 {
+                                vibrantColor = vibrantDarkColor
+                                new_site.useDarkTheme = true
+                            }
+                            
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             new_site.media.append(media)
                         }

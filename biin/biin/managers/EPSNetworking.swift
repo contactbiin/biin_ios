@@ -131,9 +131,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
 //                    var gzipData = NSData(base64EncodedString: gzipString, options: NSDataBase64DecodingOptions.allZeros)
 //                    
 //                    
-                    print("------------------------------------------------------------")
-                    print("------------------------------------------------------------")
-                    print("jsonString received AA: \(data!)")
+//                    print("------------------------------------------------------------")
+//                    print("------------------------------------------------------------")
+//                    print("jsonString received AA: \(data!)")
                     
                     callback(NSString(data: data!, encoding:NSUTF8StringEncoding)! as String, nil)
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -149,7 +149,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         //var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-        NSLog("BIIN - getJson 1")
+        //NSLog("BIIN - getJson 1")
         
         
         if BNAppSharedManager.instance.settings!.IS_USING_CACHE && useCache {
@@ -176,15 +176,15 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             
             if error != nil {
                 
-                print("------------------------------------------------------------")
-                print("------------------------------------------------------------")
-                print("jsonString received: \(data)")
+//                print("------------------------------------------------------------")
+//                print("------------------------------------------------------------")
+//                print("jsonString received: \(data)")
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
                 
-                print("------------------------------------------------------------")
-                print("------------------------------------------------------------")
-                print("jsonString received: \(data)")
+//                print("------------------------------------------------------------")
+//                print("------------------------------------------------------------")
+//                print("jsonString received: \(data)")
                 
                 let jsonData = self.parseJson(data)
                 callback(jsonData, nil)
@@ -295,8 +295,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        print("HTTPBody: \(httpString)")
+        //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+        //print("HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -324,9 +324,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        print("BIIN - HTTPBody: \(httpString)")
-        NSLog("BIIN - HTTPBody: \(httpString)")
+        //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+        //print("BIIN - HTTPBody: \(httpString)")
+        //NSLog("BIIN - HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -355,8 +355,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        print("HTTPBody: \(httpString)")
+        //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+//        print("HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -364,9 +364,9 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
                 
-                print("------------------------------------------------------------")
-                print("------------------------------------------------------------")
-                print("DELETE: jsonString received: \(data)")
+//                print("------------------------------------------------------------")
+//                print("------------------------------------------------------------")
+//                print("DELETE: jsonString received: \(data)")
                 
                 let jsonData = self.parseJson(data)
                 callback(jsonData, nil)

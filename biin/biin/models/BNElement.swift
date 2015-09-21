@@ -52,6 +52,7 @@ class BNElement:NSObject {
     var reservedQuantity:String?
     var claimedQuantity:String?
     var actualQuantity:String?
+    var stars:Int = 0
     
     //Details
     var details:Array<BNElementDetail> = Array<BNElementDetail>()

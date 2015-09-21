@@ -61,10 +61,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func runQueue(){
             var totalRequestRunnin = 0
-        print("runQueue(): \(requestsQueue.count)")
+        //print("runQueue(): \(requestsQueue.count)")
 
         if requestsQueue.count == 0 {
-            print("Queue is empty!")
+            //print("Queue is empty!")
             
             self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
 
@@ -82,15 +82,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             
             
             if !request.isRunning {
-                print("Request Not Running: \(request.identifier)")
+                //print("Request Not Running: \(request.identifier)")
                 
             } else {
-                print("Request Running: \(request.identifier)")
+                //print("Request Running: \(request.identifier)")
                 totalRequestRunnin++
             }
         }
         
-        print("totalRequestRunnin: \(totalRequestRunnin)")
+        //print("totalRequestRunnin: \(totalRequestRunnin)")
 
         
         for (_, request) in requestsQueue {
@@ -105,10 +105,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 request.run()
                 
                 queueCounter++
-                print("Number of request running: \(queueCounter)")
+                //print("Number of request running: \(queueCounter)")
     
             } else {
-                print("Pending request id: \(request.identifier)")
+               //print("Pending request id: \(request.identifier)")
                 //queueCounter++
             }
         }
@@ -118,9 +118,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         queueCounter--
         requestProcessed++
         
-        print("queueCounter: \(queueCounter)")
+        //print("queueCounter: \(queueCounter)")
         requestsQueue.removeValueForKey(request.identifier)
-        print("REMOVE: requests in queue:\(requestsQueue.count)")
+        //print("REMOVE: requests in queue:\(requestsQueue.count)")
 
         if queueCounter < 10 {
             runQueue()
@@ -139,7 +139,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.requestsQueue[request.identifier] = request
         runQueue()
         totalNumberOfRequest++
-        print("ADD: requests in queue:\(requestsQueue.count)")
+        //print("ADD: requests in queue:\(requestsQueue.count)")
     }
     
     func isQueued(stringUrl:String) -> Bool {

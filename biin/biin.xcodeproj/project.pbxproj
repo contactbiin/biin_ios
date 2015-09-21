@@ -916,6 +916,7 @@
 		5B3D75B31A6816B300CB0D1C /* managers */ = {
 			isa = PBXGroup;
 			children = (
+				B2B64CD51B9B36370054B334 /* BNParser.swift */,
 				5BEA2D1C1A68834B00AB65AB /* UIManager.swift */,
 				5B3D75B41A6816B300CB0D1C /* BNAppManager.swift */,
 				5B6615BE1B33130900ECE508 /* BNNotificationManager.swift */,
@@ -927,7 +928,6 @@
 				5B3D75B91A6816B300CB0D1C /* cert.der */,
 				5B3D75BB1A6816B300CB0D1C /* server.key */,
 				5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */,
-				B2B64CD51B9B36370054B334 /* BNParser.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
