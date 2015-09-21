@@ -30,7 +30,7 @@ class ShareItView:UIView {
         var ypos:CGFloat = 30
         //var hasPrice = false
         
-        let image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320))
+        let image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:element.media[0].vibrantColor!)
         
         if site!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(element.media[0].url!, image: image)
