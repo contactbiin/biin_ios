@@ -42,7 +42,7 @@ class BNSite:NSObject, NSCoding {
     
     //Biins
     var biins = Array<BNBiin>()
-    var useDarkTheme = false
+    var useWhiteText = false
     //Loyalty
     //var loyalty:BNLoyalty?
 

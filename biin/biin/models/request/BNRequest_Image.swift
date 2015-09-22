@@ -27,12 +27,12 @@ class BNRequest_Image: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Image.run()")
+        //print("BNRequest_Image.run()")
         isRunning = true
         
         self.networkManager!.epsNetwork!.getImage(requestString, image:self.image!, callback:{(error: NSError?) -> Void in
            
-            print("Image OK")
+            //print("Image OK")
             
             if (error != nil)  {
                 

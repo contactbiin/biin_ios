@@ -192,7 +192,8 @@ class ElementView: BNView {
         updateCollectItBtn()
         updateShareBtn()
         
-        var ypos:CGFloat = 10
+        var ypos:CGFloat = SharedUIManager.instance.screenWidth
+        let priceViewWidth:CGFloat = SharedUIManager.instance.screenWidth
         if priceView != nil {
             priceView!.removeFromSuperview()
             priceView = nil
@@ -200,43 +201,43 @@ class ElementView: BNView {
         
         if !elementMiniView!.element!.hasPrice && elementMiniView!.element!.hasDiscount{
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 40), price: "\(elementMiniView!.element!.discount!)%", isMini:false, isDiscount:true)
+            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 40), price: "\(elementMiniView!.element!.discount!)%", isMini:false, isDiscount:true)
             scroll!.addSubview(priceView!)
-            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += 40
+            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+            ypos += priceView!.frame.height
             
         } else if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false, isDiscount:false)
+            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false, isDiscount:false)
             scroll!.addSubview(priceView!)
             hasPrice = true
-            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += 40
+            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+            ypos += priceView!.frame.height
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && elementMiniView!.element!.hasDiscount {
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false, isHighlight:elementMiniView!.element!.isHighlight, color:elementMiniView!.element!.media[0].vibrantColor!)
+            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false, isHighlight:elementMiniView!.element!.isHighlight, color:elementMiniView!.element!.media[0].vibrantColor!)
             scroll!.addSubview(priceView!)
             hasPrice = true
-            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += 40
+            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+            ypos += priceView!.frame.height
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
             //TODO
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
+            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
             scroll!.addSubview(priceView!)
             hasPrice = true
-            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += 40
+            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+            ypos += priceView!.frame.height
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
             
             //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 65), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:NSLocalizedString("From", comment: "From")
+            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:NSLocalizedString("From", comment: "From")
 , isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
             scroll!.addSubview(priceView!)
             hasPrice = true
-            priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += 40
+            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+            ypos += priceView!.frame.height
         }
         
         /*
@@ -252,7 +253,7 @@ class ElementView: BNView {
             detailsView = nil
         }
         
-        detailsView = ElementView_Details(frame: CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
+        detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
         scroll!.addSubview(detailsView!)
         
 //        if elementMiniView!.element!.userCollected {

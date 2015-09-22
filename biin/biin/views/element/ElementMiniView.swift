@@ -107,6 +107,10 @@ class ElementMiniView: BNView {
         }
         */
         
+        
+  
+        
+        
         if !element!.hasPrice && element!.hasDiscount{
             
             priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 25), price: "\(element!.discount!)%", isMini:true, isDiscount:true)
@@ -171,6 +175,11 @@ class ElementMiniView: BNView {
         animationView = BiinItAnimationView(frame:CGRectMake(0, 0, frame.width, frame.height))
         animationView!.alpha = 0
         //self.addSubview(animationView!)
+        
+        var percentageViewSize:CGFloat = (SharedUIManager.instance.miniView_headerHeight - 5 )
+        var percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text: "-100%", textSize:8, color:element!.media[0].vibrantColor!)
+        self.addSubview(percentageView)
+        
         
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1

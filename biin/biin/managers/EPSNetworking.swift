@@ -154,10 +154,10 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         if BNAppSharedManager.instance.settings!.IS_USING_CACHE && useCache {
             request.cachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
-            NSLog("BIIN - getJson 2 -- \(url)")
+            //NSLog("BIIN - getJson 2 -- \(url)")
         } else {
             request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
-            NSLog("BIIN - getJson 3 -- \(url)")
+            //NSLog("BIIN - getJson 3 -- \(url)")
         }
         
         request.timeoutInterval = 25.0

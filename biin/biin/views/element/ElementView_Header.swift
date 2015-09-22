@@ -31,18 +31,20 @@ class ElementView_Header:BNView {
         
         title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.appTextColor()
+        title!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
-        self.addSubview(title!)
+//        self.addSubview(title!)
+        visualEffectView.contentView.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        subTitle!.textColor = UIColor.appTextColor()
+        subTitle!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
-        self.addSubview(subTitle!)
+//        self.addSubview(subTitle!)
+        visualEffectView.contentView.addSubview(subTitle!)
     }
 
     override func transitionIn() {

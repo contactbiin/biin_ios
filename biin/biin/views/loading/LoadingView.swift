@@ -85,7 +85,7 @@ class LoadingView:UIView {
     
     func updateProgressView(value:Float){
         if value > lastProgressValue {
-            print("------------- \(value)")
+            //print("------------- \(value)")
             lastProgressValue = value
             progressView!.setProgress(value, animated: true)
             if value > 0.85 {

@@ -28,7 +28,7 @@ class BNRequest_Site: BNRequest {
 
     override func run() {
         
-        print("BNRequest_Site.run()")
+        //print("BNRequest_Site.run()")
         isRunning = true
 
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
@@ -65,7 +65,6 @@ class BNRequest_Site: BNRequest {
                         new_site.nutshell = BNParser.findString("nutshell", dictionary: siteData)
                         new_site.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: siteData)
                         
-                        
                         new_site.commentedCount = BNParser.findInt("commentedCount", dictionary: siteData)!
                         new_site.userCommented = BNParser.findBool("userCommented", dictionary: siteData)
                         
@@ -76,6 +75,7 @@ class BNRequest_Site: BNRequest {
                         new_site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
                         new_site.latitude = BNParser.findFloat("latitude", dictionary:siteData)
                         new_site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
+                        new_site.stars = BNParser.findInt("stars", dictionary: siteData)!
                         
                         let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
                         
@@ -99,18 +99,16 @@ class BNRequest_Site: BNRequest {
                             let url = BNParser.findString("url", dictionary:mediaData)!
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
                             let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
-                            var vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
+                            let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
                             
                             var white:CGFloat = 0.0
                             var alpha:CGFloat = 0.0
                             _ = vibrantColor.getWhite(&white, alpha: &alpha)
-                            print("vibrant s:\(white)")
                             
-                            if white > 0.5 {
-                                vibrantColor = vibrantDarkColor
-                                new_site.useDarkTheme = true
+                            if white >= 0.55 {
+                                new_site.useWhiteText = true
                             }
                             
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)

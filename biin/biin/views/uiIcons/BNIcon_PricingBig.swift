@@ -10,73 +10,69 @@ import UIKit
 class BNIcon_PricingBig:BNIcon {
     
     var text:String?
+    var size:CGFloat = 0
+    var textWidth:CGFloat = 0
+    var textSize:CGFloat = 0
     
-    init(color:UIColor, position:CGPoint){
+    override init() {
         super.init()
-        super.color = color
-        super.position = position
     }
     
-    init(color:UIColor, position:CGPoint, text:String){
-        super.init()
-        super.color = color
-        super.position = position
+    convenience init(color:UIColor, position:CGPoint){
+        self.init()
+        self.color = color
+        self.position = position
+    }
+    
+    convenience init(color:UIColor, position:CGPoint, text:String){
+        self.init()
+        self.color = color
+        self.position = position
         self.text = text
+    }
+    
+    convenience init(color:UIColor, position:CGPoint, text:String, size:CGFloat, textSize:CGFloat){
+        self.init()
+        self.color = color
+        self.position = position
+        self.text = text
+        self.size = size
+        self.textWidth = sqrt((size * size) + (size * size));
+        self.textSize = textSize
     }
     
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
-        //// Color Declarations
-        //let color = UIColor.biinColor()
-        let color2 = UIColor.clearColor()//UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-        
-        //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, (position.x - 0.0459415460184), (position.y - 0.5))
-        
-        
-        
-        //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(rect: CGRectMake(0.05, 0.5, 94, 43.94))
-        color2.setFill()
-        rectanglePath.fill()
-        
-        
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(0.05, 0.5))
-        bezierPath.addLineToPoint(CGPointMake(49.05, 0.5))
-        bezierPath.addLineToPoint(CGPointMake(0.05, 49.5))
-        bezierPath.addLineToPoint(CGPointMake(0.05, 0.5))
+        bezierPath.moveToPoint(CGPointMake(size, 0))
+        bezierPath.addLineToPoint(CGPointMake(0, 0))
+        bezierPath.addLineToPoint(CGPointMake(size, size))
+        bezierPath.addLineToPoint(CGPointMake(size, 0))
         bezierPath.closePath()
         color!.setFill()
         bezierPath.fill()
         
-        
         //// Text Drawing
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, -0, 28.55)
-        CGContextRotateCTM(context, -45 * CGFloat(M_PI) / 180)
+        CGContextTranslateCTM(context, 12, -12)
+        CGContextRotateCTM(context, 45 * CGFloat(M_PI) / 180)
         
-        let textRect = CGRectMake(0, 0, 40.37, 13.99)
+        let textRect = CGRectMake(0, 5.66, textWidth, 12)
+        let textTextContent = NSString(string:self.text!)
         let textStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-        textStyle.alignment = NSTextAlignment.Center
+        textStyle.alignment = .Center
         
-        let textFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(13), NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSFontAttributeName: UIFont(name: "Lato-Regular", size: self.textSize)!, NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: textStyle]
         
-        let textTextHeight: CGFloat = NSString(string: self.text!).boundingRectWithSize(CGSizeMake(textRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
+        let textTextHeight: CGFloat = textTextContent.boundingRectWithSize(CGSizeMake(textRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         CGContextSaveGState(context)
         CGContextClipToRect(context, textRect);
-        NSString(string: self.text!).drawInRect(CGRectMake(textRect.minX, textRect.minY + textRect.height - textTextHeight, textRect.width, textTextHeight), withAttributes: textFontAttributes)
+        textTextContent.drawInRect(CGRectMake(textRect.minX, textRect.minY + (textRect.height - textTextHeight) / 2, textRect.width, textTextHeight), withAttributes: textFontAttributes)
         CGContextRestoreGState(context)
         
         CGContextRestoreGState(context)
-        
-        
-        
-        CGContextRestoreGState(context)
-
     }
 }

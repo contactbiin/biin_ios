@@ -184,13 +184,13 @@
 		5B8B075C1A6F141A00780F74 /* BNIcon_ShareSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B075B1A6F141A00780F74 /* BNIcon_ShareSmall.swift */; };
 		5B8B075E1A6F143400780F74 /* BNIcon_BiinSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B075D1A6F143400780F74 /* BNIcon_BiinSmall.swift */; };
 		5B8B07601A6F144B00780F74 /* BNIcon_CommentSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8B075F1A6F144B00780F74 /* BNIcon_CommentSmall.swift */; };
+		5B8CA3E11BB0B8D000A2F21B /* ElementMiniView_Precentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CA3E01BB0B8D000A2F21B /* ElementMiniView_Precentage.swift */; settings = {ASSET_TAGS = (); }; };
 		5B93A1B31AD443E500038026 /* BiinItAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */; };
 		5B9834611B7A625900465FB9 /* 1d5455b33081-4010-9774-0cbd8f70407a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B9834601B7A625900465FB9 /* 1d5455b33081-4010-9774-0cbd8f70407a.png */; };
 		5B9AD3571A7BF6B8001C9B5A /* SiteMiniView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AD3551A7BF6B8001C9B5A /* SiteMiniView.swift */; };
 		5B9AD3581A7BF6B8001C9B5A /* SiteMiniView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AD3561A7BF6B8001C9B5A /* SiteMiniView_Header.swift */; };
 		5B9AD35A1A7BF706001C9B5A /* SiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AD3591A7BF706001C9B5A /* SiteView.swift */; };
 		5B9AD35C1A7C15A8001C9B5A /* SiteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9AD35B1A7C15A8001C9B5A /* SiteState.swift */; };
-		5B9DBC3A1ADD71DA009A3CEB /* ElementMiniView_PricingDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9DBC391ADD71DA009A3CEB /* ElementMiniView_PricingDetails.swift */; };
 		5BA0B7831A686A0F00DBEB74 /* BNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B7821A686A0F00DBEB74 /* BNView.swift */; };
 		5BA0B78D1A686A6700DBEB74 /* BNState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B7851A686A6700DBEB74 /* BNState.swift */; };
 		5BA0B78E1A686A6700DBEB74 /* BoardsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B7861A686A6700DBEB74 /* BoardsState.swift */; };
@@ -521,13 +521,13 @@
 		5B8B075B1A6F141A00780F74 /* BNIcon_ShareSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_ShareSmall.swift; sourceTree = "<group>"; };
 		5B8B075D1A6F143400780F74 /* BNIcon_BiinSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BiinSmall.swift; sourceTree = "<group>"; };
 		5B8B075F1A6F144B00780F74 /* BNIcon_CommentSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_CommentSmall.swift; sourceTree = "<group>"; };
+		5B8CA3E01BB0B8D000A2F21B /* ElementMiniView_Precentage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView_Precentage.swift; sourceTree = "<group>"; };
 		5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinItAnimationView.swift; sourceTree = "<group>"; };
 		5B9834601B7A625900465FB9 /* 1d5455b33081-4010-9774-0cbd8f70407a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1d5455b33081-4010-9774-0cbd8f70407a.png"; sourceTree = "<group>"; };
 		5B9AD3551A7BF6B8001C9B5A /* SiteMiniView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteMiniView.swift; sourceTree = "<group>"; };
 		5B9AD3561A7BF6B8001C9B5A /* SiteMiniView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteMiniView_Header.swift; sourceTree = "<group>"; };
 		5B9AD3591A7BF706001C9B5A /* SiteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView.swift; sourceTree = "<group>"; };
 		5B9AD35B1A7C15A8001C9B5A /* SiteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteState.swift; sourceTree = "<group>"; };
-		5B9DBC391ADD71DA009A3CEB /* ElementMiniView_PricingDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView_PricingDetails.swift; sourceTree = "<group>"; };
 		5BA0B7821A686A0F00DBEB74 /* BNView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNView.swift; sourceTree = "<group>"; };
 		5BA0B7851A686A6700DBEB74 /* BNState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNState.swift; sourceTree = "<group>"; };
 		5BA0B7861A686A6700DBEB74 /* BoardsState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardsState.swift; sourceTree = "<group>"; };
@@ -1115,7 +1115,7 @@
 				5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */,
 				5B2E3C841A83A95E0008EA10 /* ElementView_Header.swift */,
 				5B2E3C861A83BCB50008EA10 /* ElementView_Details.swift */,
-				5B9DBC391ADD71DA009A3CEB /* ElementMiniView_PricingDetails.swift */,
+				5B8CA3E01BB0B8D000A2F21B /* ElementMiniView_Precentage.swift */,
 			);
 			path = element;
 			sourceTree = "<group>";
@@ -1561,7 +1561,6 @@
 				5BEA77951A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift in Sources */,
 				5B53395F1A8512950049FB00 /* LoginView.swift in Sources */,
 				5B2939DB1ADABF3F0023FEA5 /* ShareItView.swift in Sources */,
-				5B9DBC3A1ADD71DA009A3CEB /* ElementMiniView_PricingDetails.swift in Sources */,
 				5B2F5B901A8BAA84004133D4 /* BNUIButton_CloseAlert.swift in Sources */,
 				5BA0B7911A686A6700DBEB74 /* SearchState.swift in Sources */,
 				5B861FAD1BA70C0600930BD7 /* BNIcon_SiteLocationButton.swift in Sources */,
@@ -1786,6 +1785,7 @@
 				5B3D760A1A6816B300CB0D1C /* Biinie.swift in Sources */,
 				5BEE61401A97EF3A00DE334E /* InviteFriendsView.swift in Sources */,
 				5B28B9EA1B483DA1007277A0 /* LoyaltiesState.swift in Sources */,
+				5B8CA3E11BB0B8D000A2F21B /* ElementMiniView_Precentage.swift in Sources */,
 				5BEE97CB1BAC53BB004C2B30 /* BNRequest_SendUnBiinedElement.swift in Sources */,
 				5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */,
 				5B4744861B386FB80079FC88 /* BNAppAction.swift in Sources */,

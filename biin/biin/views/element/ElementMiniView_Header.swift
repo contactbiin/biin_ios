@@ -60,13 +60,13 @@ class ElementMiniView_Header:BNView {
         title.text = element!.title!
         self.addSubview(title)
         
-        ypos += SharedUIManager.instance.miniView_titleSize
-        
-        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - (xpos + 5)), (SharedUIManager.instance.miniView_subTittleSize + 3)))
-        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
-        subTitle.textColor = UIColor.bnGrayDark()
-        subTitle.text = element!.subTitle!
-        self.addSubview(subTitle)
+//        ypos += SharedUIManager.instance.miniView_titleSize
+//        
+//        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - (xpos + 5)), (SharedUIManager.instance.miniView_subTittleSize + 3)))
+//        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
+//        subTitle.textColor = UIColor.bnGrayDark()
+//        subTitle.text = element!.subTitle!
+//        self.addSubview(subTitle)
     }
     
     override func transitionIn() {
@@ -100,7 +100,7 @@ class ElementMiniView_Header:BNView {
     
     //Instance methods    
     func updateSocialButtonsForElement(element: BNElement?){
-        buttonsView!.updateSocialButtonsForElement(element)
+        //buttonsView!.updateSocialButtonsForElement(element)
     }
     
     func activateCircle(){
