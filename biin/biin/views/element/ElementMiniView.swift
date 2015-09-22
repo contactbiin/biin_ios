@@ -78,7 +78,6 @@ class ElementMiniView: BNView {
         //self.layer.shadowOpacity = 0.25
         self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
         let imageSize = frame.width// - SharedUIManager.instance.miniView_headerHeight
-        var xpos:CGFloat = 0//((imageSize - frame.height) / 2 ) * -1
 
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
@@ -96,7 +95,7 @@ class ElementMiniView: BNView {
     
         if element!.hasDiscount {
             let percentageViewSize:CGFloat = (SharedUIManager.instance.miniView_headerHeight - 5 )
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(element!.discount!)%", textSize:8, color:element!.media[0].vibrantColor!)
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(element!.discount!)%", textSize:8, color:element!.media[0].vibrantColor!, textPosition:CGPoint(x: 5, y: -4))
             self.addSubview(percentageView!)
         }
   
@@ -104,7 +103,7 @@ class ElementMiniView: BNView {
         if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice1!.textColor = element!.media[0].vibrantColor!
+            self.textPrice1!.textColor = UIColor.bnGrayDark()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
@@ -127,7 +126,7 @@ class ElementMiniView: BNView {
             self.header!.addSubview(lineView)
             
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 10), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice2!.textColor = element!.media[0].vibrantColor!
+            self.textPrice2!.textColor = UIColor.bnGrayDark()
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice2!.text = "\(element!.currency!)\(element!.listPrice!)"
@@ -146,14 +145,13 @@ class ElementMiniView: BNView {
             self.header!.addSubview(self.textPrice1!)
 
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 7), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice2!.textColor = element!.media[0].vibrantColor!
+            self.textPrice2!.textColor = UIColor.bnGrayDark()
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice2!.text = "\(element!.currency!)\(element!.price!)"
             self.header!.addSubview(self.textPrice2!)
         }
         
-        xpos = 5
         if showRemoveBtn {
             removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
             removeItButton!.addTarget(self, action: "unBiinit:", forControlEvents: UIControlEvents.TouchUpInside)

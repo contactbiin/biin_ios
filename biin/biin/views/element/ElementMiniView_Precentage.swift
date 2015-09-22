@@ -18,14 +18,14 @@ class ElementMiniView_Precentage: UIView {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, text:String, textSize:CGFloat, color:UIColor ) {
+    convenience init(frame: CGRect, text:String, textSize:CGFloat, color:UIColor, textPosition:CGPoint) {
         self.init(frame:frame)
         
         self.backgroundColor = UIColor.clearColor()
 
         self.layer.masksToBounds = true
         
-        icon = BNIcon_Percentage(color: color, position: CGPoint(x:0, y:0), text:text, size:frame.width, textSize:textSize)
+        icon = BNIcon_Percentage(color: color, position: CGPoint(x:0, y:0), text:text, size:frame.width, textSize:textSize, textPosition:textPosition)
     }
     
     override func drawRect(rect:CGRect){

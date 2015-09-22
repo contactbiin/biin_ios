@@ -38,6 +38,10 @@ class ElementView: BNView {
     
     var animationView:BiinItAnimationView?
     
+    var percentageView:ElementMiniView_Precentage?    
+    var textPrice1:UILabel?
+    var textPrice2:UILabel?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -94,6 +98,11 @@ class ElementView: BNView {
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(shareItButton!)
         */
+        
+        self.textPrice1 = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        self.textPrice2 = UILabel(frame: CGRectMake(0, 0, 0, 0))
+
+        
         var buttonSpace:CGFloat = 26
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.elementView_headerHeight - 27), 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -193,52 +202,138 @@ class ElementView: BNView {
         updateShareBtn()
         
         var ypos:CGFloat = SharedUIManager.instance.screenWidth
-        let priceViewWidth:CGFloat = SharedUIManager.instance.screenWidth
-        if priceView != nil {
-            priceView!.removeFromSuperview()
-            priceView = nil
+//        let priceViewWidth:CGFloat = SharedUIManager.instance.screenWidth
+//        if priceView != nil {
+//            priceView!.removeFromSuperview()
+//            priceView = nil
+//        }
+        
+        
+        if percentageView != nil {
+            percentageView!.removeFromSuperview()
+            percentageView = nil
         }
         
-        if !elementMiniView!.element!.hasPrice && elementMiniView!.element!.hasDiscount{
+        if elementMiniView!.element!.hasDiscount {
+            let percentageViewSize:CGFloat = 60
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"-\(elementMiniView!.element!.discount!)%", textSize:15, color:elementMiniView!.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 10, y: -10))
+            scroll!.addSubview(percentageView!)
+        }
+        
+        
+        self.textPrice1!.text = ""
+        self.textPrice2!.text = ""
+        
+        if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
+            ypos += 20
+            self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
+            self.textPrice1!.textColor = UIColor.appTextColor()
+            self.textPrice1!.textAlignment = NSTextAlignment.Center
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+            self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
+            scroll!.addSubview(self.textPrice1!)
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 40), price: "\(elementMiniView!.element!.discount!)%", isMini:false, isDiscount:true)
-            scroll!.addSubview(priceView!)
-            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += priceView!.frame.height
+            ypos += SharedUIManager.instance.elementView_titleSize + 3
+            self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
+            self.textPrice2!.textColor = elementMiniView!.element!.media[0].vibrantColor!
+            self.textPrice2!.textAlignment = NSTextAlignment.Center
+            self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+            self.textPrice2!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)"
+            scroll!.addSubview(self.textPrice2!)
+            ypos += 50
             
-        } else if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false, isDiscount:false)
-            scroll!.addSubview(priceView!)
-            hasPrice = true
-            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += priceView!.frame.height
+        } else if elementMiniView!.element!.hasPrice && elementMiniView!.element!.hasListPrice {
             
-        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && elementMiniView!.element!.hasDiscount {
+            let text1Length = getStringLength("\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_priceTitleSize)
+            let xposition:CGFloat = ( frame.width - text1Length ) / 2
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false, isHighlight:elementMiniView!.element!.isHighlight, color:elementMiniView!.element!.media[0].vibrantColor!)
-            scroll!.addSubview(priceView!)
-            hasPrice = true
-            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += priceView!.frame.height
+            ypos += 20
+            self.textPrice1 = UILabel(frame:CGRectMake(xposition, ypos, text1Length, (SharedUIManager.instance.elementView_priceTitleSize + 2)))
+            self.textPrice1!.textColor = UIColor.bnGrayLight()
+            self.textPrice1!.textAlignment = NSTextAlignment.Left
+            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_priceTitleSize)
+            self.textPrice1!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)"
+            self.scroll!.addSubview(self.textPrice1!)
             
-        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
-            //TODO
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
-            scroll!.addSubview(priceView!)
-            hasPrice = true
-            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += priceView!.frame.height
+            let lineView = UIView(frame: CGRectMake(xposition, (ypos + 17), (text1Length + 1), 1))
+            lineView.backgroundColor = UIColor.bnGrayLight()
+            self.scroll!.addSubview(lineView)
+            
+            ypos += SharedUIManager.instance.elementView_priceTitleSize
+            self.textPrice2 = UILabel(frame: CGRectMake(0, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2)))
+            self.textPrice2!.textColor = elementMiniView!.element!.media[0].vibrantColor!
+            self.textPrice2!.textAlignment = NSTextAlignment.Center
+            self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+            self.textPrice2!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)"
+            self.scroll!.addSubview(self.textPrice2!)
+            ypos += 50
             
         } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
+            ypos += 20
+            self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
+            self.textPrice1!.textColor = UIColor.appTextColor()
+            self.textPrice1!.textAlignment = NSTextAlignment.Center
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+            self.textPrice1!.text = NSLocalizedString("From", comment: "From")
+            scroll!.addSubview(self.textPrice1!)
             
-            //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:NSLocalizedString("From", comment: "From")
-, isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
-            scroll!.addSubview(priceView!)
-            hasPrice = true
-            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
-            ypos += priceView!.frame.height
+            ypos += SharedUIManager.instance.elementView_titleSize + 3
+            self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
+            self.textPrice2!.textColor = elementMiniView!.element!.media[0].vibrantColor!
+            self.textPrice2!.textAlignment = NSTextAlignment.Center
+            self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+            self.textPrice2!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)"
+            scroll!.addSubview(self.textPrice2!)
+            ypos += 50
+            
         }
+
+        
+        
+ 
+        
+        
+        
+//        if !elementMiniView!.element!.hasPrice && elementMiniView!.element!.hasDiscount{
+//            
+//            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 40), price: "\(elementMiniView!.element!.discount!)%", isMini:false, isDiscount:true)
+//            scroll!.addSubview(priceView!)
+//            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+//            ypos += priceView!.frame.height
+//            
+//        } else if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
+//            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 40), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", isMini:false, isDiscount:false)
+//            scroll!.addSubview(priceView!)
+//            hasPrice = true
+//            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+//            ypos += priceView!.frame.height
+//            
+//        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && elementMiniView!.element!.hasDiscount {
+//            
+//            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", percentage:"\(elementMiniView!.element!.discount!)%", isMini:false, isHighlight:elementMiniView!.element!.isHighlight, color:elementMiniView!.element!.media[0].vibrantColor!)
+//            scroll!.addSubview(priceView!)
+//            hasPrice = true
+//            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+//            ypos += priceView!.frame.height
+//            
+//        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasDiscount {
+//            //TODO
+//            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
+//            scroll!.addSubview(priceView!)
+//            hasPrice = true
+//            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+//            ypos += priceView!.frame.height
+//            
+//        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
+//            
+//            //priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 70), oldPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)", newPrice:"\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)")
+//            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, priceViewWidth, 65), price: "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", from:NSLocalizedString("From", comment: "From")
+//, isMini:false, isHighlight:elementMiniView!.element!.isHighlight)
+//            scroll!.addSubview(priceView!)
+//            hasPrice = true
+//            //priceView!.frame.origin.x = (SharedUIManager.instance.screenWidth - priceView!.frame.width)
+//            ypos += priceView!.frame.height
+//        }
         
         /*
         if elementMiniView!.element!.hasSticker {
@@ -345,6 +440,15 @@ class ElementView: BNView {
         backBtn!.layer.backgroundColor = elementMiniView!.element!.media[0].vibrantColor!.CGColor
         backBtn!.setNeedsDisplay()
     }
+    
+    func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
+        let label = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        label.font = UIFont(name: fontName, size:fontSize)
+        label.text = text
+        label.sizeToFit()
+        return label.frame.width
+    }
+    
 }
 
 @objc protocol ElementView_Delegate:NSObjectProtocol {
