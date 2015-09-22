@@ -150,6 +150,14 @@ class ElementMiniView: BNView {
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice2!.text = "\(element!.currency!)\(element!.price!)"
             self.header!.addSubview(self.textPrice2!)
+        } else {
+            ypos += SharedUIManager.instance.miniView_titleSize
+            self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_subTittleSize + 2)))
+            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textAlignment = NSTextAlignment.Left
+            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
+            self.textPrice1!.text = element!.title!
+            self.header!.addSubview(self.textPrice1!)
         }
         
         if showRemoveBtn {

@@ -42,6 +42,9 @@ class ElementView: BNView {
     var textPrice1:UILabel?
     var textPrice2:UILabel?
     
+    var title:UILabel?
+    var subTitle:UILabel?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -101,7 +104,8 @@ class ElementView: BNView {
         
         self.textPrice1 = UILabel(frame: CGRectMake(0, 0, 0, 0))
         self.textPrice2 = UILabel(frame: CGRectMake(0, 0, 0, 0))
-
+        self.title = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        self.subTitle = UILabel(frame: CGRectMake(0, 0, 0, 0))
         
         var buttonSpace:CGFloat = 26
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.elementView_headerHeight - 27), 25, 25))
