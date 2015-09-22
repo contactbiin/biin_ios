@@ -147,7 +147,7 @@ class UIManager {
         switch deviceType {
         case .iphone4s, .iphone5, .iphone6:
             viewWidth = (screenWidth - 30) / 2
-            viewHeight = screenHeight / 4
+            viewHeight = screenHeight / 5
             columns = 2
             break
         case .iphone6Plus:
