@@ -96,7 +96,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         for (_, request) in requestsQueue {
             
             if queueCounter >= queueLimit {
-                print("EXIT: \(queueCounter)")
+                //print("EXIT: \(queueCounter)")
                 return
             }
             

@@ -285,4 +285,6 @@ class BNUIPricesView:UIView {
     override func drawRect(rect:CGRect){
         icon?.drawCanvas()
     }
+    
+
 }

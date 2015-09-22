@@ -64,7 +64,7 @@ class BNRequest_Element: BNRequest {
                         self.element!.titleColor = BNParser.findUIColor("titleColor", dictionary: elementData)!
                         self.element!.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
                         self.element!.color = UIColor.elementColor()
-                        self.element!.stars = BNParser.findInt("stars", dictionary: elementData)!
+                        self.element!.stars = BNParser.findFloat("stars", dictionary: elementData)!
 
                         self.element!.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
                         if self.element!.hasFromPrice {

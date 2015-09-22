@@ -75,7 +75,7 @@ class BNRequest_Site: BNRequest {
                         new_site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
                         new_site.latitude = BNParser.findFloat("latitude", dictionary:siteData)
                         new_site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
-                        new_site.stars = BNParser.findInt("stars", dictionary: siteData)!
+                        new_site.stars = BNParser.findFloat("stars", dictionary: siteData)!
                         
                         let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
                         
