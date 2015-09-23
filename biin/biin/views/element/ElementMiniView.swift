@@ -68,7 +68,7 @@ class ElementMiniView: BNView {
         self.init(frame: frame, father:father )
         self.isNumberVisible = isNumberVisible
         
-        //self.layer.borderColor = UIColor.appMainColor().CGColor
+        self.layer.borderColor = UIColor.redColor().CGColor
         //self.layer.borderWidth = 1
         //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
@@ -77,8 +77,13 @@ class ElementMiniView: BNView {
         //self.layer.shadowRadius = 1
         //self.layer.shadowOpacity = 0.25
         self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
-        let imageSize = frame.width// - SharedUIManager.instance.miniView_headerHeight
-
+        
+        var imageSize:CGFloat = 0
+        if frame.width < frame.height {
+            imageSize = frame.height// - SharedUIManager.instance.miniView_headerHeight
+        } else {
+            imageSize = frame.width
+        }
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
