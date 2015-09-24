@@ -18,7 +18,7 @@ extension UIColor {
     }
     
     class func bnGrayLight() -> UIColor! {
-        return UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1)
+        return UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
     }
     
     class func bnBlack() -> UIColor! {
@@ -209,8 +209,7 @@ extension UIColor {
     }
     
     class func appTextColor() -> UIColor {
-        //return UIColor(red: 89/255, green: 89/255, blue: 89/255, alpha: 1)
-        return UIColor.blackColor()
+        return UIColor(red: 65/255, green: 65/255, blue: 65/255, alpha: 1)
     }
     
     class func appHeaderColor() -> UIColor {

@@ -66,7 +66,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         self.addSubview(closeBtn!)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
-        siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize))
+        siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
         self.addSubview(siteAvatar!)
         
         let xpos:CGFloat = siteAvatarSize + 10
@@ -353,6 +353,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             closeBtn!.layer.borderColor = site!.media[0].domainColor!.CGColor
             closeBtn!.setNeedsDisplay()
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
+            siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
         } else {
             closeBtn!.icon!.color = UIColor.blackColor()
             closeBtn!.layer.borderColor = UIColor.blackColor().CGColor

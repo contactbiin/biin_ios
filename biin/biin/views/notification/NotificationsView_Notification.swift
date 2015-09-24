@@ -59,7 +59,7 @@ class NotificationsView_Notification: BNView {
         notificationAvatarView!.layer.masksToBounds = true
         self.addSubview(notificationAvatarView!)
         
-        notificationAvatar = BNUIImageView(frame: CGRectMake(1, 1, 38, 38))
+        notificationAvatar = BNUIImageView(frame: CGRectMake(1, 1, 38, 38), color:UIColor.whiteColor())
         //notificationAvatar!.alpha = 0
         notificationAvatarView!.addSubview(notificationAvatar!)
     

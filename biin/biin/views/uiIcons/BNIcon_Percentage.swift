@@ -1,18 +1,19 @@
-//  BNIcon_PricingBig.swift
+//  BNIcon_Percentage.swift
 //  biin
-//  Created by Esteban Padilla on 5/10/15.
-//  Copyright (c) 2015 Esteban Padilla. All rights reserved.
+//  Created by Esteban Padilla on 9/22/15.
+//  Copyright © 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_PricingBig:BNIcon {
+class BNIcon_Percentage:BNIcon {
     
     var text:String?
     var size:CGFloat = 0
     var textWidth:CGFloat = 0
     var textSize:CGFloat = 0
+    var textPosition:CGPoint?
     
     override init() {
         super.init()
@@ -31,7 +32,7 @@ class BNIcon_PricingBig:BNIcon {
         self.text = text
     }
     
-    convenience init(color:UIColor, position:CGPoint, text:String, size:CGFloat, textSize:CGFloat){
+    convenience init(color:UIColor, position:CGPoint, text:String, size:CGFloat, textSize:CGFloat, textPosition:CGPoint){
         self.init()
         self.color = color
         self.position = position
@@ -39,6 +40,7 @@ class BNIcon_PricingBig:BNIcon {
         self.size = size
         self.textWidth = sqrt((size * size) + (size * size));
         self.textSize = textSize
+        self.textPosition = textPosition
     }
     
     override func drawCanvas() {
@@ -57,10 +59,10 @@ class BNIcon_PricingBig:BNIcon {
         
         //// Text Drawing
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 12, -12)
+        CGContextTranslateCTM(context, textPosition!.x, textPosition!.y)
         CGContextRotateCTM(context, 45 * CGFloat(M_PI) / 180)
         
-        let textRect = CGRectMake(0, 5.66, textWidth, 12)
+        let textRect = CGRectMake(0, -15.02, textWidth, 29.68)
         let textTextContent = NSString(string:self.text!)
         let textStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = .Center

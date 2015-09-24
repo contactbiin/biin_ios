@@ -4,6 +4,7 @@
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
+import UIKit
 
 class BNRequest_Site: BNRequest {
     override init(){
@@ -27,7 +28,7 @@ class BNRequest_Site: BNRequest {
 
     override func run() {
         
-        print("BNRequest_Site.run()")
+        //print("BNRequest_Site.run()")
         isRunning = true
 
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
@@ -64,7 +65,6 @@ class BNRequest_Site: BNRequest {
                         new_site.nutshell = BNParser.findString("nutshell", dictionary: siteData)
                         new_site.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: siteData)
                         
-                        
                         new_site.commentedCount = BNParser.findInt("commentedCount", dictionary: siteData)!
                         new_site.userCommented = BNParser.findBool("userCommented", dictionary: siteData)
                         
@@ -75,6 +75,7 @@ class BNRequest_Site: BNRequest {
                         new_site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
                         new_site.latitude = BNParser.findFloat("latitude", dictionary:siteData)
                         new_site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
+                        new_site.stars = BNParser.findFloat("stars", dictionary: siteData)!
                         
                         let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
                         
@@ -91,6 +92,8 @@ class BNRequest_Site: BNRequest {
                         
                         let mediaArray = BNParser.findNSArray("media", dictionary: siteData)
                         
+                        print("Site:\(new_site.title!)")
+                        
                         for var i = 0; i < mediaArray?.count; i++ {
                             let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                             let url = BNParser.findString("url", dictionary:mediaData)!
@@ -99,6 +102,15 @@ class BNRequest_Site: BNRequest {
                             let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                            
+                            var white:CGFloat = 0.0
+                            var alpha:CGFloat = 0.0
+                            _ = vibrantColor.getWhite(&white, alpha: &alpha)
+                            
+                            if white >= 0.55 {
+                                new_site.useWhiteText = true
+                            }
+                            
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             new_site.media.append(media)
                         }
