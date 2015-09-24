@@ -34,6 +34,7 @@ class BNState {
 }
 
 enum BNStateType {
+    case MainViewContainerState
     case BiinieCategoriesState
     case SiteState
     case ProfileState

@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate, ElementMiniView_Delegate {
+class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_Delegate {
     
     var title:UILabel?
     var subTitle:UILabel?
@@ -185,9 +185,9 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
 
 
                 
-                    if itemPosition < 3 {
+                    //if itemPosition < 3 {
                         elementView!.requestImage()
-                    }
+                    //}
                         
 
                 
@@ -230,7 +230,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        manageItemViewImageRequest()
+        //manageItemViewImageRequest()
     }// any offset changes
     
     // called on start of dragging (may require some time and or distance to move)
@@ -363,17 +363,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
                 
                 if i >= elementRequestPreviousLimit {
                     
-                    
-//                    if let element = collection!.elements[collection!.items[i]] {
                         (elements![i] as ElementMiniView).requestImage()
-                        
-                        
-//                    } else if let site = collection!.sites[collection!.items[i]] {
-                    
-//                        var siteView = sites![i] as SiteMiniView
-//                        siteView.requestImage()
-//                    }
-                    
+
                     i--
                     
                 } else  {
@@ -386,8 +377,8 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, SiteView_Delegate
     }
     
     //ElementMiniView_Delegate
-    func showElementView(view:ElementMiniView, position: CGRect) {
-        (father! as! CollectionsView).showElementView(view)
+    func showElementView(viewiew: ElementMiniView, element: BNElement) {
+        (father! as! CollectionsView).showElementView(element)
     }
     
     func resizeScrollOnRemoved(view:ElementMiniView) {

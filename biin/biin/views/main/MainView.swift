@@ -21,6 +21,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var lastOption = 1
     
     //states
+    var mainViewContainerState:MainViewContainerState?
     var biinieCategoriesState:BiinieCategoriesState?
     var siteState:SiteState?
     var profileState:ProfileState?
@@ -64,13 +65,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         self.layer.masksToBounds = true
         
         //Create views
-        let categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
-        biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
-        self.addSubview(categoriesView)
-        state = biinieCategoriesState!
+//        let categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
+//        biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
+//        self.addSubview(categoriesView)
+//        state = biinieCategoriesState!
         
-        delegate_HighlightsContainer = categoriesView
-        delegate_BiinsContainer = categoriesView
+        let mainViewContainer = MainViewContainer(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
+        mainViewContainerState = MainViewContainerState(context: self, view: mainViewContainer)
+        self.addSubview(mainViewContainer)
+        state = mainViewContainerState!
+        
+        delegate_HighlightsContainer = mainViewContainer
+        delegate_BiinsContainer = mainViewContainer
         
         let siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
             SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
@@ -155,7 +161,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         */
         let showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         showMenuSwipe.edges = UIRectEdge.Left
-        categoriesView.scroll!.addGestureRecognizer(showMenuSwipe)
+        mainViewContainer.scroll!.addGestureRecognizer(showMenuSwipe)
         
         //showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         //showMenuSwipe.edges = UIRectEdge.Left
@@ -228,7 +234,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isSectionsLast = false
             isSectionOrShowcase = true
             */
-            state!.next(self.biinieCategoriesState)
+            state!.next(self.mainViewContainerState)
             lastOption = option
             break
         case 2:
@@ -397,8 +403,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     //setNextState(2)
                     NSLog("BIIN - Show element view for element: \(element._id!)")
-                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
-                    (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
+                    //let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
+                    (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
                 }
                 break
             case .INTERNAL:
@@ -421,8 +427,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     //setNextState(2)
                     NSLog("BIIN - Show element view for element: \(element._id!)")
-                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
-                    (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(elementView)
+//                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
+                    (self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
                 }
                 break
             default:

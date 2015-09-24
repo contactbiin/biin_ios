@@ -191,11 +191,11 @@ class BNRequest_Element: BNRequest {
                             }
                         }
                         
-                        if self.element!.isHighlight {
-                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedHightlight:self.element!)
-                        } else {
-                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedElement:self.element!)
-                        }
+//                        if self.element!.isHighlight {
+//                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedHightlight:self.element!)
+//                        } else {
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedElement:self.element!)
+//                        }
                     }
                 }
                 

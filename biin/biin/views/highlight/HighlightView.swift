@@ -1,12 +1,12 @@
-//  ElementMiniView.swift
+//  HighlightView.swift
 //  biin
-//  Created by Esteban Padilla on 1/16/15.
-//  Copyright (c) 2015 Esteban Padilla. All rights reserved.
+//  Created by Esteban Padilla on 9/24/15.
+//  Copyright © 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class ElementMiniView: BNView {
+class HighlightView: BNView {
     
     var delegate:ElementMiniView_Delegate?
     var element:BNElement?
@@ -16,7 +16,7 @@ class ElementMiniView: BNView {
     
     //var biinItButton:BNUIButton_BiinIt?
     //var shareItButton:BNUIButton_ShareIt?
-    var removeItButton:BNUIButton_RemoveIt?
+    //var removeItButton:BNUIButton_RemoveIt?
     //var stickerView:BNUIStickerView?
     //var discountView:BNUIDiscountView?
     //var priceView:BNUIPricesView?
@@ -27,14 +27,14 @@ class ElementMiniView: BNView {
     
     var percentageView:ElementMiniView_Precentage?
     
-    var isNumberVisible = true
+    //var isNumberVisible = true
     
     var textPrice1:UILabel?
     var textPrice2:UILabel?
     
-//    override init() {
-//        super.init()
-//    }
+    //    override init() {
+    //        super.init()
+    //    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,27 +48,26 @@ class ElementMiniView: BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
-        self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible)
-        
-        //biinItButton!.frame.origin.y = (frame.height - 92)
-        //shareItButton!.frame.origin.y = (frame.height - 92)
-
-        var siteMiniLocation:SiteView_MiniLocation?
-        if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
-            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 50), frame.width, 50), father: self, site:site)
-            self.addSubview(siteMiniLocation!)
-        }
-        
-        
-    }
+//    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
+//        self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible)
+//        
+//        //biinItButton!.frame.origin.y = (frame.height - 92)
+//        //shareItButton!.frame.origin.y = (frame.height - 92)
+//        
+//        var siteMiniLocation:SiteView_MiniLocation?
+//        if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
+//            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 50), frame.width, 50), father: self, site:site)
+//            self.addSubview(siteMiniLocation!)
+//        }
+//        
+//        
+//    }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool){
+    convenience init(frame:CGRect, father:BNView?, element:BNElement){
         
         self.init(frame: frame, father:father )
-        self.isNumberVisible = isNumberVisible
         
-        self.layer.borderColor = UIColor.redColor().CGColor
+        //self.layer.borderColor = UIColor.redColor().CGColor
         //self.layer.borderWidth = 1
         //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
@@ -84,47 +83,46 @@ class ElementMiniView: BNView {
         } else {
             imageSize = frame.width
         }
-        
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
- 
-        if !isNumberVisible {
-            header = ElementMiniView_Header(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.miniView_headerHeight), frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:false)
-            self.addSubview(header!)
-            header!.updateSocialButtonsForElement(self.element)
-        } else {
-            header = ElementMiniView_Header(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.miniView_headerHeight), frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
-            self.addSubview(header!)
-            header!.updateSocialButtonsForElement(self.element)
-        }
-    
-        if element!.hasDiscount {
+        
+//        if !isNumberVisible {
+//            header = ElementMiniView_Header(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.miniView_headerHeight), frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:false)
+//            self.addSubview(header!)
+//            header!.updateSocialButtonsForElement(self.element)
+//        } else {
+//            header = ElementMiniView_Header(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.miniView_headerHeight), frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:!showRemoveBtn)
+//            self.addSubview(header!)
+//            header!.updateSocialButtonsForElement(self.element)
+//        }
+        
+        if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = (SharedUIManager.instance.miniView_headerHeight - 5 )
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(element!.discount!)%", textSize:8, color:element!.media[0].vibrantColor!, textPosition:CGPoint(x: 5, y: -4))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:8, color:self.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 5, y: -4))
             self.addSubview(percentageView!)
         }
-  
+        
         var ypos:CGFloat = 6
-        if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
+        if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice1!.textColor = UIColor.bnGrayDark()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-            self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
+            self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
             self.header!.addSubview(self.textPrice1!)
             
-        } else if element!.hasPrice && element!.hasListPrice {
+        } else if self.element!.hasPrice && self.element!.hasListPrice {
             
-            let text1Length = getStringLength("\(element!.currency!)\(element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
+            let text1Length = getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
             
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice1!.textColor = UIColor.bnGrayDark()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
-            self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
+            self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
             self.header!.addSubview(self.textPrice1!)
             
             let lineView = UIView(frame: CGRectMake(5, (ypos + 7.5), (text1Length + 1), 0.5))
@@ -135,11 +133,11 @@ class ElementMiniView: BNView {
             self.textPrice2!.textColor = UIColor.bnGrayDark()
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-            self.textPrice2!.text = "\(element!.currency!)\(element!.listPrice!)"
+            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
             self.header!.addSubview(self.textPrice2!)
             
-        } else if element!.hasPrice &&  element!.hasFromPrice {
-  
+        } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
+            
             let text1Length = getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
             
             ypos += SharedUIManager.instance.miniView_titleSize
@@ -149,12 +147,12 @@ class ElementMiniView: BNView {
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
             self.header!.addSubview(self.textPrice1!)
-
+            
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 7), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice2!.textColor = UIColor.bnGrayDark()
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-            self.textPrice2!.text = "\(element!.currency!)\(element!.price!)"
+            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
             self.header!.addSubview(self.textPrice2!)
         } else {
             ypos += SharedUIManager.instance.miniView_titleSize
@@ -162,24 +160,24 @@ class ElementMiniView: BNView {
             self.textPrice1!.textColor = UIColor.bnGrayDark()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
-            self.textPrice1!.text = element!.title!
+            self.textPrice1!.text = self.element!.title!
             self.header!.addSubview(self.textPrice1!)
         }
         
-        if showRemoveBtn {
-            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
-            removeItButton!.addTarget(self, action: "unBiinit:", forControlEvents: UIControlEvents.TouchUpInside)
-            self.addSubview(removeItButton!)
-        } else {
-            
-            //biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
-            //biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-            //xpos += 37
-            
-            //if self.element!.userCollected {
-            //    biinItButton!.showDisable()
-            //}
-        }
+//        if showRemoveBtn {
+//            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
+//            removeItButton!.addTarget(self, action: "unBiinit:", forControlEvents: UIControlEvents.TouchUpInside)
+//            self.addSubview(removeItButton!)
+//        } else {
+//            
+//            //biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
+//            //biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
+//            //xpos += 37
+//            
+//            //if self.element!.userCollected {
+//            //    biinItButton!.showDisable()
+//            //}
+//        }
         
         //shareItButton = BNUIButton_ShareIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
         //shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -198,11 +196,11 @@ class ElementMiniView: BNView {
     }
     
     override func transitionIn() {
-
+        
     }
     
     override func transitionOut( state:BNState? ) {
-
+        
     }
     
     override func setNextState(option:Int){
@@ -212,7 +210,7 @@ class ElementMiniView: BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-
+            
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -220,7 +218,7 @@ class ElementMiniView: BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-
+            
         }else{
             father!.updateUserControl(position)
         }
@@ -242,14 +240,15 @@ class ElementMiniView: BNView {
     
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
-        delegate!.showElementView!(self, element: self.element!)
-//        delegate!.showElementView!(self.element!, position:CGRectMake(0, 0, 0, 0))
+//        delegate!.showElementView!(self.element!)
+
+        //delegate!.showElementViewForHighlight!(self, position:CGRectMake(0, 0, 0, 0))
     }
     
     func userViewedElement(){
         element!.userViewed  = true
         header!.circleLabel?.animateCircleIn()
-
+        
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.VIEWED_ELEMENT, to:element!._id!)
         BNAppSharedManager.instance.dataManager.bnUser!.addElementView(element!._id!)
         BNAppSharedManager.instance.dataManager.bnUser!.save()
@@ -263,29 +262,29 @@ class ElementMiniView: BNView {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-//        BNAppSharedManager.instance.shareit(element!._id!)
+        //        BNAppSharedManager.instance.shareit(element!._id!)
         BNAppSharedManager.instance.shareIt(element!._id!, isElement: true)
         element!.userShared = true
         //header!.updateSocialButtonsForElement(element!)
     }
     
-    func unBiinit(sender:BNUIButton_ShareIt){
-        
-        UIView.animateWithDuration(0.1, animations: {()->Void in
-                self.alpha = 0
-            }, completion: {(completed:Bool)->Void in
-                BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement:true)
-                self.delegate!.resizeScrollOnRemoved!(self)
-                self.removeFromSuperview()
-        })
-    }
+//    func unBiinit(sender:BNUIButton_ShareIt){
+//        
+//        UIView.animateWithDuration(0.1, animations: {()->Void in
+//            self.alpha = 0
+//            }, completion: {(completed:Bool)->Void in
+//                BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement:true)
+//                self.delegate!.resizeScrollOnRemoved!(self)
+//                self.removeFromSuperview()
+//        })
+//    }
     
     override func refresh() {
         
-//        if element!.userCollected {
-//            header!.updateSocialButtonsForElement(element!)
-//            biinItButton?.showDisable()
-//        }
+        //        if element!.userCollected {
+        //            header!.updateSocialButtonsForElement(element!)
+        //            biinItButton?.showDisable()
+        //        }
     }
     
     func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
@@ -298,7 +297,7 @@ class ElementMiniView: BNView {
     
 }
 
-@objc protocol ElementMiniView_Delegate:NSObjectProtocol {
-    optional func showElementView( viewiew:ElementMiniView, element:BNElement )
-    optional func resizeScrollOnRemoved(view:ElementMiniView )
-}
+//@objc protocol ElementMiniView_Delegate:NSObjectProtocol {
+//    optional func showElementView(view:ElementMiniView, position:CGRect)
+//    optional func resizeScrollOnRemoved(view:ElementMiniView)
+//}

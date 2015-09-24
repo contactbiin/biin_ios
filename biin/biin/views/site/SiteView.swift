@@ -28,6 +28,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     //var informationView:SiteView_Information?
     
     var elementView:ElementView?
+    var elementMiniView:ElementMiniView?
     var isShowingElementView = false
     
     var siteLocationButton:BNUIButton_SiteLocation?
@@ -291,9 +292,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         })
     }
     
-    func showElementView(elementMiniView:ElementMiniView?){
+    func showElementView(element:BNElement){
 
-        elementView!.updateElementData(elementMiniView)
+        elementView!.updateElementData(element)
         
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.elementView!.frame.origin.x = 0
@@ -301,15 +302,18 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         })
     }
     
-    func hideElementView(view:ElementMiniView?) {        
+    
+    
+    func hideElementView(element:BNElement) {
+        
         UIView.animateWithDuration(0.4, animations: {() -> Void in
             self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
             self.fade!.alpha = 0
             }, completion: {(completed:Bool)-> Void in
                 
-                if !view!.element!.userViewed {
-                    view!.userViewedElement()
-                }
+//                if !view!.element!.userViewed {
+//                    view!.userViewedElement()
+//                }
                 
                 self.elementView!.clean()
         })

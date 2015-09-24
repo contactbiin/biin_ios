@@ -67,10 +67,10 @@ class MenuView:UIView {
         collectionsBtn!.addTarget(self, action: "collectionsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(collectionsBtn!)
         
-        ypos += distance
+        //ypos += distance
         loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Loyalty", comment: "loyalty button title"), iconType: BNIconType.loyaltyMedium)
         loyaltyBtn!.addTarget(self, action: "loyaltyBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(loyaltyBtn!)
+        //self.addSubview(loyaltyBtn!)
 
 //        ypos += distance
 //        notificationsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Notifications", comment: "notifications button title"), iconType: BNIconType.notificationMedium)

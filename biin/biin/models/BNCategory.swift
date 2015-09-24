@@ -22,6 +22,7 @@ class BNCategory:NSObject {
     var isUserCategory = false
     var hasSites = false
     var backgroundSites:Dictionary<String, BNSite>?
+    var priority = 1
     
     override init(){
         super.init()
@@ -43,7 +44,6 @@ class BNCategory:NSObject {
     deinit { }
 
     func addIconType(){
-        
         if identifier == "category1" {
             categoryType = BNCategoryType.personalcare
         } else if identifier == "category2" {

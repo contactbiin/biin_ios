@@ -44,7 +44,7 @@ class BNUIPricesView:UIView {
         //var ypos1:CGFloat = 6
         var ypos2:CGFloat = 4
         //var x_ypos:CGFloat = 11
-        var spacer:CGFloat = 60
+        //var spacer:CGFloat = 60
         
         if isMini {
             //fontSize1 = 10
@@ -52,7 +52,7 @@ class BNUIPricesView:UIView {
             //ypos1 = 6
             ypos2 = 4
             //x_ypos = 5
-            spacer = 40
+            //spacer = 40
         }
         
         //let size2 = getStringLength(price, fontName: "Lato-Light", fontSize: fontSize2)

@@ -369,7 +369,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
             
-            bnUser!.categories.append(category)
+            bnUser!.addCategory(category)
+//            bnUser!.categories.append(category)
             
         }
         
@@ -720,9 +721,136 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func manager(manager: BNNetworkManager!, didReceivedHightlight element: BNElement) {
-        elementsRequested[element.identifier!] = element
-        highlights[element._id!] = element._id!
-        manageElementRelationShips(element)
+//        elementsRequested[element.identifier!] = element
+//        highlights[element._id!] = element._id!
+//        manageElementRelationShips(element)
+    }
+    
+    func addHighlights(){
+        
+
+        
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        //let dataManager = BNAppSharedManager.instance.dataManager
+        //let user = dataManager.bnUser!
+        //var categories = user.categories
+        
+        for category in self.bnUser!.categories {
+            if category.hasSites {
+                for var i = 0; i < category.sitesDetails.count; i++ {
+                    
+                    let siteIdentifier = category.sitesDetails[i].identifier!
+                    
+                    if let site = self.sites[ siteIdentifier ] {
+                        if site.showInView {
+                            sitesArray.append(site)
+                            print("Adding site.....")
+                        }
+                    }
+                }
+            }
+        }
+        
+        sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
+        /*
+        for site in sitesArray {
+            if site.showInView {
+                if !isSiteAdded(site.identifier!) {
+                    //println("***** ADDING SITE:\(site.identifier!) title: \(site.title!)")
+                    
+                    if columnCounter < columns {
+                        columnCounter++
+                        xpos = xpos + siteSpacer
+                        
+                    } else {
+                        ypos = ypos + siteViewHeight + siteSpacer
+                        xpos = siteSpacer
+                        columnCounter = 1
+                    }
+                    
+                    let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                    miniSiteView.isPositionedInFather = true
+                    miniSiteView.isReadyToRemoveFromFather = false
+                    miniSiteView.delegate = father?.father! as! MainView
+                    
+                    sites!.append(miniSiteView)
+                    scroll!.addSubview(miniSiteView)
+                    
+                    xpos = xpos + siteViewWidth
+                    
+                } else {
+                    for siteView in sites! {
+                        if siteView.site!.identifier == site.identifier! && !siteView.isPositionedInFather {
+                            
+                            //println("***** POSITIONING SITE:\(site.identifier!) title: \(site.title!)")
+                            if columnCounter < columns {
+                                columnCounter++
+                                xpos = xpos + siteSpacer
+                                
+                            } else {
+                                ypos = ypos + siteViewHeight + siteSpacer
+                                xpos = siteSpacer
+                                columnCounter = 1
+                            }
+                            siteView.isPositionedInFather = true
+                            siteView.isReadyToRemoveFromFather = false
+                            siteView.frame = CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight)
+                            xpos = xpos + siteViewWidth
+                            
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        else {
+        //                        for var i = 0; i < sites!.count; i++ {
+        //                            if sites![i].site!.identifier == siteIdentifier {
+        //                                println("***** REMOVE SITE:\(siteIdentifier) title: \(sites![i].site!.title!)")
+        //                                sites![i].removeFromSuperview()
+        //                                sites!.removeAtIndex(i)
+        //                                break
+        //                            }
+        //                        }
+        }
+        }
+        }
+        }
+        */
+        ypos = ypos + siteViewHeight + siteSpacer
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        
+        //SharedUIManager.instance.miniView_height = siteViewHeight
+        //SharedUIManager.instance.miniView_width = siteViewWidth
+        //SharedUIManager.instance.miniView_columns = columns
+        
+        
+        //var sitesCount = sites!.count
+        for var i = 0; i < sites!.count; i++ {
+            if sites![i].isReadyToRemoveFromFather {
+                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
+                sites![i].removeFromSuperview()
+                sites!.removeAtIndex(i)
+                i = 0
+                
+            }
+        }
+        
+        
+        */
+        
+        
+    }
+    
+    func isSiteAdded(identifier:String) -> Bool {
+//        for siteView in sites! {
+//            if siteView.site!.identifier == identifier {
+//                return true
+//            }
+//        }
+        return false
     }
     
     func manageElementRelationShips(element:BNElement){

@@ -9,7 +9,9 @@ import UIKit
 class ElementView: BNView {
     
     var delegate:ElementView_Delegate?
-    var elementMiniView:ElementMiniView?
+    //var elementMiniView:ElementMiniView?
+    var element:BNElement?
+    
     var backBtn:BNUIButton_Back?
     
     var scroll:UIScrollView?
@@ -135,15 +137,15 @@ class ElementView: BNView {
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
-        delegate!.hideElementView!(elementMiniView)
-        self.elementMiniView!.refresh()
+        delegate!.hideElementView!(self.element!)
     }
     
-    func updateElementData(elementMiniView:ElementMiniView?) {
+    func updateElementData(element:BNElement) {
         
-        self.elementMiniView = elementMiniView
-
-        imagesScrollView!.updateImages(elementMiniView!.element!.media, isElement:true)
+//        self.elementMiniView = elementMiniView
+        self.element = element
+        
+        imagesScrollView!.updateImages(self.element!.media, isElement:true)
 
         updateBackBtn()
         updateLikeItBtn()
@@ -157,9 +159,9 @@ class ElementView: BNView {
             percentageView = nil
         }
         
-        if elementMiniView!.element!.hasDiscount {
+        if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"-\(elementMiniView!.element!.discount!)%", textSize:15, color:elementMiniView!.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 10, y: -10))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:15, color:self.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 10, y: -10))
             scroll!.addSubview(percentageView!)
         }
         
@@ -169,7 +171,7 @@ class ElementView: BNView {
         self.subTitle!.text = ""
         self.lineView!.alpha = 0
         
-        if elementMiniView!.element!.hasPrice && !elementMiniView!.element!.hasListPrice && !elementMiniView!.element!.hasFromPrice {
+        if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             ypos += 40
             self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
             self.textPrice1!.textColor = UIColor.bnGrayLight()
@@ -180,16 +182,16 @@ class ElementView: BNView {
             
             ypos += SharedUIManager.instance.elementView_titleSize
             self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
-            self.textPrice2!.textColor = elementMiniView!.element!.media[0].vibrantColor!
+            self.textPrice2!.textColor = self.element!.media[0].vibrantColor!
             self.textPrice2!.textAlignment = NSTextAlignment.Center
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-            self.textPrice2!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)"
+            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
             scroll!.addSubview(self.textPrice2!)
             ypos += 60
             
-        } else if elementMiniView!.element!.hasPrice && elementMiniView!.element!.hasListPrice {
+        } else if self.element!.hasPrice && self.element!.hasListPrice {
             
-            let text1Length = getStringLength("\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
+            let text1Length = getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
             let xposition:CGFloat = ( frame.width - text1Length ) / 2
             
             ypos += 40
@@ -197,7 +199,7 @@ class ElementView: BNView {
             self.textPrice1!.textColor = UIColor.bnGrayLight()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
-            self.textPrice1!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)"
+            self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
             self.scroll!.addSubview(self.textPrice1!)
             
             lineView!.alpha = 1
@@ -207,14 +209,14 @@ class ElementView: BNView {
             
             ypos += SharedUIManager.instance.elementView_titleSize
             self.textPrice2 = UILabel(frame: CGRectMake(0, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2)))
-            self.textPrice2!.textColor = elementMiniView!.element!.media[0].vibrantColor!
+            self.textPrice2!.textColor = self.element!.media[0].vibrantColor!
             self.textPrice2!.textAlignment = NSTextAlignment.Center
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-            self.textPrice2!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.listPrice!)"
+            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
             self.scroll!.addSubview(self.textPrice2!)
             ypos += 60
             
-        } else if elementMiniView!.element!.hasPrice &&  elementMiniView!.element!.hasFromPrice {
+        } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
             ypos += 40
             self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
             self.textPrice1!.textColor = UIColor.bnGrayLight()
@@ -225,10 +227,10 @@ class ElementView: BNView {
             
             ypos += SharedUIManager.instance.elementView_titleSize
             self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
-            self.textPrice2!.textColor = elementMiniView!.element!.media[0].vibrantColor!
+            self.textPrice2!.textColor = self.element!.media[0].vibrantColor!
             self.textPrice2!.textAlignment = NSTextAlignment.Center
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-            self.textPrice2!.text = "\(elementMiniView!.element!.currency!)\(elementMiniView!.element!.price!)"
+            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
             scroll!.addSubview(self.textPrice2!)
             ypos += 60
             
@@ -240,7 +242,7 @@ class ElementView: BNView {
         self.title!.textColor = UIColor.appTextColor()
         self.title!.textAlignment = NSTextAlignment.Left
         self.title!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
-        self.title!.text = elementMiniView!.element!.title!
+        self.title!.text = self.element!.title!
         scroll!.addSubview(self.title!)
         
         ypos += SharedUIManager.instance.elementView_titleSize + 3
@@ -248,7 +250,7 @@ class ElementView: BNView {
         self.subTitle!.textColor = UIColor.appTextColor()
         self.subTitle!.textAlignment = NSTextAlignment.Left
         self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
-        self.subTitle!.text = elementMiniView!.element!.subTitle!
+        self.subTitle!.text = self.element!.subTitle!
         scroll!.addSubview(self.subTitle!)
         ypos += SharedUIManager.instance.elementView_subTitleSize + 3
  
@@ -257,7 +259,7 @@ class ElementView: BNView {
             detailsView = nil
         }
         
-        detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:elementMiniView!.element)
+        detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
         scroll!.addSubview(detailsView!)
        
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenWidth + detailsView!.frame.height))
@@ -270,46 +272,46 @@ class ElementView: BNView {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(elementMiniView!.element!._id!, isElement: true)
+        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true)
     }
     
     func likeit(sender:BNUIButton_BiinIt){
-        elementMiniView!.element!.userLiked = !elementMiniView!.element!.userLiked
+        self.element!.userLiked = !self.element!.userLiked
         updateLikeItBtn()
     }
     
     func updateLikeItBtn() {
-        BNAppSharedManager.instance.likeIt(elementMiniView!.element!._id!, isElement: true)
-        likeItButton!.changedIcon(elementMiniView!.element!.userLiked)
-        likeItButton!.icon!.color = elementMiniView!.element!.media[0].vibrantColor!
+        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
+        likeItButton!.changedIcon(self.element!.userLiked)
+        likeItButton!.icon!.color = self.element!.media[0].vibrantColor!
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
         
-        if !elementMiniView!.element!.userCollected {
-            BNAppSharedManager.instance.collectIt(elementMiniView!.element!._id!, isElement: true)
+        if !self.element!.userCollected {
+            BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
         } else {
-            BNAppSharedManager.instance.unCollectit(elementMiniView!.element!._id!, isElement: true)
+            BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
         }
         
         updateCollectItBtn()
     }
     
     func updateCollectItBtn(){
-        collectItButton!.changeToCollectIcon(elementMiniView!.element!.userCollected)
-        collectItButton!.icon!.color = elementMiniView!.element!.media[0].vibrantColor!
+        collectItButton!.changeToCollectIcon(self.element!.userCollected)
+        collectItButton!.icon!.color = self.element!.media[0].vibrantColor!
         collectItButton!.setNeedsDisplay()
     }
     
     func updateShareBtn() {
-        shareItButton!.icon!.color = elementMiniView!.element!.media[0].vibrantColor!
+        shareItButton!.icon!.color = self.element!.media[0].vibrantColor!
         shareItButton!.setNeedsDisplay()
     }
     
     func updateBackBtn(){
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = elementMiniView!.element!.media[0].vibrantColor!.CGColor
-        backBtn!.layer.backgroundColor = elementMiniView!.element!.media[0].vibrantColor!.CGColor
+        backBtn!.layer.borderColor = self.element!.media[0].vibrantColor!.CGColor
+        backBtn!.layer.backgroundColor = self.element!.media[0].vibrantColor!.CGColor
         backBtn!.setNeedsDisplay()
     }
     
@@ -323,5 +325,5 @@ class ElementView: BNView {
 }
 
 @objc protocol ElementView_Delegate:NSObjectProtocol {
-    optional func hideElementView(view:ElementMiniView?)
+    optional func hideElementView(element:BNElement)
 }

@@ -295,8 +295,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        //print("HTTPBody: \(httpString)")
+        let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+        print("HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -324,8 +324,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        //print("BIIN - HTTPBody: \(httpString)")
+        let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+        print("BIIN - HTTPBody: \(httpString)")
         //NSLog("BIIN - HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in

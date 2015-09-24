@@ -43,6 +43,10 @@ class UIManager {
     var onBoardingView_spacer:CGFloat = 0
 
     
+    //Hightlighs Container.
+    var highlightsContainer_Height:CGFloat = 200
+    
+    
     //Sites View sizes
     var siteView_headerHeight:CGFloat = 95
     

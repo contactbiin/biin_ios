@@ -18,7 +18,7 @@ class Biinie:NSObject, NSCoding {
     var gender:String?
     var friends:Array<Biinie>?
     var imgUrl:String?
-    //var avatarImage:UIImageView? = UIImageView(image: UIImage(named:"view640X2.jpg"))
+
     var biins:Int?
     var following:Int?
     var followers:Int?
@@ -224,5 +224,9 @@ class Biinie:NSObject, NSCoding {
         } else {
             elementsViewed[_id] = _id
         }
+    }
+    
+    func addCategory(category:BNCategory) {
+        self.categories.append(category)
     }
 }

@@ -372,12 +372,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     */
     
     func sendCollectedElement(user: Biinie, element: BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
+        
+        let request = BNRequest_SendCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
         addToQueue(request)
     }
     
     func sendUnCollectedElement(user: Biinie, element:BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendUnBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/element/\(element.identifier!)", errorManager: self.errorManager!, networkManager: self)
+        let request = BNRequest_SendUnCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/element/\(element.identifier!)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -414,12 +415,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     */
     
     func sendCollectedSite(user: Biinie, site: BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
+        let request = BNRequest_SendCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
         addToQueue(request)
     }
     
     func sendUnCollectedSite(user: Biinie, site:BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendUnBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
+        let request = BNRequest_SendUnCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -682,7 +683,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///
     ///- parameter BNNetworkManager.:
     ///- parameter BNElement: requested.
-    optional func manager(manager:BNNetworkManager!, didReceivedHightlight element:BNElement)
+    //optional func manager(manager:BNNetworkManager!, didReceivedHightlight element:BNElement)
     
     
     ///Takes user biined element list and process data and request to download elements.
