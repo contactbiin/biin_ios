@@ -60,11 +60,13 @@ class UIManager {
     var siteView_nutshellSize:CGFloat = 12
     
     //Element view sizes
-    var elementView_titleSize:CGFloat = 18
+    var elementView_titleSize:CGFloat = 20
+    var elementView_subTitleSize:CGFloat = 16
     var elementView_textSize:CGFloat = 14
     var elementView_quoteSize:CGFloat = 14
     var elementView_priceList:CGFloat = 14
-    var elementView_headerHeight:CGFloat = 40
+    var elementView_headerHeight:CGFloat = 75
+    var elementView_priceTitleSize:CGFloat = 30
     
     //Showcase and Main view positions
     var titleTop        = CGRectMake(5, 20, 0, 0)
@@ -111,6 +113,12 @@ class UIManager {
     var onboardingSlide_DescriptionSize:CGFloat = 21
     var columns:Int = 2
     
+    //Detail View
+    var detailView_title:CGFloat = 20
+    var detailView_text:CGFloat = 13
+    var detailView_quoteSize:CGFloat = 15
+    var detailView_priceList:CGFloat = 13
+    
     func setDeviceVariables(){
         
         switch screenWidth {
@@ -140,7 +148,7 @@ class UIManager {
         switch deviceType {
         case .iphone4s, .iphone5, .iphone6:
             viewWidth = (screenWidth - 30) / 2
-            viewHeight = screenHeight / 4
+            viewHeight = screenHeight / 5
             columns = 2
             break
         case .iphone6Plus:

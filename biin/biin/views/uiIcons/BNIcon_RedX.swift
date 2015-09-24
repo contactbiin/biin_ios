@@ -25,7 +25,7 @@ class BNIcon_RedX:BNIcon {
         
         //// Group
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, (position.x + 2), (position.y + 10))
+        CGContextTranslateCTM(context, position.x, position.y)
         
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()

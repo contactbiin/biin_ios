@@ -29,7 +29,7 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Element.run()")
+        //print("BNRequest_Element.run()")
         isRunning = true
         //var response:BNResponse?
         
@@ -64,8 +64,8 @@ class BNRequest_Element: BNRequest {
                         self.element!.titleColor = BNParser.findUIColor("titleColor", dictionary: elementData)!
                         self.element!.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
                         self.element!.color = UIColor.elementColor()
-                        //element.socialButtonsColor = self.findUIColor("socialButtonsColor", dictionary: elementData)!
-                        
+                        self.element!.stars = BNParser.findFloat("stars", dictionary: elementData)!
+
                         self.element!.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
                         if self.element!.hasFromPrice {
                             self.element!.fromPrice = BNParser.findString("fromPrice", dictionary: elementData)
@@ -158,6 +158,15 @@ class BNRequest_Element: BNRequest {
                             let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                            
+                            var white:CGFloat = 0.0
+                            var alpha:CGFloat = 0.0
+                            _ = vibrantColor.getWhite(&white, alpha: &alpha)
+                            
+                            if white >= 0.55 {
+                                self.element!.useWhiteText = true
+                            }
+                            
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)
                         }
@@ -195,5 +204,4 @@ class BNRequest_Element: BNRequest {
             }
         })
     }
-
 }

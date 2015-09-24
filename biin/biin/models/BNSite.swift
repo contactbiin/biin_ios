@@ -23,6 +23,7 @@ class BNSite:NSObject, NSCoding {
     
     //Color
     var titleColor:UIColor?
+    var stars:Float = 0
     
     //Location
     var country:String?
@@ -41,7 +42,7 @@ class BNSite:NSObject, NSCoding {
     
     //Biins
     var biins = Array<BNBiin>()
-    
+    var useWhiteText = false
     //Loyalty
     //var loyalty:BNLoyalty?
 

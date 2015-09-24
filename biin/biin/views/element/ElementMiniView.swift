@@ -14,18 +14,23 @@ class ElementMiniView: BNView {
     var header:ElementMiniView_Header?
     var imageRequested = false
     
-    var biinItButton:BNUIButton_BiinIt?
-    var shareItButton:BNUIButton_ShareIt?
+    //var biinItButton:BNUIButton_BiinIt?
+    //var shareItButton:BNUIButton_ShareIt?
     var removeItButton:BNUIButton_RemoveIt?
-    var stickerView:BNUIStickerView?
-    var discountView:BNUIDiscountView?
-    var priceView:BNUIPricesView?
+    //var stickerView:BNUIStickerView?
+    //var discountView:BNUIDiscountView?
+    //var priceView:BNUIPricesView?
     
     var collectionScrollPosition:Int = 0
     
-    var animationView:BiinItAnimationView?
+    //var animationView:BiinItAnimationView?
+    
+    var percentageView:ElementMiniView_Precentage?
     
     var isNumberVisible = true
+    
+    var textPrice1:UILabel?
+    var textPrice2:UILabel?
     
 //    override init() {
 //        super.init()
@@ -46,8 +51,8 @@ class ElementMiniView: BNView {
     convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
         self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible)
         
-        biinItButton!.frame.origin.y = (frame.height - 92)
-        shareItButton!.frame.origin.y = (frame.height - 92)
+        //biinItButton!.frame.origin.y = (frame.height - 92)
+        //shareItButton!.frame.origin.y = (frame.height - 92)
 
         var siteMiniLocation:SiteView_MiniLocation?
         if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
@@ -63,7 +68,7 @@ class ElementMiniView: BNView {
         self.init(frame: frame, father:father )
         self.isNumberVisible = isNumberVisible
         
-        //self.layer.borderColor = UIColor.appMainColor().CGColor
+        self.layer.borderColor = UIColor.redColor().CGColor
         //self.layer.borderWidth = 1
         //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
@@ -73,19 +78,14 @@ class ElementMiniView: BNView {
         //self.layer.shadowOpacity = 0.25
         self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
         
-        if self.element!.media.count > 0 {
-            if let color = self.element!.media[0].domainColor {
-                self.backgroundColor = color
-            }
+        var imageSize:CGFloat = 0
+        if frame.width < frame.height {
+            imageSize = frame.height// - SharedUIManager.instance.miniView_headerHeight
         } else {
-            self.backgroundColor = UIColor.appMainColor()
+            imageSize = frame.width
         }
-        
         //Positioning image
-        let imageSize = frame.width// - SharedUIManager.instance.miniView_headerHeight
-        var xpos:CGFloat = 0//((imageSize - frame.height) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize))
-        //image!.alpha = 1
+        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
  
         if !isNumberVisible {
@@ -97,80 +97,98 @@ class ElementMiniView: BNView {
             self.addSubview(header!)
             header!.updateSocialButtonsForElement(self.element)
         }
-        
-        var ypos:CGFloat = 2//SharedUIManager.instance.miniView_headerHeight + 5
-        /*
-        if self.element!.hasDiscount {
-            discountView = BNUIDiscountView(frame: CGRectMake(-5, ypos, 40, 35), text: self.element!.discount!)
-            self.addSubview(discountView!)
-            ypos += 40
+    
+        if element!.hasDiscount {
+            let percentageViewSize:CGFloat = (SharedUIManager.instance.miniView_headerHeight - 5 )
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(element!.discount!)%", textSize:8, color:element!.media[0].vibrantColor!, textPosition:CGPoint(x: 5, y: -4))
+            self.addSubview(percentageView!)
         }
-        */
-        
-        if !element!.hasPrice && element!.hasDiscount{
+  
+        var ypos:CGFloat = 6
+        if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
+            ypos += SharedUIManager.instance.miniView_titleSize
+            self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
+            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textAlignment = NSTextAlignment.Left
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+            self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
+            self.header!.addSubview(self.textPrice1!)
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 25), price: "\(element!.discount!)%", isMini:true, isDiscount:true)
-            self.addSubview(priceView!)
-            ypos += 40
+        } else if element!.hasPrice && element!.hasListPrice {
             
-        } else if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
+            let text1Length = getStringLength("\(element!.currency!)\(element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 25), price: "\(element!.currency!)\(element!.price!)", isMini:true, isDiscount:false)
-            self.addSubview(priceView!)
-            ypos += 40
+            ypos += SharedUIManager.instance.miniView_titleSize
+            self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
+            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textAlignment = NSTextAlignment.Left
+            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
+            self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
+            self.header!.addSubview(self.textPrice1!)
             
-        } else if element!.hasPrice && element!.hasListPrice && element!.hasDiscount{
+            let lineView = UIView(frame: CGRectMake(5, (ypos + 7.5), (text1Length + 1), 0.5))
+            lineView.backgroundColor = UIColor.bnGrayDark()
+            self.header!.addSubview(lineView)
             
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 38), oldPrice:"\(element!.currency!)\(element!.price!)", newPrice:"\(element!.currency!)\(element!.listPrice!)", percentage:"\(element!.discount!)%", isMini:true, isHighlight:element!.isHighlight, color:element!.media[0].domainColor!)
-            self.addSubview(priceView!)
-            ypos += 40
+            self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 10), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
+            self.textPrice2!.textColor = UIColor.bnGrayDark()
+            self.textPrice2!.textAlignment = NSTextAlignment.Left
+            self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+            self.textPrice2!.text = "\(element!.currency!)\(element!.listPrice!)"
+            self.header!.addSubview(self.textPrice2!)
             
-        } else if element!.hasPrice && element!.hasListPrice && !element!.hasDiscount {
-            
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 38), oldPrice:"\(element!.currency!)\(element!.price!)", newPrice:"\(element!.currency!)\(element!.listPrice!)", isMini:true, isHighlight:element!.isHighlight)
-            self.addSubview(priceView!)
-            ypos += 40
         } else if element!.hasPrice &&  element!.hasFromPrice {
+  
+            let text1Length = getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
+            
+            ypos += SharedUIManager.instance.miniView_titleSize
+            self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
+            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textAlignment = NSTextAlignment.Left
+            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
+            self.textPrice1!.text = NSLocalizedString("From", comment: "From")
+            self.header!.addSubview(self.textPrice1!)
 
-            priceView = BNUIPricesView(frame: CGRectMake(0, ypos, 100, 38), price: "\(element!.currency!)\(element!.price!)", from:NSLocalizedString("From", comment: "From")
- , isMini:true, isHighlight:element!.isHighlight)
-            self.addSubview(priceView!)
-
-            ypos += 40
+            self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 7), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
+            self.textPrice2!.textColor = UIColor.bnGrayDark()
+            self.textPrice2!.textAlignment = NSTextAlignment.Left
+            self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+            self.textPrice2!.text = "\(element!.currency!)\(element!.price!)"
+            self.header!.addSubview(self.textPrice2!)
+        } else {
+            ypos += SharedUIManager.instance.miniView_titleSize
+            self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_subTittleSize + 2)))
+            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textAlignment = NSTextAlignment.Left
+            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
+            self.textPrice1!.text = element!.title!
+            self.header!.addSubview(self.textPrice1!)
         }
         
-        /*
-        if self.element!.hasSticker {
-            stickerView = BNUIStickerView(frame:CGRectMake((SharedUIManager.instance.miniView_width - 55), (SharedUIManager.instance.miniView_headerHeight + 5), 50, 50), type:self.element!.sticker!.type, color:self.element!.sticker!.color! )
-            self.addSubview(stickerView!)
-        }
-        */
-
-        
-        xpos = 5
         if showRemoveBtn {
             removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
             removeItButton!.addTarget(self, action: "unBiinit:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(removeItButton!)
         } else {
             
-            biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
-            biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-            //self.addSubview(biinItButton!)
-            xpos += 37
+            //biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
+            //biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
+            //xpos += 37
             
-            if self.element!.userCollected {
-                biinItButton!.showDisable()
-            }
+            //if self.element!.userCollected {
+            //    biinItButton!.showDisable()
+            //}
         }
         
-        shareItButton = BNUIButton_ShareIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
-        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        //shareItButton = BNUIButton_ShareIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
+        //shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(shareItButton!)
         
-        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, frame.width, frame.height))
-        animationView!.alpha = 0
+        //animationView = BiinItAnimationView(frame:CGRectMake(0, 0, frame.width, frame.height))
+        //animationView!.alpha = 0
         //self.addSubview(animationView!)
+        
+        
         
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
@@ -237,16 +255,16 @@ class ElementMiniView: BNView {
     
     func biinit(sender:BNUIButton_BiinIt){
         BNAppSharedManager.instance.collectIt(element!._id!, isElement:true)
-        header!.updateSocialButtonsForElement(element!)        
-        biinItButton!.showDisable()
-        animationView!.animate()
+        //header!.updateSocialButtonsForElement(element!)
+        //biinItButton!.showDisable()
+        //animationView!.animate()
     }
     
     func shareit(sender:BNUIButton_ShareIt){
 //        BNAppSharedManager.instance.shareit(element!._id!)
         BNAppSharedManager.instance.shareIt(element!._id!, isElement: true)
         element!.userShared = true
-        header!.updateSocialButtonsForElement(element!)
+        //header!.updateSocialButtonsForElement(element!)
     }
     
     func unBiinit(sender:BNUIButton_ShareIt){
@@ -262,11 +280,20 @@ class ElementMiniView: BNView {
     
     override func refresh() {
         
-        if element!.userCollected {
-            header!.updateSocialButtonsForElement(element!)
-            biinItButton?.showDisable()
-        }
+//        if element!.userCollected {
+//            header!.updateSocialButtonsForElement(element!)
+//            biinItButton?.showDisable()
+//        }
     }
+    
+    func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
+        let label = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        label.font = UIFont(name: fontName, size:fontSize)
+        label.text = text
+        label.sizeToFit()
+        return label.frame.width
+    }
+    
 }
 
 @objc protocol ElementMiniView_Delegate:NSObjectProtocol {

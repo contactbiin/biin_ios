@@ -52,6 +52,8 @@ class BNElement:NSObject {
     var reservedQuantity:String?
     var claimedQuantity:String?
     var actualQuantity:String?
+    var stars:Float = 0
+    var useWhiteText = false
     
     //Details
     var details:Array<BNElementDetail> = Array<BNElementDetail>()

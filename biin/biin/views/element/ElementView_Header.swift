@@ -8,13 +8,8 @@ import UIKit
 
 class ElementView_Header:BNView {
     
-    //var buttonsView:SocialButtonsView?
     var title:UILabel?
     var subTitle:UILabel?
-    
-//    override init() {
-//        super.init()
-//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,40 +22,29 @@ class ElementView_Header:BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-//        self.backgroundColor = UIColor.appMainColor()
         var ypos:CGFloat = 2
+        let xpos:CGFloat =  10
         
-        
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
         
-//        self.layer.masksToBounds = false
-//        self.layer.shadowOffset = CGSizeMake(0, 3)
-//        self.layer.shadowRadius = 2
-//        self.layer.shadowOpacity = 0.25
-        
-
-//        buttonsView = SocialButtonsView(frame: CGRectMake(0, ( SharedUIManager.instance.siteView_headerHeight + 5 ), frame.width, 15), father: self, element: nil)
-//        self.addSubview(buttonsView!)
-        
-        //ypos += 15
-        
-        title = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.biinColor()
+        title!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
-        title!.textAlignment = NSTextAlignment.Center
-        self.addSubview(title!)
+//        self.addSubview(title!)
+        visualEffectView.contentView.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_titleSize + 4
-        
-        subTitle = UILabel(frame: CGRectMake(30, ypos, (frame.width - 40), (SharedUIManager.instance.miniView_subTittleSize + 4)))
+        ypos += SharedUIManager.instance.siteView_titleSize + 2
+        subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        subTitle!.textColor = UIColor.appTextColor()
+        subTitle!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
-        subTitle!.textAlignment = NSTextAlignment.Center
-        self.addSubview(subTitle!)  
+//        self.addSubview(subTitle!)
+        visualEffectView.contentView.addSubview(subTitle!)
     }
 
     override func transitionIn() {
@@ -93,10 +77,7 @@ class ElementView_Header:BNView {
     }
     
     //Instance methods
-    //Instance methods
     func updateForElement(element:BNElement?) {
-        //buttonsView!.updateSocialButtonsForElement(element)
-        title!.textColor = UIColor.appTextColor()// element!.titleColor!
         title!.text = element!.title
         subTitle!.text = element!.subTitle
     }
