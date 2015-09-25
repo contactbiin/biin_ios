@@ -22,7 +22,7 @@ class UIManager {
     var menuWidth:CGFloat = 220
     
     //Categories (sections) variables
-    var categoriesHeaderHeight:CGFloat = 40
+    var categoriesHeaderHeight:CGFloat = 45
     var spacer:CGFloat = 1.0
     
     //MiniView
@@ -44,8 +44,20 @@ class UIManager {
 
     
     //Hightlighs Container.
-    var highlightsContainer_Height:CGFloat = 200
+    var highlightContainer_Height:CGFloat = 300
+    var highlightView_headerHeight:CGFloat = 80
+    var highlightView_titleSize:CGFloat = 25
+    var highlightView_subTitleSize:CGFloat = 20
+    var highlightView_priceSize:CGFloat = 20
     
+    //Site Container
+    var sitesContainer_Height:CGFloat = 0
+    
+    //Banner Container
+    var bannerContainer_Height:CGFloat = 150
+    
+    //Elements Container 
+    var elementContainer_Height:CGFloat = 200
     
     //Sites View sizes
     var siteView_headerHeight:CGFloat = 95
@@ -145,7 +157,7 @@ class UIManager {
         default:
             break
         }
-        
+        sitesContainer_Height = (screenWidth / 2)
         var viewWidth:CGFloat = 0
         var viewHeight:CGFloat = 0
         

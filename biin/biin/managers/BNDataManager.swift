@@ -708,6 +708,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
+        if highlights.count < 6 {
+            if element.isHighlight {
+                highlights[element._id!] = element._id!
+            }
+        }
+        
         /*
         //Checks if element received is reference on element and clone its self.
         for (key, value) in elements {

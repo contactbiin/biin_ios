@@ -367,21 +367,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         print("showLoyalties()")
     }
     
-    func showNotification(){
-        //header!.showNotification(quantity)
-        (biinieCategoriesState!.view as! BiinieCategoriesView).showNotification()
-        (notificationsState!.view as! NotificationsView).addNotifications()
-    }
-    
-    func hideNotification(){
-        //header!.hideNotification()
-        (biinieCategoriesState!.view as! BiinieCategoriesView).hideNotification()
-    }
-    
-    
-    
     override func refresh() {
-        biinieCategoriesState!.view!.refresh()
+        mainViewContainerState!.view!.refresh()
     }
     
     func updateHighlightsContainer() {

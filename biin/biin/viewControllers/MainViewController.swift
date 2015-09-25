@@ -62,6 +62,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         mainView!.delegate = self
         self.view.addSubview(self.mainView!)
         
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView.frame = CGRectMake(0, 0, frame.width, 20)
+//        self.view.addSubview(visualEffectView)
+        
         fadeView = UIView(frame: frame)
         fadeView!.backgroundColor = UIColor.blackColor()
         fadeView!.alpha = 0
@@ -262,15 +266,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
         self.view.addSubview(alert!)
         alert!.show()
-    }
-    
-    //BNAppManager_Delegate Methods
-    func manager(showNotifications value: Bool) {
-        mainView!.showNotification()
-    }
-    
-    func manager(hideNotifications value: Bool) {
-        mainView!.hideNotification()
     }
     
     var fullPath = ""

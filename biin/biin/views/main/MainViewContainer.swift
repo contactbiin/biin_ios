@@ -13,9 +13,10 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
     //var container:CategoriesView_Container?
     var header:BiinieCategoriesView_Header?
     
-    var highlightsContainer:HighlightsContainer?
-    
-    //var categorySitesContainers:Array <BNView>?
+    var highlightContainer:MainViewContainer_Highlights?
+    var sitesContainer:MainViewContainer_Sites?
+    var bannerContainer:MainViewContainer_Banner?
+    var elementContainers:Array <MainViewContainer_Elements>?
     //var panIndex = 0
     //var numberOfCategories = 0
     
@@ -48,11 +49,11 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        scroll = UIScrollView(frame:CGRectMake(0, SharedUIManager.instance.categoriesHeaderHeight, screenWidth, (screenHeight - SharedUIManager.instance.categoriesHeaderHeight)))
-        
+        scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
         scroll!.backgroundColor = UIColor.whiteColor()
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
+        scroll!.bounces = false
         scroll!.delegate = self
         self.addSubview(scroll!)
         
@@ -65,22 +66,78 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         
         //addRangedBiinsContainer()
         
-        header = BiinieCategoriesView_Header(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
+        header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         headerDelegate = header
-        //self.addSubview(header!)
+        self.addSubview(header!)
         
         fade = UIView(frame: frame)
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        highlightsContainer = HighlightsContainer(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.highlightsContainer_Height), father: self)
-        self.scroll!.addSubview(highlightsContainer!)
         
         elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
         elementView!.delegate = self
         self.addSubview(elementView!)
+        
+        
+        elementContainers = Array<MainViewContainer_Elements>()
+        
+        updateContainer()
     }
+    
+    func updateContainer(){
+        
+        
+        if elementContainers?.count > 0 {
+            
+            for view in scroll!.subviews {
+                
+                if view is MainViewContainer_Elements {
+                    (view as! MainViewContainer_Elements).transitionOut(nil)
+                    (view as! MainViewContainer_Elements).removeFromSuperview()
+                }
+            }
+            
+            elementContainers!.removeAll(keepCapacity: false)
+        }
+        
+
+        
+        let screenWidth = SharedUIManager.instance.screenWidth
+        //let screenHeight = SharedUIManager.instance.screenHeight
+        var ypos:CGFloat = 0
+        let spacer:CGFloat = 1
+        
+        self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.highlightContainer_Height), father: self)
+        self.scroll!.addSubview(self.highlightContainer!)
+        ypos += (SharedUIManager.instance.highlightContainer_Height + spacer)
+        
+        self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.sitesContainer_Height), father: self)
+        self.scroll!.addSubview(self.sitesContainer!)
+        ypos += (SharedUIManager.instance.sitesContainer_Height + spacer)
+
+        self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
+        self.scroll!.addSubview(self.bannerContainer!)
+        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
+        
+        
+        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            
+            if category.hasSites {
+                let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category)
+                ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
+                self.scroll!.addSubview(elementContainer)
+                self.elementContainers!.append(elementContainer)
+            }
+        
+        }
+        
+        
+        scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
+        
+    }
+    
     
     func showMenuBtnActon(sender:BNUIButton) {
         (father as! MainView).showMenu(UIScreenEdgePanGestureRecognizer())
@@ -127,17 +184,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
 //            view.refresh()
 //        }
     }
-    
 
-    
-    func showNotification(){
-        header!.showNotification()
-    }
-    
-    func hideNotification(){
-        header!.hideNotification()
-    }
-    
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //update header delegate categories control.
