@@ -41,16 +41,19 @@ class HighlightView: BNView {
         self.init(frame: frame, father:father )
         self.layer.masksToBounds = true
         self.element = element
-        
+
+        var ypos:CGFloat = 0
         var imageSize:CGFloat = 0
         if frame.width < frame.height {
             imageSize = frame.height// - SharedUIManager.instance.miniView_headerHeight
+            ypos = ((imageSize - frame.width) / 2) * -1
         } else {
             imageSize = frame.width
+            ypos = ((imageSize - frame.height) / 2) * -1
         }
         
         //Positioning image
-        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
+        image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
         
         let whiteView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
@@ -75,7 +78,7 @@ class HighlightView: BNView {
             siteAvatar!.showAfterDownload()
         }
         
-        var ypos:CGFloat = 5
+        ypos = 5
         let xpos:CGFloat = siteAvatarSize + 12
         
         let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_titleSize + 3)))
