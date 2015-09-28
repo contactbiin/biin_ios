@@ -163,9 +163,12 @@ class BNRequest_Element: BNRequest {
                             var alpha:CGFloat = 0.0
                             _ = vibrantColor.getWhite(&white, alpha: &alpha)
                             
-                            if white >= 0.55 {
+                            if white <= 0.4 {
                                 self.element!.useWhiteText = true
+                                print("--------------   element title:\(self.element!.title!) white: \(white)")
                             }
+
+
                             
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)

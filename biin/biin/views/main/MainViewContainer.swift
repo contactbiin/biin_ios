@@ -109,9 +109,9 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         var ypos:CGFloat = 0
         let spacer:CGFloat = 1
         
-        self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.highlightContainer_Height), father: self)
+        self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
         self.scroll!.addSubview(self.highlightContainer!)
-        ypos += (SharedUIManager.instance.highlightContainer_Height + spacer)
+        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight + spacer)
         
         self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.sitesContainer_Height), father: self)
         self.scroll!.addSubview(self.sitesContainer!)
@@ -225,7 +225,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
     
     func showElementView(element:BNElement){
         
-        
         elementView!.updateElementData(element)
         
         UIView.animateWithDuration(0.3, animations: {()-> Void in
@@ -241,11 +240,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
             self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
             self.fade!.alpha = 0
             }, completion: {(completed:Bool)-> Void in
-                
-                //                if !view!.element!.userViewed {
-                //                    view!.userViewedElement()
-                //                }
-                
+                self.highlightContainer!.startTimer()
                 self.elementView!.clean()
         })
     }

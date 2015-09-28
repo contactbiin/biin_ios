@@ -142,6 +142,8 @@ class BNElement:NSObject {
         clone.userLiked = self.userLiked
         clone.isHighlight = self.isHighlight
         if let value = self.siteIdentifier { clone.siteIdentifier = value }
+        clone.stars = self.stars
+        clone.useWhiteText = self.useWhiteText
         return clone
     }
 }

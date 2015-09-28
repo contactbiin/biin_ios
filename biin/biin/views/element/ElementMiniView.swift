@@ -77,16 +77,20 @@ class ElementMiniView: BNView {
         //self.layer.shadowRadius = 1
         //self.layer.shadowOpacity = 0.25
         self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
-        
+        var ypos:CGFloat = 0
         var imageSize:CGFloat = 0
         if frame.width < frame.height {
             imageSize = frame.height// - SharedUIManager.instance.miniView_headerHeight
+            ypos = ((imageSize - frame.width) / 2) * -1
+
         } else {
             imageSize = frame.width
+            ypos = ((imageSize - frame.height) / 2) * -1
+
         }
         
         //Positioning image
-        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
+        image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
  
         if !isNumberVisible {
@@ -105,7 +109,7 @@ class ElementMiniView: BNView {
             self.addSubview(percentageView!)
         }
   
-        var ypos:CGFloat = 6
+        ypos = 6
         if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))

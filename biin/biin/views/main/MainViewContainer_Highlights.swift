@@ -7,12 +7,12 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, SiteView_Delegate {
+class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_Delegate {
     
     
     var scroll:UIScrollView?
     var currentHighlight:Int = 0
-    
+    var timer:NSTimer?
     
     var hightlights:Array<HighlightView>?
 
@@ -39,8 +39,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
         hightlights = Array<HighlightView>()
         updateHighlightView()
         
-        let timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
-        timer.fire()
+        startTimer()
         
     }
     
@@ -103,20 +102,13 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
     
     func updateHighlightView(){
 
-
         var xpos:CGFloat = 0
 
-        
         for (_ , _id) in BNAppSharedManager.instance.dataManager.highlights {
             
             let element = BNAppSharedManager.instance.dataManager.elements[_id]
             
-            let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.highlightContainer_Height), father: self, element: element!)
-//            if element != showcase!.elements.last {
-//                xpos += elementView_width + spacer
-//            } else  {
-//                xpos += (elementView_width - 1)
-//            }
+            let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: element!)
             
             highlight.delegate = self
             scroll!.addSubview(highlight)
@@ -125,9 +117,10 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
             xpos += (SharedUIManager.instance.screenWidth )
         }
         
-        let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.highlightContainer_Height), father: self, element: hightlights![0].element!)
+        let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: hightlights![0].element!)
         lastHightLight.frame.origin.x = xpos
         lastHightLight.requestImage()
+        lastHightLight.delegate = self
         scroll!.addSubview(lastHightLight)
         hightlights!.append(lastHightLight)
         xpos += (SharedUIManager.instance.screenWidth )
@@ -192,8 +185,14 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
     }// called when scrolling animation finished. may be called immediately if already at top
     
     //ElementMiniView_Delegate
-    func showElementView(viewiew: ElementMiniView, element: BNElement) {
-        (father! as! SiteView).showElementView(element)
+    func showElementView(element: BNElement) {
+        self.timer!.invalidate()
+        (father! as! MainViewContainer).showElementView(element)
+    }
+    
+    func startTimer(){
+        timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
+        timer!.fire()
     }
 }
 

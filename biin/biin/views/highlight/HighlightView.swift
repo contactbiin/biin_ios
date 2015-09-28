@@ -9,7 +9,7 @@ import UIKit
 class HighlightView: BNView {
     
     var siteAvatar:BNUIImageView?
-    var delegate:ElementMiniView_Delegate?
+    var delegate:HightlightView_Delegate?
     var element:BNElement?
     var site:BNSite?
     var image:BNUIImageView?
@@ -42,6 +42,16 @@ class HighlightView: BNView {
         self.layer.masksToBounds = true
         self.element = element
 
+        let textColor:UIColor = UIColor.whiteColor()
+        var titleColor:UIColor?
+        
+        if self.element!.useWhiteText {
+            titleColor = self.element!.media[0].vibrantLightColor!
+        } else {
+            titleColor = self.element!.media[0].vibrantLightColor!
+        }
+        
+        
         var ypos:CGFloat = 0
         var imageSize:CGFloat = 0
         if frame.width < frame.height {
@@ -55,18 +65,25 @@ class HighlightView: BNView {
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
+
         
         let whiteView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
-        whiteView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-        self.addSubview(whiteView)
+        whiteView.backgroundColor = self.element!.media[0].vibrantColor!.colorWithAlphaComponent(0)
+        //self.addSubview(whiteView)
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
         visualEffectView.frame = CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight)
         self.addSubview(visualEffectView)
         
-        let siteAvatarSize = (SharedUIManager.instance.highlightView_headerHeight - 10)
-        siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
-        visualEffectView.addSubview(siteAvatar!)
+        let containerView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
+        containerView.backgroundColor = UIColor.clearColor()
+        self.addSubview(containerView)
+        
+
+        
+        let siteAvatarSize = (SharedUIManager.instance.highlightView_headerHeight - 8)
+        siteAvatar = BNUIImageView(frame: CGRectMake(4, 4, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
+        containerView.addSubview(siteAvatar!)
         
         site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
         
@@ -78,25 +95,25 @@ class HighlightView: BNView {
             siteAvatar!.showAfterDownload()
         }
         
-        ypos = 5
-        let xpos:CGFloat = siteAvatarSize + 12
+        ypos = 6
+        let xpos:CGFloat = siteAvatarSize + 10
         
         let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.highlightView_titleSize)
-        title.textColor = UIColor.bnGrayDark()
+        title.textColor = titleColor
         title.text = self.element!.title!
-        visualEffectView.addSubview(title)
+        containerView.addSubview(title)
         
         ypos += title.frame.height
         let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_subTitleSize + 3)))
-        subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.highlightView_subTitleSize)
-        subTitle.textColor = UIColor.bnGrayDark()
+        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
+        subTitle.textColor = textColor
         subTitle.text = self.site!.title!
-        visualEffectView.addSubview(subTitle)
+        containerView.addSubview(subTitle)
         
         if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = (SharedUIManager.instance.highlightView_headerHeight - 25)
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:15, color:self.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 10, y: -5))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:14, color:self.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 10, y: -5))
             self.addSubview(percentageView!)
         }
         
@@ -104,11 +121,11 @@ class HighlightView: BNView {
             
             ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame: CGRectMake(xpos, ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
-            visualEffectView.addSubview(self.textPrice1!)
+            containerView.addSubview(self.textPrice1!)
             
         } else if self.element!.hasPrice && self.element!.hasListPrice {
             
@@ -116,22 +133,22 @@ class HighlightView: BNView {
             
             ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
-            visualEffectView.addSubview(self.textPrice1!)
+            containerView.addSubview(self.textPrice1!)
             
-            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 8), (text1Length + 1), 1))
-            lineView.backgroundColor = UIColor.bnGrayDark()
-            visualEffectView.addSubview(lineView)
+            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 9), (text1Length + 1), 0.5))
+            lineView.backgroundColor = textColor
+            containerView.addSubview(lineView)
             
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos + 5), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
-            self.textPrice2!.textColor = UIColor.bnGrayDark()
+            self.textPrice2!.textColor = textColor
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
-            visualEffectView.addSubview(self.textPrice2!)
+            containerView.addSubview(self.textPrice2!)
             
         } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
             
@@ -139,18 +156,18 @@ class HighlightView: BNView {
             
             ypos += subTitle.frame.height 
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
-            visualEffectView.addSubview(self.textPrice1!)
+            containerView.addSubview(self.textPrice1!)
             
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos + 5), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
-            self.textPrice2!.textColor = UIColor.bnGrayDark()
+            self.textPrice2!.textColor = textColor
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
-            visualEffectView.addSubview(self.textPrice2!)
+            containerView.addSubview(self.textPrice2!)
         }
         
         
@@ -158,27 +175,27 @@ class HighlightView: BNView {
         
         var buttonSpace:CGFloat = 30
         //Share button
-        buttonSpace += 3
+        buttonSpace += 1
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
-        shareItButton!.icon!.color = self.element!.media[0].vibrantColor!
-        visualEffectView.addSubview(shareItButton!)
+        shareItButton!.icon!.color = titleColor
+        containerView.addSubview(shareItButton!)
         
         //Like button
         buttonSpace += 27
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
         likeItButton!.changedIcon(site!.userLiked)
-        likeItButton!.icon!.color = self.element!.media[0].vibrantColor!
-        visualEffectView.addSubview(likeItButton!)
+        likeItButton!.icon!.color = titleColor
+        containerView.addSubview(likeItButton!)
         
         //Collect button
         buttonSpace += 27
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
         collectItButton!.changeToCollectIcon(site!.userCollected)
-        collectItButton!.icon!.color = self.element!.media[0].vibrantColor!
-        visualEffectView.addSubview(collectItButton!)
+        collectItButton!.icon!.color = titleColor
+        containerView.addSubview(collectItButton!)
         
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
@@ -231,7 +248,7 @@ class HighlightView: BNView {
     
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
-//        delegate!.showElementView!(self.element!)
+        delegate!.showElementView!(self.element!)
 
         //delegate!.showElementViewForHighlight!(self, position:CGRectMake(0, 0, 0, 0))
     }
@@ -301,7 +318,6 @@ class HighlightView: BNView {
     
 }
 
-//@objc protocol ElementMiniView_Delegate:NSObjectProtocol {
-//    optional func showElementView(view:ElementMiniView, position:CGRect)
-//    optional func resizeScrollOnRemoved(view:ElementMiniView)
-//}
+@objc protocol HightlightView_Delegate:NSObjectProtocol {
+    optional func showElementView(element:BNElement)
+}
