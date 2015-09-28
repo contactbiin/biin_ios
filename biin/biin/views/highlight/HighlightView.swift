@@ -11,31 +11,18 @@ class HighlightView: BNView {
     var siteAvatar:BNUIImageView?
     var delegate:ElementMiniView_Delegate?
     var element:BNElement?
+    var site:BNSite?
     var image:BNUIImageView?
     
     var imageRequested = false
-    
-    //var biinItButton:BNUIButton_BiinIt?
-    //var shareItButton:BNUIButton_ShareIt?
-    //var removeItButton:BNUIButton_RemoveIt?
-    //var stickerView:BNUIStickerView?
-    //var discountView:BNUIDiscountView?
-    //var priceView:BNUIPricesView?
-    
-    var collectionScrollPosition:Int = 0
-    
-    //var animationView:BiinItAnimationView?
-    
     var percentageView:ElementMiniView_Precentage?
-    
-    //var isNumberVisible = true
     
     var textPrice1:UILabel?
     var textPrice2:UILabel?
     
-    //    override init() {
-    //        super.init()
-    //    }
+    var likeItButton:BNUIButton_LikeIt?
+    var shareItButton:BNUIButton_ShareIt?
+    var collectItButton:BNUIButton_CollectionIt?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,35 +35,12 @@ class HighlightView: BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
-    
-//    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
-//        self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible)
-//        
-//        //biinItButton!.frame.origin.y = (frame.height - 92)
-//        //shareItButton!.frame.origin.y = (frame.height - 92)
-//        
-//        var siteMiniLocation:SiteView_MiniLocation?
-//        if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
-//            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 50), frame.width, 50), father: self, site:site)
-//            self.addSubview(siteMiniLocation!)
-//        }
-//        
-//        
-//    }
-    
+
     convenience init(frame:CGRect, father:BNView?, element:BNElement){
         
         self.init(frame: frame, father:father )
-        
-        //self.layer.borderColor = UIColor.redColor().CGColor
-        //self.layer.borderWidth = 1
-        //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
-        
-        //self.layer.shadowOffset = CGSizeMake(0, 0.5)
-        //self.layer.shadowRadius = 1
-        //self.layer.shadowOpacity = 0.25
-        self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
+        self.element = element
         
         var imageSize:CGFloat = 0
         if frame.width < frame.height {
@@ -84,24 +48,28 @@ class HighlightView: BNView {
         } else {
             imageSize = frame.width
         }
+        
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
+        
+        let whiteView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
+        whiteView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
+        self.addSubview(whiteView)
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
         visualEffectView.frame = CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight)
         self.addSubview(visualEffectView)
         
-        
         let siteAvatarSize = (SharedUIManager.instance.highlightView_headerHeight - 10)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
         visualEffectView.addSubview(siteAvatar!)
         
-        weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+        site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
         
         if site!.organization!.media.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
-            siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
+            BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
+            siteAvatar!.cover!.backgroundColor = self.site!.organization!.media[0].vibrantColor!
         } else {
             siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
             siteAvatar!.showAfterDownload()
@@ -116,17 +84,22 @@ class HighlightView: BNView {
         title.text = self.element!.title!
         visualEffectView.addSubview(title)
         
+        ypos += title.frame.height
+        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_subTitleSize + 3)))
+        subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.highlightView_subTitleSize)
+        subTitle.textColor = UIColor.bnGrayDark()
+        subTitle.text = self.site!.title!
+        visualEffectView.addSubview(subTitle)
         
         if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = (SharedUIManager.instance.highlightView_headerHeight - 25)
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:15, color:self.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 5, y: -4))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:15, color:self.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 10, y: -5))
             self.addSubview(percentageView!)
         }
         
-
         if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             
-            ypos += title.frame.height + 3
+            ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame: CGRectMake(xpos, ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = UIColor.bnGrayDark()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -136,9 +109,9 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice && self.element!.hasListPrice {
             
-            let text1Length = getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
+            let text1Length = getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
-            ypos += title.frame.height + 3
+            ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = UIColor.bnGrayDark()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -146,11 +119,11 @@ class HighlightView: BNView {
             self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
             visualEffectView.addSubview(self.textPrice1!)
             
-            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 7.5), (text1Length + 1), 0.5))
+            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 8), (text1Length + 1), 1))
             lineView.backgroundColor = UIColor.bnGrayDark()
             visualEffectView.addSubview(lineView)
             
-            self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
+            self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos + 5), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice2!.textColor = UIColor.bnGrayDark()
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
@@ -159,9 +132,9 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
             
-            let text1Length = getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
+            let text1Length = getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
-            ypos += title.frame.height + 3
+            ypos += subTitle.frame.height 
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = UIColor.bnGrayDark()
             self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -169,46 +142,40 @@ class HighlightView: BNView {
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
             visualEffectView.addSubview(self.textPrice1!)
             
-            self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
+            self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos + 5), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice2!.textColor = UIColor.bnGrayDark()
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
             visualEffectView.addSubview(self.textPrice2!)
-        } else {
-            ypos += title.frame.height + 3
-            self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
-            self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
-            self.textPrice1!.text = self.element!.subTitle!
-            visualEffectView.addSubview(self.textPrice1!)
         }
         
-//        if showRemoveBtn {
-//            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
-//            removeItButton!.addTarget(self, action: "unBiinit:", forControlEvents: UIControlEvents.TouchUpInside)
-//            self.addSubview(removeItButton!)
-//        } else {
-//            
-//            //biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
-//            //biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-//            //xpos += 37
-//            
-//            //if self.element!.userCollected {
-//            //    biinItButton!.showDisable()
-//            //}
-//        }
-        
-        //shareItButton = BNUIButton_ShareIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
-        //shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(shareItButton!)
-        
-        //animationView = BiinItAnimationView(frame:CGRectMake(0, 0, frame.width, frame.height))
-        //animationView!.alpha = 0
-        //self.addSubview(animationView!)
         
         
+        
+        var buttonSpace:CGFloat = 30
+        //Share button
+        buttonSpace += 3
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
+        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        shareItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        visualEffectView.addSubview(shareItButton!)
+        
+        //Like button
+        buttonSpace += 27
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
+        likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
+        likeItButton!.changedIcon(site!.userLiked)
+        likeItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        visualEffectView.addSubview(likeItButton!)
+        
+        //Collect button
+        buttonSpace += 27
+        collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
+        collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
+        collectItButton!.changeToCollectIcon(site!.userCollected)
+        collectItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        visualEffectView.addSubview(collectItButton!)
         
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
@@ -274,30 +241,44 @@ class HighlightView: BNView {
 //        BNAppSharedManager.instance.dataManager.bnUser!.save()
     }
     
-    func biinit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.collectIt(element!._id!, isElement:true)
-        //header!.updateSocialButtonsForElement(element!)
-        //biinItButton!.showDisable()
-        //animationView!.animate()
-    }
     
+
     func shareit(sender:BNUIButton_ShareIt){
-        //        BNAppSharedManager.instance.shareit(element!._id!)
-        BNAppSharedManager.instance.shareIt(element!._id!, isElement: true)
-        element!.userShared = true
-        //header!.updateSocialButtonsForElement(element!)
+        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true)
     }
     
-//    func unBiinit(sender:BNUIButton_ShareIt){
-//        
-//        UIView.animateWithDuration(0.1, animations: {()->Void in
-//            self.alpha = 0
-//            }, completion: {(completed:Bool)->Void in
-//                BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement:true)
-//                self.delegate!.resizeScrollOnRemoved!(self)
-//                self.removeFromSuperview()
-//        })
-//    }
+    func likeit(sender:BNUIButton_BiinIt){
+        self.element!.userLiked = !self.element!.userLiked
+        updateLikeItBtn()
+    }
+    
+    func updateLikeItBtn() {
+        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
+        likeItButton!.changedIcon(self.element!.userLiked)
+        likeItButton!.icon!.color = self.element!.media[0].vibrantColor!
+    }
+    
+    func collectIt(sender:BNUIButton_CollectionIt){
+        
+        if !self.element!.userCollected {
+            BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
+        } else {
+            BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
+        }
+        
+        updateCollectItBtn()
+    }
+    
+    func updateCollectItBtn(){
+        collectItButton!.changeToCollectIcon(self.element!.userCollected)
+        collectItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        collectItButton!.setNeedsDisplay()
+    }
+    
+    func updateShareBtn() {
+        shareItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        shareItButton!.setNeedsDisplay()
+    }
     
     override func refresh() {
         

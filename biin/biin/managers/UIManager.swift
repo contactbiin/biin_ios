@@ -46,9 +46,9 @@ class UIManager {
     //Hightlighs Container.
     var highlightContainer_Height:CGFloat = 300
     var highlightView_headerHeight:CGFloat = 80
-    var highlightView_titleSize:CGFloat = 25
-    var highlightView_subTitleSize:CGFloat = 20
-    var highlightView_priceSize:CGFloat = 20
+    var highlightView_titleSize:CGFloat = 22
+    var highlightView_subTitleSize:CGFloat = 15
+    var highlightView_priceSize:CGFloat = 25
     
     //Site Container
     var sitesContainer_Height:CGFloat = 0

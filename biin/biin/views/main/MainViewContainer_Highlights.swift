@@ -38,7 +38,13 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
         
         hightlights = Array<HighlightView>()
         updateHighlightView()
+        
+        let timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
+        timer.fire()
+        
     }
+    
+    
     
     deinit{
         print("-------------- deinit in siteView_showcase")
@@ -84,13 +90,24 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
 
     }
     
+    func change(sender:NSTimer){
+        if currentHighlight < hightlights!.count {
+            let xpos:CGFloat = SharedUIManager.instance.screenWidth * CGFloat((currentHighlight))
+            scroll!.setContentOffset(CGPoint(x: xpos, y: 0), animated: true)
+            currentHighlight++
+            
+            print("current:\(currentHighlight)")
+            print("number:\(hightlights!.count)")
+        }
+    }
+    
     func updateHighlightView(){
 
 
         var xpos:CGFloat = 0
 
         
-        for (key , _id) in BNAppSharedManager.instance.dataManager.highlights {
+        for (_ , _id) in BNAppSharedManager.instance.dataManager.highlights {
             
             let element = BNAppSharedManager.instance.dataManager.elements[_id]
             
@@ -107,6 +124,14 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
             highlight.requestImage()
             xpos += (SharedUIManager.instance.screenWidth )
         }
+        
+        let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.highlightContainer_Height), father: self, element: hightlights![0].element!)
+        lastHightLight.frame.origin.x = xpos
+        lastHightLight.requestImage()
+        scroll!.addSubview(lastHightLight)
+        hightlights!.append(lastHightLight)
+        xpos += (SharedUIManager.instance.screenWidth )
+        
         scroll!.contentSize = CGSizeMake(xpos, SharedUIManager.instance.highlightContainer_Height)
         scroll!.bounces = false
     }
@@ -138,15 +163,21 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, ElementMiniView
     }// called on finger up as we are moving
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var scrollPosition = scrollView.contentOffset
+        let scrollPosition = scrollView.contentOffset
         currentHighlight = Int(scrollPosition.x / SharedUIManager.instance.screenWidth)
         
+ 
         
         print("scrollViewDidEndDecelerating \(currentHighlight)")
         
     }// called when scroll view grinds to a halt
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+
+        if currentHighlight == hightlights!.count {
+            scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            currentHighlight = 0
+        }
         print("scrollViewDidEndScrollingAnimation")
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
     
