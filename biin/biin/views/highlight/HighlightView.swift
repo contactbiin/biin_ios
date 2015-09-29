@@ -46,7 +46,7 @@ class HighlightView: BNView {
         var titleColor:UIColor?
         
         if self.element!.useWhiteText {
-            titleColor = self.element!.media[0].vibrantLightColor!
+            titleColor = UIColor.whiteColor()
         } else {
             titleColor = self.element!.media[0].vibrantLightColor!
         }
@@ -106,7 +106,7 @@ class HighlightView: BNView {
         
         ypos += title.frame.height
         let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_subTitleSize + 3)))
-        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
+        subTitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.highlightView_subTitleSize)
         subTitle.textColor = textColor
         subTitle.text = self.site!.title!
         containerView.addSubview(subTitle)
