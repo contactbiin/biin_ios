@@ -107,7 +107,7 @@ class BNRequest_Site: BNRequest {
                             var alpha:CGFloat = 0.0
                             _ = vibrantColor.getWhite(&white, alpha: &alpha)
                             
-                            if white >= 0.55 {
+                            if white <= 0.7 {
                                 new_site.useWhiteText = true
                             }
                             

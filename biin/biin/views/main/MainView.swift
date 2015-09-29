@@ -234,6 +234,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isSectionsLast = false
             isSectionOrShowcase = true
             */
+            
             state!.next(self.mainViewContainerState)
             lastOption = option
             break
@@ -314,11 +315,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     //SiteMiniView_Delegate Methods
-    func showSiteView(view: SiteMiniView, site: BNSite?, position: CGRect) {
-        //println("site to show: \(site!.identifier) xpos: \(position.origin.x) ypos: \(position.origin.y)")
-        (siteState!.view as! SiteView).updateSiteData(site)
+    func showSiteView(view: SiteMiniView) {
+        (siteState!.view as! SiteView).updateSiteData(view.site!)
         setNextState(2)
-        
     }
     
     

@@ -22,8 +22,10 @@ class MainViewContainerState:BNState {
     }
     
     override func next( state:BNState? ) {
-        //println("goto state: \(state)")
+        print("goto state: \(state)")
         context!.state = state
         view!.transitionOut( context!.state )
+
+        
     }
 }

@@ -193,8 +193,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.BiinieCategoriesState {
-            UIView.animateWithDuration(0.4, animations: {()-> Void in
+        if state!.stateType == BNStateType.MainViewContainerState {
+            UIView.animateWithDuration(0.3, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
             })
         }

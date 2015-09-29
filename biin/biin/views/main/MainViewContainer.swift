@@ -112,11 +112,13 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth
         self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
         self.scroll!.addSubview(self.highlightContainer!)
-        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight + spacer)
+        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)
         
-        self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.sitesContainer_Height), father: self)
+        let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight
+        
+        self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, sitesContainerHeight), father: self)
         self.scroll!.addSubview(self.sitesContainer!)
-        ypos += (SharedUIManager.instance.sitesContainer_Height + spacer)
+        ypos += sitesContainerHeight
 
         self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
         self.scroll!.addSubview(self.bannerContainer!)
@@ -230,7 +232,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.elementView!.frame.origin.x = 0
-            self.fade!.alpha = 0.25
+            self.fade!.alpha = 0.5
         })
     }
     
