@@ -100,10 +100,12 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_
         }
     }
     
+
+    
     func updateHighlightView(){
 
         var xpos:CGFloat = 0
-
+        
         for (_ , _id) in BNAppSharedManager.instance.dataManager.highlights {
             
             let element = BNAppSharedManager.instance.dataManager.elements[_id]

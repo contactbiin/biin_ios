@@ -42,44 +42,31 @@ class HighlightView: BNView {
         self.layer.masksToBounds = true
         self.element = element
 
-        let textColor:UIColor = UIColor.whiteColor()
-        var titleColor:UIColor?
-        
+        var textColor:UIColor?
+        var decorationColor:UIColor?
         if self.element!.useWhiteText {
-            titleColor = UIColor.whiteColor()
+            textColor = UIColor.whiteColor()
+            decorationColor = self.element!.media[0].vibrantDarkColor
         } else {
-            titleColor = self.element!.media[0].vibrantLightColor!
+            textColor = UIColor.bnGrayDark()
+            decorationColor = self.element!.media[0].vibrantLightColor
         }
-        
         
         var ypos:CGFloat = 0
-        var imageSize:CGFloat = 0
-        if frame.width < frame.height {
-            imageSize = frame.height// - SharedUIManager.instance.miniView_headerHeight
-            ypos = ((imageSize - frame.width) / 2) * -1
-        } else {
-            imageSize = frame.width
-            ypos = ((imageSize - frame.height) / 2) * -1
-        }
+        let imageSize:CGFloat = frame.width
         
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
-
-        
-        let whiteView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
-        whiteView.backgroundColor = self.element!.media[0].vibrantColor!.colorWithAlphaComponent(0)
-        //self.addSubview(whiteView)
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
         visualEffectView.frame = CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight)
         self.addSubview(visualEffectView)
+
         
         let containerView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
-        containerView.backgroundColor = UIColor.clearColor()
+        containerView.backgroundColor = self.element!.media[0].vibrantColor!
         self.addSubview(containerView)
-        
-
         
         let siteAvatarSize = (SharedUIManager.instance.highlightView_headerHeight - 8)
         siteAvatar = BNUIImageView(frame: CGRectMake(4, 4, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
@@ -98,9 +85,9 @@ class HighlightView: BNView {
         ypos = 6
         let xpos:CGFloat = siteAvatarSize + 10
         
-        let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_titleSize + 3)))
+        let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - (20 + siteAvatarSize + 16)), (SharedUIManager.instance.highlightView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.highlightView_titleSize)
-        title.textColor = titleColor
+        title.textColor = textColor
         title.text = self.element!.title!
         containerView.addSubview(title)
         
@@ -113,7 +100,7 @@ class HighlightView: BNView {
         
         if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = (SharedUIManager.instance.highlightView_headerHeight - 25)
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:14, color:self.element!.media[0].vibrantColor!, textPosition:CGPoint(x: 10, y: -5))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:12, color:decorationColor!, textPosition:CGPoint(x: 6, y: -4))
             self.addSubview(percentageView!)
         }
         
@@ -178,23 +165,23 @@ class HighlightView: BNView {
         buttonSpace += 1
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
-        shareItButton!.icon!.color = titleColor
+        shareItButton!.icon!.color = decorationColor
         containerView.addSubview(shareItButton!)
         
         //Like button
         buttonSpace += 27
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
-        likeItButton!.changedIcon(site!.userLiked)
-        likeItButton!.icon!.color = titleColor
+        likeItButton!.changedIcon(self.element!.userLiked)
+        likeItButton!.icon!.color = decorationColor
         containerView.addSubview(likeItButton!)
         
         //Collect button
         buttonSpace += 27
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
-        collectItButton!.changeToCollectIcon(site!.userCollected)
-        collectItButton!.icon!.color = titleColor
+        collectItButton!.changeToCollectIcon(self.element!.userCollected)
+        collectItButton!.icon!.color = decorationColor
         containerView.addSubview(collectItButton!)
         
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
@@ -240,6 +227,30 @@ class HighlightView: BNView {
         
         if element!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(element!.media[0].url!, image: image)
+            
+            
+
+            
+            /*
+            let ssView = UIView(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.highlightView_headerHeight))
+            
+            let ssYpos:CGFloat = (SharedUIManager.instance.screenWidth - SharedUIManager.instance.highlightView_headerHeight) * -1
+            
+            let ssImageToRender = UIImageView(image:self.image!.image!)
+            ssImageToRender.frame = CGRectMake(0, ssYpos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth)
+            ssView.addSubview(ssImageToRender)
+            
+            let imageSS = imageFromView(ssView)
+
+            let imageView = UIImageView(image: imageSS)
+            imageView.frame = CGRectMake(0, 100, frame.width, SharedUIManager.instance.highlightView_headerHeight)
+            self.addSubview(imageView)
+            
+            let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+            visualEffectView.frame = CGRectMake(0, 100, frame.width, SharedUIManager.instance.highlightView_headerHeight)
+            self.addSubview(visualEffectView)
+            */
+            
         } else {
             image!.image =  UIImage(named: "noImage.jpg")
             image!.showAfterDownload()
@@ -314,6 +325,24 @@ class HighlightView: BNView {
         label.text = text
         label.sizeToFit()
         return label.frame.width
+    }
+    
+    
+    func imageFromView(view:UIView) -> UIImage {
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0.0)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        _ = UIImageJPEGRepresentation(image, 1)
+        //let relativePath = "image_\(NSDate.timeIntervalSinceReferenceDate()).jpg"
+        //let path = BNAppSharedManager.instance.mainViewController!.documentsPathForFileName(relativePath)
+        //imageData!.writeToFile(path, atomically: true)
+       // NSUserDefaults.standardUserDefaults().setObject(relativePath, forKey: "path")
+       // NSUserDefaults.standardUserDefaults().synchronize()
+        
+        return image
     }
     
 }

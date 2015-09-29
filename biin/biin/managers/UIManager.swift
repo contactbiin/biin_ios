@@ -81,7 +81,7 @@ class UIManager {
     var elementView_textSize:CGFloat = 14
     var elementView_quoteSize:CGFloat = 14
     var elementView_priceList:CGFloat = 14
-    var elementView_headerHeight:CGFloat = 75
+    var elementView_headerHeight:CGFloat = 70
     var elementView_priceTitleSize:CGFloat = 30
     
     //Showcase and Main view positions

@@ -163,7 +163,7 @@ class BNRequest_Element: BNRequest {
                             var alpha:CGFloat = 0.0
                             _ = vibrantColor.getWhite(&white, alpha: &alpha)
                             
-                            if white <= 0.4 {
+                            if white <= 0.7 {
                                 self.element!.useWhiteText = true
                                 print("--------------   element title:\(self.element!.title!) white: \(white)")
                             }
