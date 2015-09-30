@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Sites:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, SiteView_Delegate {
+class MainViewContainer_Sites:BNView, UIScrollViewDelegate, SiteMiniView_Delegate, SiteView_Delegate {
     
     var title:UILabel?
     var subTitle:UILabel?
@@ -14,7 +14,9 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate, ElementMiniView_Dele
     
     var spacer:CGFloat = 1
     
-    var hightlights:Array<HighlightView>?
+    var sites:Array<SiteMiniView>?
+    var addedSitesIdentifiers:Dictionary<String, SiteMiniView>?
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,45 +28,25 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate, ElementMiniView_Dele
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.bnGrayLight()
+        self.backgroundColor = UIColor.appBackground()
         
-        //TODO: Add all showcase data here
         let screenWidth = SharedUIManager.instance.screenWidth
-        //var screenHeight = SharedUIManager.instance.screenHeight
         
         var ypos:CGFloat = SharedUIManager.instance.miniView_height + 6
-        //ypos += 18
+
         
-        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title = UILabel(frame: CGRectMake(15, 11, (frame.width - 20), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
-        title!.text = "Lugares cercanos a vos"
-        title!.textColor = UIColor.whiteColor()
-        
-        //        if let color = self.showcase!.titleColor {
-        //            title!.textColor = self.showcase!.titleColor!
-        //        } else {
-        //            title!.textColor = UIColor.appTextColor()
-        //        }
+        let titleText = "LUGARES CERCANOS A VOS"
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        title!.textColor = UIColor.bnGrayDark()
         
         self.addSubview(title!)
-        
-        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
-        
-        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
-        subTitle!.textColor = UIColor.whiteColor()
-        subTitle!.text = "Lugares cercanos a vos subtitulo"
-        self.addSubview(subTitle!)
-        
-        //TESTING NOTIFICATIONS
-        //        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
-        //        addNotificationBtn!.backgroundColor = UIColor.redColor()
-        //        addNotificationBtn!.addTarget(self, action: "addNotificationBtn:", forControlEvents: UIControlEvents.TouchUpInside)
-        //        self.addSubview(addNotificationBtn!)
-        
-        //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
-        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
+
+        let scrollHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
+        scroll = UIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
         scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
@@ -72,9 +54,10 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate, ElementMiniView_Dele
         scroll!.backgroundColor = UIColor.clearColor()
         self.addSubview(scroll!)
         
-        
-        
-        //addElementViews()
+        sites = Array<SiteMiniView>()
+        addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
+
+        addAllSites()
     }
     
     deinit{
@@ -125,80 +108,111 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate, ElementMiniView_Dele
         
     }
     
-    func addElementViews(){
-        /*
-        var elementPosition:Int = 1
-        var xpos:CGFloat = 0
-        var elementsViewed = 0
-        elements = Array<ElementMiniView>()
+    func addAllSites(){
+    
         
-        var elementView_width:CGFloat = 0
-        
-        if showcase!.elements.count == 1 {
-        elementView_width = SharedUIManager.instance.screenWidth
-        } else if showcase!.elements.count == 2 {
-        elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
-        } else if showcase!.elements.count == 3 {
-        elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 3)
+        if sites != nil {
+            addedSitesIdentifiers!.removeAll(keepCapacity: false)
+            for view in sites! {
+                view.isPositionedInFather = false
+                view.isReadyToRemoveFromFather = true
+            }
         } else {
-        elementView_width = SharedUIManager.instance.miniView_width
+            sites = Array<SiteMiniView>()
+            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
         }
         
-        if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
-        isLoyaltyEnabled = true
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            if category.hasSites {
+                for var i = 0; i < category.sitesDetails.count; i++ {
+                    
+                    let siteIdentifier = category.sitesDetails[i].identifier!
+                    
+                    if let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ] {
+                        if site.showInView {
+                            sitesArray.append(site)
+                            print("Adding site.....")
+                        }
+                    }
+                }
+            }
         }
         
-        for element in showcase!.elements {
+        sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
+        
+        var xpos:CGFloat = 0
+        var ypos:CGFloat = 1
+        var siteView_width:CGFloat = 0
+        
+        if sitesArray.count == 1 {
+            siteView_width = SharedUIManager.instance.screenWidth
+        } else {
+            siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+        }
+        //else if sitesArray.count == 3 {
+            //siteView_width = ((SharedUIManager.instance.screenWidth - 2) / 3)
+        //} else {
+          //  siteView_width = SharedUIManager.instance.miniView_width
+        //}
         
         
-        let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled)
         
-        if element != showcase!.elements.last {
-        xpos += elementView_width + spacer
-        } else  {
-        xpos += (elementView_width - 1)
+        
+        for site in sitesArray {
+            if site.showInView {
+                if !isSiteAdded(site.identifier!) {
+                    
+                    let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
+                    let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteView_width, miniSiteHeight), father: self, site:site)
+                    miniSiteView.isPositionedInFather = true
+                    miniSiteView.isReadyToRemoveFromFather = false
+                    miniSiteView.delegate = father?.father! as! MainView
+                    
+                    sites!.append(miniSiteView)
+                    scroll!.addSubview(miniSiteView)
+                    
+                    xpos += siteView_width + 1
+                    
+                }
+//                else {
+//                    for siteView in sites! {
+//                        if siteView.site!.identifier == site.identifier! && !siteView.isPositionedInFather {
+//                            
+//                  
+//                            siteView.isPositionedInFather = true
+//                            siteView.isReadyToRemoveFromFather = false
+//                            siteView.frame = CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight)
+//                            xpos = xpos + siteViewWidth
+//                            
+//                            break
+//                        }
+//                    }
+//                }
+            }
         }
         
-        elementView.delegate = self
-        scroll!.addSubview(elementView)
-        elements!.append(elementView)
-        elementPosition++
-        
-        
-        
-        if element.userViewed {
-        elementsViewed++
+        scroll!.contentSize = CGSizeMake(xpos, 100)
+
+        for var i = 0; i < sites!.count; i++ {
+            if sites![i].isReadyToRemoveFromFather {
+                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
+                sites![i].removeFromSuperview()
+                sites!.removeAtIndex(i)
+                i = 0
+                
+            }
         }
-        
-        elementView.requestImage()
-        
+    }
+    
+    func isSiteAdded(identifier:String) -> Bool {
+        for siteView in sites! {
+            if siteView.site!.identifier == identifier {
+                return true
+            }
         }
-        
-        xpos += spacer
-        
-        if self.site!.organization!.isLoyaltyEnabled {
-        if self.site!.organization!.loyalty!.isSubscribed {
-        //Add game view
-        gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
-        scroll!.addSubview(gameView!)
-        xpos += SharedUIManager.instance.screenWidth
-        } else  {
-        joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!)
-        scroll!.addSubview(joinView!)
-        xpos += SharedUIManager.instance.screenWidth
-        }
-        
-        if !self.showcase!.isShowcaseGameCompleted {
-        let of = NSLocalizedString("Of", comment: "Of")
-        gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
-        }
-        }
-        
-        scroll!.contentSize = CGSizeMake(xpos, 0)
-        scroll!.setContentOffset(CGPointZero, animated: false)
-        scroll!.bounces = false
-        scroll!.pagingEnabled = false
-        */
+        return false
     }
     
     /* UIScrollViewDelegate Methods */
@@ -244,8 +258,9 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate, ElementMiniView_Dele
         
     }// called when scrolling animation finished. may be called immediately if already at top
     
-    //ElementMiniView_Delegate
-    func showElementView(viewiew: ElementMiniView, element: BNElement) {
-        (father! as! SiteView).showElementView(element)
+    //SiteMiniView_Delegate
+    func showSiteView(view: SiteMiniView) {
+        
+        //(father! as! SiteView).showElementView(element)
     }
 }

@@ -92,21 +92,34 @@ class HighlightView: BNView {
         containerView.addSubview(title)
         
         ypos += title.frame.height
-        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_subTitleSize + 3)))
-        subTitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.highlightView_subTitleSize)
+        let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_subTitleSize + 4)))
+        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
         subTitle.textColor = textColor
         subTitle.text = self.site!.title!
         containerView.addSubview(subTitle)
         
+        let subTitleLength = getStringLength(self.site!.title!, fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_subTitleSize)
+        
+        
+        let location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.highlightView_subTitleSize + 4)))
+        location.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
+        location.textColor = textColor
+        location.text = "❘\(self.site!.city!)"
+        containerView.addSubview(location)
+        
         if self.element!.hasDiscount {
-            let percentageViewSize:CGFloat = (SharedUIManager.instance.highlightView_headerHeight - 25)
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(self.element!.discount!)%", textSize:12, color:decorationColor!, textPosition:CGPoint(x: 6, y: -4))
+            let percentageViewSize:CGFloat = 60
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+
+            
+            
             self.addSubview(percentageView!)
         }
         
+        ypos += (subTitle.frame.height + 2)
         if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             
-            ypos += subTitle.frame.height
+            //ypos += (subTitle.frame.height + 1)
             self.textPrice1 = UILabel(frame: CGRectMake(xpos, ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -118,7 +131,7 @@ class HighlightView: BNView {
             
             let text1Length = getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
-            ypos += subTitle.frame.height
+            //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -141,7 +154,7 @@ class HighlightView: BNView {
             
             let text1Length = getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
-            ypos += subTitle.frame.height 
+            //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -162,7 +175,7 @@ class HighlightView: BNView {
         
         var buttonSpace:CGFloat = 30
         //Share button
-        buttonSpace += 1
+        buttonSpace += 5
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         shareItButton!.icon!.color = decorationColor

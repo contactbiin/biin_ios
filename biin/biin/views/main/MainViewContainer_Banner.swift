@@ -48,6 +48,10 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate, ElementMiniView_Del
         //            title!.textColor = UIColor.appTextColor()
         //        }
         
+        var banner = UIImageView(image: UIImage(named: "cityBanner.png"))
+        banner.frame = CGRectMake(0, 0, frame.width, frame.height)
+        self.addSubview(banner)
+        
         self.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2

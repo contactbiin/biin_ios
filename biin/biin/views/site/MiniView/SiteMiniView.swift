@@ -9,7 +9,7 @@ import UIKit
 class SiteMiniView: BNView {
     
     var delegate:SiteMiniView_Delegate?
-    weak var site:BNSite?
+    var site:BNSite?
     var image:BNUIImageView?
     var header:SiteMiniView_Header?
     var imageRequested = false
@@ -40,9 +40,9 @@ class SiteMiniView: BNView {
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
         self.init(frame: frame, father:father )
         
-        self.layer.borderColor = UIColor.appMainColor().CGColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 5
+//        self.layer.borderColor = UIColor.appMainColor().CGColor
+//        self.layer.borderWidth = 1
+//        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
         //self.layer.shadowOffset = CGSizeMake(0, 0.5)
@@ -63,15 +63,15 @@ class SiteMiniView: BNView {
 
 
         //Positioning image
-        let imageSize = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
+        let imageSize = frame.width
         let xpos = ((imageSize - frame.width) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(xpos, SharedUIManager.instance.siteMiniView_headerHeight, imageSize, imageSize), color:site!.media[0].vibrantColor!)
+        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:site!.media[0].vibrantColor!)
         //image!.alpha = 0
         self.addSubview(image!)
         
-        header = SiteMiniView_Header(frame: CGRectMake(0, 0, frame.width, SharedUIManager.instance.siteMiniView_headerHeight), father: self, site: site, showShareButton:true)
+        header = SiteMiniView_Header(frame: CGRectMake(0, SharedUIManager.instance.siteMiniView_imageheight, frame.width, SharedUIManager.instance.siteMiniView_headerHeight), father: self, site: site, showShareButton:true)
         self.addSubview(header!)
-        header!.updateSocialButtonsForSite(site)
+        //header!.updateSocialButtonsForSite(site)
         
 //        var nutshell = UILabel(frame: CGRectMake(10, 100, (frame.width - 20), 14))
 //        nutshell.font = UIFont(name:"Lato-Black", size:12)
@@ -88,6 +88,8 @@ class SiteMiniView: BNView {
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()
+        
+        requestImage()
     }
     
     override func transitionIn() {
@@ -136,9 +138,9 @@ class SiteMiniView: BNView {
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
         
-        let siteContainer = father as! BiinieCategoriesView_SitesContainer
-        let position = father!.father!.convertRect(self.frame, fromView: siteContainer.scroll!)
-        delegate!.showSiteView!(self, site: site, position:position)
+        //let siteContainer = father as! BiinieCategoriesView_SitesContainer
+        //let position = father!.father!.convertRect(self.frame, fromView: siteContainer.scroll!)
+        delegate!.showSiteView!(self)
         
         //Trigered transition to showcase view.
         //var view = sender.view as SectionBotomView
@@ -153,5 +155,5 @@ class SiteMiniView: BNView {
 }
 
 @objc protocol SiteMiniView_Delegate:NSObjectProtocol {
-    optional func showSiteView(view:SiteMiniView, site:BNSite?, position:CGRect)
+    optional func showSiteView(view:SiteMiniView)
 }

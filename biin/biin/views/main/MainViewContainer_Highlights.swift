@@ -26,7 +26,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.bnBlueLight()
+        self.backgroundColor = UIColor.greenColor()
         
         //TODO: Add all showcase data here
         scroll = UIScrollView(frame: CGRectMake(0, 0, frame.width, frame.height))
