@@ -118,13 +118,24 @@ class ElementMiniView: BNView {
             header!.updateSocialButtonsForElement(self.element)
         }
     
+        var percentageViewSize:CGFloat = 0
         if element!.hasDiscount {
-            let percentageViewSize:CGFloat = (SharedUIManager.instance.miniView_headerHeight - 5 )
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(element!.discount!)%", textSize:8, color:decorationColor!, textPosition:CGPoint(x: 5, y: -4))
+            percentageViewSize = ( SharedUIManager.instance.miniView_headerHeight - 10 )
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"⁃\(element!.discount!)⁒", textSize:8, color:decorationColor!, textPosition:CGPoint(x: 5, y: -4))
             self.addSubview(percentageView!)
+            percentageViewSize -= 20
         }
   
-        ypos = 6
+        
+        ypos = 5
+
+        let title = UILabel(frame: CGRectMake(5, ypos, (frame.width - (10 + percentageViewSize)), (SharedUIManager.instance.miniView_titleSize + 3)))
+        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+        title.textColor = textColor
+        title.text = element!.title!
+        self.header!.addSubview(title)
+        
+        ypos = 9
         if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))

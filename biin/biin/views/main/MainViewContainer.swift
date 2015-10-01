@@ -125,13 +125,19 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
         
         
+        var colorIndex:Int = 0
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
             if category.hasSites {
-                let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category)
+                let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
                 ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
                 self.scroll!.addSubview(elementContainer)
                 self.elementContainers!.append(elementContainer)
+                
+                colorIndex++
+                if colorIndex  > 1 {
+                    colorIndex = 0
+                }
             }
         
         }

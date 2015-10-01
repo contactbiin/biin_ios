@@ -48,29 +48,59 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
         super.init(frame: frame, father:father )
     }
 
-    convenience init(frame: CGRect, father:BNView?, category:BNCategory) {
+    convenience init(frame: CGRect, father:BNView?, category:BNCategory, colorIndex:Int) {
         self.init(frame: frame, father:father)
         
-        self.backgroundColor = UIColor.bnBlue()
+
         let screenWidth = SharedUIManager.instance.screenWidth
         //var screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = SharedUIManager.instance.miniView_height + 6
+        let ypos:CGFloat = 11
+
         
-        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        var textColor:UIColor?
+        switch colorIndex {
+        case 0:
+            //             self.backgroundColor = site!.media[0].vibrantColor
+            self.backgroundColor = UIColor.lightGrayColor()
+            textColor = UIColor.bnGrayDark()
+            //        case 1:
+            //             self.backgroundColor = site!.media[0].vibrantLightColor
+        case 1:
+            //             self.backgroundColor = site!.media[0].vibrantDarkColor
+            self.backgroundColor = UIColor.grayColor()
+            textColor = UIColor.whiteColor()
+        default:
+            self.backgroundColor = UIColor.lightGrayColor()
+            textColor = UIColor.bnGrayDark()
+            break
+        }
+        
+        
+//        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+//        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
+//        title!.text = category.name!
+//        title!.textColor = textColor
+//        
+        
+        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
-        title!.text = category.name!
-        title!.textColor = UIColor.whiteColor()
+        let titleText = category.name!
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        title!.textColor = textColor
+        
        
         self.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
-        
-        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
-        subTitle!.textColor = UIColor.whiteColor()
-        subTitle!.text = category.name!
-        self.addSubview(subTitle!)
+//        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
+//        
+//        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
+//        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
+//        subTitle!.textColor = UIColor.whiteColor()
+//        subTitle!.text = category.name!
+//        self.addSubview(subTitle!)
 
         let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
         scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
@@ -82,83 +112,6 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
         self.addSubview(scroll!)
         
     }
-    
-    convenience init(frame: CGRect, father:BNView?, showcase:BNShowcase?, site:BNSite?, colorIndex:Int) {
-        self.init(frame: frame, father:father)
-        
-        switch colorIndex {
-        case 0:
-            self.backgroundColor = site!.media[0].vibrantColor
-            //        case 1:
-            //             self.backgroundColor = site!.media[0].vibrantLightColor
-        case 1:
-            self.backgroundColor = site!.media[0].vibrantDarkColor
-        default:
-            self.backgroundColor = site!.media[0].vibrantColor
-            break
-        }
-        
-        //!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
-        self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
-        self.site = site
-        
-        //TODO: Add all showcase data here
-        let screenWidth = SharedUIManager.instance.screenWidth
-        //var screenHeight = SharedUIManager.instance.screenHeight
-        
-        var ypos:CGFloat = SharedUIManager.instance.miniView_height + 6
-        //ypos += 18
-        
-        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
-        title!.text = self.showcase!.title!.uppercaseString
-        title!.textColor = UIColor.whiteColor()
-        
-        //        if let color = self.showcase!.titleColor {
-        //            title!.textColor = self.showcase!.titleColor!
-        //        } else {
-        //            title!.textColor = UIColor.appTextColor()
-        //        }
-        
-        self.addSubview(title!)
-        
-        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
-        
-        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
-        subTitle!.textColor = UIColor.whiteColor()
-        subTitle!.text = self.showcase!.subTitle!
-        self.addSubview(subTitle!)
-        
-        //TESTING NOTIFICATIONS
-        //        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
-        //        addNotificationBtn!.backgroundColor = UIColor.redColor()
-        //        addNotificationBtn!.addTarget(self, action: "addNotificationBtn:", forControlEvents: UIControlEvents.TouchUpInside)
-        //        self.addSubview(addNotificationBtn!)
-        
-        //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
-        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
-        scroll!.delegate = self
-        scroll!.showsHorizontalScrollIndicator = false
-        scroll!.showsVerticalScrollIndicator = false
-        scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.clearColor()
-        self.addSubview(scroll!)
-        
-        addElementViews()
-        
-        columns = SharedUIManager.instance.miniView_columns
-        
-    }
-    
-    //    func addNotificationBtn(sender:UIButton){
-    //TEST: Add some notifications
-    //var notification = BNNotification(title: "\(self.biin!.site!.title!)", text: "A test notification for site \(self.biin!.site!.title!)", biin: self.biin!, notificationType: BNNotificationType.STIMULUS, time:NSDate())
-    
-    //BNAppSharedManager.instance.processNotification(notification)
-    
-    //    }
     
     deinit{
         print("-------------- deinit in siteView_showcase")
