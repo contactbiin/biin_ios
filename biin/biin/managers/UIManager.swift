@@ -181,9 +181,9 @@ class UIManager {
         default:
             break
         }
-        
-        self.miniView_height = viewHeight
         self.miniView_width = viewWidth
+        self.miniView_height = viewHeight + miniView_headerHeight
+
         siteMiniView_imageheight = (screenWidth / 2) - 1
 
     }
