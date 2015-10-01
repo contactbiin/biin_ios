@@ -163,7 +163,7 @@ class ElementView: BNView {
             decorationColor = self.element!.media[0].vibrantDarkColor
         } else {
             textColor = UIColor.bnGrayDark()
-            decorationColor = self.element!.media[0].vibrantLightColor
+            decorationColor = self.element!.media[0].vibrantDarkColor
         }
 
         

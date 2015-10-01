@@ -30,6 +30,8 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         scroll = UIScrollView(frame: frame)
         scroll!.backgroundColor = UIColor.whiteColor()
         scroll!.delegate = self
+        scroll!.showsHorizontalScrollIndicator = false
+        scroll!.showsVerticalScrollIndicator = false
         self.addSubview(scroll!)
     }
     
@@ -45,11 +47,11 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         
         clean()
         
-        var distance:CGFloat = (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.siteView_headerHeight + 15))
+        let distance:CGFloat = (SharedUIManager.instance.screenWidth - 25)
         
-        if isElement {
-            distance = (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.elementView_headerHeight + 15))
-        }
+//        if isElement {
+//            distance = (SharedUIManager.instance.screenWidth - (SharedUIManager.instance.elementView_headerHeight + 15))
+//        }
         
         if media.count > 0 {
         //if false {
@@ -64,7 +66,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             for var i:Int = 0; i < self.media!.count; i++ {
 
                 if self.media!.count > 1 {
-                    let point = BNUIPointView(frame: CGRectMake((xpos), distance, 10, 10), categoryIdentifier:"", activeColor:media[0].domainColor!)
+                    let point = BNUIPointView(frame: CGRectMake((xpos), distance, 10, 10), categoryIdentifier:"", activeColor:media[0].vibrantColor!)
                     self.points!.append(point)
                     self.addSubview(point)
                     xpos += 20
