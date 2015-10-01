@@ -73,24 +73,39 @@ class ElementMiniView: BNView {
         //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
+        self.element = element
+        var textColor:UIColor?
+        var decorationColor:UIColor?
+        if self.element!.useWhiteText {
+            textColor = UIColor.whiteColor()
+            decorationColor = self.element!.media[0].vibrantDarkColor
+        } else {
+            textColor = UIColor.bnGrayDark()
+            decorationColor = self.element!.media[0].vibrantDarkColor
+        }
+        
+        
         //self.layer.shadowOffset = CGSizeMake(0, 0.5)
         //self.layer.shadowRadius = 1
         //self.layer.shadowOpacity = 0.25
-        self.element = element// BNAppSharedManager.instance.dataManager.elements[element!._id!]
+        // BNAppSharedManager.instance.dataManager.elements[element!._id!]
         var ypos:CGFloat = 0
+        var xpos:CGFloat = 0
         var imageSize:CGFloat = 0
         if frame.width < frame.height {
-            imageSize = frame.height// - SharedUIManager.instance.miniView_headerHeight
-            ypos = ((imageSize - frame.width) / 2) * -1
+            imageSize = SharedUIManager.instance.miniView_height - SharedUIManager.instance.miniView_headerHeight
+            xpos = ((imageSize - frame.width) / 2) * -1
+
 
         } else {
             imageSize = frame.width
-            ypos = ((imageSize - frame.height) / 2) * -1
-
+            //ypos = ((imageSize - frame.height) / 2) * -1
         }
         
+        
+        
         //Positioning image
-        image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
+        image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
  
         if !isNumberVisible {
@@ -105,7 +120,7 @@ class ElementMiniView: BNView {
     
         if element!.hasDiscount {
             let percentageViewSize:CGFloat = (SharedUIManager.instance.miniView_headerHeight - 5 )
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(element!.discount!)%", textSize:8, color:element!.media[0].vibrantColor!, textPosition:CGPoint(x: 5, y: -4))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.miniView_headerHeight), percentageViewSize, percentageViewSize), text:"-\(element!.discount!)%", textSize:8, color:decorationColor!, textPosition:CGPoint(x: 5, y: -4))
             self.addSubview(percentageView!)
         }
   
@@ -113,7 +128,7 @@ class ElementMiniView: BNView {
         if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
@@ -125,18 +140,18 @@ class ElementMiniView: BNView {
             
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
             self.header!.addSubview(self.textPrice1!)
             
             let lineView = UIView(frame: CGRectMake(5, (ypos + 7.5), (text1Length + 1), 0.5))
-            lineView.backgroundColor = UIColor.bnGrayDark()
+            lineView.backgroundColor = textColor
             self.header!.addSubview(lineView)
             
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 10), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice2!.textColor = UIColor.bnGrayDark()
+            self.textPrice2!.textColor = textColor
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice2!.text = "\(element!.currency!)\(element!.listPrice!)"
@@ -148,14 +163,14 @@ class ElementMiniView: BNView {
             
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
             self.header!.addSubview(self.textPrice1!)
 
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 7), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
-            self.textPrice2!.textColor = UIColor.bnGrayDark()
+            self.textPrice2!.textColor = textColor
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
             self.textPrice2!.text = "\(element!.currency!)\(element!.price!)"
@@ -163,7 +178,7 @@ class ElementMiniView: BNView {
         } else {
             ypos += SharedUIManager.instance.miniView_titleSize
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_subTittleSize + 2)))
-            self.textPrice1!.textColor = UIColor.bnGrayDark()
+            self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
             self.textPrice1!.text = element!.title!

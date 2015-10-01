@@ -32,9 +32,14 @@ class ElementMiniView_Header:BNView {
         self.init(frame: frame, father:father )
         //self.backgroundColor = UIColor.appMainColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
+        
+        let containerView = UIView(frame: self.bounds)
+        containerView.backgroundColor = element!.media[0].vibrantColor
+        self.addSubview(containerView)
+        
         
         self.elementPosition = elementPosition
         
