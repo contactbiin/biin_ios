@@ -375,7 +375,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func updateBiinsContainer() {
-        delegate_BiinsContainer!.updateBiinsContainer!(self, update: true)
+        print("updateBiinsContainer")
+        //delegate_BiinsContainer!.updateBiinsContainer!(self, update: true)
     }
     
     func showNotificationContext(){

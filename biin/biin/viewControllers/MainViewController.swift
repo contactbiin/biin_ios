@@ -76,7 +76,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         fadeView!.addGestureRecognizer(hideMenuSwipe)
         
-        menuView = MenuView(frame: CGRectMake(-140, 20, 140, frame.height))
+        menuView = MenuView(frame: CGRectMake(-200, 20, 200, frame.height))
         menuView!.delegate = self
         self.view.addSubview(menuView!)
         
@@ -126,7 +126,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     func hideMenu(sender:UIGestureRecognizer) {
         
         UIView.animateWithDuration(0.25, animations: {()->Void in
-            self.menuView!.frame.origin.x = -140
+            self.menuView!.frame.origin.x = -200
             self.mainView!.frame.origin.x = 0
             self.fadeView!.frame.origin.x = 0
             self.fadeView!.alpha = 0
@@ -433,6 +433,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func manager(manager: BNPositionManager!, updateMainViewController biins: Array<BNBiin>) {
+
         mainView!.updateBiinsContainer()
     }
     

@@ -165,7 +165,6 @@ class ElementView: BNView {
             textColor = UIColor.bnGrayDark()
             decorationColor = self.element!.media[0].vibrantDarkColor
         }
-
         
         updateBackBtn()
         updateLikeItBtn()
@@ -299,11 +298,11 @@ class ElementView: BNView {
     
     func likeit(sender:BNUIButton_BiinIt){
         self.element!.userLiked = !self.element!.userLiked
+        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
         updateLikeItBtn()
     }
     
     func updateLikeItBtn() {
-        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
         likeItButton!.changedIcon(self.element!.userLiked)
         likeItButton!.icon!.color = self.decorationColor!
     }

@@ -128,6 +128,8 @@
 		5B5339651A85188C0049FB00 /* SingupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5339641A85188C0049FB00 /* SingupViewController.swift */; };
 		5B5339671A85189F0049FB00 /* UserOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */; };
 		5B5606CF1A818C0E00DAEB88 /* ElementMiniView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */; };
+		5B56F9451BBDD6DD00FBA42D /* pizza.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B56F9431BBDD6DD00FBA42D /* pizza.jpg */; settings = {ASSET_TAGS = (); }; };
+		5B56F9461BBDD6DD00FBA42D /* vintage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B56F9441BBDD6DD00FBA42D /* vintage.jpg */; settings = {ASSET_TAGS = (); }; };
 		5B5BE71E1A855D9800DB5996 /* BNUITexfield_Bottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */; };
 		5B5BE7201A855E9100DB5996 /* BNUIButton_Loging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE71F1A855E9100DB5996 /* BNUIButton_Loging.swift */; };
 		5B5BE7221A8580B700DB5996 /* BNUITexfield_Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */; };
@@ -475,6 +477,8 @@
 		5B5339641A85188C0049FB00 /* SingupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingupViewController.swift; sourceTree = "<group>"; };
 		5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingViewController.swift; sourceTree = "<group>"; };
 		5B5606CE1A818C0E00DAEB88 /* ElementMiniView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView_Header.swift; sourceTree = "<group>"; };
+		5B56F9431BBDD6DD00FBA42D /* pizza.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pizza.jpg; sourceTree = "<group>"; };
+		5B56F9441BBDD6DD00FBA42D /* vintage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = vintage.jpg; sourceTree = "<group>"; };
 		5B5BE71D1A855D9800DB5996 /* BNUITexfield_Bottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Bottom.swift; sourceTree = "<group>"; };
 		5B5BE71F1A855E9100DB5996 /* BNUIButton_Loging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Loging.swift; sourceTree = "<group>"; };
 		5B5BE7211A8580B700DB5996 /* BNUITexfield_Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUITexfield_Center.swift; sourceTree = "<group>"; };
@@ -1053,6 +1057,8 @@
 		5B3D75E81A6816B300CB0D1C /* pictures */ = {
 			isa = PBXGroup;
 			children = (
+				5B56F9431BBDD6DD00FBA42D /* pizza.jpg */,
+				5B56F9441BBDD6DD00FBA42D /* vintage.jpg */,
 				5B8A9A921BBB57AD009033D6 /* cityBanner.png */,
 				5BFA10DC1BBA221400428E8D /* texture1.jpg */,
 				5B3BD8A91BB4A38400B86B8C /* banner1.jpg */,
@@ -1503,6 +1509,7 @@
 				5B1F55111AE851BB00130CFE /* Localizable.strings in Resources */,
 				5B3D761C1A6816B300CB0D1C /* Lato-ThinItalic.ttf in Resources */,
 				5BE82CD51AC62503003342C9 /* iPhone-60-3x.png in Resources */,
+				5B56F9451BBDD6DD00FBA42D /* pizza.jpg in Resources */,
 				5B3D761D1A6816B300CB0D1C /* biinLogo.png in Resources */,
 				5B3BD8AA1BB4A38400B86B8C /* banner1.jpg in Resources */,
 				5BE82CCD1AC62440003342C9 /* iPhone-29-3x.png in Resources */,
@@ -1518,6 +1525,7 @@
 				5B3D76161A6816B300CB0D1C /* Lato-Medium.ttf in Resources */,
 				5B3D760F1A6816B300CB0D1C /* Lato-Hairline.ttf in Resources */,
 				5B3D759E1A67052100CB0D1C /* LaunchScreen.xib in Resources */,
+				5B56F9461BBDD6DD00FBA42D /* vintage.jpg in Resources */,
 				5B3CF3321B02406500A74E77 /* noImage.jpg in Resources */,
 				5BE82CD01AC624B2003342C9 /* iPhone-40-2x.png in Resources */,
 				5B3D76181A6816B300CB0D1C /* Lato-Regular.ttf in Resources */,

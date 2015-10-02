@@ -64,7 +64,7 @@ class UIManager {
     var bannerContainer_Height:CGFloat = 150
     
     //Elements Container 
-    var elementContainer_Height:CGFloat = 200
+    var elementContainer_Height:CGFloat = 0
     
     //Sites View sizes
     var siteView_headerHeight:CGFloat = 95
@@ -165,7 +165,7 @@ class UIManager {
         switch deviceType {
         case .iphone4s, .iphone5, .iphone6:
             viewWidth = (screenWidth - 30) / 2
-            viewHeight = screenHeight / 5
+            viewHeight = screenHeight / 3.5
             columns = 2
             break
         case .iphone6Plus:
@@ -185,7 +185,7 @@ class UIManager {
         self.miniView_height = viewHeight + miniView_headerHeight
 
         siteMiniView_imageheight = (screenWidth / 2) - 1
-
+        elementContainer_Height = miniView_height + sitesContainer_headerHeight + 1
     }
     
     func setIPhone4Variables(){

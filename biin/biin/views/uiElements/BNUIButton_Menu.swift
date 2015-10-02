@@ -22,18 +22,20 @@ class BNUIButton_Menu:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
+        //icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
     }
     
     convenience init(frame:CGRect, text:String, iconType:BNIconType){
         self.init(frame:frame)
         
         self.iconType = iconType
-        createIcon()
+        //createIcon()
         
-        label = UILabel(frame: CGRectMake(0, ((frame.height + 10) / 2), frame.width, 15))
-        label!.text = text
-        label!.textColor = UIColor.appTextColor()
+        label = UILabel(frame: CGRectMake(0, ((frame.height + 10) / 2), frame.width, 13))
+        let attributedString = NSMutableAttributedString(string:text)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(text.characters.count)))
+        label!.attributedText = attributedString
+        label!.textColor = UIColor.whiteColor()
         label!.font = UIFont(name: "Lato-Light", size: 13)
         label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)
@@ -77,17 +79,17 @@ class BNUIButton_Menu:BNUIButton {
     }
     
     override func showSelected() {
-        self.icon!.color = UIColor.biinColor()
+        //self.icon!.color = UIColor.biinColor()
         setNeedsDisplay()
     }
     
     override func showEnable() {
-        self.icon!.color = UIColor.appButtonColor()
+        //self.icon!.color = UIColor.appButtonColor()
         setNeedsDisplay()
     }
     
     override func showDisable() {
-        icon!.color = UIColor.appButtonColor_Disable()
+        //icon!.color = UIColor.appButtonColor_Disable()
         label!.textColor = UIColor.appButtonColor_Disable()
     }
 }

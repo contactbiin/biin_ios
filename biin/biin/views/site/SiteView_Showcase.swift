@@ -81,7 +81,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         var ypos:CGFloat = 11//SharedUIManager.instance.miniView_height + 6
         //ypos += 18
         
-        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)        
         let titleText = self.showcase!.title!.uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -99,7 +99,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
         
-        subTitle = UILabel(frame: CGRectMake(15, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
+        subTitle = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
         subTitle!.textColor = UIColor.whiteColor()
         subTitle!.text = self.showcase!.subTitle!
@@ -219,7 +219,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         } else if showcase!.elements.count == 2 {
             elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         } else if showcase!.elements.count == 3 {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 3)
+            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.1)
         } else {
             elementView_width = SharedUIManager.instance.miniView_width
         }

@@ -12,29 +12,15 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     var subTitle:UILabel?
     var scroll:UIScrollView?
     //weak var biin:BNBiin?
-    weak var showcase:BNShowcase?
+    var showcase:BNShowcase?
+    var category:BNCategory?
     
     var isWorking = true
     var spacer:CGFloat = 1
-    var columns:Int = 1
-    var lastColumnRequested:Int = 0
-    var elementRequestPreviousLimit:Int = 0
-    
     var elements:Array<ElementMiniView>?
-    var gameView:SiteView_Showcase_Game?
-    var joinView:SiteView_Showcase_Join?
-    
-    weak var site:BNSite?
-    var isLoyaltyEnabled = false
-    
-    var currentPoints = 0
-    var timer:NSTimer?
-    
-    //var addNotificationBtn:UIButton?
-    
-    //    override init() {
-    //        super.init()
-    //    }
+    var addedElementsIdentifiers:Dictionary<String, BNElement>?
+
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,23 +37,18 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     convenience init(frame: CGRect, father:BNView?, category:BNCategory, colorIndex:Int) {
         self.init(frame: frame, father:father)
         
-
         let screenWidth = SharedUIManager.instance.screenWidth
-        //var screenHeight = SharedUIManager.instance.screenHeight
         
         let ypos:CGFloat = 11
 
+        self.category = category
         
         var textColor:UIColor?
         switch colorIndex {
         case 0:
-            //             self.backgroundColor = site!.media[0].vibrantColor
             self.backgroundColor = UIColor.lightGrayColor()
             textColor = UIColor.bnGrayDark()
-            //        case 1:
-            //             self.backgroundColor = site!.media[0].vibrantLightColor
         case 1:
-            //             self.backgroundColor = site!.media[0].vibrantDarkColor
             self.backgroundColor = UIColor.grayColor()
             textColor = UIColor.whiteColor()
         default:
@@ -75,13 +56,6 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
             textColor = UIColor.bnGrayDark()
             break
         }
-        
-        
-//        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
-//        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
-//        title!.text = category.name!
-//        title!.textColor = textColor
-//        
         
         title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
@@ -91,19 +65,10 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
         title!.attributedText = attributedString
         title!.textColor = textColor
         
-       
         self.addSubview(title!)
-        
-//        ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
-//        
-//        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
-//        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
-//        subTitle!.textColor = UIColor.whiteColor()
-//        subTitle!.text = category.name!
-//        self.addSubview(subTitle!)
 
-        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
+        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + SharedUIManager.instance.miniView_headerHeight
+        scroll = UIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
         scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
@@ -111,6 +76,9 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
         scroll!.backgroundColor = UIColor.clearColor()
         self.addSubview(scroll!)
         
+        addedElementsIdentifiers = Dictionary<String, BNElement>()
+        
+        addElementViews()
     }
     
     deinit{
@@ -134,12 +102,9 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
                     (view as! ElementMiniView).removeFromSuperview()
                 }
             }
-            
-            //            for view in showcases! {
-            //                view.removeFromSuperview()
-            //            }
-            //
+
             elements!.removeAll(keepCapacity: false)
+            addedElementsIdentifiers!.removeAll(keepCapacity: false)
         }
         
     }
@@ -167,11 +132,9 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     }
     
     //Instance methods
-    //instance methods
     //Start all category work, download etc.
     override func getToWork(){
         isWorking = true
-        manageElementMiniViewImageRequest()
     }
     
     //Stop all category work, download etc.
@@ -185,6 +148,27 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     func addElementViews(){
         
+        showcase = BNShowcase()
+        
+        for siteDetails in category!.sitesDetails {
+            
+            if let site = BNAppSharedManager.instance.dataManager.sites[siteDetails.identifier!] {
+               
+                if let showcases = site.showcases {
+                    for showcase in showcases {
+                        for element in showcase.elements {
+                            if element.isHighlight {
+                                if addedElementsIdentifiers![element._id!] == nil {
+                                    self.showcase!.elements.append(element)
+                                    addedElementsIdentifiers![element._id!] = element
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         var elementPosition:Int = 1
         var xpos:CGFloat = 0
         var elementsViewed = 0
@@ -202,14 +186,14 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
             elementView_width = SharedUIManager.instance.miniView_width
         }
         
-        if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
-            isLoyaltyEnabled = true
-        }
+//        if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
+//            isLoyaltyEnabled = true
+//        }
         
         for element in showcase!.elements {
             
             
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled)
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false)
             
             if element != showcase!.elements.last {
                 xpos += elementView_width + spacer
@@ -231,26 +215,6 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
             //if elementPosition < 4 {
             elementView.requestImage()
             //}
-        }
-        
-        xpos += spacer
-        
-        if self.site!.organization!.isLoyaltyEnabled {
-            if self.site!.organization!.loyalty!.isSubscribed {
-                //Add game view
-                gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
-                scroll!.addSubview(gameView!)
-                xpos += SharedUIManager.instance.screenWidth
-            } else  {
-                joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!)
-                scroll!.addSubview(joinView!)
-                xpos += SharedUIManager.instance.screenWidth
-            }
-            
-            if !self.showcase!.isShowcaseGameCompleted {
-                let of = NSLocalizedString("Of", comment: "Of")
-                gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
-            }
         }
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
@@ -287,71 +251,15 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         
-        if isLoyaltyEnabled {
-            
-            if showcase!.isShowcaseGameCompleted {
-                return
-            }
-            
-            var isShowcaseGameCompleted = true
-            var totalPoints = 0
-            currentPoints = 0
-            let pointsByElement = 5
-            var elementsViewed = 0
-            let position = scrollView.bounds.origin.x
-            let width = scrollView.contentSize.width
-            let showcaseGameWidth = SharedUIManager.instance.screenWidth
-            
-            /*
-            print("position: \(scrollView.bounds.origin.x)")
-            print("height: \(width)")
-            print("showcaseGameHeight: \(showcaseGameWidth)")
-            */
-            
-            if (position >= (width - showcaseGameWidth)){
-                
-                for (var i = 0; i < self.elements!.count; i++) {
-                    if self.elements![i].element!.userViewed {
-                        self.gameView!.turnCircleOn((i))
-                        elementsViewed++
-                        //send userViewElementPost
-                    }else {
-                        isShowcaseGameCompleted = false
-                    }
-                }
-                
-                let of = NSLocalizedString("Of", comment: "Of")
-                gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
-                
-                if isShowcaseGameCompleted {
-                    totalPoints = self.elements!.count * pointsByElement
-                    currentPoints = self.site!.organization!.loyalty!.points
-                    self.updatePointCounter()
-                    self.site!.organization!.addPoints(totalPoints)
-                    showcase!.isShowcaseGameCompleted = true
-                    father!.changeJoinBtnText("You have \(self.site!.organization!.loyalty!.points) points with us!")
-                }
-            }
-        }
-    }// called when scroll view grinds to a halt
+         }// called when scroll view grinds to a halt
     
     func updatePointCounter() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:"updatePoints:", userInfo: nil, repeats: true)
+
     }
     
     func updatePoints(sender:NSTimer){
-        
-        //        currentPoints++
-        
-        //        if currentPoints <= self.site!.organization!.loyalty!.points {
-        //gameView!.updatePointLbl("\(currentPoints)")
-        //TODO: update bottom label on site
-        (father! as! SiteView).updateLoyaltyPoints()
-        
-        //        }else {
-        timer!.invalidate()
-        gameView!.startToAnimateCirclesOnCompleted()
-        //        }
+
+
     }
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
@@ -369,45 +277,11 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     func manageElementMiniViewImageRequest(){
         
-        if !isWorking { return }
-        
-        let width = SharedUIManager.instance.miniView_width + spacer
-        let column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
-        
-        
-        
-        if lastColumnRequested < column {
-            
-            lastColumnRequested = column
-            var requestLimit:Int = Int(lastColumnRequested + columns)
-            
-            if requestLimit >= elements?.count {
-                requestLimit = elements!.count - 1
-                isWorking = false //reach the limit of requests
-            }
-            
-            
-            var i:Int = requestLimit
-            var stop:Bool = false
-            
-            while !stop {
-                
-                if i >= elementRequestPreviousLimit {
-                    let elementView = elements![i] as ElementMiniView
-                    elementView.requestImage()
-                    i--
-                } else  {
-                    stop = true
-                }
-            }
-            
-            elementRequestPreviousLimit = requestLimit + 1
-        }
     }
     
     //ElementMiniView_Delegate
     func showElementView(viewiew: ElementMiniView, element: BNElement) {
-        (father! as! SiteView).showElementView(element)
+        (father! as! MainViewContainer).showElementView(element)
     }
 }
 

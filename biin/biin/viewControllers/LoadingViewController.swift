@@ -23,7 +23,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 
         self.setNeedsStatusBarAppearanceUpdate()
         
-        self.view.layer.cornerRadius = 5
+        //self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         
         let screenWidth = SharedUIManager.instance.screenWidth
