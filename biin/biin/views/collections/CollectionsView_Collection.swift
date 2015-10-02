@@ -440,7 +440,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
         //scroll!.bounces = false
         //scroll!.pagingEnabled = false
         
-        (father as! CollectionsView).updateHighlightsContainer()
+        //(father as! CollectionsView).updateHighlightsContainer()
         
     }
 

@@ -22,7 +22,7 @@ class LoadingView:UIView {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.whiteColor()
-        self.layer.cornerRadius = 5
+        //self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
 //        biinLogo = UIImageView(frame: CGRectMake(0, 100, 320, 320))

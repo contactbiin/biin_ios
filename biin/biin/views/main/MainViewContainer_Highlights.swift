@@ -54,7 +54,17 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_
     }
     
     override func transitionOut( state:BNState? ) {
-
+        if hightlights?.count > 0 {
+            
+            for view in scroll!.subviews {
+                
+                if view is HighlightView {
+                    (view as! HighlightView).removeFromSuperview()
+                }
+            }
+            
+            hightlights!.removeAll(keepCapacity: false)
+        }
     }
     
     override func setNextState(option:Int){
@@ -188,8 +198,11 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_
     
     //ElementMiniView_Delegate
     func showElementView(element: BNElement) {
-        self.timer!.invalidate()
         (father! as! MainViewContainer).showElementView(element)
+    }
+
+    func stopTimer(){
+        self.timer!.invalidate()
     }
     
     func startTimer(){

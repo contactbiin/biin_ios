@@ -240,9 +240,9 @@ class CollectionsView: BNView, ElementView_Delegate {
         })
     }
     
-    func updateHighlightsContainer() {
-        (father as! MainView).updateHighlightsContainer()
-    }
+//    func updateHighlightsContainer() {
+//        (father as! MainView).updateHighlightsContainer()
+//    }
 }
 
 @objc protocol CollectionsView_Delegate:NSObjectProtocol {

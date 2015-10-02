@@ -89,6 +89,15 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
     func updateContainer(){
         
         
+        if highlightContainer != nil {
+            highlightContainer!.transitionOut(nil)
+        }
+        
+        
+        if sitesContainer != nil {
+            sitesContainer!.transitionOut(nil)
+        }
+        
         if elementContainers?.count > 0 {
             
             for view in scroll!.subviews {
@@ -112,9 +121,9 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth
         self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
         self.scroll!.addSubview(self.highlightContainer!)
-        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)
+        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight + spacer)
         
-        let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight
+        let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight + 1
         
         self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, sitesContainerHeight), father: self)
         self.scroll!.addSubview(self.sitesContainer!)
@@ -142,7 +151,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         
         }
         
-        
+        ypos += SharedUIManager.instance.categoriesHeaderHeight
         scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
         
     }
@@ -240,6 +249,8 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
             self.elementView!.frame.origin.x = 0
             self.fade!.alpha = 0.5
         })
+        
+        highlightContainer!.stopTimer()
     }
     
     
@@ -252,6 +263,8 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
                 self.highlightContainer!.startTimer()
                 self.elementView!.clean()
         })
+        
+        
     }
     
     

@@ -99,7 +99,7 @@ class ElementMiniView: BNView {
 
         } else {
             imageSize = frame.width
-            //ypos = ((imageSize - frame.height) / 2) * -1
+            ypos = ((imageSize - frame.height) / 2) * -1
         }
         
         
@@ -329,6 +329,6 @@ class ElementMiniView: BNView {
 }
 
 @objc protocol ElementMiniView_Delegate:NSObjectProtocol {
-    optional func showElementView( viewiew:ElementMiniView, element:BNElement )
+    optional func showElementView( view:ElementMiniView, element:BNElement )
     optional func resizeScrollOnRemoved(view:ElementMiniView )
 }

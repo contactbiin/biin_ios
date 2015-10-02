@@ -34,12 +34,14 @@ class MenuView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.appMainColor()
-        self.layer.cornerRadius = 5
+        self.backgroundColor = UIColor.darkGrayColor()
+//        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
         
-        var ypos:CGFloat = 20
-        let distance:CGFloat = 65
+        var ypos:CGFloat = 10
+        let distance:CGFloat = 10
+        let buttonHeight:CGFloat = 50
+        let buttonWidth:CGFloat = 160
 
         /*
         Profile = "Profile";
@@ -52,23 +54,23 @@ class MenuView:UIView {
         Search = "Buscar";
         */
         
-        profileBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Profile", comment: "profile button title"), iconType: BNIconType.profileMedium)
+        profileBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Profile", comment: "profile button title").uppercaseString, iconType: BNIconType.profileMedium)
         profileBtn!.addTarget(self, action: "profileBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(profileBtn!)
         
-        ypos += distance
-        homeBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Home", comment: "home button title"), iconType: BNIconType.homeMedium)
+        ypos += (distance + buttonHeight)
+        homeBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, 60), text:NSLocalizedString("Home", comment: "home button title").uppercaseString, iconType: BNIconType.homeMedium)
         homeBtn!.addTarget(self, action: "homeBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(homeBtn!)
         homeBtn!.showSelected()
 
-        ypos += distance
-        collectionsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Collections", comment: "collections button title"), iconType: BNIconType.collectionMedium)
+        ypos += (distance + buttonHeight)
+        collectionsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Collections", comment: "collections button title").uppercaseString, iconType: BNIconType.collectionMedium)
         collectionsBtn!.addTarget(self, action: "collectionsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(collectionsBtn!)
         
-        //ypos += distance
-        loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Loyalty", comment: "loyalty button title"), iconType: BNIconType.loyaltyMedium)
+        //ypos += (distance + buttonHeight)
+        loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Loyalty", comment: "loyalty button title").uppercaseString, iconType: BNIconType.loyaltyMedium)
         loyaltyBtn!.addTarget(self, action: "loyaltyBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(loyaltyBtn!)
 
@@ -77,8 +79,8 @@ class MenuView:UIView {
 //        notificationsBtn!.addTarget(self, action: "notificationsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
 //        self.addSubview(notificationsBtn!)
         
-        ypos += distance
-        inviteFriendsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("InviteFriends", comment: "invite friends button title"), iconType: BNIconType.friendsMedium)
+        ypos += (distance + buttonHeight)
+        inviteFriendsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("InviteFriends", comment: "invite friends button title").uppercaseString, iconType: BNIconType.friendsMedium)
         inviteFriendsBtn!.addTarget(self, action: "inviteFriendsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(inviteFriendsBtn!)
 
@@ -93,7 +95,7 @@ class MenuView:UIView {
 //        self.addSubview(searchBtn!)
         
         
-        aboutBtn = BNUIButton_Menu(frame: CGRectMake(40, (SharedUIManager.instance.screenHeight - 80), 100, 60), text:NSLocalizedString("About", comment: "About"), iconType: BNIconType.informationMedium)
+        aboutBtn = BNUIButton_Menu(frame: CGRectMake(40, (SharedUIManager.instance.screenHeight - 80), buttonWidth, buttonHeight), text:NSLocalizedString("About", comment: "About").uppercaseString, iconType: BNIconType.informationMedium)
         aboutBtn!.addTarget(self, action: "aboutBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(aboutBtn!)
         

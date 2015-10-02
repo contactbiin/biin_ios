@@ -383,12 +383,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
     
     func sendLikedElement(user:Biinie, element:BNElement, value:Bool) {
-        let request:BNRequest_SendSharedElement?
+        let request:BNRequest_SendLikedElement?
         if value {
-            request = BNRequest_SendSharedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, element: element)
-        
+            request = BNRequest_SendLikedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, element: element)
         } else {
-            request = BNRequest_SendSharedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, element: element)
+          request = BNRequest_SendLikedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, element: element)
         }
         addToQueue(request!)
     }
@@ -425,12 +424,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
     
     func sendLikedSite(user: Biinie, site: BNSite, value:Bool ) {
-        var request:BNRequest_SendSharedSite?
+        var request:BNRequest_SendLikedSite?
         if value {
-            request = BNRequest_SendSharedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, site: site)
+            request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, site: site)
+            
         } else {
-            request = BNRequest_SendSharedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, site: site)
+            request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, site: site)
         }
+        
         addToQueue(request!)
     }
     

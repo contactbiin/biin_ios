@@ -69,7 +69,19 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate, SiteMiniView_Delegat
     }
     
     override func transitionOut( state:BNState? ) {
-        
+        if sites?.count > 0 {
+            
+            for view in scroll!.subviews {
+                
+                if view is SiteMiniView {
+                    (view as! SiteMiniView).removeFromSuperview()
+                }
+            }
+            
+            sites!.removeAll(keepCapacity: false)
+            addedSitesIdentifiers!.removeAll(keepCapacity: false)
+
+        }
     }
     
     override func setNextState(option:Int){

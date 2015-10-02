@@ -444,9 +444,9 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     }
     
     
-    func updateHighlightsContainer(view: MainView, update: Bool) {
-        highlightsContainer!.updateHighlights()
-    }
+//    func updateHighlightsContainer(view: MainView, update: Bool) {
+//        highlightsContainer!.updateHighlights()
+//    }
     
     func updateBiinsContainer(view: MainView, update: Bool) {
         biinsContainer!.updateContainer()
