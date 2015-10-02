@@ -43,6 +43,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     var showcaseHeight:CGFloat = 0
     var decorationColor:UIColor?
+    var iconColor:UIColor?
     var animationView:BiinItAnimationView?
     
     override init(frame: CGRect) {
@@ -76,6 +77,10 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
+        
+        
+        animationView = BiinItAnimationView(frame:CGRectMake(0, screenWidth, screenWidth, 0))
+        scroll!.addSubview(animationView!)
         
         header = SiteView_Header(frame: CGRectMake(0, (screenWidth), screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         scroll!.addSubview(header!)
@@ -141,7 +146,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         buttonSpace += 27
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
         collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
-        header!.addSubview(collectItButton!)
+        //header!.addSubview(collectItButton!)
         
         followButton = UIButton(frame: CGRectMake(SharedUIManager.instance.siteView_headerHeight, (SharedUIManager.instance.siteView_headerHeight - 23), 80, 18))
         followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
@@ -160,9 +165,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         elementView!.delegate = self
         self.addSubview(elementView!)
       
-        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, screenWidth))
-        animationView!.alpha = 0
-        scroll!.addSubview(animationView!)
+
         
         //var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
         //showMenuSwipe.edges = UIRectEdge.Left
@@ -234,11 +237,15 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
 
         if self.site!.useWhiteText {
             textColor = UIColor.whiteColor()
+            iconColor = UIColor.whiteColor()
             decorationColor = self.site!.media[0].vibrantDarkColor
         } else {
-            textColor = UIColor.bnGrayDark()
-            decorationColor = self.site!.media[0].vibrantLightColor
+            textColor = UIColor.whiteColor()
+            iconColor = UIColor.whiteColor()
+            decorationColor = self.site!.media[0].vibrantDarkColor
         }
+        
+        animationView!.updateAnimationView(decorationColor, textColor: textColor)
         
         header!.updateForSite(site)
         bottom!.updateForSite(site)
@@ -247,12 +254,12 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         locationView!.updateForSite(site)
         
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
-        backBtn!.layer.backgroundColor = site!.media[0].vibrantColor!.CGColor
+        backBtn!.layer.borderColor = decorationColor!.CGColor
+        backBtn!.layer.backgroundColor = decorationColor!.CGColor
         backBtn!.setNeedsDisplay()
         
-        siteLocationButton!.icon!.color = decorationColor
-        shareItButton!.icon!.color = decorationColor
+        siteLocationButton!.icon!.color = iconColor
+        shareItButton!.icon!.color = iconColor
         //likeItButton!.icon!.color = site!.media[0].domainColor!
         
         siteLocationButton!.setNeedsDisplay()
@@ -451,7 +458,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func updateLikeItBtn() {
         BNAppSharedManager.instance.likeIt(site!.identifier!, isElement: false)
         likeItButton!.changedIcon(site!.userLiked)
-        likeItButton!.icon!.color = decorationColor!
+        likeItButton!.icon!.color = iconColor!
     }
     
     func shareit(sender:BNUIButton_ShareIt){
@@ -461,14 +468,18 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func collectIt(sender:BNUIButton_CollectionIt){
         site!.userCollected = !site!.userCollected
         updateCollectItBtn()
-        BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
-        //header!.updateForSite(site!)
-        animationView!.animate()
+        animationView!.animate(site!.userCollected)
+        
+        if site!.userCollected {
+            BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
+        } else {
+            BNAppSharedManager.instance.collectIt(site!.identifier!, isElement: false)
+        }
     }
     
     func updateCollectItBtn(){
         collectItButton!.changeToCollectIcon(site!.userCollected)
-        collectItButton!.icon!.color = decorationColor
+        collectItButton!.icon!.color = iconColor
     }
     
     func followit(sender:UIButton){
@@ -478,16 +489,16 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func updateFollowBtn() {
         
-        followButton!.layer.borderColor = decorationColor!.CGColor
+        followButton!.layer.borderColor = iconColor!.CGColor
         BNAppSharedManager.instance.followIt(site!.identifier!)
         
         if site!.userFollowed {
             followButton!.setTitle(NSLocalizedString("Following", comment: "Following"), forState: UIControlState.Normal)
-            followButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-            followButton!.backgroundColor = decorationColor!
+            followButton!.setTitleColor(self.site!.media[0].vibrantColor!, forState: UIControlState.Normal)
+            followButton!.backgroundColor = iconColor!
         } else  {
             followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
-            followButton!.setTitleColor(decorationColor!, forState: UIControlState.Normal)
+            followButton!.setTitleColor(iconColor, forState: UIControlState.Normal)
             followButton!.backgroundColor = UIColor.clearColor()
         }
     }

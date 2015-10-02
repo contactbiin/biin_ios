@@ -39,6 +39,10 @@ class ElementView: BNView {
     
     var textColor:UIColor?
     var decorationColor:UIColor?
+    var iconColor:UIColor?
+    var animationView:BiinItAnimationView?
+
+    var butonContainer:UIView?
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
@@ -75,6 +79,9 @@ class ElementView: BNView {
         fade!.alpha = 0
         self.addSubview(fade!)
         
+        animationView = BiinItAnimationView(frame:CGRectMake(0, screenWidth, screenWidth, 0))
+        scroll!.addSubview(animationView!)
+        
         header = UIView(frame: CGRectMake(0, screenWidth, screenWidth, SharedUIManager.instance.elementView_headerHeight))
         header!.backgroundColor = UIColor.magentaColor()
         scroll!.addSubview(header!)
@@ -88,7 +95,10 @@ class ElementView: BNView {
         self.subTitle = UILabel(frame: CGRectMake(0, 0, 0, 0))
         
         var buttonSpace:CGFloat = 5
-        let ypos:CGFloat = screenWidth + 5
+        let ypos:CGFloat = screenWidth + 2
+        
+        butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
+        scroll!.addSubview(butonContainer!)
         
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
         collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -160,11 +170,16 @@ class ElementView: BNView {
         
         if self.element!.useWhiteText {
             textColor = UIColor.whiteColor()
+            iconColor = UIColor.whiteColor()
             decorationColor = self.element!.media[0].vibrantDarkColor
         } else {
-            textColor = UIColor.bnGrayDark()
+            textColor = UIColor.whiteColor()
             decorationColor = self.element!.media[0].vibrantDarkColor
+            iconColor = self.element!.media[0].vibrantDarkColor
         }
+        
+        animationView!.updateAnimationView(decorationColor, textColor: textColor)
+        butonContainer!.backgroundColor = self.element!.media[0].vibrantColor
         
         updateBackBtn()
         updateLikeItBtn()
@@ -180,7 +195,7 @@ class ElementView: BNView {
         
         if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
             scroll!.addSubview(percentageView!)
         }
@@ -259,21 +274,26 @@ class ElementView: BNView {
             header!.backgroundColor = UIColor.clearColor()
         }
 
-        self.title!.frame = CGRectMake(20, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
+        self.title!.frame = CGRectMake(20, ypos, (frame.width - 40), 0)
         self.title!.textColor = UIColor.appTextColor()
         self.title!.textAlignment = NSTextAlignment.Left
         self.title!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
         self.title!.text = self.element!.title!
+        self.title!.numberOfLines = 2
+        self.title!.sizeToFit()
         scroll!.addSubview(self.title!)
         
-        ypos += SharedUIManager.instance.elementView_titleSize + 3
-        self.subTitle!.frame = CGRectMake(20, ypos, frame.width, (SharedUIManager.instance.elementView_subTitleSize + 2))
+        ypos += self.title!.frame.height + 2
+        self.subTitle!.frame = CGRectMake(20, ypos, (frame.width - 40), (SharedUIManager.instance.elementView_subTitleSize + 2))
         self.subTitle!.textColor = UIColor.appTextColor()
         self.subTitle!.textAlignment = NSTextAlignment.Left
         self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
         self.subTitle!.text = self.element!.subTitle!
         scroll!.addSubview(self.subTitle!)
-        ypos += SharedUIManager.instance.elementView_subTitleSize + 3
+        self.subTitle!.numberOfLines = 2
+        self.subTitle!.sizeToFit()
+        
+        ypos += self.subTitle!.frame.height + 5
  
         if detailsView != nil {
             detailsView!.removeFromSuperview()
@@ -304,35 +324,38 @@ class ElementView: BNView {
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(self.element!.userLiked)
-        likeItButton!.icon!.color = self.decorationColor!
+        likeItButton!.icon!.color = self.iconColor!
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
+        
+        self.element!.userCollected = !self.element!.userCollected
+
+        updateCollectItBtn()
+        animationView!.animate(self.element!.userCollected)
         
         if !self.element!.userCollected {
             BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
         } else {
             BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
         }
-        
-        updateCollectItBtn()
     }
     
     func updateCollectItBtn(){
         collectItButton!.changeToCollectIcon(self.element!.userCollected)
-        collectItButton!.icon!.color = self.decorationColor!
+        collectItButton!.icon!.color = self.iconColor!
         collectItButton!.setNeedsDisplay()
     }
     
     func updateShareBtn() {
-        shareItButton!.icon!.color = self.decorationColor!
+        shareItButton!.icon!.color = self.iconColor!
         shareItButton!.setNeedsDisplay()
     }
     
     func updateBackBtn(){
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = self.element!.media[0].vibrantColor!.CGColor
-        backBtn!.layer.backgroundColor = self.element!.media[0].vibrantColor!.CGColor
+        backBtn!.layer.borderColor = decorationColor!.CGColor
+        backBtn!.layer.backgroundColor = decorationColor!.CGColor
         backBtn!.setNeedsDisplay()
     }
     

@@ -108,14 +108,23 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
 
             fadeView!.becomeFirstResponder()
 
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.35, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
+            UIView.animateWithDuration(0.5, animations: {() -> Void in
                 self.menuView!.frame.origin.x = -40
                 self.mainView!.frame.origin.x = 101
                 self.fadeView!.frame.origin.x = 101
                 }, completion: {(completed:Bool)->Void in
-                    
                 self.menuView!.isMenuHidden = false
             })
+            
+//            
+//            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.35, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
+//                self.menuView!.frame.origin.x = -40
+//                self.mainView!.frame.origin.x = 101
+//                self.fadeView!.frame.origin.x = 101
+//                }, completion: {(completed:Bool)->Void in
+//                    
+//                self.menuView!.isMenuHidden = false
+//            })
             
             UIView.animateWithDuration(0.25, animations:{()-> Void in
                 self.fadeView!.alpha = 0.5

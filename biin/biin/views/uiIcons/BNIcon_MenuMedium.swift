@@ -36,7 +36,7 @@ class BNIcon_MenuMedium:BNIcon {
         bezierPath.lineCapStyle = CGLineCap.Round;
         
         strokeColor.setStroke()
-        bezierPath.lineWidth = 3
+        bezierPath.lineWidth = 1
         bezierPath.stroke()
         
         
@@ -47,7 +47,7 @@ class BNIcon_MenuMedium:BNIcon {
         bezier2Path.lineCapStyle = CGLineCap.Round;
         
         strokeColor.setStroke()
-        bezier2Path.lineWidth = 3
+        bezier2Path.lineWidth = 1
         bezier2Path.stroke()
         
         
@@ -58,7 +58,7 @@ class BNIcon_MenuMedium:BNIcon {
         bezier3Path.lineCapStyle = CGLineCap.Round;
         
         strokeColor.setStroke()
-        bezier3Path.lineWidth = 3
+        bezier3Path.lineWidth = 1
         bezier3Path.stroke()
         
         CGContextRestoreGState(context)

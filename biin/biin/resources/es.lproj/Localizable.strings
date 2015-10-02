@@ -110,6 +110,8 @@ HightLights = "Recomendados";
 Biins = "Aquí y ahora";
 Biined = "Guardado!";
 NotBiins = "Revisa esta sección cuando estés dentro de un local!";
+Collected = "Guardado en tu colección.";
+Uncollected = "Removido de tu colección.";
 
 /*Invite friends*/
 InviteSubject = "De compras y diversión con Biin";

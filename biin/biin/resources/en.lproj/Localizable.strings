@@ -111,6 +111,8 @@ HightLights = "HightLights";
 Biins = "Biins";
 Biined = "Biined!";
 NotBiins = "It seems there are not Biins around here!";
+Collected = "Saved on your collection.";
+Uncollected = "Removed from your collection.";
 
 /*Invite friends   hey check out the Salmon al Limo from Spoon  */
 InviteSubject = "Shoping and having fun with Biin";

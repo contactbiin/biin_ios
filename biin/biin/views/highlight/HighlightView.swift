@@ -23,7 +23,10 @@ class HighlightView: BNView {
     var likeItButton:BNUIButton_LikeIt?
     var shareItButton:BNUIButton_ShareIt?
     var collectItButton:BNUIButton_CollectionIt?
-    
+    var decorationColor:UIColor?
+    var iconColor:UIColor?
+    var animationView:BiinItAnimationView?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -43,13 +46,14 @@ class HighlightView: BNView {
         self.element = element
 
         var textColor:UIColor?
-        var decorationColor:UIColor?
         if self.element!.useWhiteText {
             textColor = UIColor.whiteColor()
+            iconColor = UIColor.whiteColor()
             decorationColor = self.element!.media[0].vibrantDarkColor
         } else {
             textColor = UIColor.bnGrayDark()
             decorationColor = self.element!.media[0].vibrantLightColor
+            iconColor = self.element!.media[0].vibrantLightColor
         }
         
         var ypos:CGFloat = 0
@@ -59,11 +63,14 @@ class HighlightView: BNView {
         image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.frame = CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight)
-        self.addSubview(visualEffectView)
-
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+//        visualEffectView.frame = CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight)
+//        self.addSubview(visualEffectView)
         
+        animationView = BiinItAnimationView(frame:CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, 0))
+        self.addSubview(animationView!)
+        animationView!.updateAnimationView(decorationColor, textColor: textColor)
+
         let containerView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
         containerView.backgroundColor = self.element!.media[0].vibrantColor!
         self.addSubview(containerView)
@@ -109,7 +116,7 @@ class HighlightView: BNView {
         
         if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), (frame.height - SharedUIManager.instance.highlightView_headerHeight), percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
             
             
@@ -139,7 +146,7 @@ class HighlightView: BNView {
             self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
             containerView.addSubview(self.textPrice1!)
             
-            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 9), (text1Length + 1), 0.5))
+            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 7), (text1Length + 1), 0.5))
             lineView.backgroundColor = textColor
             containerView.addSubview(lineView)
             
@@ -178,7 +185,7 @@ class HighlightView: BNView {
         buttonSpace += 5
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
-        shareItButton!.icon!.color = decorationColor
+        shareItButton!.icon!.color = iconColor
         containerView.addSubview(shareItButton!)
         
         //Like button
@@ -186,7 +193,7 @@ class HighlightView: BNView {
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
         likeItButton!.changedIcon(self.element!.userLiked)
-        likeItButton!.icon!.color = decorationColor
+        likeItButton!.icon!.color = iconColor
         containerView.addSubview(likeItButton!)
         
         //Collect button
@@ -194,7 +201,7 @@ class HighlightView: BNView {
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((frame.width - buttonSpace), (SharedUIManager.instance.highlightView_headerHeight - 27), 25, 25))
         collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
         collectItButton!.changeToCollectIcon(self.element!.userCollected)
-        collectItButton!.icon!.color = decorationColor
+        collectItButton!.icon!.color = iconColor
         containerView.addSubview(collectItButton!)
         
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
@@ -299,28 +306,32 @@ class HighlightView: BNView {
     func updateLikeItBtn() {
         BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
         likeItButton!.changedIcon(self.element!.userLiked)
-        likeItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        likeItButton!.icon!.color = self.iconColor!
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
+        
+        self.element!.userCollected = !self.element!.userCollected
+        
+        updateCollectItBtn()
+        animationView!.animate(self.element!.userCollected)
         
         if !self.element!.userCollected {
             BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
         } else {
             BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
         }
-        
-        updateCollectItBtn()
     }
     
     func updateCollectItBtn(){
+        
         collectItButton!.changeToCollectIcon(self.element!.userCollected)
-        collectItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        collectItButton!.icon!.color = self.iconColor!
         collectItButton!.setNeedsDisplay()
     }
     
     func updateShareBtn() {
-        shareItButton!.icon!.color = self.element!.media[0].vibrantColor!
+        shareItButton!.icon!.color = self.iconColor!
         shareItButton!.setNeedsDisplay()
     }
     
