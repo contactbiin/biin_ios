@@ -1177,10 +1177,10 @@
 			children = (
 				5B2907821A687B070000658A /* MainView.swift */,
 				5B3B9CB21BB451170036A99B /* MainViewContainer.swift */,
-				5B3B9CAB1BB43F240036A99B /* MainViewContainer_Sites.swift */,
 				5B3B9CAD1BB43F2E0036A99B /* MainViewContainer_Elements.swift */,
 				5B3B9CA91BB43F140036A99B /* MainViewContainer_Highlights.swift */,
 				5B3BD8A71BB499CD00B86B8C /* MainViewContainer_Banner.swift */,
+				5B3B9CAB1BB43F240036A99B /* MainViewContainer_Sites.swift */,
 				5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */,
 				5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */,
 				5BA7B4771B55ABDE00AFD326 /* BluetoothErrorView.swift */,

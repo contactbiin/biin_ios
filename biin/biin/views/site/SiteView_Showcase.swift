@@ -219,7 +219,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         } else if showcase!.elements.count == 2 {
             elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         } else if showcase!.elements.count == 3 {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.1)
+            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.75)
         } else {
             elementView_width = SharedUIManager.instance.miniView_width
         }

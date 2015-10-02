@@ -29,7 +29,7 @@ class BNUIButton_Menu:BNUIButton {
         self.init(frame:frame)
         
         self.iconType = iconType
-        //createIcon()
+        createIcon()
         
         label = UILabel(frame: CGRectMake(0, ((frame.height + 10) / 2), frame.width, 13))
         let attributedString = NSMutableAttributedString(string:text)
@@ -59,7 +59,7 @@ class BNUIButton_Menu:BNUIButton {
             icon = BNIcon_NotificationMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
             break
         case .menuMedium:
-            icon = BNIcon_MenuMedium(color: UIColor.blackColor(), position: CGPointMake(2, 2))
+            icon = BNIcon_MenuMedium(color: UIColor.blackColor(), position: CGPointMake(2, 4))
             break
         case .friendsMedium:
             icon = BNIcon_FriendsMedium(color: UIColor.appButtonColor(), position: CGPointMake(35, 7))
@@ -72,6 +72,8 @@ class BNUIButton_Menu:BNUIButton {
             break
         case .informationMedium:
             icon = BNIcon_InformationMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
+            break
+        case .none:
             break
         default:
             break

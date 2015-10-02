@@ -27,7 +27,7 @@ class UIManager {
     
     //MiniView
     //Sites MiniView sizes
-    var miniView_headerHeight:CGFloat = 40
+    var miniView_headerHeight:CGFloat = 45
     
     //Font sizes
     var miniView_titleSize:CGFloat = 12
@@ -54,7 +54,7 @@ class UIManager {
     var highlightView_headerHeight:CGFloat = 70
     var highlightView_titleSize:CGFloat = 18
     var highlightView_subTitleSize:CGFloat = 13
-    var highlightView_priceSize:CGFloat = 15
+    var highlightView_priceSize:CGFloat = 13
     
     //Site Container
     var sitesContainer_headerHeight:CGFloat = 40
@@ -169,8 +169,8 @@ class UIManager {
             columns = 2
             break
         case .iphone6Plus:
-            viewWidth = (screenWidth - 40) / 3
-            viewHeight = screenHeight / 5
+            viewWidth = (screenWidth - 40) / 2.5
+            viewHeight = screenHeight / 4.5
             columns = 3
             break
         case .ipad:

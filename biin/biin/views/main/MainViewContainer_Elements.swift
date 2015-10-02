@@ -181,7 +181,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
         } else if showcase!.elements.count == 2 {
             elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         } else if showcase!.elements.count == 3 {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 3)
+            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.75)
         } else {
             elementView_width = SharedUIManager.instance.miniView_width
         }
