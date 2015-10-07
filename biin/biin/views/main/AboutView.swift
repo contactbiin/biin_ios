@@ -44,8 +44,6 @@ class AboutView: BNView {
         
         backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor

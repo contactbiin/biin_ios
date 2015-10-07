@@ -55,22 +55,31 @@ Search = "Search";
 About = "About";
 
 /* Categories */
-category1 = "Personal Care";
-category2 = "Cars";
-category3 = "Shoes";
-category4 = "Games";
-category5 = "Outdoors";
-category6 = "Health";
-category7 = "Food";
-category8 = "Sports";
-category9 = "Education";
-category10 = "Fashion";
-category11 = "Music";
-category12 = "Movies";
-category13 = "Technology";
-category14 = "Entertaiment";
-category15 = "Travel";
-category16 = "Bars";
+category1 = "Books, Audio and Movies";
+category2 = "Entertaiment";
+category3 = "Beuty and Health";
+category4 = "Woman clothing and shoes";
+category5 = "Kids clothing and shoes";
+category6 = "Man clothing and shoes";
+category7 = "Sports and Outdoors";
+category8 = "Home, Garden and Hardware";
+category9 = "Technology";
+category10 = "Toys and Hobies";
+category11 = "Food and Restaurants";
+category12 = "Cars and Industrial";
+category13 = "Jewelry";
+category14 = "In the super market";
+category15 = "Pets";
+category16 = "Events";
+category17 = "Brands";
+category18 = "Concerts";
+category19 = "GetAways";
+category20 = "Education";
+category21 =  "Museum and Tours";
+category22 = "Collectibles y Arts";
+category23 = "Finance";
+category24 = "Instuticional";
+category25 = "Health";
 
 /* Views */
 /* Profile View*/

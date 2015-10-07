@@ -23,7 +23,7 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         
         self.layer.masksToBounds = true
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
 

@@ -33,29 +33,35 @@ class BNUIButton_Category:BNUIButton {
         self.categoryName = text
         self.iconType = iconType
         
-        self.selectedColor = selectedColor
-        self.unSelectedColor = unSelectedColor
+        self.selectedColor = UIColor.whiteColor()
+        self.unSelectedColor = UIColor.lightGrayColor()
+    
+        self.backgroundColor = UIColor.grayColor()
         
-        createIcon()
-        
-        self.layer.cornerRadius  = frame.width / 3
-        self.layer.borderWidth = 3
-        self.layer.borderColor = self.unSelectedColor!.CGColor
-        self.layer.masksToBounds = true
+//        createIcon()
+//
+//        self.layer.cornerRadius  = frame.width / 3
+//        self.layer.borderWidth = 3
+//        self.layer.borderColor = self.unSelectedColor!.CGColor
+//        self.layer.masksToBounds = true
         
         //var iconWidth:CGFloat = 10
         //var xSpace:CGFloat = 6
-        let ypos:CGFloat = 38
+        //let ypos:CGFloat = 38
         //var xpos:CGFloat = 0
         
-        label = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), 24))
-        label!.textColor = self.unSelectedColor!
-        label!.font = UIFont(name: "Lato-Regular", size: 10)
-        label!.textAlignment  = NSTextAlignment.Center
-        label!.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        label!.numberOfLines = 2
-        label!.text = NSLocalizedString(categoryIdentifier!, comment:categoryIdentifier!)
-        self.addSubview(label!)
+//        label = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), 24))
+//        label!.textColor = self.unSelectedColor!
+//        label!.font = UIFont(name: "Lato-Regular", size: 10)
+//        label!.textAlignment  = NSTextAlignment.Center
+//        label!.lineBreakMode = NSLineBreakMode.ByWordWrapping
+//        label!.numberOfLines = 2
+//        label!.text = NSLocalizedString(categoryIdentifier!, comment:categoryIdentifier!)
+//        self.addSubview(label!)
+        
+        self.setTitleColor(self.selectedColor, forState: UIControlState.Normal)
+        self.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
+        self.setTitle(text, forState: UIControlState.Normal)
     }
     
     /*
@@ -134,15 +140,19 @@ class BNUIButton_Category:BNUIButton {
     override func showSelected() {
         
         if isButtonSelected {
-            self.layer.borderColor = self.unSelectedColor!.CGColor
-            self.label!.textColor = self.unSelectedColor!
-            self.icon!.color = self.unSelectedColor!
-            setNeedsDisplay()
+            //self.layer.borderColor = self.unSelectedColor!.CGColor
+            //self.label!.textColor = self.unSelectedColor!
+            //self.icon!.color = self.unSelectedColor!
+            //setNeedsDisplay()
+            self.setTitleColor(selectedColor, forState: UIControlState.Normal)
+
         } else {
-            self.layer.borderColor = self.selectedColor!.CGColor
-            self.label!.textColor = self.selectedColor!
-            self.icon!.color = self.selectedColor!
-            setNeedsDisplay()
+            self.setTitleColor(unSelectedColor, forState: UIControlState.Normal)
+
+//            self.layer.borderColor = self.selectedColor!.CGColor
+            //self.label!.textColor = self.selectedColor!
+            //self.icon!.color = self.selectedColor!
+            //setNeedsDisplay()
       
         }
         
