@@ -165,7 +165,7 @@ class BNRequest_Element: BNRequest {
                             
                             if white <= 0.7 {
                                 self.element!.useWhiteText = true
-                                print("--------------   element title:\(self.element!.title!) white: \(white)")
+                                //print("--------------   element title:\(self.element!.title!) white: \(white)")
                             }
 
 

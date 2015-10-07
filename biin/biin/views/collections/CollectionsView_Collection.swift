@@ -174,7 +174,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
                     
                     
                     //itemView = CollectionView_ItemView(frame:CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element: element, isElement: true, site: nil)
-                    elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true, isNumberVisible:false)
+                    elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition: itemPosition, showRemoveBtn: true, isNumberVisible:false, showlocation:true)
                         //ElementView(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.miniView_width, SharedUIManager.instance.miniView_height), father: self, showBiinItBtn: false)
         
                     

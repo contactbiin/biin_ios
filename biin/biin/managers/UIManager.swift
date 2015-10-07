@@ -28,6 +28,10 @@ class UIManager {
     //MiniView
     //Sites MiniView sizes
     var miniView_headerHeight:CGFloat = 45
+
+    //In showcase
+    var miniView_headerHeight_showcase:CGFloat = 35
+    var miniView_height_showcase:CGFloat = 0
     
     //Font sizes
     var miniView_titleSize:CGFloat = 12
@@ -181,8 +185,10 @@ class UIManager {
         default:
             break
         }
+        
         self.miniView_width = viewWidth
         self.miniView_height = viewHeight + miniView_headerHeight
+        self.miniView_height_showcase = viewHeight + miniView_headerHeight_showcase
 
         siteMiniView_imageheight = (screenWidth / 2) - 1
         elementContainer_Height = miniView_height + sitesContainer_headerHeight + 1
@@ -347,6 +353,13 @@ class UIManager {
         return true
     }
     
+    func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
+        let label = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        label.font = UIFont(name: fontName, size:fontSize)
+        label.text = text
+        label.sizeToFit()
+        return label.frame.width
+    }
 }
 
 enum BNDeviceType {

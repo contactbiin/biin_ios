@@ -21,7 +21,7 @@ class BNUIBiinView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
-        icon = BNIcon_Biin(color: UIColor.biinColor(), position: CGPoint(x: 5, y: 5), scale:1.0)
+        icon = BNIcon_Biin(color: UIColor.grayColor(), position: CGPoint(x: 5, y: 5), scale:1.0)
     }
     
     convenience init(position:CGPoint, scale:CGFloat) {
@@ -39,7 +39,7 @@ class BNUIBiinView:UIView {
         self.init(frame: CGRectMake(position.x, position.y, width, height))
         self.backgroundColor = UIColor.clearColor()
         
-        icon = BNIcon_Biin(color: UIColor.biinColor(), position:CGPoint(x:space, y:space), scale:scale)
+        icon = BNIcon_Biin(color: UIColor.darkGrayColor(), position:CGPoint(x:space, y:space), scale:scale)
     }
     
     override func drawRect(rect:CGRect){

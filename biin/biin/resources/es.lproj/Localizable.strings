@@ -54,22 +54,32 @@ Search = "Buscar";
 About = "Sobre Biin";
 
 /* Categories */
-category1 = "Cuidado Personal";
-category2 = "Carros";
-category3 = "Zapatos";
-category4 = "Juegos";
-category5 = "Exteriores";
-category6 = "Salud";
-category7 = "Comida";
-category8 = "Deportes";
-category9 = "Educación";
-category10 = "Moda";
-category11 = "Música";
-category12 = "Cine";
-category13 = "Tecnología";
-category14 = "Entretenimiento";
-category15 = "Viajes";
-category16 = "Bares";
+category1 = "Libros, Audio y peliculas";
+category2 = "Entretenimiento";
+category3 = "Belleza y Salud";
+category4 = "Ropa y Zapatos Mujer";
+category5 = "Ropa y Zapatos Niños";
+category6 = "Ropa y Zapatos Hombre";
+category7 = "Deportes y Outdoors";
+category8 = "Hogar, Jardín y Ferretería";
+category9 = "Tecnología";
+category10 = "Juguetes y pasatiempos";
+category11 = "Comida y Restaurantes";
+category12 = "Automotriz e Indutrial";
+category13 = "Joyería y Bisuteria";
+category14 = "En el Super";
+category15 = "Mascotas";
+category16 = "Ferias";
+category17 = "Marcas";
+category18 = "Actividades Masivas";
+category19 = "GetAways";
+category20 = "Educación";
+category21 =  "Museos y tours";
+category22 = "Collecionables y Arte";
+category23 = "Financiero";
+category24 = "Instuticional";
+category25 = "Salud";
+
 
 /* Views */
 /* Profile View*/
