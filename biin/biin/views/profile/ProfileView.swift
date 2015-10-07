@@ -65,16 +65,13 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         var ypos:CGFloat = 20
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
-        
         let titleText = NSLocalizedString("Profile", comment: "title").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        
         title!.font = UIFont(name:"Lato-Regular", size:13)
         title!.textColor = UIColor.blackColor()
         title!.textAlignment = NSTextAlignment.Center
-        //title!.text = NSLocalizedString("Profile", comment: "title").uppercaseString
         self.addSubview(title!)
         
         
@@ -382,7 +379,7 @@ class ProfileView: BNView, UITextFieldDelegate {
 //            }
         }
         
-        ypos += 5
+        ypos += 36
         saveBtn = BNUIButton_Loging(frame: CGRectMake(1, ypos, (screenWidth - 2), 60), color: UIColor.darkGrayColor(), text:NSLocalizedString("Save", comment: "Save").uppercaseString, textColor:UIColor.whiteColor())
         saveBtn!.addTarget(self, action: "saveBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         //saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColors
@@ -423,7 +420,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         if state!.stateType == BNStateType.MainViewContainerState
             || state!.stateType == BNStateType.SiteState {
         
-            UIView.animateWithDuration(0.25, animations: {()-> Void in
+            UIView.animateWithDuration(0.35, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
             })
         } else {
