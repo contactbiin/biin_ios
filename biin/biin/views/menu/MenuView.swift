@@ -168,17 +168,17 @@ class MenuView:UIView {
     }
 
     func disableButton(index:Int) {
-        for var i = 0; i < buttons.count; i++ {
-            if i == index {
-                buttons[i].showSelected()
-                buttons[i].enabled = false
-            } else {
-
-                buttons[i].showEnable()
-                buttons[i].enabled = true
-
-            }
-        }
+//        for var i = 0; i < buttons.count; i++ {
+//            if i == index {
+//                buttons[i].showSelected()
+//                buttons[i].enabled = false
+//            } else {
+//
+//                buttons[i].showEnable()
+//                buttons[i].enabled = true
+//
+//            }
+//        }
     }
 }
 

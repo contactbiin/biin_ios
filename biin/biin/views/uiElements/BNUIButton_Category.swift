@@ -60,7 +60,7 @@ class BNUIButton_Category:BNUIButton {
 //        self.addSubview(label!)
         
         self.setTitleColor(self.selectedColor, forState: UIControlState.Normal)
-        self.titleLabel!.font = UIFont(name: "Lato-Light", size: 13)
+        self.titleLabel!.font = UIFont(name: "Lato-Light", size: 14)
         self.setTitle(text, forState: UIControlState.Normal)
     }
     

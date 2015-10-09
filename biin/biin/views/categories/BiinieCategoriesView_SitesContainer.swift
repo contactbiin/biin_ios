@@ -80,6 +80,8 @@ class BiinieCategoriesView_SitesContainer: BNView, UIScrollViewDelegate {
         scroll!.bounces = false
         self.addSubview(scroll!)
         
+        
+        
         addAllSites()
     }
     

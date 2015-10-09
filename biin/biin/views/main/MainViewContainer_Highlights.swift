@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_Delegate {
+class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     
     var scroll:UIScrollView?
@@ -122,7 +122,8 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_
             
             let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: element!)
             
-            highlight.delegate = self
+            
+            highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
             scroll!.addSubview(highlight)
             hightlights!.append(highlight)
             highlight.requestImage()
@@ -132,7 +133,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_
         let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: hightlights![0].element!)
         lastHightLight.frame.origin.x = xpos
         lastHightLight.requestImage()
-        lastHightLight.delegate = self
+        lastHightLight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
         scroll!.addSubview(lastHightLight)
         hightlights!.append(lastHightLight)
         xpos += (SharedUIManager.instance.screenWidth )
@@ -197,9 +198,9 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate, HightlightView_
     }// called when scrolling animation finished. may be called immediately if already at top
     
     //ElementMiniView_Delegate
-    func showElementView(element: BNElement) {
-        (father! as! MainViewContainer).showElementView(element)
-    }
+//    func showElementView(element: BNElement) {
+//        (father! as! MainViewContainer).showElementView(element)
+//    }
 
     func stopTimer(){
         self.timer!.invalidate()

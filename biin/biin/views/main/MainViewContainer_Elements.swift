@@ -6,8 +6,10 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, SiteView_Delegate {
-    
+class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
+
+    var delegate:MainViewContainer_Elements_Delegate?
+    var moreElementsBtn:UIButton?
     var title:UILabel?
     var subTitle:UILabel?
     var scroll:UIScrollView?
@@ -20,8 +22,6 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     var elements:Array<ElementMiniView>?
     var addedElementsIdentifiers:Dictionary<String, BNElement>?
 
-
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -57,7 +57,14 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
             break
         }
         
-        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 10), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        moreElementsBtn = UIButton(frame: CGRectMake(screenWidth - 50, 0, 50, 38))
+        moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
+        moreElementsBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        moreElementsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
+        moreElementsBtn!.addTarget(self, action: "moreElementsBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(moreElementsBtn!)
+        
+        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
         let titleText = category.name!
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -201,7 +208,8 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
                 xpos += (elementView_width - 1)
             }
             
-            elementView.delegate = self
+            elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+            //elementView.delegate = self
             scroll!.addSubview(elementView)
             elements!.append(elementView)
             elementPosition++
@@ -280,8 +288,18 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate, ElementMiniView_D
     }
     
     //ElementMiniView_Delegate
-    func showElementView(viewiew: ElementMiniView, element: BNElement) {
-        (father! as! MainViewContainer).showElementView(element)
+//    func showElementView(viewiew: ElementMiniView, element: BNElement) {
+//        (father! as! MainViewContainer).showElementView(element)
+//    }
+    
+    func moreElementsBtnAction(sender:UIButton){
+        delegate!.showAllElementsViewForCategory!(self.category)
     }
+}
+
+@objc protocol MainViewContainer_Elements_Delegate:NSObjectProtocol {
+    ///Update categories icons on header
+    optional func showAllElementsView()
+    optional func showAllElementsViewForCategory(category:BNCategory?)
 }
 

@@ -65,6 +65,8 @@ class ElementView: BNView {
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
         scroll!.backgroundColor = UIColor.whiteColor()
+        scroll!.bounces = false
+        scroll!.pagingEnabled = false
         self.addSubview(scroll!)
         
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
@@ -121,14 +123,14 @@ class ElementView: BNView {
     }
     
     override func transitionIn() {
-        UIView.animateWithDuration(0.25, animations: {()->Void in
+        UIView.animateWithDuration(0.3, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }
     
     override func transitionOut( state:BNState? ) {
         state!.action()
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
+        UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.frame.origin.x = SharedUIManager.instance.screenWidth
         })
     }
@@ -334,7 +336,7 @@ class ElementView: BNView {
         updateCollectItBtn()
         animationView!.animate(self.element!.userCollected)
         
-        if !self.element!.userCollected {
+        if self.element!.userCollected {
             BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
         } else {
             BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)

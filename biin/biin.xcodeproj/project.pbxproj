@@ -12,6 +12,13 @@
 		5B047D621A8160B500281B17 /* BNIcon_InformationSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */; };
 		5B047D641A816B3F00281B17 /* SiteView_Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B047D631A816B3F00281B17 /* SiteView_Information.swift */; };
 		5B129FFF1B4C2C9D00F8083E /* InternetErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */; };
+		5B1655EF1BC5C2E9001ED8ED /* AllSitesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1655EE1BC5C2E9001ED8ED /* AllSitesView.swift */; settings = {ASSET_TAGS = (); }; };
+		5B1655F11BC5C688001ED8ED /* ElementState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1655F01BC5C688001ED8ED /* ElementState.swift */; settings = {ASSET_TAGS = (); }; };
+		5B1655F31BC6CE17001ED8ED /* AllSitesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1655F21BC6CE17001ED8ED /* AllSitesState.swift */; settings = {ASSET_TAGS = (); }; };
+		5B1655F51BC6D407001ED8ED /* AllElementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1655F41BC6D407001ED8ED /* AllElementsView.swift */; settings = {ASSET_TAGS = (); }; };
+		5B1655F71BC6D489001ED8ED /* AllElementsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1655F61BC6D489001ED8ED /* AllElementsState.swift */; settings = {ASSET_TAGS = (); }; };
+		5B1655F91BC70A68001ED8ED /* AllCollectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1655F81BC70A68001ED8ED /* AllCollectedView.swift */; settings = {ASSET_TAGS = (); }; };
+		5B1655FB1BC70AD9001ED8ED /* AllCollectedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1655FA1BC70AD9001ED8ED /* AllCollectedState.swift */; settings = {ASSET_TAGS = (); }; };
 		5B16FCA61A6EDDD000785045 /* SocialButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */; };
 		5B16FCAA1A6EEA4C00785045 /* BNUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */; };
 		5B1E2C1E1A830B2400633C46 /* SiteView_Showcase_Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */; };
@@ -356,6 +363,13 @@
 		5B047D611A8160B500281B17 /* BNIcon_InformationSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_InformationSmall.swift; sourceTree = "<group>"; };
 		5B047D631A816B3F00281B17 /* SiteView_Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Information.swift; sourceTree = "<group>"; };
 		5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetErrorView.swift; sourceTree = "<group>"; };
+		5B1655EE1BC5C2E9001ED8ED /* AllSitesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSitesView.swift; sourceTree = "<group>"; };
+		5B1655F01BC5C688001ED8ED /* ElementState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementState.swift; sourceTree = "<group>"; };
+		5B1655F21BC6CE17001ED8ED /* AllSitesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllSitesState.swift; sourceTree = "<group>"; };
+		5B1655F41BC6D407001ED8ED /* AllElementsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllElementsView.swift; sourceTree = "<group>"; };
+		5B1655F61BC6D489001ED8ED /* AllElementsState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllElementsState.swift; sourceTree = "<group>"; };
+		5B1655F81BC70A68001ED8ED /* AllCollectedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllCollectedView.swift; sourceTree = "<group>"; };
+		5B1655FA1BC70AD9001ED8ED /* AllCollectedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllCollectedState.swift; sourceTree = "<group>"; };
 		5B16FCA51A6EDDD000785045 /* SocialButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialButtonsView.swift; sourceTree = "<group>"; };
 		5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton.swift; sourceTree = "<group>"; };
 		5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase_Join.swift; sourceTree = "<group>"; };
@@ -1181,6 +1195,9 @@
 				5B3B9CA91BB43F140036A99B /* MainViewContainer_Highlights.swift */,
 				5B3BD8A71BB499CD00B86B8C /* MainViewContainer_Banner.swift */,
 				5B3B9CAB1BB43F240036A99B /* MainViewContainer_Sites.swift */,
+				5B1655EE1BC5C2E9001ED8ED /* AllSitesView.swift */,
+				5B1655F41BC6D407001ED8ED /* AllElementsView.swift */,
+				5B1655F81BC70A68001ED8ED /* AllCollectedView.swift */,
 				5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */,
 				5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */,
 				5BA7B4771B55ABDE00AFD326 /* BluetoothErrorView.swift */,
@@ -1247,6 +1264,11 @@
 			isa = PBXGroup;
 			children = (
 				5BA0B7851A686A6700DBEB74 /* BNState.swift */,
+				5B9AD35B1A7C15A8001C9B5A /* SiteState.swift */,
+				5B1655F21BC6CE17001ED8ED /* AllSitesState.swift */,
+				5B1655F61BC6D489001ED8ED /* AllElementsState.swift */,
+				5B1655FA1BC70AD9001ED8ED /* AllCollectedState.swift */,
+				5B1655F01BC5C688001ED8ED /* ElementState.swift */,
 				5BA0B7861A686A6700DBEB74 /* BoardsState.swift */,
 				5BDB05571A697788006EBB1E /* BiinieCategoriesState.swift */,
 				5B3B9CB41BB453750036A99B /* MainViewContainerState.swift */,
@@ -1256,7 +1278,6 @@
 				5BA0B78A1A686A6700DBEB74 /* SectionsState.swift */,
 				5BA0B78B1A686A6700DBEB74 /* SettingsState.swift */,
 				5BA0B78C1A686A6700DBEB74 /* ShowcaseState.swift */,
-				5B9AD35B1A7C15A8001C9B5A /* SiteState.swift */,
 				5BEE61381A97E8CE00DE334E /* NotificationsState.swift */,
 				5B28B9E91B483DA1007277A0 /* LoyaltiesState.swift */,
 				5B406C4A1B4F029C005807EA /* AboutState.swift */,
@@ -1560,6 +1581,7 @@
 				5B3D76081A6816B300CB0D1C /* BNSite.swift in Sources */,
 				5B5D77F41A8E827E001C4A34 /* BNIcon_TravelMedium.swift in Sources */,
 				5B7122E31BB1973700242785 /* BNIcon_Percentage.swift in Sources */,
+				5B1655F91BC70A68001ED8ED /* AllCollectedView.swift in Sources */,
 				5B6615C11B3326D700ECE508 /* BNLocalNotification.swift in Sources */,
 				5B760E571AAE5F2C003E017A /* BNUIButton_NotificationGo.swift in Sources */,
 				5B5D77E41A8E737B001C4A34 /* BNIcon_SportMedium.swift in Sources */,
@@ -1583,6 +1605,7 @@
 				5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */,
 				5B8905D21A8E4CC500637869 /* BNIcon_ShoeSmall.swift in Sources */,
 				5BEE97DB1BAC5567004C2B30 /* BNRequest_SendUnCollectedElement.swift in Sources */,
+				5B1655FB1BC70AD9001ED8ED /* AllCollectedState.swift in Sources */,
 				5BEA77951A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift in Sources */,
 				5B3BD8A81BB499CD00B86B8C /* MainViewContainer_Banner.swift in Sources */,
 				5B53395F1A8512950049FB00 /* LoginView.swift in Sources */,
@@ -1647,6 +1670,7 @@
 				5B3D76071A6816B300CB0D1C /* BNShowcase.swift in Sources */,
 				5B5D82631A961C4C007C88AB /* UserOnboardingView_Slide.swift in Sources */,
 				5B3B9CB31BB451170036A99B /* MainViewContainer.swift in Sources */,
+				5B1655EF1BC5C2E9001ED8ED /* AllSitesView.swift in Sources */,
 				5BA0B78E1A686A6700DBEB74 /* BoardsState.swift in Sources */,
 				5BA7B4781B55ABDE00AFD326 /* BluetoothErrorView.swift in Sources */,
 				5B48C8251A6FFF97009FC4D4 /* BNIcon_SearchMedium.swift in Sources */,
@@ -1694,6 +1718,7 @@
 				5B3CF3301AFFFDF300A74E77 /* BNIcon_PricingBig.swift in Sources */,
 				5BEE97CE1BAC53BB004C2B30 /* BNRequest_SendFollowedSite.swift in Sources */,
 				5B75E2521A8010B7005FF629 /* BNUIButton_Back.swift in Sources */,
+				5B1655F51BC6D407001ED8ED /* AllElementsView.swift in Sources */,
 				5B60A4CE1AA21DBB0025ACBA /* BNIcon_CommentMedium.swift in Sources */,
 				5B5D77DE1A8E6F0A001C4A34 /* BNIcon_OutdoorsMedium.swift in Sources */,
 				5B5339671A85189F0049FB00 /* UserOnboardingViewController.swift in Sources */,
@@ -1767,6 +1792,7 @@
 				5BECEFE51AE5505500ECDE28 /* BNUIView_PriceX.swift in Sources */,
 				5BA5389B1A82AB2000E0015F /* BNUICompletedGameIconView.swift in Sources */,
 				5BEE613B1A97EEB900DE334E /* LoyaltiesView.swift in Sources */,
+				5B1655F71BC6D489001ED8ED /* AllElementsState.swift in Sources */,
 				5BEE97C01BAC53BB004C2B30 /* BNRequest_SendBiiniePoints.swift in Sources */,
 				5B760E591AAE5FB7003E017A /* BNIcon_RightArrowSmall.swift in Sources */,
 				5B60A4C61AA21B3E0025ACBA /* BNUIButton_Contact.swift in Sources */,
@@ -1776,6 +1802,7 @@
 				5BC0D8241B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift in Sources */,
 				5B75E2541A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift in Sources */,
 				5B60A4CA1AA21D620025ACBA /* BNIcon_EmailSmall.swift in Sources */,
+				5B1655F31BC6CE17001ED8ED /* AllSitesState.swift in Sources */,
 				5B047D601A81604600281B17 /* BNUIButton_Information.swift in Sources */,
 				5B6246361A9E9F61009C979D /* BNUIButton_RemoveIt.swift in Sources */,
 				5B5BE7221A8580B700DB5996 /* BNUITexfield_Center.swift in Sources */,
@@ -1794,6 +1821,7 @@
 				5BEE97BE1BAC53BB004C2B30 /* BNRequest_SendBiinieActions.swift in Sources */,
 				5B5D77F01A8E7C90001C4A34 /* BNIcon_CarsMedium.swift in Sources */,
 				5B28B9E61B4838B4007277A0 /* LoyaltiesMiniView.swift in Sources */,
+				5B1655F11BC5C688001ED8ED /* ElementState.swift in Sources */,
 				5B1F54FE1AE6F16300130CFE /* BNUIActivityItemProvider.swift in Sources */,
 				5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */,
 				5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */,

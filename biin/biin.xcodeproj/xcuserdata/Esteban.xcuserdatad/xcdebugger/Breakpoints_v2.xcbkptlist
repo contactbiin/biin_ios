@@ -9,29 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "biin/views/main/MainViewContainer_Sites.swift"
-            timestampString = "465415394.137519"
+            filePath = "biin/viewControllers/MainViewController.swift"
+            timestampString = "466011227.248601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
-            landmarkName = "showSiteView(_:)"
+            startingLineNumber = "449"
+            endingLineNumber = "449"
+            landmarkName = "manager(_:updateMainViewController:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "biin/viewControllers/MainViewController.swift"
-            timestampString = "465514803.363406"
+            filePath = "biin/views/site/SiteView.swift"
+            timestampString = "466026510.466284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
-            landmarkName = "manager(_:updateMainViewController:)"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "transitionOut(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

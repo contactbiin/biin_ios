@@ -29,7 +29,7 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
-        //print("BNRequest_Element.run()")
+        print("BNRequest_Element.run() \(requestString)")
         isRunning = true
         //var response:BNResponse?
         

@@ -41,6 +41,8 @@ Savings = "AHORROS";
 YouSave = "AHORRÁS";
 Value = "VALOR";
 Calcel = "Cancelar";
+More = "más";
+NearYou = "Lugares cercanos a vos";
 
 /* Menu buttons */
 Profile = "Perfil";
@@ -61,15 +63,18 @@ category4 = "Ropa y Zapatos Mujer";
 category5 = "Ropa y Zapatos Niños";
 category6 = "Ropa y Zapatos Hombre";
 category7 = "Deportes y Outdoors";
+//category8 = "Muebles";
 category8 = "Hogar, Jardín y Ferretería";
 category9 = "Tecnología";
+//category11 = "Electrodomesticos";
 category10 = "Juguetes y pasatiempos";
 category11 = "Comida y Restaurantes";
 category12 = "Automotriz e Indutrial";
 category13 = "Joyería y Bisuteria";
 category14 = "En el Super";
 category15 = "Mascotas";
-category16 = "Ferias";
+
+/*category16 = "Ferias";
 category17 = "Marcas";
 category18 = "Actividades Masivas";
 category19 = "GetAways";
@@ -78,8 +83,7 @@ category21 =  "Museos y tours";
 category22 = "Collecionables y Arte";
 category23 = "Financiero";
 category24 = "Instuticional";
-category25 = "Salud";
-
+category25 = "Salud";*/
 
 /* Views */
 /* Profile View*/

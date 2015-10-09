@@ -60,7 +60,7 @@ class BNRequest_Collections: BNRequest {
                             collection.items = Array<String>()
                             
                             if elements?.count > 0 {
-                                
+                                 print("number elements in collections: \(elements!.count)")
                                 collection.elements = Dictionary<String, BNElement>()
                                 
                                 for ( var j = 0; j < elements?.count; j++ ) {
