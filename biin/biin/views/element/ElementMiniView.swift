@@ -9,6 +9,7 @@ import UIKit
 class ElementMiniView: BNView {
     
     var delegate:ElementMiniView_Delegate?
+    var delegateAllCollectedView:ElementMiniView_Delegate?
     var element:BNElement?
     var image:BNUIImageView?
     var header:ElementMiniView_Header?
@@ -110,7 +111,7 @@ class ElementMiniView: BNView {
  
         var headerHeight:CGFloat = 0
         if showlocation {
-            headerHeight =  frame.height - SharedUIManager.instance.miniView_headerHeight
+            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight
         } else {
             headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight_showcase
         }
@@ -134,9 +135,15 @@ class ElementMiniView: BNView {
             percentageViewSize -= 20
         }
   
+        var titleTextWidth:CGFloat = 0
+        if showRemoveBtn {
+            titleTextWidth = frame.width - (10 + 25)//20 for remove button
+        } else {
+            titleTextWidth = frame.width - 10
+        }
         
         ypos = 3
-        let title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 3)))
+        let title = UILabel(frame: CGRectMake(5, ypos, titleTextWidth, (SharedUIManager.instance.miniView_titleSize + 3)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
         title.textColor = textColor
         title.text = element!.title!
@@ -215,8 +222,8 @@ class ElementMiniView: BNView {
         }
         
         if showRemoveBtn {
-            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 19), 4, 15, 15))
-            removeItButton!.addTarget(self, action: "unBiinit:", forControlEvents: UIControlEvents.TouchUpInside)
+            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 20), (headerHeight + 4), 15, 15), color:decorationColor)
+            removeItButton!.addTarget(self, action: "unCollect:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(removeItButton!)
         } else {
             
@@ -317,13 +324,13 @@ class ElementMiniView: BNView {
         //header!.updateSocialButtonsForElement(element!)
     }
     
-    func unBiinit(sender:BNUIButton_ShareIt){
+    func unCollect(sender:BNUIButton_ShareIt){
         
         UIView.animateWithDuration(0.1, animations: {()->Void in
                 self.alpha = 0
             }, completion: {(completed:Bool)->Void in
                 BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement:true)
-                self.delegate!.resizeScrollOnRemoved!(self)
+                self.delegateAllCollectedView!.resizeScrollOnRemoved!(self)
                 self.removeFromSuperview()
         })
     }

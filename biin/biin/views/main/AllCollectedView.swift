@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class AllCollectedView: BNView {
+class AllCollectedView: BNView, ElementMiniView_Delegate {
     
     var delegate:AllCollectedView_Delegate?
     var title:UILabel?
@@ -125,84 +125,64 @@ class AllCollectedView: BNView {
     
     func updateCollectedElements() {
         
+        if elements != nil {
+            addedElementsIdentifiers!.removeAll(keepCapacity: false)
+            for view in elements! {
+                view.removeFromSuperview()
+            }
+        } else {
+            elements = Array<ElementMiniView>()
+            addedElementsIdentifiers = Dictionary<String, BNElement>()
+        }
+    
+        self.showcase = nil
+        showcase = BNShowcase()
 
-            if elements != nil {
-                addedElementsIdentifiers!.removeAll(keepCapacity: false)
-                for view in elements! {
-                    view.removeFromSuperview()
-                }
-            } else {
-                elements = Array<ElementMiniView>()
-                addedElementsIdentifiers = Dictionary<String, BNElement>()
-            }
-        
-            self.showcase = nil
-            showcase = BNShowcase()
-            
-//            for siteDetails in category!.sitesDetails {
-//                
-//                if let site = BNAppSharedManager.instance.dataManager.sites[siteDetails.identifier!] {
-//                    
-//                    if let showcases = site.showcases {
-//                        for showcase in showcases {
-//                            for element in showcase.elements {
-//                                if element.isHighlight {
-//                                    if addedElementsIdentifiers![element._id!] == nil {
-//                                        self.showcase!.elements.append(element)
-//                                        addedElementsIdentifiers![element._id!] = element
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        
-        
-            for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
-                for (_,element) in collection.elements {
-                    if addedElementsIdentifiers![element._id!] == nil {
-                        self.showcase!.elements.append(element)
-                        addedElementsIdentifiers![element._id!] = element
-                    }
+        for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
+            for (_,element) in collection.elements {
+                if addedElementsIdentifiers![element._id!] == nil {
+                    self.showcase!.elements.append(element)
+                    addedElementsIdentifiers![element._id!] = element
                 }
             }
+        }
 
-            var xpos:CGFloat = 0
-            var ypos:CGFloat = 0
-            var colunmCounter = 0
-            let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
+        var xpos:CGFloat = 0
+        var ypos:CGFloat = 0
+        var colunmCounter = 0
+        let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
+        
+        var elementView_width:CGFloat = 0
+        
+        if showcase!.elements.count == 1 {
+            elementView_width = SharedUIManager.instance.screenWidth
+        } else {
+            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+        }
+    
+        for element in showcase!.elements {
             
-            var elementView_width:CGFloat = 0
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:true)
             
-            if showcase!.elements.count == 1 {
-                elementView_width = SharedUIManager.instance.screenWidth
-            } else {
-                elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+            elementView.requestImage()
+            elementView.delegate = father! as! MainView
+            elementView.delegateAllCollectedView = self
+            scroll!.addSubview(elementView)
+            elements!.append(elementView)
+            
+            xpos += elementView_width + spacer
+            colunmCounter++
+            
+            if colunmCounter == 2 {
+                colunmCounter = 0
+                xpos = 0
+                ypos += (miniViewHeight + 1)
             }
-            
-            for element in showcase!.elements {
-                
-                
-                let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
-                
-                elementView.requestImage()
-                elementView.delegate = father! as! MainView
-                scroll!.addSubview(elementView)
-                elements!.append(elementView)
-                
-                xpos += elementView_width + spacer
-                colunmCounter++
-                
-                if colunmCounter == 2 {
-                    colunmCounter = 0
-                    xpos = 0
-                    ypos += (miniViewHeight + 1)
-                }
-            }
-            
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-            scroll!.setContentOffset(CGPointZero, animated: false)
+        }
+
+
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        scroll!.setContentOffset(CGPointZero, animated: false)
     }
     
     func clean(){
@@ -224,7 +204,53 @@ class AllCollectedView: BNView {
     override func refresh() {
         updateCollectedElements()
     }
+    
+    func resizeScrollOnRemoved(view: ElementMiniView) {
+        print("resizeScrollOnRemoved()")
+        removeElementCollected(view)
+    }
+    
+    func removeElementCollected(view: ElementMiniView){
+        
+        var xpos:CGFloat = 0
+        var ypos:CGFloat = 0
+        var colunmCounter = 0
+        let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
+        
+        var elementView_width:CGFloat = 0
+        
+
+        
+        for var i = 0; i < elements!.count; i++ {
+            if elements![i].element!.identifier! == view.element!.identifier {
+                elements!.removeAtIndex(i)
+                continue
+            }
+        }
+        
+        for var i = 0; i < elements!.count; i++ {
+                  
+            if showcase!.elements.count == 1 {
+                elementView_width = SharedUIManager.instance.screenWidth
+            } else {
+                elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+            }
+            
+            elements![i].frame = CGRectMake(xpos, ypos, elementView_width, miniViewHeight)
+            
+            xpos += elementView_width + spacer
+            colunmCounter++
+            
+            if colunmCounter == 2 {
+                colunmCounter = 0
+                xpos = 0
+                ypos += (miniViewHeight + 1)
+            }
+
+        }
+    }
 }
+
 
 @objc protocol AllCollectedView_Delegate:NSObjectProtocol {
     ///Update categories icons on header
