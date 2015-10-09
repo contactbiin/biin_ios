@@ -316,7 +316,7 @@ class HighlightView: BNView {
         updateCollectItBtn()
         animationView!.animate(self.element!.userCollected)
         
-        if !self.element!.userCollected {
+        if self.element!.userCollected {
             BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
         } else {
             BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
