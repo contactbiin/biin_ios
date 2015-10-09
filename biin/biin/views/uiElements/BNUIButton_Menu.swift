@@ -22,7 +22,7 @@ class BNUIButton_Menu:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
+        //icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(1, 1))
     }
     
     convenience init(frame:CGRect, text:String, iconType:BNIconType){
@@ -31,9 +31,11 @@ class BNUIButton_Menu:BNUIButton {
         self.iconType = iconType
         createIcon()
         
-        label = UILabel(frame: CGRectMake(0, ((frame.height + 10) / 2), frame.width, 15))
-        label!.text = text
-        label!.textColor = UIColor.appTextColor()
+        label = UILabel(frame: CGRectMake(0, ((frame.height + 10) / 2), frame.width, 13))
+        let attributedString = NSMutableAttributedString(string:text)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(text.characters.count)))
+        label!.attributedText = attributedString
+        label!.textColor = UIColor.whiteColor()
         label!.font = UIFont(name: "Lato-Light", size: 13)
         label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)
@@ -57,7 +59,7 @@ class BNUIButton_Menu:BNUIButton {
             icon = BNIcon_NotificationMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
             break
         case .menuMedium:
-            icon = BNIcon_MenuMedium(color: UIColor.blackColor(), position: CGPointMake(2, 2))
+            icon = BNIcon_MenuMedium(color: UIColor.blackColor(), position: CGPointMake(2, 4))
             break
         case .friendsMedium:
             icon = BNIcon_FriendsMedium(color: UIColor.appButtonColor(), position: CGPointMake(35, 7))
@@ -71,23 +73,25 @@ class BNUIButton_Menu:BNUIButton {
         case .informationMedium:
             icon = BNIcon_InformationMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
             break
+        case .none:
+            break
         default:
             break
         }
     }
     
     override func showSelected() {
-        self.icon!.color = UIColor.biinColor()
+        //self.icon!.color = UIColor.biinColor()
         setNeedsDisplay()
     }
     
     override func showEnable() {
-        self.icon!.color = UIColor.appButtonColor()
+        //self.icon!.color = UIColor.appButtonColor()
         setNeedsDisplay()
     }
     
     override func showDisable() {
-        icon!.color = UIColor.appButtonColor_Disable()
+        //icon!.color = UIColor.appButtonColor_Disable()
         label!.textColor = UIColor.appButtonColor_Disable()
     }
 }

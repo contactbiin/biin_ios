@@ -350,14 +350,6 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         }
     }
     
-    func showNotification(){
-        header!.showNotification()
-    }
-    
-    func hideNotification(){
-        header!.hideNotification()
-    }
-    
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //update header delegate categories control.
@@ -424,10 +416,10 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     func scrollViewDidScrollToTop(scrollView: UIScrollView) {
     }// called when scrolling animation finished. may be called immediately if already at top
 
-    func showElementView(elementMiniView:ElementMiniView?){
+    func showElementView(element:BNElement){
         
         
-        elementView!.updateElementData(elementMiniView)
+        elementView!.updateElementData(element, showSiteBtn:true)
         
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.elementView!.frame.origin.x = 0
@@ -435,24 +427,26 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
         })
     }
     
-    func hideElementView(view:ElementMiniView?) {
+    
+    func hideElementView(element: BNElement) {
+        
         UIView.animateWithDuration(0.4, animations: {() -> Void in
             self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
             self.fade!.alpha = 0
             }, completion: {(completed:Bool)-> Void in
                 
-                if !view!.element!.userViewed {
-                    view!.userViewedElement()
-                }
+//                if !view!.element!.userViewed {
+//                    view!.userViewedElement()
+//                }
                 
                 self.elementView!.clean()
         })
     }
     
     
-    func updateHighlightsContainer(view: MainView, update: Bool) {
-        highlightsContainer!.updateHighlights()
-    }
+//    func updateHighlightsContainer(view: MainView, update: Bool) {
+//        highlightsContainer!.updateHighlights()
+//    }
     
     func updateBiinsContainer(view: MainView, update: Bool) {
         biinsContainer!.updateContainer()

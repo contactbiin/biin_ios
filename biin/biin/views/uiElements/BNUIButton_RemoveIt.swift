@@ -20,9 +20,15 @@ class BNUIButton_RemoveIt:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.appButtonColor()
+    }
+    
+    convenience init(frame:CGRect, color:UIColor?){
+        self.init(frame:frame)
+        //self.backgroundColor = color!
         self.layer.cornerRadius = frame.width / 2
         self.layer.masksToBounds = true
-        icon = BNIcon_XSmall(color: UIColor.appMainColor(), position: CGPointMake(4.5, 4.5))
+        self.layer.borderColor = color!.CGColor
+        self.layer.borderWidth = 1
+        icon = BNIcon_XSmall(color:color!, position: CGPointMake(4.5, 4.5))
     }
 }

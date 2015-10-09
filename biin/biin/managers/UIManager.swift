@@ -22,13 +22,16 @@ class UIManager {
     var menuWidth:CGFloat = 220
     
     //Categories (sections) variables
-    var categoriesHeaderHeight:CGFloat = 40
+    var categoriesHeaderHeight:CGFloat = 45
     var spacer:CGFloat = 1.0
     
     //MiniView
     //Sites MiniView sizes
-    var miniView_headerHeight:CGFloat = 35
-    var siteMiniView_headerHeight:CGFloat = 40
+    var miniView_headerHeight:CGFloat = 45
+
+    //In showcase
+    var miniView_headerHeight_showcase:CGFloat = 35
+    var miniView_height_showcase:CGFloat = 0
     
     //Font sizes
     var miniView_titleSize:CGFloat = 12
@@ -38,23 +41,41 @@ class UIManager {
     var miniView_width:CGFloat = 0
     var miniView_columns:Int = 0
     
+    
+    var siteMiniView_width:CGFloat = 0
+    var siteMiniView_imageheight:CGFloat = 200
+    var siteMiniView_headerHeight:CGFloat = 0
+    var siteMiniView_title:CGFloat = 20
+    var siteMiniView_subTitle:CGFloat = 13
+    
     //Onboarding
     var onBoardingView_ypos_1:CGFloat = 0
     var onBoardingView_spacer:CGFloat = 0
 
     
+    //Hightlighs Container.
+    var highlightContainer_Height:CGFloat = 300
+    var highlightView_headerHeight:CGFloat = 70
+    var highlightView_titleSize:CGFloat = 18
+    var highlightView_subTitleSize:CGFloat = 13
+    var highlightView_priceSize:CGFloat = 13
+    
+    //Site Container
+    var sitesContainer_headerHeight:CGFloat = 40
+    var sitesContainer_Height:CGFloat = 0
+    
+    //Banner Container
+    var bannerContainer_Height:CGFloat = 150
+    
+    //Elements Container 
+    var elementContainer_Height:CGFloat = 0
+    
     //Sites View sizes
     var siteView_headerHeight:CGFloat = 95
-    
     var siteView_bottomHeight:CGFloat = 30
-    
     var siteView_showcaseHeaderHeight:CGFloat = 50
-    //var siteView_showcaseHeight:CGFloat = 335
-    //var siteView_showcaseScrollHeight:CGFloat = 255
-    
-    var siteView_showcase_titleSize:CGFloat = 20
+    var siteView_showcase_titleSize:CGFloat = 12
     var siteView_showcase_subTittleSize:CGFloat = 12
-    
     var siteView_titleSize:CGFloat = 25
     var siteView_subTittleSize:CGFloat = 15
     var siteView_nutshellSize:CGFloat = 12
@@ -65,7 +86,7 @@ class UIManager {
     var elementView_textSize:CGFloat = 14
     var elementView_quoteSize:CGFloat = 14
     var elementView_priceList:CGFloat = 14
-    var elementView_headerHeight:CGFloat = 75
+    var elementView_headerHeight:CGFloat = 90
     var elementView_priceTitleSize:CGFloat = 30
     
     //Showcase and Main view positions
@@ -148,12 +169,12 @@ class UIManager {
         switch deviceType {
         case .iphone4s, .iphone5, .iphone6:
             viewWidth = (screenWidth - 30) / 2
-            viewHeight = screenHeight / 5
+            viewHeight = screenHeight / 3.5
             columns = 2
             break
         case .iphone6Plus:
-            viewWidth = (screenWidth - 40) / 3
-            viewHeight = screenHeight / 5
+            viewWidth = (screenWidth - 40) / 2.5
+            viewHeight = screenHeight / 4.5
             columns = 3
             break
         case .ipad:
@@ -165,9 +186,12 @@ class UIManager {
             break
         }
         
-        self.miniView_height = viewHeight
         self.miniView_width = viewWidth
-        
+        self.miniView_height = viewHeight + miniView_headerHeight
+        self.miniView_height_showcase = viewHeight + miniView_headerHeight_showcase
+
+        siteMiniView_imageheight = (screenWidth / 2) - 1
+        elementContainer_Height = miniView_height + sitesContainer_headerHeight + 1
     }
     
     func setIPhone4Variables(){
@@ -194,6 +218,8 @@ class UIManager {
         loadingView_logoSize = 5
         
         onboardingSlide_DescriptionSize = 16
+        
+        siteMiniView_headerHeight = 55
     }
     
     func setIPhone5Variables(){
@@ -218,6 +244,8 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 5
+        
+        siteMiniView_headerHeight = 55
     }
     
     func setIPhone6Variables() {
@@ -242,6 +270,8 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 5
+        
+        siteMiniView_headerHeight = 60
     }
     
     func setIPhone6PlusVariables() {
@@ -266,7 +296,7 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 6
-        
+        siteMiniView_headerHeight = 60
     }
     
     func setIPadVariables() {
@@ -291,6 +321,7 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 6
+        siteMiniView_headerHeight = 60
     }
     
     
@@ -322,6 +353,13 @@ class UIManager {
         return true
     }
     
+    func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
+        let label = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        label.font = UIFont(name: fontName, size:fontSize)
+        label.text = text
+        label.sizeToFit()
+        return label.frame.width
+    }
 }
 
 enum BNDeviceType {

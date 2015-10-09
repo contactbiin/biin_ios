@@ -121,7 +121,7 @@ class LoyaltiesView: BNView {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.BiinieCategoriesState
+        if state!.stateType == BNStateType.MainViewContainerState
             || state!.stateType == BNStateType.SiteState {
                 
                 UIView.animateWithDuration(0.25, animations: {()-> Void in

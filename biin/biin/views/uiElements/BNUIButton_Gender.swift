@@ -42,7 +42,7 @@ class BNUIButton_Gender:BNUIButton {
     }
     
     override func showSelected() {
-        self.backgroundColor = UIColor.appButtonColor_Selected()
+        self.backgroundColor = UIColor.darkGrayColor()
     }
     
     override func showEnable() {

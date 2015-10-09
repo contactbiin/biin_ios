@@ -28,25 +28,32 @@ class SiteMiniView_Header:BNView {
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?, showShareButton:Bool){
         self.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = site!.media[0].vibrantColor
         
-        var ypos:CGFloat = 4
-        //buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, site: site, showShareButton:showShareButton)
-        //self.addSubview(buttonsView!)
-        //ypos += 16
         
-        let title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_titleSize + 3)))
-        title.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_titleSize)
-        title.textColor = site!.titleColor
+        var textColor:UIColor?
+        if site!.useWhiteText {
+            textColor = UIColor.whiteColor()
+        } else {
+            textColor = UIColor.bnGrayDark()
+        }
+        
+        var ypos:CGFloat = 7
+        
+        let title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_title + 2)))
+        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteMiniView_title)
+        title.textColor = UIColor.whiteColor()
+        title.textAlignment = NSTextAlignment.Center
         title.text = site!.title
         self.addSubview(title)
         
-        ypos += SharedUIManager.instance.miniView_titleSize + 3
+        ypos += SharedUIManager.instance.siteMiniView_title + 2
         
-        let subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 2)))
-        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
-        subTitle.textColor = UIColor.appTextColor()
-        subTitle.text = site!.subTitle!//"\(site!.biinieProximity!)"c
+        let subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_subTitle + 2)))
+        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteMiniView_subTitle)
+        subTitle.textColor = textColor
+        subTitle.text = site!.subTitle!
+        subTitle.textAlignment = NSTextAlignment.Center
         self.addSubview(subTitle)
     }
     

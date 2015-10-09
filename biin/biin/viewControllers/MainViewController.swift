@@ -23,9 +23,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        BNAppSharedManager.instance.errorManager.currentViewController = self
-        BNAppSharedManager.instance.mainViewController = self
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
@@ -53,14 +50,25 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func initViewController(frame:CGRect){
         
+        BNAppSharedManager.instance.mainViewController = self
+
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.delegate = self
+        
+        BNAppSharedManager.instance.errorManager.currentViewController = self
         
         BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, frame.height), father:nil, rootViewController: self)
+        
         mainView!.delegate = self
+        mainView!.addUIViews()
+        
         self.view.addSubview(self.mainView!)
+        
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView.frame = CGRectMake(0, 0, frame.width, 20)
+//        self.view.addSubview(visualEffectView)
         
         fadeView = UIView(frame: frame)
         fadeView!.backgroundColor = UIColor.blackColor()
@@ -72,7 +80,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         fadeView!.addGestureRecognizer(hideMenuSwipe)
         
-        menuView = MenuView(frame: CGRectMake(-140, 20, 140, frame.height))
+        menuView = MenuView(frame: CGRectMake(-200, 20, 200, frame.height))
         menuView!.delegate = self
         self.view.addSubview(menuView!)
         
@@ -104,14 +112,23 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
 
             fadeView!.becomeFirstResponder()
 
-            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.35, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
+            UIView.animateWithDuration(0.5, animations: {() -> Void in
                 self.menuView!.frame.origin.x = -40
                 self.mainView!.frame.origin.x = 101
                 self.fadeView!.frame.origin.x = 101
                 }, completion: {(completed:Bool)->Void in
-                    
                 self.menuView!.isMenuHidden = false
             })
+            
+//            
+//            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.35, initialSpringVelocity: 10, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
+//                self.menuView!.frame.origin.x = -40
+//                self.mainView!.frame.origin.x = 101
+//                self.fadeView!.frame.origin.x = 101
+//                }, completion: {(completed:Bool)->Void in
+//                    
+//                self.menuView!.isMenuHidden = false
+//            })
             
             UIView.animateWithDuration(0.25, animations:{()-> Void in
                 self.fadeView!.alpha = 0.5
@@ -122,7 +139,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     func hideMenu(sender:UIGestureRecognizer) {
         
         UIView.animateWithDuration(0.25, animations: {()->Void in
-            self.menuView!.frame.origin.x = -140
+            self.menuView!.frame.origin.x = -200
             self.mainView!.frame.origin.x = 0
             self.fadeView!.frame.origin.x = 0
             self.fadeView!.alpha = 0
@@ -262,15 +279,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
         self.view.addSubview(alert!)
         alert!.show()
-    }
-    
-    //BNAppManager_Delegate Methods
-    func manager(showNotifications value: Bool) {
-        mainView!.showNotification()
-    }
-    
-    func manager(hideNotifications value: Bool) {
-        mainView!.hideNotification()
     }
     
     var fullPath = ""
@@ -438,6 +446,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func manager(manager: BNPositionManager!, updateMainViewController biins: Array<BNBiin>) {
+
         mainView!.updateBiinsContainer()
     }
     

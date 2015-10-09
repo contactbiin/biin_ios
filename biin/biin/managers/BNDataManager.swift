@@ -143,22 +143,35 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func loadCategories() {
         categories = Array<BNCategory>()
-        categories!.append(BNCategory(identifier: "category1", name: "Personal Care"))
-        categories!.append(BNCategory(identifier: "category2", name: "Cars"))
-        categories!.append(BNCategory(identifier: "category3", name: "Shoes"))
-        categories!.append(BNCategory(identifier: "category4", name: "Games"))
-        categories!.append(BNCategory(identifier: "category5", name: "Outdoors"))
-        categories!.append(BNCategory(identifier: "category6", name: "Health"))
-        categories!.append(BNCategory(identifier: "category7", name: "Food"))
-        categories!.append(BNCategory(identifier: "category8", name: "Sports"))
-        categories!.append(BNCategory(identifier: "category9", name: "Education"))
-        categories!.append(BNCategory(identifier: "category10", name: "Fashion"))
-        categories!.append(BNCategory(identifier: "category11", name: "Music"))
-        categories!.append(BNCategory(identifier: "category12", name: "Movies"))
-        categories!.append(BNCategory(identifier: "category13", name: "Technology"))
-        categories!.append(BNCategory(identifier: "category14", name: "Entertaiment"))
-        categories!.append(BNCategory(identifier: "category15", name: "Travel"))
-        categories!.append(BNCategory(identifier: "category16", name: "Bars"))
+        categories!.append(BNCategory(identifier: "category1", name: "Libros, Audio y peliculas"))
+        categories!.append(BNCategory(identifier: "category2", name: "Entretenimiento"))
+        categories!.append(BNCategory(identifier: "category3", name: "Belleza y Salud"))
+        categories!.append(BNCategory(identifier: "category4", name: "Ropa y Zapatos Mujer"))
+        categories!.append(BNCategory(identifier: "category5", name: "Ropa y Zapatos Niños"))
+        categories!.append(BNCategory(identifier: "category6", name: "Ropa y Zapatos Hombre"))
+        categories!.append(BNCategory(identifier: "category7", name: "Deportes y Outdoors"))
+        //categories!.append(BNCategory(identifier: "category8", name: "Muebles"))
+        categories!.append(BNCategory(identifier: "category8", name: "Hogar, Jardín y Ferretería"))
+        categories!.append(BNCategory(identifier: "category9", name: "Tecnología"))
+        //categories!.append(BNCategory(identifier: "category11", name: "Electrodomesticos"))
+        categories!.append(BNCategory(identifier: "category10", name: "Juguetes y pasatiempos"))
+        categories!.append(BNCategory(identifier: "category11", name: "Comida y Restaurantes"))
+        categories!.append(BNCategory(identifier: "category12", name: "Automotriz e Indutrial"))
+        categories!.append(BNCategory(identifier: "category13", name: "Joyería y Bisuteria"))
+        categories!.append(BNCategory(identifier: "category14", name: "En el Super"))
+        categories!.append(BNCategory(identifier: "category15", name: "Mascotas"))
+        /*
+        categories!.append(BNCategory(identifier: "category16", name: "Ferias"))
+        categories!.append(BNCategory(identifier: "category17", name: "Marcas"))
+        categories!.append(BNCategory(identifier: "category18", name: "Actividades Masivas"))
+        categories!.append(BNCategory(identifier: "category19", name: "GetAways"))
+        categories!.append(BNCategory(identifier: "category20", name: "Educación"))
+        categories!.append(BNCategory(identifier: "category21", name: "Museos y tours"))
+        categories!.append(BNCategory(identifier: "category22", name: "Collecionables y Arte"))
+        categories!.append(BNCategory(identifier: "category23", name: "Financiero"))
+        categories!.append(BNCategory(identifier: "category24", name: "Instuticional"))
+        categories!.append(BNCategory(identifier: "category25", name: "Salud"))
+        */
     }
 
 //    func removeNotification(identifier:Int){
@@ -369,7 +382,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
             
-            bnUser!.categories.append(category)
+            bnUser!.addCategory(category)
+//            bnUser!.categories.append(category)
             
         }
         
@@ -707,6 +721,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
+        if highlights.count < 6 {
+            if element.isHighlight {
+                highlights[element._id!] = element._id!
+            }
+        }
+        
         /*
         //Checks if element received is reference on element and clone its self.
         for (key, value) in elements {
@@ -720,9 +740,136 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func manager(manager: BNNetworkManager!, didReceivedHightlight element: BNElement) {
-        elementsRequested[element.identifier!] = element
-        highlights[element._id!] = element._id!
-        manageElementRelationShips(element)
+//        elementsRequested[element.identifier!] = element
+//        highlights[element._id!] = element._id!
+//        manageElementRelationShips(element)
+    }
+    
+    func addHighlights(){
+        
+
+        
+        var sitesArray:Array<BNSite> = Array<BNSite>()
+        
+        //let dataManager = BNAppSharedManager.instance.dataManager
+        //let user = dataManager.bnUser!
+        //var categories = user.categories
+        
+        for category in self.bnUser!.categories {
+            if category.hasSites {
+                for var i = 0; i < category.sitesDetails.count; i++ {
+                    
+                    let siteIdentifier = category.sitesDetails[i].identifier!
+                    
+                    if let site = self.sites[ siteIdentifier ] {
+                        if site.showInView {
+                            sitesArray.append(site)
+                            print("Adding site.....")
+                        }
+                    }
+                }
+            }
+        }
+        
+        sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
+        /*
+        for site in sitesArray {
+            if site.showInView {
+                if !isSiteAdded(site.identifier!) {
+                    //println("***** ADDING SITE:\(site.identifier!) title: \(site.title!)")
+                    
+                    if columnCounter < columns {
+                        columnCounter++
+                        xpos = xpos + siteSpacer
+                        
+                    } else {
+                        ypos = ypos + siteViewHeight + siteSpacer
+                        xpos = siteSpacer
+                        columnCounter = 1
+                    }
+                    
+                    let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
+                    miniSiteView.isPositionedInFather = true
+                    miniSiteView.isReadyToRemoveFromFather = false
+                    miniSiteView.delegate = father?.father! as! MainView
+                    
+                    sites!.append(miniSiteView)
+                    scroll!.addSubview(miniSiteView)
+                    
+                    xpos = xpos + siteViewWidth
+                    
+                } else {
+                    for siteView in sites! {
+                        if siteView.site!.identifier == site.identifier! && !siteView.isPositionedInFather {
+                            
+                            //println("***** POSITIONING SITE:\(site.identifier!) title: \(site.title!)")
+                            if columnCounter < columns {
+                                columnCounter++
+                                xpos = xpos + siteSpacer
+                                
+                            } else {
+                                ypos = ypos + siteViewHeight + siteSpacer
+                                xpos = siteSpacer
+                                columnCounter = 1
+                            }
+                            siteView.isPositionedInFather = true
+                            siteView.isReadyToRemoveFromFather = false
+                            siteView.frame = CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight)
+                            xpos = xpos + siteViewWidth
+                            
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        else {
+        //                        for var i = 0; i < sites!.count; i++ {
+        //                            if sites![i].site!.identifier == siteIdentifier {
+        //                                println("***** REMOVE SITE:\(siteIdentifier) title: \(sites![i].site!.title!)")
+        //                                sites![i].removeFromSuperview()
+        //                                sites!.removeAtIndex(i)
+        //                                break
+        //                            }
+        //                        }
+        }
+        }
+        }
+        }
+        */
+        ypos = ypos + siteViewHeight + siteSpacer
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        
+        //SharedUIManager.instance.miniView_height = siteViewHeight
+        //SharedUIManager.instance.miniView_width = siteViewWidth
+        //SharedUIManager.instance.miniView_columns = columns
+        
+        
+        //var sitesCount = sites!.count
+        for var i = 0; i < sites!.count; i++ {
+            if sites![i].isReadyToRemoveFromFather {
+                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
+                sites![i].removeFromSuperview()
+                sites!.removeAtIndex(i)
+                i = 0
+                
+            }
+        }
+        
+        
+        */
+        
+        
+    }
+    
+    func isSiteAdded(identifier:String) -> Bool {
+//        for siteView in sites! {
+//            if siteView.site!.identifier == identifier {
+//                return true
+//            }
+//        }
+        return false
     }
     
     func manageElementRelationShips(element:BNElement){
@@ -1017,67 +1164,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //}
         //return 0
     }
-    
-    
-    var isSiteNeighborSet = false
-    //FOR TESTING ON BEACON REGION MONITORING
-    func setSiteNeighbors() {
-        
-        if !isSiteNeighborSet {
-
-            isSiteNeighborSet = true
-
-            //SITE A
-            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors = Array<String>()
-            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
-            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
-            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
-            sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
-            
-//            for var i = 0; i < sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins.count; i++ {
-//                
-//                if sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].minor == 6 {
-//                   sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].children = [8, 9]
-//                }
-//                
-//                if sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].minor == 7 {
-//                    sites["c923f677-304e-41a0-a0a5-f374e050306c"]?.biins[i].children = [10, 11, 12]
-//                }
-//            }
-
-            //SITE B
-            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors = Array<String>()
-            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
-            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
-            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
-            sites["8df47f77-c71d-45cd-b84c-8dce39f6976c"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
-            
-            //SITE C
-            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors = Array<String>()
-            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
-            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
-            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
-            sites["7102dc71-e112-4ab6-b83b-30a293eb337d"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
-            
-            //SITE D
-            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors = Array<String>()
-            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
-            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
-            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
-            sites["f6381583-799c-4428-835d-01ee0af5e6c6"]?.neighbors!.append("d6734885-bcd2-4b4e-a8f8-2311c8f32b49") //E
-
-            //SITE E
-            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors = Array<String>()
-            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("c923f677-304e-41a0-a0a5-f374e050306c") //A
-            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("8df47f77-c71d-45cd-b84c-8dce39f6976c") //B
-            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("7102dc71-e112-4ab6-b83b-30a293eb337d") //C
-            sites["d6734885-bcd2-4b4e-a8f8-2311c8f32b49"]?.neighbors!.append("f6381583-799c-4428-835d-01ee0af5e6c6") //D
-
-            print("Site neighbors set")
-        }
-        
-    }
-    
 }
 
 @objc protocol BNDataManagerDelegate:NSObjectProtocol {

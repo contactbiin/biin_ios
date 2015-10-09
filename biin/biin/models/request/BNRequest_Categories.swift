@@ -27,7 +27,7 @@ class BNRequest_Categories: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Categories.run()")
+        print("BNRequest_Categories.run() \(self.requestString)")
         isRunning = true
         
         self.networkManager!.epsNetwork!.getJson(false, url:self.requestString, callback:{
@@ -49,6 +49,7 @@ class BNRequest_Categories: BNRequest {
                         let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
                         
                         category.name = BNParser.findString("name", dictionary: categoryData)
+                        category.priority = BNParser.findInt("priority", dictionary: categoryData)!
                         category.hasSites = BNParser.findBool("hasSites", dictionary: categoryData)
                         
                         if category.hasSites {
@@ -83,4 +84,6 @@ class BNRequest_Categories: BNRequest {
             }
         })
     }
+    
+    
 }

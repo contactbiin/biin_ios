@@ -372,22 +372,22 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     */
     
     func sendCollectedElement(user: Biinie, element: BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
+        
+        let request = BNRequest_SendCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
         addToQueue(request)
     }
     
     func sendUnCollectedElement(user: Biinie, element:BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendUnBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/element/\(element.identifier!)", errorManager: self.errorManager!, networkManager: self)
+        let request = BNRequest_SendUnCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/element/\(element.identifier!)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
     func sendLikedElement(user:Biinie, element:BNElement, value:Bool) {
-        let request:BNRequest_SendSharedElement?
+        let request:BNRequest_SendLikedElement?
         if value {
-            request = BNRequest_SendSharedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, element: element)
-        
+            request = BNRequest_SendLikedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, element: element)
         } else {
-            request = BNRequest_SendSharedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, element: element)
+          request = BNRequest_SendLikedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, element: element)
         }
         addToQueue(request!)
     }
@@ -414,22 +414,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     */
     
     func sendCollectedSite(user: Biinie, site: BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
+        let request = BNRequest_SendCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
         addToQueue(request)
     }
     
     func sendUnCollectedSite(user: Biinie, site:BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendUnBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
+        let request = BNRequest_SendUnCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
     func sendLikedSite(user: Biinie, site: BNSite, value:Bool ) {
-        var request:BNRequest_SendSharedSite?
+        var request:BNRequest_SendLikedSite?
         if value {
-            request = BNRequest_SendSharedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, site: site)
+            request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/like", errorManager: self.errorManager!, networkManager: self, site: site)
+            
         } else {
-            request = BNRequest_SendSharedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, site: site)
+            request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/unlike", errorManager: self.errorManager!, networkManager: self, site: site)
         }
+        
         addToQueue(request!)
     }
     
@@ -682,7 +684,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///
     ///- parameter BNNetworkManager.:
     ///- parameter BNElement: requested.
-    optional func manager(manager:BNNetworkManager!, didReceivedHightlight element:BNElement)
+    //optional func manager(manager:BNNetworkManager!, didReceivedHightlight element:BNElement)
     
     
     ///Takes user biined element list and process data and request to download elements.

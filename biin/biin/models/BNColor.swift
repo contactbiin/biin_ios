@@ -196,7 +196,7 @@ extension UIColor {
     }
     
     class func appBackground() -> UIColor {
-        return UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
+        return UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
 
     class func appShowcaseBackground() -> UIColor {

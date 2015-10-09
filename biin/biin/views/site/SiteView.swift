@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
+class SiteView:BNView, UIScrollViewDelegate {
  
     var delegate:SiteView_Delegate?
     var site:BNSite?
@@ -27,8 +27,9 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var fade:UIView?
     //var informationView:SiteView_Information?
     
-    var elementView:ElementView?
-    var isShowingElementView = false
+    //var elementView:ElementView?
+    //var elementMiniView:ElementMiniView?
+    //var isShowingElementView = false
     
     var siteLocationButton:BNUIButton_SiteLocation?
     var likeItButton:BNUIButton_LikeIt?
@@ -41,7 +42,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     var scrollSpaceForShowcases:CGFloat = 0
     
     var showcaseHeight:CGFloat = 0
-    
+    var decorationColor:UIColor?
+    var iconColor:UIColor?
     var animationView:BiinItAnimationView?
     
     override init(frame: CGRect) {
@@ -76,7 +78,11 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
-        header = SiteView_Header(frame: CGRectMake(0, (screenWidth - SharedUIManager.instance.siteView_headerHeight), screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
+        
+        animationView = BiinItAnimationView(frame:CGRectMake(0, screenWidth, screenWidth, 0))
+        scroll!.addSubview(animationView!)
+        
+        header = SiteView_Header(frame: CGRectMake(0, (screenWidth), screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         scroll!.addSubview(header!)
         
         //buttonsView = SocialButtonsView(frame: CGRectMake(0, 5, frame.width, 15), father: self, site: nil, showShareButton:true)
@@ -140,7 +146,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         buttonSpace += 27
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
         collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
-        header!.addSubview(collectItButton!)
+        //header!.addSubview(collectItButton!)
         
         followButton = UIButton(frame: CGRectMake(SharedUIManager.instance.siteView_headerHeight, (SharedUIManager.instance.siteView_headerHeight - 23), 80, 18))
         followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
@@ -155,13 +161,11 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
         header!.addSubview(followButton!)
         
         
-        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
-        elementView!.delegate = self
-        self.addSubview(elementView!)
+//        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
+//        elementView!.delegate = self
+//        self.addSubview(elementView!)
       
-        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, screenWidth))
-        animationView!.alpha = 0
-        scroll!.addSubview(animationView!)
+
         
         //var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
         //showMenuSwipe.edges = UIRectEdge.Left
@@ -174,7 +178,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func backGestureAction(sender:UISwipeGestureRecognizer) {
         print("backGestureAction()")
-        delegate!.showCategoriesView!(self)
+        delegate!.hideSiteView!(self)
     }
     
     
@@ -184,7 +188,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     override func transitionIn() {
     
-        UIView.animateWithDuration(0.2, animations: {()->Void in
+        UIView.animateWithDuration(0.3, animations: {()->Void in
             self.frame.origin.x = 0
         })
     }
@@ -192,8 +196,8 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.BiinieCategoriesState {
-            UIView.animateWithDuration(0.4, animations: {()-> Void in
+        if state!.stateType == BNStateType.MainViewContainerState || state!.stateType == BNStateType.AllSitesState {
+            UIView.animateWithDuration(0.3, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
             })
         }
@@ -222,38 +226,64 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
-        delegate!.showCategoriesView!(self)
+        delegate!.hideSiteView!(self)
+    }
+    
+    func isSameSite(site:BNSite?)->Bool {
+        if self.site != nil {
+            if site!.identifier! == self.site!.identifier {
+                return true
+            }
+        }
+        
+        self.site = site
+        return false
     }
     
     func updateSiteData(site:BNSite?) {
 
-        self.site = site
-        header!.updateForSite(site)
-        bottom!.updateForSite(site)
-        imagesScrollView!.updateImages(site!.media, isElement:false)
-        updateShowcases(site)
-        locationView!.updateForSite(site)
-        
-        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
-        backBtn!.layer.backgroundColor = site!.media[0].vibrantColor!.CGColor
-        backBtn!.setNeedsDisplay()
-        
-        siteLocationButton!.icon!.color = site!.media[0].vibrantColor!
-        shareItButton!.icon!.color = site!.media[0].vibrantColor!
-        //likeItButton!.icon!.color = site!.media[0].domainColor!
-        
-        siteLocationButton!.setNeedsDisplay()
-        shareItButton!.setNeedsDisplay()
-        //likeItButton!.setNeedsDisplay()
+        if !isSameSite(site) {
+            var textColor:UIColor?
 
-        updateLikeItBtn()
-        
-        updateCollectItBtn()
-        
-        updateFollowBtn()
-        
-        
+            if self.site!.useWhiteText {
+                textColor = UIColor.whiteColor()
+                iconColor = UIColor.whiteColor()
+                decorationColor = self.site!.media[0].vibrantDarkColor
+            } else {
+                textColor = UIColor.whiteColor()
+                iconColor = UIColor.whiteColor()
+                decorationColor = self.site!.media[0].vibrantDarkColor
+            }
+            
+            animationView!.updateAnimationView(decorationColor, textColor: textColor)
+            
+            header!.updateForSite(site)
+            bottom!.updateForSite(site)
+            
+            imagesScrollView!.updateImages(site!.media, isElement:false)
+            updateShowcases(site)
+            locationView!.updateForSite(site)
+            
+            backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
+            backBtn!.layer.borderColor = decorationColor!.CGColor
+            backBtn!.layer.backgroundColor = decorationColor!.CGColor
+            backBtn!.setNeedsDisplay()
+            
+            siteLocationButton!.icon!.color = iconColor
+            shareItButton!.icon!.color = iconColor
+            //likeItButton!.icon!.color = site!.media[0].domainColor!
+            
+            siteLocationButton!.setNeedsDisplay()
+            shareItButton!.setNeedsDisplay()
+            //likeItButton!.setNeedsDisplay()
+
+            updateLikeItBtn()
+            
+            updateCollectItBtn()
+            
+            updateFollowBtn()
+            
+        }
 //        nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
 //        nutshell!.text = site!.nutshell!
 //        nutshell!.numberOfLines = 0
@@ -278,46 +308,61 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func showInformationView(sender:BNUIButton_SiteLocation){
         print("show site information window")
+        showFade()
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.locationView!.frame.origin.y = SharedUIManager.instance.screenHeight - self.locationViewHeigh
-            self.fade!.alpha = 0.35
         })
     }
     
     func hideInformationView(sender:UIButton){
+        hideFade()
         UIView.animateWithDuration(0.4, animations: {()-> Void in
             self.locationView!.frame.origin.y = SharedUIManager.instance.screenHeight
             self.fade!.alpha = 0
         })
     }
     
-    func showElementView(elementMiniView:ElementMiniView?){
-
-        elementView!.updateElementData(elementMiniView)
-        
-        UIView.animateWithDuration(0.3, animations: {()-> Void in
-            self.elementView!.frame.origin.x = 0
-            self.fade!.alpha = 0.25
+    func showFade(){
+        UIView.animateWithDuration(0.2, animations: {()-> Void in
+            self.fade!.alpha = 0.5
         })
     }
     
-    func hideElementView(view:ElementMiniView?) {        
-        UIView.animateWithDuration(0.4, animations: {() -> Void in
-            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
+    func hideFade(){
+        UIView.animateWithDuration(0.5, animations: {()-> Void in
             self.fade!.alpha = 0
-            }, completion: {(completed:Bool)-> Void in
-                
-                if !view!.element!.userViewed {
-                    view!.userViewedElement()
-                }
-                
-                self.elementView!.clean()
         })
     }
+    
+//    func showElementView(element:BNElement){
+//
+//        elementView!.updateElementData(element)
+//        
+//        UIView.animateWithDuration(0.3, animations: {()-> Void in
+//            self.elementView!.frame.origin.x = 0
+//            self.fade!.alpha = 0.25
+//        })
+//    }
+//    
+//    
+//    
+//    func hideElementView(element:BNElement) {
+//        
+//        UIView.animateWithDuration(0.4, animations: {() -> Void in
+//            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
+//            self.fade!.alpha = 0
+//            }, completion: {(completed:Bool)-> Void in
+//                
+////                if !view!.element!.userViewed {
+////                    view!.userViewedElement()
+////                }
+//                
+//                self.elementView!.clean()
+//        })
+//    }
 
     func updateShowcases(site:BNSite?){
-        
-        //clean()
+        clean()
         if showcases?.count > 0 {
             
             for view in scroll!.subviews {
@@ -327,11 +372,6 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
                     (view as! SiteView_Showcase).removeFromSuperview()
                 }
             }
-            
-//            for view in showcases! {
-//                view.removeFromSuperview()
-//            }
-
             showcases!.removeAll(keepCapacity: false)
         }
         
@@ -339,7 +379,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
 
         //scroll!.addSubview(imagesScrollView!)
 
-        var ypos:CGFloat = SharedUIManager.instance.screenWidth
+        var ypos:CGFloat = SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_headerHeight
         scrollSpaceForShowcases = 0
         ypos += 2
         var colorIndex:Int = 0
@@ -436,7 +476,7 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func updateLikeItBtn() {
         BNAppSharedManager.instance.likeIt(site!.identifier!, isElement: false)
         likeItButton!.changedIcon(site!.userLiked)
-        likeItButton!.icon!.color = site!.media[0].vibrantColor!
+        likeItButton!.icon!.color = iconColor!
     }
     
     func shareit(sender:BNUIButton_ShareIt){
@@ -446,14 +486,18 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     func collectIt(sender:BNUIButton_CollectionIt){
         site!.userCollected = !site!.userCollected
         updateCollectItBtn()
-        BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
-        //header!.updateForSite(site!)
-        animationView!.animate()
+        animationView!.animate(site!.userCollected)
+        
+        if site!.userCollected {
+            BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
+        } else {
+            BNAppSharedManager.instance.collectIt(site!.identifier!, isElement: false)
+        }
     }
     
     func updateCollectItBtn(){
         collectItButton!.changeToCollectIcon(site!.userCollected)
-        collectItButton!.icon!.color = site!.media[0].vibrantColor!
+        collectItButton!.icon!.color = iconColor
     }
     
     func followit(sender:UIButton){
@@ -463,21 +507,21 @@ class SiteView:BNView, UIScrollViewDelegate, ElementView_Delegate {
     
     func updateFollowBtn() {
         
-        followButton!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
+        followButton!.layer.borderColor = iconColor!.CGColor
         BNAppSharedManager.instance.followIt(site!.identifier!)
         
         if site!.userFollowed {
             followButton!.setTitle(NSLocalizedString("Following", comment: "Following"), forState: UIControlState.Normal)
-            followButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-            followButton!.backgroundColor = site!.media[0].vibrantColor!
+            followButton!.setTitleColor(self.site!.media[0].vibrantColor!, forState: UIControlState.Normal)
+            followButton!.backgroundColor = iconColor!
         } else  {
             followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
-            followButton!.setTitleColor(site!.media[0].vibrantColor!, forState: UIControlState.Normal)
+            followButton!.setTitleColor(iconColor, forState: UIControlState.Normal)
             followButton!.backgroundColor = UIColor.clearColor()
         }
     }
 }
 
 @objc protocol SiteView_Delegate:NSObjectProtocol {
-    optional func showCategoriesView(view:SiteView)
+    optional func hideSiteView(view:SiteView)
 }
