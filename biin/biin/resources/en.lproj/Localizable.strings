@@ -44,6 +44,7 @@ Value = "VALUE";
 Calcel = "Cancel";
 More = "more";
 NearYou = "Places near you";
+MoreFrom = "More from";
 
 /* Menu buttons */
 Profile = "Profile";
