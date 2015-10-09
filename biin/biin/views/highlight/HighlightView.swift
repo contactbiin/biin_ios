@@ -105,13 +105,13 @@ class HighlightView: BNView {
         subTitle.text = self.site!.title!
         containerView.addSubview(subTitle)
         
-        let subTitleLength = getStringLength(self.site!.title!, fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_subTitleSize)
+        let subTitleLength = SharedUIManager.instance.getStringLength(self.site!.title!, fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_subTitleSize)
         
         
         let location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.highlightView_subTitleSize + 4)))
         location.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
         location.textColor = textColor
-        location.text = "❘\(self.site!.city!)"
+        location.text = " | \(self.site!.city!)"
         containerView.addSubview(location)
         
         if self.element!.hasDiscount {
@@ -136,7 +136,7 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice && self.element!.hasListPrice {
             
-            let text1Length = getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
@@ -159,7 +159,7 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
             
-            let text1Length = getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
@@ -342,15 +342,6 @@ class HighlightView: BNView {
         //            biinItButton?.showDisable()
         //        }
     }
-    
-    func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
-        let label = UILabel(frame: CGRectMake(0, 0, 0, 0))
-        label.font = UIFont(name: fontName, size:fontSize)
-        label.text = text
-        label.sizeToFit()
-        return label.frame.width
-    }
-    
     
     func imageFromView(view:UIView) -> UIImage {
         

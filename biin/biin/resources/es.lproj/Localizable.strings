@@ -43,6 +43,7 @@ Value = "VALOR";
 Calcel = "Cancelar";
 More = "más";
 NearYou = "Lugares cercanos a vos";
+MoreFrom = "Más de";
 
 /* Menu buttons */
 Profile = "Perfil";

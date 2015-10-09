@@ -278,7 +278,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         case 2:
             
             //if isShowingAllSite {
-                state!.next(self.siteState)
+            state!.next(self.siteState)
             //}
             //lastOption = option
             /*
@@ -475,22 +475,27 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     //Show elementView from element containers or showcase.
     func showElementView(view: ElementMiniView, element: BNElement) {
         print("showElementView from element")
-        (elementState!.view as! ElementView).updateElementData(element)
-        setNextState(9)
         
         if isShowingSite {
             (siteState!.view as! SiteView).showFade()
+            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:false)
         } else if isShowingAllElements {
             (allElementsState!.view as! AllElementsView).showFade()
+            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
         } else if isShowingAllCollectedView {
             (allCollectedState!.view as! AllCollectedView).showFade()
+            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
+        } else {
+            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
         }
+        
+        setNextState(9)
     }
     
     //Show elementView from hightlight.
     func showElementView(element: BNElement) {
         print("showElementView from highlight")
-        (elementState!.view as! ElementView).updateElementData(element)
+        (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
         setNextState(9)
     }
     
@@ -507,6 +512,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             (allCollectedState!.view as! AllCollectedView).hideFade()
         } else {
             setNextState(1)
+        }
+    }
+    
+    func showSiteFromElement(element: BNElement) {
+        
+        if let site = BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!] {
+            self.bringSubviewToFront((siteState!.view as! SiteView))
+            (siteState!.view as! SiteView).updateSiteData(site)
+            setNextState(2)
+            isShowingSite = true
         }
     }
     
@@ -551,6 +566,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideSiteView(view: SiteView) {
 
         isShowingSite = false
+        (allElementsState!.view as! AllElementsView).hideFade()
         
         if isShowingAllSite {
             (allSitesState!.view as! AllSitesView).hideFade()

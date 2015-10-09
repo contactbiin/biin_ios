@@ -23,6 +23,7 @@ class ElementView: BNView {
     var shareItButton:BNUIButton_ShareIt?
     var likeItButton:BNUIButton_LikeIt?
     var collectItButton:BNUIButton_CollectionIt?
+    var showSiteBtn:UIButton?
     
     var detailsView:ElementView_Details?
     
@@ -84,7 +85,7 @@ class ElementView: BNView {
         animationView = BiinItAnimationView(frame:CGRectMake(0, screenWidth, screenWidth, 0))
         scroll!.addSubview(animationView!)
         
-        header = UIView(frame: CGRectMake(0, screenWidth, screenWidth, SharedUIManager.instance.elementView_headerHeight))
+        header = UIView(frame: CGRectMake(0, screenWidth, screenWidth, (SharedUIManager.instance.elementView_headerHeight)))
         header!.backgroundColor = UIColor.magentaColor()
         scroll!.addSubview(header!)
         
@@ -116,6 +117,13 @@ class ElementView: BNView {
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake(buttonSpace,  ypos, 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(shareItButton!)
+        
+        showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), screenWidth, (screenWidth / 2), 27))
+        showSiteBtn!.setTitle("More from Site name.", forState: UIControlState.Normal)
+        showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
+        showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
+        showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        scroll!.addSubview(showSiteBtn!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -130,9 +138,22 @@ class ElementView: BNView {
     
     override func transitionOut( state:BNState? ) {
         state!.action()
-        UIView.animateWithDuration(0.3, animations: {()-> Void in
-            self.frame.origin.x = SharedUIManager.instance.screenWidth
-        })
+        
+        if state!.stateType == BNStateType.SiteState {
+    
+            UIView.animateWithDuration(1.0, animations: {()->Void in
+                }, completion: {(completed:Bool)->Void in
+                    UIView.animateWithDuration(0.3, animations: {()-> Void in
+                        self.frame.origin.x = SharedUIManager.instance.screenWidth
+                    })
+            })
+            
+            
+        } else {
+            UIView.animateWithDuration(0.3, animations: {()-> Void in
+                self.frame.origin.x = SharedUIManager.instance.screenWidth
+            })
+        }
     }
     
     override func setNextState(option:Int){
@@ -161,10 +182,27 @@ class ElementView: BNView {
         delegate!.hideElementView!(self.element!)
     }
     
-    func updateElementData(element:BNElement) {
+    func updateElementData(element:BNElement, showSiteBtn:Bool) {
         
-//        self.elementMiniView = elementMiniView
         self.element = element
+        
+        if showSiteBtn {
+            self.showSiteBtn!.alpha = 0
+            self.showSiteBtn!.enabled = false
+            
+            weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+            var showSiteBtnText = NSLocalizedString("MoreFrom", comment: "MoreFrom")
+            showSiteBtnText += " \(site!.title!)"
+            
+            let textLenght = SharedUIManager.instance.getStringLength(showSiteBtnText, fontName: "Lato-Regular", fontSize: 12)
+            
+            self.showSiteBtn!.frame = CGRectMake((SharedUIManager.instance.screenWidth - (textLenght + 20)), self.showSiteBtn!.frame.origin.y, (textLenght + 20), self.showSiteBtn!.frame.height)
+            self.showSiteBtn!.setTitle(showSiteBtnText, forState: UIControlState.Normal)
+        } else {
+            self.showSiteBtn!.alpha = 0
+            self.showSiteBtn!.enabled = false
+        }
+        
         
         imagesScrollView!.updateImages(self.element!.media, isElement:true)
 
@@ -199,6 +237,7 @@ class ElementView: BNView {
             let percentageViewSize:CGFloat = 60
             percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
+            
             scroll!.addSubview(percentageView!)
         }
         
@@ -209,7 +248,7 @@ class ElementView: BNView {
         self.lineView!.alpha = 0
         
         if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
-            ypos += 10
+            ypos += 30
             self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Center
@@ -228,10 +267,10 @@ class ElementView: BNView {
             
         } else if self.element!.hasPrice && self.element!.hasListPrice {
             
-            let text1Length = getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
+            let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
             let xposition:CGFloat = ( frame.width - text1Length ) / 2
             
-            ypos += 10
+            ypos += 30
             self.textPrice1 = UILabel(frame:CGRectMake(xposition, ypos, text1Length, (SharedUIManager.instance.elementView_titleSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -254,7 +293,7 @@ class ElementView: BNView {
             ypos += 60
             
         } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
-            ypos += 10
+            ypos += 30
             self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Center
@@ -361,15 +400,12 @@ class ElementView: BNView {
         backBtn!.setNeedsDisplay()
     }
     
-    func getStringLength(text:String, fontName:String, fontSize:CGFloat) -> CGFloat {
-        let label = UILabel(frame: CGRectMake(0, 0, 0, 0))
-        label.font = UIFont(name: fontName, size:fontSize)
-        label.text = text
-        label.sizeToFit()
-        return label.frame.width
+    func showSiteBtnAction(sender:UIButton){
+        //delegate!.showSiteFromElement!(self.element!)
     }
 }
 
 @objc protocol ElementView_Delegate:NSObjectProtocol {
     optional func hideElementView(element:BNElement)
+    optional func showSiteFromElement(element:BNElement)
 }

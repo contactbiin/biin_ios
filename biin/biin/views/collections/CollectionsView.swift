@@ -217,12 +217,12 @@ class CollectionsView: BNView, ElementView_Delegate {
     
     func showElementView(element:BNElement){
         
-        elementView!.updateElementData(element)
-        
-        UIView.animateWithDuration(0.3, animations: {()-> Void in
-            self.elementView!.frame.origin.x = 0
-            self.fade!.alpha = 0.25
-        })
+//        elementView!.updateElementData(element, showSiteBtn:true)
+//        
+//        UIView.animateWithDuration(0.3, animations: {()-> Void in
+//            self.elementView!.frame.origin.x = 0
+//            self.fade!.alpha = 0.25
+//        })
     }
     
     func hideElementView(element:BNElement) {

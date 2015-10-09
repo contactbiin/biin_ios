@@ -91,7 +91,7 @@ class AllElementsView: BNView {
     
     override func transitionOut( state:BNState? ) {
         state!.action()
-        if state!.stateType != BNStateType.ElementState {
+        if state!.stateType != BNStateType.ElementState || state!.stateType == BNStateType.SiteState {
             UIView.animateWithDuration(0.3, animations: {()->Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
                 }, completion: {(completed:Bool)->Void in

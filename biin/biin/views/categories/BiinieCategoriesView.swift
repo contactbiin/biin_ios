@@ -419,7 +419,7 @@ class BiinieCategoriesView: BNView, UIScrollViewDelegate, ElementView_Delegate, 
     func showElementView(element:BNElement){
         
         
-        elementView!.updateElementData(element)
+        elementView!.updateElementData(element, showSiteBtn:true)
         
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.elementView!.frame.origin.x = 0

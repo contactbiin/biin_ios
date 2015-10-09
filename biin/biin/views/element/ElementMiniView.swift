@@ -151,13 +151,24 @@ class ElementMiniView: BNView {
 
         if showlocation {
             ypos += SharedUIManager.instance.miniView_titleSize + 2
-            let subtitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
+            xpos = 5
+            weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+            let titleText = site!.title!
+            let subtitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
             subtitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
             subtitle.textColor = textColor
-            subtitle.text = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]!.city!
+            subtitle.text = titleText
             self.header!.addSubview(subtitle)
             
+            let subTitleLength = SharedUIManager.instance.getStringLength(titleText, fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_subTittleSize)
+            
+            let location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
+            location.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
+            location.textColor = textColor
+            location.text = " | \(site!.city!)"
+            self.header!.addSubview(location)
             ypos += SharedUIManager.instance.miniView_subTittleSize + 2
+            
         } else {
             ypos += SharedUIManager.instance.miniView_titleSize + 2
         }
