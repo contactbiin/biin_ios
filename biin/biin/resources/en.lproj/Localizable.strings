@@ -42,6 +42,9 @@ Savings = "SAVINGS";
 YouSave = "YOU SAVE";
 Value = "VALUE";
 Calcel = "Cancel";
+More = "more";
+NearYou = "Places near you";
+MoreFrom = "More from";
 
 /* Menu buttons */
 Profile = "Profile";
@@ -55,22 +58,35 @@ Search = "Search";
 About = "About";
 
 /* Categories */
-category1 = "Personal Care";
-category2 = "Cars";
-category3 = "Shoes";
-category4 = "Games";
-category5 = "Outdoors";
-category6 = "Health";
-category7 = "Food";
-category8 = "Sports";
-category9 = "Education";
-category10 = "Fashion";
-category11 = "Music";
-category12 = "Movies";
-category13 = "Technology";
-category14 = "Entertaiment";
-category15 = "Travel";
-category16 = "Bars";
+category1 = "Books, Audio and Movies";
+category2 = "Entertaiment";
+category3 = "Beuty and Health";
+category4 = "Woman clothing and shoes";
+category5 = "Kids clothing and shoes";
+category6 = "Man clothing and shoes";
+category7 = "Sports and Outdoors";
+//category8 = "Furniture";
+category8 = "Home, Garden and Hardware";
+category9 = "Technology";
+//category11 = "Appliances";
+category10 = "Toys and Hobies";
+category11 = "Food and Restaurants";
+category12 = "Cars and Industrial";
+category13 = "Jewelry";
+category14 = "In the super market";
+category15 = "Pets";
+
+/*category16 = "Events";
+category17 = "Brands";
+category18 = "Concerts";
+category19 = "GetAways";
+category20 = "Education";
+category21 =  "Museum and Tours";
+category22 = "Collectibles y Arts";
+category23 = "Finance";
+category24 = "Instuticional";
+category25 = "Health";
+ */
 
 /* Views */
 /* Profile View*/
@@ -111,6 +127,8 @@ HightLights = "HightLights";
 Biins = "Biins";
 Biined = "Biined!";
 NotBiins = "It seems there are not Biins around here!";
+Collected = "Saved on your collection.";
+Uncollected = "Removed from your collection.";
 
 /*Invite friends   hey check out the Salmon al Limo from Spoon  */
 InviteSubject = "Shoping and having fun with Biin";

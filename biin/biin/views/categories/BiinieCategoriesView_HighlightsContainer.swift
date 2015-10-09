@@ -309,8 +309,8 @@ class BiinieCategoriesView_HighlightsContainer: BNView, UIScrollViewDelegate, El
     }
     
     //ElementMiniView_Delegate
-    func showElementView(view:ElementMiniView, position: CGRect) {
-        (father! as! BiinieCategoriesView).showElementView(view)
+    func showElementView(element:BNElement) {
+        (father! as! BiinieCategoriesView).showElementView(element)
     }
 }
 

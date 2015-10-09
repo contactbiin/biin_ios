@@ -29,7 +29,7 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
-        //print("BNRequest_Element.run()")
+        print("BNRequest_Element.run() \(requestString)")
         isRunning = true
         //var response:BNResponse?
         
@@ -163,9 +163,12 @@ class BNRequest_Element: BNRequest {
                             var alpha:CGFloat = 0.0
                             _ = vibrantColor.getWhite(&white, alpha: &alpha)
                             
-                            if white >= 0.55 {
+                            if white <= 0.7 {
                                 self.element!.useWhiteText = true
+                                //print("--------------   element title:\(self.element!.title!) white: \(white)")
                             }
+
+
                             
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)
@@ -191,11 +194,11 @@ class BNRequest_Element: BNRequest {
                             }
                         }
                         
-                        if self.element!.isHighlight {
-                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedHightlight:self.element!)
-                        } else {
-                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedElement:self.element!)
-                        }
+//                        if self.element!.isHighlight {
+//                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedHightlight:self.element!)
+//                        } else {
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedElement:self.element!)
+//                        }
                     }
                 }
                 

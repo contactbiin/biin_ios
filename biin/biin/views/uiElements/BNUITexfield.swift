@@ -36,7 +36,7 @@ class BNUITexfield:UIView {
         
         textField = UITextField(frame: CGRectMake(10, 0, (frame.width - 10), frame.height))
         textField!.font = UIFont(name: "Lato-Light", size: (frame.height - 2))
-        textField!.textColor = UIColor.appBackground()
+        textField!.textColor = UIColor.clearColor()
         textField!.placeholder = placeHolderText
         textField!.returnKeyType = UIReturnKeyType.Go
         textField!.keyboardAppearance = UIKeyboardAppearance.Light
@@ -44,12 +44,12 @@ class BNUITexfield:UIView {
         self.addSubview(textField!)
         
         radius = 15.0
-        self.color = UIColor.appMainColor()
+        self.color = UIColor.clearColor()
         self.position = CGPoint(x:0, y:0 )
         self.size = CGSize(width: frame.width, height: frame.height)
         
         point = UIView(frame: CGRectMake((self.frame.width - 15), 5, 10, 10))
-        point!.backgroundColor = UIColor.appMainColor()
+        point!.backgroundColor = UIColor.clearColor()
         point!.layer.cornerRadius = 5
         self.addSubview(point!)
     }
@@ -74,7 +74,7 @@ class BNUITexfield:UIView {
     }
     
     func hideError(){
-        point!.backgroundColor = UIColor.appMainColor()
+        point!.backgroundColor = UIColor.clearColor()
         isShowingError = false
         setNeedsDisplay()
     }

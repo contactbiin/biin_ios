@@ -176,7 +176,7 @@ class BNAppManager {
         
         if isElement {
             dataManager.elements[identifier]?.collectCount++
-            dataManager.elements[identifier]?.userCollected = true
+            //dataManager.elements[identifier]?.userCollected = true
             
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
             
@@ -184,7 +184,7 @@ class BNAppManager {
             
         } else {
             dataManager.sites[identifier]?.collectCount++
-            dataManager.sites[identifier]?.userCollected = true
+            //dataManager.sites[identifier]?.userCollected = true
             
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
             
@@ -195,11 +195,11 @@ class BNAppManager {
     func unCollectit(identifier:String, isElement:Bool){
         
         if isElement {
-            dataManager.elements[identifier]?.userCollected = false
+//            dataManager.elements[identifier]?.userCollected = false
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[dataManager.elements[identifier]!.identifier!] = nil
             networkManager.sendUnCollectedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         } else {
-            dataManager.sites[identifier]?.userCollected = false
+//            dataManager.sites[identifier]?.userCollected = false
             dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
             networkManager.sendUnCollectedSite(dataManager.bnUser!, site:dataManager.sites[identifier]!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
         }

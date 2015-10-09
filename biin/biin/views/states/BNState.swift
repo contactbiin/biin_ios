@@ -34,8 +34,12 @@ class BNState {
 }
 
 enum BNStateType {
+    case MainViewContainerState
     case BiinieCategoriesState
     case SiteState
+    case AllSitesState
+    case ElementState
+    case AllElementsState
     case ProfileState
     case CollectionState
     case Notifications
@@ -45,4 +49,5 @@ enum BNStateType {
     case LoyaltiesState
     case AboutState
     case ErrorState
+    case AllCollectedState
 }

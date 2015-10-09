@@ -132,7 +132,7 @@ class CollectionsView: BNView, ElementView_Delegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.BiinieCategoriesState
+        if state!.stateType == BNStateType.MainViewContainerState
             || state!.stateType == BNStateType.SiteState {
                 
                 UIView.animateWithDuration(0.25, animations: {()-> Void in
@@ -215,33 +215,34 @@ class CollectionsView: BNView, ElementView_Delegate {
         }
     }
     
-    func showElementView(elementMiniView:ElementMiniView?){
+    func showElementView(element:BNElement){
         
-        elementView!.updateElementData(elementMiniView)
-        
-        UIView.animateWithDuration(0.3, animations: {()-> Void in
-            self.elementView!.frame.origin.x = 0
-            self.fade!.alpha = 0.25
-        })
+//        elementView!.updateElementData(element, showSiteBtn:true)
+//        
+//        UIView.animateWithDuration(0.3, animations: {()-> Void in
+//            self.elementView!.frame.origin.x = 0
+//            self.fade!.alpha = 0.25
+//        })
     }
     
-    func hideElementView(view:ElementMiniView?) {
+    func hideElementView(element:BNElement) {
+        
         UIView.animateWithDuration(0.4, animations: {() -> Void in
             self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
             self.fade!.alpha = 0
             }, completion: {(completed:Bool)-> Void in
                 
-                if !view!.element!.userViewed {
-                    view!.userViewedElement()
-                }
+//                if !view!.element!.userViewed {
+//                    view!.userViewedElement()
+//                }
                 
                 self.elementView!.clean()
         })
     }
     
-    func updateHighlightsContainer() {
-        (father as! MainView).updateHighlightsContainer()
-    }
+//    func updateHighlightsContainer() {
+//        (father as! MainView).updateHighlightsContainer()
+//    }
 }
 
 @objc protocol CollectionsView_Delegate:NSObjectProtocol {

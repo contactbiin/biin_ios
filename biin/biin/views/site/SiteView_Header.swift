@@ -13,6 +13,7 @@ class SiteView_Header:BNView {
     var subTitle:UILabel?
     var nutshell:UILabel?
     var visualEffectView:UIVisualEffectView?
+    var viewContainer:UIView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,9 +28,13 @@ class SiteView_Header:BNView {
 
         var ypos:CGFloat = 4
         
-        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
-        visualEffectView!.frame = self.bounds
-        self.addSubview(visualEffectView!)
+        viewContainer = UIView(frame: self.bounds)
+        viewContainer!.backgroundColor = UIColor.redColor()
+        self.addSubview(viewContainer!)
+        
+//        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+//        visualEffectView!.frame = self.bounds
+//        self.addSubview(visualEffectView!)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight - 10)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
@@ -42,7 +47,7 @@ class SiteView_Header:BNView {
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
 //        self.addSubview(title!)
-        visualEffectView!.contentView.addSubview(title!)
+        viewContainer!.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_subTittleSize + 3)))
@@ -51,7 +56,7 @@ class SiteView_Header:BNView {
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
 //        self.addSubview(subTitle!)
-        visualEffectView!.contentView.addSubview(subTitle!)
+        viewContainer!.addSubview(subTitle!)
         
         ypos += SharedUIManager.instance.siteView_subTittleSize + 3
         nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_nutshellSize + 3)))
@@ -60,7 +65,7 @@ class SiteView_Header:BNView {
         nutshell!.textAlignment = NSTextAlignment.Left
         nutshell!.text = "Site subtitle here"
 //        self.addSubview(nutshell!)
-        visualEffectView!.contentView.addSubview(nutshell!)
+        viewContainer!.addSubview(nutshell!)
     }
 
     override func transitionIn() {
@@ -100,8 +105,10 @@ class SiteView_Header:BNView {
         if site!.useWhiteText {
             textColor = UIColor.whiteColor()
         } else {
-            textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+            textColor = UIColor.bnGrayDark()
         }
+        
+        viewContainer!.backgroundColor = site!.media[0].vibrantColor!
         
         title!.text = site!.title!
         subTitle!.text = site!.subTitle!

@@ -11,9 +11,9 @@ import UIKit
 
 class BiinItAnimationView:UIView {
     
-    var animatedCircle:BNUICircle?
-    var circleIcon:BNUICompletedGameIconView?
-    var biinItLbl:UILabel?
+    //var animatedCircle:BNUICircle?
+    //var circleIcon:BNUICompletedGameIconView?
+    var label:UILabel?
     
 //    override init() {
 //        super.init()
@@ -22,35 +22,43 @@ class BiinItAnimationView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        animatedCircle = BNUICircle(fullFrame:CGRectMake(0, 0, 1024, 1024), emptyFrame: CGRectMake((self.frame.width / 2), (self.frame.height / 2), 2, 2), color:UIColor.biinColor(), isFilled: false)
-        self.addSubview(animatedCircle!)
-        animatedCircle!.alpha = 0
+        
+//        animatedCircle = BNUICircle(fullFrame:CGRectMake(0, 0, 1024, 1024), emptyFrame: CGRectMake((self.frame.width / 2), (self.frame.height / 2), 2, 2), color:UIColor.biinColor(), isFilled: false)
+//        self.addSubview(animatedCircle!)
+//        animatedCircle!.alpha = 0
 
         //println("w: \(frame.width) , h:\(frame.height)")
         
-        let x:CGFloat = ((frame.width - 86) / 2 )
-        var y:CGFloat = ((frame.height - 86 ) / 2 )
-        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(x, y, 86, 86), father: nil, color: UIColor.biinColor())
-        circleIcon!.alpha = 0
-        self.addSubview(circleIcon!)
+//        let x:CGFloat = ((frame.width - 86) / 2 )
+//        var y:CGFloat = ((frame.height - 86 ) / 2 )
+//        circleIcon = BNUICompletedGameIconView(frame: CGRectMake(x, y, 86, 86), father: nil, color: UIColor.biinColor())
+//        circleIcon!.alpha = 1
+//        self.addSubview(circleIcon!)
+//        
+//        y += 90
         
-        y += 90
-        
-        biinItLbl = UILabel(frame: CGRectMake(0, y, frame.width, 20))
-        biinItLbl!.font = UIFont(name: "Lato-Light", size: 18)
-        biinItLbl!.text = NSLocalizedString("Biined", comment: "Biined")
-        biinItLbl!.textAlignment = NSTextAlignment.Center
-        biinItLbl!.textColor = UIColor.whiteColor()
-        biinItLbl!.alpha = 0
-        self.addSubview(biinItLbl!)
+        label = UILabel(frame: CGRectMake(0, 15, frame.width, 20))
+        label!.font = UIFont(name: "Lato-Light", size: 18)
+        label!.text = ""// NSLocalizedString("Collected", comment: "Collected")
+        label!.textAlignment = NSTextAlignment.Center
+        label!.textColor = UIColor.whiteColor()
+        label!.alpha = 0
+        self.addSubview(label!)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func animate(){
-        self.alpha = 1
+    func animate(value:Bool){
+
+        
+        if value {
+            label!.text = NSLocalizedString("Collected", comment: "Collected")
+        } else {
+            label!.text = NSLocalizedString("Uncollected", comment: "Uncollected")
+        }
+        
         NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCircle:", userInfo: nil, repeats: false)
     }
     
@@ -60,13 +68,15 @@ class BiinItAnimationView:UIView {
     
     func animateCircle(sender:NSTimer){
         
-        self.animatedCircle!.alpha = 0.35
-        self.animatedCircle!.animateIn()
+        //self.animatedCircle!.alpha = 0.35
+        //self.animatedCircle!.animateIn()
         
         UIView.animateWithDuration(0.2, animations: {()->Void in
             
-            self.circleIcon!.alpha = 1
-            self.biinItLbl!.alpha = 1
+//            self.circleIcon!.alpha = 1
+//            self.biinItLbl!.alpha = 1
+            self.label!.alpha = 1
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, -50)
             
             }, completion: {(completed:Bool)-> Void in
                 self.animateOut()
@@ -76,19 +86,24 @@ class BiinItAnimationView:UIView {
     
     func animateCircleOut(sender:NSTimer){
         
-        self.animatedCircle!.animateOut()
+        //self.animatedCircle!.animateOut()
 
         UIView.animateWithDuration(0.35, animations: {()->Void in
             
-            self.circleIcon!.alpha = 0
-            self.biinItLbl!.alpha = 0
+            
+//            self.frame.origin.y = SharedUIManager.instance.screenWidth
+            self.frame = CGRectMake(self.frame.origin.x, SharedUIManager.instance.screenWidth, self.frame.width, 0)
+//            self.circleIcon!.alpha = 0
+//            self.biinItLbl!.alpha = 0
             
             }, completion: {(completed:Bool)-> Void in
-                
-                self.alpha = 0
+            self.label!.alpha = 0
         })
     }
     
-    
+    func updateAnimationView(backgroundColor:UIColor?, textColor:UIColor?){
+        self.backgroundColor = backgroundColor!
+        self.label!.textColor = textColor!
+    }
 
 }

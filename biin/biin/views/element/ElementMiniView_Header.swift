@@ -32,9 +32,14 @@ class ElementMiniView_Header:BNView {
         self.init(frame: frame, father:father )
         //self.backgroundColor = UIColor.appMainColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
+        
+        let containerView = UIView(frame: self.bounds)
+        containerView.backgroundColor = element!.media[0].vibrantColor
+        self.addSubview(containerView)
+        
         
         self.elementPosition = elementPosition
         
@@ -52,13 +57,14 @@ class ElementMiniView_Header:BNView {
                 circleLabel!.animateCircleIn()
             }
         }
-       
-        ypos = 4
-        let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - (xpos + 5)), (SharedUIManager.instance.miniView_titleSize + 3)))
-        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-        title.textColor = UIColor.bnGrayDark()
-        title.text = element!.title!
-        self.addSubview(title)
+        
+//        let percentageViewSize:CGFloat = (SharedUIManager.instance.miniView_headerHeight - 30 )
+//        ypos = 5
+//        let title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - (xpos + 5 + percentageViewSize)), (SharedUIManager.instance.miniView_titleSize + 3)))
+//        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+//        title.textColor = UIColor.bnGrayDark()
+//        title.text = element!.title!
+//        self.addSubview(title)
         
 //        ypos += SharedUIManager.instance.miniView_titleSize
 //        

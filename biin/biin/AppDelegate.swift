@@ -69,35 +69,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
         
         // create the custom folder path
-        let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
+        //let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
         
+        /*
         // check if directory does not exist
         if NSFileManager.defaultManager().fileExistsAtPath(biinCacheImagesFolder) == false {
             
-            // create the directory
-            //var createDirectoryError: NSError? = nil
             do {
                 try NSFileManager.defaultManager().createDirectoryAtPath(biinCacheImagesFolder, withIntermediateDirectories: false, attributes: nil)
             } catch _ as NSError {
-                //createDirectoryError = error
+        
             }
-            
-            print("creating BiinCacheImages folder!")
 
-            // handle the error, you may call an exception
-//            if createDirectoryError != nil {
-//                print("Handle directory creation error...")
-//            }
             
         } else {
             
             print("biinCacheImagesFolder already exist!")
             let selectedImage = UIImage(named:"1d5455b33081-4010-9774-0cbd8f70407a.png")
             let imageData = UIImagePNGRepresentation(selectedImage!)
-            //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
+
             let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("1d5455b33081-4010-9774-0cbd8f70407a.png")
-            
-//            let imagePath = paths.stringByAppendingPathComponent("1d5455b33081-4010-9774-0cbd8f70407a.png")
             
             print("imagePath: \(imagePath)")
             
@@ -119,15 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
-        
-        //var localNotification:UILocalNotification = UILocalNotification()
-        //localNotification.alertAction = "Testing notifications on iOS8"
-//        localNotification = "Woww it works!!”
-        //localNotification.fireDate = NSDate(timeIntervalSinceNow: 5)
-        //UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-        
-//        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound |
-//            UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        */
         setupNotificationSettings()
         
         
