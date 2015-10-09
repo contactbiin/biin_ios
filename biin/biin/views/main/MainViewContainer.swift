@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
+class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
     
     var headerDelegate:BiinieCategoriesView_Delegate?
     
@@ -31,7 +31,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
     //        super.init()
     //    }
     
-    var elementView:ElementView?
+    //var elementView:ElementView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,9 +76,9 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         self.addSubview(fade!)
         
         
-        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
-        elementView!.delegate = self
-        self.addSubview(elementView!)
+//        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
+//        elementView!.delegate = self
+//        self.addSubview(elementView!)
         
         
         elementContainers = Array<MainViewContainer_Elements>()
@@ -126,6 +126,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
         let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight + 1
         
         self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, sitesContainerHeight), father: self)
+        self.sitesContainer!.delegate = (self.father! as! MainView)
         self.scroll!.addSubview(self.sitesContainer!)
         ypos += sitesContainerHeight
 
@@ -139,6 +140,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
             
             if category.hasSites {
                 let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
+                elementContainer.delegate = (self.father! as! MainView)
                 ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
                 self.scroll!.addSubview(elementContainer)
                 self.elementContainers!.append(elementContainer)
@@ -163,16 +165,16 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
     
     override func transitionIn() {
         
-        //UIView.animateWithDuration(0.4, animations: {()->Void in
+        UIView.animateWithDuration(0.5, animations: {()->Void in
             self.fade!.alpha = 0
-        //})
+        })
     }
     
     override func transitionOut( state:BNState? ) {
         
-        //UIView.animateWithDuration(0.2, animations: {()->Void in
-            self.fade!.alpha = 0.25
-        //})
+        UIView.animateWithDuration(0.1, animations: {()->Void in
+            self.fade!.alpha = 0.5
+        })
         
         state!.action()
     }
@@ -241,31 +243,31 @@ class MainViewContainer: BNView, UIScrollViewDelegate, ElementView_Delegate, Mai
     func scrollViewDidScrollToTop(scrollView: UIScrollView) {
     }// called when scrolling animation finished. may be called immediately if already at top
     
-    func showElementView(element:BNElement){
-        
-        elementView!.updateElementData(element)
-        
-        UIView.animateWithDuration(0.3, animations: {()-> Void in
-            self.elementView!.frame.origin.x = 0
-            self.fade!.alpha = 0.5
-        })
-        
-        highlightContainer!.stopTimer()
-    }
+//    func showElementView(element:BNElement){
+//        
+//        elementView!.updateElementData(element)
+//        
+//        UIView.animateWithDuration(0.3, animations: {()-> Void in
+//            self.elementView!.frame.origin.x = 0
+//            self.fade!.alpha = 0.5
+//        })
+//        
+//        highlightContainer!.stopTimer()
+//    }
     
     
-    func hideElementView(element: BNElement) {
-        
-        UIView.animateWithDuration(0.4, animations: {() -> Void in
-            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
-            self.fade!.alpha = 0
-            }, completion: {(completed:Bool)-> Void in
-                self.highlightContainer!.startTimer()
-                self.elementView!.clean()
-        })
-        
-        
-    }
+//    func hideElementView(element: BNElement) {
+//        
+//        UIView.animateWithDuration(0.4, animations: {() -> Void in
+//            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
+//            self.fade!.alpha = 0
+//            }, completion: {(completed:Bool)-> Void in
+//                self.highlightContainer!.startTimer()
+//                self.elementView!.clean()
+//        })
+//        
+//        
+//    }
     
     
     func updateHighlightsContainer(view: MainView, update: Bool) {

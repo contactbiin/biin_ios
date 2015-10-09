@@ -239,13 +239,12 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
                 xpos += (elementView_width - 1)
             }
             
-            elementView.delegate = self
+            elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
             scroll!.addSubview(elementView)
             elements!.append(elementView)
             elementPosition++
             
-  
-            
+
             if element.userViewed {
                 elementsViewed++
             }
@@ -429,7 +428,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     
     //ElementMiniView_Delegate
     func showElementView(viewiew: ElementMiniView, element: BNElement) {
-        (father! as! SiteView).showElementView(element)
+        //(father! as! SiteView).showElementView(element)
     }
 }
 

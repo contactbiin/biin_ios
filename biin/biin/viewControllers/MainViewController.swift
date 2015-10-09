@@ -23,9 +23,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        BNAppSharedManager.instance.errorManager.currentViewController = self
-        BNAppSharedManager.instance.mainViewController = self
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
@@ -53,13 +50,20 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func initViewController(frame:CGRect){
         
+        BNAppSharedManager.instance.mainViewController = self
+
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.delegate = self
+        
+        BNAppSharedManager.instance.errorManager.currentViewController = self
         
         BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, frame.height), father:nil, rootViewController: self)
+        
         mainView!.delegate = self
+        mainView!.addUIViews()
+        
         self.view.addSubview(self.mainView!)
         
 //        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView

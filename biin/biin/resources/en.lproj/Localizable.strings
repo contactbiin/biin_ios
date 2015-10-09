@@ -42,6 +42,8 @@ Savings = "SAVINGS";
 YouSave = "YOU SAVE";
 Value = "VALUE";
 Calcel = "Cancel";
+More = "more";
+NearYou = "Places near you";
 
 /* Menu buttons */
 Profile = "Profile";
@@ -62,15 +64,18 @@ category4 = "Woman clothing and shoes";
 category5 = "Kids clothing and shoes";
 category6 = "Man clothing and shoes";
 category7 = "Sports and Outdoors";
+//category8 = "Furniture";
 category8 = "Home, Garden and Hardware";
 category9 = "Technology";
+//category11 = "Appliances";
 category10 = "Toys and Hobies";
 category11 = "Food and Restaurants";
 category12 = "Cars and Industrial";
 category13 = "Jewelry";
 category14 = "In the super market";
 category15 = "Pets";
-category16 = "Events";
+
+/*category16 = "Events";
 category17 = "Brands";
 category18 = "Concerts";
 category19 = "GetAways";
@@ -80,6 +85,7 @@ category22 = "Collectibles y Arts";
 category23 = "Finance";
 category24 = "Instuticional";
 category25 = "Health";
+ */
 
 /* Views */
 /* Profile View*/

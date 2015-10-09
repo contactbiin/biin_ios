@@ -27,7 +27,7 @@ class BNRequest_Categories: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Categories.run()")
+        print("BNRequest_Categories.run() \(self.requestString)")
         isRunning = true
         
         self.networkManager!.epsNetwork!.getJson(false, url:self.requestString, callback:{
