@@ -37,7 +37,7 @@ class BNUIImageView:UIImageView {
         
         self.backgroundColor = color
         
-        cover = UIView(frame: frame)
+        cover = UIView(frame: CGRectMake(0, 0, frame.width, frame.height))
         cover!.backgroundColor = color
         self.addSubview(cover!)
         

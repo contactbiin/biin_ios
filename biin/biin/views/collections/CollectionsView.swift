@@ -154,9 +154,9 @@ class CollectionsView: BNView, ElementView_Delegate {
         self.fade!.alpha = 0
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

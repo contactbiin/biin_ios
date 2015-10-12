@@ -182,23 +182,23 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     //MenuViewDelegate
     func menuView(menuView: MenuView!, showProfile value: Bool) {
-        mainView!.setNextState(3)
+        mainView!.setNextState(BNGoto.Profile)
     }
     
     func menuView(menuView: MenuView!, showHome value: Bool) {
-        mainView!.setNextState(0)
+        mainView!.setNextState(BNGoto.Main)
     }
     
     func menuView(menuView: MenuView!, showCollections value: Bool) {
-        mainView!.setNextState(4)
+        mainView!.setNextState(BNGoto.Collected)
     }
     
     func menuView(menuView: MenuView!, showLoyalty value: Bool) {
-        mainView!.setNextState(7)
+//        mainView!.setNextState(7)
     }
     
     func menuView(menuView: MenuView!, showNotifications value: Bool) {
-        mainView!.setNextState(6)
+//        mainView!.setNextState(6)
     }
     
     func menuView(menuView: MenuView!, showInviteFriends value: Bool) {
@@ -206,15 +206,15 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func menuView(menuView: MenuView!, showSettings value: Bool) {
-        mainView!.setNextState(8)
+//        mainView!.setNextState(8)
     }
     
     func menuView(menuView: MenuView!, showSearch value: Bool) {
-        mainView!.setNextState(9)
+//        mainView!.setNextState(9)
     }
     
     func menuView(menuView: MenuView!, showAbout value: Bool) {
-        mainView!.setNextState(8)
+        mainView!.setNextState(BNGoto.About)
     }
     
     func showError(){
@@ -441,13 +441,12 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
 
 
         self.presentViewController(activityVC, animated: true, completion: nil)
-        mainView!.setNextState(1)
+        mainView!.setNextState(BNGoto.Main)
 
     }
     
-    func manager(manager: BNPositionManager!, updateMainViewController biins: Array<BNBiin>) {
-
-        mainView!.updateBiinsContainer()
+    func manager(manager: BNPositionManager!, showInSiteView biins: Array<BNBiin>) {
+        mainView!.showInSiteView()
     }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {

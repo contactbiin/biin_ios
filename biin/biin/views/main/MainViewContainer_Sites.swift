@@ -90,7 +90,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
         }
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         
     }
     

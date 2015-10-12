@@ -71,6 +71,12 @@ class UIManager {
     var elementContainer_Height:CGFloat = 0
     
     //Sites View sizes
+    var inSiteView_Height:CGFloat = 60
+    var inSiteView_titleSize:CGFloat = 20
+    var inSiteView_subTittleSize:CGFloat = 13
+    var inSiteView_nutshellSize:CGFloat = 10
+    
+    
     var siteView_headerHeight:CGFloat = 95
     var siteView_bottomHeight:CGFloat = 30
     var siteView_showcaseHeaderHeight:CGFloat = 50

@@ -116,10 +116,10 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
         print("SiteView_Showcase setNextState")
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -227,8 +227,6 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
         scroll!.setContentOffset(CGPointZero, animated: false)
-        scroll!.bounces = false
-        scroll!.pagingEnabled = false
     }
     
     /* UIScrollViewDelegate Methods */

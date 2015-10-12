@@ -218,9 +218,9 @@ class HighlightView: BNView {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -279,7 +279,7 @@ class HighlightView: BNView {
     
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
-        delegate!.showElementView!(self.element!)
+        delegate!.showElementViewFromHighlight!(self.element!)
 
         //delegate!.showElementViewForHighlight!(self, position:CGRectMake(0, 0, 0, 0))
     }
@@ -363,5 +363,5 @@ class HighlightView: BNView {
 }
 
 @objc protocol HightlightView_Delegate:NSObjectProtocol {
-    optional func showElementView(element:BNElement)
+    optional func showElementViewFromHighlight(element:BNElement)
 }

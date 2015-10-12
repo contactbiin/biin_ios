@@ -96,9 +96,9 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
 
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

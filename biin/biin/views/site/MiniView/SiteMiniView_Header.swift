@@ -65,9 +65,9 @@ class SiteMiniView_Header:BNView {
         print("trasition out on SiteMiniView_Header")
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

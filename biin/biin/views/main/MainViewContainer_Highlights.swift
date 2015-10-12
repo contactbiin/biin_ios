@@ -32,7 +32,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         scroll = UIScrollView(frame: CGRectMake(0, 0, frame.width, frame.height))
         scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
-        scroll!.backgroundColor = UIColor.whiteColor()
+        scroll!.backgroundColor = UIColor.darkGrayColor()
         scroll!.pagingEnabled = true
         self.addSubview(scroll!)
         
@@ -67,7 +67,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         }
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
 
     }
     
@@ -139,7 +139,6 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         xpos += (SharedUIManager.instance.screenWidth )
         
         scroll!.contentSize = CGSizeMake(xpos, SharedUIManager.instance.highlightContainer_Height)
-        scroll!.bounces = false
     }
     
     /* UIScrollViewDelegate Methods */

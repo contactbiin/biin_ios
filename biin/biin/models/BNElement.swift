@@ -86,6 +86,7 @@ class BNElement:NSObject {
     var isDownloadCompleted = false
     var isHighlight:Bool = false
     var siteIdentifier:String?
+    var categoriesIdentifiers:Array<String>?
     
     override init() {
         super.init()
@@ -144,6 +145,7 @@ class BNElement:NSObject {
         if let value = self.siteIdentifier { clone.siteIdentifier = value }
         clone.stars = self.stars
         clone.useWhiteText = self.useWhiteText
+        if let value = self.categoriesIdentifiers { clone.categoriesIdentifiers = value }
         return clone
     }
 }
