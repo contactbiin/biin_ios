@@ -29,7 +29,7 @@ class BNView:UIView {
     //Transitioning functions
     func transitionIn() { }
     func transitionOut( state:BNState? ) { }
-    func setNextState(option:Int){ }
+    func setNextState(goto:BNGoto){ }
     
     func adjustOnObjectContainerPan(y:CGFloat) { }
     func moveUpOnFirstTapped(){ }

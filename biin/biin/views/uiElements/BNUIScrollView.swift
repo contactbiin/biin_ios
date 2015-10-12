@@ -95,7 +95,6 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             }
             scroll!.contentSize = CGSizeMake(scrollXPos, 0)
             scroll!.setContentOffset(CGPointZero, animated: false)
-            scroll!.bounces = false
             scroll!.pagingEnabled = true
             
         } else {
@@ -137,7 +136,6 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             //points![previousPoint].setActive()
             scroll!.contentSize = CGSizeMake(scrollXPos, 0)
             scroll!.setContentOffset(CGPointZero, animated: false)
-            scroll!.bounces = false
             scroll!.pagingEnabled = true
         }
     }
