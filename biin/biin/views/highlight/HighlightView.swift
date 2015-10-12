@@ -69,6 +69,7 @@ class HighlightView: BNView {
         
         animationView = BiinItAnimationView(frame:CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, 0))
         self.addSubview(animationView!)
+
         animationView!.updateAnimationView(decorationColor, textColor: textColor)
 
         let containerView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
@@ -300,6 +301,13 @@ class HighlightView: BNView {
     
     func likeit(sender:BNUIButton_BiinIt){
         self.element!.userLiked = !self.element!.userLiked
+        
+        if self.element!.userLiked {
+            animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+        } else {
+            animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+        }
+        
         updateLikeItBtn()
     }
     

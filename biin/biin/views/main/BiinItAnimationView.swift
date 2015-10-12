@@ -19,6 +19,8 @@ class BiinItAnimationView:UIView {
 //        super.init()
 //    }
     
+    var isRunning = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -53,13 +55,25 @@ class BiinItAnimationView:UIView {
     func animate(value:Bool){
 
         
-        if value {
-            label!.text = NSLocalizedString("Collected", comment: "Collected")
-        } else {
-            label!.text = NSLocalizedString("Uncollected", comment: "Uncollected")
+        if !isRunning {
+            isRunning = true
+            if value {
+                label!.text = NSLocalizedString("Collected", comment: "Collected")
+            } else {
+                label!.text = NSLocalizedString("Uncollected", comment: "Uncollected")
+            }
+            
+            NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCircle:", userInfo: nil, repeats: false)
         }
+    }
+    
+    func animateWithText(text:String){
         
-        NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCircle:", userInfo: nil, repeats: false)
+        if !isRunning {
+            isRunning = true
+            label!.text = text
+            NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCircle:", userInfo: nil, repeats: false)
+        }
     }
     
     func animateOut(){
@@ -98,6 +112,7 @@ class BiinItAnimationView:UIView {
             
             }, completion: {(completed:Bool)-> Void in
             self.label!.alpha = 0
+                self.isRunning = false
         })
     }
     

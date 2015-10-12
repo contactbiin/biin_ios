@@ -342,7 +342,15 @@ class ElementView: BNView {
     }
     
     func likeit(sender:BNUIButton_BiinIt){
+        
         self.element!.userLiked = !self.element!.userLiked
+        
+        if self.element!.userLiked {
+            animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+        } else {
+            animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+        }
+        
         BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
         updateLikeItBtn()
     }

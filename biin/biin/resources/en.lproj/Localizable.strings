@@ -46,6 +46,13 @@ More = "more";
 NearYou = "Places near you";
 MoreFrom = "More from";
 
+LikeTxt = "Thanks for liking us!";
+NotLikeTxt = "Thanks, see you later!";
+
+FollowTxt = "Thank you!";
+NotFollowTxt = "We are sorry to see you go!";
+
+
 /* Menu buttons */
 Profile = "Profile";
 Home = "Home";
