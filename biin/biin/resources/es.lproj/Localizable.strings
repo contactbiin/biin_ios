@@ -61,6 +61,12 @@ InviteFriends = "Invitar Amigos";
 Settings = "Ajustes";
 Search = "Buscar";
 About = "Sobre Biin";
+SignUpTitle = "Registrate en Biin";
+LoginTitle = "Inicia sesión en Biin";
+LoginDesc = "Ingresa tu correo y clave que anteriormente usaste en Biin";
+ContinueBtn = "Continuar";
+WelcomeDesc = "Estamos felices que estés aqui, si es tu primera ves debes crear una cuenta o inicia sesión para continuar.";
+StartDesc = "Excelente, ahora es tiempo de empezar a descubrir y beneficiarte con Biin.";
 
 /* Categories */
 category1 = "Libros, Audio y peliculas";

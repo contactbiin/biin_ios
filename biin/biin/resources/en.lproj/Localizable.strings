@@ -19,8 +19,8 @@ EmailUs = "Email us";
 CallUs = "Call us";
 Phone = "Phone";
 Password = "Password";
-Login = "Sign In";
-ImNewHere = "Or, create an account";
+Login = "Log in";
+ImNewHere = "Create a new account";
 SignUpMsj = "Sign up using your email address.";
 LetsGetStarted = "Let's get started!";
 DontForget = "* Don't forget to check your inbox and verify your email address later on.";
@@ -63,6 +63,12 @@ InviteFriends = "Invite Friends";
 Settings = "Settings";
 Search = "Search";
 About = "About";
+SignUpTitle = "Sign up";
+LoginTitle = "Log in";
+LoginDesc = "Enter your email and password you previously use on biin.";
+ContinueBtn = "Continue";
+WelcomeDesc = "We are glad to see you here, if you are new you can create an account or login to continue using biin.";
+StartDesc = "Excelent, now is time to discover and enjoy special rewards with Biin.";
 
 /* Categories */
 category1 = "Books, Audio and Movies";

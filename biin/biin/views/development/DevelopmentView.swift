@@ -11,7 +11,6 @@ class DevelopmentView:UIView {
     var viewController:UIViewController?
 
     var developmentLbl:UILabel?
-    var biinLogo:BNUIBiinView?
 
     ///Switches
     var isProductionBD:UISwitch?
@@ -43,11 +42,6 @@ class DevelopmentView:UIView {
 
         var ypos:CGFloat = 10
         let xpos:CGFloat = 10
-        
-        biinLogo = BNUIBiinView(position:CGPoint(x:xpos, y:ypos), scale:1)
-        self.addSubview(biinLogo!)
-        biinLogo!.setNeedsDisplay()
-        ypos += 30
         
         developmentLbl = UILabel(frame: CGRect(x:xpos, y:ypos, width:frame.width, height:20))
         developmentLbl!.font = UIFont(name: "Lato-Black", size: 17)
