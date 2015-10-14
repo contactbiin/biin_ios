@@ -334,16 +334,16 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         return BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!]
     }
     
-    func shareElement(element:BNElement){
+    func shareElement(element:BNElement, shareView:ShareItView?){
         
         var siteTitle = ""
         if let site = BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!] {
             siteTitle = site.title!
         }
         
-        let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
+//        let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
         let imageToShare:UIImage?
-        imageToShare = imageFromView(view)
+        imageToShare = imageFromView(shareView!)
         
         let subjectToShare:String?
         subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")

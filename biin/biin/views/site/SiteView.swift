@@ -46,6 +46,8 @@ class SiteView:BNView, UIScrollViewDelegate {
     var iconColor:UIColor?
     var animationView:BiinItAnimationView?
     
+    var shareView:ShareItView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -285,6 +287,12 @@ class SiteView:BNView, UIScrollViewDelegate {
             
             updateFollowBtn()
             
+            if shareView != nil {
+                shareView = nil
+            }
+            
+            shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:self.site!)
+            //scroll!.addSubview(shareView!)
         }
         
         //scroll!.backgroundColor = decorationColor
@@ -493,7 +501,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false)
+        BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:shareView)
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){

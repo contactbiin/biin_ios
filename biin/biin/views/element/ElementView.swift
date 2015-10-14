@@ -41,6 +41,8 @@ class ElementView: BNView {
     
     var isElementViewFromSite:Bool = false
     
+    var shareView:ShareItView?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -326,9 +328,21 @@ class ElementView: BNView {
             
             detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
             scroll!.addSubview(detailsView!)
-           
+            
+            if shareView != nil {
+                shareView = nil
+            }
+            
+            let siteForSharing = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+            shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:siteForSharing)
+            //scroll!.addSubview(shareView!)
+
+            
             scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenWidth + detailsView!.frame.height))
         }
+        
+        
+        
     }
 
     func clean(){
@@ -338,7 +352,7 @@ class ElementView: BNView {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true)
+        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true, shareView:self.shareView)
     }
     
     func likeit(sender:BNUIButton_BiinIt){

@@ -157,22 +157,10 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         showcase = BNShowcase()
         
-        for siteDetails in category!.sitesDetails {
-            
-            if let site = BNAppSharedManager.instance.dataManager.sites[siteDetails.identifier!] {
-               
-                if let showcases = site.showcases {
-                    for showcase in showcases {
-                        for element in showcase.elements {
-                            if element.isHighlight {
-                                if addedElementsIdentifiers![element._id!] == nil {
-                                    self.showcase!.elements.append(element)
-                                    addedElementsIdentifiers![element._id!] = element
-                                }
-                            }
-                        }
-                    }
-                }
+        for (_, element) in category!.elements {
+            if addedElementsIdentifiers![element._id!] == nil {
+                self.showcase!.elements.append(element)
+                addedElementsIdentifiers![element._id!] = element
             }
         }
 
@@ -193,14 +181,10 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
             elementView_width = SharedUIManager.instance.miniView_width
         }
         
-//        if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
-//            isLoyaltyEnabled = true
-//        }
-        
         for element in showcase!.elements {
             
             
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
             
             if element != showcase!.elements.last {
                 xpos += elementView_width + spacer

@@ -150,16 +150,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         categories!.append(BNCategory(identifier: "category5", name: "Ropa y Zapatos Niños"))
         categories!.append(BNCategory(identifier: "category6", name: "Ropa y Zapatos Hombre"))
         categories!.append(BNCategory(identifier: "category7", name: "Deportes y Outdoors"))
-        //categories!.append(BNCategory(identifier: "category8", name: "Muebles"))
         categories!.append(BNCategory(identifier: "category8", name: "Hogar, Jardín y Ferretería"))
         categories!.append(BNCategory(identifier: "category9", name: "Tecnología"))
-        //categories!.append(BNCategory(identifier: "category11", name: "Electrodomesticos"))
         categories!.append(BNCategory(identifier: "category10", name: "Juguetes y pasatiempos"))
         categories!.append(BNCategory(identifier: "category11", name: "Comida y Restaurantes"))
         categories!.append(BNCategory(identifier: "category12", name: "Automotriz e Indutrial"))
         categories!.append(BNCategory(identifier: "category13", name: "Joyería y Bisuteria"))
         categories!.append(BNCategory(identifier: "category14", name: "En el Super"))
         categories!.append(BNCategory(identifier: "category15", name: "Mascotas"))
+        categories!.append(BNCategory(identifier: "category16", name: "Electrodomesticos"))
+        categories!.append(BNCategory(identifier: "category17", name: "Muebles"))
         /*
         categories!.append(BNCategory(identifier: "category16", name: "Ferias"))
         categories!.append(BNCategory(identifier: "category17", name: "Marcas"))
@@ -172,6 +172,15 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         categories!.append(BNCategory(identifier: "category24", name: "Instuticional"))
         categories!.append(BNCategory(identifier: "category25", name: "Salud"))
         */
+    }
+    
+    func addElementToCategory(categoryIdentifier:String, element:BNElement){
+        for category in self.bnUser!.categories {
+            if category.identifier == categoryIdentifier {
+                category.elements[element.identifier!] = element
+                continue
+            }
+        }
     }
 
 //    func removeNotification(identifier:Int){

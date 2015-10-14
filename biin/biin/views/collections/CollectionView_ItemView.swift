@@ -220,11 +220,11 @@ class CollectionView_ItemView: BNView {
         
         if self.isElement {
             //BNAppSharedManager.instance.shareIt(element!._id!)
-            BNAppSharedManager.instance.shareIt(element!._id!, isElement: true)
+            BNAppSharedManager.instance.shareIt(element!._id!, isElement: true, shareView:nil)
             element!.userShared = true
             header!.updateSocialButtonsForElement(element!)
         } else {
-            BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false)
+            BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:nil)
             site!.userShared = true
         }
     }
