@@ -179,14 +179,14 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        let text = "Error: " + error.description
+        //let text = "Error: " + error.description
         //self.delegateView?.manager?(self, printText: text)
     }
     
     
     //CLLocationManagerDelegate - Responding to Region Events
     func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
-        let text = "Monitoring: " + region.identifier
+        //let text = "Monitoring: " + region.identifier
         //self.delegateView?.manager?(self, printText: text)
     }
     

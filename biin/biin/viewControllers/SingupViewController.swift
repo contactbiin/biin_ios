@@ -47,7 +47,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
 
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
-        var xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
+        let xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
         var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
 
         let image = UIImageView(image: UIImage(named: "landing.jpg"))

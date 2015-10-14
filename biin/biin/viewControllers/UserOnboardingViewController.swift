@@ -37,7 +37,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         let screenHeight = SharedUIManager.instance.screenHeight
 
         var xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
-        var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
+        //var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
         
         let image = UIImageView(image: UIImage(named: "landing.jpg"))
         image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)

@@ -133,7 +133,8 @@ class UIManager {
 //    var loginView_ypos_3:CGFloat = 0
     
     //Error views
-    var errorView_title:CGFloat = 20
+    var errorView_headerHeoght:CGFloat = 40
+    var errorView_title:CGFloat = 18
     var errorView_text:CGFloat = 22
     var errorView_button:CGFloat = 18
     
