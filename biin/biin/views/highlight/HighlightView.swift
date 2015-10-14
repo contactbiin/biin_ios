@@ -27,6 +27,8 @@ class HighlightView: BNView {
     var iconColor:UIColor?
     var animationView:BiinItAnimationView?
 
+    var shareView:ShareItView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -69,6 +71,7 @@ class HighlightView: BNView {
         
         animationView = BiinItAnimationView(frame:CGRectMake(0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth, 0))
         self.addSubview(animationView!)
+
         animationView!.updateAnimationView(decorationColor, textColor: textColor)
 
         let containerView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
@@ -179,7 +182,12 @@ class HighlightView: BNView {
         
         
         
+        if shareView != nil {
+            shareView = nil
+        }
         
+        shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:site)
+        /*
         var buttonSpace:CGFloat = 30
         //Share button
         buttonSpace += 5
@@ -203,7 +211,7 @@ class HighlightView: BNView {
         collectItButton!.changeToCollectIcon(self.element!.userCollected)
         collectItButton!.icon!.color = iconColor
         containerView.addSubview(collectItButton!)
-        
+        */
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
@@ -218,9 +226,9 @@ class HighlightView: BNView {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -279,7 +287,7 @@ class HighlightView: BNView {
     
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
-        delegate!.showElementView!(self.element!)
+        delegate!.showElementViewFromHighlight!(self.element!)
 
         //delegate!.showElementViewForHighlight!(self, position:CGRectMake(0, 0, 0, 0))
     }
@@ -295,11 +303,18 @@ class HighlightView: BNView {
     
 
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true)
+        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true, shareView:self.shareView)
     }
     
     func likeit(sender:BNUIButton_BiinIt){
         self.element!.userLiked = !self.element!.userLiked
+        
+        if self.element!.userLiked {
+            animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+        } else {
+            animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+        }
+        
         updateLikeItBtn()
     }
     
@@ -363,5 +378,5 @@ class HighlightView: BNView {
 }
 
 @objc protocol HightlightView_Delegate:NSObjectProtocol {
-    optional func showElementView(element:BNElement)
+    optional func showElementViewFromHighlight(element:BNElement)
 }

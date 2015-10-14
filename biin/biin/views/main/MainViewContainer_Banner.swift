@@ -74,7 +74,6 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
         scroll!.setContentOffset(CGPointZero, animated: false)
-        scroll!.bounces = false
         scroll!.pagingEnabled = true
         
         startTimer()
@@ -93,7 +92,7 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         
     }
     

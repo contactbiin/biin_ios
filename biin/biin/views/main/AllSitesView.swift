@@ -65,7 +65,6 @@ class AllSitesView: BNView {
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
         scroll!.backgroundColor = UIColor.clearColor()
-        scroll!.bounces = false
         scroll!.pagingEnabled = false
         self.addSubview(scroll!)
         self.addSubview(line)
@@ -103,9 +102,9 @@ class AllSitesView: BNView {
         }
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

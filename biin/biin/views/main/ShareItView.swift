@@ -21,16 +21,27 @@ class ShareItView:UIView {
     convenience init(frame: CGRect, element:BNElement, site:BNSite?) {
         self.init(frame:frame)
         
-        self.backgroundColor = UIColor.clearColor()
-        self.layer.cornerRadius = 5
-        self.layer.borderColor = UIColor.appButtonColor().CGColor
+        self.backgroundColor = element.media[0].vibrantColor!
+        
+        let textColor:UIColor?
+        let decorationColor:UIColor?
+        
+        if element.useWhiteText {
+            textColor = UIColor.whiteColor()
+            decorationColor = element.media[0].vibrantDarkColor
+        } else {
+            textColor = UIColor.whiteColor()
+            decorationColor = element.media[0].vibrantDarkColor
+        }
+
+        self.layer.borderColor = element.media[0].vibrantColor!.CGColor
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
-
-        var ypos:CGFloat = 30
-        //var hasPrice = false
         
+        
+        var ypos:CGFloat = 0
         let image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:element.media[0].vibrantColor!)
+        self.addSubview(image)
         
         if site!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(element.media[0].url!, image: image)
@@ -39,146 +50,209 @@ class ShareItView:UIView {
             image.showAfterDownload()
         }
         
-        self.addSubview(image)
-
-        ypos = 65
-        if priceView != nil {
-            priceView!.removeFromSuperview()
-            priceView = nil
+        if element.hasDiscount {
+            let percentageViewSize:CGFloat = 60
+            let percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(element.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            
+            self.addSubview(percentageView)
         }
-        
-        if !element.hasPrice && element.hasDiscount {
-            
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.discount!)%", isMini:false, isDiscount:true)
-            self.addSubview(priceView!)
-            ypos += 40
-            
-        } else if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 40), price: "\(element.currency!)\(element.price!)", isMini:false, isDiscount:false)
-            self.addSubview(priceView!)
-            //hasPrice = true
-            ypos += 40
-            
-        } else if element.hasPrice && element.hasListPrice && element.hasDiscount {
-            
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.price!)", newPrice:"\(element.currency!)\(element.listPrice!)", percentage:"\(element.discount!)%", isMini:false, isHighlight:element.isHighlight, color:element.media[0].domainColor!)
-            self.addSubview(priceView!)
-            //hasPrice = true
-            ypos += 40
-            
-        } else if element.hasPrice && element.hasListPrice && element.hasDiscount {
-            //TODO
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 65), oldPrice:"\(element.currency!)\(element.price!)", newPrice:"\(element.currency!)\(element.listPrice!)", isMini:false, isHighlight:element.isHighlight)
-            self.addSubview(priceView!)
-            //hasPrice = true
-            ypos += 40
-            
-        } else if element.hasPrice && element.hasFromPrice {
-            priceView = BNUIPricesView(frame: CGRectMake(5, ypos, 100, 60), price: "\(element.currency!)\(element.price!)", from:NSLocalizedString("From", comment: "From")
-                , isMini:false, isHighlight:element.isHighlight)
-            self.addSubview(priceView!)
-            //hasPrice = true
-            ypos += 40
-        }
-        
-        ypos = 0
-        let whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
-        whiteBackground.backgroundColor = UIColor.appMainColor()
-        
-        self.addSubview(whiteBackground)
 
-        ypos += 6
-        let title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
-        title.font = UIFont(name:"Lato-Black", size:25)
-        title.textColor = element.titleColor!
+        ypos += 330
+        
+        let title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 23))
+        title.font = UIFont(name:"Lato-Regular", size:20)
+        title.numberOfLines = 0
+        title.textColor = textColor!
         title.text = element.title
+        title.sizeToFit()
         self.addSubview(title)
         
-        ypos += 28
-        let subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
-        subTitle.font = UIFont(name:"Lato-Light", size:13)
-        subTitle.textColor = UIColor.appTextColor()
+        ypos += (title.frame.height + 2)
+        let subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 14))
+        subTitle.font = UIFont(name:"Lato-Light", size:12)
+        subTitle.numberOfLines = 0
+        subTitle.textColor = textColor!
         subTitle.text = element.subTitle
+        subTitle.sizeToFit()
         self.addSubview(subTitle)
         
-        ypos = 360
+        ypos += (subTitle.frame.height + 10)
         
+        let lineView = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+        lineView.backgroundColor = textColor
+        self.addSubview(lineView)
+        
+        var textPrice1:UILabel?// = UILabel(frame: CGRectZero)
+        var textPrice2:UILabel?// = UILabel(frame: CGRectZero)
+        
+        if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
+
+            var height:CGFloat = 0
+            let bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+            bg.backgroundColor = decorationColor
+            self.addSubview(bg)
+            height += 10
+            
+            ypos += 10
+            textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2)))
+            textPrice1!.textColor = textColor
+            textPrice1!.textAlignment = NSTextAlignment.Center
+            textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+            textPrice1!.text = NSLocalizedString("Price", comment: "Price")
+            self.addSubview(textPrice1!)
+            
+            ypos += SharedUIManager.instance.elementView_titleSize
+            textPrice2 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2)))
+            textPrice2!.textColor = textColor
+            textPrice2!.textAlignment = NSTextAlignment.Center
+            textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+            textPrice2!.text = "\(element.currency!)\(element.price!)"
+            self.addSubview(textPrice2!)
+            ypos += 40
+            
+            height += 60
+            bg.frame = CGRectMake(0, bg.frame.origin.y, bg.frame.width, height)
+            
+        } else if element.hasPrice && element.hasListPrice {
+            
+            var height:CGFloat = 0
+            let bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+            bg.backgroundColor = decorationColor
+            self.addSubview(bg)
+            height += 10
+            
+            
+            ypos += 10
+            let text1Length = SharedUIManager.instance.getStringLength("\(element.currency!)\(element.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
+            let xposition:CGFloat = ( frame.width - text1Length ) / 2
+            
+            textPrice1 = UILabel(frame:CGRectMake(xposition, ypos, text1Length, (SharedUIManager.instance.elementView_titleSize + 2)))
+            textPrice1!.textColor = textColor
+            textPrice1!.textAlignment = NSTextAlignment.Center
+            textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
+            textPrice1!.text = "\(element.currency!)\(element.price!)"
+            self.addSubview(textPrice1!)
+            
+            let lineView = UIView(frame: CGRectMake(xposition, (ypos + 11), (text1Length + 1), 1))
+            lineView.backgroundColor = textColor
+            self.addSubview(lineView)
+            
+            ypos += SharedUIManager.instance.elementView_titleSize
+            textPrice2 = UILabel(frame: CGRectMake(0, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2)))
+            textPrice2!.textColor = textColor
+            textPrice2!.textAlignment = NSTextAlignment.Center
+            textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+            textPrice2!.text = "\(element.currency!)\(element.listPrice!)"
+            self.addSubview(textPrice2!)
+            ypos += 40
+            
+            height += 60
+            bg.frame = CGRectMake(0, bg.frame.origin.y, bg.frame.width, height)
+            
+        } else if element.hasPrice && element.hasFromPrice {
+            
+            var height:CGFloat = 0
+            let bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+            bg.backgroundColor = decorationColor
+            self.addSubview(bg)
+            height += 10
+            
+            ypos += 10
+            textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2)))
+            textPrice1!.textColor = textColor
+            textPrice1!.textAlignment = NSTextAlignment.Center
+            textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
+            textPrice1!.text = NSLocalizedString("From", comment: "From")
+            self.addSubview(textPrice1!)
+            
+            ypos += SharedUIManager.instance.elementView_titleSize
+            textPrice2 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2)))
+            textPrice2!.textColor = textColor
+            textPrice2!.textAlignment = NSTextAlignment.Center
+            textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+            textPrice2!.text = "\(element.currency!)\(element.price!)"
+            self.addSubview(textPrice2!)
+            ypos += 40
+            
+            height += 60
+            bg.frame = CGRectMake(0, bg.frame.origin.y, bg.frame.width, height)
+        }
+
+        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
+        whiteBackground2.backgroundColor = UIColor.whiteColor()
+        self.addSubview(whiteBackground2)
+                
         let siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
         siteLocation.updateForSite(site!)
         siteLocation.map!.alpha = 0
         siteLocation.frame.origin.y = ypos
+        siteLocation.callBtn!.alpha = 0
+        siteLocation.emailBtn!.alpha = 0
+        siteLocation.closeBtn!.alpha = 0
         self.addSubview(siteLocation)
         
-        ypos += siteLocation.yStop
-        ypos += 40
+        ypos += 110
         
-        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
-        whiteBackground2.backgroundColor = UIColor.biinColor()
-        self.addSubview(whiteBackground2)
+        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
+        self.addSubview(biinLogo)
         
-        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
-        whiteBackground2.addSubview(biinLogo)
-        
-        ypos += 35
-        self.frame = CGRectMake(0, 0, frame.width, ypos)
+        ypos += 30
+        self.frame = CGRectMake(80, 50, frame.width, ypos)
     }
     
     convenience init(frame: CGRect, site:BNSite) {
         self.init(frame:frame)
         
-        self.backgroundColor = UIColor.clearColor()
-        self.layer.cornerRadius = 5
-        self.layer.borderColor = UIColor.appBackground().CGColor
+        self.backgroundColor = site.media[0].vibrantColor!
+        
+        let textColor:UIColor?
+        let decorationColor:UIColor?
+        
+        if site.useWhiteText {
+            textColor = UIColor.whiteColor()
+            decorationColor = site.media[0].vibrantDarkColor
+        } else {
+            textColor = UIColor.whiteColor()
+            decorationColor = site.media[0].vibrantDarkColor
+        }
+        
+        self.layer.borderColor = site.media[0].vibrantColor!.CGColor
         self.layer.borderWidth = 1
         self.layer.masksToBounds = true
         
-        var ypos:CGFloat = 30
+        
+        var ypos:CGFloat = 0
+        let image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:site.media[0].vibrantColor!)
+        self.addSubview(image)
+        
         if site.media.count > 0 {
-            let organizationAvatar = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:site.media[0].vibrantColor!)
-            self.addSubview(organizationAvatar)
-            BNAppSharedManager.instance.networkManager.requestImageData(site.media[0].url!, image: organizationAvatar)
+            BNAppSharedManager.instance.networkManager.requestImageData(site.media[0].url!, image: image)
         } else {
-            let image = UIImage(named: "noImage.jpg")
-            let imageView = UIImageView(image: image)
-            self.addSubview(imageView)
-            imageView.frame = CGRectMake(0, ypos, 320, 320)
+            image.image =  UIImage(named: "noImage.jpg")
+            image.showAfterDownload()
         }
         
-        ypos = 0
-        let whiteBackground = UIView(frame: CGRectMake(0, ypos, frame.width, 60))
-        whiteBackground.backgroundColor = UIColor.appMainColor()
-        self.addSubview(whiteBackground)
+        ypos += 320
         
-        ypos += 6
-        let title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 28))
-        title.font = UIFont(name:"Lato-Black", size:25)
-        title.textColor = site.titleColor!
-        title.text = site.title
-        self.addSubview(title)
+        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
+        whiteBackground2.backgroundColor = UIColor.whiteColor()
+        self.addSubview(whiteBackground2)
         
-        ypos += 28
-        let subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 16))
-        subTitle.font = UIFont(name:"Lato-Light", size:13)
-        subTitle.textColor = UIColor.appTextColor()
-        subTitle.text = site.subTitle
-        self.addSubview(subTitle)
-        
-        ypos = 370
-        let siteLocation = SiteView_Location(frame: CGRectMake(0, ypos, 0, 0), father: nil)
+        let siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
         siteLocation.updateForSite(site)
         siteLocation.map!.alpha = 0
         siteLocation.frame.origin.y = ypos
+        siteLocation.callBtn!.alpha = 0
+        siteLocation.emailBtn!.alpha = 0
+        siteLocation.closeBtn!.alpha = 0
         self.addSubview(siteLocation)
         
         ypos += 110
-        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 35))
-        whiteBackground2.backgroundColor = UIColor.biinColor()
-        self.addSubview(whiteBackground2)
         
-        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), 3.5, 100, 30))
-        whiteBackground2.addSubview(biinLogo)
+        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
+        self.addSubview(biinLogo)
         
-        ypos += 35
-        self.frame = CGRectMake(0, 0, frame.width, ypos)
+        ypos += 30
+        self.frame = CGRectMake(80, 50, frame.width, ypos)
     }
 }

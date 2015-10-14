@@ -1,18 +1,21 @@
-//  SiteView_Header.swift
+//  InSiteView.swift
 //  biin
-//  Created by Esteban Padilla on 2/2/15.
-//  Copyright (c) 2015 Esteban Padilla. All rights reserved.
+//  Created by Esteban Padilla on 10/12/15.
+//  Copyright © 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class SiteView_Header:BNView {
+class InSiteView: BNView {
     
+    var site:BNSite?
     var siteAvatar:BNUIImageView?
     var title:UILabel?
     var subTitle:UILabel?
     var nutshell:UILabel?
     var viewContainer:UIView?
+    var delegate:InSiteView_Delegate?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,48 +27,60 @@ class SiteView_Header:BNView {
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
-
+ 
+        self.layer.masksToBounds = true
+        
+        //self.site = site!
         var ypos:CGFloat = 4
         
         viewContainer = UIView(frame: self.bounds)
         viewContainer!.backgroundColor = UIColor.redColor()
         self.addSubview(viewContainer!)
-
-        let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight - 10)
+        
+        let siteAvatarSize = (SharedUIManager.instance.inSiteView_Height - 10)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
         self.addSubview(siteAvatar!)
         
         let xpos:CGFloat = siteAvatarSize + 10
-        title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
+        title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.inSiteView_titleSize + 3)))
+        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.inSiteView_titleSize)
         title!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
+        //        self.addSubview(title!)
         viewContainer!.addSubview(title!)
         
-        ypos += SharedUIManager.instance.siteView_titleSize + 2
-        subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_subTittleSize + 3)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
+        ypos += SharedUIManager.instance.inSiteView_titleSize + 2
+        subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.inSiteView_subTittleSize + 3)))
+        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.inSiteView_subTittleSize)
         subTitle!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
+        //        self.addSubview(subTitle!)
         viewContainer!.addSubview(subTitle!)
         
-        ypos += SharedUIManager.instance.siteView_subTittleSize + 3
-        nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_nutshellSize + 3)))
-        nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_nutshellSize)
+        ypos += SharedUIManager.instance.inSiteView_subTittleSize + 2
+        nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.inSiteView_nutshellSize + 3)))
+        nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.inSiteView_nutshellSize)
         nutshell!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         nutshell!.textAlignment = NSTextAlignment.Left
         nutshell!.text = "Site subtitle here"
+        //        self.addSubview(nutshell!)
         viewContainer!.addSubview(nutshell!)
+        
+
+        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        tap.numberOfTapsRequired = 1
+        self.addGestureRecognizer(tap)
+        self.isFirstResponder()
     }
-
+    
     override func transitionIn() {
-
+        
     }
     
     override func transitionOut( state:BNState? ) {
-
+        
     }
     
     override func setNextState(goto:BNGoto){
@@ -75,7 +90,7 @@ class SiteView_Header:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-
+            
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -83,15 +98,17 @@ class SiteView_Header:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-
+            
         }else{
             father!.updateUserControl(position)
         }
     }
     
+    
     //Instance methods
     func updateForSite(site: BNSite?){
-
+        
+        self.site = site
         var textColor:UIColor?
         
         if site!.useWhiteText {
@@ -118,4 +135,14 @@ class SiteView_Header:BNView {
             siteAvatar!.showAfterDownload()
         }
     }
+    
+    /* Gesture hadlers */
+    func handleTap(sender:UITapGestureRecognizer) {
+        delegate!.showSiteViewOnContext!(self.site!)
+    }
 }
+
+@objc protocol InSiteView_Delegate:NSObjectProtocol {
+    optional func showSiteViewOnContext(site:BNSite)
+}
+

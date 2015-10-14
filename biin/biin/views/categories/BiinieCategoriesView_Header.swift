@@ -6,9 +6,10 @@
 import Foundation
 import UIKit
 
-class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
+class BiinieCategoriesView_Header: BNView {
 
     var showMenuBtn:BNUIButton?
+    var testBtn:UIButton?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,9 +39,9 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -64,6 +65,12 @@ class BiinieCategoriesView_Header: BNView, BiinieCategoriesView_Delegate {
         showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 12, 60, 40), text: "", iconType: BNIconType.menuMedium)
         showMenuBtn!.addTarget(father, action: "showMenuBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
+        
+        testBtn = UIButton(frame: CGRectMake(200, 0, 60, 40))
+        testBtn!.backgroundColor = UIColor.darkGrayColor()
+        testBtn!.setTitle("test", forState: UIControlState.Normal)
+        testBtn!.addTarget(father, action: "testBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(testBtn!)
     }
     
 }

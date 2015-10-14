@@ -233,12 +233,12 @@ class BNAppManager {
 //        networkManager.sendFollowedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:false )
 //    }
 
-    func shareIt(identifier:String, isElement:Bool){
+    func shareIt(identifier:String, isElement:Bool, shareView:ShareItView?){
         
         if isElement {
             dataManager.elements[identifier]?.userShared = true
             networkManager.sendSharedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!)
-            mainViewController?.shareElement(dataManager.elements[identifier]!)
+            mainViewController?.shareElement(dataManager.elements[identifier]!, shareView:shareView)
             
         } else {
             dataManager.sites[identifier]?.userShared = true

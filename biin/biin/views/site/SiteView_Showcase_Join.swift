@@ -73,9 +73,9 @@ class SiteView_Showcase_Join:BNView {
 
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func changeJoinBtnText(text: String) {

@@ -71,7 +71,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         let xpos:CGFloat = siteAvatarSize + 10
         
-        title = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
+        title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - (siteAvatarSize)), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
@@ -222,9 +222,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

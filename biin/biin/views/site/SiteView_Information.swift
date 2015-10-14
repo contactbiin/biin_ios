@@ -8,7 +8,7 @@ import UIKit
 import MapKit
 
 
-class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate {
+class SiteView_Information:BNView, MKMapViewDelegate {
     
     var backBtn:UIButton?
     
@@ -30,7 +30,7 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        BNAppSharedManager.instance.positionManager.delegateView = self
+        //BNAppSharedManager.instance.positionManager.delegateView = self
         
         self.backgroundColor = UIColor.appMainColor()
         
@@ -77,9 +77,9 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
 
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -137,12 +137,6 @@ class SiteView_Information:BNView, MKMapViewDelegate, BNPositionManagerDelegate 
         self.console!.text = msj
     }
     
-    //BNPositionManagerDelegate
-    //Temporal
-    func manager(manager:BNPositionManager!, updateMainViewController biins:Array<BNBiin>)
-    {
-        print("Update Biins on Region View controller - NOT IMPLEMENTED")
-    }
     
     /*MKMapViewDelegate*/
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation)

@@ -44,7 +44,7 @@ class BNUICompletedGameIconView:BNView {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         
     }
 }

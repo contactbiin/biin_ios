@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, SiteView_Delegate {
+class SiteView_Showcase:BNView, UIScrollViewDelegate {
     
     var title:UILabel?
     var subTitle:UILabel?
@@ -166,10 +166,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
         print("SiteView_Showcase setNextState")
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -232,7 +232,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
             
             
             let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
-
+                elementView.isElementMiniViewInSite = true
+            
             if element != showcase!.elements.last {
                 xpos += elementView_width + spacer
             } else  {
@@ -276,7 +277,6 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
         scroll!.setContentOffset(CGPointZero, animated: false)
-        scroll!.bounces = false
         scroll!.pagingEnabled = false
     }
     
@@ -427,9 +427,9 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate, ElementMiniView_Delegate, 
     }
     
     //ElementMiniView_Delegate
-    func showElementView(viewiew: ElementMiniView, element: BNElement) {
-        //(father! as! SiteView).showElementView(element)
-    }
+//    func showElementView(viewiew: ElementMiniView, element: BNElement) {
+//        //(father! as! SiteView).showElementView(element)
+//    }
 }
 
 

@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // path to documents directory
-        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
+        //let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
         
         // create the custom folder path
         //let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
