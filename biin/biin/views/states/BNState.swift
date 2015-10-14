@@ -39,6 +39,7 @@ enum BNStateType {
     case SiteState
     case AllSitesState
     case ElementState
+    case ElementFromSiteState
     case AllElementsState
     case ProfileState
     case CollectionState

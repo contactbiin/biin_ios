@@ -66,7 +66,6 @@ class AllElementsView: BNView {
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
         scroll!.backgroundColor = UIColor.clearColor()
-        scroll!.bounces = false
         scroll!.pagingEnabled = false
         self.addSubview(scroll!)
         self.addSubview(line)
@@ -100,9 +99,9 @@ class AllElementsView: BNView {
         }
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -158,22 +157,10 @@ class AllElementsView: BNView {
             self.showcase = nil
             showcase = BNShowcase()
             
-            for siteDetails in category!.sitesDetails {
-                
-                if let site = BNAppSharedManager.instance.dataManager.sites[siteDetails.identifier!] {
-                    
-                    if let showcases = site.showcases {
-                        for showcase in showcases {
-                            for element in showcase.elements {
-                                if element.isHighlight {
-                                    if addedElementsIdentifiers![element._id!] == nil {
-                                        self.showcase!.elements.append(element)
-                                        addedElementsIdentifiers![element._id!] = element
-                                    }
-                                }
-                            }
-                        }
-                    }
+            for (_, element) in category!.elements {
+                if addedElementsIdentifiers![element._id!] == nil {
+                    self.showcase!.elements.append(element)
+                    addedElementsIdentifiers![element._id!] = element
                 }
             }
             
@@ -193,7 +180,7 @@ class AllElementsView: BNView {
             for element in showcase!.elements {
                 
                 
-                let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
                 
                 elementView.requestImage()
                 elementView.delegate = father! as! MainView

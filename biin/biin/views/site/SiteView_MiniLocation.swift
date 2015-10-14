@@ -84,10 +84,10 @@ class SiteView_MiniLocation:BNView {
     
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
-        if delegate == nil {
-            self.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
-        }
-        delegate!.showSiteView!(self, site: self.site!)
+//        if delegate == nil {
+//            self.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
+//        }
+//        delegate!.showSiteView!(self, site: self.site!)
     }
 
     override func transitionIn() {
@@ -98,9 +98,9 @@ class SiteView_MiniLocation:BNView {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

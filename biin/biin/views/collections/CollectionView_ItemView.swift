@@ -154,9 +154,9 @@ class CollectionView_ItemView: BNView {
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -220,11 +220,11 @@ class CollectionView_ItemView: BNView {
         
         if self.isElement {
             //BNAppSharedManager.instance.shareIt(element!._id!)
-            BNAppSharedManager.instance.shareIt(element!._id!, isElement: true)
+            BNAppSharedManager.instance.shareIt(element!._id!, isElement: true, shareView:nil)
             element!.userShared = true
             header!.updateSocialButtonsForElement(element!)
         } else {
-            BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false)
+            BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:nil)
             site!.userShared = true
         }
     }

@@ -72,9 +72,9 @@ class BiinieCategoriesView_BiinsContainer: BNView, UIScrollViewDelegate, Element
         
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

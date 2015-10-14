@@ -11,6 +11,9 @@ class ElementView_Details:BNView {
     var elementIdentifier:String?
     var biinitBtn:BNUIButton_BiinItLarge?
   
+    var title:UILabel?
+    var subTitle:UILabel?
+    
 //    override init() {
 //        super.init()
 //    }
@@ -33,6 +36,7 @@ class ElementView_Details:BNView {
         self.backgroundColor = UIColor.appMainColor()
         
         elementIdentifier = element!._id
+        
         let titleSize:CGFloat = SharedUIManager.instance.detailView_title
         let textSize:CGFloat = SharedUIManager.instance.detailView_text
         let quoteSize:CGFloat = SharedUIManager.instance.detailView_quoteSize
@@ -44,6 +48,31 @@ class ElementView_Details:BNView {
         var detailCounter = 0
         var ySpace:CGFloat = 0
         var addSpaceForQuote = false
+        
+        
+        self.title = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        self.subTitle = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        
+        self.title!.frame = CGRectMake(20, ypos, (frame.width - 40), 0)
+        self.title!.textColor = UIColor.appTextColor()
+        self.title!.textAlignment = NSTextAlignment.Left
+        self.title!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+        self.title!.text = element!.title!
+        self.title!.numberOfLines = 2
+        self.title!.sizeToFit()
+        self.addSubview(self.title!)
+        
+        ypos += self.title!.frame.height + 2
+        self.subTitle!.frame = CGRectMake(20, ypos, (frame.width - 40), (SharedUIManager.instance.elementView_subTitleSize + 2))
+        self.subTitle!.textColor = UIColor.appTextColor()
+        self.subTitle!.textAlignment = NSTextAlignment.Left
+        self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
+        self.subTitle!.text = element!.subTitle!
+        self.addSubview(self.subTitle!)
+        self.subTitle!.numberOfLines = 2
+        self.subTitle!.sizeToFit()
+
+        ypos += self.subTitle!.frame.height + 5
         
         for detail in element!.details {
 
@@ -222,9 +251,9 @@ class ElementView_Details:BNView {
 
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

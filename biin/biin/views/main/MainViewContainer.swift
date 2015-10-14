@@ -8,30 +8,16 @@ import UIKit
 
 class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
     
-    var headerDelegate:BiinieCategoriesView_Delegate?
-    
-    //var container:CategoriesView_Container?
     var header:BiinieCategoriesView_Header?
-    
+    var inSiteView:InSiteView?
     var highlightContainer:MainViewContainer_Highlights?
     var sitesContainer:MainViewContainer_Sites?
     var bannerContainer:MainViewContainer_Banner?
     var elementContainers:Array <MainViewContainer_Elements>?
-    //var panIndex = 0
-    //var numberOfCategories = 0
-    
+
     var scroll:UIScrollView?
     
-    //var highlightsContainer:BiinieCategoriesView_HighlightsContainer?
-    //var biinsContainer:BiinieCategoriesView_BiinsContainer?
-    
     var fade:UIView?
-    
-    //    override init() {
-    //        super.init()
-    //    }
-    
-    //var elementView:ElementView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,32 +39,20 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         scroll!.backgroundColor = UIColor.whiteColor()
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
-        scroll!.bounces = false
         scroll!.delegate = self
         self.addSubview(scroll!)
         
-        //addCategoriesSitesContainers()
-        
-        //HACK: This hack is to show all sites on one category and remove the call to the method before.
-        //addSitesToOneContainer()
-        
-        //addHightlightsContainer()
-        
-        //addRangedBiinsContainer()
-        
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
-        headerDelegate = header
         self.addSubview(header!)
+        
+        inSiteView = InSiteView(frame: CGRectMake(0, (screenHeight - 20), screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
+        inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
+        self.addSubview(inSiteView!)
         
         fade = UIView(frame: frame)
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
-        
-        
-//        elementView = ElementView(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self, showBiinItBtn:true)
-//        elementView!.delegate = self
-//        self.addSubview(elementView!)
         
         
         elementContainers = Array<MainViewContainer_Elements>()
@@ -92,7 +66,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         if highlightContainer != nil {
             highlightContainer!.transitionOut(nil)
         }
-        
         
         if sitesContainer != nil {
             sitesContainer!.transitionOut(nil)
@@ -116,7 +89,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         let screenWidth = SharedUIManager.instance.screenWidth
         //let screenHeight = SharedUIManager.instance.screenHeight
         var ypos:CGFloat = 0
-        let spacer:CGFloat = 1
+        let spacer:CGFloat = 0
         
         SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth
         self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
@@ -138,7 +111,8 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         var colorIndex:Int = 0
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
-            if category.hasSites {
+            if isThereElementsInCategory(category) {
+                
                 let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
                 elementContainer.delegate = (self.father! as! MainView)
                 ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
@@ -153,14 +127,42 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         
         }
         
+        self.scroll!.backgroundColor = UIColor.darkGrayColor()
+        
         ypos += SharedUIManager.instance.categoriesHeaderHeight
         scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
         
     }
     
+    func isThereElementsInCategory (category:BNCategory) ->Bool {
+        
+        if category.hasSites {
+            if category.elements.count > 0 {
+                return true
+            }
+        } 
+        
+        return false
+    }
+    
     
     func showMenuBtnActon(sender:BNUIButton) {
         (father as! MainView).showMenu(UIScreenEdgePanGestureRecognizer())
+    }
+    
+    var showingSiteIn = false
+    func testBtnAction(sender:UIButton) {
+        inSiteView!.updateForSite(BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"])
+        
+        if !showingSiteIn {
+            showInSiteView()
+            showingSiteIn = true
+        } else {
+            showingSiteIn = false
+            
+            hideInSiteView()
+        }
+        
     }
     
     override func transitionIn() {
@@ -179,9 +181,9 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         state!.action()
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -241,41 +243,23 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     }// return a yes if you want to scroll to the top. if not defined, assumes YES
     
     func scrollViewDidScrollToTop(scrollView: UIScrollView) {
+    
     }// called when scrolling animation finished. may be called immediately if already at top
     
-//    func showElementView(element:BNElement){
-//        
-//        elementView!.updateElementData(element)
-//        
-//        UIView.animateWithDuration(0.3, animations: {()-> Void in
-//            self.elementView!.frame.origin.x = 0
-//            self.fade!.alpha = 0.5
-//        })
-//        
-//        highlightContainer!.stopTimer()
-//    }
-    
-    
-//    func hideElementView(element: BNElement) {
-//        
-//        UIView.animateWithDuration(0.4, animations: {() -> Void in
-//            self.elementView!.frame.origin.x = SharedUIManager.instance.screenWidth
-//            self.fade!.alpha = 0
-//            }, completion: {(completed:Bool)-> Void in
-//                self.highlightContainer!.startTimer()
-//                self.elementView!.clean()
-//        })
-//        
-//        
-//    }
-    
-    
-    func updateHighlightsContainer(view: MainView, update: Bool) {
-
+    func showInSiteView(){
+        UIView.animateWithDuration(0.25, animations: {()-> Void in
+            self.inSiteView!.frame.origin.y = ( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + 20 ))
+            
+            self.header!.frame.origin.y = (SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + SharedUIManager.instance.inSiteView_Height + 20))
+        })
     }
     
-    func updateBiinsContainer(view: MainView, update: Bool) {
-    
+    func hideInSiteView(){
+        UIView.animateWithDuration(0.25, animations: {()-> Void in
+            self.inSiteView!.frame.origin.y = (SharedUIManager.instance.screenHeight - 20)
+            self.header!.frame.origin.y = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)
+            
+        })
     }
 }
 

@@ -64,7 +64,7 @@ class SiteMiniView: BNView {
 
         //Positioning image
         let imageSize = frame.width
-        let xpos = ((imageSize - frame.width) / 2 ) * -1
+        //let xpos = ((imageSize - frame.width) / 2 ) * -1
         image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:site!.media[0].vibrantColor!)
         //image!.alpha = 0
         self.addSubview(image!)
@@ -100,9 +100,9 @@ class SiteMiniView: BNView {
         print("trasition out on SiteMiniView")
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

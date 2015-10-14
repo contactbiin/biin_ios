@@ -37,6 +37,8 @@ class ElementMiniView: BNView {
 //        super.init()
 //    }
     
+    var isElementMiniViewInSite = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -49,20 +51,20 @@ class ElementMiniView: BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
-        self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible, showlocation:false)
-        
-        //biinItButton!.frame.origin.y = (frame.height - 92)
-        //shareItButton!.frame.origin.y = (frame.height - 92)
-
-        var siteMiniLocation:SiteView_MiniLocation?
-        if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
-            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 50), frame.width, 50), father: self, site:site)
-            self.addSubview(siteMiniLocation!)
-        }
-        
-        
-    }
+//    convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, isHighlight:Bool){
+//        self.init(frame:frame, father:father, element:element, elementPosition:elementPosition, showRemoveBtn:showRemoveBtn, isNumberVisible:isNumberVisible, showlocation:false)
+//        
+//        //biinItButton!.frame.origin.y = (frame.height - 92)
+//        //shareItButton!.frame.origin.y = (frame.height - 92)
+//
+//        var siteMiniLocation:SiteView_MiniLocation?
+//        if let site = BNAppSharedManager.instance.dataManager.sites[element!.siteIdentifier!] {
+//            siteMiniLocation = SiteView_MiniLocation(frame: CGRectMake(0, (frame.height - 50), frame.width, 50), father: self, site:site)
+//            self.addSubview(siteMiniLocation!)
+//        }
+//        
+//        
+//    }
     
     convenience init(frame:CGRect, father:BNView?, element:BNElement?, elementPosition:Int, showRemoveBtn:Bool, isNumberVisible:Bool, showlocation:Bool){
         
@@ -85,26 +87,17 @@ class ElementMiniView: BNView {
             decorationColor = self.element!.media[0].vibrantDarkColor
         }
         
-        
-        //self.layer.shadowOffset = CGSizeMake(0, 0.5)
-        //self.layer.shadowRadius = 1
-        //self.layer.shadowOpacity = 0.25
-        // BNAppSharedManager.instance.dataManager.elements[element!._id!]
         var ypos:CGFloat = 0
         var xpos:CGFloat = 0
         var imageSize:CGFloat = 0
         if frame.width < frame.height {
-            imageSize = frame.height//SharedUIManager.instance.miniView_height - SharedUIManager.instance.miniView_headerHeight
+            imageSize = frame.height
             xpos = ((imageSize - frame.width) / 2) * -1
-
-
         } else {
             imageSize = frame.width
             ypos = ((imageSize - frame.height) / 2) * -1
         }
-        
-        
-        
+
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
@@ -236,26 +229,7 @@ class ElementMiniView: BNView {
             removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 20), (headerHeight + 4), 15, 15), color:decorationColor)
             removeItButton!.addTarget(self, action: "unCollect:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(removeItButton!)
-        } else {
-            
-            //biinItButton = BNUIButton_BiinIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
-            //biinItButton!.addTarget(self, action: "biinit:", forControlEvents: UIControlEvents.TouchUpInside)
-            //xpos += 37
-            
-            //if self.element!.userCollected {
-            //    biinItButton!.showDisable()
-            //}
         }
-        
-        //shareItButton = BNUIButton_ShareIt(frame: CGRectMake(xpos, (frame.height - 42), 37, 37))
-        //shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(shareItButton!)
-        
-        //animationView = BiinItAnimationView(frame:CGRectMake(0, 0, frame.width, frame.height))
-        //animationView!.alpha = 0
-        //self.addSubview(animationView!)
-        
-        
         
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
@@ -271,9 +245,9 @@ class ElementMiniView: BNView {
 
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -308,54 +282,30 @@ class ElementMiniView: BNView {
     
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
-        delegate!.showElementView!(self, element: self.element!)
-//        delegate!.showElementView!(self.element!, position:CGRectMake(0, 0, 0, 0))
-    }
-    
-    func userViewedElement(){
-        element!.userViewed  = true
-        header!.circleLabel?.animateCircleIn()
-
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.VIEWED_ELEMENT, to:element!._id!)
-        BNAppSharedManager.instance.dataManager.bnUser!.addElementView(element!._id!)
-        BNAppSharedManager.instance.dataManager.bnUser!.save()
-    }
-    
-    func biinit(sender:BNUIButton_BiinIt){
-        BNAppSharedManager.instance.collectIt(element!._id!, isElement:true)
-        //header!.updateSocialButtonsForElement(element!)
-        //biinItButton!.showDisable()
-        //animationView!.animate()
-    }
-    
-    func shareit(sender:BNUIButton_ShareIt){
-//        BNAppSharedManager.instance.shareit(element!._id!)
-        BNAppSharedManager.instance.shareIt(element!._id!, isElement: true)
-        element!.userShared = true
-        //header!.updateSocialButtonsForElement(element!)
-    }
-    
-    func unCollect(sender:BNUIButton_ShareIt){
         
-        UIView.animateWithDuration(0.1, animations: {()->Void in
-                self.alpha = 0
-            }, completion: {(completed:Bool)->Void in
-                BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement:true)
-                self.delegateAllCollectedView!.resizeScrollOnRemoved!(self)
-                self.removeFromSuperview()
-        })
+        if isElementMiniViewInSite {
+            delegate!.showElementViewFromSite!(self, element: self.element!)
+        } else {
+            delegate!.showElementView!(self, element: self.element!)
+        }
     }
+    
+//    func userViewedElement(){
+//        element!.userViewed  = true
+//        header!.circleLabel?.animateCircleIn()
+//
+//        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.VIEWED_ELEMENT, to:element!._id!)
+//        BNAppSharedManager.instance.dataManager.bnUser!.addElementView(element!._id!)
+//        BNAppSharedManager.instance.dataManager.bnUser!.save()
+//    }
     
     override func refresh() {
-        
-//        if element!.userCollected {
-//            header!.updateSocialButtonsForElement(element!)
-//            biinItButton?.showDisable()
-//        }
+
     }
 }
 
 @objc protocol ElementMiniView_Delegate:NSObjectProtocol {
     optional func showElementView( view:ElementMiniView, element:BNElement )
+    optional func showElementViewFromSite( view:ElementMiniView, element:BNElement )
     optional func resizeScrollOnRemoved(view:ElementMiniView )
 }

@@ -39,7 +39,7 @@ class BNUIWarningView:UIView {
         self.init(frame: CGRectMake(position.x, position.y, width, height))
         
         self.backgroundColor = UIColor.clearColor()
-        icon = BNIcon_Warning(color: UIColor.appButtonBorderColor(), position:CGPoint(x:space, y:space), scale:scale)
+        icon = BNIcon_Warning(color: UIColor.bnYellow(), position:CGPoint(x:space, y:space), scale:scale)
     }
     
     override func drawRect(rect:CGRect){

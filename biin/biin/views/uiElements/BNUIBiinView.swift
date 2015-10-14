@@ -21,25 +21,25 @@ class BNUIBiinView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
-        icon = BNIcon_Biin(color: UIColor.grayColor(), position: CGPoint(x: 5, y: 5), scale:1.0)
+        //icon = BNIcon_Biin(color: UIColor.grayColor(), position: CGPoint(x: 5, y: 5), scale:1.0)
     }
     
     convenience init(position:CGPoint, scale:CGFloat) {
 
-        let consScale:CGFloat = 4.0
-        let consWidth:CGFloat = 180.0
-        let consHeight:CGFloat = 95.0
+        //let consScale:CGFloat = 1.0
+        let consWidth:CGFloat = 230.0
+        let consHeight:CGFloat = 130.0
         
-        let width:CGFloat = ((scale * consWidth) / consScale)
-        let height:CGFloat = ((scale * consHeight) / consScale)
+        let width:CGFloat = (scale * consWidth)
+        let height:CGFloat = (scale * consHeight)
         
         let consPosition:CGFloat = 10.0
-        let space:CGFloat = ((scale * consPosition) / consScale )
+        let space:CGFloat = (scale * consPosition)
         
         self.init(frame: CGRectMake(position.x, position.y, width, height))
-        self.backgroundColor = UIColor.clearColor()
+        //self.backgroundColor = UIColor.bnRed()
         
-        icon = BNIcon_Biin(color: UIColor.darkGrayColor(), position:CGPoint(x:space, y:space), scale:scale)
+        icon = BNIcon_Biin(color: UIColor.whiteColor(), position:CGPoint(x:space, y:space), scale:scale)
     }
     
     override func drawRect(rect:CGRect){

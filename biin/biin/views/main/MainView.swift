@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, NotificationsView_Delegate, ElementMiniView_Delegate, SiteView_MiniLocation_Delegate, LoyaltiesView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, MainViewContainer_Sites_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, MainViewContainer_Sites_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate {
     
     var delegate:MainViewDelegate?
     //var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -18,13 +18,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //var isSectionsLast = true
     //var isSectionOrShowcase = false
-    var lastOption = 1
-    
+    let lastOption = 1
+    //var goto:BNGoto = BNGoto.Main
     //states
     var mainViewContainerState:MainViewContainerState?
     //var biinieCategoriesState:BiinieCategoriesState?
     var siteState:SiteState?
     var elementState:ElementState?
+    var elementFromSiteState:ElementFromSiteState?
     var profileState:ProfileState?
     var collectionsState:CollectionsState?    
     var notificationsState:NotificationsState?
@@ -36,6 +37,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     //var errorState:ErrorState?
     
     var isShowingSite = false
+    var isShowingSiteFromElement = false
     var isShowingAllSite = false
     var isShowingAllElements = false
     var isShowingAllCollectedView = false
@@ -93,6 +95,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         //delegate_HighlightsContainer = mainViewContainer
         //delegate_BiinsContainer = mainViewContainer
         
+
+        
         let allSitesView = AllSitesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
             SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: false)
         allSitesState = AllSitesState(context: self, view: allSitesView)
@@ -105,16 +109,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         allElementsView.delegate = self
         self.addSubview(allElementsView)
         
-        let siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
-            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        siteState = SiteState(context: self, view: siteView, stateType: BNStateType.SiteState)
-        siteView.delegate = self
-        self.addSubview(siteView)
-        
-        let elementView = ElementView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn:true)
-        elementState = ElementState(context: self, view: elementView)
-        elementView.delegate = self
-        self.addSubview(elementView)
         
         let profileView = ProfileView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         profileState = ProfileState(context: self, view: profileView, stateType: BNStateType.ProfileState)
@@ -132,21 +126,40 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         allCollectedView.delegate = self
         self.addSubview(allCollectedView)
         
-        let notificationsView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        notificationsState = NotificationsState(context: self, view: notificationsView)
-        notificationsView.delegate = self
-        self.addSubview(notificationsView)
+//        let notificationsView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+//        notificationsState = NotificationsState(context: self, view: notificationsView)
+//        notificationsView.delegate = self
+//        self.addSubview(notificationsView)
         
         
-        let loyaltiesView = LoyaltiesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        loyaltiesState = LoyaltiesState(context: self, view: loyaltiesView)
-        loyaltiesView.delegate = self
-        self.addSubview(loyaltiesView)
+//        let loyaltiesView = LoyaltiesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+//        loyaltiesState = LoyaltiesState(context: self, view: loyaltiesView)
+//        loyaltiesView.delegate = self
+//        self.addSubview(loyaltiesView)
         
         let aboutView = AboutView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         aboutState = AboutState(context: self, view: aboutView)
         aboutView.delegate = self
         self.addSubview(aboutView)
+        
+        
+        
+        let siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
+            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        siteState = SiteState(context: self, view: siteView, stateType: BNStateType.SiteState)
+        siteView.delegate = self
+        self.addSubview(siteView)
+        
+        let elementView = ElementView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn:true)
+        elementState = ElementState(context: self, view: elementView)
+        elementView.delegate = self
+        self.addSubview(elementView)
+        
+        let elementViewFromSite = ElementView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn:true)
+        elementViewFromSite.isElementViewFromSite = true
+        elementFromSiteState = ElementFromSiteState(context: self, view:elementViewFromSite)
+        elementViewFromSite.delegate = self
+        self.addSubview(elementViewFromSite)
         
         //        var errorView = ErrorView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         //        errorState = ErrorState(context: self, view: errorView)
@@ -257,48 +270,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
     }
         
-    override func setNextState(option:Int){
-        //Start transition on root view controller
-//        self.rootViewController!.setNextState(option)
-        //delegate!.mainView!(self, hideMenu: false)
-        delegate!.mainView!(self, hideMenuOnChange: false, index:option)
+    override func setNextState(goto:BNGoto){
+
+        delegate!.mainView!(self, hideMenuOnChange: false, index:0)
         
-        switch (option) {
-        case 1:
-           
-            /*
-            state!.next( self.showcaseState )
-            isSectionsLast = false
-            isSectionOrShowcase = true
-            */
-            
+        switch (goto) {
+        case .Main:
             state!.next(self.mainViewContainerState)
-            //lastOption = option
             break
-        case 2:
-            
-            //if isShowingAllSite {
+        case .Site:
             state!.next(self.siteState)
-            //}
-            //lastOption = option
-            /*
-            if !isSectionOrShowcase && !isSectionsLast {
-                state!.next( self.showcaseState )
-                isSectionsLast = false
-                isSectionOrShowcase = true
-            } else {
-            
-                //state!.next( self.sectionState )
-                isSectionsLast = true
-                isSectionOrShowcase = true
-            }
-            */
             break
-        case 3:
+        case .Profile:
             state!.next(self.profileState)
-            self.bringSubviewToFront(state!.view!)
             break
-        case 4:
+        case .Collected:
             
             if !isShowingAllCollectedView {
                 self.allCollectedState!.view!.refresh()
@@ -306,37 +292,23 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             
             isShowingAllCollectedView = true
             state!.next(self.allCollectedState)
-//            state!.next(self.collectionsState)
-//            self.bringSubviewToFront(state!.view!)
-//            self.collectionsState!.view!.refresh()
+            
             break
-        case 5:
-            break
-        case 6:
-            state!.next(self.notificationsState)
-            self.bringSubviewToFront(state!.view!)
-            break
-        case 7:
-            state!.next(self.loyaltiesState)
-            (state!.view as! LoyaltiesView).updateLoyaltiesMiniViews()
-            self.bringSubviewToFront(state!.view!)
-            break
-        case 8:
+        case .About:
             state!.next(self.aboutState)
-            self.bringSubviewToFront(state!.view!)
             break
-        case 9:
+        case .Element:
             state!.next(self.elementState)
-            self.bringSubviewToFront(state!.view!)
             break
-        case 10:
+        case .AllSites:
             state!.next(self.allSitesState)
-            //lastOption = option
             break
-        case 11:
+        case .AllElements:
             state!.next(self.allElementsState)
             break
-        default:
+        case .ElementFromSite:
+            state!.next(self.elementFromSiteState)
+            self.bringSubviewToFront(state!.view!)
             break
         }
     }
@@ -370,24 +342,24 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func hideProfileView(view: ProfileView) {
-         setNextState(lastOption)
+         setNextState(BNGoto.Main)
     }
     
     func hideCollectionsView(view: CollectionsView) {
-        setNextState(lastOption)
+        setNextState(BNGoto.Main)
     }
     
     func hideNotificationsView(view: NotificationsView) {
-        setNextState(lastOption)
+        setNextState(BNGoto.Main)
     }
     
     func hideLoyaltiesView(view: LoyaltiesView) {
-        setNextState(lastOption)
+        setNextState(BNGoto.Main)
         
     }
     
     func hideAboutView(view: AboutView) {
-        setNextState(lastOption)
+        setNextState(BNGoto.Main)
     }
     
     //func hideErrorView(view: ErrorView) {
@@ -412,9 +384,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         //delegate_HighlightsContainer!.updateHighlightsContainer!(self, update: true)
     }
     
-    func updateBiinsContainer() {
-        print("updateBiinsContainer")
-        //delegate_BiinsContainer!.updateBiinsContainer!(self, update: true)
+    func showInSiteView() {
+        print("showInSiteView")
+        (mainViewContainerState!.view as! MainViewContainer).showInSiteView()
     }
     
     func showNotificationContext(){
@@ -436,7 +408,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 NSLog("BIIN - GOTO TO SITE VIEW on Internal notification")
                 if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
                     (siteState!.view as! SiteView).updateSiteData(site)
-                    setNextState(2)
+                    setNextState(BNGoto.Site)
                 }
                 break
             case .EXTERNAL:
@@ -466,20 +438,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
     }
     
-//    func showSiteView(view: SiteView_MiniLocation, site: BNSite) {
-//        print("showSiteView() from mini location view")
-//        (siteState!.view as! SiteView).updateSiteData(site)
-//        setNextState(2)
-//    }
-    
     //Show elementView from element containers or showcase.
     func showElementView(view: ElementMiniView, element: BNElement) {
         print("showElementView from element")
         
-        if isShowingSite {
-            (siteState!.view as! SiteView).showFade()
-            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:false)
-        } else if isShowingAllElements {
+//        if isShowingSite {
+//            (siteState!.view as! SiteView).showFade()
+//            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:false)
+//        } else
+        if isShowingAllElements {
             (allElementsState!.view as! AllElementsView).showFade()
             (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
         } else if isShowingAllCollectedView {
@@ -489,39 +456,55 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
         }
         
-        setNextState(9)
+        setNextState(BNGoto.Element)
+    }
+    
+    func showElementViewFromSite(view: ElementMiniView, element: BNElement) {
+        (siteState!.view as! SiteView).showFade()
+        (elementFromSiteState!.view as! ElementView).updateElementData(element, showSiteBtn:false)
+        setNextState(BNGoto.ElementFromSite)
     }
     
     //Show elementView from hightlight.
-    func showElementView(element: BNElement) {
+    func showElementViewFromHighlight(element: BNElement) {
         print("showElementView from highlight")
         (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
-        setNextState(9)
+        setNextState(BNGoto.Element)
     }
     
     func hideElementView(element: BNElement) {
         
-        if isShowingSite {
-            setNextState(2)
-            (siteState!.view as! SiteView).hideFade()
-        } else if isShowingAllElements {
-            setNextState(11)
+//        if isShowingSite {
+//            setNextState(2)
+//            (siteState!.view as! SiteView).hideFade()
+//        } else
+        if isShowingAllElements {
+            setNextState(BNGoto.AllElements)
             (allElementsState!.view as! AllElementsView).hideFade()
         } else if isShowingAllCollectedView {
-            setNextState(4)
+            setNextState(BNGoto.Collected)
             (allCollectedState!.view as! AllCollectedView).hideFade()
         } else {
-            setNextState(1)
+            setNextState(BNGoto.Main)
+        }
+    }
+    
+    func hideElementViewFromSite(element: BNElement) {
+        if isShowingSite {
+            setNextState(BNGoto.Site)
+            (siteState!.view as! SiteView).hideFade()
         }
     }
     
     func showSiteFromElement(element: BNElement) {
         
         if let site = BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!] {
+            (elementState!.view as! ElementView).showFade()
             self.bringSubviewToFront((siteState!.view as! SiteView))
             (siteState!.view as! SiteView).updateSiteData(site)
-            setNextState(2)
+            setNextState(BNGoto.Site)
             isShowingSite = true
+            isShowingSiteFromElement = true
         }
     }
     
@@ -529,18 +512,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func showAllSitesView() {
         print("showAllSitesView")
         isShowingAllSite = true
-        setNextState(10)
+        setNextState(BNGoto.AllSites)
     }
     
     //AllSitesView_Delegate Methdos
     func hideAllSitesView() {
         isShowingAllSite = false
-        setNextState(lastOption)
+        setNextState(BNGoto.Main)
     }
     
     //AllElementsView_Delegate  Methods
     func hideAllElementsView() {
-        setNextState(1)
+        setNextState(BNGoto.Main)
         isShowingAllElements = false
     }
     
@@ -548,19 +531,25 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func showAllElementsViewForCategory(category: BNCategory?) {
         isShowingAllElements = true
         (allElementsState!.view as! AllElementsView).updateCategoryData(category)
-        setNextState(11)
+        setNextState(BNGoto.AllElements)
     }
     
     //SiteMiniView_Delegate Methods
     func showSiteView(view: SiteMiniView) {
         
         (siteState!.view as! SiteView).updateSiteData(view.site!)
-        setNextState(2)
+        setNextState(BNGoto.Site)
         isShowingSite = true
         
         if isShowingAllSite {
             (allSitesState!.view as! AllSitesView).showFade()
         }
+    }
+    
+    func showSiteViewOnContext(site: BNSite) {
+        (siteState!.view as! SiteView).updateSiteData(site)
+        setNextState(BNGoto.Site)
+        isShowingSite = true
     }
     
     func hideSiteView(view: SiteView) {
@@ -571,17 +560,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if isShowingAllSite {
             (allSitesState!.view as! AllSitesView).hideFade()
             isShowingAllSite = true
-            setNextState(10)
+            setNextState(BNGoto.AllSites)
             //view.transitionOut(nil)
-        } else  {
-            setNextState(1)
+        } else if isShowingSiteFromElement {
+            setNextState(BNGoto.Element)
+            (elementState!.view as! ElementView).hideFade()
+            isShowingSiteFromElement = false
+        } else {
+            setNextState(BNGoto.Main)
         }
     }
     
     //AllCollectedView_Delegate Methods
     func hideAllCollectedView() {
         isShowingAllCollectedView = false
-        setNextState(1)
+        setNextState(BNGoto.Main)
     }
 }
 
@@ -597,17 +590,26 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     ///- parameter Region's: identifier requesting the data.
     optional func mainView(mainView:MainView!, hideMenu value:Bool)
     optional func mainView(mainView:MainView!, hideMenuOnChange value:Bool, index:Int)
-    
     optional func mainView(mainView:MainView!, showMenu value:Bool)
-
 }
 
 @objc protocol MainViewDelegate_HighlightsContainer:NSObjectProtocol {
     optional func updateHighlightsContainer(view:MainView,  update:Bool)
-
 }
 
 @objc protocol MainViewDelegate_BiinsContainer:NSObjectProtocol {
     optional func updateBiinsContainer(view:MainView,  update:Bool)
+}
+
+enum BNGoto {
+    case Main
+    case Site
+    case Element
+    case ElementFromSite
+    case Profile
+    case About
+    case Collected
+    case AllSites
+    case AllElements
     
 }

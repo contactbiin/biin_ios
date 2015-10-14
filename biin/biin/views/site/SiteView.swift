@@ -46,6 +46,8 @@ class SiteView:BNView, UIScrollViewDelegate {
     var iconColor:UIColor?
     var animationView:BiinItAnimationView?
     
+    var shareView:ShareItView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -196,16 +198,16 @@ class SiteView:BNView, UIScrollViewDelegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.MainViewContainerState || state!.stateType == BNStateType.AllSitesState {
+        if state!.stateType == BNStateType.MainViewContainerState || state!.stateType == BNStateType.AllSitesState || state!.stateType == BNStateType.ElementState  {
             UIView.animateWithDuration(0.3, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
             })
         }
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
@@ -255,6 +257,8 @@ class SiteView:BNView, UIScrollViewDelegate {
                 decorationColor = self.site!.media[0].vibrantDarkColor
             }
             
+            scroll!.backgroundColor = self.site!.media[0].vibrantColor!
+            
             animationView!.updateAnimationView(decorationColor, textColor: textColor)
             
             header!.updateForSite(site)
@@ -283,7 +287,15 @@ class SiteView:BNView, UIScrollViewDelegate {
             
             updateFollowBtn()
             
+            if shareView != nil {
+                shareView = nil
+            }
+            
+            shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:self.site!)
+            //scroll!.addSubview(shareView!)
         }
+        
+        //scroll!.backgroundColor = decorationColor
 //        nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
 //        nutshell!.text = site!.nutshell!
 //        nutshell!.numberOfLines = 0
@@ -362,7 +374,9 @@ class SiteView:BNView, UIScrollViewDelegate {
 //    }
 
     func updateShowcases(site:BNSite?){
-        clean()
+        
+        //clean()
+        
         if showcases?.count > 0 {
             
             for view in scroll!.subviews {
@@ -372,16 +386,17 @@ class SiteView:BNView, UIScrollViewDelegate {
                     (view as! SiteView_Showcase).removeFromSuperview()
                 }
             }
+            
             showcases!.removeAll(keepCapacity: false)
         }
         
-        showcaseHeight = SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height
+        showcaseHeight = SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height_showcase + 1
 
         //scroll!.addSubview(imagesScrollView!)
 
         var ypos:CGFloat = SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_headerHeight
         scrollSpaceForShowcases = 0
-        ypos += 2
+        //ypos += 2
         var colorIndex:Int = 0
         
         if site!.showcases != nil {
@@ -390,7 +405,7 @@ class SiteView:BNView, UIScrollViewDelegate {
                 scroll!.addSubview(showcaseView)
                 showcases!.append(showcaseView)
                 ypos += showcaseHeight
-                ypos += 2
+                //ypos += 2
                 colorIndex++
                 if colorIndex  > 1 {
                     colorIndex = 0
@@ -406,7 +421,6 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         scroll!.contentSize = CGSizeMake(0, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
-        scroll!.bounces = false
         scroll!.pagingEnabled = false
         
         if showcases!.count > 0 {
@@ -470,6 +484,13 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func likeit(sender:BNUIButton_BiinIt){
         site!.userLiked = !site!.userLiked
+        
+        if self.site!.userLiked {
+            animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+        } else {
+            animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+        }
+        
         updateLikeItBtn()
     }
     
@@ -480,7 +501,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false)
+        BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:shareView)
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
@@ -502,6 +523,13 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func followit(sender:UIButton){
         site!.userFollowed = !site!.userFollowed
+        
+        if self.site!.userFollowed {
+            animationView!.animateWithText(NSLocalizedString("FollowTxt", comment: "FollowTxt"))
+        } else {
+            animationView!.animateWithText(NSLocalizedString("NotFollowTxt", comment: "NotFollowTxt"))
+        }
+        
         updateFollowBtn()
     }
     

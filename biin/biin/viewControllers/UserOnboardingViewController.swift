@@ -24,40 +24,55 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-        UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.sharedApplication().statusBarHidden = true
         self.setNeedsStatusBarAppearanceUpdate()
         
-        self.view.layer.cornerRadius = 5
+        self.view.backgroundColor = UIColor.clearColor()
+        
+//        self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         
-        var xpos:CGFloat = 0
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
 
-        scroll = UIScrollView(frame: CGRectMake(0, 25, screenWidth, (screenHeight - 25)))
-        scroll!.layer.cornerRadius = 5
+        var xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
+        //var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
+        
+        let image = UIImageView(image: UIImage(named: "landing.jpg"))
+        image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
+        self.view.addSubview(image)
+        
+        
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        visualEffectView.alpha = 0.75
+        visualEffectView.frame = self.view.bounds
+        self.view.addSubview(visualEffectView)
+        
+        
+        xpos = 0
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         scroll!.layer.masksToBounds = true
         scroll!.pagingEnabled = true
         scroll!.bounces = false
-        scroll!.backgroundColor = UIColor.whiteColor()
+        scroll!.backgroundColor = UIColor.clearColor()
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         self.view.addSubview(scroll!)
         
-        slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title:NSLocalizedString("OnboardingTitle1", comment: "OnboardingTitle1"), text:NSLocalizedString("OnboardingText1", comment: "OnboardingText1"), imageString:"onbordingImage1.jpg")
+        slide1 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title:NSLocalizedString("OnboardingTitle1", comment: "OnboardingTitle1"), text:NSLocalizedString("OnboardingText1", comment: "OnboardingText1"), imageString:"onbordingImage1.jpg")
         scroll!.addSubview(slide1!)
         xpos += screenWidth
         
-        slide2 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title:NSLocalizedString("OnboardingTitle2", comment: "OnboardingTitle2"), text:NSLocalizedString("OnboardingText2", comment: "OnboardingText2"), imageString:"onbordingImage2.jpg")
+        slide2 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title:NSLocalizedString("OnboardingTitle2", comment: "OnboardingTitle2"), text:NSLocalizedString("OnboardingText2", comment: "OnboardingText2"), imageString:"onbordingImage2.jpg")
         scroll!.addSubview(slide2!)
         xpos += screenWidth
         
-        slide3 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)), title:NSLocalizedString("OnboardingTitle3", comment: "OnboardingTitle3"), text:NSLocalizedString("OnboardingText3", comment: "OnboardingText3"), imageString:"onbordingImage3.jpg")
+        slide3 = UserOnboardingView_Slide(frame: CGRectMake(xpos, 0, screenWidth, screenHeight), title:NSLocalizedString("OnboardingTitle3", comment: "OnboardingTitle3"), text:NSLocalizedString("OnboardingText3", comment: "OnboardingText3"), imageString:"onbordingImage3.jpg")
         scroll!.addSubview(slide3!)
         xpos += screenWidth
         
-        categoriesView = UserOnboardingView_Categories(frame:CGRectMake(xpos, 0, screenWidth, (screenHeight - 25)))
+        categoriesView = UserOnboardingView_Categories(frame:CGRectMake(xpos, 0, screenWidth, screenHeight))
         scroll!.addSubview(categoriesView!)
         categoriesView!.delegate = self
         xpos += screenWidth

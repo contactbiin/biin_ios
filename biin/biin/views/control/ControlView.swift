@@ -248,7 +248,7 @@ class ControlView:BNView {
         */
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
     }
     

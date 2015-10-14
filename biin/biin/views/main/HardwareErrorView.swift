@@ -11,7 +11,7 @@ class HardwareErrorView: BNView {
     var delegate:HardwareErrorView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var fade:UIView?
+    //var fade:UIView?
     var warningLogo:BNUIWarningView?
     var errorViewController:ErrorViewController?
     
@@ -19,17 +19,17 @@ class HardwareErrorView: BNView {
         super.init(frame: frame, father:father )
         
         self.backgroundColor = UIColor.appMainColor()
-        self.layer.borderColor = UIColor.clearColor().CGColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 5
-        self.layer.masksToBounds = true
+//        self.layer.borderColor = UIColor.clearColor().CGColor
+//        self.layer.borderWidth = 1
+//        self.layer.cornerRadius = 5
+//        self.layer.masksToBounds = true
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
         var ypos:CGFloat = 8
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.errorView_title + 3)))
+        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.errorView_title)
         title!.textColor = UIColor.appTextColor()
         title!.textAlignment = NSTextAlignment.Center
         title!.text = NSLocalizedString("HardwareErrorTitle", comment: "HardwareErrorTitle")
@@ -38,17 +38,17 @@ class HardwareErrorView: BNView {
         //        var headerWidth = screenWidth - 60
         //        var xpos:CGFloat = (screenWidth - headerWidth) / 2
         
-        ypos = SharedUIManager.instance.siteView_headerHeight
+        ypos = SharedUIManager.instance.errorView_headerHeoght
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.appButtonColor()
         self.addSubview(line)
         
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
+//        self.addSubview(fade!)
         
-        ypos = 110
+        ypos = (screenHeight - 300) / 2
         warningLogo = BNUIWarningView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:2.0)
         warningLogo!.frame.origin.x = ((screenWidth - warningLogo!.frame.width) / 2)
         self.addSubview(warningLogo!)
@@ -57,7 +57,7 @@ class HardwareErrorView: BNView {
         ypos += (warningLogo!.frame.height + 10)
         
         let text = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.errorView_text + 3)))
-        text.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_text)
+        text.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.errorView_text)
         text.textColor = UIColor.appTextColor()
         text.textAlignment = NSTextAlignment.Center
         text.text = NSLocalizedString("HardwareErrorText", comment: "HardwareErrorText")
@@ -69,7 +69,7 @@ class HardwareErrorView: BNView {
         let siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 55))
         siteUrl.setTitle(NSLocalizedString("HardwareErrorButton", comment: "HardwareErrorButton"), forState: UIControlState.Normal)
         siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        siteUrl.backgroundColor = UIColor.biinColor()
+        siteUrl.backgroundColor = UIColor.darkGrayColor()
         siteUrl.titleLabel!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_button)
         siteUrl.addTarget(self, action: "tryAgainAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(siteUrl)
@@ -113,9 +113,9 @@ class HardwareErrorView: BNView {
         self.frame.origin.x = SharedUIManager.instance.screenWidth
     }
     
-    override func setNextState(option:Int){
+    override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        father!.setNextState(option)
+        father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){

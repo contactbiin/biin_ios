@@ -179,15 +179,15 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        let text = "Error: " + error.description
-        self.delegateView?.manager?(self, printText: text)
+        //let text = "Error: " + error.description
+        //self.delegateView?.manager?(self, printText: text)
     }
     
     
     //CLLocationManagerDelegate - Responding to Region Events
     func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
-        let text = "Monitoring: " + region.identifier
-        self.delegateView?.manager?(self, printText: text)
+        //let text = "Monitoring: " + region.identifier
+        //self.delegateView?.manager?(self, printText: text)
     }
     
     
@@ -959,8 +959,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     
     func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
-        let text = "Error: " + error.description
-        self.delegateView?.manager?(self, printText: text)
+//        let text = "Error: " + error.description
+//        self.delegateView?.manager?(self, printText: text)
     }
     
     //CLLocationManagerDelegate - Responding to Ranging Events
@@ -1330,7 +1330,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //clear biinBackup
         biinBackup.removeAll(keepCapacity: false)
         */
-        self.delegateView?.manager!(self, updateMainViewController: self.biins)
+        self.delegateView?.manager!(self, showInSiteView: self.biins)
 
     }
     
@@ -1339,7 +1339,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         isBiinsViewContainerEmpty = true
         self.biins.removeAll(keepCapacity: false)
         BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
-        self.delegateView?.manager!(self, updateMainViewController: self.biins)
+        self.delegateView?.manager!(self, showInSiteView: self.biins)
         self.myBeaconsPrevious.removeAll(keepCapacity: false)
         self.myBeacons.removeAll(keepCapacity: false)
     }
@@ -1399,7 +1399,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             self.locationManager!.startMonitoringForRegion(clRegion)
             self.locationManager!.requestStateForRegion(clRegion)
             
-            self.delegateView?.manager!(self, setPinOnMapWithLat: region.latitude!, long: region.longitude!, radious: region.radious!, title: region.identifier!, subtitle: region.identifier!)
+            //self.delegateView?.manager!(self, setPinOnMapWithLat: region.latitude!, long: region.longitude!, radious: region.radious!, title: region.identifier!, subtitle: region.identifier!)
         }
 
     }
@@ -1655,9 +1655,9 @@ func == (biin1:BNBiin, biin2:BNBiin) -> Bool {
     optional func manager(manager:BNPositionManager!, requestCategoriesDataOnBackground user:Biinie)
     
     //temporal methods
-    optional func manager(manager:BNPositionManager!, updateMainViewController biins:Array<BNBiin>)
-    optional func manager(manager:BNPositionManager!, setPinOnMapWithLat lat:Float, long:Float, radious:Int , title:String, subtitle:String)
-    optional func manager(manager:BNPositionManager!,  printText text:String)
+    optional func manager(manager:BNPositionManager!, showInSiteView biins:Array<BNBiin>)
+    //optional func manager(manager:BNPositionManager!, setPinOnMapWithLat lat:Float, long:Float, radious:Int , title:String, subtitle:String)
+    //optional func manager(manager:BNPositionManager!,  printText text:String)
 }
 
 enum BNProximity

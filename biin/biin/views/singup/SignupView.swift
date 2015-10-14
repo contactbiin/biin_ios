@@ -10,29 +10,24 @@ class SignupView:UIView, UITextFieldDelegate {
     
     var delegate:SignupView_Delegate?
     
-    var biinLogo:BNUIBiinView?
-    //var biinLogoImage:UIImageView?
-    var backBtn:BNUIButton_Loging?
-    
+    var title:UILabel?
+    var backBtn:BNUIButton_Back?
+
     var firstNameTxt:BNUITexfield_Top?
     var lastNameTxt:BNUITexfield_Center?
     var genderTxt:BNUITexfield_Center?
+    var birthDateTxt:BNUITexfield_Center?
     var emailTxt:BNUITexfield_Center?
     var passwordTxt:BNUITexfield_Bottom?
     
     var singupBtn:BNUIButton_Loging?
     var signupLbl:UILabel?
-    //var welcomeLbl:UILabel?
     
     var isKeyboardUp = false
     
     var femaleBtn:BNUIButton_Gender?
     var maleBtn:BNUIButton_Gender?
     var genderStr:String?
-    
-//    override init() {
-//        super.init()
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -41,35 +36,36 @@ class SignupView:UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.whiteColor()
-        //        self.layer.cornerRadius = 5
-        //        self.layer.masksToBounds = true
-        //        self.becomeFirstResponder()
+        self.backgroundColor = UIColor.clearColor()
+        
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+        visualEffectView.frame = self.bounds
+        self.addSubview(visualEffectView)
+        
         
         let screenWidth = SharedUIManager.instance.screenWidth
+        
         var ypos:CGFloat = 20
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
+        let titleText = NSLocalizedString("SignUpTitle", comment: "SignUpTitle").uppercaseString
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        title!.font = UIFont(name:"Lato-Regular", size:13)
+        title!.textColor = UIColor.whiteColor()
+        title!.textAlignment = NSTextAlignment.Center
+        self.addSubview(title!)
+        
+        
+        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.icon!.color = UIColor.darkGrayColor()
+        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
+        backBtn!.layer.backgroundColor = UIColor.whiteColor().CGColor
+        self.addSubview(backBtn!)
+        
+        ypos += SharedUIManager.instance.loginView_ypos_1
 
-        
-        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:4.0)
-        biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
-        
-        if SharedUIManager.instance.signupView_showLogo {
-            self.addSubview(biinLogo!)
-            biinLogo!.setNeedsDisplay()
-            ypos +=  (20 + biinLogo!.frame.height)
-        }
-//        biinLogoImage = UIImageView(image: UIImage(named: "biinLogoLS"))
-//        biinLogoImage!.frame = CGRectMake(60, -35, SharedUIManager.instance.signupView_logoSize, SharedUIManager.instance.signupView_logoSize)
-//        self.addSubview(biinLogoImage!)
-        
-//        welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 23))
-//        welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
-//        welcomeLbl!.textAlignment = NSTextAlignment.Center
-//        welcomeLbl!.textColor = UIColor.appTextColor()
-//        welcomeLbl!.font = UIFont(name: "Lato-Black", size: 20)
-//        //self.addSubview(welcomeLbl!)
-        
-        //ypos += (20 + welcomeLbl!.frame.height)
         firstNameTxt = BNUITexfield_Top(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Name", comment: "Name"))
         firstNameTxt!.textField!.delegate = self
         firstNameTxt!.textField!.keyboardType = UIKeyboardType.Default
@@ -98,6 +94,14 @@ class SignupView:UIView, UITextFieldDelegate {
         genderTxt!.addSubview(maleBtn!)
         
         ypos += (1 + genderTxt!.frame.height)
+        birthDateTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate"))
+        birthDateTxt!.textField!.delegate = self
+
+        birthDateTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        birthDateTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
+        self.addSubview(birthDateTxt!)
+        
+        ypos += (1 + birthDateTxt!.frame.height)
         emailTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
@@ -115,33 +119,21 @@ class SignupView:UIView, UITextFieldDelegate {
         
 
         ypos += (5 + passwordTxt!.frame.height)
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 65), color:UIColor.biinColor(), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), textColor:UIColor.whiteColor())
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 65), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), textColor:UIColor.whiteColor())
         singupBtn!.addTarget(self, action: "singup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
-        
-        
-        ypos += singupBtn!.frame.height + 10
-        backBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 20), color:UIColor.clearColor(), text:NSLocalizedString("Calcel", comment: "Calcel"), textColor:UIColor.bnOrange())
-        backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(backBtn!)
+    
         
         ypos = SharedUIManager.instance.screenHeight - 70
         signupLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 16))
         signupLbl!.text = NSLocalizedString("DontForget", comment: "DontForget")
         signupLbl!.textAlignment = NSTextAlignment.Left
-        signupLbl!.textColor = UIColor.appTextColor()
+        signupLbl!.textColor = UIColor.whiteColor()
         signupLbl!.numberOfLines = 0
         signupLbl!.font = UIFont(name: "Lato-Light", size: 13)
         signupLbl!.sizeToFit()
         self.addSubview(signupLbl!)
-        
-        //backBtn = BNUIButton_Back_SignupView(frame: CGRect(x: 10, y: 10, width: 40, height: 20))
-        //backBtn!.addTarget(self, action: "back:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(backBtn!)
-        
-
-        
-        
+    
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
         
@@ -180,7 +172,8 @@ class SignupView:UIView, UITextFieldDelegate {
         if firstNameTxt!.isValid() &&
            lastNameTxt!.isValid() &&
             emailTxt!.isValid() &&
-            passwordTxt!.isValid() {
+            passwordTxt!.isValid() &&
+            birthDateTxt!.isValid() {
                 
             if genderStr!.isEmpty {
                 genderTxt!.showError()
@@ -195,45 +188,39 @@ class SignupView:UIView, UITextFieldDelegate {
         
         
         if ready {
-            let user = Biinie(identifier:emailTxt!.textField!.text!, firstName: firstNameTxt!.textField!.text!, lastName: lastNameTxt!.textField!.text!, email: emailTxt!.textField!.text!, gender:genderStr!)
-            user.password = passwordTxt!.textField!.text
-            BNAppSharedManager.instance.dataManager.bnUser = user
-            BNAppSharedManager.instance.networkManager.register(user)
+            
+            BNAppSharedManager.instance.dataManager.bnUser!.identifier = emailTxt!.textField!.text!
+            BNAppSharedManager.instance.dataManager.bnUser!.firstName = firstNameTxt!.textField!.text!
+            BNAppSharedManager.instance.dataManager.bnUser!.lastName = lastNameTxt!.textField!.text!
+            BNAppSharedManager.instance.dataManager.bnUser!.email = emailTxt!.textField!.text
+            BNAppSharedManager.instance.dataManager.bnUser!.gender = genderStr
+            BNAppSharedManager.instance.dataManager.bnUser!.password = passwordTxt!.textField!.text
+            BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.bnUser!)
             
             delegate!.showProgress!(self)
             self.endEditing(true)
-            //singupBtn!.showDisable()
         }
     }
     
-    func back(sender:BNUIButton_Back_SignupView){
-        delegate!.showLoginView!(self)
+    func backBtnAction(sender:BNUIButton_Back){
+        self.endEditing(true)
+        delegate!.hideSignUpView!()
+        clean()
+    }
+    
+    func clean(){
+        firstNameTxt!.textField!.text = ""
+        lastNameTxt!.textField!.text = ""
+        genderTxt!.textField!.text = ""
+        birthDateTxt!.textField!.text = ""
+        emailTxt!.textField!.text = ""
+        passwordTxt!.textField!.text = ""
     }
     
     func keyboardDidShow() {
 
         if !isKeyboardUp {
             isKeyboardUp = true
-            print("keyboardDidShow")
-            
-            UIView.animateWithDuration(0.1, animations: {() -> Void in
-                //self.biinLogoImage!.alpha = 0
-                self.backBtn!.alpha = 0
-                self.biinLogo!.alpha = 0
-                //self.welcomeLbl!.alpha = 0
-                self.signupLbl!.alpha = 0
-            })
-
-            
-            UIView.animateWithDuration(0.35, animations: {() -> Void in
-                self.firstNameTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-                self.lastNameTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-                self.genderTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-                self.emailTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-                self.passwordTxt!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-                self.singupBtn!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-//                self.signupLbl!.frame.origin.y -= SharedUIManager.instance.signupView_ypos_1
-            })
         }
     }
     
@@ -241,31 +228,8 @@ class SignupView:UIView, UITextFieldDelegate {
         
         if isKeyboardUp {
             isKeyboardUp = false
-            print("keyboardDidShow")
-            UIView.animateWithDuration(0.1, animations: {() -> Void in
-                self.firstNameTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-                self.lastNameTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-                self.genderTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-                self.emailTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-                self.passwordTxt!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-                self.singupBtn!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-//                self.signupLbl!.frame.origin.y += SharedUIManager.instance.signupView_ypos_1
-
-            })
-            
-            UIView.animateWithDuration(0.25, animations: {() -> Void in
-                //self.biinLogoImage!.alpha = 1
-                self.backBtn!.alpha = 1
-                self.biinLogo!.alpha = 1
-                //self.welcomeLbl!.alpha = 1
-                self.signupLbl!.alpha = 1
-            })
         }
     }
-    
-//    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-//        self.endEditing(true)
-//    }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.endEditing(true)
@@ -274,66 +238,31 @@ class SignupView:UIView, UITextFieldDelegate {
     //UITextFieldDelegate Methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         print("textFieldShouldBeginEditing")
-        
-//        if !isKeyboardUp {
-//            
-//            isKeyboardUp = true
-//            
-//            UIView.animateWithDuration(0.35, animations: {() -> Void in
-//                self.nameTxt!.frame.origin.y -= 150
-//                self.lastNameTxt!.frame.origin.y -= 150
-//                self.genderTxt!.frame.origin.y -= 150
-//                self.emailTxt!.frame.origin.y -= 150
-//                self.passwordTxt!.frame.origin.y -= 150
-//                self.singupBtn!.frame.origin.y -= 175
-//                self.signupLbl!.frame.origin.y -= 175
-//                
-//                self.biinLogo!.alpha = 0
-//                self.welcomeLbl!.alpha = 0
-//            })
-//        }
-        
         return true
     }// return NO to disallow editing.
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
         print("textFieldDidBeginEditing")
+        
+        if textField.placeholder == "Enter your birthDate" {
+            let datePickerView  : UIDatePicker = UIDatePicker()
+            datePickerView.datePickerMode = UIDatePickerMode.Date
+            textField.inputView = datePickerView
+            datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+            
+        }
     }// became first responder
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         print("textFieldShouldEndEditing")
-        
-//        if textField.placeholder == "Password" {
-//            if countElements(textField.text) <= 7 {
-//                passwordTxt!.showError()
-//            }
-//        }
-        
+ 
         return true
     }// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
     
     func textFieldDidEndEditing(textField: UITextField) {
         print("textFieldDidEndEditing")
-        
-//        if isKeyboardUp {
-//
-//            isKeyboardUp = false
-//            
-//            UIView.animateWithDuration(0.25, animations: {() -> Void in
-//                self.nameTxt!.frame.origin.y += 150
-//                self.lastNameTxt!.frame.origin.y += 150
-//                self.genderTxt!.frame.origin.y += 150
-//                self.emailTxt!.frame.origin.y += 150
-//                self.passwordTxt!.frame.origin.y += 150
-//                self.singupBtn!.frame.origin.y += 175
-//                self.signupLbl!.frame.origin.y += 175
-//                
-//                self.biinLogo!.alpha = 1
-//                self.welcomeLbl!.alpha = 1
-//            })
-//        }
-        
+
     }// may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
@@ -344,12 +273,6 @@ class SignupView:UIView, UITextFieldDelegate {
         if !textField.text!.isEmpty {
             
             textField.text = SharedUIManager.instance.removeSpecielCharacter(textField.text!)
-            
-//            if !passwordTxt!.textField!.text.isEmpty {
-//                singupBtn!.showEnable()
-//            }else{
-//                singupBtn!.showDisable()
-//            }
         }
         
         return true
@@ -366,10 +289,14 @@ class SignupView:UIView, UITextFieldDelegate {
     
         return false
     }// called when 'return' key pressed. return NO to ignore.
+    
+    func handleDatePicker(sender: UIDatePicker) {
+        birthDateTxt!.textField!.text = sender.date.bnDisplayDateFormatt()
+        BNAppSharedManager.instance.dataManager.bnUser!.birthDate = sender.date
+    }
 }
 
 @objc protocol SignupView_Delegate:NSObjectProtocol {
-    optional func showLoginView(view:UIView)
-    optional func enableSignup(view:UIView)
     optional func showProgress(view:UIView)
+    optional func hideSignUpView()
 }
