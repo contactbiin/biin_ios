@@ -176,6 +176,11 @@
 		5B6615C31B349A3D00ECE508 /* SimulatorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */; };
 		5B67B5E51A716A31009937C5 /* BNIcon_BurgerMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */; };
 		5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E61A716B52009937C5 /* BNUIIconView.swift */; };
+		5B6A80411BCD65920087CE0A /* landing.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A80401BCD65920087CE0A /* landing.jpg */; settings = {ASSET_TAGS = (); }; };
+		5B6A80481BCDAB650087CE0A /* loading1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A80441BCDAB650087CE0A /* loading1.jpg */; settings = {ASSET_TAGS = (); }; };
+		5B6A80491BCDAB650087CE0A /* loading2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A80451BCDAB650087CE0A /* loading2.jpg */; settings = {ASSET_TAGS = (); }; };
+		5B6A804A1BCDAB650087CE0A /* loading3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A80461BCDAB650087CE0A /* loading3.jpg */; settings = {ASSET_TAGS = (); }; };
+		5B6A804B1BCDAB650087CE0A /* loading4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A80471BCDAB650087CE0A /* loading4.jpg */; settings = {ASSET_TAGS = (); }; };
 		5B6B886B1A8BE45000F21E4A /* BNUIAlertView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6B886A1A8BE45000F21E4A /* BNUIAlertView_Header.swift */; };
 		5B7036921A840AF100C01BF9 /* BNIcon_PigSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */; };
 		5B7036941A84197700C01BF9 /* BNIcon_RedX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */; };
@@ -530,6 +535,11 @@
 		5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorUtility.swift; sourceTree = "<group>"; };
 		5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BurgerMedium.swift; sourceTree = "<group>"; };
 		5B67B5E61A716B52009937C5 /* BNUIIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIIconView.swift; sourceTree = "<group>"; };
+		5B6A80401BCD65920087CE0A /* landing.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = landing.jpg; sourceTree = "<group>"; };
+		5B6A80441BCDAB650087CE0A /* loading1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loading1.jpg; sourceTree = "<group>"; };
+		5B6A80451BCDAB650087CE0A /* loading2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loading2.jpg; sourceTree = "<group>"; };
+		5B6A80461BCDAB650087CE0A /* loading3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loading3.jpg; sourceTree = "<group>"; };
+		5B6A80471BCDAB650087CE0A /* loading4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loading4.jpg; sourceTree = "<group>"; };
 		5B6B886A1A8BE45000F21E4A /* BNUIAlertView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIAlertView_Header.swift; sourceTree = "<group>"; };
 		5B7036911A840AF100C01BF9 /* BNIcon_PigSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_PigSmall.swift; sourceTree = "<group>"; };
 		5B7036931A84197700C01BF9 /* BNIcon_RedX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_RedX.swift; sourceTree = "<group>"; };
@@ -1067,6 +1077,11 @@
 		5B3D75E81A6816B300CB0D1C /* pictures */ = {
 			isa = PBXGroup;
 			children = (
+				5B6A80441BCDAB650087CE0A /* loading1.jpg */,
+				5B6A80451BCDAB650087CE0A /* loading2.jpg */,
+				5B6A80461BCDAB650087CE0A /* loading3.jpg */,
+				5B6A80471BCDAB650087CE0A /* loading4.jpg */,
+				5B6A80401BCD65920087CE0A /* landing.jpg */,
 				5B56F9431BBDD6DD00FBA42D /* pizza.jpg */,
 				5B56F9441BBDD6DD00FBA42D /* vintage.jpg */,
 				5B8A9A921BBB57AD009033D6 /* cityBanner.png */,
@@ -1512,10 +1527,12 @@
 				5BFA10DD1BBA221400428E8D /* texture1.jpg in Resources */,
 				5BE82CDB1AC64368003342C9 /* iPad-29-1x.png in Resources */,
 				5B3D76151A6816B300CB0D1C /* Lato-LightItalic.ttf in Resources */,
+				5B6A804A1BCDAB650087CE0A /* loading3.jpg in Resources */,
 				5B3D75F51A6816B300CB0D1C /* server.key in Resources */,
 				5B3D76131A6816B300CB0D1C /* Lato-Italic.ttf in Resources */,
 				5BE82CDC1AC64368003342C9 /* iPad-29-2x.png in Resources */,
 				5B3D76101A6816B300CB0D1C /* Lato-HairlineItalic.ttf in Resources */,
+				5B6A80481BCDAB650087CE0A /* loading1.jpg in Resources */,
 				5B1F550C1AE8519500130CFE /* Localizable.strings in Resources */,
 				5B3D761A1A6816B300CB0D1C /* Lato-SemiboldItalic.ttf in Resources */,
 				5BE82CDF1AC64368003342C9 /* iPad-76-2x.png in Resources */,
@@ -1544,9 +1561,12 @@
 				5B3CF3321B02406500A74E77 /* noImage.jpg in Resources */,
 				5BE82CD01AC624B2003342C9 /* iPhone-40-2x.png in Resources */,
 				5B3D76181A6816B300CB0D1C /* Lato-Regular.ttf in Resources */,
+				5B6A80491BCDAB650087CE0A /* loading2.jpg in Resources */,
 				5B3D760B1A6816B300CB0D1C /* Lato-Black.ttf in Resources */,
 				5BA7B46C1B5565CB00AFD326 /* onbordingImage1.jpg in Resources */,
+				5B6A804B1BCDAB650087CE0A /* loading4.jpg in Resources */,
 				5BA7B46D1B5565CB00AFD326 /* onbordingImage2.jpg in Resources */,
+				5B6A80411BCD65920087CE0A /* landing.jpg in Resources */,
 				5B3D761B1A6816B300CB0D1C /* Lato-Thin.ttf in Resources */,
 				5BE82CD41AC62503003342C9 /* iPhone-60-2x.png in Resources */,
 				5B3D759B1A67052100CB0D1C /* Images.xcassets in Resources */,

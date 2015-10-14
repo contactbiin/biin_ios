@@ -115,22 +115,26 @@ class UIManager {
     var elementStickerView = CGRectMake(260, 255, 50, 50)
     
     //Signup
-    var signupView_isAnimatingLogo:Bool = true
-    var signupView_ypos_1:CGFloat = 0
-    var signupView_ypos_2:CGFloat = 0
+    var signupView_spacer:CGFloat = 0
     var signupView_logoSize:CGFloat = 200
-    var signupView_showLogo:Bool = true
+    var signupView_ypos_1:CGFloat = 0
+    
+    
+//    var signupView_isAnimatingLogo:Bool = true
+//    var signupView_ypos_2:CGFloat = 0
+//    var signupView_showLogo:Bool = true
     
     //Loading
-    var loadingView_logoSize:CGFloat = 1
     
+    var loadingView_logoSize:CGFloat = 1
     var loginView_isAnimatingLogo:Bool = true
     var loginView_ypos_1:CGFloat = 0
 //    var loginView_ypos_2:CGFloat = 0
 //    var loginView_ypos_3:CGFloat = 0
     
     //Error views
-    var errorView_title:CGFloat = 20
+    var errorView_headerHeoght:CGFloat = 40
+    var errorView_title:CGFloat = 18
     var errorView_text:CGFloat = 22
     var errorView_button:CGFloat = 18
     
@@ -206,15 +210,17 @@ class UIManager {
 //        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
+        signupView_spacer = 25
+        signupView_logoSize = 0.75
+        signupView_ypos_1 = 35
+        loginView_ypos_1 = 35
+
+//        signupView_showLogo = false
+//        signupView_isAnimatingLogo = true
+//        signupView_ypos_2 = 0
         
-        signupView_showLogo = false
-        signupView_isAnimatingLogo = true
-        signupView_ypos_1 = 10
-        signupView_ypos_2 = 0
-        signupView_logoSize = 100
-        
-        loginView_isAnimatingLogo = true
-        loginView_ypos_1 = 220
+//        loginView_isAnimatingLogo = true
+//        loginView_ypos_1 = 220
 //        loginView_ypos_2 = 130
 //        loginView_ypos_3 = 150
         
@@ -235,14 +241,20 @@ class UIManager {
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
         
-        signupView_showLogo = true
-        signupView_isAnimatingLogo = true
-        signupView_ypos_1 = 125
-        signupView_ypos_2 = 140
-        signupView_logoSize = 200
+        signupView_spacer = 50
+        signupView_logoSize = 0.75
+        signupView_ypos_1 = 35
+        loginView_ypos_1 = 35
+
+
         
-        loginView_isAnimatingLogo = true
-        loginView_ypos_1 = 160
+        
+//        signupView_showLogo = true
+//        signupView_isAnimatingLogo = true
+//        signupView_ypos_2 = 140
+        
+//        loginView_isAnimatingLogo = true
+//        loginView_ypos_1 = 160
 //        loginView_ypos_2 = 240
 //        loginView_ypos_3 = 75
         
@@ -260,15 +272,19 @@ class UIManager {
 //        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
+        signupView_spacer = 75
+        signupView_logoSize = 1.0
+        signupView_ypos_1 = 75
+        loginView_ypos_1 = 50
+
         
-        signupView_showLogo = true
-        signupView_isAnimatingLogo = false
-        signupView_ypos_1 = 70
-        signupView_ypos_2 = 70
-        signupView_logoSize = 200
         
-        loginView_isAnimatingLogo = false
-        loginView_ypos_1 = 0
+//        signupView_showLogo = true
+//        signupView_isAnimatingLogo = false
+//        signupView_ypos_2 = 70
+        
+//        loginView_isAnimatingLogo = false
+//        loginView_ypos_1 = 0
 //        loginView_ypos_2 = 0
 //        loginView_ypos_3 = 0
         
@@ -281,20 +297,26 @@ class UIManager {
     }
     
     func setIPhone6PlusVariables() {
+        
+        signupView_spacer = 100
+        signupView_logoSize = 1.0
+        signupView_ypos_1 = 130
+        loginView_ypos_1 = 50
+        
         deviceType = BNDeviceType.iphone6Plus
 //        miniView_titleSize = 14
 //        miniView_subTittleSize = 10
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
     
-        signupView_showLogo = true
-        signupView_isAnimatingLogo = false
-        signupView_ypos_1 = 70
-        signupView_ypos_2 = 40
-        signupView_logoSize = 200
+//        signupView_showLogo = true
+//        signupView_isAnimatingLogo = false
+//
+//        signupView_ypos_2 = 40
+
         
-        loginView_isAnimatingLogo = true
-        loginView_ypos_1 = 0
+//        loginView_isAnimatingLogo = true
+//        loginView_ypos_1 = 0
 //        loginView_ypos_2 = 0
 //        loginView_ypos_3 = 0
         
@@ -312,11 +334,15 @@ class UIManager {
 //        siteView_titleSize = 30
 //        siteView_subTittleSize = 20
         
-        signupView_showLogo = true
-        signupView_isAnimatingLogo = false
-        signupView_ypos_1 = 0
-        signupView_ypos_2 = 0
-        signupView_logoSize = 200
+        signupView_spacer = 100
+        signupView_logoSize = 1.0
+        signupView_ypos_1 = 200
+
+        
+//        signupView_showLogo = true
+//        signupView_isAnimatingLogo = false
+//        signupView_ypos_1 = 0
+//        signupView_ypos_2 = 0
         
         loginView_isAnimatingLogo = false
         loginView_ypos_1 = 0

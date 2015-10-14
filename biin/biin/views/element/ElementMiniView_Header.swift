@@ -43,7 +43,7 @@ class ElementMiniView_Header:BNView {
         
         self.elementPosition = elementPosition
         
-        var ypos:CGFloat = 5
+        let ypos:CGFloat = 5
         var xpos:CGFloat = 5
         buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, element: element)
         //self.addSubview(buttonsView!)

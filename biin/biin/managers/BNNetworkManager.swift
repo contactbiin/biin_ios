@@ -234,7 +234,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     @param user:Biinie data.
     */
     func register(user:Biinie) {
-        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)", errorManager: self.errorManager!, networkManager: self)
+        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(user.birthDate!.bnDateFormattForActions())", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     

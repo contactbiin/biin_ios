@@ -11,71 +11,94 @@ class LoadingView:UIView {
     var loadingLbl:UILabel?
     var biinLogo:BNUIBiinView?
     var progressView:UIProgressView?
-    var progressViewBG:UIView?
     var version:UILabel?
     var lastProgressValue:Float = 0.0
-//    override init() {
-//        super.init()
-//    }
+
+    var scroll:UIScrollView?
+    var currentHighlight:Int = 0
+    var timer:NSTimer?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.whiteColor()
-        //self.layer.cornerRadius = 5
-        self.layer.masksToBounds = true
-        
-//        biinLogo = UIImageView(frame: CGRectMake(0, 100, 320, 320))
-//        biinLogo!.image = UIImage(named: "biinLogoLS.png")
-//        self.addSubview(biinLogo!)
-        
+        self.backgroundColor = UIColor.clearColor()
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
+        var xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
+        var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
         
-        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:0), scale:SharedUIManager.instance.loadingView_logoSize)
+        scroll = UIScrollView(frame: CGRectMake(xpos, 0, screenHeight, screenHeight))
+        scroll!.showsHorizontalScrollIndicator = false
+        scroll!.backgroundColor = UIColor.clearColor()
+        scroll!.pagingEnabled = true
+        scroll!.userInteractionEnabled = false
+        self.addSubview(scroll!)
+        
+        
+        let image1 = UIImageView(image: UIImage(named: "loading1.jpg"))
+        image1.frame = CGRectMake(0, 0, screenHeight, screenHeight)
+        scroll!.addSubview(image1)
+        
+        xpos = screenHeight
+        let image2 = UIImageView(image: UIImage(named: "loading2.jpg"))
+        image2.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
+        scroll!.addSubview(image2)
+        
+        xpos += screenHeight
+        let image3 = UIImageView(image: UIImage(named: "loading3.jpg"))
+        image3.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
+        scroll!.addSubview(image3)
+
+        xpos += screenHeight
+        let image4 = UIImageView(image: UIImage(named: "loading4.jpg"))
+        image4.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
+        scroll!.addSubview(image4)
+
+        
+        xpos += screenHeight
+        scroll!.contentSize = CGSize(width: xpos, height: screenHeight)
+        
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+        visualEffectView.alpha = 0.8
+        visualEffectView.frame = self.bounds
+        self.addSubview(visualEffectView)
+
+        
+        biinLogo = BNUIBiinView(position:CGPoint(x:0, y:ypos), scale:SharedUIManager.instance.signupView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
         biinLogo!.frame.origin.y = (((screenHeight - biinLogo!.frame.height) / 2) - 50)
-        
+        biinLogo!.icon!.color = UIColor.whiteColor()
         self.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
+
+        ypos = biinLogo!.frame.height + biinLogo!.frame.origin.y
+        //ypos += 5
         
-        let barWidth:CGFloat = biinLogo!.frame.width - 20.0
-        let xpos:CGFloat = ((screenWidth - barWidth ) / 2)
-        var ypos:CGFloat = biinLogo!.frame.height + biinLogo!.frame.origin.y
-        ypos += 10
-        
-        progressViewBG = UIView()
-        progressViewBG!.frame = CGRectMake((xpos - 3), (ypos - 3), (barWidth + 6), 9)
-        progressViewBG!.backgroundColor = UIColor.appBackground()
-        progressViewBG!.layer.cornerRadius = 3
-        progressViewBG!.layer.masksToBounds = true
-        self.addSubview(progressViewBG!)
-        
-        progressView = UIProgressView(frame: CGRectMake(xpos, ypos, barWidth, 8))
+        version = UILabel(frame: CGRectMake(0, ypos, screenWidth, 15))
+        version!.font = UIFont(name: "Lato-Light", size: 13)
+        version!.textColor = UIColor.whiteColor()
+        version!.textAlignment = NSTextAlignment.Center
+        let versionTxt = NSLocalizedString("Version", comment: "the version title")
+        version!.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
+        self.addSubview(version!)
+
+        progressView = UIProgressView(frame: CGRectMake(0, (screenHeight - 2), screenWidth, 6))
         progressView!.setProgress(0.0, animated: false)
         progressView!.progressViewStyle = UIProgressViewStyle.Bar
-        progressView!.trackTintColor = UIColor.grayColor()
-        progressView!.progressTintColor = UIColor.biinColor()
+        progressView!.trackTintColor = UIColor.darkGrayColor()
+        progressView!.progressTintColor = UIColor.whiteColor()
         self.addSubview(progressView!)
         
         ypos += 8
-        loadingLbl = UILabel(frame: CGRect(x:0, y:ypos, width:frame.width, height:18))
+        loadingLbl = UILabel(frame: CGRect(x:0, y:(screenHeight - 25), width:frame.width, height:18))
         loadingLbl!.font = UIFont(name: "Lato-Light", size: 15)
-        loadingLbl!.textColor = UIColor.appTextColor()
+        loadingLbl!.textColor = UIColor.whiteColor()
         loadingLbl!.textAlignment = NSTextAlignment.Center
         loadingLbl!.numberOfLines = 0
         loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
         
-        version = UILabel(frame: CGRectMake(0, (screenHeight - 60), screenWidth, 20))
-        version!.font = UIFont(name: "Lato-Light", size: 18)
-        version!.textColor = UIColor.appTextColor()
-        version!.textAlignment = NSTextAlignment.Center
-        let versionTxt = NSLocalizedString("Version", comment: "the version title")
-        version!.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
-        self.addSubview(version!)
-        
-  
+        startTimer()
     }
     
     
@@ -116,8 +139,27 @@ class LoadingView:UIView {
         UIView.animateWithDuration(0.1, animations: {() -> Void in
             self.loadingLbl!.alpha = 0
             self.progressView!.alpha = 0
-            self.progressViewBG!.alpha = 0
             self.version!.alpha = 0
         })
+    }
+    
+    func change(sender:NSTimer){
+        if currentHighlight <= 3 {
+            let xpos:CGFloat = (SharedUIManager.instance.screenHeight * CGFloat(currentHighlight))
+            scroll!.setContentOffset(CGPoint(x:xpos, y: 0), animated: true)
+            currentHighlight++
+        } else {
+            scroll!.setContentOffset(CGPoint(x:0, y: 0), animated: false)
+            currentHighlight = 0
+        }
+    }
+    
+    func stopTimer(){
+        self.timer!.invalidate()
+    }
+    
+    func startTimer(){
+        timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "change:", userInfo: nil, repeats: true)
+        timer!.fire()
     }
 }

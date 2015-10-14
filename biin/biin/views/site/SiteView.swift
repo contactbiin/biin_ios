@@ -476,6 +476,13 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func likeit(sender:BNUIButton_BiinIt){
         site!.userLiked = !site!.userLiked
+        
+        if self.site!.userLiked {
+            animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+        } else {
+            animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+        }
+        
         updateLikeItBtn()
     }
     
@@ -508,6 +515,13 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func followit(sender:UIButton){
         site!.userFollowed = !site!.userFollowed
+        
+        if self.site!.userFollowed {
+            animationView!.animateWithText(NSLocalizedString("FollowTxt", comment: "FollowTxt"))
+        } else {
+            animationView!.animateWithText(NSLocalizedString("NotFollowTxt", comment: "NotFollowTxt"))
+        }
+        
         updateFollowBtn()
     }
     

@@ -15,10 +15,10 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
-        self.view.backgroundColor = UIColor.blackColor()
+        self.view.backgroundColor = UIColor.clearColor()
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-        UIApplication.sharedApplication().statusBarHidden = false
+        UIApplication.sharedApplication().statusBarHidden = true
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
         self.setNeedsStatusBarAppearanceUpdate()
@@ -29,7 +29,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
 
-        loadingView = LoadingView(frame: CGRectMake(0, 20, screenWidth, screenHeight))
+        loadingView = LoadingView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         self.view.addSubview(loadingView!)
     }
     
@@ -51,7 +51,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
             loadingView!.hideProgressView()
-            let developmentView = DevelopmentView(frame:CGRectMake(0, 20, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 20)), viewController:self)
+            let developmentView = DevelopmentView(frame:CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), viewController:self)
             self.view.addSubview(developmentView)
         } else  {
             loadingView!.hideProgressView()
