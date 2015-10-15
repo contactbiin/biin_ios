@@ -30,19 +30,21 @@ class BNRequest_Image: BNRequest {
         //print("BNRequest_Image.run()")
         isRunning = true
         
-        self.networkManager!.epsNetwork!.getImage(requestString, image:self.image!, callback:{(error: NSError?) -> Void in
-           
-            //print("Image OK")
-            
-            if (error != nil)  {
+        if image != nil {
+            self.networkManager!.epsNetwork!.getImage(requestString, image:self.image!, callback:{(error: NSError?) -> Void in
+               
+                //print("Image OK")
                 
-                self.networkManager!.handleFailedRequest(self, error:error )
-                
-            } else {
-                
-                self.inCompleted = true
-                self.networkManager!.removeFromQueue(self)
-            }
-        })
+                if (error != nil)  {
+                    
+                    self.networkManager!.handleFailedRequest(self, error:error )
+                    
+                } else {
+                    
+                    self.inCompleted = true
+                    self.networkManager!.removeFromQueue(self)
+                }
+            })
+        }
     }
 }

@@ -24,7 +24,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
     var elements = Dictionary<String, BNElement>()
-    var highlights = Dictionary<String, String>()//list of hightlight element
+    var highlights = Array<BNElement>()//list of hightlight element
     var availableBiins = Array<String>()//list of biins detected
     var elementsRequested = Dictionary<String, BNElement>()
     //var elementsBiined = Dictionary<String, String>()
@@ -540,7 +540,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         let element = BNElement()
                         element.identifier = object.identifier!
                         element._id = object._id!
-                        element.siteIdentifier = site.identifier
+                        let showcase = BNShowcase()
+                        showcase.site = biin.site
+                        element.showcase = showcase
+                        //element.siteIdentifier = site.identifier
                         requestElement(element)
                         
                         break
@@ -564,7 +567,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func manager(manager: BNNetworkManager!, didReceivedHihglightList showcase: BNShowcase) {
-        requestElements(showcase.elements)
+        //requestElements(showcase.elements)
     }
     
     
@@ -652,13 +655,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             //Check if element exist.
             if elements[element._id!] == nil {
                 //Element does not exist, store it and request it's data.
-                let newElement = BNElement()
-                newElement.identifier = element.identifier!
-                newElement._id = element._id
-                newElement.userViewed = element.userViewed
-                newElement.siteIdentifier = element.siteIdentifier
+                //let newElement = BNElement()
+                //newElement.identifier = element.identifier!
+                //newElement._id = element._id
+                //newElement.userViewed = element.userViewed
+                //newElement.showcase = element.showcase
+                //newElement.siteIdentifier = element.siteIdentifier
                 //newElement.jsonUrl = element.jsonUrl!
-                elements[newElement._id!] = newElement
+                elements[element._id!] = element
                 
                 //Check is element is has been requested by it's identifier
                 if elementsRequested[element.identifier!] == nil {
@@ -692,13 +696,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             //Check if element exist.
             if elements[element._id!] == nil {
                 //Element does not exist, store it and request it's data.
-                let newElement = BNElement()
-                newElement.identifier = element.identifier!
-                newElement._id = element._id
-                newElement.siteIdentifier = element.siteIdentifier
-                newElement.userViewed = element.userViewed
+                //let newElement = BNElement()
+                //newElement.identifier = element.identifier!
+                //newElement._id = element._id
+                //newElement.siteIdentifier = element.siteIdentifier
+                //newElement.userViewed = element.userViewed
                 //newElement.jsonUrl = element.jsonUrl!
-                elements[newElement._id!] = newElement
+                elements[element._id!] = element
                 
                 //Check is element is has been requested by it's identifier
                 if elementsRequested[element.identifier!] == nil {
@@ -730,11 +734,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         elementsRequested[element.identifier!] = element
         manageElementRelationShips(element)
         
-        if highlights.count < 6 {
-            if element.isHighlight {
-                highlights[element._id!] = element._id!
-            }
-        }
+//        if highlights.count < 6 {
+//            if element.isHighlight {
+//                highlights[element._id!] = element._id!
+//            }
+//        }
         
         /*
         //Checks if element received is reference on element and clone its self.
@@ -756,120 +760,71 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func addHighlights(){
         
-
+        var hightLightList = Array<BNElement>()
         
-        var sitesArray:Array<BNSite> = Array<BNSite>()
+        var categoryCounter = 1
         
-        //let dataManager = BNAppSharedManager.instance.dataManager
-        //let user = dataManager.bnUser!
-        //var categories = user.categories
+        var element1:BNElement?
+        var element2:BNElement?
+        var element1Added = false
+        var element2Added = false
         
         for category in self.bnUser!.categories {
-            if category.hasSites {
-                for var i = 0; i < category.sitesDetails.count; i++ {
+            
+            if categoryCounter <= 6 {
+                if category.elements.count > 0 {
                     
-                    let siteIdentifier = category.sitesDetails[i].identifier!
+                    var elements = Array<BNElement>()
                     
-                    if let site = self.sites[ siteIdentifier ] {
-                        if site.showInView {
-                            sitesArray.append(site)
-                            print("Adding site.....")
+                    for (_, element) in category.elements {
+                        if element.isHighlight {
+                            elements.append(element)
                         }
                     }
-                }
-            }
-        }
-        
-        sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
-        /*
-        for site in sitesArray {
-            if site.showInView {
-                if !isSiteAdded(site.identifier!) {
-                    //println("***** ADDING SITE:\(site.identifier!) title: \(site.title!)")
                     
-                    if columnCounter < columns {
-                        columnCounter++
-                        xpos = xpos + siteSpacer
+                    if elements.count > 0 {
+                        elements = elements.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
                         
-                    } else {
-                        ypos = ypos + siteViewHeight + siteSpacer
-                        xpos = siteSpacer
-                        columnCounter = 1
-                    }
-                    
-                    let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight), father: self, site:site)
-                    miniSiteView.isPositionedInFather = true
-                    miniSiteView.isReadyToRemoveFromFather = false
-                    miniSiteView.delegate = father?.father! as! MainView
-                    
-                    sites!.append(miniSiteView)
-                    scroll!.addSubview(miniSiteView)
-                    
-                    xpos = xpos + siteViewWidth
-                    
-                } else {
-                    for siteView in sites! {
-                        if siteView.site!.identifier == site.identifier! && !siteView.isPositionedInFather {
+                        hightLightList.append(elements[0])
+                        categoryCounter++
+                        
+                        if elements.count > 1 {
                             
-                            //println("***** POSITIONING SITE:\(site.identifier!) title: \(site.title!)")
-                            if columnCounter < columns {
-                                columnCounter++
-                                xpos = xpos + siteSpacer
+                            if !element1Added {
+                                element1Added = true
+                                element1 = elements[1]
+
+                            } else if !element2Added {
+                                element2Added = true
+                                element2 = elements[1]
                                 
-                            } else {
-                                ypos = ypos + siteViewHeight + siteSpacer
-                                xpos = siteSpacer
-                                columnCounter = 1
                             }
-                            siteView.isPositionedInFather = true
-                            siteView.isReadyToRemoveFromFather = false
-                            siteView.frame = CGRectMake(xpos, ypos, siteViewWidth, siteViewHeight)
-                            xpos = xpos + siteViewWidth
-                            
-                            break
                         }
                     }
                 }
-            }
-        }
-        /*
-        else {
-        //                        for var i = 0; i < sites!.count; i++ {
-        //                            if sites![i].site!.identifier == siteIdentifier {
-        //                                println("***** REMOVE SITE:\(siteIdentifier) title: \(sites![i].site!.title!)")
-        //                                sites![i].removeFromSuperview()
-        //                                sites!.removeAtIndex(i)
-        //                                break
-        //                            }
-        //                        }
-        }
-        }
-        }
-        }
-        */
-        ypos = ypos + siteViewHeight + siteSpacer
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-        
-        //SharedUIManager.instance.miniView_height = siteViewHeight
-        //SharedUIManager.instance.miniView_width = siteViewWidth
-        //SharedUIManager.instance.miniView_columns = columns
-        
-        
-        //var sitesCount = sites!.count
-        for var i = 0; i < sites!.count; i++ {
-            if sites![i].isReadyToRemoveFromFather {
-                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
-                sites![i].removeFromSuperview()
-                sites!.removeAtIndex(i)
-                i = 0
-                
+            } else {
+                continue
             }
         }
         
+        hightLightList = hightLightList.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
         
-        */
+        if element1 != nil {
+            hightLightList.append(element1!)
+        }
+
+        if element2 != nil {
+            hightLightList.append(element2!)
+        }
         
+        highlights.removeAll(keepCapacity: false)
         
+        for h in hightLightList {
+            print("---------------------------------")
+            print("element: \(h.title!)")
+            print("site: \(h.showcase!.site!.title!) - \(h.showcase!.site!.city!), \(h.showcase!.site!.biinieProximity!)")
+            self.highlights.append(h)
+        }
     }
     
     func isSiteAdded(identifier:String) -> Bool {
@@ -1074,7 +1029,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     bnUser!.temporalCollectionIdentifier = collection.identifier!
                 }
                 
-                print("\(bnUser!.collections![collection.identifier!]?.elements.count)")
+                //print("\(bnUser!.collections![collection.identifier!]?.elements.count)")
                 
                 //for (key, element) in collection.elements {
                 //    if elementsBiined[element._id!] == nil {

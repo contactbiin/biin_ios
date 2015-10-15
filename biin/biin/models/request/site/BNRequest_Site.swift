@@ -126,7 +126,8 @@ class BNRequest_Site: BNRequest {
                                 let identifier = BNParser.findString("identifier", dictionary:showcaseData)
                                 let showcase = BNShowcase()
                                 showcase.identifier = identifier
-                                showcase.siteIdentifier = new_site.identifier!
+                                //showcase.siteIdentifier = new_site.identifier!
+                                showcase.site = new_site
                                 new_site.showcases!.append(showcase)
                             }
                         }
@@ -138,7 +139,7 @@ class BNRequest_Site: BNRequest {
                                 let biin = BNBiin()
                                 biin.identifier = BNParser.findString("identifier", dictionary: biinData)
                                 biin.accountIdentifier = BNParser.findString("accountIdentifier", dictionary: biinData)
-                                biin.siteIdentifier = BNParser.findString("siteIdentifier", dictionary: biinData)
+                                //biin.siteIdentifier = BNParser.findString("siteIdentifier", dictionary: biinData)
                                 //                                biin.organizationIdentifier = self.findString("organizationIdentifier", dictionary: biinData)
                                 biin.major = BNParser.findInt("major", dictionary: biinData)
                                 biin.minor = BNParser.findInt("minor", dictionary: biinData)
