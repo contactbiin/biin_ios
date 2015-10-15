@@ -64,7 +64,8 @@ class BNRequest_Showcase: BNRequest {
                             element.jsonUrl = BNParser.findString("jsonUrl", dictionary: elementData)
                             element.userViewed = BNParser.findBool("hasBeenSeen", dictionary: elementData)
                             element.color = UIColor.elementColor()
-                            element.siteIdentifier = self.showcase!.siteIdentifier!
+                            //element.siteIdentifier = self.showcase!.site!.identifier!// .siteIdentifier!
+                            element.showcase = self.showcase
                             self.showcase!.elements.append(element)
                         }
                         

@@ -145,7 +145,7 @@ class ElementMiniView: BNView {
         if showlocation {
             ypos += SharedUIManager.instance.miniView_titleSize + 2
             xpos = 5
-            weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+            weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
             let titleText = site!.title!
             let subtitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
             subtitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)

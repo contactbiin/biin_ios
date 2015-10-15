@@ -146,7 +146,7 @@ Uncollected = "Removed from your collection.";
 /*Invite friends   hey check out the Salmon al Limo from Spoon  */
 InviteSubject = "Shoping and having fun with Biin";
 InviteBody = "The best offers and places in your hand. Download Biin at ";
-ShareBody1 = "Hey, check out the ";
+ShareBody1 = "Hi, I found this on Biin. ";
 ShareBody2 = "from ";
 ShareBody3 = "The best offers and places in your hand. Download Biin at ";
 

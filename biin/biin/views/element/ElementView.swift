@@ -199,7 +199,7 @@ class ElementView: BNView {
                 self.showSiteBtn!.alpha = 1
                 self.showSiteBtn!.enabled = true
                 
-                weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+                weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
                 var showSiteBtnText = NSLocalizedString("MoreFrom", comment: "MoreFrom")
                 showSiteBtnText += " \(site!.title!)"
                 
@@ -333,7 +333,7 @@ class ElementView: BNView {
                 shareView = nil
             }
             
-            let siteForSharing = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+            let siteForSharing = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
             shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:siteForSharing)
             //scroll!.addSubview(shareView!)
 

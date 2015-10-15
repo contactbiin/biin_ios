@@ -142,9 +142,10 @@ Uncollected = "Removido de tu colección.";
 /*Invite friends*/
 InviteSubject = "De compras y diversión con Biin";
 InviteBody = "Las mejores ofertas y lugares en tu celular. Descarga Biin en ";
-ShareBody1 = "Hola, mira: ";
+ShareBody1 = "Hola, encontré esto en Biin.";
 ShareBody2 = "de ";
-ShareBody3 = "Las mejores ofertas y lugares en tu celular. Descarga Biin en ";
+ShareBody3 = "Las mejores ofertas y lugares en tu smartphone están en Biin. Descarga biin en ";
+
 
 /*Alert messages*/
 PleaseWait = "Guardando, espera un momento!";

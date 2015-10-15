@@ -99,10 +99,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     }
     
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
 
-    }
-    
     func showProgress(view: UIView) {
         if (alert?.isOn != nil) {
             alert!.hide()
