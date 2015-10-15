@@ -60,6 +60,10 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
         super.didReceiveMemoryWarning()
     }
     
+    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
+        
+    }
+    
     //UIPopoverPresentationControllerDelegate Methods
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.Popover

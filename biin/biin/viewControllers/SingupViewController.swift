@@ -149,7 +149,9 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     //BNNetworkManagerDelegate Methods
-
+    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
+        
+    }
     
     func showSignupView(view: UIView) {
         self.view.endEditing(true)
