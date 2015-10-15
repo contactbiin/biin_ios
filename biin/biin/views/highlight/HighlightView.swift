@@ -27,6 +27,8 @@ class HighlightView: BNView {
     var iconColor:UIColor?
     var animationView:BiinItAnimationView?
 
+    var shareView:ShareItView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -180,7 +182,12 @@ class HighlightView: BNView {
         
         
         
+        if shareView != nil {
+            shareView = nil
+        }
         
+        shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:site)
+        /*
         var buttonSpace:CGFloat = 30
         //Share button
         buttonSpace += 5
@@ -204,7 +211,7 @@ class HighlightView: BNView {
         collectItButton!.changeToCollectIcon(self.element!.userCollected)
         collectItButton!.icon!.color = iconColor
         containerView.addSubview(collectItButton!)
-        
+        */
         let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
@@ -296,7 +303,7 @@ class HighlightView: BNView {
     
 
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true)
+        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true, shareView:self.shareView)
     }
     
     func likeit(sender:BNUIButton_BiinIt){

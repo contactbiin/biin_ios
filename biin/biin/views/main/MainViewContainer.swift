@@ -67,7 +67,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
             highlightContainer!.transitionOut(nil)
         }
         
-        
         if sitesContainer != nil {
             sitesContainer!.transitionOut(nil)
         }
@@ -112,7 +111,8 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         var colorIndex:Int = 0
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
-            if category.hasSites {
+            if isThereElementsInCategory(category) {
+                
                 let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
                 elementContainer.delegate = (self.father! as! MainView)
                 ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
@@ -132,6 +132,17 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         ypos += SharedUIManager.instance.categoriesHeaderHeight
         scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
         
+    }
+    
+    func isThereElementsInCategory (category:BNCategory) ->Bool {
+        
+        if category.hasSites {
+            if category.elements.count > 0 {
+                return true
+            }
+        } 
+        
+        return false
     }
     
     

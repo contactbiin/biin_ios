@@ -173,6 +173,14 @@ class BNRequest_Element: BNRequest {
                             let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)
                         }
+                        
+                        let categories = BNParser.findNSArray("categories", dictionary: elementData)
+                        
+                        for var j = 0; j < categories?.count; j++ {
+                            let categoryData = categories!.objectAtIndex(j) as! NSDictionary
+                            let identifier = BNParser.findString("identifier", dictionary: categoryData)!
+                            BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element: self.element!)
+                        }
 
                         self.element!.commentedCount = BNParser.findInt("commentedCount", dictionary: elementData)!
                         self.element!.collectCount = BNParser.findInt("collectCount", dictionary: elementData)!
