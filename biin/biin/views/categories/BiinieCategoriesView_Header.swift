@@ -71,6 +71,9 @@ class BiinieCategoriesView_Header: BNView {
         testBtn!.setTitle("test", forState: UIControlState.Normal)
         testBtn!.addTarget(father, action: "testBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(testBtn!)
+        
+        testBtn!.enabled = false
+        testBtn!.alpha = 0
     }
     
 }
