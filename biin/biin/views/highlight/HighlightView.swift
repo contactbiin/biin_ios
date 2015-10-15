@@ -82,7 +82,7 @@ class HighlightView: BNView {
         siteAvatar = BNUIImageView(frame: CGRectMake(4, 4, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
         containerView.addSubview(siteAvatar!)
         
-        site = BNAppSharedManager.instance.dataManager.sites[self.element!.siteIdentifier!]
+        site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
         
         if site!.organization!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)

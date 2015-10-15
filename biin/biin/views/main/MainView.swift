@@ -498,7 +498,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func showSiteFromElement(element: BNElement) {
         
-        if let site = BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!] {
+        if let site = BNAppSharedManager.instance.dataManager.sites[element.showcase!.site!.identifier!] {
             (elementState!.view as! ElementView).showFade()
             self.bringSubviewToFront((siteState!.view as! SiteView))
             (siteState!.view as! SiteView).updateSiteData(site)

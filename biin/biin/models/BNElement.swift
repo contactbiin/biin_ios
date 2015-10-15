@@ -41,12 +41,12 @@ class BNElement:NSObject {
     var savings:String?
     var currency:String?
     
-   //Hightlights - Limited Time
+    //Hightlights - Limited Time
     var hasTimming = false
     var initialDate:NSDate?
     var expirationDate:NSDate?
     
-   //Hightlights - Quantity
+    //Hightlights - Quantity
     var hasQuantity = false
     var quantity:String?
     var reservedQuantity:String?
@@ -85,8 +85,11 @@ class BNElement:NSObject {
     //Download management
     var isDownloadCompleted = false
     var isHighlight:Bool = false
-    var siteIdentifier:String?
+//    var siteIdentifier:String?
     var categoriesIdentifiers:Array<String>?
+    var showcase:BNShowcase?
+    
+    //var biinieProximity:Float? //same as the site where it belongs
     
     override init() {
         super.init()
@@ -142,7 +145,8 @@ class BNElement:NSObject {
         clone.userCollected = self.userCollected
         clone.userLiked = self.userLiked
         clone.isHighlight = self.isHighlight
-        if let value = self.siteIdentifier { clone.siteIdentifier = value }
+//        if let value = self.siteIdentifier { clone.siteIdentifier = value }
+        if let value = self.showcase { clone.showcase = value }
         clone.stars = self.stars
         clone.useWhiteText = self.useWhiteText
         if let value = self.categoriesIdentifiers { clone.categoriesIdentifiers = value }
