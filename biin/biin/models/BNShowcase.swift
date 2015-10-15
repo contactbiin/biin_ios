@@ -38,7 +38,8 @@ class BNShowcase:NSObject {
     //Elements
     var elements:Array<BNElement> = Array<BNElement>()
     
-    var siteIdentifier:String?
+    //var siteIdentifier:String?
+    var site:BNSite?
     
     override init(){
         super.init()

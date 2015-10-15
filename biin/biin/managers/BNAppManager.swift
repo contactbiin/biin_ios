@@ -243,7 +243,7 @@ class BNAppManager {
         } else {
             dataManager.sites[identifier]?.userShared = true
             networkManager.sendSharedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!)
-            mainViewController?.shareSite(dataManager.sites[identifier]!)
+            mainViewController?.shareSite(dataManager.sites[identifier]!, shareView:shareView)
         }
     }
     

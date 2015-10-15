@@ -283,29 +283,29 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     var fullPath = ""
     
-    func shareSite(site:BNSite){
+    func shareSite(site:BNSite, shareView:ShareItView?){
         
-        var siteTitle = ""
-        if let site = BNAppSharedManager.instance.dataManager.sites[site.identifier!] {
-            siteTitle = site.title!
-        }
+//        var siteTitle = ""
+//        if let site = BNAppSharedManager.instance.dataManager.sites[site.identifier!] {
+//            siteTitle = site.title!
+//        }
         
-        let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site)
+        //let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:site)
         let imageToShare:UIImage?
-        imageToShare = imageFromView(view)
+        imageToShare = imageFromView(shareView!)
         
         let subjectToShare:String?
         subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")
         
         let textToShare:String?
         let string1 = NSLocalizedString("ShareBody1", comment: "ShareBody1")
-        let string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
+        //let string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
         let string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
         
-        textToShare = "\(string1)\(site.title!) \(string2)\(siteTitle). \(string3)"
+        textToShare = "\(string1)\(site.title!), \(site.city!). \(string3)"
         
         let myWebsite:NSURL?
-        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        myWebsite = NSURL(string: "https:/www.biin.io")
         
         var sharingItems = [AnyObject]()
 
@@ -331,14 +331,14 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func findSiteForElement(element:BNElement) -> BNSite? {
-        return BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!]
+        return BNAppSharedManager.instance.dataManager.sites[element.showcase!.site!.identifier!]
     }
     
     func shareElement(element:BNElement, shareView:ShareItView?){
         
         var siteTitle = ""
-        if let site = BNAppSharedManager.instance.dataManager.sites[element.siteIdentifier!] {
-            siteTitle = site.title!
+        if let site = BNAppSharedManager.instance.dataManager.sites[element.showcase!.site!.identifier!] {
+            siteTitle = "\(site.title!), \(site.city!)"
         }
         
 //        let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
@@ -356,7 +356,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         textToShare = "\(string1)\(element.title!) \(string2)\(siteTitle). \(string3)"
         
         let myWebsite:NSURL?
-        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        myWebsite = NSURL(string: "https:/www.biin.io")
         
         var sharingItems = [AnyObject]()
         

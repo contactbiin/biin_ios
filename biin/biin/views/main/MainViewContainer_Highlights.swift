@@ -114,31 +114,35 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     func updateHighlightView(){
 
-        var xpos:CGFloat = 0
         
-        for (_ , _id) in BNAppSharedManager.instance.dataManager.highlights {
+        if BNAppSharedManager.instance.dataManager.highlights.count > 0{
+
+            var xpos:CGFloat = 0
+
+            for element in BNAppSharedManager.instance.dataManager.highlights {
+                
+                //let element = BNAppSharedManager.instance.dataManager.elements[_id]
+                
+                let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: element)
+                
+                
+                highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+                scroll!.addSubview(highlight)
+                hightlights!.append(highlight)
+                highlight.requestImage()
+                xpos += (SharedUIManager.instance.screenWidth )
+            }
             
-            let element = BNAppSharedManager.instance.dataManager.elements[_id]
-            
-            let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: element!)
-            
-            
-            highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
-            scroll!.addSubview(highlight)
-            hightlights!.append(highlight)
-            highlight.requestImage()
+            let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: hightlights![0].element!)
+            lastHightLight.frame.origin.x = xpos
+            lastHightLight.requestImage()
+            lastHightLight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+            scroll!.addSubview(lastHightLight)
+            hightlights!.append(lastHightLight)
             xpos += (SharedUIManager.instance.screenWidth )
+            
+            scroll!.contentSize = CGSizeMake(xpos, SharedUIManager.instance.highlightContainer_Height)
         }
-        
-        let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: hightlights![0].element!)
-        lastHightLight.frame.origin.x = xpos
-        lastHightLight.requestImage()
-        lastHightLight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
-        scroll!.addSubview(lastHightLight)
-        hightlights!.append(lastHightLight)
-        xpos += (SharedUIManager.instance.screenWidth )
-        
-        scroll!.contentSize = CGSizeMake(xpos, SharedUIManager.instance.highlightContainer_Height)
     }
     
     /* UIScrollViewDelegate Methods */

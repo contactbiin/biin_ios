@@ -19,15 +19,16 @@ class BNBiin:NSObject
     
     //Relationship properties
     var accountIdentifier:String?
-    var siteIdentifier:String?
+    var site:BNSite?
+    //var siteIdentifier:String?
     //var organizationIdentifier:String?
     var biinType = BNBiinType.NONE
     
     var isBiinDataCorrupted:Bool = false
     var isBiinDetected:Bool = false
     
+    
     //REMOVE ->
-    weak var site:BNSite?
     var showcase:BNShowcase?
     var showcases:Array<BNShowcase>?//REMOVE LATER
     var currentShowcaseIndex:Int = 0
