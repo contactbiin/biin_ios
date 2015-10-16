@@ -554,7 +554,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         print("textFieldDidBeginEditing")
         
-        if textField.placeholder == "Enter your birthDate" {
+        if textField.placeholder == NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate") {
             let datePickerView  : UIDatePicker = UIDatePicker()
             datePickerView.datePickerMode = UIDatePickerMode.Date
             textField.inputView = datePickerView
