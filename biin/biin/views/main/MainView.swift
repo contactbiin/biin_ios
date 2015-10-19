@@ -384,9 +384,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         //delegate_HighlightsContainer!.updateHighlightsContainer!(self, update: true)
     }
     
-    func showInSiteView() {
-        print("showInSiteView")
-        (mainViewContainerState!.view as! MainViewContainer).showInSiteView()
+    func showInSiteView(site:BNSite?) {
+        (mainViewContainerState!.view as! MainViewContainer).showInSiteView(site)
+    }
+    
+    func hideInSiteView(){
+        (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
     }
     
     func showNotificationContext(){
