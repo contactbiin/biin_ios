@@ -760,7 +760,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func addHighlights(){
         
-        var hightLightList = Array<BNElement>()
+        //var hightLightList = Array<BNElement>()
+        
+        self.highlights = Array<BNElement>()
         
         var categoryCounter = 1
         
@@ -785,7 +787,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     if elements.count > 0 {
                         elements = elements.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
                         
-                        hightLightList.append(elements[0])
+                        highlights.append(elements[0])
                         categoryCounter++
                         
                         if elements.count > 1 {
@@ -807,24 +809,24 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
-        hightLightList = hightLightList.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
+        self.highlights = self.highlights.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
         
         if element1 != nil {
-            hightLightList.append(element1!)
+            self.highlights.append(element1!)
         }
 
         if element2 != nil {
-            hightLightList.append(element2!)
+            self.highlights.append(element2!)
         }
         
-        highlights.removeAll(keepCapacity: false)
+        //highlights.removeAll(keepCapacity: false)
         
-        for h in hightLightList {
-            print("---------------------------------")
-            print("element: \(h.title!)")
-            print("site: \(h.showcase!.site!.title!) - \(h.showcase!.site!.city!), \(h.showcase!.site!.biinieProximity!)")
-            self.highlights.append(h)
-        }
+//        for h in hightLightList {
+//            print("---------------------------------")
+//            print("element: \(h.title!)")
+//            print("site: \(h.showcase!.site!.title!) - \(h.showcase!.site!.city!), \(h.showcase!.site!.biinieProximity!)")
+//            self.highlights.append(h)
+//        }
     }
     
     func isSiteAdded(identifier:String) -> Bool {
