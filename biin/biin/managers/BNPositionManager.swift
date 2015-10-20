@@ -36,7 +36,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var biins = Array<BNBiin>()
     var rangedRegions:NSMutableDictionary = NSMutableDictionary();
     
-    var currentSiteUUID:NSUUID?
+    //var currentSiteUUID:NSUUID?
     var locationFixAchieved = false
     var userCoordinates:CLLocationCoordinate2D?
     
@@ -60,6 +60,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     let MAX_NUMBER_OF_REGIONS = 20
     
     var isBiinsViewContainerEmpty = true
+    
+    var currentSite:BNSite?
     
     init(errorManager:BNErrorManager){
         
@@ -1058,13 +1060,13 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     //if value.0 || value.1 {
                     //if isBiinsViewContainerEmpty {
                         isBiinsViewContainerEmpty = false
-                        self.orderAndSentBiinsToDisplay(self.myBeacons)
+                        //self.orderAndSentBiinsToDisplay(self.myBeacons)
                     //}
                     //}
                     
-                    //if myBeacons.count > 0 {
-                        //handleBiiniePositionOnFirstBiinDetected(myBeacons[0])
-                    //}
+                    if myBeacons.count > 0 {
+                        handleBiiniePositionOnFirstBiinDetected(myBeacons[0])
+                    }
                     
                     //TEMP: update table view
 //                    if self.delegateView is BNPositionManagerDelegate {
@@ -1161,27 +1163,24 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         print("minor: \(beacon.minor)")
         
         
-        //1. get organization by uuid
-        for (_, site) in BNAppSharedManager.instance.dataManager.sites {
-            
-            site.isUserInside = false
-            
-            if site.proximityUUID!.UUIDString == beacon.proximityUUID.UUIDString {
-                
+        var changeSite = false
+        
+        if currentSite == nil {
+            changeSite = true
+        } else {
+            if currentSite!.major != beacon.major.integerValue {
+                changeSite = true
+            }
+        }
+        
+        if changeSite {
+            for (_, site) in BNAppSharedManager.instance.dataManager.sites {
                 if site.major == beacon.major.integerValue {
                     
-                    if currentSiteUUID != nil {
-                        if site.proximityUUID!.UUIDString == currentSiteUUID!.UUIDString {
-                            print("*** Still on the same site premises.....")
-                        } else {
-                            print("*** Change site premises.....")
-                            currentSiteUUID = site.proximityUUID
-                        }
-                    } else {
-                        print("Entering a new site premises.....")
-                        currentSiteUUID = site.proximityUUID
-                    }
-                    
+                    print("Entering a new site premises.....\(site.title!)")
+                    currentSite = site
+                    self.delegateView!.showInSiteView!(currentSite)
+
                     for biin in site.biins {
                         if biin.minor == beacon.minor.integerValue {
                             
@@ -1218,10 +1217,78 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 }
             }
         }
+        
+        
+        
+        
+        /*
+        //1. get organization by uuid
+        for (_, site) in BNAppSharedManager.instance.dataManager.sites {
+            
+            site.isUserInside = false
+            
+            //if site.proximityUUID!.UUIDString == beacon.proximityUUID.UUIDString {
+                
+                if site.major == beacon.major.integerValue {
+                    
+//                    if currentSite != nil {
+//                        if site.proximityUUID!.UUIDString == currentSiteUUID!.UUIDString {
+//                            print("*** Still on the same site premises.....")
+//                        } else {
+//                            print("*** Change site premises.....")
+//                            currentSiteUUID = site.proximityUUID
+//                            
+//                            currentSite = site
+//                            self.delegateView!.hideInSiteView!()
+//                            self.delegateView!.showInSiteView!(currentSite!)
+//                        }
+//                    } else {
+//                        print("Entering a new site premises.....")
+//                        currentSiteUUID = site.proximityUUID
+//                        currentSite = site
+//                        self.delegateView!.showInSiteView!(currentSite!)
+//                    }
+//                    
+                    for biin in site.biins {
+                        if biin.minor == beacon.minor.integerValue {
+                            
+                            print("Biin information")
+                            print("biin name: \(biin.name!)")
+                            //println("biin message: \(biin.state?.message!)")
+                            
+                            /*
+                            var localNotification:UILocalNotification = UILocalNotification()
+                            localNotification.alertAction = "Biin"
+                            localNotification.alertBody = biin.name!
+                            localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
+                            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                            */
+                            
+                            switch biin.biinType {
+                            case .EXTERNO:
+                                print("User is outside \(site.title!)")
+                                site.isUserInside = false
+                                break
+                            case .INTERNO:
+                                print("User is inside \(site.title!)")
+                                site.isUserInside = true
+                                break
+                            case .PRODUCT:
+                                print("User is inside and near a product \(site.title!)")
+                                site.isUserInside = true
+                                break
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
+            //}
+        }
         //2, get site by major
         
         //3. get biin by minor
-        
+        */
     }
     
 
@@ -1285,39 +1352,39 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //This method order the biin list according to beacons detected on field.
     func orderAndSentBiinsToDisplay(beacons:Array<CLBeacon>) {
 
-        print("orderAndSentBiinsToDisplay: \(beacons.count) ")
+        print("orderAndSentBiinsToDisplay: \(beacons.count)")
 
         //Create an Array to temporary backup biins.
 //        var biinBackup:Array<BNBiin> = Array<BNBiin>()
-        self.biins.removeAll(keepCapacity: false)
-        BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
+        //self.biins.removeAll(keepCapacity: false)
+        //BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
         //Remove and backup biins from local list.
 
-        for beacon in beacons {
-            if beacon.proximity != CLProximity.Unknown {
-                for (_, site) in BNAppSharedManager.instance.dataManager.sites {
-                    if beacon.major.integerValue == site.major {
-                        var minorAdded = 0
-                        for biin in site.biins {
-                            if beacon.minor.integerValue == biin.minor && minorAdded != biin.minor {
-                                minorAdded = biin.minor!
-                                print("ADDING BIIN TO DISPLAY \(site.major) \(biin.minor)")
-                                BNAppSharedManager.instance.dataManager.availableBiins.append(biin.currectObject()._id!)
-                                self.biins.append(biin)
+        if currentSite == nil {
+            for beacon in beacons {
+                if beacon.proximity != CLProximity.Unknown {
+                    for (_, site) in BNAppSharedManager.instance.dataManager.sites {
+                        if beacon.major.integerValue == site.major {
+                            
+                            print("ADDING BIIN TO DISPLAY \(site.major), \(site.title!)")
+                            currentSite = site
+                            self.delegateView!.showInSiteView!(currentSite!)
+                            
+                            /*
+                            var minorAdded = 0
+                            for biin in site.biins {
+                                if beacon.minor.integerValue == biin.minor && minorAdded != biin.minor {
+                                    minorAdded = biin.minor!
+                                    print("ADDING BIIN TO DISPLAY \(site.major) \(biin.minor)")
+                                    BNAppSharedManager.instance.dataManager.availableBiins.append(biin.currectObject()._id!)
+                                    self.biins.append(biin)
+                                }
                             }
+*/
                         }
                     }
                 }
             }
-            
-            /*
-            for var i = 0; i < self.biins.count; i++ {
-                if beacon.proximityUUID.UUIDString == self.biins[i].proximityUUID!.UUIDString {
-                    biinBackup.append(self.biins[i])
-                    self.biins.removeAtIndex(i)
-                }
-            }
-*/
         }
         /*
         //Put back backup biin on local list.
@@ -1330,16 +1397,17 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //clear biinBackup
         biinBackup.removeAll(keepCapacity: false)
         */
-        self.delegateView?.manager!(self, showInSiteView: self.biins)
+        //self.delegateView?.manager!(self, showInSiteView: self.biins)
 
     }
     
     
     func cleanAndSentBiinsToDisplay() {
+        print("cleanAndSentBiinsToDisplay")
         isBiinsViewContainerEmpty = true
         self.biins.removeAll(keepCapacity: false)
         BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
-        self.delegateView?.manager!(self, showInSiteView: self.biins)
+        self.delegateView!.hideInSiteView!()
         self.myBeaconsPrevious.removeAll(keepCapacity: false)
         self.myBeacons.removeAll(keepCapacity: false)
     }
@@ -1655,7 +1723,8 @@ func == (biin1:BNBiin, biin2:BNBiin) -> Bool {
     optional func manager(manager:BNPositionManager!, requestCategoriesDataOnBackground user:Biinie)
     
     //temporal methods
-    optional func manager(manager:BNPositionManager!, showInSiteView biins:Array<BNBiin>)
+    optional func showInSiteView (site:BNSite?)
+    optional func hideInSiteView()
     //optional func manager(manager:BNPositionManager!, setPinOnMapWithLat lat:Float, long:Float, radious:Int , title:String, subtitle:String)
     //optional func manager(manager:BNPositionManager!,  printText text:String)
 }

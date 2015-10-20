@@ -80,9 +80,7 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
 
     }
     
-    deinit{
-        print("-------------- deinit in siteView_showcase")
-    }
+    deinit{    }
     
     override func transitionIn() {
         
@@ -133,8 +131,8 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
             scroll!.setContentOffset(CGPoint(x: xpos, y: 0), animated: true)
             currentHighlight++
             
-            print("current:\(currentHighlight)")
-            print("number:\(hightlights!.count)")
+            //print("current:\(currentHighlight)")
+            //print("number:\(hightlights!.count)")
         }
     }
     

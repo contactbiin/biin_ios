@@ -43,11 +43,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         
     }
     
-    
-    
-    deinit{
-        print("-------------- deinit in siteView_showcase")
-    }
+    deinit{ }
     
     override func transitionIn() {
         
@@ -105,8 +101,8 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
             scroll!.setContentOffset(CGPoint(x: xpos, y: 0), animated: true)
             currentHighlight++
             
-            print("current:\(currentHighlight)")
-            print("number:\(hightlights!.count)")
+            //print("current:\(currentHighlight)")
+            //print("number:\(hightlights!.count)")
         }
     }
     
@@ -177,7 +173,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         
  
         
-        print("scrollViewDidEndDecelerating \(currentHighlight)")
+        //print("scrollViewDidEndDecelerating \(currentHighlight)")
         
     }// called when scroll view grinds to a halt
     
@@ -187,7 +183,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
             scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             currentHighlight = 0
         }
-        print("scrollViewDidEndScrollingAnimation")
+        //print("scrollViewDidEndScrollingAnimation")
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
@@ -196,7 +192,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     }// return a yes if you want to scroll to the top. if not defined, assumes YES
     
     func scrollViewDidScrollToTop(scrollView: UIScrollView) {
-        print("scrollViewDidScrollToTop")
+        //print("scrollViewDidScrollToTop")
 
     }// called when scrolling animation finished. may be called immediately if already at top
     

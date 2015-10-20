@@ -42,12 +42,12 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         scroll!.delegate = self
         self.addSubview(scroll!)
         
-        header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
-        self.addSubview(header!)
-        
         inSiteView = InSiteView(frame: CGRectMake(0, (screenHeight - 20), screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
+        
+        header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
+        self.addSubview(header!)
         
         fade = UIView(frame: frame)
         fade!.backgroundColor = UIColor.blackColor()
@@ -150,21 +150,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         (father as! MainView).showMenu(UIScreenEdgePanGestureRecognizer())
     }
     
-    var showingSiteIn = false
-    func testBtnAction(sender:UIButton) {
-        inSiteView!.updateForSite(BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"])
-        
-        if !showingSiteIn {
-            showInSiteView()
-            showingSiteIn = true
-        } else {
-            showingSiteIn = false
-            
-            hideInSiteView()
-        }
-        
-    }
-    
     override func transitionIn() {
         
         UIView.animateWithDuration(0.5, animations: {()->Void in
@@ -246,19 +231,21 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     
     }// called when scrolling animation finished. may be called immediately if already at top
     
-    func showInSiteView(){
+    func showInSiteView(site:BNSite?){
+        
+        inSiteView!.updateForSite(site!)
+        
         UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.inSiteView!.frame.origin.y = ( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + 20 ))
+            self.inSiteView!.frame.origin.y = ( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + SharedUIManager.instance.categoriesHeaderHeight + 20 ))
             
-            self.header!.frame.origin.y = (SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + SharedUIManager.instance.inSiteView_Height + 20))
+            //self.header!.frame.origin.y = (SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + SharedUIManager.instance.inSiteView_Height + 20))
         })
     }
     
     func hideInSiteView(){
         UIView.animateWithDuration(0.25, animations: {()-> Void in
             self.inSiteView!.frame.origin.y = (SharedUIManager.instance.screenHeight - 20)
-            self.header!.frame.origin.y = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)
-            
+            //self.header!.frame.origin.y = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)
         })
     }
 }
