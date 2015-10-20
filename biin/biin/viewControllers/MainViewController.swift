@@ -445,8 +445,12 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
 
     }
     
-    func manager(manager: BNPositionManager!, showInSiteView biins: Array<BNBiin>) {
-        mainView!.showInSiteView()
+    func showInSiteView(site: BNSite?) {
+        mainView!.showInSiteView(site)
+    }
+    
+    func hideInSiteView() {
+        mainView!.hideInSiteView()
     }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {

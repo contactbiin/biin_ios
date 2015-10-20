@@ -491,11 +491,12 @@ class SiteView:BNView, UIScrollViewDelegate {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
         }
         
+        BNAppSharedManager.instance.likeIt(site!.identifier!, isElement: false)
+        
         updateLikeItBtn()
     }
     
     func updateLikeItBtn() {
-        BNAppSharedManager.instance.likeIt(site!.identifier!, isElement: false)
         likeItButton!.changedIcon(site!.userLiked)
         likeItButton!.icon!.color = iconColor!
     }
@@ -529,14 +530,15 @@ class SiteView:BNView, UIScrollViewDelegate {
         } else {
             animationView!.animateWithText(NSLocalizedString("NotFollowTxt", comment: "NotFollowTxt"))
         }
-        
+
+        BNAppSharedManager.instance.followIt(site!.identifier!)
+
         updateFollowBtn()
     }
     
     func updateFollowBtn() {
         
         followButton!.layer.borderColor = iconColor!.CGColor
-        BNAppSharedManager.instance.followIt(site!.identifier!)
         
         if site!.userFollowed {
             followButton!.setTitle(NSLocalizedString("Following", comment: "Following"), forState: UIControlState.Normal)

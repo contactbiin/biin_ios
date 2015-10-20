@@ -366,6 +366,7 @@ class ElementView: BNView {
         }
         
         BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
+        
         updateLikeItBtn()
     }
     
