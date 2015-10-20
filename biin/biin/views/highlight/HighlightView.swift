@@ -314,12 +314,13 @@ class HighlightView: BNView {
         } else {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
         }
+
+        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
         
         updateLikeItBtn()
     }
     
     func updateLikeItBtn() {
-        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
         likeItButton!.changedIcon(self.element!.userLiked)
         likeItButton!.icon!.color = self.iconColor!
     }
