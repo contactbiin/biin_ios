@@ -71,7 +71,7 @@ class BNRequest_Categories: BNRequest {
                         }
                         
                         if category.sitesDetails.count == 0 {
-                            print("Category issue")
+                            print("Category issue or empty")
                         }
                         
                         categories.append(category)

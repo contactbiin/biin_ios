@@ -89,7 +89,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     }
     
     deinit{
-        print("-------------- deinit in siteView_showcase")
+        
     }
     
     
@@ -98,21 +98,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        print("SiteView_Showcase transitionOut")
-        
-        //clean()
-        if elements?.count > 0 {
-            
-            for view in scroll!.subviews {
-                
-                if view is ElementMiniView {
-                    (view as! ElementMiniView).removeFromSuperview()
-                }
-            }
 
-            elements!.removeAll(keepCapacity: false)
-            addedElementsIdentifiers!.removeAll(keepCapacity: false)
-        }
         
     }
     
@@ -276,6 +262,35 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     
     func moreElementsBtnAction(sender:UIButton){
         delegate!.showAllElementsViewForCategory!(self.category)
+    }
+    
+    func clean() {
+        print("MainViewContainer_Elements clean()")
+        
+        //clean()
+        if elements?.count > 0 {
+        
+            
+            for elementView in elements! {
+                elementView.removeFromSuperview()
+                elementView.clean()
+            }
+            
+            
+            elements!.removeAll(keepCapacity: false)
+            elements = nil
+            addedElementsIdentifiers!.removeAll(keepCapacity: false)
+            addedElementsIdentifiers = nil
+        }
+        
+        delegate = nil
+        moreElementsBtn?.removeFromSuperview()
+        title?.removeFromSuperview()
+        subTitle?.removeFromSuperview()
+        scroll?.removeFromSuperview()
+        showcase = nil
+        category = nil
+        
     }
 }
 

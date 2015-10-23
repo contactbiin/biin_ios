@@ -606,6 +606,54 @@ class ProfileView: BNView, UITextFieldDelegate {
         //var uuu = ""
         return false
     }// called when 'return' key pressed. return NO to ignore.
+    
+    func clean() {
+        delegate = nil
+        delegateFather = nil
+        
+        title?.removeFromSuperview()
+        backBtn?.removeFromSuperview()
+        fade?.removeFromSuperview()
+        
+        biinieAvatar?.removeFromSuperview()
+        biinieNameLbl?.removeFromSuperview()
+        biinieUserNameLbl?.removeFromSuperview()
+        
+        femaleBtn?.removeFromSuperview()
+        maleBtn?.removeFromSuperview()
+        genderLbl?.removeFromSuperview()
+        
+        nameTxt?.clean()
+        nameTxt!.removeFromSuperview()
+        
+        lastNameTxt?.clean()
+        lastNameTxt?.removeFromSuperview()
+        
+        usernameTxt?.clean()
+        usernameTxt?.removeFromSuperview()
+        
+        emailTxt?.clean()
+        emailTxt?.removeFromSuperview()
+        
+        emailVerifyTxt?.clean()
+        emailVerifyTxt?.removeFromSuperview()
+        
+        birthDateTxt?.clean()
+        birthDateTxt?.removeFromSuperview()
+        
+        saveBtn?.clean()
+        saveBtn?.removeFromSuperview()
+        
+        
+        categoriesTitle?.removeFromSuperview()
+        categoriesSelected.removeAll()
+        
+        scroll?.removeFromSuperview()
+    }
+    
+    func show() {
+        
+    }
 }
 
 @objc protocol ProfileView_Delegate:NSObjectProtocol {

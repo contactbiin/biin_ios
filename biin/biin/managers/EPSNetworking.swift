@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 import SystemConfiguration
+import QuartzCore
 
 struct RequetingImage {
     var image:BNUIImageView
@@ -454,7 +455,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 let url: NSURL = NSURL(string: urlString as String)!
                 
                 // Download an NSData representation of the image at the URL
-                let request: NSURLRequest = NSURLRequest(URL:url)
+                let request: NSURLRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 10)
 //                var urlConnection: NSURLConnection = NSURLConnection(request: request, delegate: self)!
             
             
@@ -468,14 +469,17 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                     } else {
                         //Send image to be store in image dictionary
 
-                        //println("Store image: \(urlString)")
-                        ShareEPSNetworking.cacheImages[urlString as String] = UIImage(data: data!)
+                        print("Store image: \(urlString)")
+                        
+                        let imageDownload = UIImage(data: data!)!
+                        
+                        ShareEPSNetworking.cacheImages[urlString as String] = self.optimizeImageForRender(imageDownload.CGImage!)
 //                        image.image = UIImage(data: data)
                         
                         self.sentImages(urlString as String)
                         //println("image cache count \(ShareEPSNetworking.cacheImages.count)")
                         
-                        self.saveImageInBiinChacheLocalFolder(urlString as String, image:UIImage(data: data!)!)
+                        self.saveImageInBiinChacheLocalFolder(urlString as String, image:imageDownload)
                         
                         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                         
@@ -540,11 +544,11 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         
         
-        //println("-----------------     \(urlString)")
+        print("-----------------     \(urlString)")
         let index2 = urlString.rangeOfString("/", options: .BackwardsSearch)?.endIndex
         let substring2 = urlString.substringFromIndex(index2!)
-        //println("-----------------     \(index2)")
-        //println("-----------------     \(substring2)")
+        print("-----------------     \(index2)")
+        print("-----------------     \(substring2)")
         
         let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(substring2)
         
@@ -553,16 +557,72 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
             
-            //println("Image:\(urlString) does not exist on BiinCacheImages folder, request and Save!")
+            print("Image:\(urlString) does not exist on BiinCacheImages folder, request and Save!")
             return nil
             
         } else {
             
-            //println("Loading image:\(urlString) from on BiinCacheImages folder.")
-            //TODO: LOAD IMAGE HERE
-//            var loadedImage = UIImage(contentsOfFile:imagePath)
-            return UIImage(contentsOfFile:imagePath)
+            print("Loading image:\(urlString) from on BiinCacheImages folder.")
+            
+            /*
+            //Using UIKIT
+            let image = UIImage(contentsOfFile:imagePath)
+            
+            let size = CGSizeApplyAffineTransform(image!.size, CGAffineTransformMakeScale(0.25, 0.25))
+            let hasAlpha = true
+            let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+            
+            UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+            image!.drawInRect(CGRect(origin: CGPointZero, size: size))
+            
+            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            */
+            
+            /*
+            let cgImage = UIImage(contentsOfFile:imagePath)!.CGImage
+            
+            let width = CGImageGetWidth(cgImage) / 2
+            let height = CGImageGetHeight(cgImage) / 2
+            let bitsPerComponent = CGImageGetBitsPerComponent(cgImage)
+            let bytesPerRow = CGImageGetBytesPerRow(cgImage)
+            let colorSpace = CGImageGetColorSpace(cgImage)
+            let bitmapInfo = CGImageGetBitmapInfo(cgImage)
+            
+            let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
+            
+            CGContextSetInterpolationQuality(context, CGInterpolationQuality.High)
+            
+            CGContextDrawImage(context, CGRect(origin: CGPointZero, size: CGSize(width: CGFloat(width), height: CGFloat(height))), cgImage)
+            
+            let scaledImage = CGBitmapContextCreateImage(context).flatMap { UIImage(CGImage: $0)}
+            */
+            
+            return optimizeImageForRender(UIImage(contentsOfFile:imagePath)!.CGImage!)//scaledImage//UIImage(contentsOfFile:imagePath)
         }
+    }
+    
+    func optimizeImageForRender(cgImage:CGImageRef)  -> UIImage? {
+        
+        //let cgImage = UIImage(contentsOfFile:imagePath)!.CGImage
+        
+        let width = CGImageGetWidth(cgImage) / 2
+        let height = CGImageGetHeight(cgImage) / 2
+        let bitsPerComponent = CGImageGetBitsPerComponent(cgImage)
+        let bytesPerRow = CGImageGetBytesPerRow(cgImage)
+        let colorSpace = CGImageGetColorSpace(cgImage)
+        let bitmapInfo = CGImageGetBitmapInfo(cgImage)
+        
+        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
+        
+        CGContextSetInterpolationQuality(context, CGInterpolationQuality.High)
+        
+        CGContextDrawImage(context, CGRect(origin: CGPointZero, size: CGSize(width: CGFloat(width), height: CGFloat(height))), cgImage)
+        
+        let scaledImage = CGBitmapContextCreateImage(context).flatMap { UIImage(CGImage: $0)}
+        
+        
+        return scaledImage//UIImage(contentsOfFile:imagePath)
     }
     
     
@@ -574,7 +634,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         // create the custom folder path
         let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(BNAppSharedManager.instance.biinCacheImagesFolder)
         
-        let imageData = UIImagePNGRepresentation(image)// UIImageJPEGRepresentation(image, 1)
+        let imageData = UIImageJPEGRepresentation(image, 0.45)
         //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
         
         //println("-----------------     \(urlString)")
@@ -588,11 +648,17 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
         
             if !imageData!.writeToFile(imagePath, atomically: false) {
-                //println("not saved:\(imagePath)")
+                print("-------- Not saved:\(imagePath)")
             } else {
-                //println("Saving image:\(urlString) on BiinCacheImages folder!")
+                print("-------- Saving image:\(urlString) on BiinCacheImages folder!")
                 NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey:urlString)
             }
         }
+    }
+    
+    
+    func clean(){
+        ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)
+        ShareEPSNetworking.requestingImages.removeAll(keepCapacity: false)
     }
 }

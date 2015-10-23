@@ -99,4 +99,19 @@ class BNRequest:NSObject {
     }
     
     func run() { }
+    
+    func clean() {
+    
+        print("BNRequest clean() = \(requestString)")
+        
+        showcase = nil
+        element = nil
+        organization = nil
+        site = nil
+        user = nil
+        //image?.removeFromSuperview()
+        categories?.removeAll()
+        categories = nil
+
+    }
 }

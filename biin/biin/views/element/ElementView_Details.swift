@@ -14,6 +14,9 @@ class ElementView_Details:BNView {
     var title:UILabel?
     var subTitle:UILabel?
     
+    var labels:Array<UILabel>?
+    var detailViews:Array<UIView>?
+    
 //    override init() {
 //        super.init()
 //    }
@@ -34,6 +37,9 @@ class ElementView_Details:BNView {
         self.init(frame:frame, father:father)
         
         self.backgroundColor = UIColor.appMainColor()
+        
+        self.labels = Array<UILabel>()
+        self.detailViews = Array<UIView>()
         
         elementIdentifier = element!._id
         
@@ -99,6 +105,8 @@ class ElementView_Details:BNView {
                 title.alpha = 1
                 self.addSubview(title)
                 ypos += title.frame.height
+                self.labels!.append(title)
+                
                 break
             case .Paragraph:  //2
                 addSpaceForQuote = false
@@ -112,6 +120,8 @@ class ElementView_Details:BNView {
                 paragraph.alpha = 1
                 self.addSubview(paragraph)
                 ypos += paragraph.frame.height
+                self.labels!.append(paragraph)
+                
                 break
             case .Quote:      //3
                 addSpaceForQuote = true
@@ -124,10 +134,12 @@ class ElementView_Details:BNView {
                 quote.sizeToFit()
                 quote.alpha = 1
                 self.addSubview(quote)
+                self.labels!.append(quote)
                 
                 let quoteView = UIView(frame: CGRectMake(xpos, (ypos - 5), 1, (quote.frame.height + 12)))
                 quoteView.backgroundColor = element!.media[0].vibrantColor!
                 self.addSubview(quoteView)
+                detailViews!.append(quoteView)
                 
                 ypos += quoteView.frame.height
                 
@@ -145,12 +157,14 @@ class ElementView_Details:BNView {
                     item.sizeToFit()
                     item.alpha = 1
                     self.addSubview(item)
+                    self.labels!.append(item)
                     
                     let yposition = ypos + 7
                     let pointView = UIView(frame: CGRectMake(xpos, (yposition), 4, 4))
                     pointView.backgroundColor = UIColor.appTextColor()
                     pointView.layer.cornerRadius = 2
                     self.addSubview(pointView)
+                    detailViews!.append(pointView)
                     
                     ypos += item.frame.height
                 }
@@ -168,6 +182,7 @@ class ElementView_Details:BNView {
                 link.alpha = 1
                 self.addSubview(link)
                 ypos += link.frame.height
+                self.labels!.append(link)
                 break
             case .PriceList:   //6
                 addSpaceForQuote = false
@@ -182,6 +197,7 @@ class ElementView_Details:BNView {
                     price.sizeToFit()
                     price.alpha = 1
                     self.addSubview(price)
+                    self.labels!.append(price)
                     
                     price.frame.origin.x = frame.width - (price.frame.width + 20)
                     
@@ -193,6 +209,7 @@ class ElementView_Details:BNView {
                     desc.alpha = 1
                     desc.sizeToFit()
                     self.addSubview(desc)
+                    self.labels!.append(desc)
                     
                     desc.frame = CGRectMake(xpos, ypos, frame.width - (price.frame.width + 50), desc.frame.height)
                     
@@ -284,6 +301,32 @@ class ElementView_Details:BNView {
 //        } else {
 //            biinitBtn!.showDisable()
 //        }
+    }
+    
+    func clean() {
+        for view in detailViews! {
+            view.removeFromSuperview()
+        }
+        
+        detailViews!.removeAll()
+        detailViews = nil
+        
+        
+        for label in labels! {
+            label.removeFromSuperview()
+        }
+        
+        labels!.removeAll()
+        labels = nil
+        
+        biinitBtn?.removeFromSuperview()
+        
+        title?.removeFromSuperview()
+        subTitle?.removeFromSuperview()
+    }
+    
+    func show() {
+        
     }
 }
 

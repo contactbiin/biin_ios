@@ -267,6 +267,7 @@ class BNRequest_Site: BNRequest {
                     }
                     
                     self.inCompleted = true
+                    //self.clean()
                     self.networkManager!.removeFromQueue(self)
                 }
             }

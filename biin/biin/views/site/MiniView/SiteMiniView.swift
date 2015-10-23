@@ -152,6 +152,13 @@ class SiteMiniView: BNView {
         //sectionsViewDelegate!.showShowcaseFromBottom!(self, position:position, showcaseKey:view.showcaseKey)
         
     }
+    
+    func clean() {
+        print("SiteMiniView clean()")
+        site = nil
+        image!.removeFromSuperview()
+        header!.removeFromSuperview()
+    }
 }
 
 @objc protocol SiteMiniView_Delegate:NSObjectProtocol {

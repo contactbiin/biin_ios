@@ -119,6 +119,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         requestProcessed++
         
         //print("queueCounter: \(queueCounter)")
+        request.clean()
         requestsQueue.removeValueForKey(request.identifier)
         //print("REMOVE: requests in queue:\(requestsQueue.count)")
 

@@ -22,6 +22,7 @@ class DevelopmentView:UIView {
     var clearUserBtn:UIButton?
     var enterBtn:UIButton?
     var addActionBtn:UIButton?
+    var resetNotification:UIButton?
     
     var didSomethingChanged = false
     
@@ -150,6 +151,14 @@ class DevelopmentView:UIView {
         self.addSubview(addActionBtn!)
         ypos += 65
         
+        resetNotification = UIButton(frame: CGRectMake(0, ypos, screenWidth, 60))
+        resetNotification!.backgroundColor = UIColor.appBackground()
+        resetNotification!.setTitle("Reset Notification", forState: UIControlState.Normal)
+        resetNotification!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        resetNotification!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
+        resetNotification!.addTarget(self, action: "resetNotificationAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(resetNotification!)
+        ypos += 65
         
         label = UILabel(frame: CGRect(x:25, y:ypos, width:(frame.width - 50), height:30))
         label.text = "** If you make any changes you will need to relaunch the application."
@@ -239,6 +248,10 @@ class DevelopmentView:UIView {
     }
     
     func addActionBtnAction(sender:UIButton!){
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BIINED_ELEMENT, to: "55db879e2fde320300fb9321")
+        //BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BIINED_ELEMENT, to: "55db879e2fde320300fb9321")
+    }
+    
+    func resetNotificationAction(sender:UIButton){
+        BNAppSharedManager.instance.notificationManager.resetAllNotifications()
     }
 }

@@ -50,17 +50,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        if hightlights?.count > 0 {
-            
-            for view in scroll!.subviews {
-                
-                if view is HighlightView {
-                    (view as! HighlightView).removeFromSuperview()
-                }
-            }
-            
-            hightlights!.removeAll(keepCapacity: false)
-        }
+
     }
     
     override func setNextState(goto:BNGoto){
@@ -110,19 +100,20 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     func updateHighlightView(){
 
+
         
         if BNAppSharedManager.instance.dataManager.highlights.count > 0{
 
             var xpos:CGFloat = 0
 
+            
             for element in BNAppSharedManager.instance.dataManager.highlights {
                 
-                //let element = BNAppSharedManager.instance.dataManager.elements[_id]
                 
                 let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: element)
                 
                 
-                highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+                highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
                 scroll!.addSubview(highlight)
                 hightlights!.append(highlight)
                 highlight.requestImage()
@@ -132,7 +123,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
             let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: hightlights![0].element!)
             lastHightLight.frame.origin.x = xpos
             lastHightLight.requestImage()
-            lastHightLight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+            lastHightLight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
             scroll!.addSubview(lastHightLight)
             hightlights!.append(lastHightLight)
             xpos += (SharedUIManager.instance.screenWidth )
@@ -208,6 +199,33 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     func startTimer(){
         timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
         timer!.fire()
+    }
+    
+    func clean() {
+        
+        print("MainViewContainer_Highlights clean()")
+        
+        if hightlights?.count > 0 {
+            
+            for highlight in self.hightlights! {
+                highlight.clean()
+                highlight.removeFromSuperview()
+            }
+            
+//            for view in scroll!.subviews {
+//                
+////                if view is HighlightView {
+//                    (view as! HighlightView).clean()
+//                    (view as! HighlightView).removeFromSuperview()
+////                }
+//            }
+            
+            hightlights!.removeAll(keepCapacity: false)
+        }
+        
+        hightlights = nil
+        scroll?.removeFromSuperview()
+        self.timer!.invalidate()
     }
 }
 

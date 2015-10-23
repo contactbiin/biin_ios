@@ -16,7 +16,7 @@ class BNBiin:NSObject
     var proximityUUID:NSUUID?
     var major:Int?
     var minor:Int?
-    
+
     //Relationship properties
     var accountIdentifier:String?
     var site:BNSite?

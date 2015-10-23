@@ -224,5 +224,5 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
         //println("scrollViewDidScrollToTops")
     }// called when scrolling animation finished. may be called immediately if already at top
 
-    
+
 }
