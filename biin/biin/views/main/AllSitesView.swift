@@ -222,12 +222,6 @@ class AllSitesView: BNView {
         return false
     }
     
-    func clean(){
-        scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
-//        detailsView!.removeFromSuperview()
-//        detailsView = nil
-    }
-    
     func showFade(){
         UIView.animateWithDuration(0.2, animations: {()-> Void in
             self.fade!.alpha = 0.5
@@ -238,6 +232,32 @@ class AllSitesView: BNView {
         UIView.animateWithDuration(0.5, animations: {()-> Void in
             self.fade!.alpha = 0
         })
+    }
+    
+    func clean() {
+
+        print("AllSitesView clean()")
+        
+        delegate = nil
+        title?.removeFromSuperview()
+        backBtn?.removeFromSuperview()
+
+        fade?.removeFromSuperview()
+
+        if sites != nil {
+            for view in sites! {
+                view.clean()
+                view.removeFromSuperview()
+            }
+        }
+        
+        sites!.removeAll()
+        addedSitesIdentifiers!.removeAll()
+        scroll?.removeFromSuperview()
+    }
+    
+    func show() {
+        
     }
 }
 

@@ -57,7 +57,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
-        BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
+        //BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, frame.height), father:nil, rootViewController: self)
         
@@ -455,5 +455,15 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
         
+    }
+    
+    func clean(){
+        print("MainViewController clean()")
+        self.mainView!.clean()
+    }
+    
+    func show(){
+        print("MainViewController show()")
+        self.mainView!.show()
     }
 }

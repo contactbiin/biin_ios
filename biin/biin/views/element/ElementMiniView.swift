@@ -33,6 +33,8 @@ class ElementMiniView: BNView {
     var textPrice1:UILabel?
     var textPrice2:UILabel?
     
+    var title:UILabel?
+    var location:UILabel?
 //    override init() {
 //        super.init()
 //    }
@@ -136,11 +138,11 @@ class ElementMiniView: BNView {
         }
         
         ypos = 3
-        let title = UILabel(frame: CGRectMake(5, ypos, titleTextWidth, (SharedUIManager.instance.miniView_titleSize + 3)))
-        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-        title.textColor = textColor
-        title.text = element!.title!
-        self.header!.addSubview(title)
+        title = UILabel(frame: CGRectMake(5, ypos, titleTextWidth, (SharedUIManager.instance.miniView_titleSize + 3)))
+        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+        title!.textColor = textColor
+        title!.text = element!.title!
+        self.header!.addSubview(title!)
 
         if showlocation {
             ypos += SharedUIManager.instance.miniView_titleSize + 2
@@ -155,11 +157,11 @@ class ElementMiniView: BNView {
             
             let subTitleLength = SharedUIManager.instance.getStringLength(titleText, fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_subTittleSize)
             
-            let location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
-            location.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
-            location.textColor = textColor
-            location.text = " | \(site!.city!)"
-            self.header!.addSubview(location)
+            location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
+            location!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
+            location!.textColor = textColor
+            location!.text = " | \(site!.city!)"
+            self.header!.addSubview(location!)
             ypos += SharedUIManager.instance.miniView_subTittleSize + 2
             
         } else {
@@ -301,6 +303,22 @@ class ElementMiniView: BNView {
     
     override func refresh() {
 
+    }
+    
+    func clean(){
+        
+        delegate = nil
+        delegateAllCollectedView = nil
+        element = nil
+        image?.removeFromSuperview()
+        header?.clean()
+        header!.removeFromSuperview()
+        removeItButton?.removeFromSuperview()
+        percentageView?.removeFromSuperview()
+        textPrice1?.removeFromSuperview()
+        textPrice2?.removeFromSuperview()
+        title?.removeFromSuperview()
+        location?.removeFromSuperview()
     }
 }
 

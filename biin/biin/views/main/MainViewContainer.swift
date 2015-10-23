@@ -62,30 +62,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     
     func updateContainer(){
         
-        
-        if highlightContainer != nil {
-            highlightContainer!.transitionOut(nil)
-        }
-        
-        if sitesContainer != nil {
-            sitesContainer!.transitionOut(nil)
-        }
-        
-        if elementContainers?.count > 0 {
-            
-            for view in scroll!.subviews {
-                
-                if view is MainViewContainer_Elements {
-                    (view as! MainViewContainer_Elements).transitionOut(nil)
-                    (view as! MainViewContainer_Elements).removeFromSuperview()
-                }
-            }
-            
-            elementContainers!.removeAll(keepCapacity: false)
-        }
-        
-
-        
         let screenWidth = SharedUIManager.instance.screenWidth
         //let screenHeight = SharedUIManager.instance.screenHeight
         var ypos:CGFloat = 0
@@ -95,14 +71,16 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
         self.scroll!.addSubview(self.highlightContainer!)
         ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight + spacer)
-        
+
         let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight + 1
         
+
         self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, sitesContainerHeight), father: self)
         self.sitesContainer!.delegate = (self.father! as! MainView)
         self.scroll!.addSubview(self.sitesContainer!)
         ypos += sitesContainerHeight
 
+        
         self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
         self.scroll!.addSubview(self.bannerContainer!)
         ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
@@ -126,7 +104,8 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
             }
         
         }
-        
+    
+
         self.scroll!.backgroundColor = UIColor.darkGrayColor()
         
         ypos += SharedUIManager.instance.categoriesHeaderHeight
@@ -247,6 +226,50 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
             self.inSiteView!.frame.origin.y = (SharedUIManager.instance.screenHeight - 20)
             //self.header!.frame.origin.y = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)
         })
+    }
+    
+    func clean(){
+        
+        print("MainViewContainer clean()")
+        
+        if highlightContainer != nil {
+            highlightContainer!.clean()
+            highlightContainer!.removeFromSuperview()
+        }
+        
+        if sitesContainer != nil {
+            sitesContainer!.clean()
+            sitesContainer!.removeFromSuperview()
+        }
+        
+        if bannerContainer != nil {
+            bannerContainer!.clean()
+            bannerContainer!.removeFromSuperview()
+        }
+        
+        if inSiteView != nil {
+            inSiteView!.clean()
+            inSiteView!.removeFromSuperview()
+        }
+        
+        if header != nil {
+            header!.clean()
+            header!.removeFromSuperview()
+        }
+        
+        if elementContainers?.count > 0 {
+            
+            for elementContainer in elementContainers! {
+                elementContainer.clean()
+                elementContainer.removeFromSuperview()
+            }
+            
+            elementContainers!.removeAll(keepCapacity: false)
+        }
+        
+        elementContainers = nil
+        scroll!.removeFromSuperview()
+        fade!.removeFromSuperview()
     }
 }
 

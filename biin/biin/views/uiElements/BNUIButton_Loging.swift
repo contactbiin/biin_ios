@@ -10,7 +10,7 @@ class BNUIButton_Loging:BNUIButton {
     var position:CGPoint?
     var size:CGSize?
     var radius:CGFloat?
-    
+    var label:UILabel?
 //    override init() {
 //        super.init()
 //    }
@@ -37,12 +37,12 @@ class BNUIButton_Loging:BNUIButton {
         self.position = CGPoint(x:3, y:3 )
         self.size = CGSize(width: (frame.width - 5), height: (frame.height - 5))
         
-        let label = UILabel(frame: CGRectMake(0, ((frame.height - 20) / 2), frame.width, 20))
-        label.text = text
-        label.textColor = textColor
-        label.font = UIFont(name: "Lato-Black", size: 18)
-        label.textAlignment = NSTextAlignment.Center
-        self.addSubview(label)
+        label = UILabel(frame: CGRectMake(0, ((frame.height - 20) / 2), frame.width, 20))
+        label!.text = text
+        label!.textColor = textColor
+        label!.font = UIFont(name: "Lato-Black", size: 18)
+        label!.textAlignment = NSTextAlignment.Center
+        self.addSubview(label!)
     }
     
 //    override func showDisable(){
@@ -61,5 +61,13 @@ class BNUIButton_Loging:BNUIButton {
 //        }
 //    }
 //    
+    
+    func clean() {
+        label?.removeFromSuperview()
+    }
+    
+    func show() {
+        
+    }
 
 }

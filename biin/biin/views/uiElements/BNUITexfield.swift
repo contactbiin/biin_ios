@@ -88,5 +88,16 @@ class BNUITexfield:UIView {
             return true
         }
     }
+    
+    func clean() {
+        textField?.removeFromSuperview()
+        color = nil
+        point?.removeFromSuperview()
+    }
+    
+    func show() {
+        
+    }
 }
+
 

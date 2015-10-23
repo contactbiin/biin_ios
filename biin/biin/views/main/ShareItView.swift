@@ -8,7 +8,23 @@ import UIKit
 
 class ShareItView:UIView {
     
-    var priceView:BNUIPricesView?
+    //var priceView:BNUIPricesView?
+    var textColor:UIColor?
+    var decorationColor:UIColor?
+    var image:BNUIImageView?
+    var percentageView:ElementMiniView_Precentage?
+    var title:UILabel?
+    var subTitle:UILabel?
+
+    var lineView:UIView?
+    
+    var textPrice1:UILabel?// = UILabel(frame: CGRectZero)
+    var textPrice2:UILabel?// = UILabel(frame: CGRectZero)
+    var bg:UIView?
+    var whiteBackground2:UIView?
+    var siteLocation:SiteView_Location?
+    var biinLogo:BNUIBiinMiniView?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,9 +39,7 @@ class ShareItView:UIView {
         
         self.backgroundColor = element.media[0].vibrantColor!
         
-        let textColor:UIColor?
-        let decorationColor:UIColor?
-        
+ 
         if element.useWhiteText {
             textColor = UIColor.whiteColor()
             decorationColor = element.media[0].vibrantDarkColor
@@ -40,50 +54,49 @@ class ShareItView:UIView {
         
         
         var ypos:CGFloat = 0
-        let image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:element.media[0].vibrantColor!)
-        self.addSubview(image)
+        image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:element.media[0].vibrantColor!)
+        self.addSubview(image!)
         
         if site!.media.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData(element.media[0].url!, image: image)
+            BNAppSharedManager.instance.networkManager.requestImageData(element.media[0].url!, image: image!)
         } else {
-            image.image =  UIImage(named: "noImage.jpg")
-            image.showAfterDownload()
+            image!.image =  UIImage(named: "noImage.jpg")
+            image!.showAfterDownload()
         }
         
         if element.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            let percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(element.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(element.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
             
-            self.addSubview(percentageView)
+            self.addSubview(percentageView!)
         }
 
         ypos += 330
         
-        let title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 23))
-        title.font = UIFont(name:"Lato-Regular", size:20)
-        title.numberOfLines = 0
-        title.textColor = textColor!
-        title.text = element.title
-        title.sizeToFit()
-        self.addSubview(title)
+        title = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 23))
+        title!.font = UIFont(name:"Lato-Regular", size:20)
+        title!.numberOfLines = 0
+        title!.textColor = textColor!
+        title!.text = element.title
+        title!.sizeToFit()
+        self.addSubview(title!)
         
-        ypos += (title.frame.height + 2)
-        let subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 14))
-        subTitle.font = UIFont(name:"Lato-Light", size:12)
-        subTitle.numberOfLines = 0
-        subTitle.textColor = textColor!
-        subTitle.text = element.subTitle
-        subTitle.sizeToFit()
-        self.addSubview(subTitle)
+        ypos += (title!.frame.height + 2)
+        subTitle = UILabel(frame: CGRectMake(10, ypos, (frame.width - 20), 14))
+        subTitle!.font = UIFont(name:"Lato-Light", size:12)
+        subTitle!.numberOfLines = 0
+        subTitle!.textColor = textColor!
+        subTitle!.text = element.subTitle
+        subTitle!.sizeToFit()
+        self.addSubview(subTitle!)
         
-        ypos += (subTitle.frame.height + 10)
+        ypos += (subTitle!.frame.height + 10)
         
-        let lineView = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
-        lineView.backgroundColor = textColor
-        self.addSubview(lineView)
+        lineView = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+        lineView!.backgroundColor = textColor
+        self.addSubview(lineView!)
         
-        var textPrice1:UILabel?// = UILabel(frame: CGRectZero)
-        var textPrice2:UILabel?// = UILabel(frame: CGRectZero)
+
         
         if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
 
@@ -116,9 +129,9 @@ class ShareItView:UIView {
         } else if element.hasPrice && element.hasListPrice {
             
             var height:CGFloat = 0
-            let bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
-            bg.backgroundColor = decorationColor
-            self.addSubview(bg)
+            bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+            bg!.backgroundColor = decorationColor
+            self.addSubview(bg!)
             height += 10
             
             
@@ -147,14 +160,14 @@ class ShareItView:UIView {
             ypos += 40
             
             height += 60
-            bg.frame = CGRectMake(0, bg.frame.origin.y, bg.frame.width, height)
+            bg!.frame = CGRectMake(0, bg!.frame.origin.y, bg!.frame.width, height)
             
         } else if element.hasPrice && element.hasFromPrice {
             
             var height:CGFloat = 0
-            let bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
-            bg.backgroundColor = decorationColor
-            self.addSubview(bg)
+            bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+            bg!.backgroundColor = decorationColor
+            self.addSubview(bg!)
             height += 10
             
             ypos += 10
@@ -175,26 +188,26 @@ class ShareItView:UIView {
             ypos += 40
             
             height += 60
-            bg.frame = CGRectMake(0, bg.frame.origin.y, bg.frame.width, height)
+            bg!.frame = CGRectMake(0, bg!.frame.origin.y, bg!.frame.width, height)
         }
 
-        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
-        whiteBackground2.backgroundColor = UIColor.whiteColor()
-        self.addSubview(whiteBackground2)
+        whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
+        whiteBackground2!.backgroundColor = UIColor.whiteColor()
+        self.addSubview(whiteBackground2!)
                 
-        let siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
-        siteLocation.updateForSite(site!)
-        siteLocation.map!.alpha = 0
-        siteLocation.frame.origin.y = ypos
-        siteLocation.callBtn!.alpha = 0
-        siteLocation.emailBtn!.alpha = 0
-        siteLocation.closeBtn!.alpha = 0
-        self.addSubview(siteLocation)
+        siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
+        siteLocation!.updateForSite(site!)
+        siteLocation!.map!.alpha = 0
+        siteLocation!.frame.origin.y = ypos
+        siteLocation!.callBtn!.alpha = 0
+        siteLocation!.emailBtn!.alpha = 0
+        siteLocation!.closeBtn!.alpha = 0
+        self.addSubview(siteLocation!)
         
         ypos += 110
         
-        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
-        self.addSubview(biinLogo)
+        biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
+        self.addSubview(biinLogo!)
         
         ypos += 30
         self.frame = CGRectMake(80, 50, frame.width, ypos)
@@ -205,8 +218,6 @@ class ShareItView:UIView {
         
         self.backgroundColor = site.media[0].vibrantColor!
         
-        let textColor:UIColor?
-        let decorationColor:UIColor?
         
         if site.useWhiteText {
             textColor = UIColor.whiteColor()
@@ -222,37 +233,56 @@ class ShareItView:UIView {
         
         
         var ypos:CGFloat = 0
-        let image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:site.media[0].vibrantColor!)
-        self.addSubview(image)
+        image = BNUIImageView(frame: CGRectMake(0, ypos, 320, 320), color:site.media[0].vibrantColor!)
+        self.addSubview(image!)
         
         if site.media.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData(site.media[0].url!, image: image)
+            BNAppSharedManager.instance.networkManager.requestImageData(site.media[0].url!, image: image!)
         } else {
-            image.image =  UIImage(named: "noImage.jpg")
-            image.showAfterDownload()
+            image!.image =  UIImage(named: "noImage.jpg")
+            image!.showAfterDownload()
         }
         
         ypos += 320
         
-        let whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
-        whiteBackground2.backgroundColor = UIColor.whiteColor()
-        self.addSubview(whiteBackground2)
+        whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
+        whiteBackground2!.backgroundColor = UIColor.whiteColor()
+        self.addSubview(whiteBackground2!)
         
-        let siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
-        siteLocation.updateForSite(site)
-        siteLocation.map!.alpha = 0
-        siteLocation.frame.origin.y = ypos
-        siteLocation.callBtn!.alpha = 0
-        siteLocation.emailBtn!.alpha = 0
-        siteLocation.closeBtn!.alpha = 0
-        self.addSubview(siteLocation)
+        siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
+        siteLocation!.updateForSite(site)
+        siteLocation!.map!.alpha = 0
+        siteLocation!.frame.origin.y = ypos
+        siteLocation!.callBtn!.alpha = 0
+        siteLocation!.emailBtn!.alpha = 0
+        siteLocation!.closeBtn!.alpha = 0
+        self.addSubview(siteLocation!)
         
         ypos += 110
         
-        let biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
-        self.addSubview(biinLogo)
+        biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
+        self.addSubview(biinLogo!)
         
         ypos += 30
         self.frame = CGRectMake(80, 50, frame.width, ypos)
+    }
+    
+    func clean() {
+        textColor = nil
+        decorationColor = nil
+        image?.removeFromSuperview()
+        percentageView?.removeFromSuperview()
+        title?.removeFromSuperview()
+        subTitle?.removeFromSuperview()
+        
+        lineView?.removeFromSuperview()
+        
+        textPrice1?.removeFromSuperview()
+        textPrice2?.removeFromSuperview()
+        bg?.removeFromSuperview()
+        whiteBackground2?.removeFromSuperview()
+        siteLocation?.clean()
+        siteLocation?.removeFromSuperview()
+        biinLogo?.removeFromSuperview()
     }
 }

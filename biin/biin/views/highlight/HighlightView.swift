@@ -47,6 +47,7 @@ class HighlightView: BNView {
         self.layer.masksToBounds = true
         self.element = element
 
+        
         var textColor:UIColor?
         if self.element!.useWhiteText {
             textColor = UIColor.whiteColor()
@@ -58,12 +59,16 @@ class HighlightView: BNView {
             iconColor = self.element!.media[0].vibrantLightColor
         }
         
+        
+        
         var ypos:CGFloat = 0
         let imageSize:CGFloat = frame.width
         
         //Positioning image
         image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
         self.addSubview(image!)
+        
+
         
 //        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
 //        visualEffectView.frame = CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight)
@@ -84,13 +89,6 @@ class HighlightView: BNView {
         
         site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
         
-        if site!.organization!.media.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
-            siteAvatar!.cover!.backgroundColor = self.site!.organization!.media[0].vibrantColor!
-        } else {
-            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
-            siteAvatar!.showAfterDownload()
-        }
         
         ypos = 6
         let xpos:CGFloat = siteAvatarSize + 10
@@ -283,6 +281,14 @@ class HighlightView: BNView {
             image!.image =  UIImage(named: "noImage.jpg")
             image!.showAfterDownload()
         }
+        
+        if site!.organization!.media.count > 0 {
+            BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
+            siteAvatar!.cover!.backgroundColor = self.site!.organization!.media[0].vibrantColor!
+        } else {
+            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+            siteAvatar!.showAfterDownload()
+        }
     }
     
     /* Gesture hadlers */
@@ -376,6 +382,31 @@ class HighlightView: BNView {
         return image
     }
     
+    func clean(){
+        print("HighlightView clean()")
+        
+        siteAvatar?.removeFromSuperview()
+        siteAvatar?.image = nil
+        
+        delegate = nil
+        element = nil
+        site = nil
+        image?.removeFromSuperview()
+        
+        percentageView?.removeFromSuperview()
+        
+        textPrice1?.removeFromSuperview()
+        textPrice2?.removeFromSuperview()
+        
+        likeItButton?.removeFromSuperview()
+        shareItButton?.removeFromSuperview()
+        collectItButton?.removeFromSuperview()
+        decorationColor = nil
+        iconColor = nil
+        animationView?.removeFromSuperview()
+        shareView?.removeFromSuperview()
+        
+    }
 }
 
 @objc protocol HightlightView_Delegate:NSObjectProtocol {

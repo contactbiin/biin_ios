@@ -76,6 +76,13 @@ class BiinieCategoriesView_Header: BNView {
         testBtn!.alpha = 0
     }
     
+    func clean(){
+        
+        print("BiinieCategoriesView_Header clean()")
+        showMenuBtn?.removeFromSuperview()
+        testBtn?.removeFromSuperview()
+    }
+    
 }
 
 @objc protocol BiinieCategoriesView_Header_Delegate:NSObjectProtocol {

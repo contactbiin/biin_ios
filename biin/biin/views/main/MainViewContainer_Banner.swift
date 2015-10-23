@@ -195,4 +195,18 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
         timer = NSTimer.scheduledTimerWithTimeInterval(7.5, target: self, selector: "change:", userInfo: nil, repeats: true)
         timer!.fire()
     }
+    
+    func clean(){
+        
+        print("MainViewContainer_Banner clean()")
+        
+        if hightlights?.count > 0 {
+            
+            for view in scroll!.subviews {
+                view.removeFromSuperview()
+            }
+            
+            hightlights!.removeAll(keepCapacity: false)
+        }
+    }
 }

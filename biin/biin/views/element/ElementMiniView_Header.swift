@@ -10,6 +10,7 @@ class ElementMiniView_Header:BNView {
     
     var buttonsView:SocialButtonsView?
     var circleLabel:BNUICircleLabel?
+    var containerView:UIView?
     var elementPosition:Int?
     
 //    override init() {
@@ -36,9 +37,9 @@ class ElementMiniView_Header:BNView {
 //        visualEffectView.frame = self.bounds
 //        self.addSubview(visualEffectView)
         
-        let containerView = UIView(frame: self.bounds)
-        containerView.backgroundColor = element!.media[0].vibrantColor
-        self.addSubview(containerView)
+        containerView = UIView(frame: self.bounds)
+        containerView!.backgroundColor = element!.media[0].vibrantColor
+        self.addSubview(containerView!)
         
         
         self.elementPosition = elementPosition
@@ -111,5 +112,11 @@ class ElementMiniView_Header:BNView {
     
     func activateCircle(){
         circleLabel!.animateCircleIn()
+    }
+    
+    func clean() {
+        buttonsView?.removeFromSuperview()
+        circleLabel?.removeFromSuperview()
+        containerView?.removeFromSuperview()
     }
 }

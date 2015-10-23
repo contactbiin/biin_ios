@@ -120,5 +120,10 @@ class BiinItAnimationView:UIView {
         self.backgroundColor = backgroundColor!
         self.label!.textColor = textColor!
     }
+    
+    func clean(){
+        print("BiinItAnimationView clean()")
+        label?.removeFromSuperview()
+    }
 
 }
