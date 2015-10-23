@@ -79,7 +79,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func requestInitialData(){
+        
+        
         NSLog("BIIN - requestInitialData()")
+        
+        
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }

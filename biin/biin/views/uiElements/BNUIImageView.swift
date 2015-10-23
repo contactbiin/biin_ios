@@ -58,6 +58,17 @@ class BNUIImageView:UIImageView {
     
     ///Set it's alpha to 1 once download is completed.
     func showAfterDownload(){
+        let imageRef = image!.CGImage
+        let width:CGFloat = CGFloat(CGImageGetWidth((imageRef)))
+        let height:CGFloat = CGFloat(CGImageGetHeight(imageRef))
+        
+        print("w:\(width), h:\(height)")
+        
+        let size:CGFloat =  CGFloat((CGFloat(CGImageGetBytesPerRow(imageRef)) * height))
+
+//        print("size: \((size / 1000000))")
+        
+        BNAppSharedManager.instance.addImagesMB(size)
         
         loadingIndicator!.stopAnimating()
         //self.alpha = 0

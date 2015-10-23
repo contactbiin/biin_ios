@@ -7,13 +7,12 @@ import Foundation
 
 class BNLocalNotification:NSObject, NSCoding {
 
-    var objectIdentifier:String?
+    var object_id:String?
     var notificationText:String?
     var notificationType:BNLocalNotificationType?
     var siteIdentifier:String?
     var biinIdentifier:String?
     var elementIdentifier:String?
-    
     
     //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
     var onMonday = false
@@ -37,9 +36,9 @@ class BNLocalNotification:NSObject, NSCoding {
         super.init()
     }
     
-    convenience init( objectIdentifier:String, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String ) {
+    convenience init( object_id:String, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String ) {
         self.init()
-        self.objectIdentifier = objectIdentifier
+        self.object_id = object_id
         self.notificationText = notificationText
         self.notificationType = notificationType
         self.siteIdentifier = siteIdentifier
@@ -48,7 +47,7 @@ class BNLocalNotification:NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.objectIdentifier  = aDecoder.decodeObjectForKey("objectIdentifier") as? String
+        self.object_id  = aDecoder.decodeObjectForKey("object_id") as? String
         self.notificationText = aDecoder.decodeObjectForKey("notificationText") as? String
         self.siteIdentifier = aDecoder.decodeObjectForKey("siteIdentifier") as? String
         self.biinIdentifier = aDecoder.decodeObjectForKey("biinIdentifier") as? String
@@ -85,8 +84,8 @@ class BNLocalNotification:NSObject, NSCoding {
 }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        if let objectIdentifier = self.objectIdentifier {
-            aCoder.encodeObject(objectIdentifier, forKey: "objectIdentifier")
+        if let object_id = self.object_id {
+            aCoder.encodeObject(object_id, forKey: "object_id")
         }
         
         if let notificationText = self.notificationText {
@@ -133,11 +132,11 @@ class BNLocalNotification:NSObject, NSCoding {
     
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.objectIdentifier!)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.object_id!)
     }
     
     func clear() {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(self.objectIdentifier!)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(self.object_id!)
     }
     
     class func loadSaved(objectIdentifier:String) -> BNLocalNotification? {

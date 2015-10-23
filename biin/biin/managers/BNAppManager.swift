@@ -10,6 +10,9 @@ struct BNAppSharedManager { static let instance = BNAppManager() }
 
 class BNAppManager {
     
+    
+    var imagesMB:CGFloat = 0
+    
     var settings:BNSettings?
     
     //var IS_PRODUCTION_DATABASE = false
@@ -101,11 +104,20 @@ class BNAppManager {
         if let path = NSBundle.mainBundle().pathForResource("Info", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
+        
         if let dict = myDict {
             version = dict.objectForKey("CFBundleShortVersionString") as! String
             version += " Development"
         }
         
+    }
+    
+    func addImagesMB(size:CGFloat) {
+        
+        let nsize:CGFloat = CGFloat((size / 1000000))
+        print("image size:\(nsize)")
+        imagesMB += nsize
+        print("total image size:\(imagesMB)")
     }
     
 
@@ -303,6 +315,20 @@ class BNAppManager {
     func saveSettings(){
         self.settings!.save()
     }
+    
+    func clean(){
+        print("BNAppManager clean()")
+        networkManager.epsNetwork!.clean()
+        mainViewController!.clean()
+        imagesMB = 0
+    }
+    
+    func show(){
+        print("BNAppManager show()")
+        mainViewController!.show()
+    }
+    
+
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {

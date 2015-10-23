@@ -8,7 +8,7 @@ import UIKit
 
 class ProfileState:BNState {
     
-    override init(context:BNView, view:BNView){
+    override init(context:BNView, view:BNView?){
         super.init(context:context, view: view)
         self.stateType = BNStateType.ProfileState
     }

@@ -185,9 +185,6 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         scroll!.setContentOffset(CGPointZero, animated: false)
     }
     
-    func clean(){
-        scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
-    }
     
     func showFade(){
         UIView.animateWithDuration(0.2, animations: {()-> Void in
@@ -248,6 +245,29 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             }
 
         }
+    }
+    
+    func clean(){
+        delegate = nil
+        title?.removeFromSuperview()
+        backBtn?.removeFromSuperview()
+        scroll?.removeFromSuperview()
+        showcase = nil
+        category = nil
+        
+        if elements != nil {
+            for view in elements! {
+                view.removeFromSuperview()
+            }
+        }
+        addedElementsIdentifiers?.removeAll()
+        elements?.removeAll()
+        
+        fade?.removeFromSuperview()
+    }
+    
+    func show() {
+        
     }
 }
 

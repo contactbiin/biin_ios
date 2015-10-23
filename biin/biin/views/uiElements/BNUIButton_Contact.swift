@@ -77,5 +77,9 @@ class BNUIButton_Contact:BNUIButton {
         label!.textColor = UIColor.appButtonColor_Disable()
         setNeedsDisplay()
     }
+    
+    func clean() {
+        label?.removeFromSuperview()
+    }
 }
 

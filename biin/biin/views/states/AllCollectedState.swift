@@ -9,7 +9,7 @@ import UIKit
 
 class AllCollectedState:BNState {
     
-    override init(context:BNView, view:BNView){
+    override init(context:BNView, view:BNView?){
         super.init(context:context, view: view)
         self.stateType = BNStateType.AllCollectedState
     }

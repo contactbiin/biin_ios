@@ -66,12 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // path to documents directory
-        //let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
+        let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
         
         // create the custom folder path
-        //let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
+        let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
         
-        /*
+        
         // check if directory does not exist
         if NSFileManager.defaultManager().fileExistsAtPath(biinCacheImagesFolder) == false {
             
@@ -85,10 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             
             print("biinCacheImagesFolder already exist!")
-            let selectedImage = UIImage(named:"1d5455b33081-4010-9774-0cbd8f70407a.png")
+            let selectedImage = UIImage(named:"loading1.jpg")
             let imageData = UIImagePNGRepresentation(selectedImage!)
 
-            let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("1d5455b33081-4010-9774-0cbd8f70407a.png")
+            let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("loading1.jpg")
             
             print("imagePath: \(imagePath)")
             
@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("not saved: \(imagePath)")
                 } else {
                     print("saved")
-                    NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "1d5455b33081-4010-9774-0cbd8f70407a.png")
+                    NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "loading1.jpg")
                 }
                 
             } else {
@@ -110,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
-        */
+        
         setupNotificationSettings()
         
         
@@ -190,8 +190,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         NSLog("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
-        appManager.positionManager.start_SITES_MONITORING()
+        //appManager.positionManager.start_SITES_MONITORING()
 //        appManager.positionManager.requestStateForMonitoredRegions()
+        
+        
+        BNAppSharedManager.instance.clean()
+        
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -199,9 +203,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         NSLog("applicationWillEnterForeground()")
         appManager.IS_APP_UP = true
-        appManager.continueAppInitialization()
-        appManager.positionManager.start_BEACON_RANGING()
 
+        //appManager.positionManager.start_BEACON_RANGING()
+
+        BNAppSharedManager.instance.show()
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
@@ -209,7 +214,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         NSLog("applicationDidBecomeActive()")
         appManager.IS_APP_UP = true
-        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        //appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
 
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
