@@ -202,10 +202,6 @@ class AllElementsView: BNView {
         }
     }
     
-    func clean(){
-        scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
-    }
-    
     func showFade(){
         UIView.animateWithDuration(0.2, animations: {()-> Void in
             self.fade!.alpha = 0.5
@@ -216,6 +212,28 @@ class AllElementsView: BNView {
         UIView.animateWithDuration(0.5, animations: {()-> Void in
             self.fade!.alpha = 0
         })
+    }
+    
+    func clean(){
+        //scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
+        print("AllElementsView clean()")
+        delegate = nil
+        title?.removeFromSuperview()
+        backBtn?.removeFromSuperview()
+        showcase = nil
+        category = nil
+        fade?.removeFromSuperview()
+        
+        if elements != nil {
+            for view in elements! {
+                view.clean()
+                view.removeFromSuperview()
+            }
+        }
+        
+        elements?.removeAll()
+        addedElementsIdentifiers?.removeAll()
+        scroll?.removeFromSuperview()
     }
 }
 

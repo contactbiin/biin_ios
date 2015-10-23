@@ -346,9 +346,44 @@ class ElementView: BNView {
     }
 
     func clean(){
-        scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
-        detailsView!.removeFromSuperview()
-        detailsView = nil
+        
+        delegate = nil
+        element = nil
+        
+        backBtn?.removeFromSuperview()
+        
+        
+        fade?.removeFromSuperview()
+        
+        shareItButton?.removeFromSuperview()
+        likeItButton?.removeFromSuperview()
+        collectItButton?.removeFromSuperview()
+        showSiteBtn?.removeFromSuperview()
+        
+        detailsView?.clean()
+        detailsView?.removeFromSuperview()
+        
+        percentageView?.removeFromSuperview()
+        textPrice1?.removeFromSuperview()
+        textPrice2?.removeFromSuperview()
+        
+        lineView?.removeFromSuperview()
+        
+        textColor = nil
+        decorationColor = nil
+        iconColor = nil
+        animationView?.clean()
+        animationView?.removeFromSuperview()
+        
+        butonContainer?.removeFromSuperview()
+        
+        
+        shareView?.clean()
+        shareView?.removeFromSuperview()
+        
+        scroll?.removeFromSuperview()
+        imagesScrollView?.clean()
+        imagesScrollView?.removeFromSuperview()
     }
     
     func shareit(sender:BNUIButton_ShareIt){

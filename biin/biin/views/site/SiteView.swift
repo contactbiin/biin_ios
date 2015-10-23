@@ -462,11 +462,46 @@ class SiteView:BNView, UIScrollViewDelegate {
     }// any offset changes
     
     func clean(){
-        for view in self.scroll!.subviews {
-            if view.isKindOfClass(SiteView_Showcase) {
+
+        delegate = nil
+        site = nil
+        backBtn?.removeFromSuperview()
+        header?.clean()
+        bottom?.removeFromSuperview()
+
+        if showcases != nil {
+            for view in showcases! {
+                view.clean()
                 view.removeFromSuperview()
             }
         }
+        
+        showcases?.removeAll()
+        
+        imagesScrollView?.clean()
+        imagesScrollView?.removeFromSuperview()
+        
+        locationView?.clean()
+        locationView?.removeFromSuperview()
+        
+        fade?.removeFromSuperview()
+
+        siteLocationButton?.removeFromSuperview()
+        likeItButton?.removeFromSuperview()
+        shareItButton?.removeFromSuperview()
+        collectItButton?.removeFromSuperview()
+        followButton?.removeFromSuperview()
+        
+        decorationColor = nil
+        iconColor = nil
+        animationView?.clean()
+        animationView?.removeFromSuperview()
+        
+        shareView?.clean()
+        shareView?.removeFromSuperview()
+
+        scroll?.removeFromSuperview()
+
     }
     
     func updateLoyaltyPoints(){

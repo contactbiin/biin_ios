@@ -136,7 +136,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
 //    }
     
     deinit{
-        print("-------------- deinit in siteView_showcase")
+
     }
     
     
@@ -426,10 +426,22 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         }
     }
     
-    //ElementMiniView_Delegate
-//    func showElementView(viewiew: ElementMiniView, element: BNElement) {
-//        //(father! as! SiteView).showElementView(element)
-//    }
+    func clean(){
+        print("SiteView_Showcase clean()")
+        
+        if elements?.count > 0 {
+            
+            for view in scroll!.subviews {
+                
+                if view is ElementMiniView {
+                    (view as! ElementMiniView).removeFromSuperview()
+                }
+            }
+            
+            elements!.removeAll(keepCapacity: false)
+        }
+        
+    }
 }
 
 

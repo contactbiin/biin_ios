@@ -405,5 +405,29 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
        return dequeedAnnotation
     }
     */
+    
+    func clean() {
+
+        siteAvatar?.removeFromSuperview()
+        title?.removeFromSuperview()
+        
+        streetAddress1?.removeFromSuperview()
+        streetAddress2?.removeFromSuperview()
+        ubication?.removeFromSuperview()
+        
+        map?.removeFromSuperview()
+        
+        emailBtn?.removeFromSuperview()
+        callBtn?.removeFromSuperview()
+        commentBtn?.clean()
+        commentBtn?.removeFromSuperview()
+        closeBtn?.removeFromSuperview()
+        
+        siteLocation = nil
+    }
+    
+    func show() {
+        
+    }
 }
 

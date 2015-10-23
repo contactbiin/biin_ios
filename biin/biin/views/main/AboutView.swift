@@ -14,7 +14,7 @@ class AboutView: BNView {
     var fade:UIView?
     var biinLogo:BNUIBiinView?
 
-    
+    var visualEffectView:UIVisualEffectView?
     var scroll:UIScrollView?
     
     
@@ -26,9 +26,9 @@ class AboutView: BNView {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        visualEffectView!.frame = self.bounds
+        self.addSubview(visualEffectView!)
 
             
         var ypos:CGFloat = 20
@@ -171,6 +171,20 @@ class AboutView: BNView {
     func backBtnAction(sender:UIButton) {
         delegate!.hideAboutView!(self)
         //delegate!.hideElementView!(elementMiniView)
+    }
+    
+    func clean() {
+        delegate = nil
+        title?.removeFromSuperview()
+        backBtn?.removeFromSuperview()
+        fade?.removeFromSuperview()
+        biinLogo?.removeFromSuperview()
+        visualEffectView?.removeFromSuperview()
+        scroll?.removeFromSuperview()
+    }
+    
+    func show() {
+        
     }
 }
 

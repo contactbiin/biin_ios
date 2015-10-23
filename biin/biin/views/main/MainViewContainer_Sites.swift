@@ -67,7 +67,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     }
     
     deinit{
-        print("-------------- deinit in siteView_showcase")
+
     }
     
     override func transitionIn() {
@@ -75,19 +75,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        if sites?.count > 0 {
-            
-            for view in scroll!.subviews {
-                
-                if view is SiteMiniView {
-                    (view as! SiteMiniView).removeFromSuperview()
-                }
-            }
-            
-            sites!.removeAll(keepCapacity: false)
-            addedSitesIdentifiers!.removeAll(keepCapacity: false)
 
-        }
     }
     
     override func setNextState(goto:BNGoto){
@@ -178,6 +166,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
                     miniSiteView.isPositionedInFather = true
                     miniSiteView.isReadyToRemoveFromFather = false
                     miniSiteView.delegate = father?.father! as! MainView
+                    //miniSiteView.requestImage()
                     
                     sites!.append(miniSiteView)
                     scroll!.addSubview(miniSiteView)
@@ -261,6 +250,30 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     
     func moreSitesBtnAction(sender:UIButton){
         delegate!.showAllSitesView!()
+    }
+    
+    func clean(){
+        
+        print("MainViewContainer_Sites clean()")
+        
+        if sites?.count > 0 {
+            
+            for view in scroll!.subviews {
+                
+                if view is SiteMiniView {
+                    (view as! SiteMiniView).clean()
+                    (view as! SiteMiniView).removeFromSuperview()
+                }
+            }
+        }
+        
+        sites!.removeAll(keepCapacity: false)
+        addedSitesIdentifiers!.removeAll(keepCapacity: false)
+        
+        title?.removeFromSuperview()
+        moreSitesBtn?.removeFromSuperview()
+        subTitle?.removeFromSuperview()
+        scroll?.removeFromSuperview()
     }
 }
 

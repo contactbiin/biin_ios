@@ -140,6 +140,19 @@ class InSiteView: BNView {
     func handleTap(sender:UITapGestureRecognizer) {
         delegate!.showSiteViewOnContext!(self.site!)
     }
+    
+    func clean() {
+        
+        print("InSiteView clean()")
+        
+        site = nil
+        siteAvatar?.removeFromSuperview()
+        title?.removeFromSuperview()
+        subTitle?.removeFromSuperview()
+        nutshell?.removeFromSuperview()
+        viewContainer?.removeFromSuperview()
+        delegate = nil
+    }
 }
 
 @objc protocol InSiteView_Delegate:NSObjectProtocol {

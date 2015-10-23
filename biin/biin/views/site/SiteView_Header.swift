@@ -118,4 +118,16 @@ class SiteView_Header:BNView {
             siteAvatar!.showAfterDownload()
         }
     }
+    
+    func clean(){
+        siteAvatar?.removeFromSuperview()
+        title?.removeFromSuperview()
+        subTitle?.removeFromSuperview()
+        nutshell?.removeFromSuperview()
+        viewContainer?.removeFromSuperview()
+    }
+    
+    func show() {
+        
+    }
 }

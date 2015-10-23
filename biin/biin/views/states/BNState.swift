@@ -12,7 +12,7 @@ class BNState {
     var view:BNView?
     var stateType:BNStateType?
     
-    init(context:BNView, view:BNView){
+    init(context:BNView, view:BNView?){
         self.context = context
         self.view = view
     }

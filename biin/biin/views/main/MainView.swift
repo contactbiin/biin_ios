@@ -21,6 +21,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     let lastOption = 1
     //var goto:BNGoto = BNGoto.Main
     //states
+    var showMenuSwipe:UIScreenEdgePanGestureRecognizer?
     var mainViewContainerState:MainViewContainerState?
     //var biinieCategoriesState:BiinieCategoriesState?
     var siteState:SiteState?
@@ -81,50 +82,39 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func addUIViews(){
+        
+        
+
+        
         //Create views
         //        let categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         //        biinieCategoriesState = BiinieCategoriesState(context: self, view: categoriesView, stateType: BNStateType.BiinieCategoriesState)
         //        self.addSubview(categoriesView)
         //        state = biinieCategoriesState!
         
-        let mainViewContainer = MainViewContainer(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
-        mainViewContainerState = MainViewContainerState(context: self, view: mainViewContainer)
-        self.addSubview(mainViewContainer)
-        state = mainViewContainerState!
+        mainViewContainerState = MainViewContainerState(context: self, view:nil)
+
         
         //delegate_HighlightsContainer = mainViewContainer
         //delegate_BiinsContainer = mainViewContainer
         
+        allSitesState = AllSitesState(context: self, view:nil)
 
         
-        let allSitesView = AllSitesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
-            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: false)
-        allSitesState = AllSitesState(context: self, view: allSitesView)
-        allSitesView.delegate = self
-        addSubview(allSitesView)
-        
-        let allElementsView = AllElementsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
-            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: true)
-        allElementsState = AllElementsState(context: self, view: allElementsView)
-        allElementsView.delegate = self
-        self.addSubview(allElementsView)
+        allElementsState = AllElementsState(context: self, view:nil)
         
         
-        let profileView = ProfileView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        profileState = ProfileState(context: self, view: profileView, stateType: BNStateType.ProfileState)
-        profileView.delegate = rootViewController!
-        profileView.delegateFather = self
-        self.addSubview(profileView)
+        profileState = ProfileState(context: self, view:nil)
+        
+        
         
 //        let collectionsView = CollectionsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
 //        collectionsState = CollectionsState(context: self, view: collectionsView)
 //        collectionsView.delegate = self
 //        self.addSubview(collectionsView)
         
-        let allCollectedView = AllCollectedView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: false)
-        allCollectedState = AllCollectedState(context: self, view: allCollectedView)
-        allCollectedView.delegate = self
-        self.addSubview(allCollectedView)
+        allCollectedState = AllCollectedState(context: self, view:nil)
+
         
 //        let notificationsView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
 //        notificationsState = NotificationsState(context: self, view: notificationsView)
@@ -137,29 +127,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        loyaltiesView.delegate = self
 //        self.addSubview(loyaltiesView)
         
-        let aboutView = AboutView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        aboutState = AboutState(context: self, view: aboutView)
-        aboutView.delegate = self
-        self.addSubview(aboutView)
         
         
+        aboutState = AboutState(context: self, view:nil)
+        siteState = SiteState(context: self, view:nil)
+        elementState = ElementState(context: self, view:nil)
+        elementFromSiteState = ElementFromSiteState(context: self, view:nil)
+
         
-        let siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
-            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        siteState = SiteState(context: self, view: siteView, stateType: BNStateType.SiteState)
-        siteView.delegate = self
-        self.addSubview(siteView)
-        
-        let elementView = ElementView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn:true)
-        elementState = ElementState(context: self, view: elementView)
-        elementView.delegate = self
-        self.addSubview(elementView)
-        
-        let elementViewFromSite = ElementView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn:true)
-        elementViewFromSite.isElementViewFromSite = true
-        elementFromSiteState = ElementFromSiteState(context: self, view:elementViewFromSite)
-        elementViewFromSite.delegate = self
-        self.addSubview(elementViewFromSite)
+    
         
         //        var errorView = ErrorView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         //        errorState = ErrorState(context: self, view: errorView)
@@ -209,9 +185,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         userControl = UserControlView(frame:CGRectZero, father: self)
         self.addSubview(userControl!)
         */
-        let showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
-        showMenuSwipe.edges = UIRectEdge.Left
-        mainViewContainer.scroll!.addGestureRecognizer(showMenuSwipe)
+        
+        show()
+        
         
         //showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         //showMenuSwipe.edges = UIRectEdge.Left
@@ -398,14 +374,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
             switch BNAppSharedManager.instance.notificationManager.currentNotification!.notificationType! {
             case .PRODUCT:
-                NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
-                if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
-                    //(siteState!.view as! SiteView).updateSiteData(site)
-                    //setNextState(2)
-                    NSLog("BIIN - Show element view for element: \(element._id!)")
-                    //let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
-                    //(self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
-                }
+//                NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
+//                if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
+//                    //(siteState!.view as! SiteView).updateSiteData(site)
+//                    //setNextState(2)
+//                    NSLog("BIIN - Show element view for element: \(element._id!)")
+//                    //let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
+//                    //(self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
+//                }
                 break
             case .INTERNAL:
                 NSLog("BIIN - GOTO TO SITE VIEW on Internal notification")
@@ -416,16 +392,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 break
             case .EXTERNAL:
                 NSLog("BIIN - GOTO TO SITE VIEW on external notification")
-//                if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
-//                    (siteState!.view as! SiteView).updateSiteData(site)
-//                    setNextState(2)
-//                }
-//                
-                
-                NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
-                if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
+                if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
+                    (siteState!.view as! SiteView).updateSiteData(site)
+                    setNextState(BNGoto.Site)
+                } else if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!] {
+                    
+                    NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)")
+                    
+                    (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                     //(siteState!.view as! SiteView).updateSiteData(site)
-                    //setNextState(2)
+                    
+                    setNextState(BNGoto.Element)
                     NSLog("BIIN - Show element view for element: \(element._id!)")
 //                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     //(self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
@@ -436,7 +413,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             }
         }
         
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)
         BNAppSharedManager.instance.notificationManager.clearCurrentNotification()
         
     }
@@ -578,6 +555,114 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideAllCollectedView() {
         isShowingAllCollectedView = false
         setNextState(BNGoto.Main)
+    }
+    
+    func clean(){
+        print("MainView clean()")
+        
+        showMenuSwipe?.removeTarget(self, action: "showMenu:")
+        showMenuSwipe = nil
+        
+        (mainViewContainerState!.view as! MainViewContainer).clean()
+        mainViewContainerState!.view!.removeFromSuperview()
+        mainViewContainerState!.view = nil
+        
+        (allSitesState!.view as! AllSitesView).clean()
+        allSitesState!.view!.removeFromSuperview()
+        allSitesState!.view = nil
+        
+        (allElementsState!.view as! AllElementsView).clean()
+        allElementsState!.view!.removeFromSuperview()
+        allElementsState!.view = nil
+        
+        (profileState!.view as! ProfileView).clean()
+        profileState!.view!.removeFromSuperview()
+        profileState!.view = nil
+        
+        (allCollectedState!.view as! AllCollectedView).clean()
+        allCollectedState!.view!.removeFromSuperview()
+        allCollectedState!.view = nil
+
+        (aboutState!.view as! AboutView).clean()
+        aboutState!.view!.removeFromSuperview()
+        aboutState!.view = nil
+        
+        (siteState!.view as! SiteView).clean()
+        siteState!.view!.removeFromSuperview()
+        siteState!.view = nil
+        
+        (elementState!.view as! ElementView).clean()
+        elementState!.view!.removeFromSuperview()
+        elementState!.view = nil
+        
+        (elementFromSiteState!.view as! ElementView).clean()
+        elementFromSiteState!.view!.removeFromSuperview()
+        elementFromSiteState!.view = nil
+
+
+    }
+    
+    
+    
+    func show(){
+        print("MainView show()")
+        
+        let mainViewContainer = MainViewContainer(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
+        self.addSubview(mainViewContainer)
+        mainViewContainerState!.view = mainViewContainer
+        state = mainViewContainerState!
+        
+        
+        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
+        showMenuSwipe!.edges = UIRectEdge.Left
+        mainViewContainer.scroll!.addGestureRecognizer(showMenuSwipe!)
+
+        
+        let allSitesView = AllSitesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
+            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: false)
+        addSubview(allSitesView)
+        allSitesState!.view = allSitesView
+        allSitesView.delegate = self
+        
+        let allElementsView = AllElementsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
+            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: true)
+        self.addSubview(allElementsView)
+        allElementsState!.view = allElementsView
+        allElementsView.delegate = self
+
+        let profileView = ProfileView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        self.addSubview(profileView)
+        profileState!.view = profileView
+        profileView.delegate = rootViewController!
+        profileView.delegateFather = self
+
+        let allCollectedView = AllCollectedView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: false)
+        self.addSubview(allCollectedView)
+        allCollectedState!.view = allCollectedView
+        allCollectedView.delegate = self
+        
+        let aboutView = AboutView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        aboutState!.view = aboutView
+        aboutView.delegate = self
+        self.addSubview(aboutView)
+        
+        let siteView = SiteView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0,
+            SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        siteState!.view = siteView
+        siteView.delegate = self
+        self.addSubview(siteView)
+        
+        let elementView = ElementView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn:true)
+        elementState!.view = elementView
+        elementView.delegate = self
+        self.addSubview(elementView)
+        
+        let elementViewFromSite = ElementView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn:true)
+        elementViewFromSite.isElementViewFromSite = true
+        elementFromSiteState!.view = elementViewFromSite
+        elementViewFromSite.delegate = self
+        self.addSubview(elementViewFromSite)
+        
     }
 }
 
