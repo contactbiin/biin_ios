@@ -9,7 +9,7 @@ import UIKit
 
 class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
-    
+    var title:UILabel?
     var scroll:UIScrollView?
     var currentHighlight:Int = 0
     var timer:NSTimer?
@@ -26,13 +26,27 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.greenColor()
+        self.backgroundColor = UIColor.lightGrayColor()
+        
+        
+        title = UILabel(frame: CGRectMake(10, 11, (frame.width - 20), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
+        let titleText = NSLocalizedString("Recomended", comment: "Recomended").uppercaseString
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        title!.textColor = UIColor.darkGrayColor()
+        self.addSubview(title!)
         
         //TODO: Add all showcase data here
-        scroll = UIScrollView(frame: CGRectMake(0, 0, frame.width, frame.height))
+        
+        
+        
+        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.sitesContainer_headerHeight
+            , frame.width, (frame.height - SharedUIManager.instance.sitesContainer_headerHeight)))
         scroll!.delegate = self
         scroll!.showsHorizontalScrollIndicator = false
-        scroll!.backgroundColor = UIColor.darkGrayColor()
+        scroll!.backgroundColor = UIColor.lightGrayColor()
         scroll!.pagingEnabled = true
         self.addSubview(scroll!)
         
@@ -106,11 +120,12 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
 
             var xpos:CGFloat = 0
 
+            let highlightHeight:CGFloat = ((SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)) - SharedUIManager.instance.sitesContainer_headerHeight
             
             for element in BNAppSharedManager.instance.dataManager.highlights {
                 
-                
-                let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: element)
+
+                let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, highlightHeight), father: self, element: element)
                 
                 
                 highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
@@ -120,7 +135,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
                 xpos += (SharedUIManager.instance.screenWidth )
             }
             
-            let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self, element: hightlights![0].element!)
+            let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, highlightHeight), father: self, element: hightlights![0].element!)
             lastHightLight.frame.origin.x = xpos
             lastHightLight.requestImage()
             lastHightLight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!

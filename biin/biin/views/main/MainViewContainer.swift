@@ -67,7 +67,8 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         var ypos:CGFloat = 0
         let spacer:CGFloat = 0
         
-        SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth
+        SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth + SharedUIManager.instance.sitesContainer_headerHeight
+
         self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
         self.scroll!.addSubview(self.highlightContainer!)
         ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight + spacer)
