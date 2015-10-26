@@ -45,6 +45,7 @@ Calcel = "Cancel";
 More = "more";
 NearYou = "Places near you";
 MoreFrom = "More from";
+Recomended = "Our picks";
 
 LikeTxt = "Thanks for liking us!";
 NotLikeTxt = "Thanks, see you later!";
