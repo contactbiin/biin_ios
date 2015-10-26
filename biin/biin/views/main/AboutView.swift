@@ -68,19 +68,18 @@ class AboutView: BNView {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        ypos = 30
-        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:5.0)
+        ypos = 0
+        biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:0.75)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
         scroll!.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-        ypos += (biinLogo!.frame.height + 50)
+        ypos += (biinLogo!.frame.height + 30)
         let aboutTitle = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_showcase_titleSize + 3)))
         aboutTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
         aboutTitle.textColor = UIColor.appTextColor()
         aboutTitle.textAlignment = NSTextAlignment.Center
 //        aboutTitle.text = NSLocalizedString("AboutTitle", comment: "AboutTitle").uppercaseString
-        
         
         let abouttitleText = NSLocalizedString("AboutTitle", comment: "AboutTitle").uppercaseString
         attributedString = NSMutableAttributedString(string:abouttitleText)
