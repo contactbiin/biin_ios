@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class ElementView: BNView {
+class ElementView: BNView, UIWebViewDelegate {
     
     var delegate:ElementView_Delegate?
     var element:BNElement?
@@ -43,6 +43,13 @@ class ElementView: BNView {
     
     var shareView:ShareItView?
     
+    var webView:UIWebView?
+    
+    var titlesBackground:UIView?
+    
+    var title:UILabel?
+    var subTitle:UILabel?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -59,7 +66,7 @@ class ElementView: BNView {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -90,6 +97,27 @@ class ElementView: BNView {
         
         var buttonSpace:CGFloat = 5
         let ypos:CGFloat = screenWidth + 2
+        
+        titlesBackground = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
+        titlesBackground!.backgroundColor = UIColor.whiteColor()
+        scroll!.addSubview(titlesBackground!)
+        
+        self.title = UILabel(frame: CGRectMake(20, 30, (frame.width - 40), 20))
+        self.subTitle = UILabel(frame: CGRectMake(20, 50, (frame.width - 40), 20))
+        self.title!.textColor = UIColor.appTextColor()
+        self.title!.textAlignment = NSTextAlignment.Left
+        self.title!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+        self.title!.text = "title"
+        titlesBackground!.addSubview(self.title!)
+        
+        self.subTitle!.textColor = UIColor.appTextColor()
+        self.subTitle!.textAlignment = NSTextAlignment.Left
+        self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
+        self.subTitle!.text = "Subtitle"
+        titlesBackground!.addSubview(self.subTitle!)
+
+        
+        
         
         butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         scroll!.addSubview(butonContainer!)
@@ -190,6 +218,7 @@ class ElementView: BNView {
         return false
     }
     
+    var ypos:CGFloat = 0
     
     func updateElementData(element:BNElement, showSiteBtn:Bool) {
         
@@ -235,7 +264,7 @@ class ElementView: BNView {
             updateCollectItBtn()
             updateShareBtn()
             
-            var ypos:CGFloat = SharedUIManager.instance.screenWidth
+            ypos = SharedUIManager.instance.screenWidth
             
             if percentageView != nil {
                 percentageView!.removeFromSuperview()
@@ -272,6 +301,8 @@ class ElementView: BNView {
                 scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+                
             } else if self.element!.hasPrice && self.element!.hasListPrice {
                 
                 let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
@@ -299,6 +330,9 @@ class ElementView: BNView {
                 self.scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+
+                
             } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
                 ypos += 25
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
@@ -317,17 +351,79 @@ class ElementView: BNView {
                 scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+
+                
             } else {
                 ypos += 30
-            }
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 30)
 
-            if detailsView != nil {
-                detailsView!.removeFromSuperview()
-                detailsView = nil
             }
             
-            detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
-            scroll!.addSubview(detailsView!)
+            
+            self.title!.frame = CGRectMake(10, 20, (frame.width - 20), 0)
+            self.title!.textColor = UIColor.appTextColor()
+            self.title!.textAlignment = NSTextAlignment.Left
+            self.title!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
+            self.title!.text = self.element!.title!
+            self.title!.numberOfLines = 2
+            self.title!.sizeToFit()
+            
+            self.subTitle!.frame = CGRectMake(10, (20 + self.title!.frame.height + 2), (frame.width - 20), (SharedUIManager.instance.elementView_subTitleSize + 2))
+            self.subTitle!.textColor = UIColor.appTextColor()
+            self.subTitle!.textAlignment = NSTextAlignment.Left
+            self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
+            self.subTitle!.text = self.element!.subTitle!
+            self.subTitle!.numberOfLines = 2
+            self.subTitle!.sizeToFit()
+            
+            let height:CGFloat = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
+            
+            titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
+
+            ypos += titlesBackground!.frame.height
+
+            
+            
+//            if detailsView != nil {
+//                detailsView!.removeFromSuperview()
+//                detailsView = nil
+//            }
+//            
+            //detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
+            //scroll!.addSubview(detailsView!)
+            
+            if webView != nil {
+                webView!.removeFromSuperview()
+                webView = nil
+            }
+            
+            webView = UIWebView(frame:CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, 100 ))
+            webView!.delegate = self
+            webView!.loadHTMLString(getHtmlBody(self.element!), baseURL: nil)
+            webView!.scrollView.userInteractionEnabled = false
+            scroll!.addSubview(webView!)
+
+//            var frame1:CGRect = webView!.frame;
+//            frame1.size.height = 1;
+//            webView!.frame = frame1;
+//            var fittingSize:CGSize = webView!.sizeThatFits(CGSizeZero)
+//            frame1.size = fittingSize;
+//            webView!.frame = frame;
+//            
+//            print("\(fittingSize.width), \(fittingSize.height)");
+//        
+//        
+//            webView!.frame = CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, webView!.scrollView.frame.size.height);
+//
+//            
+//            print("\(webView!.scrollView.frame.size.height)")
+//            webView!.sizeToFit()
+//            
+//            print("\(webView!.bounds.height)")
+//            
+//            ypos += webView!.scrollView.frame.height
+            //webView!.frame = CGRectMake(0, ypos , SharedUIManager.instance.screenWidth, ypos)
             
             if shareView != nil {
                 shareView = nil
@@ -336,13 +432,9 @@ class ElementView: BNView {
             let siteForSharing = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
             shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:siteForSharing)
             //scroll!.addSubview(shareView!)
-
             
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenWidth + detailsView!.frame.height))
+            
         }
-        
-        
-        
     }
 
     func clean(){
@@ -377,9 +469,12 @@ class ElementView: BNView {
         
         butonContainer?.removeFromSuperview()
         
-        
         shareView?.clean()
         shareView?.removeFromSuperview()
+        
+        titlesBackground?.removeFromSuperview()
+        
+        webView?.removeFromSuperview()
         
         scroll?.removeFromSuperview()
         imagesScrollView?.clean()
@@ -456,6 +551,94 @@ class ElementView: BNView {
         UIView.animateWithDuration(0.5, animations: {()-> Void in
             self.fade!.alpha = 0
         })
+    }
+    
+    func getHtmlBody(element:BNElement?) ->String {
+        
+        
+        let css = "html { font-family: Lato, Helvetica, sans-serif; }"
+        let fileCss = "biin.css"
+        
+        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = dir.stringByAppendingPathComponent(fileCss);
+            
+            //writing
+            do {
+                try css.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+            }
+            catch {/* error handling here */}
+            
+            //reading
+            //            do {
+            //                let text2 = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+            //            }
+            //            catch {/* error handling here */}
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        var html = ""
+        html += "<!DOCTYPE html><html><head><meta charset=\"utf-8\">"
+        html += "<head>"
+        html += "<link rel=\"stylesheet\" href=\"biin.css\" type=\"text/css\">"
+        html += "</head>"
+        html += "<body>"
+        html += element!.detailsHtml!
+        /*
+        html += "<div class=\"biin_p\"><p>Este es un parrafo normal. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>"
+        
+        html += "<div><blockquote>Quote, quis autem vel eum iurest.</blockquote></div><div class=\"biin_h1\"><h1>Titulo</h1></div><div class=\"biin_p\"><p>Este es un parrafo normal. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p> </div><div class=\"biin_h2\"><h2>Subtitulo</h2></div>"
+        
+        html += "<div class=\"biin_p\"><p>Parrafo normal. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div><div class=\"listPrice_Table\">"
+        
+        html += "<div class=\"listPrice_Title\"><h2>Titulo de tabla</h2></div><div class=\"listPrice\"><div class=\"listPrice_Right\"><div class=\"listPrice_Righ_Top\"><p>Salmón con Alcaparras</p></div><div class=\"listPrice_Righ_Bottom\"><p>Con salsa de limón, acompañado con vegetales y salsa de limón, acompañado con vegetales y puré.</p></div></div><div class=\"listPrice_Left\"><p>$100</p></div></div>"
+        
+        html += "<div class=\"listPrice\"><div class=\"listPrice_Right\"><div class=\"listPrice_Righ_Top\"><p>Chifrijo Nivel Dios</p></div><div class=\"listPrice_Righ_Bottom\"><p>Con salsa de limón, acompañado con vegetales y puré.</p></div></div><div class=\"listPrice_Left\"><p>$100</p></div></div></div><div class=\"highlight\"><div class=\"highlight_title\"><p>Su descuento</p></div> <div class=\"highlight_text\"><p>25%</p></div><div class=\"highlight_subtext\"><p>Mini parrafo especial.</p></div></div></div>"
+        */
+        html += "</body></html>"
+
+        
+        
+        let file = "element.html" //this is the file. we will write to and read from it
+        
+
+        
+        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            let path = dir.stringByAppendingPathComponent(file);
+            
+            //writing
+            do {
+                try html.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+            }
+            catch {/* error handling here */}
+            
+            //reading
+//            do {
+//                let text2 = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+//            }
+//            catch {/* error handling here */}
+        }
+        
+        
+        return html
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        
+        var frame1:CGRect = webView.frame;
+        frame1.size.height = 1;
+        webView.frame = frame1;
+        let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
+        frame1.size = fittingSize;
+        webView.frame = frame1// CGRectMake(0, 500, frame1.width, frame1.height)
+        
+        ypos += fittingSize.height
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
     }
 }
 
