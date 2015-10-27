@@ -89,6 +89,8 @@ class BNElement:NSObject {
     var categoriesIdentifiers:Array<String>?
     var showcase:BNShowcase?
     
+    var detailsHtml:String?
+    
     //var biinieProximity:Float? //same as the site where it belongs
     
     override init() {
@@ -150,6 +152,8 @@ class BNElement:NSObject {
         clone.stars = self.stars
         clone.useWhiteText = self.useWhiteText
         if let value = self.categoriesIdentifiers { clone.categoriesIdentifiers = value }
+        if let value = self.detailsHtml { clone.detailsHtml = value }
+
         return clone
     }
 }
