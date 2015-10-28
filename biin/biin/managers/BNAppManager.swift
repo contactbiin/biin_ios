@@ -318,14 +318,14 @@ class BNAppManager {
     
     func clean(){
         print("BNAppManager clean()")
-        networkManager.epsNetwork!.clean()
-        mainViewController!.clean()
+        //networkManager.epsNetwork!.clean()
+        //mainViewController!.clean()
         imagesMB = 0
     }
     
     func show(){
         print("BNAppManager show()")
-        mainViewController!.show()
+        //mainViewController!.show()
     }
     
 
