@@ -87,8 +87,8 @@ class UIManager {
     var siteView_nutshellSize:CGFloat = 12
     
     //Element view sizes
-    var elementView_titleSize:CGFloat = 20
-    var elementView_subTitleSize:CGFloat = 16
+    var elementView_titleSize:CGFloat = 30
+    var elementView_subTitleSize:CGFloat = 25
     var elementView_textSize:CGFloat = 14
     var elementView_quoteSize:CGFloat = 14
     var elementView_priceList:CGFloat = 14

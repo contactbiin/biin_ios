@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class ElementView: BNView {
+class ElementView: BNView, UIWebViewDelegate {
     
     var delegate:ElementView_Delegate?
     var element:BNElement?
@@ -43,6 +43,13 @@ class ElementView: BNView {
     
     var shareView:ShareItView?
     
+    var webView:UIWebView?
+    
+    var titlesBackground:UIView?
+    
+    var title:UILabel?
+    var subTitle:UILabel?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -59,7 +66,7 @@ class ElementView: BNView {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -91,6 +98,24 @@ class ElementView: BNView {
         var buttonSpace:CGFloat = 5
         let ypos:CGFloat = screenWidth + 2
         
+        titlesBackground = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
+        titlesBackground!.backgroundColor = UIColor.whiteColor()
+        scroll!.addSubview(titlesBackground!)
+        
+        self.title = UILabel(frame: CGRectMake(20, 30, (frame.width - 40), 20))
+        self.subTitle = UILabel(frame: CGRectMake(20, 50, (frame.width - 40), 20))
+        self.title!.textColor = UIColor.appTextColor()
+        self.title!.textAlignment = NSTextAlignment.Left
+        self.title!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+        self.title!.text = "title"
+        titlesBackground!.addSubview(self.title!)
+        
+        self.subTitle!.textColor = UIColor.appTextColor()
+        self.subTitle!.textAlignment = NSTextAlignment.Left
+        self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
+        self.subTitle!.text = "Subtitle"
+        titlesBackground!.addSubview(self.subTitle!)
+
         butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         scroll!.addSubview(butonContainer!)
         
@@ -190,6 +215,7 @@ class ElementView: BNView {
         return false
     }
     
+    var ypos:CGFloat = 0
     
     func updateElementData(element:BNElement, showSiteBtn:Bool) {
         
@@ -235,7 +261,7 @@ class ElementView: BNView {
             updateCollectItBtn()
             updateShareBtn()
             
-            var ypos:CGFloat = SharedUIManager.instance.screenWidth
+            ypos = SharedUIManager.instance.screenWidth
             
             if percentageView != nil {
                 percentageView!.removeFromSuperview()
@@ -272,6 +298,8 @@ class ElementView: BNView {
                 scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+                
             } else if self.element!.hasPrice && self.element!.hasListPrice {
                 
                 let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
@@ -299,6 +327,9 @@ class ElementView: BNView {
                 self.scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+
+                
             } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
                 ypos += 25
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
@@ -317,10 +348,40 @@ class ElementView: BNView {
                 scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+
+                
             } else {
                 ypos += 30
-            }
+                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 30)
 
+            }
+            
+            
+            self.title!.frame = CGRectMake(10, 20, (frame.width - 20), 0)
+            self.title!.textColor = UIColor.appTextColor()
+            self.title!.textAlignment = NSTextAlignment.Left
+            self.title!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
+            self.title!.text = "Titulo"//self.element!.title!
+            self.title!.numberOfLines = 2
+            self.title!.sizeToFit()
+            
+            self.subTitle!.frame = CGRectMake(10, (20 + self.title!.frame.height + 2), (frame.width - 20), (SharedUIManager.instance.elementView_subTitleSize + 2))
+            self.subTitle!.textColor = UIColor.appTextColor()
+            self.subTitle!.textAlignment = NSTextAlignment.Left
+            self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
+            self.subTitle!.text = "Subtitulo"//self.element!.subTitle!
+            self.subTitle!.numberOfLines = 2
+            self.subTitle!.sizeToFit()
+            
+            let height:CGFloat = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
+            
+            titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
+
+            ypos += titlesBackground!.frame.height
+
+            
+            /*
             if detailsView != nil {
                 detailsView!.removeFromSuperview()
                 detailsView = nil
@@ -328,7 +389,19 @@ class ElementView: BNView {
             
             detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
             scroll!.addSubview(detailsView!)
+            */
+
+            if webView != nil {
+                webView!.removeFromSuperview()
+                webView = nil
+            }
             
+            webView = UIWebView(frame:CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, 100 ))
+            webView!.delegate = self
+            webView!.loadHTMLString(getHtmlBody(self.element!), baseURL: nil)
+            webView!.scrollView.userInteractionEnabled = true
+            scroll!.addSubview(webView!)
+
             if shareView != nil {
                 shareView = nil
             }
@@ -336,13 +409,9 @@ class ElementView: BNView {
             let siteForSharing = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
             shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:siteForSharing)
             //scroll!.addSubview(shareView!)
-
             
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenWidth + detailsView!.frame.height))
+            
         }
-        
-        
-        
     }
 
     func clean(){
@@ -360,8 +429,8 @@ class ElementView: BNView {
         collectItButton?.removeFromSuperview()
         showSiteBtn?.removeFromSuperview()
         
-        detailsView?.clean()
-        detailsView?.removeFromSuperview()
+        //detailsView?.clean()
+        //detailsView?.removeFromSuperview()
         
         percentageView?.removeFromSuperview()
         textPrice1?.removeFromSuperview()
@@ -377,9 +446,12 @@ class ElementView: BNView {
         
         butonContainer?.removeFromSuperview()
         
-        
         shareView?.clean()
         shareView?.removeFromSuperview()
+        
+        titlesBackground?.removeFromSuperview()
+        
+        webView?.removeFromSuperview()
         
         scroll?.removeFromSuperview()
         imagesScrollView?.clean()
@@ -457,6 +529,91 @@ class ElementView: BNView {
             self.fade!.alpha = 0
         })
     }
+    
+    func getHtmlBody(element:BNElement?) ->String {
+
+        var html = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><head>"
+        html += "<style>"
+        html += getBiinCSS(element)
+        html += "</style></head>"
+        html += "<body>"
+        html += element!.detailsHtml!
+        html += "</body></html>"
+        print(html)
+        return html
+    }
+    
+    func getBiinCSS(element:BNElement?) -> String {
+        
+        var r:CGFloat = 0.0
+        var g:CGFloat = 0.0
+        var b:CGFloat = 0.0
+        var a:CGFloat = 0.0
+        _ = element!.media[0].vibrantColor!.getRed(&r, green: &g, blue: &b, alpha: &a)
+        
+        let rInt:Int = Int(r * 255)
+        let gInt:Int = Int(g * 255)
+        let bInt:Int = Int(b * 255)
+        let color = "rgb(\(rInt), \(gInt), \(bInt))"
+        
+        var css = ""
+        css += "html { font-family: Lato, Helvetica, sans-serif; }"
+        css += "p { font-size: 14px; font-weight:300 !important;}"
+        css += "b { font-size: 14px; font-weight:500 !important;}"
+        css += "li { font-size: 14px; font-weight:300 !important; margin-bottom: 5px; margin-left: -15px !important; }"
+        css += "h1 { font-size: 30px; }"
+        css += "h2 { font-size: 25px; }"
+        css += ".biin_html{ display:table; }"
+        css += ".listPrice_Table { display:table; margin:0 auto; width: 95%; }"
+        css += ".listPrice_Title h2 { font-size: 25px; font-weight:300; margin-bottom: 5px; }"
+        css += ".listPrice { width: 100%; }"
+        css += ".listPrice_Left { width: 80%; float: left; }"
+        css += ".listPrice_Left_Top p{ font-size: 17px; font-weight:400; text-align: left; margin-top: 0px; margin-bottom: 0px; }"
+        css += ".listPrice_Left_Bottom p{ font-size: 14px; font-weight: 200; text-align: left; color: #707070; text-overflow: ellipsis; margin-top: 0px; margin-bottom: 10px; }"
+        css += ".listPrice_Right p{ width: 20%; float: right; font-size: 17px; font-weight:400; text-align: right; margin-top: 0px; margin-bottom: 0px; }"
+        css += ".highlight { display:table; text-align: center; width: 100%; margin-top: 20px; }"
+        css += ".highlight_title p { font-size: 20px; font-weight:300; margin-top: 0px; margin-bottom: 0px; }"
+        css += ".highlight_text p { font-size: 80px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:"
+        css += color
+        css += ";}"
+        css += ".highlight_subtext p { font-size: 12px; font-weight:300; margin-top: -10px; margin-bottom: 0px; }"
+        css += ".biin_h2 { font-size: 25px; font-weight:300 !important; }"
+        css += ".biin_h1 { font-size: 30px; font-weight:300 !important; }"
+        css += ".biin_h6 { font-size: 12px; font-weight:300 !important; }"
+        css += "blockquote { border-left: 2px solid "
+        css += color
+        css += "; margin: 1.5em 10px; padding: 0.5em 10px; quotes:none;}"
+        css += "blockquote:before { content: open-quote; vertical-align:middle; }"
+        css += "blockquote p { font-size:25px; font-weight: 300; display: inline; }"
+        return css
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        
+        var frame:CGRect = webView.frame;
+        frame.size.height = 1;
+        webView.frame = frame;
+        let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
+        frame.size = fittingSize;
+        webView.frame = frame
+        
+        ypos += fittingSize.height
+        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
+    }
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        
+        
+        if navigationType == UIWebViewNavigationType.LinkClicked {
+            print("link")
+//            let targetURL = NSURL(string:"http://www.biin.io")
+            let application=UIApplication.sharedApplication()
+            application.openURL(request.URL!)
+            return false
+        }
+        return true
+    }
+    
 }
 
 @objc protocol ElementView_Delegate:NSObjectProtocol {

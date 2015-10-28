@@ -20,7 +20,7 @@ class BNAppManager {
 //    var IS_QA_DATABASE = true
 //    var IS_DEMO_DATABASE = false
     
-    var IS_DEVELOPMENT_BUILD = false
+    var IS_DEVELOPMENT_BUILD = true
 
 //    var IS_USING_CACHE = false
     
@@ -318,14 +318,14 @@ class BNAppManager {
     
     func clean(){
         print("BNAppManager clean()")
-        networkManager.epsNetwork!.clean()
-        mainViewController!.clean()
+        //networkManager.epsNetwork!.clean()
+        //mainViewController!.clean()
         imagesMB = 0
     }
     
     func show(){
         print("BNAppManager show()")
-        mainViewController!.show()
+        //mainViewController!.show()
     }
     
 
