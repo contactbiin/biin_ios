@@ -29,6 +29,7 @@ class BNRequest_Login: BNRequest {
         
         print("BNRequest_Login.run()")
         isRunning = true
+        requestAttemps++
         
         var response:BNResponse?
         
@@ -38,9 +39,6 @@ class BNRequest_Login: BNRequest {
             if (error != nil) {
                 
                 self.networkManager!.handleFailedRequest(self, error: error)
-                
-                response = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
-                self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedLoginValidation: response)
                 
             } else {
                 

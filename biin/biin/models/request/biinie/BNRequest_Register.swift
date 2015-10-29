@@ -30,6 +30,7 @@ class BNRequest_Register: BNRequest {
         
         print("BNRequest_Register.run()")
         isRunning = true
+        requestAttemps++
 
         var response:BNResponse?
 
@@ -38,7 +39,7 @@ class BNRequest_Register: BNRequest {
             
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
-                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+//                response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
                 
                 if let registerData = data["data"] as? NSDictionary {

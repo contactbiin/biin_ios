@@ -112,6 +112,29 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     */
     
     
+    func getConnection(request: NSURLRequest, callback: (NSError?) -> Void) {
+        
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            //            var queue = NSOperationQueue()
+            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                
+                if (error != nil) {
+                    callback(error)
+                    return
+                } else {
+                    callback(nil)
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    
+                }
+            })
+        })
+    }
+
+    
+    
+    
     func getWithConnection(request: NSURLRequest, callback: (String, NSError?) -> Void) {
 
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -145,6 +168,33 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             })
         })
     }
+    
+    func checkConnection(useCache:Bool, url: String, callback:(NSError?) -> Void) {
+        
+        var Status:Bool = false
+        let url = NSURL(string: url)
+        let request = NSMutableURLRequest(URL: url!)
+        
+        
+        if BNAppSharedManager.instance.settings!.IS_USING_CACHE && useCache {
+            request.cachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
+        } else {
+            request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
+        }
+        
+        request.HTTPMethod = "HEAD"
+        request.timeoutInterval = 10.0
+        
+        self.getConnection(request, callback:{(error: NSError?) -> Void in
+            
+            if error != nil {
+                callback(error)
+            } else {
+                callback( nil)
+            }
+        })
+    }
+    
     
     func getJson(useCache:Bool, url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         

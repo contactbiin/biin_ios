@@ -21,7 +21,7 @@ class BNRequest_CheckEmail_IsVerified: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.SendBiinieActions
+        self.requestType = BNRequestType.CheckEmail_IsVerified
         self.errorManager = errorManager
         self.networkManager = networkManager
     }
@@ -30,6 +30,7 @@ class BNRequest_CheckEmail_IsVerified: BNRequest {
         
         NSLog("BNRequest_CheckEmail_IsVerified.run()")
         isRunning = true
+        requestAttemps++
         
         self.networkManager!.epsNetwork!.getJson(false, url:requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in

@@ -20,7 +20,7 @@ class BNRequest_Organization: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
-        self.requestType = BNRequestType.OrganizationData
+        self.requestType = BNRequestType.Organization
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.organization = organization
@@ -30,6 +30,8 @@ class BNRequest_Organization: BNRequest {
         
         print("BNRequest_Organization.run()")
         isRunning = true
+        requestAttemps++
+        
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

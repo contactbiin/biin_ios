@@ -19,7 +19,7 @@ class BNRequest_Categories: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.CategoriesData
+        self.requestType = BNRequestType.Categories
         self.errorManager = errorManager
         self.networkManager = networkManager
         
@@ -29,6 +29,7 @@ class BNRequest_Categories: BNRequest {
         
         print("BNRequest_Categories.run() \(self.requestString)")
         isRunning = true
+        requestAttemps++
         
         self.networkManager!.epsNetwork!.getJson(false, url:self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
