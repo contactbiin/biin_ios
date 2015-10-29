@@ -19,7 +19,7 @@ class BNRequest_Image: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.SendBiinie
+        self.requestType = BNRequestType.Image
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.image = image
@@ -29,6 +29,7 @@ class BNRequest_Image: BNRequest {
         
         //print("BNRequest_Image.run()")
         isRunning = true
+        requestAttemps++
         
         if image != nil {
             

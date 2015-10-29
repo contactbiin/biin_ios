@@ -29,7 +29,7 @@ class BNRequest_Collections: BNRequest {
         
         print("BNRequest_Collections.run()")
         isRunning = true
-        
+        requestAttemps++
         
         self.networkManager!.epsNetwork!.getJson(true, url:requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in

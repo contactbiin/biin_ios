@@ -30,6 +30,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
         
         print("BNRequest_SendBiinieCategories.run()")
         isRunning = true
+        requestAttemps++
         
         var model = ["model":Array<Dictionary <String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
         
@@ -56,7 +57,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
             if (error != nil) {
                 
                 self.networkManager!.handleFailedRequest(self, error: error )
-                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+//                response = BNResponse(code:10, type: BNResponse_Type.Suck)
                 
             } else {
                 
