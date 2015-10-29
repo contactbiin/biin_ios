@@ -20,7 +20,7 @@ class BNRequest_SendUnCollectedElement: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
-        self.requestType = BNRequestType.ConnectivityCheck
+        self.requestType = BNRequestType.SendUnCollectedElement
         self.errorManager = errorManager
         self.networkManager = networkManager
     }
@@ -29,6 +29,7 @@ class BNRequest_SendUnCollectedElement: BNRequest {
         
         print("BNRequest_SendUnCollectedElement.run()")
         isRunning = true
+        requestAttemps++
         
         var model = Dictionary<String, Dictionary <String, String>>()
         
@@ -45,29 +46,13 @@ class BNRequest_SendUnCollectedElement: BNRequest {
             htttpBody = nil
         }
         
-        //var response:BNResponse?
-        
         self.networkManager!.epsNetwork!.delete(self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
-                //response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
-                
-                //if let dataData = data["data"] as? NSDictionary {
-                    
-//                    let status = BNParser.findInt("status", dictionary: data)
-//                    let result = BNParser.findBool("result", dictionary: data)
-//                    
-//                    if result {
-//                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-//                    } else {
-//                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-//                    }
-                //}
-                
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)
             }

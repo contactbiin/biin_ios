@@ -81,7 +81,8 @@ class InternetErrorView: BNView {
         let vc = LoadingViewController()
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
-        BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+        BNAppSharedManager.instance.networkManager.resume()
+//        BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -30,6 +30,7 @@ class BNRequest_SendSharedSite: BNRequest {
         
         print("BNRequest_SendSharedSite.run()")
         isRunning = true
+        requestAttemps++
         
         var model = Dictionary<String, Dictionary <String, String>>()
         
@@ -47,30 +48,28 @@ class BNRequest_SendSharedSite: BNRequest {
             htttpBody = nil
         }
         
-        var response:BNResponse?
+//        var response:BNResponse?
         
         self.networkManager!.epsNetwork!.put(self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                self.networkManager!.handleFailedRequest(self, error: error )
-                response = BNResponse(code:10, type: BNResponse_Type.Suck)
-                
+                self.networkManager!.handleFailedRequest(self, error: error )                
             } else {
                 
                 //if let dataData = data["data"] as? NSDictionary {
                     
-                    let status = BNParser.findInt("status", dictionary: data)
-                    let result = BNParser.findBool("result", dictionary: data)
-                    
-                    if result {
-                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                    } else {
-                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                    }
-                    
-                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
+//                    let status = BNParser.findInt("status", dictionary: data)
+//                    let result = BNParser.findBool("result", dictionary: data)
+//                    
+//                    if result {
+//                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+//                    } else {
+//                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+//                    }
+//                    
+//                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
                 //}
                 
                 self.inCompleted = true

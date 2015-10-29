@@ -21,7 +21,7 @@ class BNRequest_Showcase: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.SendBiinieActions
+        self.requestType = BNRequestType.Showcase
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.user  = user
@@ -32,6 +32,7 @@ class BNRequest_Showcase: BNRequest {
         
         NSLog("BNRequest_Showcase.run()")
         isRunning = true
+        requestAttemps++
         
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in

@@ -31,6 +31,7 @@ class BNRequest_SendBiinie:BNRequest {
         
         print("BNRequest_SendBiinie.run()")
         isRunning = true
+        requestAttemps++
         
         var model = Dictionary<String, Dictionary <String, String>>()
         var modelContent = Dictionary<String, String>()
@@ -59,7 +60,7 @@ class BNRequest_SendBiinie:BNRequest {
             if (error != nil) {
                 print("ERROR on sendBiinie()")
                 self.networkManager!.handleFailedRequest(self, error: error )
-                response = BNResponse(code:10, type: BNResponse_Type.Suck)
+//                response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
                 
                 //if let dataData = data["data"] as? NSDictionary {

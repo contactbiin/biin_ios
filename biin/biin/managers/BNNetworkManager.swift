@@ -12,7 +12,7 @@ import CoreLocation
 class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, BNPositionManagerDelegate {
     
     //URL requests
-    let connectibityUrl = "http://s3-us-west-2.amazonaws.com/biintest/BiinJsons/getConnectibity.json"
+    let connectibityUrl = "http://google.com/"
 
     var errorManager:BNErrorManager?
     var delegateDM:BNNetworkManagerDelegate?
@@ -60,7 +60,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     
     func runQueue(){
-            var totalRequestRunnin = 0
+        var totalRequestRunnin = 0
         //print("runQueue(): \(requestsQueue.count)")
 
         if requestsQueue.count == 0 {
@@ -475,24 +475,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         for (_, value) in requests {
             
             switch value.requestType {
-            case .Regions:
-                //self.requestRegions(value)
-                break
-            case .RegionData:
-                //self.requestRegionData(value)
-                break
-            case .UserCategories:
-                //self.requestUserCategoriesData(value)
-                break
-            case .SiteData:
-                //self.requestSiteData(value)
-                break
-            case .ShowcaseData:
-                //                self.requestShowcaseData(value, showcase:value.showcase!)
-                break
-            case .ElementData:
-                //                self.requestElementData(value, element:value.element!)
-                break
+
             default:
                 break
             }
@@ -538,58 +521,75 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
-        switch error!.code {
-            case 3840:
-                self.delegateDM!.manager!(self, removeShowcaseRelationShips: request.dataIdentifier)
-//                self.requests.removeValueForKey(request.identifier)
-                self.removeRequestOnCompleted(request.identifier)
-                self.removeShowcase(request.dataIdentifier)
-                self.errorManager!.showAlert(error)
-//                self.requestAttempts = 0
-                return
-            case 1005:
-            break
-            default:
-            break
-        }
-        
-        if self.requestAttempts == self.requestAttemptsLimit {
-            self.errorManager!.showAlert(error)
-            self.requestAttempts = 0
-        } else {
-            
+//        switch error!.code {
+//            case 3840:
+//                self.delegateDM!.manager!(self, removeShowcaseRelationShips: request.dataIdentifier)
+////                self.requests.removeValueForKey(request.identifier)
+//                self.removeRequestOnCompleted(request.identifier)
+//                self.removeShowcase(request.dataIdentifier)
+//                self.errorManager!.showAlert(error)
+////                self.requestAttempts = 0
+//                return
+//            case 1005:
+//            break
+//            default:
+//            break
+//        }
+//        
+//        if self.requestAttempts == self.requestAttemptsLimit {
+//            self.errorManager!.showAlert(error)
+//            self.requestAttempts = 0
+//        } else {
+//            
             print("Trying request again: " + request.requestString)
             
             switch request.requestType {
-            case .Regions:
-                //self.requestRegions(request)
+            case .None:
                 break
-            case .RegionData:
-                //self.requestRegionData(request)
+            case .Login:
+                let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
+                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
-            case .UserCategories:
-                //self.requestUserCategoriesData(request)
+            case .Register:
+                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
+                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
-            case .SiteData:
-                //self.requestSiteData(request)
-                break
-            case .ShowcaseData:
-//                self.requestShowcaseData(request, showcase:request.showcase!)
-                break
-            case .ElementData:
-                if request.requestAttemps <= 4 {
-                    request.requestAttemps++
-                    //self.requestElementData(request, element:request.element!)
+            case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Image, .Categories, .Organization, .Collections:
+                
+                if request.requestAttemps >= 3 {
+                    request.requestAttemps = 0
+                    request.isRunning = false
+                    self.errorManager!.showInternetError()
                 } else {
-                    
+                    request.isRunning = false
+                    request.run()
+                }
+                
+                break
+            case .ConnectivityCheck:
+                if request.requestAttemps >= 3 {
+                    request.requestAttemps = 0
+                    request.isRunning = false
+                    self.errorManager!.showInternetError()
+                } else {
+                    request.isRunning = false
+                    request.run()
                 }
                 break
             default:
                 break
             }
-        }
+//        }
         
-        self.requestAttempts++
+//        self.requestAttempts++
+    }
+    
+    func resume(){
+        for (_, request) in requestsQueue {
+            if !request.isRunning {
+                request.run()
+            }
+        }
     }
     
     //Request to remove a showcase when it data is corrupt or is not longer in server.
