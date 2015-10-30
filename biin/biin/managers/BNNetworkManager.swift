@@ -727,8 +727,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     
     optional func manager(manager:BNNetworkManager!, didReveivedBiinsOnRegion biins:Array<BNBiin>, identifier:String)
-
-    optional func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie)
+    
+    optional func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie, isBiinieOnBD:Bool)
     optional func manager(manager:BNNetworkManager!, removeShowcaseRelationShips identifier:String)
     optional func manager(manager:BNNetworkManager!, didReveivedSharedBiins biins:Array<BNBiin>, identifier:String )
     optional func refreshTable(manager:BNNetworkManager!)

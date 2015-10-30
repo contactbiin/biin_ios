@@ -179,6 +179,10 @@ LocationErrorTitle = "Hey, Biin needs location services enabled!";
 LocationErrorText = "Please, turn on location services on your device and enable Biin to use them.";
 LocationErrorButton = "Go to settings.";
 
+NotBiinieErrorTitle = "Opps!";
+NotBiinieErrorText = "We are sorry but something is wrong with your account, please create a new one on Biin.";
+NotBiinieErrorButton = "Go to the start screen.";
+
 OnboardingTitle1 = "Discover!";
 OnboardingText1 = "The best deals and rewards just steps away from you.";
 
