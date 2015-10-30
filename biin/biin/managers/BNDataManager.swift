@@ -79,11 +79,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func requestInitialData(){
-        
-        
         NSLog("BIIN - requestInitialData()")
-        
-        
         delegateNM!.manager!(self, requestCategoriesData: bnUser!)
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
@@ -995,18 +991,36 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 //        self.viewController?.refreshTable()
 //    }
 
+    func biinieNotFoundOnDB(user: Biinie) {
+        bnUser!.clear()
+        BNAppSharedManager.instance.settings!.clear()
+        
+
+//                        let lvc = SingupViewController()
+////                        self.window!.rootViewController = lvc
+////                        let vc = MainViewController()
+//                        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//                        self.viewController!.presentViewController(vc, animated: true, completion: nil)
+
+//response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+    }
     
 
     
-    func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie) {
+    func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie, isBiinieOnBD:Bool) {
         
-        if self.bnUser != nil {
-            self.bnUser = user
-            self.bnUser!.save()
+        if isBiinieOnBD {
+            if self.bnUser != nil {
+                self.bnUser = user
+                self.bnUser!.save()
+            }
+            
+            requestInitialData()
+        } else {
+            bnUser!.clear()
+            BNAppSharedManager.instance.settings!.clear()
+            errorManager.showNotBiinieError()
         }
-        
-        requestInitialData()
-        
         /*x
         //Add a temporal BNCollection
         bnUser!.collections = Dictionary<String, BNCollection>()

@@ -12,6 +12,7 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
     var bluetoothErrorView:BluetoothErrorView?
     var hardwareErrorView:HardwareErrorView?
     var locationErrorView:LocationErrorView?
+    var notBiinieErrorView:NotBiinieErrorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,12 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
         locationErrorView = LocationErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
         locationErrorView!.errorViewController = self
         self.view.addSubview(locationErrorView!)
+    }
+    
+    func addNotBiinie_ErrorView(){
+        notBiinieErrorView = NotBiinieErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
+        notBiinieErrorView!.errorViewController = self
+        self.view.addSubview(notBiinieErrorView!)
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

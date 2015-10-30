@@ -78,11 +78,11 @@ class BNRequest_Biinie: BNRequest {
                         }
                         
                         self.user!.categories = categories
-                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!)
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:true)
                         
                     } else {
                         print("EROOR: NOT USER FOUND ON DB")
-                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:false)
                     }
                 }
                 
