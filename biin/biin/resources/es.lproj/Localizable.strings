@@ -176,6 +176,10 @@ LocationErrorTitle = "Biin necesita conocer tu posición!";
 LocationErrorText = "Por favor enciende los servicios de localización en tu dispositivo y habilita Biin para usarlos.";
 LocationErrorButton = "Ir a ajustes!";
 
+NotBiinieErrorTitle = "Opps!";
+NotBiinieErrorText = "Lo sentimos mucho pero algo está mal con tu cuenta en Biin, es necesario que inicies nuevamente.";
+NotBiinieErrorButton = "Ir a pantalla de inicio";
+
 /*Onboarding*/
 OnboardingTitle1 = "Descubrí!";
 OnboardingText1 = "Las mejores ofertas y beneficios desde tu casa a solo pasos de donde estás.";
