@@ -20,7 +20,7 @@ class BNRequest_Biinie: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.SendBiinieActions
+        self.requestType = BNRequestType.Biinie
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.user = user
@@ -30,13 +30,13 @@ class BNRequest_Biinie: BNRequest {
         
         NSLog("BNRequest_CheckEmail_IsVerified.run()")
         isRunning = true
+        requestAttemps++
         
         self.networkManager!.epsNetwork!.getJson(false, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 print("Error on biinie data")
                 self.networkManager!.handleFailedRequest(self, error: error )
-                
             } else {
                 
                 //var response:BNResponse?
@@ -78,11 +78,11 @@ class BNRequest_Biinie: BNRequest {
                         }
                         
                         self.user!.categories = categories
-                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!)
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:true)
                         
                     } else {
                         print("EROOR: NOT USER FOUND ON DB")
-                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:false)
                     }
                 }
                 

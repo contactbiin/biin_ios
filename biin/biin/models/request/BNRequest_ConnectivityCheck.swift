@@ -30,16 +30,18 @@ class BNRequest_ConnectivityCheck: BNRequest {
 
         print("BNRequestConnectivityCheck.run()")
         isRunning = true
-        networkManager!.epsNetwork!.getJson(false, url:requestString, callback:{
-            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+        requestAttemps++
+        
+        networkManager!.epsNetwork!.checkConnection(false, url:requestString, callback:{
+            (error: NSError?) -> Void in
             
             if (error != nil) {
-                print("Error BNRequestConnectivityCheck.run()")
-                self.errorManager!.showInternetError()
-                self.networkManager!.handleFailedRequest(self, error: error )
-                self.networkManager!.requests.removeAll(keepCapacity: false)
-            } else {
+                print("CONNECTION - FAILED")
 
+                self.networkManager!.handleFailedRequest(self, error: error )
+//                self.networkManager!.requests.removeAll(keepCapacity: false)
+            } else {
+                print("CONNECTION - OK")
                 self.inCompleted = true
                 self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedConnectionStatus: true)
                 self.networkManager!.removeFromQueue(self)

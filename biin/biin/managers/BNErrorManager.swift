@@ -206,6 +206,23 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
         }
     }
     
+    
+    
+    func showNotBiinieError(){
+        
+        if !self.isAlertOn {
+            
+            isAlertOn = true
+            
+            let vc = ErrorViewController()
+            vc.addNotBiinie_ErrorView()
+            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            currentViewController!.presentViewController(vc, animated: true, completion: nil)
+            BNAppSharedManager.instance.errorManager.currentViewController = vc
+        }
+    }
+
+    
     // before animation and hiding view
     func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
         isAlertOn = false

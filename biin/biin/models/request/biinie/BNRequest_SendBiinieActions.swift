@@ -31,7 +31,8 @@ class BNRequest_SendBiinieActions: BNRequest {
         
         NSLog("BNRequest_SendBiinieActions.run()")
         isRunning = true
-
+        requestAttemps++
+        
         var model = ["model":["actions":Array<Dictionary<String, String>>()]] as Dictionary<String, Dictionary<String, Array<Dictionary <String, String>>>>
         
         for value in self.user!.actions {

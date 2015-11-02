@@ -116,9 +116,6 @@ class ElementView: BNView, UIWebViewDelegate {
         self.subTitle!.text = "Subtitle"
         titlesBackground!.addSubview(self.subTitle!)
 
-        
-        
-        
         butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         scroll!.addSubview(butonContainer!)
         
@@ -365,7 +362,7 @@ class ElementView: BNView, UIWebViewDelegate {
             self.title!.textColor = UIColor.appTextColor()
             self.title!.textAlignment = NSTextAlignment.Left
             self.title!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
-            self.title!.text = self.element!.title!
+            self.title!.text = "Titulo"//self.element!.title!
             self.title!.numberOfLines = 2
             self.title!.sizeToFit()
             
@@ -373,7 +370,7 @@ class ElementView: BNView, UIWebViewDelegate {
             self.subTitle!.textColor = UIColor.appTextColor()
             self.subTitle!.textAlignment = NSTextAlignment.Left
             self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
-            self.subTitle!.text = self.element!.subTitle!
+            self.subTitle!.text = "Subtitulo"//self.element!.subTitle!
             self.subTitle!.numberOfLines = 2
             self.subTitle!.sizeToFit()
             
@@ -384,15 +381,16 @@ class ElementView: BNView, UIWebViewDelegate {
             ypos += titlesBackground!.frame.height
 
             
+            /*
+            if detailsView != nil {
+                detailsView!.removeFromSuperview()
+                detailsView = nil
+            }
             
-//            if detailsView != nil {
-//                detailsView!.removeFromSuperview()
-//                detailsView = nil
-//            }
-//            
-            //detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
-            //scroll!.addSubview(detailsView!)
-            
+            detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
+            scroll!.addSubview(detailsView!)
+            */
+
             if webView != nil {
                 webView!.removeFromSuperview()
                 webView = nil
@@ -401,30 +399,9 @@ class ElementView: BNView, UIWebViewDelegate {
             webView = UIWebView(frame:CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, 100 ))
             webView!.delegate = self
             webView!.loadHTMLString(getHtmlBody(self.element!), baseURL: nil)
-            webView!.scrollView.userInteractionEnabled = false
+            webView!.scrollView.userInteractionEnabled = true
             scroll!.addSubview(webView!)
 
-//            var frame1:CGRect = webView!.frame;
-//            frame1.size.height = 1;
-//            webView!.frame = frame1;
-//            var fittingSize:CGSize = webView!.sizeThatFits(CGSizeZero)
-//            frame1.size = fittingSize;
-//            webView!.frame = frame;
-//            
-//            print("\(fittingSize.width), \(fittingSize.height)");
-//        
-//        
-//            webView!.frame = CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, webView!.scrollView.frame.size.height);
-//
-//            
-//            print("\(webView!.scrollView.frame.size.height)")
-//            webView!.sizeToFit()
-//            
-//            print("\(webView!.bounds.height)")
-//            
-//            ypos += webView!.scrollView.frame.height
-            //webView!.frame = CGRectMake(0, ypos , SharedUIManager.instance.screenWidth, ypos)
-            
             if shareView != nil {
                 shareView = nil
             }
@@ -452,8 +429,8 @@ class ElementView: BNView, UIWebViewDelegate {
         collectItButton?.removeFromSuperview()
         showSiteBtn?.removeFromSuperview()
         
-        detailsView?.clean()
-        detailsView?.removeFromSuperview()
+        //detailsView?.clean()
+        //detailsView?.removeFromSuperview()
         
         percentageView?.removeFromSuperview()
         textPrice1?.removeFromSuperview()
@@ -554,92 +531,89 @@ class ElementView: BNView, UIWebViewDelegate {
     }
     
     func getHtmlBody(element:BNElement?) ->String {
-        
-        
-        let css = "html { font-family: Lato, Helvetica, sans-serif; }"
-        let fileCss = "biin.css"
-        
-        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = dir.stringByAppendingPathComponent(fileCss);
-            
-            //writing
-            do {
-                try css.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
-            }
-            catch {/* error handling here */}
-            
-            //reading
-            //            do {
-            //                let text2 = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding)
-            //            }
-            //            catch {/* error handling here */}
-        }
 
-        
-        
-        
-        
-        
-        
-        
-        var html = ""
-        html += "<!DOCTYPE html><html><head><meta charset=\"utf-8\">"
-        html += "<head>"
-        html += "<link rel=\"stylesheet\" href=\"biin.css\" type=\"text/css\">"
-        html += "</head>"
+        var html = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><head>"
+        html += "<style>"
+        html += getBiinCSS(element)
+        html += "</style></head>"
         html += "<body>"
         html += element!.detailsHtml!
-        /*
-        html += "<div class=\"biin_p\"><p>Este es un parrafo normal. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p></div>"
-        
-        html += "<div><blockquote>Quote, quis autem vel eum iurest.</blockquote></div><div class=\"biin_h1\"><h1>Titulo</h1></div><div class=\"biin_p\"><p>Este es un parrafo normal. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p> </div><div class=\"biin_h2\"><h2>Subtitulo</h2></div>"
-        
-        html += "<div class=\"biin_p\"><p>Parrafo normal. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p></div><div class=\"listPrice_Table\">"
-        
-        html += "<div class=\"listPrice_Title\"><h2>Titulo de tabla</h2></div><div class=\"listPrice\"><div class=\"listPrice_Right\"><div class=\"listPrice_Righ_Top\"><p>Salmón con Alcaparras</p></div><div class=\"listPrice_Righ_Bottom\"><p>Con salsa de limón, acompañado con vegetales y salsa de limón, acompañado con vegetales y puré.</p></div></div><div class=\"listPrice_Left\"><p>$100</p></div></div>"
-        
-        html += "<div class=\"listPrice\"><div class=\"listPrice_Right\"><div class=\"listPrice_Righ_Top\"><p>Chifrijo Nivel Dios</p></div><div class=\"listPrice_Righ_Bottom\"><p>Con salsa de limón, acompañado con vegetales y puré.</p></div></div><div class=\"listPrice_Left\"><p>$100</p></div></div></div><div class=\"highlight\"><div class=\"highlight_title\"><p>Su descuento</p></div> <div class=\"highlight_text\"><p>25%</p></div><div class=\"highlight_subtext\"><p>Mini parrafo especial.</p></div></div></div>"
-        */
         html += "</body></html>"
-
-        
-        
-        let file = "element.html" //this is the file. we will write to and read from it
-        
-
-        
-        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = dir.stringByAppendingPathComponent(file);
-            
-            //writing
-            do {
-                try html.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
-            }
-            catch {/* error handling here */}
-            
-            //reading
-//            do {
-//                let text2 = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding)
-//            }
-//            catch {/* error handling here */}
-        }
-        
-        
+        print(html)
         return html
+    }
+    
+    func getBiinCSS(element:BNElement?) -> String {
+        
+        var r:CGFloat = 0.0
+        var g:CGFloat = 0.0
+        var b:CGFloat = 0.0
+        var a:CGFloat = 0.0
+        _ = element!.media[0].vibrantColor!.getRed(&r, green: &g, blue: &b, alpha: &a)
+        
+        let rInt:Int = Int(r * 255)
+        let gInt:Int = Int(g * 255)
+        let bInt:Int = Int(b * 255)
+        let color = "rgb(\(rInt), \(gInt), \(bInt))"
+        
+        var css = ""
+        css += "html { font-family: Lato, Helvetica, sans-serif; }"
+        css += "p { font-size: 14px; font-weight:300 !important;}"
+        css += "b { font-size: 14px; font-weight:500 !important;}"
+        css += "li { font-size: 14px; font-weight:300 !important; margin-bottom: 5px; margin-left: -15px !important; }"
+        css += "h1 { font-size: 30px; }"
+        css += "h2 { font-size: 25px; }"
+        css += ".biin_html{ display:table; }"
+        css += ".listPrice_Table { display:table; margin:0 auto; width: 95%; }"
+        css += ".listPrice_Title h2 { font-size: 25px; font-weight:300; margin-bottom: 5px; }"
+        css += ".listPrice { width: 100%; }"
+        css += ".listPrice_Left { width: 80%; float: left; }"
+        css += ".listPrice_Left_Top p{ font-size: 17px; font-weight:400; text-align: left; margin-top: 0px; margin-bottom: 0px; }"
+        css += ".listPrice_Left_Bottom p{ font-size: 14px; font-weight: 200; text-align: left; color: #707070; text-overflow: ellipsis; margin-top: 0px; margin-bottom: 10px; }"
+        css += ".listPrice_Right p{ width: 20%; float: right; font-size: 17px; font-weight:400; text-align: right; margin-top: 0px; margin-bottom: 0px; }"
+        css += ".highlight { display:table; text-align: center; width: 100%; margin-top: 20px; }"
+        css += ".highlight_title p { font-size: 20px; font-weight:300; margin-top: 0px; margin-bottom: 0px; }"
+        css += ".highlight_text p { font-size: 80px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:"
+        css += color
+        css += ";}"
+        css += ".highlight_subtext p { font-size: 12px; font-weight:300; margin-top: -10px; margin-bottom: 0px; }"
+        css += ".biin_h2 { font-size: 25px; font-weight:300 !important; }"
+        css += ".biin_h1 { font-size: 30px; font-weight:300 !important; }"
+        css += ".biin_h6 { font-size: 12px; font-weight:300 !important; }"
+        css += "blockquote { border-left: 2px solid "
+        css += color
+        css += "; margin: 1.5em 10px; padding: 0.5em 10px; quotes:none;}"
+        css += "blockquote:before { content: open-quote; vertical-align:middle; }"
+        css += "blockquote p { font-size:25px; font-weight: 300; display: inline; }"
+        return css
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
         
-        var frame1:CGRect = webView.frame;
-        frame1.size.height = 1;
-        webView.frame = frame1;
+        var frame:CGRect = webView.frame;
+        frame.size.height = 1;
+        webView.frame = frame;
         let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
-        frame1.size = fittingSize;
-        webView.frame = frame1// CGRectMake(0, 500, frame1.width, frame1.height)
+        frame.size = fittingSize;
+        webView.frame = frame
         
         ypos += fittingSize.height
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
     }
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        
+        
+        if navigationType == UIWebViewNavigationType.LinkClicked {
+            print("link")
+//            let targetURL = NSURL(string:"http://www.biin.io")
+            let application=UIApplication.sharedApplication()
+            application.openURL(request.URL!)
+            return false
+        }
+        return true
+    }
+    
 }
 
 @objc protocol ElementView_Delegate:NSObjectProtocol {

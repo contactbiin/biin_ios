@@ -20,7 +20,7 @@ class BNRequest_SendUnCollectedSite: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
-        self.requestType = BNRequestType.ConnectivityCheck
+        self.requestType = BNRequestType.SendUnCollectedSite
         self.errorManager = errorManager
         self.networkManager = networkManager
     }
@@ -29,6 +29,7 @@ class BNRequest_SendUnCollectedSite: BNRequest {
         
         print("BNRequest_SendUnBiinedSite.run()")
         isRunning = true
+        requestAttemps++
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

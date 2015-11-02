@@ -15,34 +15,31 @@ enum BNRequestType
     case None
     case Login
     case Register
-    case SendBiinieCategories
+    case Biinie
     case SendBiinie
-    case SendBiinieActions
     case SendBiiniePoints
-    case CategoriesData
+    case SendBiinieActions
+    case SendBiinieCategories
+    case SendCollectedElement
+    case SendUnCollectedElement
+    case SendLikedElement
+    case SendSharedElement
+    case SendCollectedSite
+    case SendUnCollectedSite
+    case SendFollowedSite
+    case SendLikedSite
+    case SendSharedSite
+    
+    case CheckEmail_IsVerified
     case ConnectivityCheck
-    case CheckIsEmailVerified
-    case TimeNone
-    case Network
-    case Regions                //request regions on BNNetworkManager
-    case RegionData             //request region data on BNNetworkManager
-    case UserCategories         //request user categories data on BNNetworkManager
-    case SiteData
-    case OrganizationData
-    case HighlightsData
-    case ShowcaseData           //request showcase data on BNNetworkManager
-    case ElementData     //request element data for a user
-    case SaveError              //save error on server on BNNetworkManager
-    case ImageData
-    case InitialData
-    case RemoveShowcase
-    case BiinieData
-    case SharedBiins
-    case BiinedElements //Elements biined by user
-    case Collections //User collections
-    case SendBiinedElement
-    case SendBiinedSite
-    case SendNotifiedObject
+    
+    case Site
+    case Showcase
+    case Element
+    case Image
+    case Categories
+    case Organization
+    case Collections
 }
 
 class BNRequest:NSObject {

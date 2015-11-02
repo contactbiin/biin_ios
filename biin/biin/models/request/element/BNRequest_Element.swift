@@ -21,7 +21,7 @@ class BNRequest_Element: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
-        self.requestType = BNRequestType.ElementData
+        self.requestType = BNRequestType.Element
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.element = element
@@ -31,16 +31,17 @@ class BNRequest_Element: BNRequest {
         
         print("BNRequest_Element.run() \(requestString)")
         isRunning = true
+        requestAttemps++
         //var response:BNResponse?
         
         networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 print("Error on element data")
-                //self.handleFailedRequest(request, error: error )
+                self.networkManager!.handleFailedRequest(self, error: error )
                 
                 //response = BNResponse(code:10, type: BNResponse_Type.Suck)
-                print("*** element data SUCK - FAILED!")
+                //print("*** element data SUCK - FAILED!")
                 
             } else {
                 

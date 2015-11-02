@@ -20,7 +20,7 @@ class BNRequest_Site: BNRequest {
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
-        self.requestType = BNRequestType.SiteData
+        self.requestType = BNRequestType.Site
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.site = site
@@ -30,13 +30,13 @@ class BNRequest_Site: BNRequest {
         
         //print("BNRequest_Site.run()")
         isRunning = true
+        requestAttemps++
 
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
                 print("Error on requestSiteData()")
-                print("\(error!.description)")
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
