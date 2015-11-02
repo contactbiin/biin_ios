@@ -75,7 +75,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestBiinieInitialData(){
         NSLog("BIIN - requestBiinieInitialData()")
-        delegateNM!.manager!(self, requestBiinieData: bnUser!)
+        if isUserLoaded {
+            delegateNM!.manager!(self, requestBiinieData: bnUser!)
+        }
     }
     
     func requestInitialData(){

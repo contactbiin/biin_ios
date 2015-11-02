@@ -56,10 +56,15 @@ class BNRequest_Login: BNRequest {
                     }
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedLoginValidation: response)
+                    
+                    self.inCompleted = true
+                    self.networkManager!.removeFromQueue(self)
+                    
+                } else {
+                    self.requestType = BNRequestType.ServerError
+                    self.networkManager!.handleFailedRequest(self, error: error)
+
                 }
-                
-                self.inCompleted = true
-                self.networkManager!.removeFromQueue(self)
             }
         })
     }

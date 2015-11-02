@@ -362,7 +362,7 @@ class ElementView: BNView, UIWebViewDelegate {
             self.title!.textColor = UIColor.appTextColor()
             self.title!.textAlignment = NSTextAlignment.Left
             self.title!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
-            self.title!.text = "Titulo"//self.element!.title!
+            self.title!.text = self.element!.title!
             self.title!.numberOfLines = 2
             self.title!.sizeToFit()
             
@@ -370,7 +370,7 @@ class ElementView: BNView, UIWebViewDelegate {
             self.subTitle!.textColor = UIColor.appTextColor()
             self.subTitle!.textAlignment = NSTextAlignment.Left
             self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
-            self.subTitle!.text = "Subtitulo"//self.element!.subTitle!
+            self.subTitle!.text = self.element!.subTitle!
             self.subTitle!.numberOfLines = 2
             self.subTitle!.sizeToFit()
             

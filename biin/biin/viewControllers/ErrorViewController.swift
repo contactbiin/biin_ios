@@ -9,6 +9,7 @@ import UIKit
 class ErrorViewController: UIViewController, UIPopoverPresentationControllerDelegate, BNNetworkManagerDelegate {
     
     var internetErrorView:InternetErrorView?
+    var serverErrorView:ServerErrorView?
     var bluetoothErrorView:BluetoothErrorView?
     var hardwareErrorView:HardwareErrorView?
     var locationErrorView:LocationErrorView?
@@ -33,6 +34,12 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
         internetErrorView = InternetErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
         internetErrorView!.errorViewController = self
         self.view.addSubview(internetErrorView!)
+    }
+    
+    func addServer_ErrorView(){
+        serverErrorView = ServerErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
+        serverErrorView!.errorViewController = self
+        self.view.addSubview(serverErrorView!)
     }
     
     func addBluetooth_ErrorView(){
@@ -77,6 +84,26 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
     }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
+        
+    }
+    
+    func clean() {
+        
+        internetErrorView?.removeFromSuperview()
+        internetErrorView = nil
+        serverErrorView?.removeFromSuperview()
+        serverErrorView = nil
+        bluetoothErrorView?.removeFromSuperview()
+        bluetoothErrorView = nil
+        hardwareErrorView?.removeFromSuperview()
+        hardwareErrorView = nil
+        locationErrorView?.removeFromSuperview()
+        locationErrorView = nil
+        notBiinieErrorView?.removeFromSuperview()
+        notBiinieErrorView = nil
+    }
+    
+    func show() {
         
     }
 }

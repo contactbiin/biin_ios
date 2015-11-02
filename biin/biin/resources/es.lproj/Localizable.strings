@@ -180,6 +180,10 @@ NotBiinieErrorTitle = "Opps!";
 NotBiinieErrorText = "Lo sentimos mucho pero algo está mal con tu cuenta en Biin, es necesario que inicies nuevamente.";
 NotBiinieErrorButton = "Ir a pantalla de inicio";
 
+ServerErrorTitle = "Opps!";
+ServerErrorText = "Algo no está bien, intente nuevamente más tarde. Muchas gracias";
+ServerErrorButton = "Intentar nuevamente";
+
 /*Onboarding*/
 OnboardingTitle1 = "Descubrí!";
 OnboardingText1 = "Las mejores ofertas y beneficios desde tu casa a solo pasos de donde estás.";
