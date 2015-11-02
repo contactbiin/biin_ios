@@ -40,6 +40,8 @@ enum BNRequestType
     case Categories
     case Organization
     case Collections
+    
+    case ServerError
 }
 
 class BNRequest:NSObject {

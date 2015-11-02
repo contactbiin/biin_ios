@@ -183,6 +183,10 @@ NotBiinieErrorTitle = "Opps!";
 NotBiinieErrorText = "We are sorry but something is wrong with your account, please create a new one on Biin.";
 NotBiinieErrorButton = "Go to the start screen.";
 
+ServerErrorTitle = "Opps!";
+ServerErrorText = "Something went worng, please try again later on. Thank you";
+ServerErrorButton = "Try again";
+
 OnboardingTitle1 = "Discover!";
 OnboardingText1 = "The best deals and rewards just steps away from you.";
 

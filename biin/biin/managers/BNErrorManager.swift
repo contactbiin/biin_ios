@@ -145,6 +145,19 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             
         }
     }
+    
+    func showServerError(){
+        
+        if !self.isAlertOn {
+            
+            isAlertOn = true
+            let vc = ErrorViewController()
+            vc.addServer_ErrorView()
+            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            currentViewController!.presentViewController(vc, animated: true, completion: nil)
+            BNAppSharedManager.instance.errorManager.currentViewController = vc
+        }
+    }
 
     
     func showHardwareNotSupportedError(){
