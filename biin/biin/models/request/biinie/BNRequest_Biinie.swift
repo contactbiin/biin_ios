@@ -84,10 +84,15 @@ class BNRequest_Biinie: BNRequest {
                         print("EROOR: NOT USER FOUND ON DB")
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:false)
                     }
+                    
+                    self.inCompleted = true
+                    self.networkManager!.removeFromQueue(self)
+                    
+                } else  {
+                    print("EROOR: ON SERVER")
+                    self.requestType = BNRequestType.ServerError
+                    self.networkManager!.handleFailedRequest(self, error: error )
                 }
-                
-                self.inCompleted = true
-                self.networkManager!.removeFromQueue(self)
             }
         })
     }

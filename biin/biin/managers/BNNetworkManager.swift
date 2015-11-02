@@ -39,16 +39,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.errorManager = errorManager
         epsNetwork = EPSNetworking()
     }
+    /*
+
+
+    https://dev-biin-backend.herokuapp.com
+    https://qa-biin-backend.herokuapp.com
+    https://demo-biin-backend.herokuapp.com/
+*/
+    
     
     func setRootURLForRequest(){
         if BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE {
             rootURL = "https://www.biin.io"
         } else if BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE {
-            rootURL = "https://demo-biinapp.herokuapp.com"
+            rootURL = "https://demo-biin-backend.herokuapp.com"
         } else if BNAppSharedManager.instance.settings!.IS_QA_DATABASE {
-            rootURL = "https://qa-biinapp.herokuapp.com"
+            rootURL = "https://qa-biin-backend.herokuapp.com"
         } else if BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE {
-            rootURL = "https://dev-biinapp.herokuapp.com"
+            rootURL = "https://dev-biin-backend.herokuapp.com"//"https://dev-biinapp.herokuapp.com"
         }
     }
     
@@ -571,6 +579,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                     request.requestAttemps = 0
                     request.isRunning = false
                     self.errorManager!.showInternetError()
+                } else {
+                    request.isRunning = false
+                    request.run()
+                }
+                break
+            case .ServerError:
+                if request.requestAttemps >= 3 {
+                    request.requestAttemps = 0
+                    request.isRunning = false
+                    self.errorManager!.showServerError()
                 } else {
                     request.isRunning = false
                     request.run()
