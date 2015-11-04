@@ -53,19 +53,23 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         // Try loading a saved version first
         if let user = Biinie.loadSaved() {
-            bnUser = user
-            isUserLoaded = true
+
+            if user.firstName == "none" {
+                isUserLoaded = false
+            } else {
+                bnUser = user
+                isUserLoaded = true
+                bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
+            }
+            
         } else {
             // Create a new Course List
             isUserLoaded = false
-            bnUser = Biinie(identifier:"", firstName: "guess", lastName:"guess", email: "guess@biinapp.com")
+            bnUser = Biinie(identifier:"", firstName: "none", lastName:"none", email: "none.com")
             bnUser!.isEmailVerified = false
             bnUser!.biinName = ""
 
         }
-        
-        bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
-        //NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "startAppTimer:", userInfo: nil, repeats: false)
     }
     
     deinit {
@@ -138,7 +142,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func startCommercialBiinMonitoring() {
-        delegatePM!.manager!(self, startCommercialBiinMonitoring:self.commercialUUID!)
+        if commercialUUID != nil {
+            delegatePM!.manager!(self, startCommercialBiinMonitoring:self.commercialUUID!)
+        }
     }
     
     

@@ -53,15 +53,20 @@ class LoadingView:UIView {
         let image4 = UIImageView(image: UIImage(named: "loading4.jpg"))
         image4.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
         scroll!.addSubview(image4)
-
+        
         
         xpos += screenHeight
         scroll!.contentSize = CGSize(width: xpos, height: screenHeight)
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.alpha = 0.8
+        visualEffectView.alpha = 0.5
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
+        
+        
+//        let viewDark = UIView(frame: self.bounds)
+//        viewDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+//        self.addSubview(viewDark)
 
         
         biinLogo = BNUIBiinView(position:CGPoint(x:0, y:ypos), scale:SharedUIManager.instance.signupView_logoSize)

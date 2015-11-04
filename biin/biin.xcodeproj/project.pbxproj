@@ -174,7 +174,6 @@
 		5B650E171ADECB040050ED5E /* BNIcon_MiniBiin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B650E161ADECB040050ED5E /* BNIcon_MiniBiin.swift */; };
 		5B6615BF1B33130900ECE508 /* BNNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6615BE1B33130900ECE508 /* BNNotificationManager.swift */; };
 		5B6615C11B3326D700ECE508 /* BNLocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6615C01B3326D700ECE508 /* BNLocalNotification.swift */; };
-		5B6615C31B349A3D00ECE508 /* SimulatorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */; };
 		5B67B5E51A716A31009937C5 /* BNIcon_BurgerMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */; };
 		5B67B5E71A716B52009937C5 /* BNUIIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67B5E61A716B52009937C5 /* BNUIIconView.swift */; };
 		5B6A80411BCD65920087CE0A /* landing.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B6A80401BCD65920087CE0A /* landing.jpg */; };
@@ -264,6 +263,7 @@
 		5BB99B5F1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */; };
 		5BC0D8221B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D8211B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift */; };
 		5BC0D8241B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */; };
+		5BCCABAA1BEAC792006230CB /* SimulatorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCCABA91BEAC792006230CB /* SimulatorUtility.swift */; };
 		5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD342771A8AA95300A8984E /* BNResponse.swift */; };
 		5BD63B4C1AC1B23C004236A4 /* BiinieAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */; };
 		5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */; };
@@ -531,7 +531,6 @@
 		5B650E161ADECB040050ED5E /* BNIcon_MiniBiin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MiniBiin.swift; sourceTree = "<group>"; };
 		5B6615BE1B33130900ECE508 /* BNNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNNotificationManager.swift; sourceTree = "<group>"; };
 		5B6615C01B3326D700ECE508 /* BNLocalNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNLocalNotification.swift; sourceTree = "<group>"; };
-		5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorUtility.swift; sourceTree = "<group>"; };
 		5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BurgerMedium.swift; sourceTree = "<group>"; };
 		5B67B5E61A716B52009937C5 /* BNUIIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIIconView.swift; sourceTree = "<group>"; };
 		5B6A80401BCD65920087CE0A /* landing.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = landing.jpg; sourceTree = "<group>"; };
@@ -621,6 +620,7 @@
 		5BB99B5E1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_KeyholeSmall.swift; sourceTree = "<group>"; };
 		5BC0D8211B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NoBiinAvailableSign.swift; sourceTree = "<group>"; };
 		5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNView_NoBiinAvailableSign.swift; sourceTree = "<group>"; };
+		5BCCABA91BEAC792006230CB /* SimulatorUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorUtility.swift; sourceTree = "<group>"; };
 		5BD342771A8AA95300A8984E /* BNResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNResponse.swift; sourceTree = "<group>"; };
 		5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieAction.swift; sourceTree = "<group>"; };
 		5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Header.swift; sourceTree = "<group>"; };
@@ -966,6 +966,7 @@
 		5B3D75B31A6816B300CB0D1C /* managers */ = {
 			isa = PBXGroup;
 			children = (
+				5BCCABA91BEAC792006230CB /* SimulatorUtility.swift */,
 				B2B64CD51B9B36370054B334 /* BNParser.swift */,
 				5BEA2D1C1A68834B00AB65AB /* UIManager.swift */,
 				5B3D75B41A6816B300CB0D1C /* BNAppManager.swift */,
@@ -977,7 +978,6 @@
 				5B3D75B81A6816B300CB0D1C /* BNPositionManager.swift */,
 				5B3D75B91A6816B300CB0D1C /* cert.der */,
 				5B3D75BB1A6816B300CB0D1C /* server.key */,
-				5B6615C21B349A3D00ECE508 /* SimulatorUtility.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -1791,7 +1791,6 @@
 				5BA538991A82AA4900E0015F /* SiteView_Showcase_Game.swift in Sources */,
 				5B5F325D1A69869F006070AB /* ElementMiniView.swift in Sources */,
 				5B3D75FF1A6816B300CB0D1C /* BNError.swift in Sources */,
-				5B6615C31B349A3D00ECE508 /* SimulatorUtility.swift in Sources */,
 				5B650E151ADECA2B0050ED5E /* BNUIBiinMiniView.swift in Sources */,
 				5BEE61421A97EF4500DE334E /* SearchView.swift in Sources */,
 				5B2907811A687A9E0000658A /* MainViewController.swift in Sources */,
@@ -1812,6 +1811,7 @@
 				5B75E2541A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift in Sources */,
 				5B60A4CA1AA21D620025ACBA /* BNIcon_EmailSmall.swift in Sources */,
 				5B1655F31BC6CE17001ED8ED /* AllSitesState.swift in Sources */,
+				5BCCABAA1BEAC792006230CB /* SimulatorUtility.swift in Sources */,
 				5B047D601A81604600281B17 /* BNUIButton_Information.swift in Sources */,
 				5B6246361A9E9F61009C979D /* BNUIButton_RemoveIt.swift in Sources */,
 				5B5BE7221A8580B700DB5996 /* BNUITexfield_Center.swift in Sources */,
