@@ -69,10 +69,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func runQueue(){
         var totalRequestRunnin = 0
-        //print("runQueue(): \(requestsQueue.count)")
 
         if requestsQueue.count == 0 {
-            //print("Queue is empty!")
             
             self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
 
@@ -87,24 +85,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
         
         for (_, request) in requestsQueue {
-            
-            
             if !request.isRunning {
-                //print("Request Not Running: \(request.identifier)")
                 
             } else {
-                //print("Request Running: \(request.identifier)")
                 totalRequestRunnin++
             }
         }
         
-        //print("totalRequestRunnin: \(totalRequestRunnin)")
-
-        
         for (_, request) in requestsQueue {
             
             if queueCounter >= queueLimit {
-                //print("EXIT: \(queueCounter)")
+    
                 return
             }
             
@@ -113,11 +104,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 request.run()
                 
                 queueCounter++
-                //print("Number of request running: \(queueCounter)")
     
             } else {
-               //print("Pending request id: \(request.identifier)")
-                //queueCounter++
+
             }
         }
     }
@@ -126,10 +115,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         queueCounter--
         requestProcessed++
         
-        //print("queueCounter: \(queueCounter)")
         request.clean()
         requestsQueue.removeValueForKey(request.identifier)
-        //print("REMOVE: requests in queue:\(requestsQueue.count)")
 
         if queueCounter < 10 {
             runQueue()
@@ -148,7 +135,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.requestsQueue[request.identifier] = request
         runQueue()
         totalNumberOfRequest++
-        //print("ADD: requests in queue:\(requestsQueue.count)")
     }
     
     func isQueued(stringUrl:String) -> Bool {
@@ -163,67 +149,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
  
     func checkConnectivity() {
         
-        print("checkConnectivity()")
-        
         let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
         
-        //self.delegateDM!.manager!(self, didReceivedConnectionStatus: Reachability.isConnectedToNetwork())
-        //return
-        /*
-        var request = BNRequest(requestString:connectibityUrl, dataIdentifier: "", requestType:.ConnectivityCheck)
-        self.requests[request.identifier] = request
-        
-        
-        
-        epsNetwork!.getJson(false, url: request.requestString, callback:{
-                (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
-                
-                if (error != nil) {
-                    //println("Error on regions data - Not connection available")
-                    self.errorManager!.showInternetError()
-                    self.handleFailedRequest(request, error: error )
-                    self.requests.removeAll(keepCapacity: false)
-                } else {
-                    
-                    self.delegateDM!.manager!(self, didReceivedConnectionStatus: true)
-                    self.removeRequestOnCompleted(request.identifier)
-                    //                self.requests.removeValueForKey(request.identifier)
-                    //                self.requestAttempts = 0
-                    
-                    //self.requestTimer = NSTimer(timeInterval: 1.0, target: self, selector: "runRequest", userInfo: nil, repeats: false)
-                    
-                    if self.isRequestTimerAllow {
-                        self.requestTimer!.fire()
-                    }
-                }
-            })
-        
-        */
-/*
-        epsNetwork!.getJson(false, url:request.requestString ) {
-            (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
-            
-            if (error != nil) {
-                //println("Error on regions data - Not connection available")
-                self.errorManager!.showInternetError()
-                self.handleFailedRequest(request, error: error )
-                self.requests.removeAll(keepCapacity: false)
-            } else {
-
-                self.delegateDM!.manager!(self, didReceivedConnectionStatus: true)
-                self.removeRequestOnCompleted(request.identifier)
-
-                if self.isRequestTimerAllow {
-                    self.requestTimer!.fire()
-                }
-            }
-        }
-*/
     }
     
     func addTo_OLD_QUEUE(request:BNRequest) {
-        print("----    \(request.requestString)")
         self.requests[request.identifier] = request
     }
     
@@ -478,7 +409,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     
     func runRequest(){
-        print("runRequest")
         
         for (_, value) in requests {
             
@@ -488,7 +418,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 break
             }
             
-            //println("Request pending: \(requests.count)")
             return
         }
         
@@ -529,77 +458,50 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
-//        switch error!.code {
-//            case 3840:
-//                self.delegateDM!.manager!(self, removeShowcaseRelationShips: request.dataIdentifier)
-////                self.requests.removeValueForKey(request.identifier)
-//                self.removeRequestOnCompleted(request.identifier)
-//                self.removeShowcase(request.dataIdentifier)
-//                self.errorManager!.showAlert(error)
-////                self.requestAttempts = 0
-//                return
-//            case 1005:
-//            break
-//            default:
-//            break
-//        }
-//        
-//        if self.requestAttempts == self.requestAttemptsLimit {
-//            self.errorManager!.showAlert(error)
-//            self.requestAttempts = 0
-//        } else {
-//            
-            print("Trying request again: " + request.requestString)
+        switch request.requestType {
+        case .None:
+            break
+        case .Login:
+            let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
+            self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+            break
+        case .Register:
+            let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
+            self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+            break
+        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Image, .Categories, .Organization, .Collections:
             
-            switch request.requestType {
-            case .None:
-                break
-            case .Login:
-                let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
-                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
-                break
-            case .Register:
-                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
-                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
-                break
-            case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Image, .Categories, .Organization, .Collections:
-                
-                if request.requestAttemps >= 3 {
-                    request.requestAttemps = 0
-                    request.isRunning = false
-                    self.errorManager!.showInternetError()
-                } else {
-                    request.isRunning = false
-                    request.run()
-                }
-                
-                break
-            case .ConnectivityCheck:
-                if request.requestAttemps >= 3 {
-                    request.requestAttemps = 0
-                    request.isRunning = false
-                    self.errorManager!.showInternetError()
-                } else {
-                    request.isRunning = false
-                    request.run()
-                }
-                break
-            case .ServerError:
-                if request.requestAttemps >= 3 {
-                    request.requestAttemps = 0
-                    request.isRunning = false
-                    self.errorManager!.showServerError()
-                } else {
-                    request.isRunning = false
-                    request.run()
-                }
-                break
-            default:
-                break
+            if request.requestAttemps >= 3 {
+                request.requestAttemps = 0
+                request.isRunning = false
+                self.errorManager!.showInternetError()
+            } else {
+                request.isRunning = false
+                request.run()
             }
-//        }
-        
-//        self.requestAttempts++
+            
+            break
+        case .ConnectivityCheck:
+            if request.requestAttemps >= 3 {
+                request.requestAttemps = 0
+                request.isRunning = false
+                self.errorManager!.showInternetError()
+            } else {
+                request.isRunning = false
+                request.run()
+            }
+            break
+        case .ServerError:
+            if request.requestAttemps >= 3 {
+                request.requestAttemps = 0
+                request.isRunning = false
+                self.errorManager!.showServerError()
+            } else {
+                request.isRunning = false
+                request.run()
+            }
+            break
+        }
     }
     
     func resume(){
@@ -612,7 +514,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     //Request to remove a showcase when it data is corrupt or is not longer in server.
     func removeShowcase( identifier:String ) {
-        print("Request to remove showcase from server: \(identifier)")
     }
 
     //BNErrorManagerDelegate
@@ -628,20 +529,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         if requests.count == 0 {
             
-            //println("NOT requests pending: \(self.requests.count)")
-            //self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
-            
-            //if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
-            //    BNAppSharedManager.instance.mainViewController!.refresh()
-            //    BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = false
-            //}
-            
         } else {
-            //self.delegateVC!.manager!(self, didReceivedAllInitialData: false)
-            print("Requests Pending:\(requests.count)")
             
             if requests.count == 1 {
-                print("")
+
             }
         }
     }

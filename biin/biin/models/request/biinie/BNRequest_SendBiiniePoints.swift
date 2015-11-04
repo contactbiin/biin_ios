@@ -30,7 +30,7 @@ class BNRequest_SendBiiniePoints: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendBiiniePoints.run()")
+
         isRunning = true
         requestAttemps++
         

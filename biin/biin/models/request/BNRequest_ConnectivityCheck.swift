@@ -18,7 +18,7 @@ class BNRequest_ConnectivityCheck: BNRequest {
     convenience init(requestString:String, dataIdentifier:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
         self.identifier = BNRequestData.requestCounter++
-        //println("NEW REQUEST \(self.identifier) for \(requestString)")
+
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.ConnectivityCheck
@@ -28,7 +28,7 @@ class BNRequest_ConnectivityCheck: BNRequest {
     
     override func run() {
 
-        print("BNRequestConnectivityCheck.run()")
+        
         isRunning = true
         requestAttemps++
         
@@ -36,12 +36,12 @@ class BNRequest_ConnectivityCheck: BNRequest {
             (error: NSError?) -> Void in
             
             if (error != nil) {
-                print("CONNECTION - FAILED")
+                
 
                 self.networkManager!.handleFailedRequest(self, error: error )
 //                self.networkManager!.requests.removeAll(keepCapacity: false)
             } else {
-                print("CONNECTION - OK")
+                
                 self.inCompleted = true
                 self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedConnectionStatus: true)
                 self.networkManager!.removeFromQueue(self)

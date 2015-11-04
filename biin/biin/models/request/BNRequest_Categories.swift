@@ -27,7 +27,7 @@ class BNRequest_Categories: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Categories.run() \(self.requestString)")
+
         isRunning = true
         requestAttemps++
         
@@ -35,7 +35,7 @@ class BNRequest_Categories: BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                print("Error on requestUserCategoriesData()")
+                
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
@@ -72,7 +72,7 @@ class BNRequest_Categories: BNRequest {
                         }
                         
                         if category.sitesDetails.count == 0 {
-                            print("Category issue or empty")
+                            
                         }
                         
                         categories.append(category)

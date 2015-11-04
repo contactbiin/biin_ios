@@ -29,7 +29,7 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Element.run() \(requestString)")
+
         isRunning = true
         requestAttemps++
         //var response:BNResponse?
@@ -37,11 +37,11 @@ class BNRequest_Element: BNRequest {
         networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                print("Error on element data")
+                
                 self.networkManager!.handleFailedRequest(self, error: error )
                 
                 //response = BNResponse(code:10, type: BNResponse_Type.Suck)
-                //print("*** element data SUCK - FAILED!")
+
                 
             } else {
                 
@@ -55,7 +55,7 @@ class BNRequest_Element: BNRequest {
                     if result {
                         self.element!.isDownloadCompleted = true
                         self.element!.identifier = BNParser.findString("identifier", dictionary: elementData)
-                        //println("Processing: \(element.identifier!)")
+
                         self.element!.elementType = BNParser.findBNElementType("elementType", dictionary: elementData)
                         self.element!.position = BNParser.findInt("position", dictionary: elementData)
                         self.element!.title = BNParser.findString("title", dictionary: elementData)
@@ -167,7 +167,7 @@ class BNRequest_Element: BNRequest {
                             
                             if white <= 0.7 {
                                 self.element!.useWhiteText = true
-                                //print("--------------   element title:\(self.element!.title!) white: \(white)")
+
                             }
 
 

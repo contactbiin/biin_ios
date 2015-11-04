@@ -14,16 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
-        NSLog("BIIN - didFinishLaunchingWithOptions()")
+        //NSLog("BIIN - didFinishLaunchingWithOptions()")
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
         self.window!.backgroundColor = UIColor.blackColor()
         self.window!.makeKeyAndVisible()
-        
-//        let objects = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil)
-//        (objects[0] as? UIView)?.layer.backgroundColor = UIColor.greenColor().CGColor
-//        (objects[0] as? UIView)?.setNeedsDisplay()
         
         appManager.appDelegate = self
         appManager.networkManager.setRootURLForRequest()
@@ -32,17 +28,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         switch application.applicationState {
         case .Active:
-            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+//            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
             appManager.IS_APP_UP = true
             appManager.IS_APP_DOWN = false
             break
         case .Background:
-            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+//            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
             appManager.IS_APP_UP = false
             appManager.IS_APP_DOWN = true
             break
         case .Inactive:
-            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
+//            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
             appManager.IS_APP_UP = false
             appManager.IS_APP_DOWN = true
             break
@@ -84,27 +80,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         } else {
             
-            print("biinCacheImagesFolder already exist!")
             let selectedImage = UIImage(named:"loading1.jpg")
             let imageData = UIImagePNGRepresentation(selectedImage!)
 
             let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("loading1.jpg")
             
-            print("imagePath: \(imagePath)")
-            
             if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
                 
-                print("Image does not exist on BiinCacheImages folder.")
                 if !imageData!.writeToFile(imagePath, atomically: false) {
-                    print("not saved: \(imagePath)")
                 } else {
-                    print("saved")
                     NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "loading1.jpg")
                 }
                 
             } else {
                 
-                print("Image exist on BiinCacheImages folder.")
             }
 
             
@@ -188,7 +177,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        NSLog("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
 //        appManager.positionManager.requestStateForMonitoredRegions()
@@ -201,7 +189,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        NSLog("applicationWillEnterForeground()")
         appManager.IS_APP_UP = true
 
         //appManager.positionManager.start_BEACON_RANGING()
@@ -212,19 +199,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        NSLog("applicationDidBecomeActive()")
+
         appManager.IS_APP_UP = true
-        //appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
 
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(application: UIApplication) {
         
-        NSLog("BIIN - applicationWillTerminate")
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
-        
+        appManager.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.CLOSE_APP, to:"biin_ios")
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
@@ -288,15 +274,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func saveContext () {
         if let moc = self.managedObjectContext {
-            var error: NSError? = nil
+            //var error: NSError? = nil
             if moc.hasChanges {
                 do {
                     try moc.save()
-                } catch let error1 as NSError {
-                    error = error1
+                } catch _ as NSError {
+                    //error = error1
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+//                    NSLog("Unresolved error \(error), \(error!.userInfo)")
                     abort()
                 }
             }
@@ -314,7 +300,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         // Do something serious in a real app.
-        NSLog("BIIN - didReceiveLocalNotification()")
 //        if appManager.notificationManager.currentNotification != nil {
 //            appManager.mainViewController!.mainView!.showNotificationContext()
 //        }

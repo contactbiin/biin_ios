@@ -83,7 +83,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(backBtn!)
         
         
-        let headerWidth = screenWidth - 50
+        //let headerWidth = screenWidth - 50
         //var xpos:CGFloat = (screenWidth - headerWidth) / 2
         //ypos = 15
         
@@ -410,7 +410,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     }
     
     override func transitionIn() {
-        print("trasition in on ProfileView")
+
         
         UIView.animateWithDuration(0.2, animations: {()->Void in
             self.frame.origin.x = 0
@@ -418,7 +418,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        print("trasition out on ProfileView")
+        
         state!.action()
         
         if state!.stateType == BNStateType.MainViewContainerState
@@ -451,7 +451,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            print("showUserControl: ElementView")
+            
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -459,7 +459,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            print("updateUserControl: ElementView")
+            
         }else{
             father!.updateUserControl(position)
         }
@@ -549,14 +549,14 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     //UITextFieldDelegate Methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        print("textFieldShouldBeginEditing")
+        
         
         return true
     }// return NO to disallow editing.
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        print("textFieldDidBeginEditing")
+        
         
         if textField.placeholder == NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate") {
             let datePickerView  : UIDatePicker = UIDatePicker()
@@ -571,17 +571,17 @@ class ProfileView: BNView, UITextFieldDelegate {
     func handleDatePicker(sender: UIDatePicker) {
         birthDateTxt!.textField!.text = sender.date.bnDisplayDateFormatt()
         BNAppSharedManager.instance.dataManager.bnUser!.birthDate = sender.date
-        print("\(sender.date.bnDisplayDateFormatt())")
-        print("\(sender.date.bnDateFormatt())")
+        
+        
     }
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        print("textFieldShouldEndEditing")
+        
         return true
     }// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
     
     func textFieldDidEndEditing(textField: UITextField) {
-        print("textFieldDidEndEditing")
+        
         
         /*
         if textField.placeholder == "Name" || textField.placeholder == "Lastname" {
@@ -600,13 +600,13 @@ class ProfileView: BNView, UITextFieldDelegate {
     }// return NO to not change text
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
-        print("textFieldShouldClear")
+        
         
         return false
     }// called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        print("textFieldShouldReturn")
+        
         //var uuu = ""
         return false
     }// called when 'return' key pressed. return NO to ignore.

@@ -204,7 +204,6 @@ class AllSitesView: BNView {
         
         for var i = 0; i < sites!.count; i++ {
             if sites![i].isReadyToRemoveFromFather {
-                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
                 sites![i].removeFromSuperview()
                 sites!.removeAtIndex(i)
                 i = 0
@@ -235,8 +234,6 @@ class AllSitesView: BNView {
     }
     
     func clean() {
-
-        print("AllSitesView clean()")
         
         delegate = nil
         title?.removeFromSuperview()

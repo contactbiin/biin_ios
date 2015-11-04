@@ -104,7 +104,6 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     
     override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        print("SiteView_Showcase setNextState")
         father!.setNextState(goto)
     }
     
@@ -265,7 +264,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     }
     
     func clean() {
-        print("MainViewContainer_Elements clean()")
+        
         
         //clean()
         if elements?.count > 0 {

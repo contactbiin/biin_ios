@@ -28,7 +28,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendBiinieCategories.run()")
+
         isRunning = true
         requestAttemps++
         
@@ -68,10 +68,10 @@ class BNRequest_SendBiinieCategories: BNRequest {
                     
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                        //println("*** Register categproes for user: \(user.email!) COOL!")
+
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                        //println("*** Register categories for user: \(user.email!) SUCK!")
+
                     }
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedCategoriesSavedConfirmation: response)

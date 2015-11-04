@@ -42,7 +42,7 @@ class BNUIPointView:UIView {
         label!.font = UIFont(name: "Lato-Black", size: 13)
         self.addSubview(label!)
         
-//        println("\(categoryIdentifier) = \(NSLocalizedString(categoryIdentifier, comment:categoryIdentifier))")
+
         setLabelText(NSLocalizedString(categoryIdentifier, comment:categoryIdentifier))
         
         //createIcon(sectionIdentifier)

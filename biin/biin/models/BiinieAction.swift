@@ -41,27 +41,27 @@ class BiinieAction:NSObject, NSCoding {
         case 2:
             self.did = .EXIT_BIIN_REGION
         case 3:
-            self.did = .ENTER_BIIN
-        case 4:
-            self.did = .EXIT_BIIN
-        case 5:
-            self.did = .VIEWED_ELEMENT
-        case 6:
             self.did = .BIIN_NOTIFIED
-        case 7:
+        case 4:
             self.did = .NOTIFICATION_OPENED
-        case 8:
-            self.did = .ENTER_SITE_VIEW
-        case 9:
-            self.did = .LEAVE_SITE_VIEW
-        case 10:
+        case 5:
             self.did = .ENTER_ELEMENT_VIEW
+        case 6:
+            self.did = .EXIT_ELEMENT_VIEW
+        case 7:
+            self.did = .LIKE_ELEMENT
+        case 8:
+            self.did = .UNLIKE_ELEMENT
+        case 9:
+            self.did = .COLLECTED_ELEMENT
+        case 10:
+            self.did = .UNCOLLECTED_ELEMENT
         case 11:
-            self.did = .LEAVE_ELEMENT_VIEW
+            self.did = .SHARE_ELEMENT
         case 12:
-            self.did = .BIINED_ELEMENT
+            self.did = .ENTER_SITE_VIEW
         case 13:
-            self.did = .BIINED_SITE
+            self.did = .EXIT_SITE_VIEW
         case 14:
             self.did = .LIKE_SITE
         case 15:
@@ -70,6 +70,16 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .FOLLOW_SITE
         case 17:
             self.did = .UNFOLLOW_SITE
+        case 18:
+            self.did = .SHARE_SITE
+        case 19:
+            self.did = .ENTER_BIIN
+        case 20:
+            self.did = .EXIT_BIIN
+        case 21:
+            self.did = .OPEN_APP
+        case 22:
+            self.did = .CLOSE_APP
         default:
             break
         }
@@ -121,19 +131,28 @@ enum BiinieActionType {
     case NONE //0
     case ENTER_BIIN_REGION //1
     case EXIT_BIIN_REGION //2
-    case ENTER_BIIN //3
-    case EXIT_BIIN //4
-    case VIEWED_ELEMENT //5
-    case BIIN_NOTIFIED // 6
-    case NOTIFICATION_OPENED //7
-    case ENTER_SITE_VIEW  //8
-    case LEAVE_SITE_VIEW  //9
-    case ENTER_ELEMENT_VIEW  //10
-    case LEAVE_ELEMENT_VIEW  //11
-    case BIINED_ELEMENT // 12
-    case BIINED_SITE // 13
+    case BIIN_NOTIFIED // 3
+    case NOTIFICATION_OPENED //4
+    
+    case ENTER_ELEMENT_VIEW  //5
+    case EXIT_ELEMENT_VIEW  //6
+    case LIKE_ELEMENT//7
+    case UNLIKE_ELEMENT//8
+    case COLLECTED_ELEMENT // 9
+    case UNCOLLECTED_ELEMENT // 10
+    case SHARE_ELEMENT//11
+    
+    case ENTER_SITE_VIEW  //12
+    case EXIT_SITE_VIEW  //13
     case LIKE_SITE//14
     case UNLIKE_SITE//15
     case FOLLOW_SITE//16
     case UNFOLLOW_SITE//17
+    case SHARE_SITE//18
+    
+    case ENTER_BIIN//19
+    case EXIT_BIIN//20
+    
+    case OPEN_APP//21
+    case CLOSE_APP//22
 }

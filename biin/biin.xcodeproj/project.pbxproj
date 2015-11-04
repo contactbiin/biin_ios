@@ -269,7 +269,6 @@
 		5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */; };
 		5BDB05581A697788006EBB1E /* BiinieCategoriesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05571A697788006EBB1E /* BiinieCategoriesState.swift */; };
 		5BE775161BDECDCC005E9427 /* BNUIWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE775151BDECDCC005E9427 /* BNUIWebView.swift */; };
-		5BE775181BDEEC10005E9427 /* biin.css in Resources */ = {isa = PBXBuildFile; fileRef = 5BE775171BDEEC10005E9427 /* biin.css */; };
 		5BE82CCB1AC62380003342C9 /* iPhone-29-2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE82CCA1AC62380003342C9 /* iPhone-29-2x.png */; };
 		5BE82CCD1AC62440003342C9 /* iPhone-29-3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE82CCC1AC62440003342C9 /* iPhone-29-3x.png */; };
 		5BE82CD01AC624B2003342C9 /* iPhone-40-2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BE82CCE1AC624B2003342C9 /* iPhone-40-2x.png */; };
@@ -627,7 +626,6 @@
 		5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Header.swift; sourceTree = "<group>"; };
 		5BDB05571A697788006EBB1E /* BiinieCategoriesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesState.swift; sourceTree = "<group>"; };
 		5BE775151BDECDCC005E9427 /* BNUIWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIWebView.swift; sourceTree = "<group>"; };
-		5BE775171BDEEC10005E9427 /* biin.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = biin.css; sourceTree = "<group>"; };
 		5BE82CCA1AC62380003342C9 /* iPhone-29-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPhone-29-2x.png"; path = "Images.xcassets/iPhone-29-2x.png"; sourceTree = "<group>"; };
 		5BE82CCC1AC62440003342C9 /* iPhone-29-3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPhone-29-3x.png"; path = "Images.xcassets/iPhone-29-3x.png"; sourceTree = "<group>"; };
 		5BE82CCE1AC624B2003342C9 /* iPhone-40-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPhone-40-2x.png"; path = "Images.xcassets/iPhone-40-2x.png"; sourceTree = "<group>"; };
@@ -1023,7 +1021,6 @@
 		5B3D75D21A6816B300CB0D1C /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				5BE775171BDEEC10005E9427 /* biin.css */,
 				5B3D75D31A6816B300CB0D1C /* audio */,
 				5B3D75D41A6816B300CB0D1C /* fonts */,
 				5B3D75E81A6816B300CB0D1C /* pictures */,
@@ -1546,7 +1543,6 @@
 				5B3D76121A6816B300CB0D1C /* Lato-HeavyItalic.ttf in Resources */,
 				5B3D760E1A6816B300CB0D1C /* Lato-BoldItalic.ttf in Resources */,
 				5BE82CDE1AC64368003342C9 /* iPad-76-1x.png in Resources */,
-				5BE775181BDEEC10005E9427 /* biin.css in Resources */,
 				5BE82CD11AC624B2003342C9 /* iPhone-40-3x.png in Resources */,
 				5B8A9A931BBB57AD009033D6 /* cityBanner.png in Resources */,
 				5BE82CE11AC643B0003342C9 /* iPad-40-2x.png in Resources */,

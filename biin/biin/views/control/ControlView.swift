@@ -101,7 +101,6 @@ class ControlView:BNView {
     }
     
     override func transitionIn() {
-        print("transitionIn on UserControlView")
         
         isTransitioning = true
         
@@ -126,7 +125,7 @@ class ControlView:BNView {
     
     override func transitionOut( nextState:BNState? ) {
         
-        print("transitionOut on UserControlView")
+        
         
         isTransitioning = true
         
@@ -257,10 +256,6 @@ class ControlView:BNView {
             
             currentView = son
             transitionIn()
-//            println("showUserControl: UserControlView")
-//            println("son.showcaseKey: \(son.showcaseKey)")
-//            println("x: \(point.x)")
-//            println("y: \(point.y)")
             adjustUserControlOrientation(point)
             self.frame = CGRectMake(point.x, point.y, self.frame.width, self.frame.height)
             
@@ -289,54 +284,10 @@ class ControlView:BNView {
     }
     
     override func updateUserControl(position:CGPoint){
-/*
-        for var i = 0; i < buttons.count; i++ {
-            
-            var point = buttons[i].convertPoint(position, fromView:father!)
-            
-            if point.x > 0 && point.x < 40 && point.y > 0 && point.y < 40 {
-                if currentButtonIndex != i {
-                    currentButtonIndex = i
-                    println("index: \(i)")
-                    println("point x: \(point.x)")
-                    println("point y: \(point.y)")
-                    
-                    resetButtons()
-                    adjustButtonLbl(i)
-                    
-                    UIView.animateWithDuration(0.2, animations: {()->Void in
-                            self.buttons[self.currentButtonIndex].layer.backgroundColor = UIColor.bnBlueLight().colorWithAlphaComponent(0.85).CGColor
-                            self.buttons[self.currentButtonIndex].transform = CGAffineTransformMakeScale(1.25, 1.25)
-                        }, completion: {(completed:Bool)->Void in
-                            UIView.animateWithDuration(0.1, animations:{()->Void in
-                                self.buttonsLbl!.alpha = 1
-                            })
-                        })
-                    return
-                } else {
-                    return
-                }
-            }
-        }
-        
-        resetButtons()
-        
-        currentButtonIndex = -1
-
-*/
     }
     
     func resetButtons() {
-        /*
-        buttonsLbl!.alpha = 0
-        
-        for var i = 0; i < buttons.count; i++ {
-            UIView.animateWithDuration(0.01, animations: {()->Void in
-                self.buttons[i].layer.backgroundColor = UIColor.bnBlack().colorWithAlphaComponent(0.5).CGColor
-                self.buttons[i].transform = CGAffineTransformMakeScale(1, 1)
-            })
-        }
-        */
+
     }
     
     func adjustButtonLbl(index:Int){

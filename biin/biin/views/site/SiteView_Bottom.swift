@@ -62,11 +62,11 @@ class SiteView_Bottom:BNView {
     }
 
     override func transitionIn() {
-        print("trasition in on SiteView_Bottom")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        print("trasition out on SiteView_Bottom")
+        
     }
     
     override func setNextState(goto:BNGoto){
@@ -76,7 +76,7 @@ class SiteView_Bottom:BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            print("showUserControl: SiteView_Bottom")
+            
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -84,7 +84,7 @@ class SiteView_Bottom:BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            print("updateUserControl: SiteView_Bottom")
+            
         }else{
             father!.updateUserControl(position)
         }

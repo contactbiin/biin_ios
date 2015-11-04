@@ -181,7 +181,6 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
 
         for var i = 0; i < sites!.count; i++ {
             if sites![i].isReadyToRemoveFromFather {
-                //println("***** REMOVE SITE:title: \(sites![i].site!.title!)")
                 sites![i].removeFromSuperview()
                 sites!.removeAtIndex(i)
                 i = 0
@@ -254,7 +253,6 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     
     func clean(){
         
-        print("MainViewContainer_Sites clean()")
         
         if sites?.count > 0 {
             

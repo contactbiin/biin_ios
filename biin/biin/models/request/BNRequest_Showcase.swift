@@ -30,14 +30,13 @@ class BNRequest_Showcase: BNRequest {
     
     override func run() {
         
-        NSLog("BNRequest_Showcase.run()")
         isRunning = true
         requestAttemps++
         
         self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                print("Error on showcase data")
+
                 self.networkManager!.handleFailedRequest(self, error: error)
             } else {
                 

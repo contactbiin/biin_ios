@@ -98,10 +98,7 @@ class NotificationsView_Notification: BNView {
     }
     
     func tap(sender:UITapGestureRecognizer){
-        print("Tap on notification: \(notification!.identifier)")
-        print("Biin: \(notification!.biin!.identifier!)")
-        print("Site: \(notification!.biin!.site!.identifier!)")
-        print("Showcase: \(notification!.biin!.currectShowcase().identifier!)")
+
     }
 }
 

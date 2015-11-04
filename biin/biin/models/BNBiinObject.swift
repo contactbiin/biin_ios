@@ -7,7 +7,7 @@ import Foundation
 
 class BNBiinObject:NSObject
 {
-    var _id:String?
+    var _id:String? // _id of the object related to a biin.
     var identifier:String?
     var isDefault = false
     

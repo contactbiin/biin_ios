@@ -27,7 +27,7 @@ class BNRequest_Image: BNRequest {
     
     override func run() {
         
-        //print("BNRequest_Image.run()")
+
         isRunning = true
         requestAttemps++
         
@@ -40,7 +40,7 @@ class BNRequest_Image: BNRequest {
                     self.networkManager!.handleFailedRequest(self, error:error )
                     
                 } else {
-                    print("Image OK")
+
                     self.inCompleted = true
                     //self.clean()
                     self.networkManager!.removeFromQueue(self)
