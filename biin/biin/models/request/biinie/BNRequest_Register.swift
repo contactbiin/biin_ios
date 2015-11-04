@@ -28,7 +28,7 @@ class BNRequest_Register: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Register.run()")
+
         isRunning = true
         requestAttemps++
 
@@ -54,7 +54,7 @@ class BNRequest_Register: BNRequest {
                         
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-                        print("*** Register for user \(self.requestString) SUCK!")
+
                     }
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)

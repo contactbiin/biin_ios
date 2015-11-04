@@ -223,6 +223,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     }
     
     func hideInSiteView(){
+        
         UIView.animateWithDuration(0.25, animations: {()-> Void in
             self.inSiteView!.frame.origin.y = (SharedUIManager.instance.screenHeight - 20)
             //self.header!.frame.origin.y = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)
@@ -230,8 +231,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     }
     
     func clean(){
-        
-        print("MainViewContainer clean()")
         
         if highlightContainer != nil {
             highlightContainer!.clean()

@@ -143,8 +143,6 @@ class InSiteView: BNView {
     
     func clean() {
         
-        print("InSiteView clean()")
-        
         site = nil
         siteAvatar?.removeFromSuperview()
         title?.removeFromSuperview()

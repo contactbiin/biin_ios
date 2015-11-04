@@ -215,8 +215,7 @@ class AllElementsView: BNView {
     }
     
     func clean(){
-        //scroll!.setContentOffset(CGPointMake(0, 0), animated: false)
-        print("AllElementsView clean()")
+
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()

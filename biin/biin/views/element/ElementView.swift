@@ -197,6 +197,9 @@ class ElementView: BNView, UIWebViewDelegate {
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
+        
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_ELEMENT_VIEW, to:self.element!.identifier!)
+        
         if isElementViewFromSite {
             delegate!.hideElementViewFromSite!(self.element!)
         } else {
@@ -220,6 +223,8 @@ class ElementView: BNView, UIWebViewDelegate {
     func updateElementData(element:BNElement, showSiteBtn:Bool) {
         
         if !isSameElement(element) {
+            
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:self.element!.identifier!)
             
             if showSiteBtn {
                 self.showSiteBtn!.alpha = 1
@@ -460,6 +465,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true, shareView:self.shareView)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!)
     }
     
     func likeit(sender:BNUIButton_BiinIt){
@@ -468,8 +474,10 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if self.element!.userLiked {
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_ELEMENT, to:self.element!.identifier!)
         } else {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_ELEMENT, to:self.element!.identifier!)
         }
         
         BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
@@ -491,8 +499,10 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if self.element!.userCollected {
             BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!)
         } else {
             BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!)
         }
     }
     
@@ -539,7 +549,6 @@ class ElementView: BNView, UIWebViewDelegate {
         html += "<body>"
         html += element!.detailsHtml!
         html += "</body></html>"
-        print(html)
         return html
     }
     
@@ -556,6 +565,17 @@ class ElementView: BNView, UIWebViewDelegate {
         let bInt:Int = Int(b * 255)
         let color = "rgb(\(rInt), \(gInt), \(bInt))"
         
+        var rd:CGFloat = 0.0
+        var gd:CGFloat = 0.0
+        var bd:CGFloat = 0.0
+        var ad:CGFloat = 0.0
+        _ = element!.media[0].vibrantDarkColor!.getRed(&rd, green: &gd, blue: &bd, alpha: &ad)
+        
+        let rdInt:Int = Int(rd * 255)
+        let gdInt:Int = Int(gd * 255)
+        let bdInt:Int = Int(bd * 255)
+        let colorDark = "rgb(\(rdInt), \(gdInt), \(bdInt))"
+        
         var css = ""
         css += "html { font-family: Lato, Helvetica, sans-serif; }"
         css += "p { font-size: 14px; font-weight:300 !important;}"
@@ -565,7 +585,7 @@ class ElementView: BNView, UIWebViewDelegate {
         css += "h2 { font-size: 25px; }"
         css += ".biin_html{ display:table; }"
         css += ".listPrice_Table { display:table; margin:0 auto; width: 95%; }"
-        css += ".listPrice_Title h2 { font-size: 25px; font-weight:300; margin-bottom: 5px; }"
+        css += ".listPrice_Title h2 { color:\(colorDark); font-size: 25px; font-weight:300; margin-bottom: 5px; !important;}"
         css += ".listPrice { width: 100%; }"
         css += ".listPrice_Left { width: 80%; float: left; }"
         css += ".listPrice_Left_Top p{ font-size: 17px; font-weight:400; text-align: left; margin-top: 0px; margin-bottom: 0px; }"
@@ -573,16 +593,13 @@ class ElementView: BNView, UIWebViewDelegate {
         css += ".listPrice_Right p{ width: 20%; float: right; font-size: 17px; font-weight:400; text-align: right; margin-top: 0px; margin-bottom: 0px; }"
         css += ".highlight { display:table; text-align: center; width: 100%; margin-top: 20px; }"
         css += ".highlight_title p { font-size: 20px; font-weight:300; margin-top: 0px; margin-bottom: 0px; }"
-        css += ".highlight_text p { font-size: 80px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:"
-        css += color
-        css += ";}"
+        css += ".highlight_text p { font-size: 80px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:\(color);}"
         css += ".highlight_subtext p { font-size: 12px; font-weight:300; margin-top: -10px; margin-bottom: 0px; }"
         css += ".biin_h2 { font-size: 25px; font-weight:300 !important; }"
         css += ".biin_h1 { font-size: 30px; font-weight:300 !important; }"
         css += ".biin_h6 { font-size: 12px; font-weight:300 !important; }"
-        css += "blockquote { border-left: 2px solid "
-        css += color
-        css += "; margin: 1.5em 10px; padding: 0.5em 10px; quotes:none;}"
+        css += ".biin_p { font-size: 14px; font-weight: 300 !important; }"
+        css += "blockquote { border-left: 2px solid \(color); margin: 1.5em 10px; padding: 0.5em 10px; quotes:none;}"
         css += "blockquote:before { content: open-quote; vertical-align:middle; }"
         css += "blockquote p { font-size:25px; font-weight: 300; display: inline; }"
         return css
@@ -605,8 +622,6 @@ class ElementView: BNView, UIWebViewDelegate {
         
         
         if navigationType == UIWebViewNavigationType.LinkClicked {
-            print("link")
-//            let targetURL = NSURL(string:"http://www.biin.io")
             let application=UIApplication.sharedApplication()
             application.openURL(request.URL!)
             return false

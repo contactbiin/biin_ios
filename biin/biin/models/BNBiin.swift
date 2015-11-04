@@ -159,11 +159,6 @@ class BNBiin:NSObject
             let dayNumber = getDayOfWeek()
             for var i = 0; i < objects?.count; i++ {
                 
-//                println("Day:\(getDayOfWeek())")
-//                println("CUrrent object:\(objects![i].identifier!) index;\(i)")
-//                println("Start time:\(objects![i].startTime)")
-//                println("End time: \(objects![i].endTime)")
-                
                 if currentTime >= objects![i].startTime {
                     if currentTime <= objects![i].endTime {
 
@@ -212,18 +207,9 @@ class BNBiin:NSObject
                         if isAvailableToday {
                             currentObjectIndex = i
                             isCurrentObjectSet = true
-//                            println("Day:\(getDayOfWeek())")
-//                            println("CUrrent object:\(objects![i].identifier!) index;\(currentObjectIndex)")
-//                            println("Start time:\(objects![currentObjectIndex].startTime)")
-//                            println("End time: \(objects![currentObjectIndex].endTime)")
-
                         } else {
                             currentObjectIndex = 0
                             isCurrentObjectSet = true
-//                            println("Day:\(getDayOfWeek())")
-//                            println("CUrrent object index;\(currentObjectIndex)")
-//                            println("Start time:\(objects![currentObjectIndex].startTime)")
-//                            println("End time: \(objects![currentObjectIndex].endTime)")
                         }
                     }
                 }
@@ -231,11 +217,7 @@ class BNBiin:NSObject
         }
         
         if !isCurrentObjectSet {
-//            println("Setting defaul!")
             currentObjectIndex = 0
-//            println("CUrrent object index;\(currentObjectIndex)")
-//            println("Start time:\(objects![currentObjectIndex].startTime)")
-//            println("End time: \(objects![currentObjectIndex].endTime)")
         }
     }
     

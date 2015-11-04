@@ -28,7 +28,7 @@ class BNRequest_SendSharedSite: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendSharedSite.run()")
+
         isRunning = true
         requestAttemps++
         

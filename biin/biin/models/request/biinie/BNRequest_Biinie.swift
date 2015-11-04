@@ -28,14 +28,13 @@ class BNRequest_Biinie: BNRequest {
     
     override func run() {
         
-        NSLog("BNRequest_CheckEmail_IsVerified.run()")
+//        NSLog("BNRequest_CheckEmail_IsVerified.run()")
         isRunning = true
         requestAttemps++
         
         self.networkManager!.epsNetwork!.getJson(false, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                print("Error on biinie data")
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
@@ -74,14 +73,14 @@ class BNRequest_Biinie: BNRequest {
                                 categories.append(category)
                             }
                         } else {
-                            print("NOT CATEGORIES IN BIINIE")
+
                         }
                         
                         self.user!.categories = categories
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:true)
                         
                     } else {
-                        print("EROOR: NOT USER FOUND ON DB")
+                        
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:false)
                     }
                     
@@ -89,7 +88,7 @@ class BNRequest_Biinie: BNRequest {
                     self.networkManager!.removeFromQueue(self)
                     
                 } else  {
-                    print("EROOR: ON SERVER")
+                    
                     self.requestType = BNRequestType.ServerError
                     self.networkManager!.handleFailedRequest(self, error: error )
                 }

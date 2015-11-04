@@ -383,7 +383,6 @@ class HighlightView: BNView {
     }
     
     func clean(){
-        print("HighlightView clean()")
         
         siteAvatar?.removeFromSuperview()
         siteAvatar?.image = nil

@@ -32,7 +32,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("SingupViewController - viewDidLoad()")
+
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
         

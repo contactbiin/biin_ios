@@ -386,7 +386,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true);
         let path = paths[0] ;
         fullPath = path.stringByAppendingPathComponent(name)
-        print("\(fullPath)")
+
         return fullPath
     }
     
@@ -458,12 +458,12 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func clean(){
-        print("MainViewController clean()")
+        
         self.mainView!.clean()
     }
     
     func show(){
-        print("MainViewController show()")
+        
         self.mainView!.show()
     }
 }

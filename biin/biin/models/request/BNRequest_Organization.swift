@@ -28,7 +28,7 @@ class BNRequest_Organization: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Organization.run()")
+
         isRunning = true
         requestAttemps++
         
@@ -36,8 +36,8 @@ class BNRequest_Organization: BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                print("Error on requestOrganizationData()")
-                print("\(error!.description)")
+                
+                
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 

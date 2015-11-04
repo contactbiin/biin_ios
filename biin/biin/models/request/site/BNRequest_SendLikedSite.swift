@@ -28,7 +28,6 @@ class BNRequest_SendLikedSite: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendLikedSite.run()")
         isRunning = true
         requestAttemps++
         

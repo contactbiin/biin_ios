@@ -7,11 +7,11 @@ import Foundation
 
 class BNSettings:NSObject, NSCoding {
 
-    var IS_PRODUCTION_DATABASE = false
-    var IS_DEVELOPMENT_DATABASE = false
+    var IS_USING_CACHE = false
     var IS_QA_DATABASE = true
     var IS_DEMO_DATABASE = false
-    var IS_USING_CACHE = false
+    var IS_PRODUCTION_DATABASE = false
+    var IS_DEVELOPMENT_DATABASE = false
 
     override init() {
         super.init()
@@ -31,7 +31,7 @@ class BNSettings:NSObject, NSCoding {
         aCoder.encodeBool(IS_QA_DATABASE, forKey: "IS_QA_DATABASE")
         aCoder.encodeBool(IS_DEMO_DATABASE, forKey: "IS_DEMO_DATABASE")
         aCoder.encodeBool(IS_USING_CACHE, forKey: "IS_USING_CACHE")
-        NSLog("BIIN - BNSettings.encodeWithCoder")
+//        NSLog("BIIN - BNSettings.encodeWithCoder")
     }
     
     deinit {
@@ -50,11 +50,11 @@ class BNSettings:NSObject, NSCoding {
     class func loadSaved() -> BNSettings? {
         
         if let data = NSUserDefaults.standardUserDefaults().objectForKey("bnSettings") as? NSData {
-            NSLog("BIIN - BNSettings object")
+//            NSLog("BIIN - BNSettings object")
             return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNSettings
         }
         
-        NSLog("BIIN - BNSettings nil")
+//        NSLog("BIIN - BNSettings nil")
         return nil
     }
 }

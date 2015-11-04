@@ -93,11 +93,11 @@ class SiteMiniView: BNView {
     }
     
     override func transitionIn() {
-        print("trasition in on SiteMiniView")
+
     }
     
     override func transitionOut( state:BNState? ) {
-        print("trasition out on SiteMiniView")
+        
     }
     
     override func setNextState(goto:BNGoto){
@@ -107,7 +107,7 @@ class SiteMiniView: BNView {
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            print("showUserControl: SiteMiniView")
+            
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -115,7 +115,7 @@ class SiteMiniView: BNView {
     
     override func updateUserControl(position:CGPoint){
         if father == nil {
-            print("updateUserControl: SiteMiniView")
+            
         }else{
             father!.updateUserControl(position)
         }
@@ -154,7 +154,7 @@ class SiteMiniView: BNView {
     }
     
     func clean() {
-        print("SiteMiniView clean()")
+        
         site = nil
         image!.removeFromSuperview()
         header!.removeFromSuperview()

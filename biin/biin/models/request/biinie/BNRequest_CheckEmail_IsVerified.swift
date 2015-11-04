@@ -28,7 +28,7 @@ class BNRequest_CheckEmail_IsVerified: BNRequest {
     
     override func run() {
         
-        NSLog("BNRequest_CheckEmail_IsVerified.run()")
+//        NSLog("BNRequest_CheckEmail_IsVerified.run()")
         isRunning = true
         requestAttemps++
         

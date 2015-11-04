@@ -131,37 +131,12 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
             
             elements!.removeAll(keepCapacity: false)
         }
-        
-        /*
-        if let siteList = self.sites {
-            for siteView in sites! {
-                siteView.removeFromSuperview()
-            }
-            
-            sites!.removeAll(keepCapacity: false)
-        }
-
-
-        
-        if let itemsList = self.items {
-            for itemView in items! {
-                itemView.removeFromSuperview()
-            }
-            
-            items!.removeAll(keepCapacity: false)
-        }
-        */
-        
         var itemPosition:Int = 1
         var xpos:CGFloat = spacer
         elementRequestPreviousLimit = 0
         lastColumnRequested = 0
         isWorking = true
         elements = Array<ElementMiniView>()
-        //sites = Array<SiteMiniView>()
-        //items = Array<CollectionView_ItemView>()
-        
-        print("collection!.items.count: \(collection!.items.count)")
         
         for (_, value) in collection!.elements {
             
@@ -201,7 +176,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
                     itemPosition++
                 //}
             } else {
-                print("ELEMENT NOT FOUND IN COLLECTION: \(value.identifier!)")
+
             }
         }
         
@@ -257,73 +232,10 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
 
-        /*
-        if showcase!.isShowcaseGameCompleted {
-            return
-        }
-        
-        if site!.loyalty!.isSubscribed {
-            
-            var isShowcaseGameCompleted = true
-            var totalPoints = 0
-            currentPoints = 0
-            var pointsByElement = 5
-            var elementsViewed = 0
-            var position = scrollView.bounds.origin.x
-            var width = scrollView.contentSize.width
-            var showcaseGameWidth = SharedUIManager.instance.screenWidth
-            
-            println("position: \(scrollView.bounds.origin.x)")
-            println("height: \(width)")
-            println("showcaseGameHeight: \(showcaseGameWidth)")
-            
-            if (position >= (width - showcaseGameWidth)){
-                
-                for (var i = 0; i < self.elements!.count; i++) {
-                    if self.elements![i].element!.userViewed {
-                        self.gameView!.turnCircleOn((i))
-                        elementsViewed++
-                        //send userViewElementPost
-                    }else {
-                        isShowcaseGameCompleted = false
-                    }
-                }
-                
-                gameView!.updateYouSeenLbl("\(elementsViewed) of \(self.elements!.count)")
-                
-                if isShowcaseGameCompleted {
-                    totalPoints = self.elements!.count * pointsByElement
-                    currentPoints = site!.loyalty!.points
-                    self.updatePointCounter()
-                    site!.loyalty!.points += totalPoints
-                    showcase!.isShowcaseGameCompleted = true
-                    father!.changeJoinBtnText("You have \(site!.loyalty!.points) points with us!")
-                }
-            }
-        }
-        */
+
     }// called when scroll view grinds to a halt
     
-    /*
-    func updatePointCounter() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:"updatePoints:", userInfo: nil, repeats: true)
-    }
-    
-    func updatePoints(sender:NSTimer){
-        
-        currentPoints++
-        
-        if currentPoints <= site!.loyalty!.points {
-            //gameView!.updatePointLbl("\(currentPoints)")
-            //TODO: update bottom label on site
-            (father! as SiteView).updateLoyaltyPoints()
-            
-        }else {
-            timer!.invalidate()
-            gameView!.startToAnimateCirclesOnCompleted()
-        }
-    }
-    */
+
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
 
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
@@ -391,16 +303,6 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
             }
         }
         
-        /*
-        for var i = 0; i < items!.count; i++ {
-            if items![i].collectionScrollPosition == view.collectionScrollPosition {
-                startPosition = i
-                items!.removeAtIndex(i)
-            }
-        }
-        */
-        
-        print("startPosition: \(startPosition)")
         
         let width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
         var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
@@ -413,34 +315,10 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
             xpos += SharedUIManager.instance.miniView_width + spacer
         }
 
-        /*
-        for var i = startPosition; i < items!.count; i++ {
-            UIView.animateWithDuration(0.2, animations: {()->Void in
-                self.items![i].frame.origin.x = xpos
-            })
-            
-            xpos += SharedUIManager.instance.miniView_width + spacer
-        }
-        */
         xpos += spacer
         
-        //        if site!.loyalty!.isSubscribed {
-        //            //Add game view
-        //            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
-        //            scroll!.addSubview(gameView!)
-        //            xpos += SharedUIManager.instance.screenWidth
-        //        } else  {
-        //            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!)
-        //            scroll!.addSubview(joinView!)
-        //            xpos += SharedUIManager.instance.screenWidth
-        //        }
         
         scroll!.contentSize = CGSizeMake(xpos, 0)
-        //scroll!.setContentOffset(CGPointZero, animated: false)
-        //scroll!.bounces = false
-        //scroll!.pagingEnabled = false
-        
-        //(father as! CollectionsView).updateHighlightsContainer()
         
     }
 
