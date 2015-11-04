@@ -598,6 +598,7 @@ class ElementView: BNView, UIWebViewDelegate {
         css += ".biin_h2 { font-size: 25px; font-weight:300 !important; }"
         css += ".biin_h1 { font-size: 30px; font-weight:300 !important; }"
         css += ".biin_h6 { font-size: 12px; font-weight:300 !important; }"
+        css += ".biin_p { font-size: 14px; font-weight: 300 !important; }"
         css += "blockquote { border-left: 2px solid \(color); margin: 1.5em 10px; padding: 0.5em 10px; quotes:none;}"
         css += "blockquote:before { content: open-quote; vertical-align:middle; }"
         css += "blockquote p { font-size:25px; font-weight: 300; display: inline; }"
