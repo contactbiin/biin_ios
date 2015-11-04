@@ -359,7 +359,7 @@ class ElementView: BNView, UIWebViewDelegate {
             
             
             self.title!.frame = CGRectMake(10, 20, (frame.width - 20), 0)
-            self.title!.textColor = UIColor.appTextColor()
+            self.title!.textColor = self.element!.media[0].vibrantDarkColor!//UIColor.appTextColor()
             self.title!.textAlignment = NSTextAlignment.Left
             self.title!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
             self.title!.text = self.element!.title!
@@ -367,7 +367,7 @@ class ElementView: BNView, UIWebViewDelegate {
             self.title!.sizeToFit()
             
             self.subTitle!.frame = CGRectMake(10, (20 + self.title!.frame.height + 2), (frame.width - 20), (SharedUIManager.instance.elementView_subTitleSize + 2))
-            self.subTitle!.textColor = UIColor.appTextColor()
+            self.subTitle!.textColor = self.element!.media[0].vibrantDarkColor!// UIColor.appTextColor()
             self.subTitle!.textAlignment = NSTextAlignment.Left
             self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
             self.subTitle!.text = self.element!.subTitle!
