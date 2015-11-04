@@ -28,7 +28,7 @@ class BNRequest_SendFollowedSite: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendFollowedSite.run()")
+
         isRunning = true
         requestAttemps++
         

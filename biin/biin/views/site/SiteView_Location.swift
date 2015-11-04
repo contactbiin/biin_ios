@@ -386,25 +386,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     }
     
     
-    //MKMapViewDelegate
-    /*
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        
-        var dequeedAnnotation = mapView.dequeueReusableAnnotationViewWithIdentifier("sitePin")
-        println("\(dequeedAnnotation.reuseIdentifier!)")
-        
-        
-        if dequeedAnnotation != nil {
-            dequeedAnnotation.annotation = annotation
-            return dequeedAnnotation
-        }else {
-            dequeedAnnotation = MKAnnotationView(annotation:annotation, reuseIdentifier: "sitePin")
-            dequeedAnnotation.canShowCallout = false
-            dequeedAnnotation.image = UIImage(named: "mapIcon.png")
-        }
-       return dequeedAnnotation
-    }
-    */
+
     
     func clean() {
 

@@ -27,7 +27,7 @@ class BNRequest_SendUnCollectedElement: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendUnCollectedElement.run()")
+
         isRunning = true
         requestAttemps++
         

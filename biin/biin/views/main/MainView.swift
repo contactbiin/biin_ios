@@ -229,12 +229,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func testButtonAction(sender:UIButton) {
-        print("testButtonAction()")
+        
         BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
-        print("Showmain Menu")
+        
         self.delegate!.mainView!(self, showMenu: true)
     }
     
@@ -349,7 +349,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     //}
     
     func showLoyalties(){
-        print("showLoyalties()")
+        
     }
     
     override func refresh() {
@@ -369,7 +369,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showNotificationContext(){
-        NSLog("BIIN - showNotificationContext")
+//        NSLog("BIIN - showNotificationContext")
         
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
             switch BNAppSharedManager.instance.notificationManager.currentNotification!.notificationType! {
@@ -384,26 +384,26 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //                }
                 break
             case .INTERNAL:
-                NSLog("BIIN - GOTO TO SITE VIEW on Internal notification")
+//                NSLog("BIIN - GOTO TO SITE VIEW on Internal notification")
                 if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
                     (siteState!.view as! SiteView).updateSiteData(site)
                     setNextState(BNGoto.Site)
                 }
                 break
             case .EXTERNAL:
-                NSLog("BIIN - GOTO TO SITE VIEW on external notification")
+//                NSLog("BIIN - GOTO TO SITE VIEW on external notification")
                 if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
                     (siteState!.view as! SiteView).updateSiteData(site)
                     setNextState(BNGoto.Site)
                 } else if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!] {
                     
-                    NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)")
+//                    NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)")
                     
                     (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     
                     setNextState(BNGoto.Element)
-                    NSLog("BIIN - Show element view for element: \(element._id!)")
+//                    NSLog("BIIN - Show element view for element: \(element._id!)")
 //                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     //(self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
                 }
@@ -420,7 +420,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //Show elementView from element containers or showcase.
     func showElementView(view: ElementMiniView, element: BNElement) {
-        print("showElementView from element")
+        
         
 //        if isShowingSite {
 //            (siteState!.view as! SiteView).showFade()
@@ -447,7 +447,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //Show elementView from hightlight.
     func showElementViewFromHighlight(element: BNElement) {
-        print("showElementView from highlight")
+        
         (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
         setNextState(BNGoto.Element)
     }
@@ -490,7 +490,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //MainViewContainer_Sites_Delegate Methods
     func showAllSitesView() {
-        print("showAllSitesView")
+        
         isShowingAllSite = true
         setNextState(BNGoto.AllSites)
     }
@@ -558,7 +558,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func clean(){
-        print("MainView clean()")
+        
         
         showMenuSwipe?.removeTarget(self, action: "showMenu:")
         showMenuSwipe = nil
@@ -605,7 +605,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     
     func show(){
-        print("MainView show()")
+        
         
         let mainViewContainer = MainViewContainer(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         self.addSubview(mainViewContainer)

@@ -153,7 +153,7 @@ class Biinie:NSObject, NSCoding {
     
     func addAction(at:NSDate, did:BiinieActionType, to:String) {
         
-        NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+//        NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
         
         var isActionReadyToAdd = false
         
@@ -161,26 +161,26 @@ class Biinie:NSObject, NSCoding {
         
             for action in actions {
                 
-                NSLog("BIIN 0 - action: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
+//                NSLog("BIIN 0 - action: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
                 
                 if action.did! == did {
                     
-                    NSLog("BIIN 1 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
-                    NSLog("BIIN 1 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
+//                    NSLog("BIIN 1 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+//                    NSLog("BIIN 1 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to!)")
                     
                     if action.to! == to {
                         
-                        NSLog("BIIN 2 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
-                        NSLog("BIIN 2 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to)")
+//                        NSLog("BIIN 2 - new: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+//                        NSLog("BIIN 2 - old: \(action.at!.bnDateFormatt()), did:\(action.did!.hashValue), to:\(action.to)")
                         
                         let seconds = Int(at.timeIntervalSinceDate(action.at!))
                         let minutes = Int( seconds / 60 )
                         
-                        NSLog("BIIN - seconds: \(seconds)")
-                        NSLog("BIIN - minutes: \(minutes)")
+//                        NSLog("BIIN - seconds: \(seconds)")
+//                        NSLog("BIIN - minutes: \(minutes)")
                         
                         if minutes > 30 {
-                            NSLog("BIIN - added: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+//                            NSLog("BIIN - added: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
                             isActionReadyToAdd = true
                             break
                         }
@@ -202,7 +202,7 @@ class Biinie:NSObject, NSCoding {
             self.actionCounter++
             self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
             save()
-            NSLog("BIIN - add first action: \(at.bnDateFormatt()), did:\(did), to:\(to)")
+//            NSLog("BIIN - add first action: \(at.bnDateFormatt()), did:\(did), to:\(to)")
             
         }
     }

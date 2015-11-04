@@ -75,7 +75,6 @@ class BNRequest:NSObject {
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType){
         self.init()
         self.identifier = BNRequestData.requestCounter++
-        //println("NEW REQUEST \(self.identifier) for \(requestString)")
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = requestType
@@ -85,7 +84,6 @@ class BNRequest:NSObject {
 
         self.init()
         self.identifier = BNRequestData.requestCounter++
-        //println("NEW REQUEST \(self.identifier) for \(requestString)")
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = requestType
@@ -101,7 +99,6 @@ class BNRequest:NSObject {
     
     func clean() {
     
-        print("BNRequest clean() = \(requestString)")
         
         showcase = nil
         element = nil

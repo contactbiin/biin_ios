@@ -130,9 +130,6 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
             let xpos:CGFloat = SharedUIManager.instance.screenWidth * CGFloat((currentHighlight))
             scroll!.setContentOffset(CGPoint(x: xpos, y: 0), animated: true)
             currentHighlight++
-            
-            //print("current:\(currentHighlight)")
-            //print("number:\(hightlights!.count)")
         }
     }
     
@@ -198,7 +195,7 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
     
     func clean(){
         
-        print("MainViewContainer_Banner clean()")
+        
         
         if hightlights?.count > 0 {
             

@@ -232,8 +232,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     
     func clean(){
         
-        print("MainViewContainer clean()")
-        
         if highlightContainer != nil {
             highlightContainer!.clean()
             highlightContainer!.removeFromSuperview()

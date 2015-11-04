@@ -22,7 +22,7 @@ class SettingsState:BNState {
     }
     
     override func next( state:BNState? ) {
-        print("goto state: \(state)")
+
         context!.state = state
         view!.transitionOut( context!.state )
     }

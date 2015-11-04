@@ -32,85 +32,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func shouldTrustProtectionSpace() ->Bool {
         
-//        var certPath = NSBundle.mainBundle().pathForResource("cert", ofType: "der")
-//        var certData = NSData(contentsOfFile:certPath!)
-//        println("\(certData)")
-//        var certDataRef = certData as CFDataRef
-//        var cert = SecCertificateCreateWithData(nil, certDataRef)
-        
         return true
     }
-    /*
-    func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential!) -> Void){
-        println("willSendRequestForAuthenticationChallenge")
-        
-        println(challenge.protectionSpace)
-        
-//        var credential = NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!)
-//        challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
-//        challenge.sender.cancelAuthenticationChallenge(challenge)
-//        var credential = NSURLCredential(user:"username", password:"password", persistence: .ForSession)
-//        completionHandler(NSURLSessionAuthChallengeDisposition.UseCredential, credential)
-        
-        completionHandler(.PerformDefaultHandling, nil)
-    }
-    
-    
-
-    
-    func get(request: NSMutableURLRequest, callback: (String, NSError?) -> Void) {
-        
-        
-        
-        var queue = NSOperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        var session = NSURLSession.sharedSession()
-        var sessionConfig = NSURLSessionConfiguration.ephemeralSessionConfiguration()
-        session = NSURLSession(configuration: sessionConfig, delegate: self, delegateQueue: queue)
-        
-        let task = session.dataTaskWithRequest(request,
-            completionHandler: {(data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
-                
-                if (error != nil) {
-                    callback("", error)
-                    return
-                }
-                
-                if (data != nil) {
-                    
-//                    println("------------------------------------------------------------")
-//                    println("------------------------------------------------------------")
-//                    println("jsonString received: \(data)")
-                    
-                    callback(NSString(data: data, encoding: NSUTF8StringEncoding)!, nil)
-                } else {
-                    callback("", error)
-                }
-        })
-        
-
-        task.resume()
-        
-        
-//        let task = NSURLSession.sharedSession().dataTaskWithRequest(request,
-//            completionHandler: {(data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
-//                
-//                if (error != nil) {
-//                    callback("", error)
-//                    return
-//                }
-//                
-//                if (data != nil) {
-//                    callback(NSString(data: data, encoding: NSUTF8StringEncoding), nil)
-//                } else {
-//                    callback("", error)
-//                }
-//            })
-//        
-//        task.resume()
-    }
-    */
-    
     
     func getConnection(request: NSURLRequest, callback: (NSError?) -> Void) {
         
@@ -150,15 +73,6 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 
                 if (data != nil) {
                     
-//                    var zipData = NSData(contentsOfURL:request.URL!)
-//                    var gzipString = NSString(data: zipData!, encoding:NSUTF8StringEncoding )! as String
-//                    var gzipData = NSData(base64EncodedString: gzipString, options: NSDataBase64DecodingOptions.allZeros)
-//                    
-//                    
-//                    print("------------------------------------------------------------")
-//                    print("------------------------------------------------------------")
-//                    print("jsonString received AA: \(data!)")
-                    
                     callback(NSString(data: data!, encoding:NSUTF8StringEncoding)! as String, nil)
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     
@@ -171,7 +85,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func checkConnection(useCache:Bool, url: String, callback:(NSError?) -> Void) {
         
-        var Status:Bool = false
+        //var Status:Bool = false
         let url = NSURL(string: url)
         let request = NSMutableURLRequest(URL: url!)
         
@@ -218,24 +132,12 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Accept-Encoding")
         
         
-        //var session = NSURLSession.sharedSession()
-//        var request = NSMutableURLRequest(URL: NSURL(string: url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
-//        request.setValue("application/json", forHTTPHeaderField:"Accept")
-        
-        
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 
-//                print("------------------------------------------------------------")
-//                print("------------------------------------------------------------")
-//                print("jsonString received: \(data)")
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
-                
-//                print("------------------------------------------------------------")
-//                print("------------------------------------------------------------")
-//                print("jsonString received: \(data)")
                 
                 let jsonData = self.parseJson(data)
                 callback(jsonData, nil)
@@ -261,80 +163,11 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
 
-            /*
-            let err: NSError?
-            let json = NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary
-            
-            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-            if(err != nil) {
-                print(err!.localizedDescription)
-                let jsonStr = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                print("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else {
-                // The JSONObjectWithData constructor didn't return an error. But, we should still
-                // check and make sure that json has a value using optional binding.
-                if let parseJSON = json {
-                    // Okay, the parsedJSON is here, let's get the value for 'success' out of it
-                    let success = parseJSON["success"] as? Int
-                    print("Succes: \(success)")
-                }
-                else {
-                    // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
-                    let jsonStr = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                    print("Error could not parse JSON: \(jsonStr)")
-                }
-            }
-            */
         })
         
         task.resume()
     }
     
-    /*
-    func post(params : Dictionary<String, String>, url : String) {
-        var request = NSMutableURLRequest(URL: NSURL(string: url)!)
-        var session = NSURLSession.sharedSession()
-        request.HTTPMethod = "POST"
-        
-        var err: NSError?
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(params, options: nil, error: &err)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            println("Response: \(response)")
-            var strData = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("Body: \(strData)")
-            var err: NSError?
-            var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
-            
-            // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-            if(err != nil) {
-                println(err!.localizedDescription)
-                let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("Error could not parse JSON: '\(jsonStr)'")
-            }
-            else {
-                // The JSONObjectWithData constructor didn't return an error. But, we should still
-                // check and make sure that json has a value using optional binding.
-                if let parseJSON = json {
-                    // Okay, the parsedJSON is here, let's get the value for 'success' out of it
-                    var success = parseJSON["success"] as? Int
-                    println("Succes: \(success)")
-                }
-                else {
-                    // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
-                    let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    println("Error could not parse JSON: \(jsonStr)")
-                }
-            }
-        })
-        
-        task.resume()
-    }
-    */
-
     
     func post(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
@@ -346,8 +179,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        print("HTTPBody: \(httpString)")
+        //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+        //print("HTTPBody: \(httpString)")
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
@@ -355,9 +188,6 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
                 
-                //println("------------------------------------------------------------")
-                //println("------------------------------------------------------------")
-                //println("jsonString received: \(data)")
                 
                 let jsonData = self.parseJson(data)
                 callback(jsonData, nil)
@@ -375,19 +205,15 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        print("BIIN - HTTPBody: \(httpString)")
-        //NSLog("BIIN - HTTPBody: \(httpString)")
+        //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
+        //print("BIIN - HTTPBody: \(httpString)")
+
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
-                
-//                println("------------------------------------------------------------")
-//                println("------------------------------------------------------------")
-//                println("jsonString received: \(data)")
                 
                 let jsonData = self.parseJson(data)
                 callback(jsonData, nil)
@@ -415,10 +241,6 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 callback(Dictionary<String, AnyObject>(), error)
             } else {
                 
-//                print("------------------------------------------------------------")
-//                print("------------------------------------------------------------")
-//                print("DELETE: jsonString received: \(data)")
-                
                 let jsonData = self.parseJson(data)
                 callback(jsonData, nil)
             }
@@ -435,28 +257,16 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         let json : AnyObject
         
-        //TODO: Caough error when data is empty
-        //var json = NSJSONSerialization.JSONObjectWithData(data, options:options) as! Dictionary<String, AnyObject>?
-        
-        //println("------------------------------------------------------------")
-        //println("------------------------------------------------------------")
-        //println("jsonString received: \(json)")
-        //println("json cound: \(json!.count)")
-        
         do {
             json = try NSJSONSerialization.JSONObjectWithData(data, options:options)
             // success ...
         } catch {
             // failure
-            print("Fetch failed: \((error as NSError).localizedDescription)")
+            //print("Fetch failed: \((error as NSError).localizedDescription)")
             return Dictionary<String, AnyObject>()
         }
         
-//        if error != nil {
-//            return Dictionary<String, AnyObject>()
-//        } else {
-            return json as! Dictionary<String, AnyObject>
-//        }
+        return json as! Dictionary<String, AnyObject>
     }
     
     func getImageInCache(urlString:NSString, image:BNUIImageView) {
@@ -469,14 +279,14 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     func getImage(urlString:NSString, image:BNUIImageView, callback:(NSError?) -> Void) {
 
-        //add requesting image to queue
+
         
-//        if let cacheImage = ShareEPSNetworking.cacheImages[urlString as String] {
+
         if let cacheImage = findImageInBiinChacheLocalFolder(urlString as String, image:image) {
-            //println("image already in cache...")
+
             image.image = cacheImage
             image.showAfterDownload()
-            //BNAppSharedManager.instance.networkManager.removeImageRequest(urlString as String)
+
             self.sentImages(urlString as String)
             callback(nil)
         }else {
@@ -485,28 +295,13 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 
             
-            
-            // Check our image cache for the existing key. This is just a dictionary of UIImages
-//            if let cacheImage = ShareEPSNetworking.cacheImages[urlString] {
-//                println("image already in cache...")
-//                image.image = cacheImage
-//            }else {
-            
-                //TESTING
-                //If the image does not exist, we need to download it
-//                var loader = UIView(frame: CGRectMake(20, 20, 20, 20))
-//                loader.backgroundColor = UIColor.redColor()
-//                image.superview?.addSubview(loader)
-                
-                //println("requesting image: \(urlString)")
-                
                 ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
                 
                 let url: NSURL = NSURL(string: urlString as String)!
                 
                 // Download an NSData representation of the image at the URL
                 let request: NSURLRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 10)
-//                var urlConnection: NSURLConnection = NSURLConnection(request: request, delegate: self)!
+
             
             
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -514,20 +309,18 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         
                     if (error != nil) {
-                        //println("Error on image request\( error! )")
+
                         callback(error)
                     } else {
                         //Send image to be store in image dictionary
 
-                        print("Store image: \(urlString)")
-                        
                         let imageDownload = UIImage(data: data!)!
                         
                         ShareEPSNetworking.cacheImages[urlString as String] = self.optimizeImageForRender(imageDownload.CGImage!)
-//                        image.image = UIImage(data: data)
+
                         
                         self.sentImages(urlString as String)
-                        //println("image cache count \(ShareEPSNetworking.cacheImages.count)")
+
                         
                         self.saveImageInBiinChacheLocalFolder(urlString as String, image:imageDownload)
                         
@@ -559,7 +352,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             }
         }
         
-        //println("pending: \(ShareEPSNetworking.requestingImages.count) ")
+
         
         
         if ShareEPSNetworking.requestingImages.count == 0 {
@@ -572,11 +365,11 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     
     
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        print("\(dataTask.countOfBytesExpectedToReceive)")
+
     }
     
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        print("didReceiveResponse")
+        
     }
     
     func findImageInBiinChacheLocalFolder(urlString:String, image:BNUIImageView) -> UIImage? {
@@ -594,25 +387,23 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         
         
-        print("-----------------     \(urlString)")
+        
         let index2 = urlString.rangeOfString("/", options: .BackwardsSearch)?.endIndex
         let substring2 = urlString.substringFromIndex(index2!)
-        print("-----------------     \(index2)")
-        print("-----------------     \(substring2)")
         
         let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(substring2)
         
-//        let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(urlString)
+
         
         
         if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
             
-            print("Image:\(urlString) does not exist on BiinCacheImages folder, request and Save!")
+            //print("Image:\(urlString) does not exist on BiinCacheImages folder, request and Save!")
             return nil
             
         } else {
             
-            print("Loading image:\(urlString) from on BiinCacheImages folder.")
+            //print("Loading image:\(urlString) from on BiinCacheImages folder.")
             
             /*
             //Using UIKIT
@@ -687,20 +478,18 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         let imageData = UIImageJPEGRepresentation(image, 0.45)
         //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
         
-        //println("-----------------     \(urlString)")
+        
         let index2 = urlString.rangeOfString("/", options: .BackwardsSearch)?.endIndex
         let substring2 = urlString.substringFromIndex(index2!)
-        //println("-----------------     \(index2)")
-        //println("-----------------     \(substring2)")
         
         let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(substring2)
 
         if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
         
             if !imageData!.writeToFile(imagePath, atomically: false) {
-                print("-------- Not saved:\(imagePath)")
+                //print("-------- Not saved:\(imagePath)")
             } else {
-                print("-------- Saving image:\(urlString) on BiinCacheImages folder!")
+                //print("-------- Saving image:\(urlString) on BiinCacheImages folder!")
                 NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey:urlString)
             }
         }

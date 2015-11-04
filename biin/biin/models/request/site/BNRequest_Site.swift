@@ -28,7 +28,7 @@ class BNRequest_Site: BNRequest {
 
     override func run() {
         
-        //print("BNRequest_Site.run()")
+
         isRunning = true
         requestAttemps++
 
@@ -36,7 +36,7 @@ class BNRequest_Site: BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                print("Error on requestSiteData()")
+                
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
@@ -92,7 +92,7 @@ class BNRequest_Site: BNRequest {
                         
                         let mediaArray = BNParser.findNSArray("media", dictionary: siteData)
                         
-                        print("Site:\(new_site.title!)")
+                        
                         
                         for var i = 0; i < mediaArray?.count; i++ {
                             let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary

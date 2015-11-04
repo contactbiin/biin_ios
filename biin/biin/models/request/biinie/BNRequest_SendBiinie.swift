@@ -29,7 +29,7 @@ class BNRequest_SendBiinie:BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendBiinie.run()")
+
         isRunning = true
         requestAttemps++
         
@@ -58,7 +58,7 @@ class BNRequest_SendBiinie:BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                print("ERROR on sendBiinie()")
+
                 self.networkManager!.handleFailedRequest(self, error: error )
 //                response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {

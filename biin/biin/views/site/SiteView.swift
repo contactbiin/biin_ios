@@ -179,7 +179,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     func backGestureAction(sender:UISwipeGestureRecognizer) {
-        print("backGestureAction()")
+
         delegate!.hideSiteView!(self)
     }
     
@@ -322,7 +322,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     func showInformationView(sender:BNUIButton_SiteLocation){
-        print("show site information window")
+        
         showFade()
         UIView.animateWithDuration(0.3, animations: {()-> Void in
             self.locationView!.frame.origin.y = SharedUIManager.instance.screenHeight - self.locationViewHeigh
@@ -428,10 +428,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         if showcases!.count > 0 {
             showcases![0].getToWork()
-        }
-        
-        //println("scrollSpaceForShowcases: \(scrollSpaceForShowcases)")
-        
+        }    
     }
     
     

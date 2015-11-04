@@ -145,7 +145,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        print("SiteView_Showcase transitionOut")
+
         
         //clean()
         if elements?.count > 0 {
@@ -168,7 +168,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     
     override func setNextState(goto:BNGoto){
         //Start transition on root view controller
-        print("SiteView_Showcase setNextState")
+        
         father!.setNextState(goto)
     }
     
@@ -323,12 +323,6 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
             let width = scrollView.contentSize.width
             let showcaseGameWidth = SharedUIManager.instance.screenWidth
             
-            /*
-            print("position: \(scrollView.bounds.origin.x)")
-            print("height: \(width)")
-            print("showcaseGameHeight: \(showcaseGameWidth)")
-            */
-            
             if (position >= (width - showcaseGameWidth)){
                 
                 for (var i = 0; i < self.elements!.count; i++) {
@@ -427,7 +421,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }
     
     func clean(){
-        print("SiteView_Showcase clean()")
+        
         
         if elements?.count > 0 {
             

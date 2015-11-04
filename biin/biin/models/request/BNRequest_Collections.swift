@@ -27,7 +27,7 @@ class BNRequest_Collections: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Collections.run()")
+
         isRunning = true
         requestAttemps++
         
@@ -46,7 +46,7 @@ class BNRequest_Collections: BNRequest {
                         var collectionList = Array<BNCollection>()
                         let collections = BNParser.findNSArray("biinieCollections", dictionary: dataData)
                         
-                        print("number of collections: \(collections?.count)")
+                        
                         
                         for var i = 0; i < collections?.count; i++ {
                             
@@ -60,7 +60,7 @@ class BNRequest_Collections: BNRequest {
                             collection.items = Array<String>()
                             
                             if elements?.count > 0 {
-                                 print("number elements in collections: \(elements!.count)")
+                                
                                 collection.elements = Dictionary<String, BNElement>()
                                 
                                 for ( var j = 0; j < elements?.count; j++ ) {
@@ -96,7 +96,7 @@ class BNRequest_Collections: BNRequest {
                     }
                     
                 } else {
-                    print("NOT COLLECTION FOR \(self.requestString)")
+                    
                 }
                 
                 self.inCompleted = true

@@ -172,18 +172,18 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
     
     /* UIScrollViewDelegate Methods */
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        //        println("scrollViewDidScroll")
-//        manageSitesImageRequest()
+
+
     }// any offset changes
     
     // called on start of dragging (may require some time and or distance to move)
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        //println("scrollViewWillBeginDragging")
+
     }
     
     // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        //println("scrollViewWillEndDragging")
+
     }
     
     // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
@@ -192,11 +192,11 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
     }
     
     func scrollViewWillBeginDecelerating(scrollView: UIScrollView ) {
-        //println("scrollViewWillBeginDecelerating")
+
     }// called on finger up as we are moving
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView ) {
-        //        println("scrollViewDidEndDecelerating")
+
         
         let index = Int(scrollView.contentOffset.x / SharedUIManager.instance.screenWidth)
         
@@ -207,21 +207,21 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             images[index].requested = true
         }
         
-        //println("scrollViewDidEndDecelerating: \(index)")
+
         
     }// called when scroll view grinds to a halt
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        //println("scrollViewDidEndScrollingAnimation")
+
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
     
     func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-        //println("scrollViewShouldScrollToTop")
+
         return true
     }// return a yes if you want to scroll to the top. if not defined, assumes YES
     
     func scrollViewDidScrollToTop(scrollView: UIScrollView) {
-        //println("scrollViewDidScrollToTops")
+
     }// called when scrolling animation finished. may be called immediately if already at top
 
 

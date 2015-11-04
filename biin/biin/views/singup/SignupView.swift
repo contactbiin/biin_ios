@@ -237,13 +237,13 @@ class SignupView:UIView, UITextFieldDelegate {
     
     //UITextFieldDelegate Methods
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        print("textFieldShouldBeginEditing")
+
         return true
     }// return NO to disallow editing.
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        print("textFieldDidBeginEditing")
+        
         
         if textField.placeholder == NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate") {
             let datePickerView  : UIDatePicker = UIDatePicker()
@@ -255,18 +255,18 @@ class SignupView:UIView, UITextFieldDelegate {
     }// became first responder
     
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        print("textFieldShouldEndEditing")
+        
  
         return true
     }// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
     
     func textFieldDidEndEditing(textField: UITextField) {
-        print("textFieldDidEndEditing")
+        
 
     }// may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        print("textField")
+        
         
         textField.textColor = UIColor.appTextColor()
         
@@ -279,13 +279,13 @@ class SignupView:UIView, UITextFieldDelegate {
     }// return NO to not change text
     
     func textFieldShouldClear(textField: UITextField) -> Bool {
-        print("textFieldShouldClear")
+        
         //singupBtn!.showDisable()
         return false
     }// called when clear button pressed. return NO to ignore (no notifications)
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        print("textFieldShouldReturn")
+        
     
         return false
     }// called when 'return' key pressed. return NO to ignore.

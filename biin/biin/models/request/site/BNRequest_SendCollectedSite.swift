@@ -18,7 +18,7 @@ class BNRequest_SendCollectedSite: BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite ){
         self.init()
         self.identifier = BNRequestData.requestCounter++
-        //println("NEW REQUEST \(self.identifier) for \(requestString)")
+
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.SendCollectedSite
@@ -29,7 +29,7 @@ class BNRequest_SendCollectedSite: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendCollectedSite.run(), \(requestString)")
+
         isRunning = true
         requestAttemps++
         

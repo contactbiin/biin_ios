@@ -60,16 +60,16 @@ class BNAppManager {
         self.counter++
 
         if let settings = BNSettings.loadSaved() {
-            NSLog("Loading settings")
+//            NSLog("Loading settings")
             self.settings = settings
         } else {
-            NSLog("Not settings available")
+//            NSLog("Not settings available")
             self.settings = BNSettings()
         }
         
         
         if self.settings!.IS_QA_DATABASE {
-            NSLog("QA DB")
+//            NSLog("QA DB")
 
         }
         

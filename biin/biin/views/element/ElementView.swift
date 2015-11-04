@@ -549,7 +549,6 @@ class ElementView: BNView, UIWebViewDelegate {
         html += "<body>"
         html += element!.detailsHtml!
         html += "</body></html>"
-        print(html)
         return html
     }
     
@@ -622,8 +621,6 @@ class ElementView: BNView, UIWebViewDelegate {
         
         
         if navigationType == UIWebViewNavigationType.LinkClicked {
-            print("link")
-//            let targetURL = NSURL(string:"http://www.biin.io")
             let application=UIApplication.sharedApplication()
             application.openURL(request.URL!)
             return false

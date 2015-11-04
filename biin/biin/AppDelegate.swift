@@ -14,16 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
-        NSLog("BIIN - didFinishLaunchingWithOptions()")
+        //NSLog("BIIN - didFinishLaunchingWithOptions()")
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
         self.window!.backgroundColor = UIColor.blackColor()
         self.window!.makeKeyAndVisible()
-        
-//        let objects = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil)
-//        (objects[0] as? UIView)?.layer.backgroundColor = UIColor.greenColor().CGColor
-//        (objects[0] as? UIView)?.setNeedsDisplay()
         
         appManager.appDelegate = self
         appManager.networkManager.setRootURLForRequest()
@@ -32,17 +28,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         switch application.applicationState {
         case .Active:
-            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+//            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
             appManager.IS_APP_UP = true
             appManager.IS_APP_DOWN = false
             break
         case .Background:
-            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+//            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
             appManager.IS_APP_UP = false
             appManager.IS_APP_DOWN = true
             break
         case .Inactive:
-            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
+//            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
             appManager.IS_APP_UP = false
             appManager.IS_APP_DOWN = true
             break
@@ -278,15 +274,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func saveContext () {
         if let moc = self.managedObjectContext {
-            var error: NSError? = nil
+            //var error: NSError? = nil
             if moc.hasChanges {
                 do {
                     try moc.save()
-                } catch let error1 as NSError {
-                    error = error1
+                } catch _ as NSError {
+                    //error = error1
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+//                    NSLog("Unresolved error \(error), \(error!.userInfo)")
                     abort()
                 }
             }

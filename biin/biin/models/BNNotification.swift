@@ -32,9 +32,7 @@ class BNNotification:NSObject {
         self.biin = biin
         self.notificationType = notificationType
         self.time = time
-        
-        let timestamp = NSDateFormatter.localizedStringFromDate(time, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
-        print("---- Notification at: \(timestamp)")
+        //let timestamp = NSDateFormatter.localizedStringFromDate(time, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
     }
     
     deinit {

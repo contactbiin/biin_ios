@@ -29,7 +29,7 @@ class BNRequest_SendBiinieActions: BNRequest {
     
     override func run() {
         
-        NSLog("BNRequest_SendBiinieActions.run()")
+        
         isRunning = true
         requestAttemps++
         
@@ -60,7 +60,7 @@ class BNRequest_SendBiinieActions: BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                print("Error on posting categoies")
+
                 self.networkManager!.handleFailedRequest(self, error: error )
                 //response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {

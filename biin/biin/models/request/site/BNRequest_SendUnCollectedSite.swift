@@ -27,7 +27,7 @@ class BNRequest_SendUnCollectedSite: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendUnBiinedSite.run()")
+
         isRunning = true
         requestAttemps++
         
