@@ -45,10 +45,10 @@ class BNUIAlertView_Header:UIView {
         self.position = CGPoint(x:0, y:0 )
         self.size = CGSize(width: frame.width, height: frame.height)
         
-        self.text = text
+        self.text = text!.uppercaseString
         
-        label = UILabel(frame: CGRectMake(0, 88, SharedUIManager.instance.screenWidth, 18))
-        label!.font = UIFont(name: "Lato-Black", size: 16)
+        label = UILabel(frame: CGRectMake(0, 80, SharedUIManager.instance.screenWidth, 18))
+        label!.font = UIFont(name: "Lato-Light", size: 16)
         label!.textColor = UIColor.appMainColor()
         label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)
@@ -86,7 +86,7 @@ class BNUIAlertView_Header:UIView {
         case .Please_wait:
             //icon = BNIcon_SmileFace1(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))
             self.color = UIColor.blackColor()
-            self.label!.text = text!
+            self.label!.text = text!.uppercaseString
             break
         case .Saved:
             //icon = BNIcon_SmileFace1(color: UIColor.appMainColor(), position: CGPoint(x: 11, y: 81))

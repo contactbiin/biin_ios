@@ -109,7 +109,7 @@ class SiteView_Bottom:BNView {
         //let points = NSLocalizedString("Points", comment: "Points")
         //pointsLbl!.text = "\(points): \(site!.organization!.loyalty!.points)"
         
-        self.title!.text = "More Comming soon!"
-        self.subTitle!.text = "Come back in next few day and find more exiting infomation on our behalf."
+        self.title!.text = NSLocalizedString("SiteBottomTitle", comment: "SiteBottomTitle")//"More Comming soon!"
+        self.subTitle!.text = NSLocalizedString("SiteBottomSubtitle", comment: "SiteBottomSubtitle")//"Come back in next few day and find more exiting infomation on our behalf."
     }
 }

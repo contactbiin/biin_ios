@@ -82,11 +82,11 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         ypos += sitesContainerHeight
 
         
-        self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
-        self.scroll!.addSubview(self.bannerContainer!)
-        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
-        
-        
+//        self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
+//        self.scroll!.addSubview(self.bannerContainer!)
+//        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
+
+
         var colorIndex:Int = 0
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             

@@ -319,7 +319,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.scroll!.addSubview(self.textPrice1!)
                 
                 lineView!.alpha = 1
-                lineView!.frame = CGRectMake(xposition, (ypos + 11), (text1Length + 1), 1)
+                lineView!.frame = CGRectMake(xposition, (ypos + 18), (text1Length + 1), 1)
                 lineView!.backgroundColor = self.textColor
                 self.scroll!.addSubview(lineView!)
                 
