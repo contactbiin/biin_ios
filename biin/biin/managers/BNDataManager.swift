@@ -64,8 +64,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             bnUser = Biinie(identifier:"", firstName: "guess", lastName:"guess", email: "guess@biinapp.com")
             bnUser!.isEmailVerified = false
             bnUser!.biinName = ""
+
         }
         
+        bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
         //NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "startAppTimer:", userInfo: nil, repeats: false)
     }
     

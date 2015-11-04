@@ -57,9 +57,6 @@ class BNAppManager {
     
     init(){
         
-//        var today = NSDate()
-//        println("FECHA: \(today.bnDateFormattForActions())")
-        
         self.counter++
 
         if let settings = BNSettings.loadSaved() {
@@ -113,11 +110,8 @@ class BNAppManager {
     }
     
     func addImagesMB(size:CGFloat) {
-        
         let nsize:CGFloat = CGFloat((size / 1000000))
-        print("image size:\(nsize)")
         imagesMB += nsize
-        print("total image size:\(imagesMB)")
     }
     
 
@@ -317,18 +311,10 @@ class BNAppManager {
     }
     
     func clean(){
-        print("BNAppManager clean()")
-        //networkManager.epsNetwork!.clean()
-        //mainViewController!.clean()
         imagesMB = 0
     }
     
-    func show(){
-        print("BNAppManager show()")
-        //mainViewController!.show()
-    }
-    
-
+    func show(){ }
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {

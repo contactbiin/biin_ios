@@ -77,8 +77,6 @@ class Biinie:NSObject, NSCoding {
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         
-        print("**** Action: \(actions.count)")
-        
         for _id in storedElementsViewed {
             elementsViewed[_id] = _id
         }
@@ -125,7 +123,6 @@ class Biinie:NSObject, NSCoding {
         
         for (_, element_id) in elementsViewed {
             storedElementsViewed.append(element_id)
-            //println("elementViwed:\(_id)")
         }
         
         aCoder.encodeObject(storedElementsViewed, forKey: "storedElementsViewed")
@@ -137,7 +134,6 @@ class Biinie:NSObject, NSCoding {
     }
     
     func save() {
-        print("SAVING BIINIE")
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: "user")
     }
@@ -212,7 +208,6 @@ class Biinie:NSObject, NSCoding {
     }
     
     func deleteAllActions(){
-        print("deleteAllActions()")
         self.actionCounter = 0
         self.actions.removeAll(keepCapacity: false)
         save()

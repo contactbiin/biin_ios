@@ -203,7 +203,6 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     }
     
     func resizeScrollOnRemoved(view: ElementMiniView) {
-        print("resizeScrollOnRemoved()")
         removeElementCollected(view)
     }
     

@@ -229,6 +229,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     //Instance Methods
     func backBtnAction(sender:UIButton) {
         delegate!.hideSiteView!(self)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!)
     }
     
     func isSameSite(site:BNSite?)->Bool {
@@ -247,6 +248,8 @@ class SiteView:BNView, UIScrollViewDelegate {
         if !isSameSite(site) {
             var textColor:UIColor?
 
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:site!.identifier!)
+            
             if self.site!.useWhiteText {
                 textColor = UIColor.whiteColor()
                 iconColor = UIColor.whiteColor()
@@ -522,8 +525,10 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         if self.site!.userLiked {
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:site!.identifier!)
         } else {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!)
         }
         
         BNAppSharedManager.instance.likeIt(site!.identifier!, isElement: false)
@@ -538,6 +543,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:shareView)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_SITE, to:site!.identifier!)
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
@@ -562,8 +568,10 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         if self.site!.userFollowed {
             animationView!.animateWithText(NSLocalizedString("FollowTxt", comment: "FollowTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.FOLLOW_SITE, to:site!.identifier!)
         } else {
             animationView!.animateWithText(NSLocalizedString("NotFollowTxt", comment: "NotFollowTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNFOLLOW_SITE, to:site!.identifier!)
         }
 
         BNAppSharedManager.instance.followIt(site!.identifier!)

@@ -84,27 +84,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         } else {
             
-            print("biinCacheImagesFolder already exist!")
             let selectedImage = UIImage(named:"loading1.jpg")
             let imageData = UIImagePNGRepresentation(selectedImage!)
 
             let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("loading1.jpg")
             
-            print("imagePath: \(imagePath)")
-            
             if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
                 
-                print("Image does not exist on BiinCacheImages folder.")
                 if !imageData!.writeToFile(imagePath, atomically: false) {
-                    print("not saved: \(imagePath)")
                 } else {
-                    print("saved")
                     NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "loading1.jpg")
                 }
                 
             } else {
                 
-                print("Image exist on BiinCacheImages folder.")
             }
 
             
@@ -188,7 +181,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        NSLog("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
 //        appManager.positionManager.requestStateForMonitoredRegions()
@@ -201,7 +193,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        NSLog("applicationWillEnterForeground()")
         appManager.IS_APP_UP = true
 
         //appManager.positionManager.start_BEACON_RANGING()
@@ -212,19 +203,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        NSLog("applicationDidBecomeActive()")
+
         appManager.IS_APP_UP = true
-        //appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
 
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
     func applicationWillTerminate(application: UIApplication) {
         
-        NSLog("BIIN - applicationWillTerminate")
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
-        
+        appManager.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.CLOSE_APP, to:"biin_ios")
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
@@ -314,7 +304,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         // Do something serious in a real app.
-        NSLog("BIIN - didReceiveLocalNotification()")
 //        if appManager.notificationManager.currentNotification != nil {
 //            appManager.mainViewController!.mainView!.showNotificationContext()
 //        }

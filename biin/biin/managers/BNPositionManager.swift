@@ -1206,7 +1206,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     print("Entering a new site premises.....\(site.title!)")
                     currentSite = site
                     self.delegateView!.showInSiteView!(currentSite)
-
+                    
                     for biin in site.biins {
                         if biin.minor == beacon.minor.integerValue {
                             
@@ -1222,10 +1222,13 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
                             */
                             
+                            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to:biin.identifier!)
+                            
                             switch biin.biinType {
                             case .EXTERNO:
                                 print("User is outside \(site.title!)")
                                 site.isUserInside = false
+                                
                                 break
                             case .INTERNO:
                                 print("User is inside \(site.title!)")
