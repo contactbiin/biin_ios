@@ -150,7 +150,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 //        println("updade location latitude: \(location.coordinate.latitude)")
 //        println("updade location longitude: \(location.coordinate.latitude)")
 
-        NSLog("BIIN - 1")
+        NSLog("BIIN - 1 didUpdateLocations()")
         if (locationFixAchieved == false) {
             locationFixAchieved = true
             let locationArray = locations as NSArray

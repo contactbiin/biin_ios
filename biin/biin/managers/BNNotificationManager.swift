@@ -79,12 +79,15 @@ class BNNotificationManager:NSObject, NSCoding {
     ///
     func addLocalNotification(object:BNBiinObject, notificationText:String?, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String){
         
+
+        print("addLocalNotification: \(notificationText), \(siteIdentifier), \(biinIdentifier), \(elementIdentifier), \(notificationType)")
+        
         var isNotificationSaved = false
 
         
         for var i = 0; i < localNotifications.count; i++ {
             
-            //println("\(localNotifications[i].objectIdentifier!) : \(i)")
+
             
             if localNotifications[i].object_id == object._id! {
                 
@@ -137,7 +140,7 @@ class BNNotificationManager:NSObject, NSCoding {
         
         save()
         
-        //println("localNotification count: \(localNotifications.count)")
+        print("localNotification count: \(localNotifications.count)")
     }
     
     func removeLocalNotification(object_id:String) {
@@ -248,17 +251,24 @@ class BNNotificationManager:NSObject, NSCoding {
         var siteNotifications:Array<BNLocalNotification> = Array<BNLocalNotification>()
         
         for notification in localNotifications {
+            
+            NSLog("BIIN - localNotifications Site identifier: \(notification.siteIdentifier!)")
+            NSLog("BIIN - localNotifications major: \(notification.major)")
+            NSLog("BIIN - localNotifications minor: \(notification.minor)")
+            
             if notification.notificationType == .EXTERNAL && major == notification.major {
-                NSLog("BIIN - Site identifier: \(notification.siteIdentifier!)")
-                NSLog("BIIN - major: \(notification.major)")
-                NSLog("BIIN - minor: \(notification.minor)")
+                NSLog("BIIN - FOUND Site identifier: \(notification.siteIdentifier!)")
+                NSLog("BIIN - FOUND major: \(notification.major)")
+                NSLog("BIIN - FOUND minor: \(notification.minor)")
                 siteNotifications.append(notification)
             } else {
                 NSLog("BIIN - Site identifier: \(siteIdentifier) major:\(major) NOT IN LIST")
             }
         }
         
-        assingCurrectNotificationByDate(siteNotifications)
+        if siteNotifications.count > 0 {
+            assingCurrectNotificationByDate(siteNotifications)
+        }
         
     }
     

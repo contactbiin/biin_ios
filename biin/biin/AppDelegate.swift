@@ -190,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         NSLog("applicationDidEnterBackground()")
         appManager.IS_APP_UP = false
-        //appManager.positionManager.start_SITES_MONITORING()
+        appManager.positionManager.start_SITES_MONITORING()
 //        appManager.positionManager.requestStateForMonitoredRegions()
         
         
@@ -223,7 +223,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSLog("BIIN - applicationWillTerminate")
         appManager.IS_APP_UP = false
-        //appManager.positionManager.start_SITES_MONITORING()
+        appManager.positionManager.start_SITES_MONITORING()
         
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
