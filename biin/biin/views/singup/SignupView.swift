@@ -29,6 +29,8 @@ class SignupView:UIView, UITextFieldDelegate {
     var maleBtn:BNUIButton_Gender?
     var genderStr:String?
     
+    var newUser:Biinie?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -138,6 +140,8 @@ class SignupView:UIView, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
+        
+        newUser = Biinie()
 
     }
     
@@ -189,14 +193,15 @@ class SignupView:UIView, UITextFieldDelegate {
         
         if ready {
             
-            BNAppSharedManager.instance.dataManager.bnUser!.identifier = emailTxt!.textField!.text!
-            BNAppSharedManager.instance.dataManager.bnUser!.firstName = firstNameTxt!.textField!.text!
-            BNAppSharedManager.instance.dataManager.bnUser!.lastName = lastNameTxt!.textField!.text!
-            BNAppSharedManager.instance.dataManager.bnUser!.email = emailTxt!.textField!.text
-            BNAppSharedManager.instance.dataManager.bnUser!.gender = genderStr
-            BNAppSharedManager.instance.dataManager.bnUser!.password = passwordTxt!.textField!.text
-            BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.bnUser!)
+            newUser!.identifier = emailTxt!.textField!.text!
+            newUser!.firstName = firstNameTxt!.textField!.text!
+            newUser!.lastName = lastNameTxt!.textField!.text!
+            newUser!.email = emailTxt!.textField!.text
+            newUser!.gender = genderStr
+            newUser!.password = passwordTxt!.textField!.text
+            BNAppSharedManager.instance.dataManager.bnUser = newUser
             
+            BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.bnUser!)
             delegate!.showProgress!(self)
             self.endEditing(true)
         }
@@ -292,7 +297,8 @@ class SignupView:UIView, UITextFieldDelegate {
     
     func handleDatePicker(sender: UIDatePicker) {
         birthDateTxt!.textField!.text = sender.date.bnDisplayDateFormatt()
-        BNAppSharedManager.instance.dataManager.bnUser!.birthDate = sender.date
+        newUser!.birthDate = sender.date
+//        BNAppSharedManager.instance.dataManager.bnUser!.birthDate = sender.date
     }
 }
 

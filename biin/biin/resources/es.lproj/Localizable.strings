@@ -193,3 +193,6 @@ OnboardingText2 = "Con tus amigos, las cosas interesantes que encontrarás en Bi
 
 OnboardingTitle3 = "Beneficios!";
 OnboardingText3 = "Visitá tus lugares favoritos y aprovechá las mejores ofertas y novedades.";
+
+SiteBottomTitle = "Muchas gracias!";
+SiteBottomSubtitle = "Vuelve pronto";
