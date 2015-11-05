@@ -16,7 +16,7 @@ EmailUs = "Escribínos";
 CallUs = "Llamános";
 Phone = "Teléfono";
 Password = "Clave";
-Login = "Iniciar";
+Login = "Iniciar sesión";
 ImNewHere = "Soy nuevo aquí!";
 SignUpMsj = "Iniciar con tu dirección de correo";
 LetsGetStarted = "Empecemos!";
@@ -64,9 +64,9 @@ Search = "Buscar";
 About = "Sobre Biin";
 SignUpTitle = "Registrate en Biin";
 LoginTitle = "Inicia sesión en Biin";
-LoginDesc = "Ingresa tu correo y clave que anteriormente usaste en Biin";
+LoginDesc = "Inicia la sesión con tu correo y contraseña";
 ContinueBtn = "Continuar";
-WelcomeDesc = "Estamos felices que estés aqui, si es tu primera ves debes crear una cuenta o inicia sesión para continuar.";
+WelcomeDesc = "Estamos felices que estés aqui, si es tu primera vez debes crear una cuenta o inicia sesión para continuar.";
 StartDesc = "Excelente, ahora es tiempo de empezar a descubrir y beneficiarte con Biin.";
 
 /* Categories */

@@ -28,7 +28,8 @@ class BNRequest_Register: BNRequest {
     
     override func run() {
         
-
+        print(requestString)
+        
         isRunning = true
         requestAttemps++
 
@@ -39,7 +40,6 @@ class BNRequest_Register: BNRequest {
             
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
-//                response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
                 
                 if let registerData = data["data"] as? NSDictionary {
