@@ -198,3 +198,8 @@ OnboardingText3 = "Visit you favorite stores and take advantage the best deals a
 
 SiteBottomTitle = "Thank you!";
 SiteBottomSubtitle = "Please comeback soon.";
+
+BadEmail = "Bad email or password!";
+RequestFailed = "Request Failed!";
+NotInternet = "Internet is not available!";
+Cool = "Cool";

@@ -196,3 +196,8 @@ OnboardingText3 = "Visitá tus lugares favoritos y aprovechá las mejores oferta
 
 SiteBottomTitle = "Muchas gracias!";
 SiteBottomSubtitle = "Vuelve pronto";
+
+BadEmail = "La clave o correo están mal.";
+RequestFailed = "La solicitud fallo!";
+NotInternet = "No hay internet disponible!";
+Cool = "Muy bien!";

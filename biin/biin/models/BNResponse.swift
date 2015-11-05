@@ -25,41 +25,41 @@ class BNResponse:NSObject
     func addResponseDescription(){
         switch code! {
         case 0:
-            responseDescription = "Cool"//"La solicitud fue exitosa"
+            responseDescription = NSLocalizedString("Cool", comment: "Cool")//"La solicitud fue exitosa"
             break
         case 1:
-            responseDescription = "Bad email or password!"//"Correo o usuario ya existe"
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//"Correo o usuario ya existe"
             break
         case 2:
-            responseDescription = "Bad email or password!"//"El formato es incorrecto"
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//"El formato es incorrecto"
             break
         case 3:
-            responseDescription = "Bad email or password!"//"Hay campos requeridos"
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//"Hay campos requeridos"
             break
         case 4:
-            responseDescription = "Bad email or password!"//"La longitud de los campos no es correcta"
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//"La longitud de los campos no es correcta"
             break
         case 5:
-            responseDescription = "Bad email or password!"//"Error de bade de datos"
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//"Error de bade de datos"
             break
         case 6:
-            responseDescription = "Bad email or password!"//"Errores de validacion"
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//"Errores de validacion"
             break
         case 7:
-            responseDescription = "Bad email or password!"//"El identificador proporcionado no correspondo con ningun registro"
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//"El identificador proporcionado no correspondo con ningun registro"
             break
         case 8:
-            responseDescription = "Bad email or password!"//Usuario o contrasenna no coinciden
+            responseDescription = NSLocalizedString("BadEmail", comment: "BadEmail")//Usuario o contrasenna no coinciden
 
             break
         case 9:
-            responseDescription = "Request Failed!"
+            responseDescription = NSLocalizedString("RequestFailed", comment: "RequestFailed")
             break
         case 10:
-            responseDescription = "Internet is not available!"
+            responseDescription = NSLocalizedString("NotInternet", comment: "NotInternet")
             break
         default:
-            responseDescription = "Cool"
+            responseDescription = NSLocalizedString("Cool", comment: "Cool")
             break
         }
     }
