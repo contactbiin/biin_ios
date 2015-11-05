@@ -55,7 +55,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         self.view.addSubview(image)
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.alpha = 0.5
+        visualEffectView.alpha = 1
         visualEffectView.frame = self.view.bounds
         self.view.addSubview(visualEffectView)
 

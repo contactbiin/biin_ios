@@ -28,8 +28,6 @@ class BNRequest_Register: BNRequest {
     
     override func run() {
         
-        print(requestString)
-        
         isRunning = true
         requestAttemps++
 
