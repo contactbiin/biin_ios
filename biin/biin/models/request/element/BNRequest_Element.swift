@@ -29,7 +29,6 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
-
         isRunning = true
         requestAttemps++
         //var response:BNResponse?

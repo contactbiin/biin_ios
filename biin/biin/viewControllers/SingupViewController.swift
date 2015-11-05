@@ -55,7 +55,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         self.view.addSubview(image)
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.alpha = 0.5
+        visualEffectView.alpha = 1
         visualEffectView.frame = self.view.bounds
         self.view.addSubview(visualEffectView)
 
@@ -242,7 +242,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     func showProgressView(){
-        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:"Please wait a moment!")
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
         self.view.addSubview(alert!)
         alert!.show()
     }
