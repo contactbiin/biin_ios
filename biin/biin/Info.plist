@@ -65,6 +65,8 @@
 	<string>Easily access this application from your lock screen when you’re near an Biin important point.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Take advantage of all Biin features.</string>
+	<key>NSMainNibFile</key>
+	<string>LaunchScreen</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Black.ttf</string>
