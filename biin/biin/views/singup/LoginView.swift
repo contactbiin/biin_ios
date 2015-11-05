@@ -72,13 +72,13 @@ class LoginView:UIView, UITextFieldDelegate {
         textBg.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.05)
         self.addSubview(textBg)
 
-        let descLbl = UILabel(frame: CGRectMake(20, 30, (screenWidth - 40), 0))
-        descLbl.text = NSLocalizedString("LoginDesc", comment: "LoginDesc")
+        let descLbl = UILabel(frame: CGRectMake(20, 30, (screenWidth - 40), 60))
         descLbl.textColor = UIColor.whiteColor()
         descLbl.font = UIFont(name: "Lato-Light", size: 18)
         descLbl.textAlignment = NSTextAlignment.Center
-        descLbl.numberOfLines = 4
-        descLbl.sizeToFit()
+        descLbl.text = NSLocalizedString("LoginDesc", comment: "LoginDesc")
+//        descLbl.numberOfLines = 2
+//        descLbl.sizeToFit()
         textBg.addSubview(descLbl)
         
         ypos += 105
