@@ -28,6 +28,8 @@ class BNRequest_Login: BNRequest {
     override func run() {
         
 
+        print(requestString)
+        
         isRunning = true
         requestAttemps++
         

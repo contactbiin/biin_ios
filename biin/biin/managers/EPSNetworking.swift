@@ -35,35 +35,67 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         return true
     }
     
-    func getConnection(request: NSURLRequest, callback: (NSError?) -> Void) {
-        
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            //            var queue = NSOperationQueue()
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                
-                if (error != nil) {
-                    callback(error)
-                    return
-                } else {
-                    callback(nil)
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    
-                }
-            })
-        })
-    }
-
-    
-    
+//    func getConnection(request: NSURLRequest, callback: (NSError?) -> Void) {
+//        
+//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+//        
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+//            //            var queue = NSOperationQueue()
+//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+//                
+//                if (error != nil) {
+//                    callback(error)
+//                    return
+//                } else {
+//                    callback(nil)
+//                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+//                    
+//                }
+//            })
+//        })
+//    }
+//
+//    
     
     func getWithConnection(request: NSURLRequest, callback: (String, NSError?) -> Void) {
 
+//        request.setValue("gzip", forKey: "Accept-Encoding")
+//        request.set
+        //print(request)
+        
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
+        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+
+        let session = NSURLSession.sharedSession()
+        let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            
+            dispatch_async(dispatch_get_main_queue(), {
+
+                print(response)
+                
+                if (error != nil) {
+                    callback("", error)
+                    return
+                }
+                
+                if (data != nil) {
+                    
+                    callback(NSString(data: data!, encoding:NSUTF8StringEncoding)! as String, nil)
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    
+                } else {
+                    callback("", error)
+                }
+            })
+        }
+        
+        dataTask.resume()
+        
+        //})
+        /*
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-//            var queue = NSOperationQueue()
+
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                 
                 if (error != nil) {
@@ -81,6 +113,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 }
             })
         })
+*/
     }
     
     func checkConnection(useCache:Bool, url: String, callback:(NSError?) -> Void) {
@@ -99,7 +132,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.HTTPMethod = "HEAD"
         request.timeoutInterval = 10.0
         
-        self.getConnection(request, callback:{(error: NSError?) -> Void in
+        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 callback(error)
@@ -126,10 +159,10 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         }
         
         request.timeoutInterval = 25.0
-        //request.setValue("gzip, deflate", forHTTPHeaderField: "Accept-Encoding")
-        //request.addValue("gzip", forHTTPHeaderField: "Content-Encoding")
+        request.setValue("gzip", forHTTPHeaderField: "Accept-Encoding")
+        request.addValue("gzip", forHTTPHeaderField: "Content-Encoding")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept-Encoding")
+        //request.addValue("application/json", forHTTPHeaderField: "Accept-Encoding")
         
         
         self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
@@ -292,7 +325,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         }else {
         
         // Jump in to a background thread to get the image for this item
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 
             
                 ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
@@ -306,6 +339,40 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             
+                let session = NSURLSession.sharedSession()
+                let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+
+                    dispatch_async(dispatch_get_main_queue(), {
+
+                        
+                        
+                        if (error != nil) {
+                            
+                            callback(error)
+                        } else {
+                            //Send image to be store in image dictionary
+                            
+                            let imageDownload = UIImage(data: data!)!
+                            
+                            ShareEPSNetworking.cacheImages[urlString as String] = self.optimizeImageForRender(imageDownload.CGImage!)
+                            
+                            
+                            self.sentImages(urlString as String)
+                            
+                            
+                            self.saveImageInBiinChacheLocalFolder(urlString as String, image:imageDownload)
+                            
+                            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                            
+                            
+                            callback(nil)
+                        }
+                    })
+                }
+            
+                dataTask.resume()
+            
+                /*
                 NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                         
                     if (error != nil) {
@@ -330,8 +397,10 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                         callback(nil)
                     }
                 })
+*/
 //            }
-        })
+
+//        })
         }
 
     }

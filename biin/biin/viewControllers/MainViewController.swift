@@ -60,15 +60,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, frame.height), father:nil, rootViewController: self)
-        
         mainView!.delegate = self
         mainView!.addUIViews()
         
         self.view.addSubview(self.mainView!)
-        
-//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-//        visualEffectView.frame = CGRectMake(0, 0, frame.width, 20)
-//        self.view.addSubview(visualEffectView)
         
         fadeView = UIView(frame: frame)
         fadeView!.backgroundColor = UIColor.blackColor()

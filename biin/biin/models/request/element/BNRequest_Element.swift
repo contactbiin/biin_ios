@@ -43,7 +43,7 @@ class BNRequest_Element: BNRequest {
 
                 
             } else {
-                
+
                 if let elementData = data["data"] as? NSDictionary {
                     
                     //var status = self.networkManager!.findInt("status", dictionary: data)
@@ -108,8 +108,8 @@ class BNRequest_Element: BNRequest {
                         
                         self.element!.isHighlight = BNParser.findBool("isHighlight", dictionary: elementData)
                         
-                        let details = BNParser.findNSArray("details", dictionary: elementData)
-                        
+                        //let details = BNParser.findNSArray("details", dictionary: elementData)
+                        /*
                         for var i = 0; i < details?.count; i++ {
                             let detailData = details!.objectAtIndex(i) as! NSDictionary
                             
@@ -148,7 +148,7 @@ class BNRequest_Element: BNRequest {
                             
                             self.element!.details.append(detail)
                         }
-                        
+                        */
                         let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                         
                         for var j = 0; j < mediaArray?.count; j++ {
@@ -191,8 +191,8 @@ class BNRequest_Element: BNRequest {
                         self.element!.userCommented = BNParser.findBool("userCommented", dictionary: elementData)
                         self.element!.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
                         
-                        let hasSticker = BNParser.findBool("hasSticker", dictionary: elementData)
-                        
+                        //let hasSticker = BNParser.findBool("hasSticker", dictionary: elementData)
+                        /*
                         if (hasSticker) {
                             if let stickerData = elementData["sticker"] as? NSDictionary {
                                 self.element!.hasSticker = hasSticker
@@ -202,7 +202,7 @@ class BNRequest_Element: BNRequest {
                                 self.element!.sticker = sticker
                             }
                         }
-                        
+                        */
 //                        if self.element!.isHighlight {
 //                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedHightlight:self.element!)
 //                        } else {

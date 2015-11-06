@@ -7,13 +7,9 @@ import Foundation
 
 class BNRequest_Organization: BNRequest {
     
-    override init(){
-        super.init()
-    }
+    override init(){ super.init() }
     
-    deinit{
-        
-    }
+    deinit{ }
     
     convenience init(requestString:String, dataIdentifier:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, organization:BNOrganization ){
         self.init()
@@ -28,7 +24,6 @@ class BNRequest_Organization: BNRequest {
     
     override func run() {
         
-
         isRunning = true
         requestAttemps++
         
@@ -36,8 +31,6 @@ class BNRequest_Organization: BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                
-                
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
@@ -46,9 +39,8 @@ class BNRequest_Organization: BNRequest {
                     let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
+                        
                         let organizationData = BNParser.findNSDictionary("organization", dictionary: dataData)
-                        
-                        
                         self.organization!.name = BNParser.findString("name", dictionary: organizationData!)
                         self.organization!.brand = BNParser.findString("brand", dictionary: organizationData!)
                         self.organization!.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData!)
@@ -65,7 +57,6 @@ class BNRequest_Organization: BNRequest {
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
                             let media = BNMedia(mediaType:type, url:url!, domainColor: domainColor!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
-//                            let media = BNMedia(mediaType: type, url:url!, domainColor:domainColor!)
                             self.organization!.media.append(media)
                         }
                         
@@ -80,17 +71,13 @@ class BNRequest_Organization: BNRequest {
                             loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
                             self.organization!.loyalty = loyalty
                         }
-                        
-
                     }
                 }
                 
-                //self.removeRequestOnCompleted(request.identifier)
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)
                 
             }
         })
-
     }
 }

@@ -75,10 +75,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        self.layer.borderWidth = 1
 //        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
-        
-        
-        
-
     }
     
     func addUIViews(){

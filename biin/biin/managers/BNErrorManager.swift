@@ -145,9 +145,9 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
 
     
     // before animation and hiding view
-    func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
-        isAlertOn = false
-    }
+//    func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
+//        isAlertOn = false
+//    }
 
 }
 

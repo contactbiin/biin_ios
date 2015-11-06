@@ -5,10 +5,7 @@
 
 import Foundation
 
-struct BNRequestData
-{
-    static var requestCounter = 0
-}
+struct BNRequestData { static var requestCounter = 0 }
 
 enum BNRequestType
 {
@@ -68,9 +65,7 @@ class BNRequest:NSObject {
     weak var errorManager:BNErrorManager?
     weak var networkManager:BNNetworkManager?
     
-    override init() {
-        super.init()
-    }
+    override init() { super.init() }
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType){
         self.init()
@@ -81,7 +76,6 @@ class BNRequest:NSObject {
     }
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType, errorManager:BNErrorManager, networkManager:BNNetworkManager){
-
         self.init()
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
@@ -91,23 +85,17 @@ class BNRequest:NSObject {
         self.networkManager = networkManager
     }
     
-    deinit{
-        
-    }
+    deinit { }
     
     func run() { }
     
     func clean() {
-    
-        
         showcase = nil
         element = nil
         organization = nil
         site = nil
         user = nil
-        //image?.removeFromSuperview()
         categories?.removeAll()
         categories = nil
-
     }
 }

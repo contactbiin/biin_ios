@@ -27,6 +27,7 @@ class BNRequest_Categories: BNRequest {
     
     override func run() {
         
+        print(requestString)
 
         isRunning = true
         requestAttemps++

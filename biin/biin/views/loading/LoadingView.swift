@@ -21,6 +21,8 @@ class LoadingView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        print("LoadingView()")
+        
         self.backgroundColor = UIColor.clearColor()
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -106,17 +108,19 @@ class LoadingView:UIView {
         startTimer()
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func updateProgressView(value:Float){
+        
+        print(value)
+        
         if value > lastProgressValue {
 
             lastProgressValue = value
             progressView!.setProgress(value, animated: true)
-            if value > 0.85 {
+            if value > 0.75 {
                 loadingLbl!.text = NSLocalizedString("Finishing", comment: "the Finishing title")
             }
         }

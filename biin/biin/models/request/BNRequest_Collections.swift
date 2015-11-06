@@ -7,13 +7,9 @@ import Foundation
 
 class BNRequest_Collections: BNRequest {
 
-    override init(){
-        super.init()
-    }
+    override init(){ super.init() }
     
-    deinit{
-        
-    }
+    deinit { }
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
@@ -27,7 +23,6 @@ class BNRequest_Collections: BNRequest {
     
     override func run() {
         
-
         isRunning = true
         requestAttemps++
         
@@ -45,8 +40,6 @@ class BNRequest_Collections: BNRequest {
                         
                         var collectionList = Array<BNCollection>()
                         let collections = BNParser.findNSArray("biinieCollections", dictionary: dataData)
-                        
-                        
                         
                         for var i = 0; i < collections?.count; i++ {
                             
@@ -89,7 +82,6 @@ class BNRequest_Collections: BNRequest {
                             }
                             
                             collectionList.append(collection)
-                            
                         }
                         
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedCollections: collectionList)
@@ -104,8 +96,5 @@ class BNRequest_Collections: BNRequest {
 
             }
         })
-
-
     }
-
 }

@@ -68,21 +68,24 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     
     func runQueue(){
+        
         var totalRequestRunnin = 0
 
         if requestsQueue.count == 0 {
             
-            self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
+//            let delayInSeconds = 0.5;
+//            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
+//            dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+                self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
 
-            if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
-                BNAppSharedManager.instance.mainViewController!.refresh()
-                BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = false
-            }
-            return
+                // -- FINISHED SOMETHING AWESOME, WOO! --
+            
+                if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
+                    BNAppSharedManager.instance.mainViewController!.refresh()
+                    BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = false
+                }
+//            }
         }
-        
-   
-
         
         for (_, request) in requestsQueue {
             if !request.isRunning {
@@ -124,11 +127,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         let value:CGFloat = (CGFloat(requestProcessed) / CGFloat(totalNumberOfRequest))
         delegateVC!.manager!(self, updateProgressView:Float(value))
-        
-
-        
-
-
     }
     
     func addToQueue(request:BNRequest){

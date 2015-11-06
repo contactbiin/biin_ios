@@ -28,7 +28,6 @@ class BNRequest_SendCollectedElement: BNRequest {
     }
     
     override func run() {
-        
 
         isRunning = true
         requestAttemps++

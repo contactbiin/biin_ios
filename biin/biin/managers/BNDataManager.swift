@@ -51,9 +51,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         loadCategories()
         
+        loadBiinie()
+    }
+    
+    func loadBiinie() {
         // Try loading a saved version first
         if let user = Biinie.loadSaved() {
-
+            
             if user.firstName == "none" {
                 isUserLoaded = false
             } else {
@@ -61,14 +65,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 isUserLoaded = true
                 bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
             }
-            
         } else {
             // Create a new Course List
             isUserLoaded = false
             bnUser = Biinie(identifier:"", firstName: "none", lastName:"none", email: "none.com")
             bnUser!.isEmailVerified = false
             bnUser!.biinName = ""
-
+            
         }
     }
     
@@ -161,6 +164,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
+
         bnUser!.identifier = idetifier
         bnUser!.save()
         isUserLoaded = true
