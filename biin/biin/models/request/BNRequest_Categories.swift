@@ -26,13 +26,13 @@ class BNRequest_Categories: BNRequest {
     }
     
     override func run() {
-        
-        print(requestString)
 
+        self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         
-        self.networkManager!.epsNetwork!.getJson(false, url:self.requestString, callback:{
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url:self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -78,14 +78,27 @@ class BNRequest_Categories: BNRequest {
                         
                         categories.append(category)
                     }
-   
+                                        
+                    let end = NSDate()
+                    let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                    print("BNRequest_Categories [\(timeInterval)] - \(self.requestString)")
+                    
                     self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserCategories:categories)
                     self.inCompleted = true
                     self.networkManager!.removeFromQueue(self)
+                    
+                    
                 }
             }
         })
     }
     
+    func stringFromTimeInterval(interval: NSTimeInterval) -> String {
+        let interval = Int(interval)
+        let seconds = interval % 60
+        let minutes = (interval / 60) % 60
+        let hours = (interval / 3600)
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
     
 }

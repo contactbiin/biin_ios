@@ -43,6 +43,8 @@ enum BNRequestType
 
 class BNRequest:NSObject {
     
+    var start:NSDate?
+    
     var isRunning = false
     var inCompleted = false
     var identifier:Int = 0
@@ -65,7 +67,9 @@ class BNRequest:NSObject {
     weak var errorManager:BNErrorManager?
     weak var networkManager:BNNetworkManager?
     
-    override init() { super.init() }
+    override init() {
+        super.init()
+    }
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType){
         self.init()

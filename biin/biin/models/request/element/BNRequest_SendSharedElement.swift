@@ -28,6 +28,7 @@ class BNRequest_SendSharedElement: BNRequest {
     
     override func run() {
         
+        print("BNRequest_SendSharedElement - \(requestString)")
 
         isRunning = true
         requestAttemps++
@@ -50,7 +51,7 @@ class BNRequest_SendSharedElement: BNRequest {
         
 //        var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.put(self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.put(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

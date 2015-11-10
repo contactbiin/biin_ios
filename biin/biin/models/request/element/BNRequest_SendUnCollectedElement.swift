@@ -26,7 +26,8 @@ class BNRequest_SendUnCollectedElement: BNRequest {
     }
     
     override func run() {
-        
+        print("BNRequest_SendUnCollectedElement - \(requestString)")
+
 
         isRunning = true
         requestAttemps++
@@ -46,7 +47,7 @@ class BNRequest_SendUnCollectedElement: BNRequest {
             htttpBody = nil
         }
         
-        self.networkManager!.epsNetwork!.delete(self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.delete(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

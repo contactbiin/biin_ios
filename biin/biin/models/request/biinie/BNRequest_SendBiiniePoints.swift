@@ -29,7 +29,9 @@ class BNRequest_SendBiiniePoints: BNRequest {
     }
     
     override func run() {
-        
+
+        print("BNRequest_SendBiiniePoints - \(requestString)")
+
 
         isRunning = true
         requestAttemps++
@@ -51,7 +53,7 @@ class BNRequest_SendBiiniePoints: BNRequest {
         
         var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.put(requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.put(self.identifier, url:requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

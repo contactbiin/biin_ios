@@ -29,6 +29,7 @@ class BNRequest_SendBiinieActions: BNRequest {
     
     override func run() {
         
+        self.start = NSDate()
         
         isRunning = true
         requestAttemps++
@@ -55,7 +56,7 @@ class BNRequest_SendBiinieActions: BNRequest {
         
         //var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.put(requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.put(self.identifier, url:requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
@@ -77,7 +78,13 @@ class BNRequest_SendBiinieActions: BNRequest {
 //                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
 //                    }
 //                    
-                    BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
+                
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_SendBiinieActions [\(timeInterval)] - \(self.requestString)")
+                
+                
+                BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
 
 //                }
                 

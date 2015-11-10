@@ -21,8 +21,6 @@ class LoadingView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        print("LoadingView()")
-        
         self.backgroundColor = UIColor.clearColor()
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -113,8 +111,6 @@ class LoadingView:UIView {
     }
     
     func updateProgressView(value:Float){
-        
-        print(value)
         
         if value > lastProgressValue {
 

@@ -324,6 +324,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func handleDeleteListNotification() {
     }
+    
+    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+
+        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
+        let session = NSURLSession(configuration: config, delegate:nil, delegateQueue:NSOperationQueue.mainQueue() )
+        session.getTasksWithCompletionHandler { (dataTasks, uploadTaks, downloadTaks) -> Void in
+         
+        }
+        
+    }
 
 }
 

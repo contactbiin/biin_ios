@@ -28,11 +28,12 @@ class BNRequest_Site: BNRequest {
 
     override func run() {
         
+        self.start = NSDate()
 
         isRunning = true
         requestAttemps++
 
-        self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -243,6 +244,13 @@ class BNRequest_Site: BNRequest {
                         
                         site.loyalty = loyalty
                         */
+                        
+                        let end = NSDate()
+                        let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                        print("BNRequest_Site [\(timeInterval)] - \(self.requestString)")
+                        
+                        
+                        
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedSite:new_site)
                         self.inCompleted = true
                         self.networkManager!.removeFromQueue(self)

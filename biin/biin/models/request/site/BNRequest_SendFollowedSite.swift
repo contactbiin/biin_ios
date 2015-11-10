@@ -50,7 +50,7 @@ class BNRequest_SendFollowedSite: BNRequest {
         
 //        var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.put(self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.put(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

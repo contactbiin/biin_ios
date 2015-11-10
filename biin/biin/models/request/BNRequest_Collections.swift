@@ -23,10 +23,12 @@ class BNRequest_Collections: BNRequest {
     
     override func run() {
         
+        self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         
-        self.networkManager!.epsNetwork!.getJson(true, url:requestString, callback: {
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url:requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
@@ -90,6 +92,11 @@ class BNRequest_Collections: BNRequest {
                 } else {
                     
                 }
+                
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_Collections [\(timeInterval)] - \(self.requestString)")
+                
                 
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)

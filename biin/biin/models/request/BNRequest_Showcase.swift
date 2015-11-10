@@ -30,10 +30,12 @@ class BNRequest_Showcase: BNRequest {
     
     override func run() {
         
+        self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         
-        self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback:{
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
 
@@ -73,6 +75,12 @@ class BNRequest_Showcase: BNRequest {
                  
                     }
                 }
+                
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_Showcase [\(timeInterval)] - \(self.requestString)")
+                
+                
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)
             }

@@ -29,11 +29,13 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
+        self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         //var response:BNResponse?
         
-        networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
+        networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 
@@ -210,6 +212,11 @@ class BNRequest_Element: BNRequest {
 //                        }
                     }
                 }
+                
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_Element [\(timeInterval)] - \(self.requestString)")
+                
                 
                 self.inCompleted = true
                 //self.clean()

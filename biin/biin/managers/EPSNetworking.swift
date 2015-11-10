@@ -57,22 +57,22 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
 //
 //    
     
-    func getWithConnection(request: NSURLRequest, callback: (String, NSError?) -> Void) {
+    func getWithConnection(identifier:Int, request: NSURLRequest, callback: (String, NSError?) -> Void) {
 
-//        request.setValue("gzip", forKey: "Accept-Encoding")
-//        request.set
-        //print(request)
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
-        //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+        
+//        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("\(identifier)")
+//        let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
+//        let task = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+//        }
+    
 
         let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+        let task = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             
             dispatch_async(dispatch_get_main_queue(), {
-
-                print(response)
                 
                 if (error != nil) {
                     callback("", error)
@@ -90,30 +90,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             })
         }
         
-        dataTask.resume()
-        
-        //})
-        /*
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                
-                if (error != nil) {
-                    callback("", error)
-                    return
-                }
-                
-                if (data != nil) {
-                    
-                    callback(NSString(data: data!, encoding:NSUTF8StringEncoding)! as String, nil)
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    
-                } else {
-                    callback("", error)
-                }
-            })
-        })
-*/
+        task.resume()
     }
     
     func checkConnection(useCache:Bool, url: String, callback:(NSError?) -> Void) {
@@ -132,7 +109,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.HTTPMethod = "HEAD"
         request.timeoutInterval = 10.0
         
-        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
+        self.getWithConnection(0, request:request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 callback(error)
@@ -143,14 +120,14 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     }
     
     
-    func getJson(useCache:Bool, url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
+    func getJson(identifier:Int, url: String, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
         //var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         //NSLog("BIIN - getJson 1")
         
         
-        if BNAppSharedManager.instance.settings!.IS_USING_CACHE && useCache {
+        if BNAppSharedManager.instance.settings!.IS_USING_CACHE {
             request.cachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
             //NSLog("BIIN - getJson 2 -- \(url)")
         } else {
@@ -164,8 +141,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         //request.addValue("application/json", forHTTPHeaderField: "Accept-Encoding")
         
-        
-        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
+        self.getWithConnection(identifier, request:request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 
@@ -202,7 +178,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     }
     
     
-    func post(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
+    func post(identifier:Int, url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
         let request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
         
@@ -215,7 +191,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
         //print("HTTPBody: \(httpString)")
         
-        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
+        self.getWithConnection(identifier, request:request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 callback(Dictionary<String, AnyObject>(), error)
@@ -228,7 +204,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         })
     }
     
-    func put(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
+    func put(identifier:Int, url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
         let request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
         
@@ -241,8 +217,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
         //print("BIIN - HTTPBody: \(httpString)")
 
-        
-        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
+        self.getWithConnection(identifier, request:request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 callback(Dictionary<String, AnyObject>(), error)
@@ -255,7 +230,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     }
 
     
-    func delete(url: String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
+    func delete(identifier:Int, url:String, htttpBody:NSData?, callback:(Dictionary<String, AnyObject>, NSError?) -> Void) {
         
         let request = NSMutableURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 25.0)
         
@@ -268,7 +243,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         //let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
 //        print("HTTPBody: \(httpString)")
         
-        self.getWithConnection(request, callback:{( data: String, error: NSError?) -> Void in
+        self.getWithConnection(identifier, request:request, callback:{( data: String, error: NSError?) -> Void in
             
             if error != nil {
                 callback(Dictionary<String, AnyObject>(), error)
