@@ -29,7 +29,8 @@ class BNRequest_SendBiinie:BNRequest {
     
     override func run() {
         
-
+        self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         
@@ -53,7 +54,7 @@ class BNRequest_SendBiinie:BNRequest {
         
         var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.post(self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.post(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
@@ -76,7 +77,9 @@ class BNRequest_SendBiinie:BNRequest {
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
          
-                //}
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_SendBiinie [\(timeInterval)] - \(self.requestString)")
                 
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)

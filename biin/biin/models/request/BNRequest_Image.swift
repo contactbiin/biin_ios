@@ -27,7 +27,8 @@ class BNRequest_Image: BNRequest {
     
     override func run() {
         
-
+        //self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         
@@ -41,8 +42,11 @@ class BNRequest_Image: BNRequest {
                     
                 } else {
 
+                    //let end = NSDate()
+                    //let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                    //print("BNRequest_Image [\(timeInterval)] - \(self.requestString)")
+                    
                     self.inCompleted = true
-                    //self.clean()
                     self.networkManager!.removeFromQueue(self)
                 }
             })

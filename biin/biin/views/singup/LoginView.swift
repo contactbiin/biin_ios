@@ -150,6 +150,8 @@ class LoginView:UIView, UITextFieldDelegate {
             let password = passwordTxt!.textField!.text!.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             let email = emailTxt!.textField!.text!.stringByReplacingOccurrencesOfString("\"", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
             
+            
+            
             BNAppSharedManager.instance.networkManager.login(email, password: password)
             
             delegate!.showProgress!(self)

@@ -24,8 +24,6 @@ class ElementView: BNView, UIWebViewDelegate {
     var collectItButton:BNUIButton_CollectionIt?
     var showSiteBtn:UIButton?
     
-    var detailsView:ElementView_Details?
-    
     var percentageView:ElementMiniView_Precentage?    
     var textPrice1:UILabel?
     var textPrice2:UILabel?
@@ -224,15 +222,15 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if !isSameElement(element) {
             
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:self.element!.identifier!)
+            BNAppSharedManager.instance.dataManager.applyViewedElement(element)
             
             if showSiteBtn {
                 self.showSiteBtn!.alpha = 1
                 self.showSiteBtn!.enabled = true
                 
-                weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
+                //weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
                 var showSiteBtnText = NSLocalizedString("MoreFrom", comment: "MoreFrom")
-                showSiteBtnText += " \(site!.title!)"
+                showSiteBtnText += " \(self.element!.showcase!.site!.title!)"
                 
                 let textLenght = SharedUIManager.instance.getStringLength(showSiteBtnText, fontName: "Lato-Regular", fontSize: 12)
                 
@@ -464,7 +462,7 @@ class ElementView: BNView, UIWebViewDelegate {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true, shareView:self.shareView)
+        BNAppSharedManager.instance.shareElement(self.element, shareView: self.shareView)
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!)
     }
     
@@ -480,7 +478,7 @@ class ElementView: BNView, UIWebViewDelegate {
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_ELEMENT, to:self.element!.identifier!)
         }
         
-        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
+        BNAppSharedManager.instance.likeElement(self.element)
         
         updateLikeItBtn()
     }
@@ -497,11 +495,11 @@ class ElementView: BNView, UIWebViewDelegate {
         updateCollectItBtn()
         animationView!.animate(self.element!.userCollected)
         
+        BNAppSharedManager.instance.collectElement(self.element)
+        
         if self.element!.userCollected {
-            BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!)
         } else {
-            BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!)
         }
     }

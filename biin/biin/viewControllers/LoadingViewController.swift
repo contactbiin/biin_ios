@@ -49,7 +49,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
         
-        BNAppSharedManager.instance.dataManager.addHighlights()
+        //BNAppSharedManager.instance.dataManager.addHighlights()
         
         if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
             loadingView!.hideProgressView()

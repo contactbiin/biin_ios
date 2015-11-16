@@ -168,7 +168,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         for element in showcase!.elements {
             
-            
+            //element.showcase = showcase
             let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
             
             if element != showcase!.elements.last {

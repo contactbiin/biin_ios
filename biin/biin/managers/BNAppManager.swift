@@ -179,84 +179,59 @@ class BNAppManager {
         }
     }
     */
-    
-    func collectIt(identifier:String, isElement:Bool){
+
+    func unCollectElement(element:BNElement?){
+
+        dataManager.applyUnCollectedElement(element)
+        networkManager.sendUnCollectedElement(dataManager.bnUser!, element: element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
         
-        if isElement {
-            dataManager.elements[identifier]?.collectCount++
-            //dataManager.elements[identifier]?.userCollected = true
-            
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.elements[identifier] = dataManager.elements[identifier]!
-            
-            networkManager.sendCollectedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
-            
-        } else {
-            dataManager.sites[identifier]?.collectCount++
-            //dataManager.sites[identifier]?.userCollected = true
-            
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]?.sites[identifier] =  dataManager.sites[identifier]!
-            
-            networkManager.sendCollectedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
-        }
+        mainViewController!.mainView!.updateAllCollectedView()
     }
     
-    func unCollectit(identifier:String, isElement:Bool){
-        
-        if isElement {
-//            dataManager.elements[identifier]?.userCollected = false
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.elements[dataManager.elements[identifier]!.identifier!] = nil
-            networkManager.sendUnCollectedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
-        } else {
-//            dataManager.sites[identifier]?.userCollected = false
-            dataManager.bnUser!.collections![dataManager.bnUser!.temporalCollectionIdentifier!]!.sites[identifier] = nil
-            networkManager.sendUnCollectedSite(dataManager.bnUser!, site:dataManager.sites[identifier]!, collectionIdentifier:dataManager.bnUser!.temporalCollectionIdentifier!)
-        }
+    
+    func collectElement(element:BNElement?){
+        dataManager.applyCollectedElement(element)
+        networkManager.sendCollectedElement(dataManager.bnUser!, element:element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
     }
     
-    func likeIt(identifier:String, isElement:Bool){
-        
-        if isElement {
-            //dataManager.elements[identifier]?.userLiked = true
-            networkManager.sendLikedElement(dataManager.bnUser!, element: dataManager.elements[identifier]!, value: dataManager.elements[identifier]!.userLiked)
-        } else {
-            //dataManager.sites[identifier]?.userLiked = true
-            networkManager.sendLikedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:dataManager.sites[identifier]!.userLiked)
-        }
+    func likeElement(element:BNElement?){
+        dataManager.applyLikeElement(element)
+        networkManager.sendLikedElement(dataManager.bnUser!, element:element)
+    }
+
+    func likeSite(site:BNSite?){
+        networkManager.sendLikedSite(dataManager.bnUser!, site:site)
     }
     
-//    func unLikeit(identifier:String, isElement:Bool){
+    func followSite(site:BNSite? ){
+        networkManager.sendFollowedSite(dataManager.bnUser!, site:site)
+    }
+
+//    func shareIt(identifier:String, isElement:Bool, shareView:ShareItView?){
 //        
 //        if isElement {
-//            networkManager.sendLikedElement(dataManager.bnUser!, element: dataManager.elements[identifier]!, value: false)
+//            dataManager.elements_by_id[identifier]?.userShared = true
+//            networkManager.sendSharedElement(dataManager.bnUser!, element:dataManager.elements_by_id[identifier]!)
+//            mainViewController?.shareElement(dataManager.elements_by_id[identifier]!, shareView:shareView)
+//            
 //        } else {
-//            networkManager.sendLikedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value: false)
+//            dataManager.sites[identifier]?.userShared = true
+//            networkManager.sendSharedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!)
+//            mainViewController?.shareSite(dataManager.sites[identifier]!, shareView:shareView)
 //        }
 //    }
-    
-    func followIt(identifier:String ){
-        networkManager.sendFollowedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:dataManager.sites[identifier]!.userFollowed)
-    }
 //    
-//    func unFollowit(identifier:String ){
-//        networkManager.sendFollowedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!, value:false )
-//    }
-
-    func shareIt(identifier:String, isElement:Bool, shareView:ShareItView?){
-        
-        if isElement {
-            dataManager.elements[identifier]?.userShared = true
-            networkManager.sendSharedElement(dataManager.bnUser!, element:dataManager.elements[identifier]!)
-            mainViewController?.shareElement(dataManager.elements[identifier]!, shareView:shareView)
-            
-        } else {
-            dataManager.sites[identifier]?.userShared = true
-            networkManager.sendSharedSite(dataManager.bnUser!, site: dataManager.sites[identifier]!)
-            mainViewController?.shareSite(dataManager.sites[identifier]!, shareView:shareView)
-        }
+    func shareSite(site:BNSite?, shareView:ShareItView?){
+        site!.userShared = true
+        networkManager.sendSharedSite(dataManager.bnUser!, site: site)
+        mainViewController?.shareSite(site, shareView:shareView)
     }
     
-    func commentit(identifier:String, comment:String){
-        
+    func shareElement(element:BNElement?, shareView:ShareItView?){
+        element!.userShared = true
+        networkManager.sendSharedElement(dataManager.bnUser!, element:element)
+        mainViewController?.shareElement(element, shareView:shareView)
+        dataManager.applyShareElement(element)
     }
     
     func processNotification(notification:BNNotification){

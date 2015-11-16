@@ -66,7 +66,7 @@ class BNBiin:NSObject
         if objects != nil {
             if objects!.count > 0 {
                 assingCurrectObject()
-                if objects![currentObjectIndex].isBiined {
+                if objects![currentObjectIndex].isCollected {
                     //Biined
                     if objects![currentObjectIndex].isUserNotified {
                         //User notified

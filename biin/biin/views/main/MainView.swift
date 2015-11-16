@@ -75,10 +75,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        self.layer.borderWidth = 1
 //        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
-        
-        
-        
-
     }
     
     func addUIViews(){
@@ -262,9 +258,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             break
         case .Collected:
             
-            if !isShowingAllCollectedView {
+//            if !isShowingAllCollectedView {
                 self.allCollectedState!.view!.refresh()
-            }
+//            }
             
             isShowingAllCollectedView = true
             state!.next(self.allCollectedState)
@@ -395,7 +391,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
                     (siteState!.view as! SiteView).updateSiteData(site)
                     setNextState(BNGoto.Site)
-                } else if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!] {
+                } else if let element = BNAppSharedManager.instance.dataManager.elements_by_id[BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!] {
                     
 //                    NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)")
                     
@@ -557,6 +553,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Main)
     }
     
+    func updateAllCollectedView() {
+        (allCollectedState!.view as? AllCollectedView)!.refresh()
+    }
+    
     func clean(){
         
         
@@ -601,8 +601,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 
 
     }
-    
-    
     
     func show(){
         
@@ -699,5 +697,4 @@ enum BNGoto {
     case Collected
     case AllSites
     case AllElements
-    
 }

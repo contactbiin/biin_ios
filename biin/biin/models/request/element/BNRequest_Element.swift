@@ -29,11 +29,13 @@ class BNRequest_Element: BNRequest {
     
     override func run() {
         
+        self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         //var response:BNResponse?
         
-        networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
+        networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 
@@ -43,7 +45,7 @@ class BNRequest_Element: BNRequest {
 
                 
             } else {
-                
+
                 if let elementData = data["data"] as? NSDictionary {
                     
                     //var status = self.networkManager!.findInt("status", dictionary: data)
@@ -54,20 +56,16 @@ class BNRequest_Element: BNRequest {
                     if result {
                         self.element!.isDownloadCompleted = true
                         self.element!.identifier = BNParser.findString("identifier", dictionary: elementData)
-
-                        self.element!.elementType = BNParser.findBNElementType("elementType", dictionary: elementData)
                         self.element!.position = BNParser.findInt("position", dictionary: elementData)
                         self.element!.title = BNParser.findString("title", dictionary: elementData)
                         self.element!.subTitle = BNParser.findString("subTitle", dictionary: elementData)
                         self.element!.nutshellDescriptionTitle = BNParser.findString("nutshellDescriptionTitle", dictionary: elementData)
                         self.element!.nutshellDescription = BNParser.findString("nutshellDescription", dictionary: elementData)
-                        self.element!.titleColor = BNParser.findUIColor("titleColor", dictionary: elementData)!
                         self.element!.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
-                        self.element!.color = UIColor.elementColor()
                         self.element!.stars = BNParser.findFloat("stars", dictionary: elementData)!
                         self.element!.detailsHtml = BNParser.findString("detailsHtml", dictionary: elementData)
-                        
                         self.element!.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
+
                         if self.element!.hasFromPrice {
                             self.element!.fromPrice = BNParser.findString("fromPrice", dictionary: elementData)
                         }
@@ -108,8 +106,8 @@ class BNRequest_Element: BNRequest {
                         
                         self.element!.isHighlight = BNParser.findBool("isHighlight", dictionary: elementData)
                         
-                        let details = BNParser.findNSArray("details", dictionary: elementData)
-                        
+                        //let details = BNParser.findNSArray("details", dictionary: elementData)
+                        /*
                         for var i = 0; i < details?.count; i++ {
                             let detailData = details!.objectAtIndex(i) as! NSDictionary
                             
@@ -148,14 +146,13 @@ class BNRequest_Element: BNRequest {
                             
                             self.element!.details.append(detail)
                         }
-                        
+                        */
                         let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                         
                         for var j = 0; j < mediaArray?.count; j++ {
                             let mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
                             let url = BNParser.findString("url", dictionary: mediaData)!
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
-                            let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
                             let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
@@ -171,7 +168,7 @@ class BNRequest_Element: BNRequest {
 
 
                             
-                            let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
+                            let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)
                         }
                         
@@ -191,8 +188,8 @@ class BNRequest_Element: BNRequest {
                         self.element!.userCommented = BNParser.findBool("userCommented", dictionary: elementData)
                         self.element!.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
                         
-                        let hasSticker = BNParser.findBool("hasSticker", dictionary: elementData)
-                        
+                        //let hasSticker = BNParser.findBool("hasSticker", dictionary: elementData)
+                        /*
                         if (hasSticker) {
                             if let stickerData = elementData["sticker"] as? NSDictionary {
                                 self.element!.hasSticker = hasSticker
@@ -202,7 +199,7 @@ class BNRequest_Element: BNRequest {
                                 self.element!.sticker = sticker
                             }
                         }
-                        
+                        */
 //                        if self.element!.isHighlight {
 //                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedHightlight:self.element!)
 //                        } else {
@@ -210,6 +207,11 @@ class BNRequest_Element: BNRequest {
 //                        }
                     }
                 }
+                
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_Element [\(timeInterval)] - \(self.requestString)")
+                
                 
                 self.inCompleted = true
                 //self.clean()

@@ -76,7 +76,7 @@ class Biinie:NSObject, NSCoding {
         self.newNotificationCount = 0
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
-        
+        self.temporalCollectionIdentifier = "collection1"
         for _id in storedElementsViewed {
             elementsViewed[_id] = _id
         }

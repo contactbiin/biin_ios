@@ -102,53 +102,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ubication!.numberOfLines = 0
         self.addSubview(ubication!)
 
-//        ypos += 13
-//        
-//        phoneNumber = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
-//        phoneNumber!.font = UIFont(name: "Lato-Light", size: 12)
-//        phoneNumber!.text = ""
-//        phoneNumber!.textColor = UIColor.appTextColor()
-//        self.addSubview(phoneNumber!)
-//        
-//        ypos += 13
-//        email = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - 95), 14))
-//        email!.font = UIFont(name: "Lato-Light", size: 12)
-//        email!.text = ""
-//        email!.textColor = UIColor.appTextColor()
-//        self.addSubview(email!)
-        
-//        ypos += 35
-//        yStop = ypos //To use in shareview.
         map = MKMapView(frame:CGRectMake(5, (siteAvatarSize + 10), (screenWidth - 10), 150))
         map!.userInteractionEnabled = false
-//        map!.layer.cornerRadius = 3
-//        map!.layer.borderColor = UIColor.appButtonBorderColor().CGColor
-//        map!.layer.borderWidth = 1
+
         map!.delegate = self
         self.addSubview(map!)
         
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
     
-//        annotation = MKPointAnnotation()
-//        //annotation!.setCoordinate(siteLocation!)
-//        annotation!.coordinate = siteLocation!
-//        annotation!.title = "Annotation title"
-//        annotation!.subtitle = "Annotation subtitle"
-//        
-//        map!.addAnnotation(annotation!)
-        
-        //ypos += 180
-        //xpos = (screenWidth - 140) / 2
-        //emailBtn = BNUIButton_Contact(frame: CGRectMake(0, ypos, screenWidth, 50), text:NSLocalizedString("EmailUs", comment: "EmailUs"), iconType: BNIconType.emailMedium)
-        //emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(emailBtn!)
-        
-        //xpos += 80
-        //callBtn = BNUIButton_Contact(frame: CGRectMake(0, ypos, screenWidth, 50), text:NSLocalizedString("CallUs", comment: "CallUs"), iconType: BNIconType.phoneMedium)
-        //callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(callBtn!)
-        
-        
+
         
         emailBtn = UIButton(frame: CGRectMake((siteAvatarSize + 10), (siteAvatarSize - 11), 80, 16))
         emailBtn!.setTitle("EMAIL", forState: UIControlState.Normal)
@@ -173,19 +135,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         callBtn!.backgroundColor = UIColor.clearColor()
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
-        
-        
-        
-        //xpos += 60
-        //commentBtn = BNUIButton_Contact(frame: CGRectMake(xpos, ypos, 50, 50), text: "Call us", iconType: BNIconType.commentMedium)
-        //self.addSubview(commentBtn!)
-        
-//        var line = UIView(frame: CGRectMake(5, (frame.height - 5), (screenWidth - 10), 0.5))
-//        line.backgroundColor = UIColor.appButtonColor()
-//        self.addSubview(line)
-        
-        //ypos += 5
-        //self.frame = CGRectMake(0, 0, frame.width, ypos)
         
     }
     /*
@@ -273,10 +222,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //ubication!.frame.origin.y = ypos
         
         //ypos += ubication!.frame.height
-        callBtn!.setTitleColor(site!.media[0].domainColor!, forState: UIControlState.Normal)
-        callBtn!.layer.borderColor = site!.media[0].domainColor!.CGColor
-        emailBtn!.setTitleColor(site!.media[0].domainColor!, forState: UIControlState.Normal)
-        emailBtn!.layer.borderColor = site!.media[0].domainColor!.CGColor
+        callBtn!.setTitleColor(site!.media[0].vibrantColor!, forState: UIControlState.Normal)
+        callBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
+        emailBtn!.setTitleColor(site!.media[0].vibrantColor!, forState: UIControlState.Normal)
+        emailBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
         
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
@@ -349,8 +298,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //ypos += (50 + 10)
         
         if site!.media.count > 0 {
-            closeBtn!.icon!.color = site!.media[0].domainColor!
-            closeBtn!.layer.borderColor = site!.media[0].domainColor!.CGColor
+            closeBtn!.icon!.color = site!.media[0].vibrantColor!
+            closeBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
             closeBtn!.setNeedsDisplay()
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
             siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!

@@ -528,7 +528,8 @@ class SiteView:BNView, UIScrollViewDelegate {
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!)
         }
         
-        BNAppSharedManager.instance.likeIt(site!.identifier!, isElement: false)
+        BNAppSharedManager.instance.likeSite(self.site)
+
         
         updateLikeItBtn()
     }
@@ -539,7 +540,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:shareView)
+        BNAppSharedManager.instance.shareSite(self.site, shareView: shareView)
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_SITE, to:site!.identifier!)
     }
     
@@ -547,12 +548,6 @@ class SiteView:BNView, UIScrollViewDelegate {
         site!.userCollected = !site!.userCollected
         updateCollectItBtn()
         animationView!.animate(site!.userCollected)
-        
-        if site!.userCollected {
-            BNAppSharedManager.instance.collectIt(site!.identifier!, isElement:false)
-        } else {
-            BNAppSharedManager.instance.collectIt(site!.identifier!, isElement: false)
-        }
     }
     
     func updateCollectItBtn(){
@@ -571,7 +566,7 @@ class SiteView:BNView, UIScrollViewDelegate {
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNFOLLOW_SITE, to:site!.identifier!)
         }
 
-        BNAppSharedManager.instance.followIt(site!.identifier!)
+        BNAppSharedManager.instance.followSite(self.site)
 
         updateFollowBtn()
     }

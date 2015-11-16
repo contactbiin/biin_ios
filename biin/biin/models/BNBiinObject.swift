@@ -26,7 +26,7 @@ class BNBiinObject:NSObject
     var hasNotification = false
     var notification:String?
     var isUserNotified = false
-    var isBiined = false
+    var isCollected = false
     
     var objectType = BNBiinObjectType.NONE
     

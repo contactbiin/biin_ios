@@ -15,7 +15,7 @@ class BNRequest_SendSharedSite: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite ){
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite? ){
         self.init()
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
@@ -50,7 +50,7 @@ class BNRequest_SendSharedSite: BNRequest {
         
 //        var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.put(self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.put(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

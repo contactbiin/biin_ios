@@ -45,7 +45,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.alpha = 0.75
+        visualEffectView.alpha = 1
         visualEffectView.frame = self.view.bounds
         self.view.addSubview(visualEffectView)
         
