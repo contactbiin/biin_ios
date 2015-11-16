@@ -125,6 +125,8 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     
     func updateCollectedElements() {
         
+        print("updateCollectedElements")
+        
         if elements != nil {
             addedElementsIdentifiers!.removeAll(keepCapacity: false)
             for view in elements! {

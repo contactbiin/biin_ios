@@ -20,6 +20,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     //var regions = Dictionary<String, BNRegion>()
     var sites = Dictionary<String, BNSite>()
+    var sites_ordered = Array<BNSite>()
     var organizations = Dictionary<String, BNOrganization>()
     //var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
@@ -94,6 +95,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func requestDataOnWhenAppIsRunning(){
+        BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)        
     }
     
@@ -724,6 +726,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         var isExternalBiinAdded = false
         
+        sites_ordered.append(site)
         site.organization = organizations[site.organizationIdentifier!]
         sites[site.identifier!] = site
         
@@ -881,7 +884,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func applyCollectedElement(element:BNElement?) {
         
-        if self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!.identifier!] != nil {
+        if self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!.identifier!] == nil {
         
             self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!.identifier!] = self.elements_by_id[element!._id!]
 

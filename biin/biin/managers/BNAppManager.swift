@@ -181,15 +181,15 @@ class BNAppManager {
     */
 
     func unCollectElement(element:BNElement?){
-        
+
         dataManager.applyUnCollectedElement(element)
         networkManager.sendUnCollectedElement(dataManager.bnUser!, element: element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+        
+        mainViewController!.mainView!.updateAllCollectedView()
     }
     
     
     func collectElement(element:BNElement?){
-        
-        
         dataManager.applyCollectedElement(element)
         networkManager.sendCollectedElement(dataManager.bnUser!, element:element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
     }
