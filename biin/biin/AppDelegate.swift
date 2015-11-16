@@ -202,9 +202,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         appManager.IS_APP_UP = true
         
-        if appManager.dataManager.bnUser != nil {
-            appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
-        }
+//        if appManager.dataManager.bnUser != nil {
+//            appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+//        }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -267,7 +267,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if coordinator == nil {
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext()
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
@@ -323,6 +323,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func handleDeleteListNotification() {
+    }
+    
+    func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+
+        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
+        let session = NSURLSession(configuration: config, delegate:nil, delegateQueue:NSOperationQueue.mainQueue() )
+        session.getTasksWithCompletionHandler { (dataTasks, uploadTaks, downloadTaks) -> Void in
+         
+        }
+        
     }
 
 }

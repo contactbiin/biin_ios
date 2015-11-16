@@ -143,7 +143,11 @@ class AllSitesView: BNView {
             addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
         }
         
+        let sitesArray = BNAppSharedManager.instance.dataManager.sites_ordered
+        
+        /*
         var sitesArray:Array<BNSite> = Array<BNSite>()
+
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             if category.hasSites {
@@ -159,8 +163,9 @@ class AllSitesView: BNView {
                 }
             }
         }
-        
+
         sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
+        */
         
         var xpos:CGFloat = 0
         var ypos:CGFloat = 0

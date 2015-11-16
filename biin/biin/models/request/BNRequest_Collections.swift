@@ -7,13 +7,9 @@ import Foundation
 
 class BNRequest_Collections: BNRequest {
 
-    override init(){
-        super.init()
-    }
+    override init(){ super.init() }
     
-    deinit{
-        
-    }
+    deinit { }
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
@@ -27,11 +23,12 @@ class BNRequest_Collections: BNRequest {
     
     override func run() {
         
-
+        self.start = NSDate()
+        
         isRunning = true
         requestAttemps++
         
-        self.networkManager!.epsNetwork!.getJson(true, url:requestString, callback: {
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url:requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
@@ -45,8 +42,6 @@ class BNRequest_Collections: BNRequest {
                         
                         var collectionList = Array<BNCollection>()
                         let collections = BNParser.findNSArray("biinieCollections", dictionary: dataData)
-                        
-                        
                         
                         for var i = 0; i < collections?.count; i++ {
                             
@@ -73,23 +68,22 @@ class BNRequest_Collections: BNRequest {
                                 }
                             }
                             
-                            let sites = BNParser.findNSArray("sites", dictionary: collectionData)
-                            
-                            if sites?.count > 0 {
-                                
-                                collection.sites = Dictionary<String, BNSite>()
-                                
-                                for ( var i = 0; i < sites?.count; i++ ) {
-                                    let siteData = sites!.objectAtIndex(i) as! NSDictionary
-                                    let site = BNSite()
-                                    site.identifier = BNParser.findString("identifier", dictionary: siteData)
-                                    collection.sites[site.identifier!] = site
-                                    collection.items.append(site.identifier!)
-                                }
-                            }
+//                            let sites = BNParser.findNSArray("sites", dictionary: collectionData)
+//                            
+//                            if sites?.count > 0 {
+//                                
+//                                collection.sites = Dictionary<String, BNSite>()
+//                                
+//                                for ( var i = 0; i < sites?.count; i++ ) {
+//                                    let siteData = sites!.objectAtIndex(i) as! NSDictionary
+//                                    let site = BNSite()
+//                                    site.identifier = BNParser.findString("identifier", dictionary: siteData)
+//                                    collection.sites[site.identifier!] = site
+//                                    collection.items.append(site.identifier!)
+//                                }
+//                            }
                             
                             collectionList.append(collection)
-                            
                         }
                         
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedCollections: collectionList)
@@ -99,13 +93,15 @@ class BNRequest_Collections: BNRequest {
                     
                 }
                 
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_Collections [\(timeInterval)] - \(self.requestString)")
+                
+                
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)
 
             }
         })
-
-
     }
-
 }

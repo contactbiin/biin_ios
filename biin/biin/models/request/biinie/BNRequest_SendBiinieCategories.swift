@@ -28,6 +28,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
     
     override func run() {
         
+        print("BNRequest_SendBiinieCategories - \(requestString)")
 
         isRunning = true
         requestAttemps++
@@ -49,7 +50,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
         
         var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.post(requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.post(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

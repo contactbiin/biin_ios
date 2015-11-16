@@ -116,11 +116,11 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     
     func isThereElementsInCategory (category:BNCategory) ->Bool {
         
-        if category.hasSites {
+//        if category.hasSites {
             if category.elements.count > 0 {
                 return true
             }
-        } 
+//        } 
         
         return false
     }

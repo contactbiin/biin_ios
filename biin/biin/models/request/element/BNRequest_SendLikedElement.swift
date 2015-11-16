@@ -15,7 +15,7 @@ class BNRequest_SendLikedElement: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, element:BNElement ){
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, element:BNElement? ){
         self.init()
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
@@ -28,6 +28,7 @@ class BNRequest_SendLikedElement: BNRequest {
     
     override func run() {
         
+        print("BNRequest_SendLikedElement - \(requestString)")
 
         isRunning = true
         requestAttemps++
@@ -50,7 +51,7 @@ class BNRequest_SendLikedElement: BNRequest {
         
 //        var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.put(self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.put(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

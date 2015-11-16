@@ -70,20 +70,6 @@ class BNParser {
         }
     }
     
-    class func findBNElementType(name:String, dictionary:NSDictionary) -> BNElementType {
-        let value = self.findInt(name, dictionary: dictionary)
-        
-        if value == 1 {
-            return BNElementType.Simple
-        } else if value == 2 {
-            return BNElementType.Informative
-        } else if value == 3 {
-            return BNElementType.Benefit
-        } else {
-            return BNElementType.Simple
-        }
-    }
-    
     class func findBNElementDetailType(name:String, dictionary:NSDictionary) -> BNElementDetailType {
         let value = self.findInt(name, dictionary: dictionary)
         
@@ -101,30 +87,6 @@ class BNParser {
             return BNElementDetailType.PriceList
         } else {
             return BNElementDetailType.Title
-        }
-    }
-    
-    class func findBNShowcaseTheme(name:String, dictionary:NSDictionary) -> BNShowcaseTheme {
-        let value = self.findInt(name, dictionary: dictionary)
-        
-        if value == 1 {
-            return BNShowcaseTheme.Dark
-        } else if value == 2 {
-            return BNShowcaseTheme.Light
-        } else {
-            return BNShowcaseTheme.Light
-        }
-    }
-    
-    class func findBNShowcaseType(name:String, dictionary:NSDictionary) -> BNShowcaseType {
-        let value = self.findInt(name, dictionary: dictionary)
-        
-        if value == 1 {
-            return BNShowcaseType.SimpleProduct
-        } else if value == 2 {
-            return BNShowcaseType.MultipleProduct
-        } else {
-            return BNShowcaseType.SimpleProduct
         }
     }
     

@@ -71,7 +71,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         }
         
        //!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
-        self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
+        self.showcase = showcase//BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         self.site = site
         
         //TODO: Add all showcase data here
@@ -230,8 +230,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         
         for element in showcase!.elements {
             
-            
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
                 elementView.isElementMiniViewInSite = true
             
             if element != showcase!.elements.last {

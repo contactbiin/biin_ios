@@ -114,6 +114,16 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
         
     }
     
+    func isSiteInArray(sites:Array<BNSite>, identifier:String) ->Bool {
+        for site in sites {
+            if site.identifier! == identifier {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     func addAllSites(){
     
         
@@ -137,8 +147,11 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
                     let siteIdentifier = category.sitesDetails[i].identifier!
                     
                     if let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ] {
+                        
                         if site.showInView {
-                            sitesArray.append(site)
+                            if !isSiteInArray(sitesArray, identifier:site.identifier!) {
+                                sitesArray.append(site)
+                            }
                         }
                     }
                 }
@@ -146,6 +159,12 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
         }
         
         sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
+
+        sitesArray = Array<BNSite>()
+        for (_, site) in BNAppSharedManager.instance.dataManager.sites {
+            sitesArray.append(site)
+        }
+        
         
         var xpos:CGFloat = 0
         let ypos:CGFloat = 1

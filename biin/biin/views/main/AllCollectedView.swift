@@ -125,6 +125,8 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     
     func updateCollectedElements() {
         
+        print("updateCollectedElements")
+        
         if elements != nil {
             addedElementsIdentifiers!.removeAll(keepCapacity: false)
             for view in elements! {
@@ -140,9 +142,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
 
         for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
             for (_,element) in collection.elements {
-                if addedElementsIdentifiers![element._id!] == nil {
+                if addedElementsIdentifiers![element.identifier!] == nil {
                     self.showcase!.elements.append(element)
-                    addedElementsIdentifiers![element._id!] = element
+                    addedElementsIdentifiers![element.identifier!] = element
                 }
             }
         }
@@ -162,7 +164,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     
         for element in showcase!.elements {
             
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:BNAppSharedManager.instance.dataManager.elements[element._id!], elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:true)
+            let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:false)
             
             elementView.requestImage()
             elementView.delegate = father! as! MainView

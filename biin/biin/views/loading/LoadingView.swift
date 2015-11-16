@@ -106,17 +106,17 @@ class LoadingView:UIView {
         startTimer()
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func updateProgressView(value:Float){
+        
         if value > lastProgressValue {
 
             lastProgressValue = value
             progressView!.setProgress(value, animated: true)
-            if value > 0.85 {
+            if value > 0.75 {
                 loadingLbl!.text = NSLocalizedString("Finishing", comment: "the Finishing title")
             }
         }

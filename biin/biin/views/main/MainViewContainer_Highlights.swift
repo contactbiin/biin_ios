@@ -108,11 +108,8 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         }
     }
     
-
     
     func updateHighlightView(){
-
-
         
         if BNAppSharedManager.instance.dataManager.highlights.count > 0{
 

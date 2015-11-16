@@ -28,11 +28,12 @@ class BNRequest_Site: BNRequest {
 
     override func run() {
         
+        self.start = NSDate()
 
         isRunning = true
         requestAttemps++
 
-        self.networkManager!.epsNetwork!.getJson(true, url: self.requestString, callback: {
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
@@ -93,12 +94,10 @@ class BNRequest_Site: BNRequest {
                         let mediaArray = BNParser.findNSArray("media", dictionary: siteData)
                         
                         
-                        
                         for var i = 0; i < mediaArray?.count; i++ {
                             let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                             let url = BNParser.findString("url", dictionary:mediaData)!
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
-                            let domainColor = BNParser.findUIColor("domainColor", dictionary: mediaData)!
                             let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                             let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
@@ -111,7 +110,7 @@ class BNRequest_Site: BNRequest {
                                 new_site.useWhiteText = true
                             }
                             
-                            let media = BNMedia(mediaType: type, url:url, domainColor: domainColor, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
+                            let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             new_site.media.append(media)
                         }
                         
@@ -190,7 +189,7 @@ class BNRequest_Site: BNRequest {
                                             object.hasNotification = BNParser.findBool("hasNotification", dictionary: objectData)
                                             object.notification = BNParser.findString("notification", dictionary: objectData)
                                             object.isUserNotified = BNParser.findBool("isUserNotified", dictionary: objectData)
-                                            object.isBiined = BNParser.findBool("isBiined", dictionary: objectData)
+                                            object.isCollected = BNParser.findBool("isCollected", dictionary: objectData)
                                             object.objectType = BNParser.findBiinObjectType("objectType", dictionary: objectData)
                                             
                                             //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
@@ -243,6 +242,13 @@ class BNRequest_Site: BNRequest {
                         
                         site.loyalty = loyalty
                         */
+                        
+                        let end = NSDate()
+                        let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                        print("BNRequest_Site [\(timeInterval)] - \(self.requestString)")
+                        
+                        
+                        
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedSite:new_site)
                         self.inCompleted = true
                         self.networkManager!.removeFromQueue(self)

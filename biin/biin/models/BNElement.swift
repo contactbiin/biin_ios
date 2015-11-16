@@ -8,12 +8,7 @@ import UIKit
 
 class BNElement:NSObject {
     
-    //TODO: jsonUrl only for testing, remove later
-    var jsonUrl:String?
-    
-    //Element type
-    var elementType:BNElementType?
-    
+
     //Nutshell
     var _id:String?
     var identifier:String?
@@ -22,12 +17,7 @@ class BNElement:NSObject {
     var subTitle:String?
     var nutshellDescriptionTitle:String?
     var nutshellDescription:String?
-    
-    //Colours
-    var titleColor:UIColor?
-    var color:UIColor?
-//    var socialButtonsColor = UIColor.whiteColor()
-    
+
     //Hightlights - Price
     var hasFromPrice:Bool = false
     var fromPrice:String?
@@ -55,17 +45,10 @@ class BNElement:NSObject {
     var stars:Float = 0
     var useWhiteText = false
     
-    //Details
-    var details:Array<BNElementDetail> = Array<BNElementDetail>()
-    
     //Gallery
     var media:Array<BNMedia> = Array<BNMedia>()
     var gallery:Array<UIImageView> = Array<UIImageView>()
 
-    //Sticker
-    var hasSticker = false
-    var sticker:BNSticker?
-    
     //Notification
     var activateNotification = false
     var notifications:Array<BNNotification>?
@@ -103,9 +86,7 @@ class BNElement:NSObject {
     
     func clone()->BNElement {
         let clone = BNElement()
-        clone.jsonUrl = self.jsonUrl
-        clone.color = self.color
-        if let value = self.elementType { clone.elementType = value }
+
         if let value = self._id { clone._id = value }
         if let value = self.identifier { clone.identifier = value }
         if let value = self.position { clone.position = value }
@@ -113,7 +94,6 @@ class BNElement:NSObject {
         if let value = self.subTitle { clone.subTitle = value }
         if let value = self.nutshellDescriptionTitle { clone.nutshellDescriptionTitle = value }
         if let value = self.nutshellDescription { clone.nutshellDescription = value }
-        if let value = self.titleColor { clone.titleColor = value }
         clone.hasFromPrice = self.hasFromPrice
         if let value = self.fromPrice { clone.fromPrice = value }
         clone.hasListPrice = self.hasListPrice
@@ -133,10 +113,7 @@ class BNElement:NSObject {
         if let value = self.reservedQuantity { clone.reservedQuantity = value }
         if let value = self.claimedQuantity { clone.claimedQuantity = value }
         if let value = self.actualQuantity { clone.actualQuantity = value }
-        clone.details = self.details
         clone.media = self.media
-        clone.hasSticker = self.hasSticker
-        if let value = self.sticker { clone.sticker = value }
         clone.activateNotification = self.activateNotification
         if let value = self.notifications { clone.notifications = value }
         clone.collectCount = self.collectCount
@@ -156,10 +133,4 @@ class BNElement:NSObject {
 
         return clone
     }
-}
-
-enum BNElementType {
-    case Simple         //1
-    case Informative    //2
-    case Benefit        //3
 }

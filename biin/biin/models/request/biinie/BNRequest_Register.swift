@@ -28,12 +28,15 @@ class BNRequest_Register: BNRequest {
     
     override func run() {
         
+        print("BNRequest_Register - \(requestString)")
+
+        
         isRunning = true
         requestAttemps++
 
         var response:BNResponse?
 
-        self.networkManager!.epsNetwork!.getJson(false, url: requestString, callback: {
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url: requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {

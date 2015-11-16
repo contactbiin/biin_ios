@@ -37,6 +37,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         BNAppSharedManager.instance.dataManager.startCommercialBiinMonitoring()
         
         BNAppSharedManager.instance.positionManager.delegateView = self
+        
+        BNAppSharedManager.instance.dataManager.requestDataOnWhenAppIsRunning()
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -60,15 +62,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
         
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, frame.height), father:nil, rootViewController: self)
-        
         mainView!.delegate = self
         mainView!.addUIViews()
         
         self.view.addSubview(self.mainView!)
-        
-//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-//        visualEffectView.frame = CGRectMake(0, 0, frame.width, 20)
-//        self.view.addSubview(visualEffectView)
         
         fadeView = UIView(frame: frame)
         fadeView!.backgroundColor = UIColor.blackColor()
@@ -283,7 +280,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     var fullPath = ""
     
-    func shareSite(site:BNSite, shareView:ShareItView?){
+    func shareSite(site:BNSite?, shareView:ShareItView?){
         
 //        var siteTitle = ""
 //        if let site = BNAppSharedManager.instance.dataManager.sites[site.identifier!] {
@@ -302,7 +299,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //let string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
         let string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
         
-        textToShare = "\(string1)\(site.title!), \(site.city!). \(string3)"
+        textToShare = "\(string1)\(site!.title!), \(site!.city!). \(string3)"
         
         let myWebsite:NSURL?
         myWebsite = NSURL(string: "https:/www.biin.io")
@@ -334,12 +331,12 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         return BNAppSharedManager.instance.dataManager.sites[element.showcase!.site!.identifier!]
     }
     
-    func shareElement(element:BNElement, shareView:ShareItView?){
+    func shareElement(element:BNElement?, shareView:ShareItView?){
         
-        var siteTitle = ""
-        if let site = BNAppSharedManager.instance.dataManager.sites[element.showcase!.site!.identifier!] {
-            siteTitle = "\(site.title!), \(site.city!)"
-        }
+//        var siteTitle = ""
+//        if let site = BNAppSharedManager.instance.dataManager.sites[element.showcase!.site!.identifier!] {
+        let siteTitle = "\(element!.showcase!.site!.title!), \(element!.showcase!.site!.city!)"
+//        }
         
 //        let view  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:findSiteForElement(element))
         let imageToShare:UIImage?
@@ -353,7 +350,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         let string2 = NSLocalizedString("ShareBody2", comment: "ShareBody2")
         let string3 = NSLocalizedString("ShareBody3", comment: "ShareBody3")
         
-        textToShare = "\(string1)\(element.title!) \(string2)\(siteTitle). \(string3)"
+        textToShare = "\(string1)\(element!.title!) \(string2)\(siteTitle). \(string3)"
         
         let myWebsite:NSURL?
         myWebsite = NSURL(string: "https:/www.biin.io")

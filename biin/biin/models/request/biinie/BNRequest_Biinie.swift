@@ -28,11 +28,12 @@ class BNRequest_Biinie: BNRequest {
     
     override func run() {
         
-//        NSLog("BNRequest_CheckEmail_IsVerified.run()")
+        self.start = NSDate()
+
         isRunning = true
         requestAttemps++
         
-        self.networkManager!.epsNetwork!.getJson(false, url: self.requestString, callback:{
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
@@ -83,6 +84,11 @@ class BNRequest_Biinie: BNRequest {
                         
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:false)
                     }
+                    
+                    let end = NSDate()
+                    let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                    print("BNRequest_Biinie [\(timeInterval)] - \(self.requestString)")
+                    
                     
                     self.inCompleted = true
                     self.networkManager!.removeFromQueue(self)

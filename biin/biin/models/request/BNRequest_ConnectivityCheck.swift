@@ -7,13 +7,9 @@ import Foundation
 
 class BNRequest_ConnectivityCheck: BNRequest {
     
-    override init(){
-        super.init()
-    }
+    override init() { super.init() }
     
-    deinit{
-        
-    }
+    deinit { }
     
     convenience init(requestString:String, dataIdentifier:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
@@ -27,8 +23,9 @@ class BNRequest_ConnectivityCheck: BNRequest {
     }
     
     override func run() {
-
         
+        self.start = NSDate()
+
         isRunning = true
         requestAttemps++
         
@@ -36,11 +33,13 @@ class BNRequest_ConnectivityCheck: BNRequest {
             (error: NSError?) -> Void in
             
             if (error != nil) {
-                
-
                 self.networkManager!.handleFailedRequest(self, error: error )
-//                self.networkManager!.requests.removeAll(keepCapacity: false)
             } else {
+                
+                let end = NSDate()
+                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                print("BNRequest_ConnectivityCheck [\(timeInterval)] - \(self.requestString)")
+                
                 
                 self.inCompleted = true
                 self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedConnectionStatus: true)
