@@ -26,7 +26,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.lightGrayColor()
+        self.backgroundColor = UIColor.darkGrayColor()
         
         
         title = UILabel(frame: CGRectMake(10, 11, (frame.width - 20), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
@@ -35,7 +35,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.textColor = UIColor.darkGrayColor()
+        title!.textColor = UIColor.whiteColor()
         self.addSubview(title!)
         
         //TODO: Add all showcase data here

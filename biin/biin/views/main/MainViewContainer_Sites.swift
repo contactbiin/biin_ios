@@ -12,7 +12,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     var title:UILabel?
     var moreSitesBtn:UIButton?
     var subTitle:UILabel?
-    var scroll:UIScrollView?
+    var scroll:EPUIScrollView?
     
     var spacer:CGFloat = 1
     
@@ -30,14 +30,14 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
-        self.backgroundColor = UIColor.lightGrayColor()
+        self.backgroundColor = UIColor.darkGrayColor()
         let screenWidth = SharedUIManager.instance.screenWidth
         
         //var ypos:CGFloat = SharedUIManager.instance.miniView_height + 6
 
         moreSitesBtn = UIButton(frame: CGRectMake(screenWidth - 50, 0, 50, 38))
         moreSitesBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
-        moreSitesBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        moreSitesBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         moreSitesBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
         moreSitesBtn!.addTarget(self, action: "moreSitesBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreSitesBtn!)
@@ -48,17 +48,19 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.textColor = UIColor.darkGrayColor()
+        title!.textColor = UIColor.whiteColor()
         self.addSubview(title!)
 
         let scrollHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
-        scroll = UIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
-        scroll!.delegate = self
-        scroll!.showsHorizontalScrollIndicator = false
-        scroll!.showsVerticalScrollIndicator = false
-        scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.clearColor()
-        self.addSubview(scroll!)
+        
+        self.scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "Request more sites", space: 1, extraSpace: 0, color: UIColor.redColor(), showRefreshControl: true)
+//            EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
+        self.scroll!.scroll!.delegate = self
+//        self.scroll!.scroll!.showsHorizontalScrollIndicator = false
+//        self.scroll!.scroll!.showsVerticalScrollIndicator = false
+//        self.scroll!.scroll!.scrollsToTop = false
+//        self.scroll!.scroll!.backgroundColor = UIColor.clearColor()
+        self.addSubview(self.scroll!)
         
         sites = Array<SiteMiniView>()
         addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
@@ -138,6 +140,8 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
             addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
         }
         
+        let sitesArray = BNAppSharedManager.instance.dataManager.sites_ordered
+/*
         var sitesArray:Array<BNSite> = Array<BNSite>()
         
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
@@ -165,7 +169,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
             sitesArray.append(site)
         }
         
-        
+        */
         var xpos:CGFloat = 0
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
@@ -188,7 +192,8 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
                     //miniSiteView.requestImage()
                     
                     sites!.append(miniSiteView)
-                    scroll!.addSubview(miniSiteView)
+                    self.scroll!.addChild(miniSiteView)
+//                    scroll!.addSubview(miniSiteView)
                     
                     xpos += siteView_width + 1
                     
@@ -196,7 +201,9 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
             }
         }
         
-        scroll!.contentSize = CGSizeMake(xpos, 100)
+        self.scroll!.scrollToStart()
+        
+//        scroll!.contentSize = CGSizeMake(xpos, 100)
 
         for var i = 0; i < sites!.count; i++ {
             if sites![i].isReadyToRemoveFromFather {

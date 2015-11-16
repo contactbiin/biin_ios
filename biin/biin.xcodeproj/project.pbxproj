@@ -116,6 +116,7 @@
 		5B3D761A1A6816B300CB0D1C /* Lato-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75E51A6816B300CB0D1C /* Lato-SemiboldItalic.ttf */; };
 		5B3D761B1A6816B300CB0D1C /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75E61A6816B300CB0D1C /* Lato-Thin.ttf */; };
 		5B3D761C1A6816B300CB0D1C /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B3D75E71A6816B300CB0D1C /* Lato-ThinItalic.ttf */; };
+		5B4032621BFA64F80000588D /* EPUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4032611BFA64F80000588D /* EPUIScrollView.swift */; };
 		5B406C491B4F01C1005807EA /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C481B4F01C1005807EA /* AboutView.swift */; };
 		5B406C4B1B4F029C005807EA /* AboutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C4A1B4F029C005807EA /* AboutState.swift */; };
 		5B406C4D1B4F05C1005807EA /* BNIcon_InformationMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C4C1B4F05C1005807EA /* BNIcon_InformationMedium.swift */; };
@@ -469,6 +470,7 @@
 		5B3D75E51A6816B300CB0D1C /* Lato-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		5B3D75E61A6816B300CB0D1C /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		5B3D75E71A6816B300CB0D1C /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
+		5B4032611BFA64F80000588D /* EPUIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPUIScrollView.swift; sourceTree = "<group>"; };
 		5B406C481B4F01C1005807EA /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		5B406C4A1B4F029C005807EA /* AboutState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutState.swift; sourceTree = "<group>"; };
 		5B406C4C1B4F05C1005807EA /* BNIcon_InformationMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_InformationMedium.swift; sourceTree = "<group>"; };
@@ -737,6 +739,7 @@
 		5B2907871A687C040000658A /* uiElements */ = {
 			isa = PBXGroup;
 			children = (
+				5B4032611BFA64F80000588D /* EPUIScrollView.swift */,
 				5B16FCA91A6EEA4C00785045 /* BNUIButton.swift */,
 				5B285B4E1A8D3F6800A2356B /* BNUIButton_WithLabel.swift */,
 				5BAA81541A8D5E000098FA11 /* BNUIButton_Category.swift */,
@@ -1769,6 +1772,7 @@
 				5BEE97C81BAC53BB004C2B30 /* BNRequest_Element.swift in Sources */,
 				5BEE97C31BAC53BB004C2B30 /* BNRequest_Collections.swift in Sources */,
 				5B871B0E1A71893C0064714B /* BNIcon_ShoeMedium.swift in Sources */,
+				5B4032621BFA64F80000588D /* EPUIScrollView.swift in Sources */,
 				5BEE97C11BAC53BB004C2B30 /* BNRequest.swift in Sources */,
 				5B3D75F11A6816B300CB0D1C /* BNNetworkManager.swift in Sources */,
 				5B6B886B1A8BE45000F21E4A /* BNUIAlertView_Header.swift in Sources */,

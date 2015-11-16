@@ -15,7 +15,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     var bannerContainer:MainViewContainer_Banner?
     var elementContainers:Array <MainViewContainer_Elements>?
 
-    var scroll:UIScrollView?
+    var scroll:EPUIScrollView?
     
     var fade:UIView?
     
@@ -34,12 +34,10 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
-        
-        scroll = UIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
-        scroll!.backgroundColor = UIColor.whiteColor()
-        scroll!.showsHorizontalScrollIndicator = false
-        scroll!.showsVerticalScrollIndicator = false
-        scroll!.delegate = self
+
+        scroll = EPUIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - 20)), isHorizontal:false, text:"Pull to refresh", space:0, extraSpace:45, color:UIColor.darkGrayColor(), showRefreshControl:true)
+        scroll!.scroll!.backgroundColor = UIColor.clearColor()
+        scroll!.scroll!.delegate = self
         self.addSubview(scroll!)
         
         inSiteView = InSiteView(frame: CGRectMake(0, (screenHeight - 20), screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
@@ -53,7 +51,6 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
-        
         
         elementContainers = Array<MainViewContainer_Elements>()
         
@@ -70,15 +67,19 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth + SharedUIManager.instance.sitesContainer_headerHeight
 
         self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
-        self.scroll!.addSubview(self.highlightContainer!)
-        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight + spacer)
+        
+//        self.scroll!.addSubview(self.highlightContainer!)
+        self.scroll!.addChild(self.highlightContainer!)
+        
+        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)
 
-        let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight + 1
+        let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
         
 
         self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, sitesContainerHeight), father: self)
         self.sitesContainer!.delegate = (self.father! as! MainView)
-        self.scroll!.addSubview(self.sitesContainer!)
+//        self.scroll!.addSubview(self.sitesContainer!)
+        self.scroll!.addChild(self.sitesContainer!)
         ypos += sitesContainerHeight
 
         
@@ -87,7 +88,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
 //        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
 
 
-        var colorIndex:Int = 0
+        var colorIndex:Int = 1
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
             if isThereElementsInCategory(category) {
@@ -95,7 +96,8 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
                 let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
                 elementContainer.delegate = (self.father! as! MainView)
                 ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
-                self.scroll!.addSubview(elementContainer)
+//                self.scroll!.addSubview(elementContainer)
+                self.scroll!.addChild(elementContainer)
                 self.elementContainers!.append(elementContainer)
                 
                 colorIndex++
@@ -105,12 +107,10 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
             }
         
         }
-    
-
-        self.scroll!.backgroundColor = UIColor.darkGrayColor()
         
         ypos += SharedUIManager.instance.categoriesHeaderHeight
-        scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
+//        scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
+        self.scroll!.scrollToStart()
         
     }
     
