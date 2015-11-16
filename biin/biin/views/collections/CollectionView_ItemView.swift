@@ -61,10 +61,10 @@ class CollectionView_ItemView: BNView {
         //self.layer.shadowOpacity = 0.25
         
         if self.isElement {
-            self.element = BNAppSharedManager.instance.dataManager.elements[element!._id!]
+            self.element = BNAppSharedManager.instance.dataManager.elements_by_id[element!._id!]
             
             if self.element!.media.count > 0 {
-                if let color = self.element!.media[0].domainColor {
+                if let color = self.element!.media[0].vibrantColor {
                     self.backgroundColor = color
                 } else {
                     self.backgroundColor = UIColor.appMainColor()
@@ -76,7 +76,7 @@ class CollectionView_ItemView: BNView {
         } else {
             self.site = BNAppSharedManager.instance.dataManager.sites[site!.identifier!]
             if self.site!.media.count > 0 {
-                if let color = self.site!.media[0].domainColor {
+                if let color = self.site!.media[0].vibrantColor {
                     self.backgroundColor = color
                 } else {
                     self.backgroundColor = UIColor.appMainColor()
@@ -132,11 +132,6 @@ class CollectionView_ItemView: BNView {
                 
                 //priceView = BNUIPricesView(frame: CGRectMake(-5, ypos, 100, 36), oldPrice: self.element!.listPrice!, newPrice: self.element!.price!)
                 //self.addSubview(priceView!)
-            }
-            
-            if self.element!.hasSticker {
-                stickerView = BNUIStickerView(frame:CGRectMake((SharedUIManager.instance.miniView_width - 55), (SharedUIManager.instance.miniView_headerHeight + 5), 50, 50), type:self.element!.sticker!.type, color:self.element!.sticker!.color! )
-                self.addSubview(stickerView!)
             }
         }
         
@@ -216,18 +211,22 @@ class CollectionView_ItemView: BNView {
 //        biinItButton!.showDisable()
 //    }
     
-    func shareit(sender:BNUIButton_ShareIt){
-        
-        if self.isElement {
-            //BNAppSharedManager.instance.shareIt(element!._id!)
-            BNAppSharedManager.instance.shareIt(element!._id!, isElement: true, shareView:nil)
-            element!.userShared = true
-            header!.updateSocialButtonsForElement(element!)
-        } else {
-            BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:nil)
-            site!.userShared = true
-        }
-    }
+//    func shareit(sender:BNUIButton_ShareIt){
+//        
+//        
+//        BNAppSharedManager.instance.shareElement(self.element, shareView: nil)
+//        
+//        
+//        if self.isElement {
+//            //BNAppSharedManager.instance.shareIt(element!._id!)
+//            BNAppSharedManager.instance.shareIt(element!._id!, isElement: true, shareView:nil)
+//            element!.userShared = true
+//            header!.updateSocialButtonsForElement(element!)
+//        } else {
+//            BNAppSharedManager.instance.shareIt(site!.identifier!, isElement: false, shareView:nil)
+//            site!.userShared = true
+//        }
+//    }
     
     func unBiinit(sender:BNUIButton_ShareIt){
         

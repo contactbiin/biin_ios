@@ -39,6 +39,7 @@ enum BNRequestType
     case Collections
     
     case ServerError
+    case InitialData
 }
 
 class BNRequest:NSObject {

@@ -147,8 +147,8 @@ class ElementMiniView: BNView {
         if showlocation {
             ypos += SharedUIManager.instance.miniView_titleSize + 2
             xpos = 5
-            weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
-            let titleText = site!.title!
+//            weak var site = self.element!.showcase!.site!.title!
+            let titleText = self.element!.showcase!.site!.title!//site!.title!
             let subtitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
             subtitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
             subtitle.textColor = textColor
@@ -160,7 +160,7 @@ class ElementMiniView: BNView {
             location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
             location!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
             location!.textColor = textColor
-            location!.text = " | \(site!.city!)"
+            location!.text = " | \(self.element!.showcase!.site!.city!)"
             self.header!.addSubview(location!)
             ypos += SharedUIManager.instance.miniView_subTittleSize + 2
             
@@ -280,6 +280,12 @@ class ElementMiniView: BNView {
             image!.image =  UIImage(named: "noImage.jpg")
             image!.showAfterDownload()
         }
+    }
+    
+    func unCollect(sender:BNUIButton_RemoveIt) {
+
+        self.element!.userCollected = false
+        BNAppSharedManager.instance.unCollectElement(self.element)
     }
     
     /* Gesture hadlers */

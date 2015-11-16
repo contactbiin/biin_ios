@@ -8,14 +8,11 @@ import UIKit
 
 class BNShowcase:NSObject {
 
-    //TODO: jsonUrl only for testing, remove later
-    var jsonUrl:String?
-    var isShowcaseGameCompleted = false
+    var _id:String?
     var identifier:String?
+    var isShowcaseGameCompleted = false
     var isRequestPending = true
     var lastUpdate:NSDate?
-    var startTime:NSDate?
-    var endTime:NSDate?
     
     //Context Variables
     var isDefault:Bool = false
@@ -25,15 +22,6 @@ class BNShowcase:NSObject {
     var title:String?
     var subTitle:String?
     
-    //Color
-    var titleColor:UIColor?
-    
-    //Type
-    var showcaseType = BNShowcaseType.SimpleProduct
-    
-    //Colour
-    var theme:BNShowcaseTheme?
-
     //Elements
     var elements:Array<BNElement> = Array<BNElement>()
     
@@ -49,12 +37,3 @@ class BNShowcase:NSObject {
     }
 }
 
-enum BNShowcaseTheme {
-    case Dark   //1
-    case Light  //2
-}
-
-enum BNShowcaseType {
-    case SimpleProduct      //1
-    case MultipleProduct    //2
-}

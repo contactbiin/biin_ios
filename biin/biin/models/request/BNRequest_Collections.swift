@@ -68,20 +68,20 @@ class BNRequest_Collections: BNRequest {
                                 }
                             }
                             
-                            let sites = BNParser.findNSArray("sites", dictionary: collectionData)
-                            
-                            if sites?.count > 0 {
-                                
-                                collection.sites = Dictionary<String, BNSite>()
-                                
-                                for ( var i = 0; i < sites?.count; i++ ) {
-                                    let siteData = sites!.objectAtIndex(i) as! NSDictionary
-                                    let site = BNSite()
-                                    site.identifier = BNParser.findString("identifier", dictionary: siteData)
-                                    collection.sites[site.identifier!] = site
-                                    collection.items.append(site.identifier!)
-                                }
-                            }
+//                            let sites = BNParser.findNSArray("sites", dictionary: collectionData)
+//                            
+//                            if sites?.count > 0 {
+//                                
+//                                collection.sites = Dictionary<String, BNSite>()
+//                                
+//                                for ( var i = 0; i < sites?.count; i++ ) {
+//                                    let siteData = sites!.objectAtIndex(i) as! NSDictionary
+//                                    let site = BNSite()
+//                                    site.identifier = BNParser.findString("identifier", dictionary: siteData)
+//                                    collection.sites[site.identifier!] = site
+//                                    collection.items.append(site.identifier!)
+//                                }
+//                            }
                             
                             collectionList.append(collection)
                         }

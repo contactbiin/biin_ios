@@ -62,6 +62,7 @@ class BNRequest_SendBiinieActions: BNRequest {
             
             if (error != nil) {
 
+                
                 self.networkManager!.handleFailedRequest(self, error: error )
                 //response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {

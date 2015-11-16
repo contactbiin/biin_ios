@@ -309,7 +309,7 @@ class HighlightView: BNView {
     
 
     func shareit(sender:BNUIButton_ShareIt){
-        BNAppSharedManager.instance.shareIt(self.element!._id!, isElement: true, shareView:self.shareView)
+        BNAppSharedManager.instance.shareElement(self.element, shareView: self.shareView)
     }
     
     func likeit(sender:BNUIButton_BiinIt){
@@ -321,7 +321,7 @@ class HighlightView: BNView {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
         }
 
-        BNAppSharedManager.instance.likeIt(self.element!._id!, isElement: true)
+        BNAppSharedManager.instance.likeElement(self.element)
         
         updateLikeItBtn()
     }
@@ -338,11 +338,14 @@ class HighlightView: BNView {
         updateCollectItBtn()
         animationView!.animate(self.element!.userCollected)
         
+        BNAppSharedManager.instance.collectElement(self.element)
+        
         if self.element!.userCollected {
-            BNAppSharedManager.instance.collectIt(self.element!._id!, isElement: true)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!)
         } else {
-            BNAppSharedManager.instance.unCollectit(self.element!._id!, isElement: true)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!)
         }
+        
     }
     
     func updateCollectItBtn(){

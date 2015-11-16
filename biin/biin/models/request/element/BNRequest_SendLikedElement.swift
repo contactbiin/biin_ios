@@ -15,7 +15,7 @@ class BNRequest_SendLikedElement: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, element:BNElement ){
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, element:BNElement? ){
         self.init()
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString

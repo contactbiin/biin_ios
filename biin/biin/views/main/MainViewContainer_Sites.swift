@@ -159,6 +159,12 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
         }
         
         sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
+
+        sitesArray = Array<BNSite>()
+        for (_, site) in BNAppSharedManager.instance.dataManager.sites {
+            sitesArray.append(site)
+        }
+        
         
         var xpos:CGFloat = 0
         let ypos:CGFloat = 1

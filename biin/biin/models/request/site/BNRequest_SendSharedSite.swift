@@ -15,7 +15,7 @@ class BNRequest_SendSharedSite: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite ){
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite? ){
         self.init()
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString

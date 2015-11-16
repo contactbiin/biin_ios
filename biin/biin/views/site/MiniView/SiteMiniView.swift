@@ -52,7 +52,7 @@ class SiteMiniView: BNView {
         self.site = site
         
         if site!.media.count > 0 {
-            if let color = site!.media[0].domainColor {
+            if let color = site!.media[0].vibrantColor {
                 self.backgroundColor = color
             } else {
                 self.backgroundColor = UIColor.appMainColor()
