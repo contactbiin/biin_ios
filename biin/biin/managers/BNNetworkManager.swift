@@ -475,7 +475,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
-        print("Request error: \(error!.code)")
+        print("Request error: \(error!.code) request: \(request.requestString)")
         
         switch request.requestType {
         case .None:
@@ -488,7 +488,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
             self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
             break
-        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Image, .Categories, .Organization, .Collections:
+        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Categories, .Organization, .Collections:
             
             if request.requestAttemps >= 3 {
                 request.requestAttemps = 0
@@ -498,6 +498,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 request.isRunning = false
                 request.run()
             }
+            
+            break
+        case .Image:
+            
+            request.isRunning = false
+            request.run()
             
             break
         case .ConnectivityCheck:

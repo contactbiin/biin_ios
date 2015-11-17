@@ -12,7 +12,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     var moreElementsBtn:UIButton?
     var title:UILabel?
     var subTitle:UILabel?
-    var scroll:UIScrollView?
+    var scroll:EPUIScrollView?
     //weak var biin:BNBiin?
     var showcase:BNShowcase?
     var category:BNCategory?
@@ -74,13 +74,15 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         self.addSubview(title!)
 
-        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + SharedUIManager.instance.miniView_headerHeight
-        scroll = UIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
-        scroll!.delegate = self
-        scroll!.showsHorizontalScrollIndicator = false
-        scroll!.showsVerticalScrollIndicator = false
-        scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.clearColor()
+        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height// + SharedUIManager.instance.miniView_headerHeight
+        
+        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), showRefreshControl: true)
+//        scroll = UIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
+        self.scroll!.scroll!.delegate = self
+//        scroll!.showsHorizontalScrollIndicator = false
+//        scroll!.showsVerticalScrollIndicator = false
+//        scroll!.scrollsToTop = false
+//        scroll!.backgroundColor = UIColor.clearColor()
         self.addSubview(scroll!)
         
         addedElementsIdentifiers = Dictionary<String, BNElement>()
@@ -179,7 +181,8 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
             
             elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
             //elementView.delegate = self
-            scroll!.addSubview(elementView)
+            self.scroll!.addChild(elementView)
+//            scroll!.addSubview(elementView)
             elements!.append(elementView)
             elementPosition++
             
@@ -194,8 +197,9 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
             //}
         }
         
-        scroll!.contentSize = CGSizeMake(xpos, 0)
-        scroll!.setContentOffset(CGPointZero, animated: false)
+        self.scroll!.setChildrenPosition()
+//        scroll!.contentSize = CGSizeMake(xpos, 0)
+//        scroll!.setContentOffset(CGPointZero, animated: false)
     }
     
     /* UIScrollViewDelegate Methods */

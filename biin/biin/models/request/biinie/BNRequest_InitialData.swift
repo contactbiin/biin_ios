@@ -72,7 +72,7 @@ class BNRequest_InitialData: BNRequest {
                                     for var i = 0; i < mediaArray?.count; i++ {
                                         let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                                         let url = BNParser.findString("url", dictionary:mediaData)
-                                        let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                                        let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
                                         let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
                                         let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
                                         let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
@@ -242,7 +242,7 @@ class BNRequest_InitialData: BNRequest {
                                     for var i = 0; i < mediaArray?.count; i++ {
                                         let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                                         let url = BNParser.findString("url", dictionary:mediaData)!
-                                        let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                                        let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
                                         let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                                         let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                                         let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
@@ -281,7 +281,7 @@ class BNRequest_InitialData: BNRequest {
                                                     let element = BNElement()
                                                     element._id = BNParser.findString("_id", dictionary: elementData)
                                                     element.identifier = BNParser.findString("identifier", dictionary: elementData)
-                                                    element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
+                                                    //element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
                                                     element.showcase = showcase
                                                     showcase.elements.append(element)
                                                 }
@@ -395,7 +395,7 @@ class BNRequest_InitialData: BNRequest {
                         
                         //Parse hightlights
                         print("HIGHLIGHTS ===============================")
-                        if let hightlightsData = BNParser.findNSArray("hightlights", dictionary: initialData) {
+                        if let hightlightsData = BNParser.findNSArray("highlights", dictionary: initialData) {
                         
                             var highlights = Array<BNElement>()
                             

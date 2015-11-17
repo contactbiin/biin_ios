@@ -110,7 +110,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         
         ypos += SharedUIManager.instance.categoriesHeaderHeight
 //        scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
-        self.scroll!.scrollToStart()
+        self.scroll!.setChildrenPosition()
         
     }
     

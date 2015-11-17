@@ -53,7 +53,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
 
         let scrollHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
         
-        self.scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "Request more sites", space: 1, extraSpace: 0, color: UIColor.redColor(), showRefreshControl: true)
+        self.scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "Download", space: 1, extraSpace: 0, color: UIColor.redColor(), showRefreshControl: true)
 //            EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
         self.scroll!.scroll!.delegate = self
 //        self.scroll!.scroll!.showsHorizontalScrollIndicator = false
@@ -201,7 +201,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
             }
         }
         
-        self.scroll!.scrollToStart()
+        self.scroll!.setChildrenPosition()
         
 //        scroll!.contentSize = CGSizeMake(xpos, 100)
 

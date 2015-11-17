@@ -49,7 +49,7 @@ class EPUIScrollView: UIView {
         self.scroll!.showsHorizontalScrollIndicator = false
         
         if showRefreshControl {
-            self.refreshControl = UIRefreshControl(frame: CGRectMake(0, 0, 0, frame.width))
+            self.refreshControl = UIRefreshControl(frame: CGRectMake(0, 0, 0, 0))
             self.refreshControl!.backgroundColor = UIColor.clearColor()
             self.refreshControl!.attributedTitle = NSAttributedString(string:text)
 
@@ -68,7 +68,7 @@ class EPUIScrollView: UIView {
         children.append(view)
     }
     
-    func scrollToStart(){
+    func setChildrenPosition(){
     
         if isHorizontal {
             
