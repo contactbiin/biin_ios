@@ -244,8 +244,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
         }
         
-        //let s1 = "\(rootURL)/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
-        let s1 = "https://dev-biin-backend.herokuapp.com/mobile/initialData"
+        let s1 = "\(rootURL)/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
+        //let s1 = "https://dev-biin-backend.herokuapp.com/mobile/initialData"
         
         let request = BNRequest_InitialData(requestString:s1, errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
