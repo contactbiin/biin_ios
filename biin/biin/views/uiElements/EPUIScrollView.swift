@@ -88,8 +88,6 @@ class EPUIScrollView: UIView {
             
             for view in self.children {
                 
-                print("view width: \(view.frame.width)")
-                
                 view.frame.origin.y = self.subViewPosition
                 self.subViewPosition += view.frame.height + space
                 self.scroll!.addSubview(view)
