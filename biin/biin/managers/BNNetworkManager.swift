@@ -244,7 +244,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
         }
         
-        let s1 = "https://dev-biin-backend.herokuapp.com/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
+        let s1 = "\(rootURL)/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
         //let s1 = "https://dev-biin-backend.herokuapp.com/mobile/initialData"
         
         let request = BNRequest_InitialData(requestString:s1, errorManager: self.errorManager!, networkManager: self)
@@ -476,6 +476,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
         print("Request error: \(error!.code) request: \(request.requestString)")
+        
+        
+        if error?.code == -1001 && request.requestType == .InitialData{
+            request.requestAttemps = 0
+            request.isRunning = false
+            self.errorManager!.showServerError()
+
+        }
+        
         
         switch request.requestType {
         case .None:
