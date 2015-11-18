@@ -115,7 +115,7 @@ GenderMale = "I'm a male";
 GenderFemale = "I'm a female";
 WhatAreYouInterest = "What are you interested in?";
 CategoriesMsj = "*** We have selected the most popular categories for you!";
-EnterYourBirthDate = "Enter your birthDate";
+EnterYourBirthDate = "Optional - Enter your birthDate";
 
 /* Showcase - Game View*/
 JoinUs = "Join us!";
