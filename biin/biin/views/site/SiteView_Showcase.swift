@@ -10,7 +10,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     
     var title:UILabel?
     var subTitle:UILabel?
-    var scroll:UIScrollView?
+    var scroll:EPUIScrollView?
     //weak var biin:BNBiin?
     weak var showcase:BNShowcase?
 
@@ -113,12 +113,9 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         
         //        var scrollYPos:CGFloat = SharedUIManager.instance.siteView_headerHeight + screenWidth
         let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
-        scroll = UIScrollView(frame: CGRectMake(0,  (SharedUIManager.instance.siteView_showcaseHeaderHeight - 1), screenWidth, scrollHeight))
-        scroll!.delegate = self
-        scroll!.showsHorizontalScrollIndicator = false
-        scroll!.showsVerticalScrollIndicator = false
-        scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.clearColor()
+        
+        //scroll = UIScrollView(frame: CGRectMake(0,  (SharedUIManager.instance.siteView_showcaseHeaderHeight - 1), screenWidth, scrollHeight))
+        scroll = EPUIScrollView(frame: CGRectMake(0,  (SharedUIManager.instance.siteView_showcaseHeaderHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: self)
         self.addSubview(scroll!)
     
         addElementViews()
@@ -240,7 +237,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
             }
             
             elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
-            scroll!.addSubview(elementView)
+            scroll!.addChild(elementView)
+//            scroll!.addSubview(elementView)
             elements!.append(elementView)
             elementPosition++
             
@@ -254,6 +252,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
             //}
         }
         
+        /*
         xpos += spacer
         
         if self.site!.organization!.isLoyaltyEnabled {
@@ -273,10 +272,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
                 gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
             }
         }
-        
-        scroll!.contentSize = CGSizeMake(xpos, 0)
-        scroll!.setContentOffset(CGPointZero, animated: false)
-        scroll!.pagingEnabled = false
+        */
+        scroll!.setChildrenPosition()
     }
     
     /* UIScrollViewDelegate Methods */
@@ -386,7 +383,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         if !isWorking { return }
         
         let width = SharedUIManager.instance.miniView_width + spacer
-        let column:Int = Int(floor(self.scroll!.contentOffset.x / width)) + 1
+        let column:Int = Int(floor(self.scroll!.scroll!.contentOffset.x / width)) + 1
         
 
         
@@ -399,7 +396,6 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
                 requestLimit = elements!.count - 1
                 isWorking = false //reach the limit of requests
             }
-            
 
             var i:Int = requestLimit
             var stop:Bool = false
@@ -421,7 +417,6 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     
     func clean(){
         
-        
         if elements?.count > 0 {
             
             for view in scroll!.subviews {
@@ -434,6 +429,18 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
             elements!.removeAll(keepCapacity: false)
         }
         
+    }
+    
+    override func refresh() {
+        
+    }
+    
+    override func request() {
+        
+    }
+    
+    override func requestCompleted() {
+        self.scroll!.requestCompleted()
     }
 }
 

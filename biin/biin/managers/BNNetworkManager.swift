@@ -411,6 +411,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     
     
+    func requestElementsForShowcase(manager: BNNetworkManager!, showcase: BNShowcase, scroll: BNView) {
+        
+        
+        
+    }
+    
     
     
     
@@ -496,7 +502,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
             self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
             break
-        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Categories, .Organization, .Collections:
+        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Categories, .Organization, .Collections, .ElementsForShowcase:
             
             if request.requestAttemps >= 3 {
                 request.requestAttemps = 0
@@ -574,6 +580,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 }
 
 @objc protocol BNNetworkManagerDelegate:NSObjectProtocol {
+    
     
     optional func manager(manager:BNNetworkManager!, didReceivedLoginValidation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)

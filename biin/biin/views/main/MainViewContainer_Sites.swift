@@ -53,13 +53,14 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
 
         let scrollHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
         
-        self.scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "Download", space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), showRefreshControl: true)
+//        self.scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "", space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), showRefreshControl: true)
 //            EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
-        self.scroll!.scroll!.delegate = self
+//        self.scroll!.scroll!.delegate = self
 //        self.scroll!.scroll!.showsHorizontalScrollIndicator = false
 //        self.scroll!.scroll!.showsVerticalScrollIndicator = false
 //        self.scroll!.scroll!.scrollsToTop = false
 //        self.scroll!.scroll!.backgroundColor = UIColor.clearColor()
+        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: self)
         self.addSubview(self.scroll!)
         
         sites = Array<SiteMiniView>()

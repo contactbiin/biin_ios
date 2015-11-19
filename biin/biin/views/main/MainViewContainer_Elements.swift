@@ -76,13 +76,9 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
 
         let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height// + SharedUIManager.instance.miniView_headerHeight
         
-        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), showRefreshControl: true)
-//        scroll = UIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
-        self.scroll!.scroll!.delegate = self
-//        scroll!.showsHorizontalScrollIndicator = false
-//        scroll!.showsVerticalScrollIndicator = false
-//        scroll!.scrollsToTop = false
-//        scroll!.backgroundColor = UIColor.clearColor()
+//        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), showRefreshControl: true)
+
+        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: self)
         self.addSubview(scroll!)
         
         addedElementsIdentifiers = Dictionary<String, BNElement>()

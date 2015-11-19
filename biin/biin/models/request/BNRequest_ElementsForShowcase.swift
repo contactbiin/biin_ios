@@ -1,12 +1,13 @@
-//  BNRequest_Showcase.swift
+//  BNRequest_ElementsForShowcase.swift
 //  biin
-//  Created by Alison Padilla on 9/3/15.
-//  Copyright (c) 2015 Esteban Padilla. All rights reserved.
+//  Created by Esteban Padilla on 11/19/15.
+//  Copyright © 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class BNRequest_Showcase: BNRequest {
+class BNRequest_ElementsForShowcase: BNRequest {
+
     override init(){
         super.init()
     }
@@ -15,17 +16,18 @@ class BNRequest_Showcase: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, showcase:BNShowcase, user:Biinie) {
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, showcase:BNShowcase, user:Biinie, view:BNView) {
         
         self.init()
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.Showcase
+        self.requestType = BNRequestType.ElementsForShowcase
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.user  = user
         self.showcase = showcase
+        self.view = view
     }
     
     override func run() {
@@ -38,7 +40,7 @@ class BNRequest_Showcase: BNRequest {
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-
+                
                 self.networkManager!.handleFailedRequest(self, error: error)
             } else {
                 
@@ -48,6 +50,9 @@ class BNRequest_Showcase: BNRequest {
                     let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
+                        
+                        //Parse showcase element list.
+                        
                         self.showcase!.identifier = BNParser.findString("identifier", dictionary: showcaseData)
                         self.showcase!.lastUpdate = BNParser.findNSDate("lastUpdate", dictionary: showcaseData)
                         self.showcase!.title = BNParser.findString("title", dictionary: showcaseData)
@@ -68,13 +73,14 @@ class BNRequest_Showcase: BNRequest {
                         }
                         
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedShowcase: self.showcase!)
-                 
+                        
                     }
                 }
                 
                 let end = NSDate()
                 let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                print("BNRequest_Showcase [\(timeInterval)] - \(self.requestString)")
+                print("BNRequest_ElementsForShowcase [\(timeInterval)] - \(self.requestString)")
+                
                 
                 
                 self.inCompleted = true

@@ -959,6 +959,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 @objc protocol BNDataManagerDelegate:NSObjectProtocol {
     
     
+    
+    //Request on demand
+    optional func requestElementsForShowcase(manager:BNNetworkManager!, showcase:BNShowcase, scroll:BNView)
+    
+
+    
+    
+    
     ///Request initialdata to display on app
     ///
     ///- parameter BNDataManager: that store all data.

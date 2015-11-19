@@ -35,9 +35,7 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
 
-        scroll = EPUIScrollView(frame:CGRectMake(0, 0, screenWidth, (screenHeight - 20)), isHorizontal:false, text:"Pull to refresh", space:0, extraSpace:45, color:UIColor.darkGrayColor(), showRefreshControl:true)
-        scroll!.scroll!.backgroundColor = UIColor.clearColor()
-        scroll!.scroll!.delegate = self
+        scroll = EPUIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father:self, direction: EPUIScrollView_Direction.VERTICAL, refreshControl_Position: UIRefreshControl_Position.NONE, text: "", space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate:self)
         self.addSubview(scroll!)
         
         inSiteView = InSiteView(frame: CGRectMake(0, (screenHeight - 20), screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)

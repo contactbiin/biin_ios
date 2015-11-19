@@ -37,6 +37,8 @@ class BNView:UIView {
     func updateUserControl(position:CGPoint){ }
     func changeJoinBtnText(text:String){ }
     func refresh(){}
+    func request(){}
+    func requestCompleted() {}
     
     //Social functions
     func awareBtnAction() { }
