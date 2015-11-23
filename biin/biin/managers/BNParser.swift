@@ -50,8 +50,14 @@ class BNParser {
     }
     
     class func findNSDate(name:String, dictionary:NSDictionary) ->NSDate? {
-        let date:NSDate? = NSDate(dateString:(dictionary[name] as? String)!)
-        return date
+         let value = dictionary[name] as? String
+        
+        if value != "nil" {
+            let date:NSDate? = NSDate(dateString:value!)
+            return date
+        } else  {
+            return nil
+        }
     }
     
     class func findBNBiinType(name:String, dictionary:NSDictionary) -> BNBiinType {

@@ -40,7 +40,9 @@ class BNRequest_SendBiinie:BNRequest {
         modelContent["lastName"] = self.user!.lastName!
         modelContent["email"] = self.user!.email!
         modelContent["gender"] = self.user!.gender!
-        modelContent["birthDate"] = self.user!.birthDate!.bnDateFormatt()
+        if self.user!.birthDate != nil {
+            modelContent["birthDate"] = self.user!.birthDate!.bnDateFormatt()
+        }
         model["model"] = modelContent
         
         //var httpError: NSError?

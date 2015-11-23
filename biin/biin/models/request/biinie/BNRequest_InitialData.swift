@@ -31,7 +31,6 @@ class BNRequest_InitialData: BNRequest {
     
     override func run() {
         
-        
         self.start = NSDate()
         
         isRunning = true
@@ -43,22 +42,16 @@ class BNRequest_InitialData: BNRequest {
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
-                //var response:BNResponse?
-                
                 if let initialData = data["data"] as? NSDictionary {
                     
-
                     let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
                         
-                        print("ORGANIZATIONS ===============================")
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
                             
                             for var i = 0; i < organizationsData.count; i++ {
                                 if let organizationData = organizationsData.objectAtIndex(i) as? NSDictionary {
-                                    
-                                    print(BNParser.findString("name", dictionary: organizationData)!)
                                     
                                     let organization = BNOrganization()
                                     organization.identifier = BNParser.findString("identifier", dictionary: organizationData)
@@ -72,7 +65,7 @@ class BNRequest_InitialData: BNRequest {
                                     for var i = 0; i < mediaArray?.count; i++ {
                                         let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                                         let url = BNParser.findString("url", dictionary:mediaData)
-                                        let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                                        let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
                                         let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
                                         let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
                                         let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
@@ -98,11 +91,9 @@ class BNRequest_InitialData: BNRequest {
                         }
                         
                         //Parse elements
-                        print("ELEMENTS ===============================")
                         if let elementsData = BNParser.findNSArray("elements", dictionary: initialData) {
                             for var i = 0; i < elementsData.count; i++ {
                                 let elementData = elementsData.objectAtIndex(i) as! NSDictionary
-                                print("element: \(BNParser.findString("identifier", dictionary: elementData)!)")
                                 
                                 let element = BNElement()
                                 element.isDownloadCompleted = true
@@ -194,13 +185,11 @@ class BNRequest_InitialData: BNRequest {
                             }
                         }
                         
-                        print("SITES ===============================")
                         if let sitesData = BNParser.findNSArray("sites", dictionary: initialData) {
                         
                             for var i = 0; i < sitesData.count; i++ {
                                 if let siteData = sitesData.objectAtIndex(i) as? NSDictionary {
                                     
-                                    print(BNParser.findString("title", dictionary: siteData)!)
                                     let site = BNSite()
                                     site.identifier = BNParser.findString("identifier", dictionary: siteData)
                                     site.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: siteData)
@@ -242,7 +231,7 @@ class BNRequest_InitialData: BNRequest {
                                     for var i = 0; i < mediaArray?.count; i++ {
                                         let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                                         let url = BNParser.findString("url", dictionary:mediaData)!
-                                        let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                                        let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
                                         let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
                                         let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
                                         let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
@@ -265,13 +254,13 @@ class BNRequest_InitialData: BNRequest {
                                         
                                         for var i = 0; i < showcases.count; i++ {
                                             if let showcaseData = showcases.objectAtIndex(i) as? NSDictionary {
-                                                print("showcase in site: \(BNParser.findString("identifier", dictionary: showcaseData)!)")
                                                 
                                                 let showcase = BNShowcase()
                                                 showcase._id = BNParser.findString("_id", dictionary: showcaseData)
                                                 showcase.identifier = BNParser.findString("identifier", dictionary: showcaseData)
                                                 showcase.title = BNParser.findString("title", dictionary: showcaseData)
                                                 showcase.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
+                                                showcase.elements_quantity = BNParser.findInt("elements_quantity", dictionary: showcaseData)!
                                                 
                                                 let elements = BNParser.findNSArray("elements", dictionary: showcaseData)
                                                 
@@ -281,7 +270,7 @@ class BNRequest_InitialData: BNRequest {
                                                     let element = BNElement()
                                                     element._id = BNParser.findString("_id", dictionary: elementData)
                                                     element.identifier = BNParser.findString("identifier", dictionary: elementData)
-                                                    element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
+                                                    //element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
                                                     element.showcase = showcase
                                                     showcase.elements.append(element)
                                                 }
@@ -363,7 +352,6 @@ class BNRequest_InitialData: BNRequest {
                         }
                         
                         //Parse categories
-                        print("CATEGORIES ===============================")
                         var categories = Array<BNCategory>()
                         if let categoriesData = BNParser.findNSArray("categories", dictionary: initialData) {
                         
@@ -372,8 +360,6 @@ class BNRequest_InitialData: BNRequest {
                                 let categoryData = categoriesData.objectAtIndex(i) as! NSDictionary
                                 let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
 
-                                print("category: \(category.identifier!)")
-
                                 let elements = BNParser.findNSArray("elements", dictionary: categoryData)
                                 
                                 for var j = 0; j < elements?.count; j++ {
@@ -381,9 +367,7 @@ class BNRequest_InitialData: BNRequest {
                                     let elementData = elements!.objectAtIndex(j) as! NSDictionary
                                     
                                     if let element_id = BNParser.findString("_id", dictionary: elementData) {
-                                        print("element in category: \(element_id)")
                                         category.elements[element_id] = BNAppSharedManager.instance.dataManager.elements_by_id[element_id]
-
                                     }
                                 }
                                 
@@ -394,8 +378,7 @@ class BNRequest_InitialData: BNRequest {
                         }
                         
                         //Parse hightlights
-                        print("HIGHLIGHTS ===============================")
-                        if let hightlightsData = BNParser.findNSArray("hightlights", dictionary: initialData) {
+                        if let hightlightsData = BNParser.findNSArray("highlights", dictionary: initialData) {
                         
                             var highlights = Array<BNElement>()
                             
@@ -404,7 +387,6 @@ class BNRequest_InitialData: BNRequest {
                                 let hightlightData = hightlightsData.objectAtIndex(i) as! NSDictionary
                                 
                                 if let element_id = BNParser.findString("_id", dictionary: hightlightData) {
-                                    print("element in highlights \(element_id)")
                                     highlights.append(BNAppSharedManager.instance.dataManager.elements_by_id[element_id]!)
                                 }
                             }
@@ -416,7 +398,7 @@ class BNRequest_InitialData: BNRequest {
                     
                     let end = NSDate()
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                    print("BNRequest_InitialData [\(timeInterval)] - \(self.requestString)")
+                    print("BNRequest_InitialData  \(timeInterval)  - \(self.requestString)")
 
                     self.inCompleted = true
                     self.networkManager!.removeFromQueue(self)

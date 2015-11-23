@@ -52,6 +52,8 @@ class BNRequest_Showcase: BNRequest {
                         self.showcase!.lastUpdate = BNParser.findNSDate("lastUpdate", dictionary: showcaseData)
                         self.showcase!.title = BNParser.findString("title", dictionary: showcaseData)
                         self.showcase!.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
+                        self.showcase!.elements_quantity = BNParser.findInt("elements_quantity", dictionary: showcaseData)!
+                        
                         let elements = BNParser.findNSArray("elements", dictionary: showcaseData)
                         
                         for var i = 0; i < elements?.count; i++ {

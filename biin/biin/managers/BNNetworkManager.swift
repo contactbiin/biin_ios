@@ -172,7 +172,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     @param user:Biinie data.
     */
     func register(user:Biinie) {
-        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(user.birthDate!.bnDateFormattForActions())", errorManager: self.errorManager!, networkManager: self)
+        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(user.birthDate?.bnDateFormattForActions())", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -244,7 +244,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
         }
         
-        let request = BNRequest_InitialData(requestString:"https://dev-biin-backend.herokuapp.com/mobile/initialData", errorManager: self.errorManager!, networkManager: self)
+        let s1 = "\(rootURL)/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
+        //let s1 = "https://dev-biin-backend.herokuapp.com/mobile/initialData"
+        
+        let request = BNRequest_InitialData(requestString:s1, errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -408,6 +411,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     
     
+    func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
+        
+        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForShowcase/\(showcase!.site!.identifier!)/\(showcase!.identifier!)/\(showcase!.batch)"
+        
+        //let url = "https://dev-biin-backend.herokuapp.com/mobile/nextElementsInShowcaseTemp"
+        let request = BNRequest_ElementsForShowcase(requestString: url, errorManager: self.errorManager!, networkManager: self, showcase: showcase, user:BNAppSharedManager.instance.dataManager.bnUser , view: view)
+        addToQueue(request)
+    }
+    
     
     
     
@@ -472,7 +484,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
-        print("Request error: \(error!.code)")
+        print("Request error: \(error!.code) request: \(request.requestString)")
+        
+        
+        if error?.code == -1001 && request.requestType == .InitialData{
+            request.requestAttemps = 0
+            request.isRunning = false
+            self.errorManager!.showServerError()
+
+        }
         
         switch request.requestType {
         case .None:
@@ -485,7 +505,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
             self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
             break
-        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Image, .Categories, .Organization, .Collections:
+        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Categories, .Organization, .Collections, .ElementsForShowcase:
             
             if request.requestAttemps >= 3 {
                 request.requestAttemps = 0
@@ -495,6 +515,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 request.isRunning = false
                 request.run()
             }
+            
+            break
+        case .Image:
+            
+            request.isRunning = false
+            request.run()
             
             break
         case .ConnectivityCheck:
@@ -557,6 +583,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 }
 
 @objc protocol BNNetworkManagerDelegate:NSObjectProtocol {
+    
     
     optional func manager(manager:BNNetworkManager!, didReceivedLoginValidation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)

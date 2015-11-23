@@ -148,7 +148,6 @@ class AllSitesView: BNView {
         /*
         var sitesArray:Array<BNSite> = Array<BNSite>()
 
-        
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             if category.hasSites {
                 for var i = 0; i < category.sitesDetails.count; i++ {

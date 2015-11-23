@@ -12,6 +12,7 @@ class BNView:UIView {
     var sectionKey:String = ""
     var showcaseKey:String = ""
     var state:BNState?
+    var isAddedToScroll = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +38,8 @@ class BNView:UIView {
     func updateUserControl(position:CGPoint){ }
     func changeJoinBtnText(text:String){ }
     func refresh(){}
+    func request(){}
+    func requestCompleted() {}
     
     //Social functions
     func awareBtnAction() { }
