@@ -40,6 +40,7 @@ enum BNRequestType
     
     case ServerError
     case InitialData
+    case ElementsForShowcase
 }
 
 class BNRequest:NSObject {
@@ -59,6 +60,7 @@ class BNRequest:NSObject {
     weak var site:BNSite?
     weak var user:Biinie?
     weak var image:BNUIImageView?
+    weak var view:BNView?
     
     var points:Int = 0
     var categories:Dictionary<String, String>?

@@ -297,12 +297,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         //ypos += (50 + 10)
         
-        if site!.media.count > 0 {
+        if site!.media.count > 0 && site!.organization!.media.count > 0{
             closeBtn!.icon!.color = site!.media[0].vibrantColor!
             closeBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
             closeBtn!.setNeedsDisplay()
+
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
             siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
+
         } else {
             closeBtn!.icon!.color = UIColor.blackColor()
             closeBtn!.layer.borderColor = UIColor.blackColor().CGColor

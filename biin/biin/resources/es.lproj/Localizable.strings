@@ -105,13 +105,13 @@ Lastname = "Apellido";
 Username = "Nombre de usuario";
 Email = "Correo";
 IsEmailVerified = "Correo verificado?";
-Birthdate = "Fecha de nacimiento";
+Birthdate = "Fecha de nacimiento.";
 Gender = "Yo soy ...";
 GenderMale = "Soy hombre";
 GenderFemale = "Soy mujer";
 WhatAreYouInterest = "Qué te interesa?";
 CategoriesMsj = "*** Hemos pre-seleccionado algunas categorías para vos!";
-EnterYourBirthDate = "Fecha de nacimiento";
+EnterYourBirthDate = "Opcional - Fecha de nacimiento";
 
 /* Showcase - Game View*/
 JoinUs = "Uníte!";

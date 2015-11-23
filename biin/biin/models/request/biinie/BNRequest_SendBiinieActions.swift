@@ -86,7 +86,8 @@ class BNRequest_SendBiinieActions: BNRequest {
                 
                 
                 BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
-
+                BNAppSharedManager.instance.dataManager.bnUser!.save()
+                
 //                }
                 
                 self.inCompleted = true

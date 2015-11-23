@@ -811,15 +811,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             //Check if element exist.
             if elements_by_id[element._id!] == nil {
                 
-                //Checks if element received is reference on element and clone it self.
-                
-                for (identifier, element_by_identifier) in elements_by_identifier {
-                    if identifier == element.identifier! {
-                        
-                        elements_by_id[element._id!] = element_by_identifier.clone()
-                        elements_by_id[element._id!]!._id = element._id
-                        elements_by_id[element._id!]!.showcase = element.showcase
+                //Checks if element received is already on elements_by_identifier list.
+                if elements_by_identifier[element.identifier!] != nil {
+                    //Checks if element received is reference on element and clone it self.
+                    for (identifier, element_by_identifier) in elements_by_identifier {
+                        if identifier == element.identifier! {
+                            
+                            elements_by_id[element._id!] = element_by_identifier.clone()
+                            elements_by_id[element._id!]!._id = element._id
+                            elements_by_id[element._id!]!.showcase = element.showcase
+                        }
                     }
+                } else {
+                    elements_by_identifier[element.identifier!] = element
+                    elements_by_id[element._id!] = element.clone()
+                    elements_by_id[element._id!]!._id = element._id
+                    elements_by_id[element._id!]!.showcase = element.showcase
                 }
             }
         }
@@ -837,6 +844,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             elements_by_identifier[element.identifier!] = element
         }
     }
+
     
     func receivedHightlight(highlights:Array<BNElement>) {
 
@@ -953,10 +961,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 clone.userViewed = element!.userViewed
             }
         }
-    }    
+    }
+    
+    func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
+        delegateNM!.requestElementsForShowcase!(showcase, view: view)
+    }
 }
 
 @objc protocol BNDataManagerDelegate:NSObjectProtocol {
+    
+    
+    
+    //Request on demand
+    optional func requestElementsForShowcase(showcase:BNShowcase?, view:BNView?)
+    
+
+    
     
     
     ///Request initialdata to display on app

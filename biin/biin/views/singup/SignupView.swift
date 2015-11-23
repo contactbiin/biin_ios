@@ -98,6 +98,8 @@ class SignupView:UIView, UITextFieldDelegate {
         ypos += (1 + genderTxt!.frame.height)
         birthDateTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate"))
         birthDateTxt!.textField!.delegate = self
+        birthDateTxt!.backgroundColor = UIColor.bnGrayLight()
+        birthDateTxt!.point!.backgroundColor = UIColor.bnGrayLight()
 
         birthDateTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         birthDateTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
@@ -176,8 +178,7 @@ class SignupView:UIView, UITextFieldDelegate {
         if firstNameTxt!.isValid() &&
            lastNameTxt!.isValid() &&
             emailTxt!.isValid() &&
-            passwordTxt!.isValid() &&
-            birthDateTxt!.isValid() {
+            passwordTxt!.isValid() {
                 
             if genderStr!.isEmpty {
                 genderTxt!.showError()

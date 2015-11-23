@@ -12,14 +12,14 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     var moreElementsBtn:UIButton?
     var title:UILabel?
     var subTitle:UILabel?
-    var scroll:UIScrollView?
+    var scroll:EPUIScrollView?
     //weak var biin:BNBiin?
     var showcase:BNShowcase?
     var category:BNCategory?
     
     var isWorking = true
     var spacer:CGFloat = 1
-    var elements:Array<ElementMiniView>?
+//    var elements:Array<ElementMiniView>?
     var addedElementsIdentifiers:Dictionary<String, BNElement>?
 
     override init(frame: CGRect) {
@@ -74,13 +74,11 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         self.addSubview(title!)
 
-        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + SharedUIManager.instance.miniView_headerHeight
-        scroll = UIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight))
-        scroll!.delegate = self
-        scroll!.showsHorizontalScrollIndicator = false
-        scroll!.showsVerticalScrollIndicator = false
-        scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.clearColor()
+        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height// + SharedUIManager.instance.miniView_headerHeight
+        
+//        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), showRefreshControl: true)
+
+        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: self)
         self.addSubview(scroll!)
         
         addedElementsIdentifiers = Dictionary<String, BNElement>()
@@ -152,7 +150,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         var elementPosition:Int = 1
         var xpos:CGFloat = 0
         var elementsViewed = 0
-        elements = Array<ElementMiniView>()
+        var elements = Array<ElementMiniView>()
         
         var elementView_width:CGFloat = 0
         
@@ -179,8 +177,9 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
             
             elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
             //elementView.delegate = self
-            scroll!.addSubview(elementView)
-            elements!.append(elementView)
+//            self.scroll!.addChild(elementView)
+//            scroll!.addSubview(elementView)
+            elements.append(elementView)
             elementPosition++
             
             
@@ -194,8 +193,10 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
             //}
         }
         
-        scroll!.contentSize = CGSizeMake(xpos, 0)
-        scroll!.setContentOffset(CGPointZero, animated: false)
+        self.scroll!.addMoreChildren(elements)
+//        self.scroll!.setChildrenPosition()
+//        scroll!.contentSize = CGSizeMake(xpos, 0)
+//        scroll!.setContentOffset(CGPointZero, animated: false)
     }
     
     /* UIScrollViewDelegate Methods */
@@ -267,20 +268,21 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         
         //clean()
-        if elements?.count > 0 {
-        
-            
-            for elementView in elements! {
-                elementView.removeFromSuperview()
-                elementView.clean()
-            }
-            
-            
-            elements!.removeAll(keepCapacity: false)
-            elements = nil
-            addedElementsIdentifiers!.removeAll(keepCapacity: false)
-            addedElementsIdentifiers = nil
-        }
+//        if elements?.count > 0 {
+//        
+//            
+//            for elementView in elements! {
+//                elementView.removeFromSuperview()
+//                elementView.clean()
+//            }
+//            
+//            
+//            elements!.removeAll(keepCapacity: false)
+//            elements = nil
+//            addedElementsIdentifiers!.removeAll(keepCapacity: false)
+//            addedElementsIdentifiers = nil
+//        }
+        self.scroll!.clean()
         
         delegate = nil
         moreElementsBtn?.removeFromSuperview()
