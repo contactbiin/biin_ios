@@ -20,7 +20,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     var lastColumnRequested:Int = 0
     var elementRequestPreviousLimit:Int = 0
     
-    var elements:Array<ElementMiniView>?
+    //var elements:Array<ElementMiniView>?
     var gameView:SiteView_Showcase_Game?
     var joinView:SiteView_Showcase_Join?
     
@@ -142,24 +142,6 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-
-        
-        //clean()
-        if elements?.count > 0 {
-            
-            for view in scroll!.subviews {
-                
-                if view is ElementMiniView {
-                    (view as! ElementMiniView).removeFromSuperview()
-                }
-            }
-            
-            //            for view in showcases! {
-            //                view.removeFromSuperview()
-            //            }
-            //
-            elements!.removeAll(keepCapacity: false)
-        }
         
     }
     
@@ -204,76 +186,98 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     
     func addElementViews(){
         
-        var elementPosition:Int = 1
-        var xpos:CGFloat = 0
-        var elementsViewed = 0
-        elements = Array<ElementMiniView>()
+        if showcase!.elements.count > 0 {
         
-        var elementView_width:CGFloat = 0
-        
-        if showcase!.elements.count == 1 {
-            elementView_width = SharedUIManager.instance.screenWidth
-        } else if showcase!.elements.count == 2 {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
-        } else if showcase!.elements.count == 3 {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.75)
-        } else {
-            elementView_width = SharedUIManager.instance.miniView_width
-        }
-        
-        if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
-            isLoyaltyEnabled = true
-        }
-        
-        for element in showcase!.elements {
             
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
-                elementView.isElementMiniViewInSite = true
+            var elementPosition:Int = 1
+            var xpos:CGFloat = 0
+            var elementsViewed = 0
             
-            if element != showcase!.elements.last {
-                xpos += elementView_width + spacer
-            } else  {
-                xpos += (elementView_width - 1)
+            
+            var elementView_width:CGFloat = 0
+            
+            if showcase!.elements.count == 1 {
+                elementView_width = SharedUIManager.instance.screenWidth
+            } else if showcase!.elements.count == 2 {
+                elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+            } else if showcase!.elements.count == 3 {
+                elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.75)
+            } else {
+                elementView_width = SharedUIManager.instance.miniView_width
             }
             
-            elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
-            scroll!.addChild(elementView)
-//            scroll!.addSubview(elementView)
-            elements!.append(elementView)
-            elementPosition++
+            if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
+                isLoyaltyEnabled = true
+            }
             
+            var elements = Array<ElementMiniView>()
 
-            if element.userViewed {
-                elementsViewed++
+            
+            for element in showcase!.elements {
+
+                if !isAddedToScroll(element._id!) {
+                
+                    let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
+                        elementView.isElementMiniViewInSite = true
+                    
+                    if element != showcase!.elements.last {
+                        xpos += elementView_width + spacer
+                    } else  {
+                        xpos += (elementView_width - 1)
+                    }
+                    
+                    elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
+                    elements.append(elementView)
+                    elementPosition++
+                    
+                    if element.userViewed {
+                        elementsViewed++
+                    }
+                    
+                    //if elementPosition < 4 {
+                        elementView.requestImage()
+                    //}
+                }
             }
             
-            //if elementPosition < 4 {
-                elementView.requestImage()
-            //}
-        }
-        
-        /*
-        xpos += spacer
-        
-        if self.site!.organization!.isLoyaltyEnabled {
-            if self.site!.organization!.loyalty!.isSubscribed {
-                //Add game view
-                gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
-                scroll!.addSubview(gameView!)
-                xpos += SharedUIManager.instance.screenWidth
-            } else  {
-                joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!)
-                scroll!.addSubview(joinView!)
-                xpos += SharedUIManager.instance.screenWidth
+            scroll!.addMoreChildren(elements)
+            
+            if showcase!.elements_quantity <= scroll!.children.count {
+                scroll!.disableRefreshControl()
             }
             
-            if !self.showcase!.isShowcaseGameCompleted {
-                let of = NSLocalizedString("Of", comment: "Of")
-                gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
+            /*
+            xpos += spacer
+            
+            if self.site!.organization!.isLoyaltyEnabled {
+                if self.site!.organization!.loyalty!.isSubscribed {
+                    //Add game view
+                    gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
+                    scroll!.addSubview(gameView!)
+                    xpos += SharedUIManager.instance.screenWidth
+                } else  {
+                    joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, spacer, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height), father: self, showcase: showcase!)
+                    scroll!.addSubview(joinView!)
+                    xpos += SharedUIManager.instance.screenWidth
+                }
+                
+                if !self.showcase!.isShowcaseGameCompleted {
+                    let of = NSLocalizedString("Of", comment: "Of")
+                    gameView!.updateYouSeenLbl("\(elementsViewed) \(of) \(self.elements!.count)")
+                }
+            }
+            */
+            //scroll!.setChildrenPosition()
+        }
+    }
+    
+    func isAddedToScroll(_id:String) ->Bool {
+        for view in scroll!.children {
+            if (view as! ElementMiniView).element!._id == _id {
+                return true
             }
         }
-        */
-        scroll!.setChildrenPosition()
+        return false
     }
     
     /* UIScrollViewDelegate Methods */
@@ -303,7 +307,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }// called on finger up as we are moving
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        
+        /*
         if isLoyaltyEnabled {
             
             if showcase!.isShowcaseGameCompleted {
@@ -344,6 +348,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
                 }
             }
         }
+*/
     }// called when scroll view grinds to a halt
     
     func updatePointCounter() {
@@ -380,6 +385,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     
     func manageElementMiniViewImageRequest(){
         
+        /*
         if !isWorking { return }
         
         let width = SharedUIManager.instance.miniView_width + spacer
@@ -413,33 +419,20 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
             
             elementRequestPreviousLimit = requestLimit + 1
         }
+*/
     }
     
     func clean(){
-        
-        if elements?.count > 0 {
-            
-            for view in scroll!.subviews {
-                
-                if view is ElementMiniView {
-                    (view as! ElementMiniView).removeFromSuperview()
-                }
-            }
-            
-            elements!.removeAll(keepCapacity: false)
-        }
-        
-    }
-    
-    override func refresh() {
-        
+        self.scroll!.clean()
     }
     
     override func request() {
-        
+        self.showcase!.batch++
+        BNAppSharedManager.instance.dataManager.requestElementsForShowcase(self.showcase, view: self)
     }
     
     override func requestCompleted() {
+        self.addElementViews()
         self.scroll!.requestCompleted()
     }
 }

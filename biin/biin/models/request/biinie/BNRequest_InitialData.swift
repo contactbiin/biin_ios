@@ -260,7 +260,7 @@ class BNRequest_InitialData: BNRequest {
                                                 showcase.identifier = BNParser.findString("identifier", dictionary: showcaseData)
                                                 showcase.title = BNParser.findString("title", dictionary: showcaseData)
                                                 showcase.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
-                                                //showcase.elements_quantity = BNParser.findInt("elements_quantity", dictionary: showcaseData)!
+                                                showcase.elements_quantity = BNParser.findInt("elements_quantity", dictionary: showcaseData)!
                                                 
                                                 let elements = BNParser.findNSArray("elements", dictionary: showcaseData)
                                                 

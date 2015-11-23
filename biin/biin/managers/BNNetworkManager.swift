@@ -411,10 +411,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
     
     
-    func requestElementsForShowcase(manager: BNNetworkManager!, showcase: BNShowcase, scroll: BNView) {
+    func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
         
+        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForShowcase/\(showcase!.site!.identifier!)/\(showcase!.identifier!)/\(showcase!.batch)"
         
-        
+        //let url = "https://dev-biin-backend.herokuapp.com/mobile/nextElementsInShowcaseTemp"
+        let request = BNRequest_ElementsForShowcase(requestString: url, errorManager: self.errorManager!, networkManager: self, showcase: showcase, user:BNAppSharedManager.instance.dataManager.bnUser , view: view)
+        addToQueue(request)
     }
     
     

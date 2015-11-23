@@ -226,6 +226,7 @@
 		5BA0B7961A686AF400DBEB74 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B7951A686AF400DBEB74 /* LoadingView.swift */; };
 		5BA0B7991A686B4600DBEB74 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */; };
 		5BA0D83F1AAA46F7003ABC48 /* NotificationsView_Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA0D83E1AAA46F7003ABC48 /* NotificationsView_Notification.swift */; };
+		5BA18A371C03AAB700CCB463 /* BNRequest_ElementsForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA18A361C03AAB700CCB463 /* BNRequest_ElementsForCategory.swift */; };
 		5BA46FAB1A83F90B006C685D /* BNUIStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA46FAA1A83F90B006C685D /* BNUIStickerView.swift */; };
 		5BA46FAD1A84074E006C685D /* BNUIDiscountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */; };
 		5BA46FAF1A840776006C685D /* BNUIPricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA46FAE1A840776006C685D /* BNUIPricesView.swift */; };
@@ -581,6 +582,7 @@
 		5BA0B7951A686AF400DBEB74 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		5BA0D83E1AAA46F7003ABC48 /* NotificationsView_Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsView_Notification.swift; sourceTree = "<group>"; };
+		5BA18A361C03AAB700CCB463 /* BNRequest_ElementsForCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_ElementsForCategory.swift; sourceTree = "<group>"; };
 		5BA46FAA1A83F90B006C685D /* BNUIStickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIStickerView.swift; sourceTree = "<group>"; };
 		5BA46FAC1A84074E006C685D /* BNUIDiscountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDiscountView.swift; sourceTree = "<group>"; };
 		5BA46FAE1A840776006C685D /* BNUIPricesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIPricesView.swift; sourceTree = "<group>"; };
@@ -1341,6 +1343,7 @@
 				5BEE97A91BAC53BB004C2B30 /* BNRequest_Organization.swift */,
 				5BEE97AA1BAC53BB004C2B30 /* BNRequest_Showcase.swift */,
 				5BBA5A651BFE3E190091DFDB /* BNRequest_ElementsForShowcase.swift */,
+				5BA18A361C03AAB700CCB463 /* BNRequest_ElementsForCategory.swift */,
 				5BEE97AB1BAC53BB004C2B30 /* element */,
 				5BEE97B01BAC53BB004C2B30 /* site */,
 			);
@@ -1787,6 +1790,7 @@
 				5B650E151ADECA2B0050ED5E /* BNUIBiinMiniView.swift in Sources */,
 				5BEE61421A97EF4500DE334E /* SearchView.swift in Sources */,
 				5B2907811A687A9E0000658A /* MainViewController.swift in Sources */,
+				5BA18A371C03AAB700CCB463 /* BNRequest_ElementsForCategory.swift in Sources */,
 				5B9AD35A1A7BF706001C9B5A /* SiteView.swift in Sources */,
 				5B285B4F1A8D3F6800A2356B /* BNUIButton_WithLabel.swift in Sources */,
 				5BEE97D31BAC53BB004C2B30 /* BNRequest_Site.swift in Sources */,

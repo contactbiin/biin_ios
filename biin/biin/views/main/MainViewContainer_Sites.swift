@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
+class MainViewContainer_Sites:BNView {
     
     var delegate:MainViewContainer_Sites_Delegate?
     var title:UILabel?
@@ -16,7 +16,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     
     var spacer:CGFloat = 1
     
-    var sites:Array<SiteMiniView>?
+//    var sites:Array<SiteMiniView>?
     var addedSitesIdentifiers:Dictionary<String, SiteMiniView>?
 
     
@@ -60,10 +60,10 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
 //        self.scroll!.scroll!.showsVerticalScrollIndicator = false
 //        self.scroll!.scroll!.scrollsToTop = false
 //        self.scroll!.scroll!.backgroundColor = UIColor.clearColor()
-        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: self)
+        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(self.scroll!)
         
-        sites = Array<SiteMiniView>()
+        //sites = Array<SiteMiniView>()
         addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
 
         addAllSites()
@@ -130,17 +130,18 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     func addAllSites(){
     
         
-        if sites != nil {
-            addedSitesIdentifiers!.removeAll(keepCapacity: false)
-            for view in sites! {
-                view.isPositionedInFather = false
-                view.isReadyToRemoveFromFather = true
-            }
-        } else {
-            sites = Array<SiteMiniView>()
-            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
-        }
+//        if sites != nil {
+//            addedSitesIdentifiers!.removeAll(keepCapacity: false)
+//            for view in sites! {
+//                view.isPositionedInFather = false
+//                view.isReadyToRemoveFromFather = true
+//            }
+//        } else {
+//            sites = Array<SiteMiniView>()
+//            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
+//        }
         
+        var sites = Array<SiteMiniView>()
         let sitesArray = BNAppSharedManager.instance.dataManager.sites_ordered
 /*
         var sitesArray:Array<BNSite> = Array<BNSite>()
@@ -183,7 +184,7 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
         
         for site in sitesArray {
             if site.showInView {
-                if !isSiteAdded(site.identifier!) {
+                if !isSiteAdded(sites, identifier: site.identifier!) {
                     
                     let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
                     let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteView_width, miniSiteHeight), father: self, site:site)
@@ -192,8 +193,8 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
                     miniSiteView.delegate = father?.father! as! MainView
                     //miniSiteView.requestImage()
                     
-                    sites!.append(miniSiteView)
-                    self.scroll!.addChild(miniSiteView)
+                    sites.append(miniSiteView)
+                    //self.scroll!.addChild(miniSiteView)
 //                    scroll!.addSubview(miniSiteView)
                     
                     xpos += siteView_width + 1
@@ -202,71 +203,29 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
             }
         }
         
-        self.scroll!.setChildrenPosition()
+        self.scroll!.addMoreChildren(sites)
+        //self.scroll!.setChildrenPosition()
         
 //        scroll!.contentSize = CGSizeMake(xpos, 100)
 
-        for var i = 0; i < sites!.count; i++ {
-            if sites![i].isReadyToRemoveFromFather {
-                sites![i].removeFromSuperview()
-                sites!.removeAtIndex(i)
-                i = 0
-                
-            }
-        }
+//        for var i = 0; i < sites!.count; i++ {
+//            if sites![i].isReadyToRemoveFromFather {
+//                sites![i].removeFromSuperview()
+//                sites!.removeAtIndex(i)
+//                i = 0
+//                
+//            }
+//        }
     }
     
-    func isSiteAdded(identifier:String) -> Bool {
-        for siteView in sites! {
-            if siteView.site!.identifier == identifier {
+    func isSiteAdded(sites:Array<SiteMiniView>, identifier:String) -> Bool {
+        for siteView in sites {
+            if siteView.site!.identifier! == identifier {
                 return true
             }
         }
         return false
     }
-    
-    /* UIScrollViewDelegate Methods */
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        
-    }// any offset changes
-    
-    // called on start of dragging (may require some time and or distance to move)
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        //handlePan(scrollView.panGestureRecognizer)
-        let mainView = father!.father! as! MainView
-        mainView.delegate!.mainView!(mainView, hideMenu: false)
-    }
-    
-    // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-    }
-    
-    // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-    }
-    
-    func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
-        
-    }// called on finger up as we are moving
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        
-    }// called when scroll view grinds to a halt
-    
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        
-    }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
-    
-    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-        
-        return true
-    }// return a yes if you want to scroll to the top. if not defined, assumes YES
-    
-    func scrollViewDidScrollToTop(scrollView: UIScrollView) {
-        
-    }// called when scrolling animation finished. may be called immediately if already at top
     
     //SiteMiniView_Delegate
     func showSiteView(view: SiteMiniView) {
@@ -280,19 +239,20 @@ class MainViewContainer_Sites:BNView, UIScrollViewDelegate {
     
     func clean(){
         
+        scroll!.clean()
+//        
+//        if sites?.count > 0 {
+//            
+//            for view in scroll!.subviews {
+//                
+//                if view is SiteMiniView {
+//                    (view as! SiteMiniView).clean()
+//                    (view as! SiteMiniView).removeFromSuperview()
+//                }
+//            }
+//        }
         
-        if sites?.count > 0 {
-            
-            for view in scroll!.subviews {
-                
-                if view is SiteMiniView {
-                    (view as! SiteMiniView).clean()
-                    (view as! SiteMiniView).removeFromSuperview()
-                }
-            }
-        }
-        
-        sites!.removeAll(keepCapacity: false)
+//        sites!.removeAll(keepCapacity: false)
         addedSitesIdentifiers!.removeAll(keepCapacity: false)
         
         title?.removeFromSuperview()

@@ -25,7 +25,7 @@ class BNShowcase:NSObject {
     //Elements
     var elements:Array<BNElement> = Array<BNElement>()
     var elements_quantity:Int = 0
-    
+    var batch:Int = 1
     
     //var siteIdentifier:String?
     var site:BNSite?

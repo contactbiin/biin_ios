@@ -19,7 +19,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     
     var isWorking = true
     var spacer:CGFloat = 1
-    var elements:Array<ElementMiniView>?
+//    var elements:Array<ElementMiniView>?
     var addedElementsIdentifiers:Dictionary<String, BNElement>?
 
     override init(frame: CGRect) {
@@ -150,7 +150,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         var elementPosition:Int = 1
         var xpos:CGFloat = 0
         var elementsViewed = 0
-        elements = Array<ElementMiniView>()
+        var elements = Array<ElementMiniView>()
         
         var elementView_width:CGFloat = 0
         
@@ -177,9 +177,9 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
             
             elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
             //elementView.delegate = self
-            self.scroll!.addChild(elementView)
+//            self.scroll!.addChild(elementView)
 //            scroll!.addSubview(elementView)
-            elements!.append(elementView)
+            elements.append(elementView)
             elementPosition++
             
             
@@ -193,7 +193,8 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
             //}
         }
         
-        self.scroll!.setChildrenPosition()
+        self.scroll!.addMoreChildren(elements)
+//        self.scroll!.setChildrenPosition()
 //        scroll!.contentSize = CGSizeMake(xpos, 0)
 //        scroll!.setContentOffset(CGPointZero, animated: false)
     }
@@ -267,20 +268,21 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         
         //clean()
-        if elements?.count > 0 {
-        
-            
-            for elementView in elements! {
-                elementView.removeFromSuperview()
-                elementView.clean()
-            }
-            
-            
-            elements!.removeAll(keepCapacity: false)
-            elements = nil
-            addedElementsIdentifiers!.removeAll(keepCapacity: false)
-            addedElementsIdentifiers = nil
-        }
+//        if elements?.count > 0 {
+//        
+//            
+//            for elementView in elements! {
+//                elementView.removeFromSuperview()
+//                elementView.clean()
+//            }
+//            
+//            
+//            elements!.removeAll(keepCapacity: false)
+//            elements = nil
+//            addedElementsIdentifiers!.removeAll(keepCapacity: false)
+//            addedElementsIdentifiers = nil
+//        }
+        self.scroll!.clean()
         
         delegate = nil
         moreElementsBtn?.removeFromSuperview()

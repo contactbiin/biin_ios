@@ -12,6 +12,7 @@ class BNView:UIView {
     var sectionKey:String = ""
     var showcaseKey:String = ""
     var state:BNState?
+    var isAddedToScroll = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
