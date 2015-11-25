@@ -81,31 +81,6 @@ class SignupView:UIView, UITextFieldDelegate {
         self.addSubview(lastNameTxt!)
         
         ypos += (1 + lastNameTxt!.frame.height)
-        genderTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Gender", comment: "Gender"))
-        genderTxt!.textField!.enabled = false
-        genderTxt!.textField!.delegate = self
-        self.addSubview(genderTxt!)
-        
-        femaleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 90, 8, 30, 30), iconType: BNIconType.femaleSmall)
-        femaleBtn!.addTarget(self, action: "femaleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        genderTxt!.addSubview(femaleBtn!)
-        genderStr = ""
-        
-        maleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 55, 8, 30, 30), iconType: BNIconType.maleSmall)
-        maleBtn!.addTarget(self, action: "maleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        genderTxt!.addSubview(maleBtn!)
-        
-        ypos += (1 + genderTxt!.frame.height)
-        birthDateTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate"))
-        birthDateTxt!.textField!.delegate = self
-        birthDateTxt!.backgroundColor = UIColor.bnGrayLight()
-        birthDateTxt!.point!.backgroundColor = UIColor.bnGrayLight()
-
-        birthDateTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
-        birthDateTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
-        self.addSubview(birthDateTxt!)
-        
-        ypos += (1 + birthDateTxt!.frame.height)
         emailTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
         emailTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
@@ -121,15 +96,53 @@ class SignupView:UIView, UITextFieldDelegate {
         passwordTxt!.textField!.keyboardType = UIKeyboardType.Default
         self.addSubview(passwordTxt!)
         
-
+        
+        
+        
         ypos += (5 + passwordTxt!.frame.height)
+        let optionalLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 16))
+        optionalLbl.text = NSLocalizedString("Optionals", comment: "Optionals")
+        optionalLbl.textAlignment = NSTextAlignment.Left
+        optionalLbl.textColor = UIColor.whiteColor()
+        optionalLbl.numberOfLines = 0
+        optionalLbl.font = UIFont(name: "Lato-Light", size: 13)
+        optionalLbl.sizeToFit()
+        self.addSubview(optionalLbl)
+        
+        
+        ypos += (5 + optionalLbl.frame.height)
+        genderTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("Gender", comment: "Gender"))
+        genderTxt!.textField!.enabled = false
+        genderTxt!.textField!.delegate = self
+        self.addSubview(genderTxt!)
+        
+        femaleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 90, 8, 30, 30), iconType: BNIconType.femaleSmall)
+        femaleBtn!.addTarget(self, action: "femaleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        genderTxt!.addSubview(femaleBtn!)
+        genderStr = "none"
+        genderTxt!.backgroundColor = UIColor.bnGrayLight()
+        genderTxt!.point!.backgroundColor = UIColor.bnGrayLight()
+        
+        maleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 55, 8, 30, 30), iconType: BNIconType.maleSmall)
+        maleBtn!.addTarget(self, action: "maleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        genderTxt!.addSubview(maleBtn!)
+        
+        ypos += (1 + genderTxt!.frame.height)
+        birthDateTxt = BNUITexfield_Center(frame: CGRectMake(0, ypos, screenWidth, 45), placeHolderText:NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate"))
+        birthDateTxt!.textField!.delegate = self
+        birthDateTxt!.backgroundColor = UIColor.bnGrayLight()
+        birthDateTxt!.point!.backgroundColor = UIColor.bnGrayLight()
+        birthDateTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
+        birthDateTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
+        self.addSubview(birthDateTxt!)
+        
+        ypos += (5 + birthDateTxt!.frame.height)
         singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 65), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), textColor:UIColor.whiteColor())
         singupBtn!.addTarget(self, action: "singup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
-    
         
-        ypos = SharedUIManager.instance.screenHeight - 70
-        signupLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 16))
+
+        signupLbl = UILabel(frame: CGRectMake(10, 0, (screenWidth - 20), 16))
         signupLbl!.text = NSLocalizedString("DontForget", comment: "DontForget")
         signupLbl!.textAlignment = NSTextAlignment.Left
         signupLbl!.textColor = UIColor.whiteColor()
@@ -137,7 +150,8 @@ class SignupView:UIView, UITextFieldDelegate {
         signupLbl!.font = UIFont(name: "Lato-Light", size: 13)
         signupLbl!.sizeToFit()
         self.addSubview(signupLbl!)
-    
+        
+        signupLbl!.frame.origin.y = SharedUIManager.instance.screenHeight - (signupLbl!.frame.height + 5)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
         
@@ -180,9 +194,9 @@ class SignupView:UIView, UITextFieldDelegate {
             emailTxt!.isValid() &&
             passwordTxt!.isValid() {
                 
-            if genderStr!.isEmpty {
-                genderTxt!.showError()
-            }
+            //if genderStr!.isEmpty {
+                //genderTxt!.showError()
+            //}
                 
             if SharedUIManager.instance.isValidEmail(emailTxt!.textField!.text!) {
                 ready = true
