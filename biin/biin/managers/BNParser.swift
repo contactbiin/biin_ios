@@ -52,7 +52,7 @@ class BNParser {
     class func findNSDate(name:String, dictionary:NSDictionary) ->NSDate? {
          let value = dictionary[name] as? String
         
-        if value != "nil" {
+        if value != "none" {
             let date:NSDate? = NSDate(dateString:value!)
             return date
         } else  {
