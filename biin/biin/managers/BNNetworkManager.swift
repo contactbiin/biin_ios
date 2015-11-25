@@ -170,7 +170,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if user.birthDate != nil {
             date = user.birthDate?.bnDateFormattForActions()
         }else {
-            date = ""
+            date = "none"
         }
         
         let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)", errorManager: self.errorManager!, networkManager: self)
