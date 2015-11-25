@@ -39,14 +39,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.errorManager = errorManager
         epsNetwork = EPSNetworking()
     }
-    /*
-
-
-    https://dev-biin-backend.herokuapp.com
-    https://qa-biin-backend.herokuapp.com
-    https://demo-biin-backend.herokuapp.com/
-*/
-    
     
     func setRootURLForRequest(){
         if BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE {
@@ -172,7 +164,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     @param user:Biinie data.
     */
     func register(user:Biinie) {
-        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(user.birthDate?.bnDateFormattForActions())", errorManager: self.errorManager!, networkManager: self)
+        
+        var date:String?
+        
+        if user.birthDate != nil {
+            date = user.birthDate?.bnDateFormattForActions()
+        }else {
+            date = ""
+        }
+        
+        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -711,7 +712,7 @@ extension NSDate {
         return formatter.stringFromDate(self)
     }
     
-    func bnDateFormattForActions()->String{
+    func bnDateFormattForActions() -> String {
         let formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(abbreviation: "UTC")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
