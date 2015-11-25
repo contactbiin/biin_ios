@@ -10,7 +10,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     
     var title:UILabel?
     var subTitle:UILabel?
-    var scroll:EPUIScrollView?
+    var scroll:BNScroll?
     //weak var biin:BNBiin?
     weak var showcase:BNShowcase?
 
@@ -115,7 +115,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height + 2
         
         //scroll = UIScrollView(frame: CGRectMake(0,  (SharedUIManager.instance.siteView_showcaseHeaderHeight - 1), screenWidth, scrollHeight))
-        scroll = EPUIScrollView(frame: CGRectMake(0,  (SharedUIManager.instance.siteView_showcaseHeaderHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: self)
+        scroll = BNScroll(frame: CGRectMake(0,  (SharedUIManager.instance.siteView_showcaseHeaderHeight - 1), screenWidth, scrollHeight), father:self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(scroll!)
     
         addElementViews()

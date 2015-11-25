@@ -185,6 +185,7 @@
 		5B7122E31BB1973700242785 /* BNIcon_Percentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7122E21BB1973700242785 /* BNIcon_Percentage.swift */; };
 		5B7453BF1A829E6500D656D8 /* BNUICircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7453BE1A829E6500D656D8 /* BNUICircle.swift */; };
 		5B7453C11A829F8E00D656D8 /* BNUICircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7453C01A829F8E00D656D8 /* BNUICircleLabel.swift */; };
+		5B75E07A1C06476D00D5759F /* BNScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75E0791C06476D00D5759F /* BNScroll.swift */; };
 		5B75E2501A7FD889005FF629 /* SiteView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75E24F1A7FD889005FF629 /* SiteView_Header.swift */; };
 		5B75E2521A8010B7005FF629 /* BNUIButton_Back.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75E2511A8010B7005FF629 /* BNUIButton_Back.swift */; };
 		5B75E2541A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75E2531A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift */; };
@@ -541,6 +542,7 @@
 		5B7122E21BB1973700242785 /* BNIcon_Percentage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Percentage.swift; sourceTree = "<group>"; };
 		5B7453BE1A829E6500D656D8 /* BNUICircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUICircle.swift; sourceTree = "<group>"; };
 		5B7453C01A829F8E00D656D8 /* BNUICircleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUICircleLabel.swift; sourceTree = "<group>"; };
+		5B75E0791C06476D00D5759F /* BNScroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNScroll.swift; sourceTree = "<group>"; };
 		5B75E24F1A7FD889005FF629 /* SiteView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Header.swift; sourceTree = "<group>"; };
 		5B75E2511A8010B7005FF629 /* BNUIButton_Back.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Back.swift; sourceTree = "<group>"; };
 		5B75E2531A8012D5005FF629 /* BNIcon_LeftArrowSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LeftArrowSmall.swift; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 				5B861FA81BA70B6E00930BD7 /* BNUIButton_SiteLocation.swift */,
 				5B861FAE1BA7423F00930BD7 /* BNUIButton_Close.swift */,
 				5BE775151BDECDCC005E9427 /* BNUIWebView.swift */,
+				5B75E0791C06476D00D5759F /* BNScroll.swift */,
 			);
 			path = uiElements;
 			sourceTree = "<group>";
@@ -1611,6 +1614,7 @@
 				5B1655FB1BC70AD9001ED8ED /* AllCollectedState.swift in Sources */,
 				5BEA77951A97936200F6D1F5 /* BNIcon_CollectionsMedium.swift in Sources */,
 				5B3BD8A81BB499CD00B86B8C /* MainViewContainer_Banner.swift in Sources */,
+				5B75E07A1C06476D00D5759F /* BNScroll.swift in Sources */,
 				5B7D266A1BCC3F8D003B0091 /* InSiteView.swift in Sources */,
 				5B53395F1A8512950049FB00 /* LoginView.swift in Sources */,
 				5B2939DB1ADABF3F0023FEA5 /* ShareItView.swift in Sources */,
