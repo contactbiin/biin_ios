@@ -12,7 +12,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     var moreElementsBtn:UIButton?
     var title:UILabel?
     var subTitle:UILabel?
-    var scroll:EPUIScrollView?
+    var scroll:BNScroll?
     //weak var biin:BNBiin?
     var showcase:BNShowcase?
     var category:BNCategory?
@@ -78,7 +78,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
 //        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), showRefreshControl: true)
 
-        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: EPUIScrollView_Direction.HORIZONTAL, refreshControl_Position: UIRefreshControl_Position.RIGHT, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: self)
+        scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(scroll!)
         
         addedElementsIdentifiers = Dictionary<String, BNElement>()
@@ -194,6 +194,7 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         }
         
         self.scroll!.addMoreChildren(elements)
+        self.scroll!.updateEnable = false
 //        self.scroll!.setChildrenPosition()
 //        scroll!.contentSize = CGSizeMake(xpos, 0)
 //        scroll!.setContentOffset(CGPointZero, animated: false)
