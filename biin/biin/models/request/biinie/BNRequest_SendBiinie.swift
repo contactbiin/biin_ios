@@ -56,7 +56,7 @@ class BNRequest_SendBiinie:BNRequest {
         
         var response:BNResponse?
         
-        self.networkManager!.epsNetwork!.post(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.put(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
