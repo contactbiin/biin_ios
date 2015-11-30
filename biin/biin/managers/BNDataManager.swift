@@ -99,14 +99,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)        
     }
     
-    func requestDataForNewPosition(){
-        
-        delegateNM!.manager!(self, initialdata: bnUser!)
-        
-        //Changes request flow.
-//        delegateNM!.manager!(self, requestCategoriesData: bnUser!)
-//        BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = true
-    }
+
     
     /**
     Loads all categories available on the categories array.
@@ -590,6 +583,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
             
             requestInitialData()
+            
         } else {
             bnUser!.clear()
             BNAppSharedManager.instance.settings!.clear()

@@ -35,6 +35,7 @@ class AllElementsView: BNView {
     convenience init(frame: CGRect, father: BNView?, showBiinItBtn:Bool) {
         
         self.init(frame: frame, father:father )
+                
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)

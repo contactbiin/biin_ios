@@ -11,14 +11,14 @@ class EPUIScrollView: BNView, UIScrollViewDelegate{
     var scroll:UIScrollView?
     var refreshControl:UIRefreshControl?
     var isHorizontal:Bool = false
-    var childPosition:CGFloat = 0
-    var space:CGFloat = 0
-    var extraSpace:CGFloat = 0
+    var childPosition:CGFloat = 0.0
+    var space:CGFloat = 0.0
+    var extraSpace:CGFloat = 0.0
     var children:Array<BNView> = Array<BNView>()
     var direction:EPUIScrollView_Direction?
     var refreshControl_Position:UIRefreshControl_Position?
     var doUpdatePosition = true
-    var positionToScroll:CGFloat = 0
+    var positionToScroll:CGFloat = 0.0
     var updateEnable = true
     
     required init?(coder aDecoder: NSCoder) {

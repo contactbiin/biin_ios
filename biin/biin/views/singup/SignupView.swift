@@ -101,7 +101,7 @@ class SignupView:UIView, UITextFieldDelegate {
         
         ypos += (5 + passwordTxt!.frame.height)
         let optionalLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 16))
-        optionalLbl.text = NSLocalizedString("Optionals", comment: "Optionals")
+        optionalLbl.text = NSLocalizedString("Optionales", comment: "Optionales")
         optionalLbl.textAlignment = NSTextAlignment.Left
         optionalLbl.textColor = UIColor.whiteColor()
         optionalLbl.numberOfLines = 0

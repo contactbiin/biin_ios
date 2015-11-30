@@ -12,6 +12,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     var title:UILabel?
     var scroll:UIScrollView?
     var currentHighlight:Int = 0
+    
     var timer:NSTimer?
     
     var hightlights:Array<HighlightView>?
@@ -25,6 +26,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     }
     
     override init(frame: CGRect, father:BNView?) {
+        
         super.init(frame: frame, father:father )
         self.backgroundColor = UIColor.darkGrayColor()
         

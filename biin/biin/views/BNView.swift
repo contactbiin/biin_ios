@@ -9,8 +9,6 @@ import UIKit
 class BNView:UIView {
     
     weak var father:BNView?
-    var sectionKey:String = ""
-    var showcaseKey:String = ""
     var state:BNState?
     var isAddedToScroll = false
     

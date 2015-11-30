@@ -158,13 +158,15 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
         
         if BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST {
-//            NSLog("BIIN - Request user categories on background when user moved!")
+            NSLog("BIIN - Request initialData background when user moved!")
+            
             locationFixAchieved = true
             let locationArray = locations as NSArray
             let locationObj = locationArray.lastObject as? CLLocation
             userCoordinates = locationObj!.coordinate
-//            NSLog("LAT on background:  \(userCoordinates!.latitude)")
-//            NSLog("LONG on background: \(userCoordinates!.longitude)")
+
+            NSLog("LAT on background:  \(userCoordinates!.latitude)")
+            NSLog("LONG on background: \(userCoordinates!.longitude)")
 
 //            var time:NSTimeInterval = 1
 //            var localNotification:UILocalNotification = UILocalNotification()
@@ -173,7 +175,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 //            localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
 //            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
 
-            BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
+            BNAppSharedManager.instance.dataManager.requestInitialData()
         }
         
 //        NSLog("BIIN - END")
