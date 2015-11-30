@@ -5,8 +5,10 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, MainViewContainer_Sites_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate {
+
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate {
     
     var delegate:MainViewDelegate?
     //var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -80,7 +82,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func addUIViews(){
         
         
-
         
         //Create views
         //        let categoriesView = BiinieCategoriesView(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
@@ -221,12 +222,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("TEST", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(testButton!)
+        self.addSubview(testButton!)
+        
     }
     
     func testButtonAction(sender:UIButton) {
         
-        BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
+
+        if SimulatorUtility.isRunningSimulator {
+            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
+        }
+        
+        BNAppSharedManager.instance.dataManager.requestInitialData()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
@@ -484,8 +491,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         }
     }
     
-    //MainViewContainer_Sites_Delegate Methods
-    func showAllSitesView() {
+    //MainViewContainer_NearSites_Delegate Methods
+    func showAllNearSitesView() {
         
         isShowingAllSite = true
         setNextState(BNGoto.AllSites)
@@ -605,11 +612,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func show(){
         
         
+        
         let mainViewContainer = MainViewContainer(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         self.addSubview(mainViewContainer)
         mainViewContainerState!.view = mainViewContainer
         state = mainViewContainerState!
-        
         
         showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
         showMenuSwipe!.edges = UIRectEdge.Left

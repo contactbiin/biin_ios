@@ -68,6 +68,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //            let delayInSeconds = 0.5;
 //            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
 //            dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+            
+
                 self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
 
                 // -- FINISHED SOMETHING AWESOME, WOO! --
@@ -200,9 +202,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     @param user:Biinie data.
     */
     func sendBiinieActions(user:Biinie) {
-        
-        return
-        
         if user.actions.count > 0 {
             let request = BNRequest_SendBiinieActions(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/history", errorManager: self.errorManager!, networkManager: self, user: user)
             addToQueue(request)
@@ -242,9 +241,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func manager(manager: BNDataManager!, initialdata user: Biinie) {
         
-        if SimulatorUtility.isRunningSimulator {
-            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
-        } else if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
+//        
+//        if SimulatorUtility.isRunningSimulator {
+//            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
+//        } else
+            if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
             BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
         }
         

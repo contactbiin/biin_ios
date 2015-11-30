@@ -6,16 +6,16 @@
 import Foundation
 import UIKit
 
-class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
+class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
     
     var header:BiinieCategoriesView_Header?
     var inSiteView:InSiteView?
     var highlightContainer:MainViewContainer_Highlights?
-    var sitesContainer:MainViewContainer_Sites?
+    var nearSitesContainer:MainViewContainer_NearSites?
     var bannerContainer:MainViewContainer_Banner?
     var elementContainers:Array <MainViewContainer_Elements>?
 
-    var scroll:EPUIScrollView?
+    var scroll:BNScroll?
     
     var fade:UIView?
     
@@ -30,17 +30,22 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
+        
+        
         self.backgroundColor = UIColor.appBackground()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
 
-        scroll = EPUIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father:self, direction: EPUIScrollView_Direction.VERTICAL, refreshControl_Position: UIRefreshControl_Position.NONE, text: "", space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate:self)
+        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
         self.addSubview(scroll!)
+        
         
         inSiteView = InSiteView(frame: CGRectMake(0, (screenHeight - 20), screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
+        
+
         
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         self.addSubview(header!)
@@ -53,38 +58,44 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
         elementContainers = Array<MainViewContainer_Elements>()
         
         updateContainer()
+        
     }
     
     func updateContainer(){
+        
+
         
         let screenWidth = SharedUIManager.instance.screenWidth
         //let screenHeight = SharedUIManager.instance.screenHeight
         var ypos:CGFloat = 0
         let spacer:CGFloat = 0
+        var height:CGFloat = 0
         
         SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth + SharedUIManager.instance.sitesContainer_headerHeight
 
-        self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)), father: self)
-        
-//        self.scroll!.addSubview(self.highlightContainer!)
+        height = SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight
+        self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, height), father: self)
         self.scroll!.addChild(self.highlightContainer!)
         
-        ypos += (SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)
 
-        let sitesContainerHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
+        ypos += height
+
+        height = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
         
+        
+        self.nearSitesContainer = MainViewContainer_NearSites(frame: CGRectMake(0, ypos, screenWidth, height))
+        self.nearSitesContainer!.delegate = (self.father! as! MainView)
+        self.nearSitesContainer!.father = self
+        self.nearSitesContainer!.addAllSites()
+        self.scroll!.addChild(self.nearSitesContainer!)
+        
+        ypos += height
 
-        self.sitesContainer = MainViewContainer_Sites(frame: CGRectMake(0, ypos, screenWidth, sitesContainerHeight), father: self)
-        self.sitesContainer!.delegate = (self.father! as! MainView)
-//        self.scroll!.addSubview(self.sitesContainer!)
-        self.scroll!.addChild(self.sitesContainer!)
-        ypos += sitesContainerHeight
 
         
 //        self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
 //        self.scroll!.addSubview(self.bannerContainer!)
 //        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
-
 
         var colorIndex:Int = 1
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
@@ -103,12 +114,15 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
                     colorIndex = 0
                 }
             }
-        
         }
+        
+
         
         ypos += SharedUIManager.instance.categoriesHeaderHeight
 //        scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
         self.scroll!.setChildrenPosition()
+        
+
         
     }
     
@@ -235,9 +249,9 @@ class MainViewContainer: BNView, UIScrollViewDelegate, MainViewDelegate_Highligh
             highlightContainer!.removeFromSuperview()
         }
         
-        if sitesContainer != nil {
-            sitesContainer!.clean()
-            sitesContainer!.removeFromSuperview()
+        if nearSitesContainer != nil {
+            //nearSitesContainer!.clean()
+            nearSitesContainer!.removeFromSuperview()
         }
         
         if bannerContainer != nil {

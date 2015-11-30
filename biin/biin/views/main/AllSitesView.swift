@@ -30,6 +30,7 @@ class AllSitesView: BNView {
     convenience init(frame: CGRect, father: BNView?, showBiinItBtn:Bool) {
         
         self.init(frame: frame, father:father )
+        
         self.backgroundColor = UIColor.clearColor()
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView

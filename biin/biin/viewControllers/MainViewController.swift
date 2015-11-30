@@ -52,6 +52,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func initViewController(frame:CGRect){
         
+        
         BNAppSharedManager.instance.mainViewController = self
 
         BNAppSharedManager.instance.networkManager.delegateVC = self
@@ -59,13 +60,12 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         BNAppSharedManager.instance.errorManager.currentViewController = self
         
-        //BNAppSharedManager.instance.dataManager.checkAllShowcasesCompleted()
-        
         mainView = MainView(frame: CGRectMake(0, 20, frame.width, frame.height), father:nil, rootViewController: self)
         mainView!.delegate = self
         mainView!.addUIViews()
         
         self.view.addSubview(self.mainView!)
+        
         
         fadeView = UIView(frame: frame)
         fadeView!.backgroundColor = UIColor.blackColor()
@@ -98,6 +98,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
             mainView!.showNotificationContext()
         }
+        
     }
     
     func refresh(){
@@ -246,10 +247,11 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func manager(manager: BNNetworkManager!, didReceivedUpdateConfirmation response: BNResponse?) {
+        
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
+                    BNAppSharedManager.instance.dataManager.requestInitialData()
                 })
             }
         } else {
