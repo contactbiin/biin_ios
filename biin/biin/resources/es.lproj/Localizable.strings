@@ -112,7 +112,7 @@ GenderFemale = "Soy mujer";
 WhatAreYouInterest = "Qué te interesa?";
 CategoriesMsj = "*** Hemos pre-seleccionado algunas categorías para vos!";
 EnterYourBirthDate = "Fecha de nacimiento";
-Optionals = "Si gustas compartir tu edad y genero podremos mejorar el contenido que te recomendamos.";
+Optionales = "Si gustas compartir tu edad y genero podremos mejorar el contenido que te recomendamos.";
 
 /* Showcase - Game View*/
 JoinUs = "Uníte!";

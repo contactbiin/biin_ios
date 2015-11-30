@@ -545,7 +545,12 @@ class ElementView: BNView, UIWebViewDelegate {
         html += getBiinCSS(element)
         html += "</style></head>"
         html += "<body>"
-        html += element!.detailsHtml!
+        if element!.detailsHtml! == "" {
+        html += "<br><br><br><br><br><br><br>"
+        }   else {
+            html += element!.detailsHtml!
+            html += "<br><br>"
+        }
         html += "</body></html>"
         return html
     }
