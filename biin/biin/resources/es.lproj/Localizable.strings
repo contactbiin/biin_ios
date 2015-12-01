@@ -109,6 +109,7 @@ Birthdate = "Fecha de nacimiento.";
 Gender = "Yo soy ...";
 GenderMale = "Soy hombre";
 GenderFemale = "Soy mujer";
+GenderSelect = "Seleccione un genero";
 WhatAreYouInterest = "Qué te interesa?";
 CategoriesMsj = "*** Hemos pre-seleccionado algunas categorías para vos!";
 EnterYourBirthDate = "Fecha de nacimiento";

@@ -267,7 +267,9 @@ class ProfileView: BNView, UITextFieldDelegate {
         genderLbl!.font = UIFont(name: "Lato-Regular", size: fontSize)
         genderStr = BNAppSharedManager.instance.dataManager.bnUser!.gender!
         
-        if genderStr == "male"  {
+        if genderStr == "none" {
+            genderLbl!.text = NSLocalizedString("GenderSelect", comment: "GenderSelect").uppercaseString
+        } else if genderStr == "male" {
             genderLbl!.text = NSLocalizedString("GenderMale", comment: "GenderMale").uppercaseString
         } else  {
             genderLbl!.text = NSLocalizedString("GenderFemale", comment: "GenderFemale").uppercaseString
@@ -285,7 +287,10 @@ class ProfileView: BNView, UITextFieldDelegate {
         maleBtn!.addTarget(self, action: "maleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(maleBtn!)
         
-        if genderStr! == "male" {
+        if genderStr == "none" {
+            femaleBtn!.showEnable()
+            maleBtn!.showEnable()
+        } else if genderStr! == "male" {
             maleBtn!.showSelected()
             femaleBtn!.showEnable()
         } else {
@@ -472,14 +477,14 @@ class ProfileView: BNView, UITextFieldDelegate {
     }
     
     func femaleBtnAction(sender:BNUIButton_Gender){
-        //genderStr = "female"
+        genderStr = "female"
         genderLbl!.text = NSLocalizedString("GenderFemale", comment: "GenderFemale").uppercaseString//"I'm a \(genderStr!)"
         femaleBtn!.showSelected()
         maleBtn!.showEnable()
     }
     
     func maleBtnAction(sender:BNUIButton_Gender){
-        //genderStr = "male"
+        genderStr = "male"
         genderLbl!.text = NSLocalizedString("GenderMale", comment: "GenderMale").uppercaseString//"I'm a \(genderStr!)"
         maleBtn!.showSelected()
         femaleBtn!.showEnable()
@@ -506,7 +511,7 @@ class ProfileView: BNView, UITextFieldDelegate {
             BNAppSharedManager.instance.dataManager.bnUser!.lastName = lastNameTxt!.textField!.text!
             BNAppSharedManager.instance.dataManager.bnUser!.email = emailTxt!.textField!.text!
             BNAppSharedManager.instance.dataManager.bnUser!.gender = genderStr!
-            
+            BNAppSharedManager.instance.dataManager.bnUser!.save()
             BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
             
             /*
