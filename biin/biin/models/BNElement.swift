@@ -98,6 +98,9 @@ class BNElement:NSObject {
         if let value = self.subTitle { clone.subTitle = value }
         if let value = self.nutshellDescriptionTitle { clone.nutshellDescriptionTitle = value }
         if let value = self.nutshellDescription { clone.nutshellDescription = value }
+        clone.hasCallToAction = self.hasCallToAction
+        if let value = self.callToActionURL { clone.callToActionURL = value }
+        if let value = self.callToActionTitle { clone.callToActionTitle = value }
         clone.hasFromPrice = self.hasFromPrice
         if let value = self.fromPrice { clone.fromPrice = value }
         clone.hasListPrice = self.hasListPrice

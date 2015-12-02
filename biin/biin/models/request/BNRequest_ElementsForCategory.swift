@@ -379,7 +379,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     print("element for category")
                                     print("id:\(_id)")
                                     print("identifier:\(identifier!)")
-                                    print("showcase:\(showcase_id)")
+                                    print("showcase:\(showcase_id!)")
                                     
                                     BNAppSharedManager.instance.dataManager.receivedElementOnCategory(_id, identifier: identifier!, showcase_id:showcase_id! )
                                     

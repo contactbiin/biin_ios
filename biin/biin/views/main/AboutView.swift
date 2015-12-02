@@ -111,7 +111,7 @@ class AboutView: BNView {
     
     func openUrl(sender:UILabel) {
         let targetURL = NSURL(string:"http://www.biin.io")
-        let application=UIApplication.sharedApplication()
+        let application = UIApplication.sharedApplication()
         application.openURL(targetURL!)
     }
     
