@@ -141,6 +141,17 @@ class ElementView: BNView, UIWebViewDelegate {
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
         showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(showSiteBtn!)
+        
+        callToActionBtn = UIButton(frame: CGRectMake(0,  (screenWidth + 30), screenWidth, 60))
+        callToActionBtn!.backgroundColor = UIColor.redColor()
+        callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        scroll!.addSubview(callToActionBtn!)
+        
+        callToActionTitle = UILabel(frame: CGRectMake(0, 0, screenWidth, 60))
+        callToActionTitle!.textColor = UIColor.whiteColor()
+        callToActionTitle!.font = UIFont(name: "Lato-Regular", size: 20)
+        callToActionTitle!.textAlignment =  NSTextAlignment.Center
+        callToActionBtn!.addSubview(callToActionTitle!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -197,6 +208,12 @@ class ElementView: BNView, UIWebViewDelegate {
     }
     
     //Instance Methods
+    func openUrl(sender:UIButton) {
+        let targetURL = NSURL(string:self.element!.callToActionURL!)
+        let application = UIApplication.sharedApplication()
+        application.openURL(targetURL!)
+    }
+    
     func backBtnAction(sender:UIButton) {
         
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_ELEMENT_VIEW, to:self.element!.identifier!)
@@ -267,7 +284,22 @@ class ElementView: BNView, UIWebViewDelegate {
             updateCollectItBtn()
             updateShareBtn()
             
-            ypos = SharedUIManager.instance.screenWidth
+            
+            if self.element!.hasCallToAction {
+                ypos = (SharedUIManager.instance.screenWidth + callToActionBtn!.frame.height + 0)
+                callToActionBtn!.alpha = 1
+                callToActionBtn!.backgroundColor = decorationColor
+                callToActionTitle!.alpha = 1
+                callToActionTitle!.text = self.element!.callToActionTitle!
+                callToActionBtn!.enabled = true
+            } else {
+                ypos = SharedUIManager.instance.screenWidth
+                callToActionBtn!.alpha = 0
+                callToActionTitle!.alpha = 0
+                callToActionBtn!.enabled = false
+            }
+            
+            
             
             if percentageView != nil {
                 percentageView!.removeFromSuperview()
@@ -287,7 +319,7 @@ class ElementView: BNView, UIWebViewDelegate {
             self.lineView!.alpha = 0
             
             if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
-                ypos += 25
+                ypos += 35
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor
                 self.textPrice1!.textAlignment = NSTextAlignment.Center
@@ -311,7 +343,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
                 let xposition:CGFloat = ( frame.width - text1Length ) / 2
                 
-                ypos += 25
+                ypos += 35
                 self.textPrice1 = UILabel(frame:CGRectMake(xposition, ypos, text1Length, (SharedUIManager.instance.elementView_titleSize + 2)))
                 self.textPrice1!.textColor = textColor
                 self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -337,7 +369,7 @@ class ElementView: BNView, UIWebViewDelegate {
 
                 
             } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
-                ypos += 25
+                ypos += 35
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor
                 self.textPrice1!.textAlignment = NSTextAlignment.Center

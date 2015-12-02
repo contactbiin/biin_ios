@@ -158,7 +158,7 @@ class MainViewContainer_Elements:BNView {
 //        }
 
         var elementPosition:Int = 1
-        var xpos:CGFloat = 0
+        let xpos:CGFloat = 0
         var elementsViewed = 0
         var elements = Array<ElementMiniView>()
         
