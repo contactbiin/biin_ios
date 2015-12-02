@@ -141,6 +141,16 @@ class ElementView: BNView, UIWebViewDelegate {
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
         showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(showSiteBtn!)
+        
+        callToActionBtn = UIButton(frame: CGRectMake(0,  (screenWidth + 30), screenWidth, 60))
+        callToActionBtn!.backgroundColor = UIColor.redColor()
+        scroll!.addSubview(callToActionBtn!)
+        
+        callToActionTitle = UILabel(frame: CGRectMake(0, 0, screenWidth, 60))
+        callToActionTitle!.font = UIFont(name: "Lato-Regular", size: 20)
+        callToActionTitle!.textAlignment =  NSTextAlignment.Center
+        callToActionTitle!.text = "GOOOGLE"
+        callToActionBtn!.addSubview(callToActionTitle!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -267,7 +277,20 @@ class ElementView: BNView, UIWebViewDelegate {
             updateCollectItBtn()
             updateShareBtn()
             
-            ypos = SharedUIManager.instance.screenWidth
+            
+            if element.hasCallToAction {
+                ypos = (SharedUIManager.instance.screenWidth + callToActionBtn!.frame.height + 30)
+                callToActionBtn!.alpha = 1
+                callToActionTitle!.alpha = 1
+                callToActionBtn!.enabled = true
+            } else {
+                ypos = SharedUIManager.instance.screenWidth
+                callToActionBtn!.alpha = 0
+                callToActionTitle!.alpha = 0
+                callToActionBtn!.enabled = false
+            }
+            
+            
             
             if percentageView != nil {
                 percentageView!.removeFromSuperview()
