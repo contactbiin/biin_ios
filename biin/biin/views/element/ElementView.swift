@@ -48,6 +48,9 @@ class ElementView: BNView, UIWebViewDelegate {
     var title:UILabel?
     var subTitle:UILabel?
     
+    var callToActionTitle:UILabel?
+    var callToActionBtn:UIButton?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
