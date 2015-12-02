@@ -857,6 +857,28 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
 
     
+    func receivedElementOnCategory(_id: String, identifier:String, showcase_id:String) {
+
+        //Check if element exist.
+        if elements_by_id[_id] == nil {
+            
+            //Checks if element received is already on elements_by_identifier list.
+            if let element = elements_by_identifier[identifier] {
+                //Checks if element received is reference on element and clone it self.
+                
+                
+//                for (element_identifier, element_by_identifier) in elements_by_identifier {
+                    if identifier == element.identifier! {
+                        
+                        elements_by_id[_id] = element.clone()
+                        elements_by_id[_id]!._id = _id
+                        elements_by_id[_id]!.showcase = showcases[showcase_id]
+                    }
+//                }
+            }
+        }
+    }
+    
     func receivedHightlight(highlights:Array<BNElement>) {
 
 

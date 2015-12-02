@@ -370,10 +370,20 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     
                                     //let elementData = elements!.objectAtIndex(j) as! NSDictionary
                                     
-                                if let element_id = BNParser.findString("_id", dictionary: elementData) {
+                                if let _id = BNParser.findString("_id", dictionary: elementData) {
                                     
-                                    print("element for category: \(element_id)")
-                                    self.category!.elements[element_id] = BNAppSharedManager.instance.dataManager.elements_by_id[element_id]
+                                
+                                    let showcase_id = BNParser.findString("showcase_id", dictionary: elementData)
+                                    let identifier = BNParser.findString("identifier", dictionary: elementData)
+                                    
+                                    print("element for category")
+                                    print("id:\(_id)")
+                                    print("identifier:\(identifier!)")
+                                    print("showcase:\(showcase_id)")
+                                    
+                                    BNAppSharedManager.instance.dataManager.receivedElementOnCategory(_id, identifier: identifier!, showcase_id:showcase_id! )
+                                    
+                                    self.category!.elements[_id] = BNAppSharedManager.instance.dataManager.elements_by_id[_id]
                                 }
                              
                             }
