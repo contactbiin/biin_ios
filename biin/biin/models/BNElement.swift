@@ -74,6 +74,10 @@ class BNElement:NSObject {
     
     var detailsHtml:String?
     
+    var hasCallToAction = false
+    var callToActionURL:String?
+    var callToActionTitle:String?
+    
     //var biinieProximity:Float? //same as the site where it belongs
     
     override init() {

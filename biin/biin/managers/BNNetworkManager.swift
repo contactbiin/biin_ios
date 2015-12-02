@@ -425,18 +425,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
+    func requestElementsForCategory(category:BNCategory?, view:BNView?){
+        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForCategory/\(category!.identifier!)/0"
+        let request = BNRequest_ElementsForCategory(requestString: url, errorManager: self.errorManager!, networkManager: self, category:category, view:view)
+        addToQueue(request)
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func requestSites(view: BNView?) {
+        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestSites/0"
+        let request = BNRequest_Sites(requestString: url, errorManager: self.errorManager!, networkManager: self, view: view)
+        addToQueue(request)
+    }
     
     
     func runRequest(){

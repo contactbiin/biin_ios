@@ -64,6 +64,13 @@ class BNRequest_Element: BNRequest {
                         self.element!.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
                         self.element!.stars = BNParser.findFloat("stars", dictionary: elementData)!
                         self.element!.detailsHtml = BNParser.findString("detailsHtml", dictionary: elementData)
+
+                        self.element!.hasCallToAction = BNParser.findBool("hasCallToAction", dictionary: elementData)
+                        if self.element!.hasCallToAction {
+                            self.element!.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
+                            self.element!.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
+                        }
+                        
                         self.element!.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
 
                         if self.element!.hasFromPrice {

@@ -716,76 +716,93 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         organizations[organization.identifier!] = organization
     }
     
+    func isSiteStored(identifier:String) -> Bool{
+
+        for site in sites_ordered {
+            if site.identifier! == identifier {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     func receivedSite(site: BNSite) {
         
         var isExternalBiinAdded = false
         
-        sites_ordered.append(site)
-        site.organization = organizations[site.organizationIdentifier!]
-        sites[site.identifier!] = site
         
-        if sites[site.identifier!] == nil {
+        if !isSiteStored(site.identifier!) {
             
-        }
-        
-        if commercialUUID == nil {
-            commercialUUID = site.proximityUUID
-        }
- 
-        
-        for biin in sites[site.identifier!]!.biins {
             
-            if biin.objects != nil && biin.objects!.count > 0 {
+            
+            sites_ordered.append(site)
+            site.organization = organizations[site.organizationIdentifier!]
+            sites[site.identifier!] = site
+            
+            if sites[site.identifier!] == nil {
                 
-                //Set biin state.
-                biin.setBiinState()
+            }
+            
+            if commercialUUID == nil {
+                commercialUUID = site.proximityUUID
+            }
+     
+            
+            for biin in sites[site.identifier!]!.biins {
                 
-                for object in biin.objects! {
+                if biin.objects != nil && biin.objects!.count > 0 {
                     
-                    switch object.objectType {
-                    case .ELEMENT:
-                        if object.hasNotification {
-                            switch biin.biinType {
-                            case .EXTERNO:
-                                if !isExternalBiinAdded {
-                                    isExternalBiinAdded = true
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                    //Set biin state.
+                    biin.setBiinState()
+                    
+                    for object in biin.objects! {
+                        
+                        switch object.objectType {
+                        case .ELEMENT:
+                            if object.hasNotification {
+                                switch biin.biinType {
+                                case .EXTERNO:
+                                    if !isExternalBiinAdded {
+                                        isExternalBiinAdded = true
+                                        BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                    }
+                                    break
+                                case .INTERNO:
+                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                    break
+                                case .PRODUCT:
+                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+                                    break
+                                default:
+                                    break
                                 }
-                                break
-                            case .INTERNO:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-                                break
-                            case .PRODUCT:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
-                                break
-                            default:
-                                break
                             }
-                        }
-                        
-                        let element = BNElement()
-                        element.identifier = object.identifier!
-                        element._id = object._id!
-                        let showcase = BNShowcase()
-                        showcase.site = biin.site
-                        element.showcase = showcase
-                        //element.siteIdentifier = site.identifier
-                        requestElement(element)
-                        
-                        break
-                    case .SHOWCASE:
-                        if showcases[object.identifier!] == nil {
-                            //Showcase does not exist, store it and request it's data.
-                            let showcase = BNShowcase()
-                            showcase.identifier = object.identifier!
-                            showcase.isDefault = object.isDefault
-                            showcases[object.identifier!] = showcase
                             
-                            delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
+                            let element = BNElement()
+                            element.identifier = object.identifier!
+                            element._id = object._id!
+                            let showcase = BNShowcase()
+                            showcase.site = biin.site
+                            element.showcase = showcase
+                            //element.siteIdentifier = site.identifier
+                            requestElement(element)
+                            
+                            break
+                        case .SHOWCASE:
+                            if showcases[object.identifier!] == nil {
+                                //Showcase does not exist, store it and request it's data.
+                                let showcase = BNShowcase()
+                                showcase.identifier = object.identifier!
+                                showcase.isDefault = object.isDefault
+                                showcases[object.identifier!] = showcase
+                                
+                                delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
+                            }
+                            break
+                        default:
+                            break
                         }
-                        break
-                    default:
-                        break
                     }
                 }
             }
@@ -960,6 +977,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
         delegateNM!.requestElementsForShowcase!(showcase, view: view)
     }
+    
+    func requestElementsForCategory(category:BNCategory, view:BNView?){
+        delegateNM!.requestElementsForCategory!(category, view: view)
+    }
+    
+    func requestSites(view:BNView?) {
+        delegateNM!.requestSites!(view)
+    }
 }
 
 @objc protocol BNDataManagerDelegate:NSObjectProtocol {
@@ -968,7 +993,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     //Request on demand
     optional func requestElementsForShowcase(showcase:BNShowcase?, view:BNView?)
-    
+    optional func requestElementsForCategory(category:BNCategory?, view:BNView?)
+    optional func requestSites(view:BNView?)
 
     
     

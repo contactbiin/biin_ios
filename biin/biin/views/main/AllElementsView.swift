@@ -14,13 +14,13 @@ class AllElementsView: BNView {
     var delegate:AllElementsView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var scroll:UIScrollView?
-    var showcase:BNShowcase?
+    var scroll:BNScroll?
+//    var showcase:BNShowcase?
     var category:BNCategory?
     var spacer:CGFloat = 1
 
-    var elements:Array<ElementMiniView>?
-    var addedElementsIdentifiers:Dictionary<String, BNElement>?
+//    var elements:Array<ElementMiniView>?
+//    var addedElementsIdentifiers:Dictionary<String, BNElement>?
     
     var fade:UIView?
     
@@ -65,13 +65,14 @@ class AllElementsView: BNView {
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.whiteColor()
         
-        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll!.backgroundColor = UIColor.clearColor()
-        scroll!.pagingEnabled = false
+//        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
+        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL_TWO_COLS, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
+//        scroll!.backgroundColor = UIColor.clearColor()
+//        scroll!.pagingEnabled = false
         self.addSubview(scroll!)
         self.addSubview(line)
         
-        addedElementsIdentifiers = Dictionary<String, BNElement>()
+//        addedElementsIdentifiers = Dictionary<String, BNElement>()
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
@@ -95,7 +96,7 @@ class AllElementsView: BNView {
             UIView.animateWithDuration(0.3, animations: {()->Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
                 }, completion: {(completed:Bool)->Void in
-                    self.scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                    self.scroll!.scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             })
         }
     }
@@ -123,7 +124,7 @@ class AllElementsView: BNView {
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
-        delegate!.hideAllElementsView!()
+        delegate!.hideAllElementsView!(self.category)
     }
     
     func isSameCategory(category:BNCategory?) -> Bool {
@@ -137,69 +138,128 @@ class AllElementsView: BNView {
         return false
     }
     
+    func isElementAdded(_id:String) -> Bool {
+        for view in scroll!.children {
+            if (view as! ElementMiniView).element!._id! == _id {
+                return true
+            }
+        }
+        return false
+    }
+    
     func updateCategoryData(category:BNCategory?) {
         
         if !isSameCategory(category) {
+            scroll!.clean()
             let titleText = category!.name!//.uppercaseString
             let attributedString = NSMutableAttributedString(string:titleText)
             attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
             title!.attributedText = attributedString
             
             
-            if elements != nil {
-                addedElementsIdentifiers!.removeAll(keepCapacity: false)
-                for view in elements! {
-                    view.removeFromSuperview()
-                }
-            } else {
-                elements = Array<ElementMiniView>()
-                addedElementsIdentifiers = Dictionary<String, BNElement>()
-            }
-            self.showcase = nil
-            showcase = BNShowcase()
+//            if elements != nil {
+//                addedElementsIdentifiers!.removeAll(keepCapacity: false)
+//                for view in elements! {
+//                    view.removeFromSuperview()
+//                }
+//            } else {
+//                elements = Array<ElementMiniView>()
+//                addedElementsIdentifiers = Dictionary<String, BNElement>()
+//            }
             
-            for (_, element) in category!.elements {
-                if addedElementsIdentifiers![element._id!] == nil {
-                    self.showcase!.elements.append(element)
-                    addedElementsIdentifiers![element._id!] = element
-                }
-            }
+//            self.showcase = nil
+//            showcase = BNShowcase()
             
-            var xpos:CGFloat = 0
-            var ypos:CGFloat = 0
-            var colunmCounter = 0
+//            for (_, element) in category!.elements {
+//                if addedElementsIdentifiers![element._id!] == nil {
+//                    self.showcase!.elements.append(element)
+//                    addedElementsIdentifiers![element._id!] = element
+//                }
+//            }
+            
+//            var xpos:CGFloat = 0
+//            var ypos:CGFloat = 0
+//            var colunmCounter = 0
             let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
             
             var elementView_width:CGFloat = 0
             
-            if showcase!.elements.count == 1 {
+            if category!.elements.count == 1 {
                 elementView_width = SharedUIManager.instance.screenWidth
             } else {
                 elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
             }
             
-            for element in showcase!.elements {
+            var elements = Array<ElementMiniView>()
+
+            
+            for (element_id, element) in category!.elements {
                 
+                if element._id != nil {
+                    if !isElementAdded(element._id!) {
+
+           
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+        //                scroll!.addSubview(elementView)
+                        elements.append(elementView)
                 
-                let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+//                        xpos += elementView_width + spacer
+//                        colunmCounter++
+//                        
+//                        if colunmCounter == 2 {
+//                            colunmCounter = 0
+//                            xpos = 0
+//                            ypos += (miniViewHeight + 1)
+//                        }
+                        
+                    }
+                } else {
+                    print("\(element_id)")
+                    category!.elements.removeValueForKey(element_id)
+                }
+            }
+            self.scroll!.addMoreChildren(elements)
+
+//            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+//            scroll!.setContentOffset(CGPointZero, animated: false)
+        } else {
+            
+            let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
+            
+            var elementView_width:CGFloat = 0
+            
+            if category!.elements.count == 1 {
+                elementView_width = SharedUIManager.instance.screenWidth
+            } else {
+                elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+            }
+            
+            var elements = Array<ElementMiniView>()
+            
+            for (element_id, element) in category!.elements {
                 
-                elementView.requestImage()
-                elementView.delegate = father! as! MainView
-                scroll!.addSubview(elementView)
-                elements!.append(elementView)
-        
-                xpos += elementView_width + spacer
-                colunmCounter++
-                
-                if colunmCounter == 2 {
-                    colunmCounter = 0
-                    xpos = 0
-                    ypos += (miniViewHeight + 1)
+                if element._id != nil {
+                    if !isElementAdded(element._id!) {
+                        
+                        
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+                        elements.append(elementView)
+                    }
+                } else {
+                    print("\(element_id)")
+                    category!.elements.removeValueForKey(element_id)
                 }
             }
             
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-            scroll!.setContentOffset(CGPointZero, animated: false)
+            self.scroll!.addMoreChildren(elements)
         }
     }
     
@@ -220,24 +280,38 @@ class AllElementsView: BNView {
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()
-        showcase = nil
+//        showcase = nil
         category = nil
         fade?.removeFromSuperview()
+//        
+//        if elements != nil {
+//            for view in elements! {
+//                view.clean()
+//                view.removeFromSuperview()
+//            }
+//        }
         
-        if elements != nil {
-            for view in elements! {
-                view.clean()
-                view.removeFromSuperview()
-            }
-        }
-        
-        elements?.removeAll()
-        addedElementsIdentifiers?.removeAll()
-        scroll?.removeFromSuperview()
+//        elements?.removeAll()
+//        addedElementsIdentifiers?.removeAll()
+        scroll?.clean()
+    }
+    
+    override func refresh() {
+        updateCategoryData(category)
+    }
+    
+    override func request() {
+        //        self.showcase!.batch++
+        BNAppSharedManager.instance.dataManager.requestElementsForCategory(self.category!, view: self)
+    }
+    
+    override func requestCompleted() {
+        updateCategoryData(category)
+        self.scroll!.requestCompleted()
     }
 }
 
 @objc protocol AllElementsView_Delegate:NSObjectProtocol {
     ///Update categories icons on header
-    optional func hideAllElementsView()
+    optional func hideAllElementsView(category:BNCategory?)
 }

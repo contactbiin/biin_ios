@@ -222,7 +222,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("TEST", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(testButton!)
+        //self.addSubview(testButton!)
         
     }
     
@@ -493,19 +493,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //MainViewContainer_NearSites_Delegate Methods
     func showAllNearSitesView() {
-        
+        (self.allSitesState!.view as! AllSitesView).refresh()
         isShowingAllSite = true
         setNextState(BNGoto.AllSites)
     }
     
     //AllSitesView_Delegate Methdos
     func hideAllSitesView() {
+        (self.mainViewContainerState!.view as! MainViewContainer).refresh_NearSitesContainer()
         isShowingAllSite = false
         setNextState(BNGoto.Main)
     }
     
     //AllElementsView_Delegate  Methods
-    func hideAllElementsView() {
+    func hideAllElementsView(category:BNCategory?) {
+        (self.mainViewContainerState!.view as! MainViewContainer).refresh_elementContainer(category!.identifier!)
         setNextState(BNGoto.Main)
         isShowingAllElements = false
     }
@@ -610,8 +612,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func show(){
-        
-        
         
         let mainViewContainer = MainViewContainer(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         self.addSubview(mainViewContainer)
