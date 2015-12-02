@@ -11,6 +11,9 @@ class BNScroll: BNView, UIScrollViewDelegate {
     var scroll:UIScrollView?
     var isHorizontal:Bool = false
     var childPosition:CGFloat = 0
+    var colunmCounter:Int = 0
+    var colunmXpos:CGFloat = 0
+
     var space:CGFloat = 0
     var extraSpace:CGFloat = 0
     var children:Array<BNView> = Array<BNView>()
@@ -21,6 +24,8 @@ class BNScroll: BNView, UIScrollViewDelegate {
     var updateEnable = true
     
     var isRuningRequest = false
+    
+    var lastScrollPosition:CGFloat = 0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -99,31 +104,61 @@ class BNScroll: BNView, UIScrollViewDelegate {
             break
         case .VERTICAL_TWO_COLS:
             
+            colunmCounter = 0
+            colunmXpos = 0
+            
+            for var i = 0; i < children.count; i++ {
+                
+                //if !children[i].isAddedToScroll {
+                    
+                    self.children[i].isAddedToScroll = true
+                    self.children[i].frame.origin.y = childPosition
+                    self.children[i].frame.origin.x = colunmXpos
+                    
+                    colunmXpos += self.children[i].frame.width + space
+                    colunmCounter++
+                    
+                    if colunmCounter == 2 {
+                        colunmCounter = 0
+                        colunmXpos = 0
+                        childPosition += (children[i].frame.height + space)
+                    }
+                //}
+                
+                //sself.childPosition += self.children[i].frame.width + space
+            }
+            
+            if colunmCounter == 1 {
+                childPosition += (children[0].frame.height)
+            }
+            
+            self.scroll!.contentSize = CGSize(width: self.frame.width, height:(self.childPosition - self.space))
+            
             break
         }
     }
     
     override func refresh(){ }
     
-    func addMoreChildren(){
-        
-        let height:CGFloat = 300
-        let width:CGFloat = self.frame.width
-        var lastIndex = self.children.count
-        var moreChildren = Array<BNView>()
-        
-        for var i = 0; i < 5; i++ {
-            let box = BNView(frame:CGRectMake(0, 0, width, height))
-            box.backgroundColor = UIColor.greenColor()
-            let label = UILabel(frame:CGRectMake(10, 10, width, 20))
-            label.text = "View number: \(lastIndex)"
-            box.addSubview(label)
-            moreChildren.append(box)
-            lastIndex++
-        }
-        
-        addMoreChildren(moreChildren)
-    }
+//    func addMoreChildren(){
+//        
+//        let height:CGFloat = 300
+//        let width:CGFloat = self.frame.width
+//        var lastIndex = self.children.count
+//        var moreChildren = Array<BNView>()
+//        
+//        for var i = 0; i < 5; i++ {
+//            let box = BNView(frame:CGRectMake(0, 0, width, height))
+//            box.backgroundColor = UIColor.greenColor()
+//            let label = UILabel(frame:CGRectMake(10, 10, width, 20))
+//            label.text = "View number: \(lastIndex)"
+//            box.addSubview(label)
+//            moreChildren.append(box)
+//            lastIndex++
+//        }
+//        
+//        addMoreChildren(moreChildren)
+//    }
     
     
     func addMoreChildren(childrenToAdd:Array<BNView>){
@@ -161,17 +196,25 @@ class BNScroll: BNView, UIScrollViewDelegate {
             let contentHeight = self.scroll!.contentSize.height
             let yOffSet = self.scroll!.contentOffset.y
             
+            
+            //print("yOffSet:\(yOffSet)")
+            
+            
             if ((yOffSet + height) >= (contentHeight - height)) {
                 isRuningRequest = true
                 positionToScroll = yOffSet
                 self.father!.request()
-
             }
+            
             break
         }
     }
     
     func clean(){
+        
+        colunmXpos = 0
+        childPosition = 0
+        colunmCounter = 0
         
         if self.children.count > 0 {
             

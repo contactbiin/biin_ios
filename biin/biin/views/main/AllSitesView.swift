@@ -11,11 +11,11 @@ class AllSitesView: BNView {
     var delegate:AllSitesView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var scroll:UIScrollView?
+    var scroll:BNScroll?
     
     var spacer:CGFloat = 1    
-    var sites:Array<SiteMiniView>?
-    var addedSitesIdentifiers:Dictionary<String, SiteMiniView>?
+    //var sites:Array<SiteMiniView>?
+    //var addedSitesIdentifiers:Dictionary<String, SiteMiniView>?
 
     var fade:UIView?
 
@@ -64,14 +64,13 @@ class AllSitesView: BNView {
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.whiteColor()
         
-        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll!.backgroundColor = UIColor.clearColor()
-        scroll!.pagingEnabled = false
+//        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
+        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL_TWO_COLS, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(scroll!)
         self.addSubview(line)
         
-        sites = Array<SiteMiniView>()
-        addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
+//        sites = Array<SiteMiniView>()
+//        addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
 
         addAllSites()
         
@@ -98,7 +97,7 @@ class AllSitesView: BNView {
             UIView.animateWithDuration(0.3, animations: {()->Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
                 }, completion: {(completed:Bool)->Void in
-                    self.scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                    self.scroll!.scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             })
         }
     }
@@ -133,17 +132,17 @@ class AllSitesView: BNView {
     func addAllSites(){
         
         
-        if sites != nil {
-            addedSitesIdentifiers!.removeAll(keepCapacity: false)
-            for view in sites! {
-                view.isPositionedInFather = false
-                view.isReadyToRemoveFromFather = true
-            }
-        } else {
-            sites = Array<SiteMiniView>()
-            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
-        }
-        
+//        if sites != nil {
+//            addedSitesIdentifiers!.removeAll(keepCapacity: false)
+//            for view in sites! {
+//                view.isPositionedInFather = false
+//                view.isReadyToRemoveFromFather = true
+//            }
+//        } else {
+//            sites = Array<SiteMiniView>()
+//            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
+//        }
+        var sites = Array<SiteMiniView>()
         let sitesArray = BNAppSharedManager.instance.dataManager.sites_ordered
         
         /*
@@ -180,18 +179,18 @@ class AllSitesView: BNView {
         }
         
         for site in sitesArray {
-            if site.showInView {
+//            if site.showInView {
                 if !isSiteAdded(site.identifier!) {
                     
 
                     
-                    let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteView_width, miniSiteHeight), father: self, site:site)
+                    let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
                     miniSiteView.isPositionedInFather = true
                     miniSiteView.isReadyToRemoveFromFather = false
                     miniSiteView.delegate = father! as! MainView
                     
-                    sites!.append(miniSiteView)
-                    scroll!.addSubview(miniSiteView)
+                    sites.append(miniSiteView)
+                    //scroll!.addSubview(miniSiteView)
                     
                     xpos += siteView_width + 1
                     colunmCounter++
@@ -202,24 +201,27 @@ class AllSitesView: BNView {
                         ypos += (miniSiteHeight + 1)
                     }
                 }
-            }
+//            }
         }
         
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        //scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         
-        for var i = 0; i < sites!.count; i++ {
-            if sites![i].isReadyToRemoveFromFather {
-                sites![i].removeFromSuperview()
-                sites!.removeAtIndex(i)
-                i = 0
-                
-            }
-        }
+//        for var i = 0; i < sites!.count; i++ {
+//            if sites![i].isReadyToRemoveFromFather {
+//                sites![i].removeFromSuperview()
+//                sites!.removeAtIndex(i)
+//                i = 0
+//                
+//            }
+//        }
+        
+        self.scroll!.addMoreChildren(sites)
+
     }
     
     func isSiteAdded(identifier:String) -> Bool {
-        for siteView in sites! {
-            if siteView.site!.identifier == identifier {
+        for view in scroll!.children {
+            if (view as! SiteMiniView).site!.identifier! == identifier {
                 return true
             }
         }
@@ -246,20 +248,33 @@ class AllSitesView: BNView {
 
         fade?.removeFromSuperview()
 
-        if sites != nil {
-            for view in sites! {
-                view.clean()
-                view.removeFromSuperview()
-            }
-        }
-        
-        sites!.removeAll()
-        addedSitesIdentifiers!.removeAll()
-        scroll?.removeFromSuperview()
+//        if sites != nil {
+//            for view in sites! {
+//                view.clean()
+//                view.removeFromSuperview()
+//            }
+//        }
+//        
+//        sites!.removeAll()
+//        addedSitesIdentifiers!.removeAll()
+        scroll?.clean()
     }
     
     func show() {
         
+    }
+    
+    override func refresh() {
+        addAllSites()
+    }
+    
+    override func request() {
+        BNAppSharedManager.instance.dataManager.requestSites(self)
+    }
+    
+    override func requestCompleted() {
+        self.addAllSites()
+        self.scroll!.requestCompleted()
     }
 }
 

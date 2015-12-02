@@ -206,7 +206,7 @@ class BNRequest_InitialData: BNRequest {
                                     site.phoneNumber = BNParser.findString("phoneNumber", dictionary: siteData)
                                     site.email = BNParser.findString("email", dictionary: siteData)
                                     site.nutshell = BNParser.findString("nutshell", dictionary: siteData)
-                                    
+                                    site.showInView = true
                                     site.userShared = BNParser.findBool("userShared", dictionary: siteData)
                                     site.userFollowed = BNParser.findBool("userFollowed", dictionary: siteData)
                                     site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)

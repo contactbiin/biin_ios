@@ -47,7 +47,6 @@ class MainViewContainer_NearSites: BNView {
         
         scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father: self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(self.scroll!)
-        scroll!.updateEnable = false
         //sites = Array<SiteMiniView>()
         addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
         
@@ -96,30 +95,34 @@ class MainViewContainer_NearSites: BNView {
         
         
         for site in sitesArray {
-            if site.showInView {
-                if !isSiteAdded(sites, identifier: site.identifier!) {
+            //if site.showInView {
+                if !isSiteAdded(site.identifier!) {
                     
                     let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
                     let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteView_width, miniSiteHeight), father: self, site:site)
                     miniSiteView.isPositionedInFather = true
                     miniSiteView.isReadyToRemoveFromFather = false
                     miniSiteView.delegate = father?.father! as! MainView
-                    
                     sites.append(miniSiteView)
+                    
                     
                     xpos += siteView_width + 1
                     
                 }
-            }
+            //}
         }
         
         self.scroll!.addMoreChildren(sites)
         
     }
     
-    func isSiteAdded(sites:Array<SiteMiniView>, identifier:String) -> Bool {
-        for siteView in sites {
-            if siteView.site!.identifier! == identifier {
+    override func refresh() {
+        addAllSites()
+    }
+    
+    func isSiteAdded(identifier:String) -> Bool {
+        for view in scroll!.children {
+            if (view as! SiteMiniView).site!.identifier! == identifier {
                 return true
             }
         }
@@ -137,6 +140,15 @@ class MainViewContainer_NearSites: BNView {
         moreSitesBtn?.removeFromSuperview()
         subTitle?.removeFromSuperview()
         scroll?.removeFromSuperview()
+    }
+    
+    override func request() {
+        BNAppSharedManager.instance.dataManager.requestSites(self)
+    }
+    
+    override func requestCompleted() {
+        self.addAllSites()
+        self.scroll!.requestCompleted()
     }
 }
 
