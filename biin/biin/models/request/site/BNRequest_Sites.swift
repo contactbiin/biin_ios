@@ -1,19 +1,19 @@
-//  BNRequest_ElementsForCategory.swift
+//  BNRequest_Sites.swift
 //  biin
-//  Created by Esteban Padilla on 11/23/15.
+//  Created by Esteban Padilla on 12/1/15.
 //  Copyright © 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class BNRequest_ElementsForCategory: BNRequest {
+class BNRequest_Sites: BNRequest {
     
     override init(){ super.init() }
     var category:BNCategory?
     
     deinit { }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, category:BNCategory?, view:BNView?){
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, view:BNView?){
         self.init()
         self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
@@ -21,7 +21,6 @@ class BNRequest_ElementsForCategory: BNRequest {
         self.requestType = BNRequestType.InitialData
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.category = category
         self.view = view
     }
     
@@ -100,12 +99,6 @@ class BNRequest_ElementsForCategory: BNRequest {
                                 element.subTitle = BNParser.findString("subTitle", dictionary: elementData)
                                 element.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
                                 element.detailsHtml = BNParser.findString("detailsHtml", dictionary: elementData)
-                                
-                                element.hasCallToAction = BNParser.findBool("hasCallToAction", dictionary: elementData)
-                                if element.hasCallToAction {
-                                    element.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
-                                    element.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
-                                }
                                 
                                 element.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
                                 if element.hasFromPrice {
@@ -210,7 +203,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     site.phoneNumber = BNParser.findString("phoneNumber", dictionary: siteData)
                                     site.email = BNParser.findString("email", dictionary: siteData)
                                     site.nutshell = BNParser.findString("nutshell", dictionary: siteData)
-                                    
+                                    site.showInView = true
                                     site.userShared = BNParser.findBool("userShared", dictionary: siteData)
                                     site.userFollowed = BNParser.findBool("userFollowed", dictionary: siteData)
                                     site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
@@ -354,38 +347,12 @@ class BNRequest_ElementsForCategory: BNRequest {
                                 }
                             }
                         }
-                        
-                        //Parse categories
-//                        var categories = Array<BNCategory>()
-                        if let categoryData = BNParser.findNSArray("elementsForCategory", dictionary: initialData) {
-                            
-                            for var i = 0; i < categoryData.count; i++ {
-                                
-                                let elementData = categoryData.objectAtIndex(i) as! NSDictionary
-                                //let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
-                                
-                                //let elements = BNParser.findNSArray("elements", dictionary: categoryData)
-                                
-                                //for var j = 0; j < elements?.count; j++ {
-                                    
-                                    //let elementData = elements!.objectAtIndex(j) as! NSDictionary
-                                    
-                                if let element_id = BNParser.findString("_id", dictionary: elementData) {
-                                    
-                                    print("element for category: \(element_id)")
-                                    self.category!.elements[element_id] = BNAppSharedManager.instance.dataManager.elements_by_id[element_id]
-                                }
-                             
-                            }
-                            
-                            //BNAppSharedManager.instance.dataManager.receivedCategories(categories)
-                        }
                     }
                     
                     let end = NSDate()
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                     
-                    print("BNRequest_ElementsForCategory  \(timeInterval)  - \(self.requestString)")
+                    print("BNRequest_Sites  \(timeInterval)  - \(self.requestString)")
                     
                     self.view!.requestCompleted()
                     self.inCompleted = true

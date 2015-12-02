@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
+class MainViewContainer_Elements:BNView {
 
     var delegate:MainViewContainer_Elements_Delegate?
     var moreElementsBtn:UIButton?
@@ -14,13 +14,13 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
     var subTitle:UILabel?
     var scroll:BNScroll?
     //weak var biin:BNBiin?
-    var showcase:BNShowcase?
+    //var showcase:BNShowcase?
     var category:BNCategory?
     
     var isWorking = true
     var spacer:CGFloat = 1
 //    var elements:Array<ElementMiniView>?
-    var addedElementsIdentifiers:Dictionary<String, BNElement>?
+    //var addedElementsIdentifiers:Dictionary<String, BNElement>?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,8 +81,8 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(scroll!)
         
-        addedElementsIdentifiers = Dictionary<String, BNElement>()
-        
+        //addedElementsIdentifiers = Dictionary<String, BNElement>()
+        //showcase = BNShowcase()
         addElementViews()
     }
     
@@ -136,16 +136,26 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
     }
     
-    func addElementViews(){
-        
-        showcase = BNShowcase()
-        
-        for (_, element) in category!.elements {
-            if addedElementsIdentifiers![element._id!] == nil {
-                self.showcase!.elements.append(element)
-                addedElementsIdentifiers![element._id!] = element
+    func isElementAdded(_id:String) -> Bool {
+        for view in scroll!.children {
+            if (view as! ElementMiniView).element!._id! == _id {
+                return true
             }
         }
+        return false
+    }
+    
+    
+    func addElementViews(){
+        
+
+        
+//        for (_, element) in category!.elements {
+////            if addedElementsIdentifiers![element._id!] == nil {
+//                self.showcase!.elements.append(element)
+////                addedElementsIdentifiers![element._id!] = element
+////            }
+//        }
 
         var elementPosition:Int = 1
         var xpos:CGFloat = 0
@@ -154,81 +164,60 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         
         var elementView_width:CGFloat = 0
         
-        if showcase!.elements.count == 1 {
+        if category!.elements.count == 1 {
             elementView_width = SharedUIManager.instance.screenWidth
-        } else if showcase!.elements.count == 2 {
+        } else if category!.elements.count == 2 {
             elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
-        } else if showcase!.elements.count == 3 {
+        } else if category!.elements.count == 3 {
             elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.75)
         } else {
             elementView_width = SharedUIManager.instance.miniView_width
         }
         
-        for element in showcase!.elements {
+        for (element_id, element) in category!.elements {
+
+
             
-            //element.showcase = showcase
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
-            
-            if element != showcase!.elements.last {
-                xpos += elementView_width + spacer
-            } else  {
-                xpos += (elementView_width - 1)
+            if element._id != nil {
+                if !isElementAdded(element._id!) {
+                    //element.showcase = showcase
+                    let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                    
+        //            if element != showcase!.elements.last {
+        //                xpos += elementView_width + spacer
+        //            } else  {
+        //                xpos += (elementView_width - 1)
+        //            }
+                    
+                    elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+                    //elementView.delegate = self
+        //            self.scroll!.addChild(elementView)
+        //            scroll!.addSubview(elementView)
+                    elements.append(elementView)
+                    elementPosition++
+                    
+                    
+                    
+                    if element.userViewed {
+                        elementsViewed++
+                    }
+                    
+                    //if elementPosition < 4 {
+                    elementView.requestImage()
+                }
+                //}
+            } else {
+                print("\(element_id)")
+                category!.elements.removeValueForKey(element_id)
             }
-            
-            elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
-            //elementView.delegate = self
-//            self.scroll!.addChild(elementView)
-//            scroll!.addSubview(elementView)
-            elements.append(elementView)
-            elementPosition++
-            
-            
-            
-            if element.userViewed {
-                elementsViewed++
-            }
-            
-            //if elementPosition < 4 {
-            elementView.requestImage()
-            //}
         }
         
         self.scroll!.addMoreChildren(elements)
-        self.scroll!.updateEnable = false
+        //self.scroll!.updateEnable = false
 //        self.scroll!.setChildrenPosition()
 //        scroll!.contentSize = CGSizeMake(xpos, 0)
 //        scroll!.setContentOffset(CGPointZero, animated: false)
     }
-    
-    /* UIScrollViewDelegate Methods */
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        manageElementMiniViewImageRequest()
-    }// any offset changes
-    
-    // called on start of dragging (may require some time and or distance to move)
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        //handlePan(scrollView.panGestureRecognizer)
-        let mainView = father!.father! as! MainView
-        mainView.delegate!.mainView!(mainView, hideMenu: false)
-    }
-    
-    // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-    }
-    
-    // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-    }
-    
-    func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
-        
-    }// called on finger up as we are moving
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        
-         }// called when scroll view grinds to a halt
     
     func updatePointCounter() {
 
@@ -238,19 +227,6 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
 
 
     }
-    
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        
-    }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
-    
-    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-        
-        return true
-    }// return a yes if you want to scroll to the top. if not defined, assumes YES
-    
-    func scrollViewDidScrollToTop(scrollView: UIScrollView) {
-        
-    }// called when scrolling animation finished. may be called immediately if already at top
     
     func manageElementMiniViewImageRequest(){
         
@@ -290,9 +266,23 @@ class MainViewContainer_Elements:BNView, UIScrollViewDelegate {
         title?.removeFromSuperview()
         subTitle?.removeFromSuperview()
         scroll?.removeFromSuperview()
-        showcase = nil
+//        showcase = nil
         category = nil
         
+    }
+    
+    override func refresh() {
+        addElementViews()
+    }
+    
+    override func request() {
+//        self.showcase!.batch++
+        BNAppSharedManager.instance.dataManager.requestElementsForCategory(self.category!, view: self)
+    }
+    
+    override func requestCompleted() {
+        self.addElementViews()
+        self.scroll!.requestCompleted()
     }
 }
 

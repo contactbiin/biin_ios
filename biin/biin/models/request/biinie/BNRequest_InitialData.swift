@@ -103,6 +103,12 @@ class BNRequest_InitialData: BNRequest {
                                 element.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
                                 element.detailsHtml = BNParser.findString("detailsHtml", dictionary: elementData)
                                 
+                                element.hasCallToAction = BNParser.findBool("hasCallToAction", dictionary: elementData)
+                                if element.hasCallToAction {
+                                    element.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
+                                    element.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
+                                }
+                                
                                 element.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
                                 if element.hasFromPrice {
                                     element.fromPrice = BNParser.findString("fromPrice", dictionary: elementData)
@@ -206,7 +212,7 @@ class BNRequest_InitialData: BNRequest {
                                     site.phoneNumber = BNParser.findString("phoneNumber", dictionary: siteData)
                                     site.email = BNParser.findString("email", dictionary: siteData)
                                     site.nutshell = BNParser.findString("nutshell", dictionary: siteData)
-                                    
+                                    site.showInView = true
                                     site.userShared = BNParser.findBool("userShared", dictionary: siteData)
                                     site.userFollowed = BNParser.findBool("userFollowed", dictionary: siteData)
                                     site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
