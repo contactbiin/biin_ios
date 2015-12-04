@@ -399,10 +399,15 @@ class ElementView: BNView, UIWebViewDelegate {
             
             var height:CGFloat = 0
             
-            if self.element!.detailsHtml == "" {
-                height = (SharedUIManager.instance.screenHeight - (ypos))
-            } else {
-                height = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
+//            if self.element!.detailsHtml == "" {
+                height = self.subTitle!.frame.height + self.title!.frame.height + 130//(SharedUIManager.instance.screenHeight - (ypos))
+//            } else {
+//                height = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
+//            }
+            
+            
+            if (ypos + height) < SharedUIManager.instance.screenHeight {
+                height = (SharedUIManager.instance.screenHeight - (ypos + 20))
             }
             
             titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
@@ -618,7 +623,7 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if self.element!.detailsHtml! == "" {
             
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 20))
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
 
         } else {
             var frame:CGRect = webView.frame
