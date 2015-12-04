@@ -853,7 +853,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //Check is element is has been requested by it's identifier
         if elements_by_identifier[element.identifier!] == nil {
             elements_by_identifier[element.identifier!] = element
-            print("Added element_by_identifier:\(element.identifier!)")
         }
     }
 
