@@ -244,7 +244,8 @@ class ElementView: BNView, UIWebViewDelegate {
             
             BNAppSharedManager.instance.dataManager.applyViewedElement(element)
             
-            if showSiteBtn {
+            if showSiteBtn && !self.element!.isRemovedFromShowcase {
+
                 self.showSiteBtn!.alpha = 1
                 self.showSiteBtn!.enabled = true
                 

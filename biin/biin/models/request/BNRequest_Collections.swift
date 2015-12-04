@@ -52,7 +52,7 @@ class BNRequest_Collections: BNRequest {
                             collection.subTitle = NSLocalizedString("CollectionSubTitle", comment: "CollectionSubTitle")
                             
                             let elements = BNParser.findNSArray("elements", dictionary: collectionData)
-                            collection.items = Array<String>()
+                            //collection.items = Array<String>()
                             
                             if elements?.count > 0 {
                                 
@@ -64,24 +64,9 @@ class BNRequest_Collections: BNRequest {
                                     element.identifier = BNParser.findString("identifier", dictionary: elementData)
                                     element._id = BNParser.findString("_id", dictionary: elementData)
                                     collection.elements[element.identifier!] = element
-                                    collection.items.append(element.identifier!)
+                                    //collection.items.append(element.identifier!)
                                 }
                             }
-                            
-//                            let sites = BNParser.findNSArray("sites", dictionary: collectionData)
-//                            
-//                            if sites?.count > 0 {
-//                                
-//                                collection.sites = Dictionary<String, BNSite>()
-//                                
-//                                for ( var i = 0; i < sites?.count; i++ ) {
-//                                    let siteData = sites!.objectAtIndex(i) as! NSDictionary
-//                                    let site = BNSite()
-//                                    site.identifier = BNParser.findString("identifier", dictionary: siteData)
-//                                    collection.sites[site.identifier!] = site
-//                                    collection.items.append(site.identifier!)
-//                                }
-//                            }
                             
                             collectionList.append(collection)
                         }

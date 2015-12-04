@@ -294,7 +294,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     ///Conforms optional func manager(manager: BNDataManager!, requestBoardsForBNUser user: BNUser) of BNDataManagerDelegate.
     func manager(manager: BNDataManager!, requestCollectionsForBNUser user: Biinie) {
-        let request = BNRequest_Collections(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections", errorManager: self.errorManager!, networkManager: self)
+        ///mobile/biinies/ca8bca2e-db80-40e8-a017-7badd86d0ab8/requestCollection
+        let request = BNRequest_CollectionsForBiinie(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/requestCollection", errorManager: self.errorManager!, networkManager: self)
+        
+//        let request = BNRequest_Collections(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/requestCollection", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     

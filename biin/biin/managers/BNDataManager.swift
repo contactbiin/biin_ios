@@ -619,14 +619,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 new_collection.subTitle = collection.subTitle
                 bnUser!.temporalCollectionIdentifier = collection.identifier
                 
-                for (identifier, element) in collection.elements {
-                    new_collection.elements[identifier] = elements_by_id[element._id!]
+                for (_id, element) in collection.elements {
+                    new_collection.elements[_id] = elements_by_id[element._id!]
+                    new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
                 }
                 
                 bnUser!.collections![collection.identifier!] = new_collection
                 
-                
-                
+
 //                if bnUser!.collections![collection.identifier!] == nil {
 //                    bnUser!.collections![collection.identifier!] = collection
 //                    bnUser!.temporalCollectionIdentifier = collection.identifier!
@@ -925,9 +925,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func applyCollectedElement(element:BNElement?) {
         
-        if self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!.identifier!] == nil {
+        if self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] == nil {
         
-            self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!.identifier!] = self.elements_by_id[element!._id!]
+            self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] = self.elements_by_id[element!._id!]
 
             element!.collectCount++
             elements_by_identifier[element!.identifier!]?.collectCount = element!.collectCount

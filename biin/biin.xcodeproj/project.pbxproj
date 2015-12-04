@@ -46,6 +46,7 @@
 		5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2907BB1A687C0C0000658A /* BNIcon.swift */; };
 		5B2908081A687C590000658A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2908071A687C590000658A /* MenuView.swift */; };
 		5B2939DB1ADABF3F0023FEA5 /* ShareItView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */; };
+		5B2DFA601C11D88400ECDE53 /* BNRequest_CollectionsForBiinie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DFA5F1C11D88400ECDE53 /* BNRequest_CollectionsForBiinie.swift */; };
 		5B2E3C851A83A95E0008EA10 /* ElementView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C841A83A95E0008EA10 /* ElementView_Header.swift */; };
 		5B2E3C891A83D4750008EA10 /* BNUIButton_BiinItLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C881A83D4750008EA10 /* BNUIButton_BiinItLarge.swift */; };
 		5B2E3C8B1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */; };
@@ -398,6 +399,7 @@
 		5B2907BB1A687C0C0000658A /* BNIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon.swift; sourceTree = "<group>"; };
 		5B2908071A687C590000658A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareItView.swift; sourceTree = "<group>"; };
+		5B2DFA5F1C11D88400ECDE53 /* BNRequest_CollectionsForBiinie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_CollectionsForBiinie.swift; sourceTree = "<group>"; };
 		5B2E3C841A83A95E0008EA10 /* ElementView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementView_Header.swift; sourceTree = "<group>"; };
 		5B2E3C881A83D4750008EA10 /* BNUIButton_BiinItLarge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_BiinItLarge.swift; sourceTree = "<group>"; };
 		5B2E3C8A1A83D49B0008EA10 /* BNIcon_BiinItLargeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BiinItLargeButton.swift; sourceTree = "<group>"; };
@@ -1343,6 +1345,7 @@
 				5BEE97AA1BAC53BB004C2B30 /* BNRequest_Showcase.swift */,
 				5BBA5A651BFE3E190091DFDB /* BNRequest_ElementsForShowcase.swift */,
 				5BA18A361C03AAB700CCB463 /* BNRequest_ElementsForCategory.swift */,
+				5B2DFA5F1C11D88400ECDE53 /* BNRequest_CollectionsForBiinie.swift */,
 				5BEE97AB1BAC53BB004C2B30 /* element */,
 				5BEE97B01BAC53BB004C2B30 /* site */,
 			);
@@ -1704,6 +1707,7 @@
 				5B4894EA1ADD983F006789E2 /* BNUIDetailView_Discount.swift in Sources */,
 				5BEE61351A97E59300DE334E /* NotificationsView.swift in Sources */,
 				5BEE97DA1BAC5567004C2B30 /* BNRequest_SendLikedElement.swift in Sources */,
+				5B2DFA601C11D88400ECDE53 /* BNRequest_CollectionsForBiinie.swift in Sources */,
 				5BEE97BA1BAC53BB004C2B30 /* BNRequest_CheckEmail_IsVerified.swift in Sources */,
 				5BAD8AD41A828B9F0081B335 /* BNIcon_BiinItButton.swift in Sources */,
 				5BAD8AD81A828C480081B335 /* BNUIButton_BiinIt.swift in Sources */,
