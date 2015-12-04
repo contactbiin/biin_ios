@@ -142,12 +142,12 @@ class ElementView: BNView, UIWebViewDelegate {
         showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(showSiteBtn!)
         
-        callToActionBtn = UIButton(frame: CGRectMake(0,  (screenWidth + 30), screenWidth, 60))
+        callToActionBtn = UIButton(frame: CGRectMake(5,  (screenWidth + 30), (screenWidth - 10), 50))
         callToActionBtn!.backgroundColor = UIColor.redColor()
         callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(callToActionBtn!)
         
-        callToActionTitle = UILabel(frame: CGRectMake(0, 0, screenWidth, 60))
+        callToActionTitle = UILabel(frame: CGRectMake(0, 0, screenWidth, 50))
         callToActionTitle!.textColor = UIColor.whiteColor()
         callToActionTitle!.font = UIFont(name: "Lato-Regular", size: 20)
         callToActionTitle!.textAlignment =  NSTextAlignment.Center
@@ -283,24 +283,9 @@ class ElementView: BNView, UIWebViewDelegate {
             updateLikeItBtn()
             updateCollectItBtn()
             updateShareBtn()
-            
-            
-            if self.element!.hasCallToAction {
-                ypos = (SharedUIManager.instance.screenWidth + callToActionBtn!.frame.height + 0)
-                callToActionBtn!.alpha = 1
-                callToActionBtn!.backgroundColor = decorationColor
-                callToActionTitle!.alpha = 1
-                callToActionTitle!.text = self.element!.callToActionTitle!
-                callToActionBtn!.enabled = true
-            } else {
-                ypos = SharedUIManager.instance.screenWidth
-                callToActionBtn!.alpha = 0
-                callToActionTitle!.alpha = 0
-                callToActionBtn!.enabled = false
-            }
-            
-            
-            
+                        
+            ypos = SharedUIManager.instance.screenWidth
+
             if percentageView != nil {
                 percentageView!.removeFromSuperview()
                 percentageView = nil
@@ -395,7 +380,6 @@ class ElementView: BNView, UIWebViewDelegate {
 
             }
             
-            
             self.title!.frame = CGRectMake(10, 20, (frame.width - 20), 0)
             self.title!.textColor = self.element!.media[0].vibrantDarkColor!//UIColor.appTextColor()
             self.title!.textAlignment = NSTextAlignment.Left
@@ -412,22 +396,16 @@ class ElementView: BNView, UIWebViewDelegate {
             self.subTitle!.numberOfLines = 2
             self.subTitle!.sizeToFit()
             
-            let height:CGFloat = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
+            var height:CGFloat = 0
             
-            titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
-
-            ypos += titlesBackground!.frame.height
-
-            
-            /*
-            if detailsView != nil {
-                detailsView!.removeFromSuperview()
-                detailsView = nil
+            if self.element!.detailsHtml == "" {
+                height = (SharedUIManager.instance.screenHeight - (ypos))
+            } else {
+                height = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
             }
             
-            detailsView = ElementView_Details(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenWidth), father: self, element:self.element)
-            scroll!.addSubview(detailsView!)
-            */
+            titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
+            ypos += titlesBackground!.frame.height
 
             if webView != nil {
                 webView!.removeFromSuperview()
@@ -444,10 +422,9 @@ class ElementView: BNView, UIWebViewDelegate {
                 shareView = nil
             }
             
+            
             let siteForSharing = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
             shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:siteForSharing)
-            //scroll!.addSubview(shareView!)
-            
             
         }
     }
@@ -459,16 +436,12 @@ class ElementView: BNView, UIWebViewDelegate {
         
         backBtn?.removeFromSuperview()
         
-        
         fade?.removeFromSuperview()
         
         shareItButton?.removeFromSuperview()
         likeItButton?.removeFromSuperview()
         collectItButton?.removeFromSuperview()
         showSiteBtn?.removeFromSuperview()
-        
-        //detailsView?.clean()
-        //detailsView?.removeFromSuperview()
         
         percentageView?.removeFromSuperview()
         textPrice1?.removeFromSuperview()
@@ -580,12 +553,8 @@ class ElementView: BNView, UIWebViewDelegate {
         html += getBiinCSS(element)
         html += "</style></head>"
         html += "<body>"
-        if element!.detailsHtml! == "" {
-        html += "<br><br><br><br><br><br><br>"
-        }   else {
-            html += element!.detailsHtml!
-            html += "<br><br>"
-        }
+        html += element!.detailsHtml!
+        html += "<br><br><br><br>"
         html += "</body></html>"
         return html
     }
@@ -645,15 +614,36 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func webViewDidFinishLoad(webView: UIWebView) {
         
-        var frame:CGRect = webView.frame;
-        frame.size.height = 1;
-        webView.frame = frame;
-        let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
-        frame.size = fittingSize;
-        webView.frame = frame
         
-        ypos += fittingSize.height
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
+        if self.element!.detailsHtml! == "" {
+            
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 20))
+
+        } else {
+            var frame:CGRect = webView.frame
+            frame.size.height = 1
+            webView.frame = frame
+            let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
+            frame.size = fittingSize
+            webView.frame = frame
+            ypos += fittingSize.height
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
+        }
+        
+        if self.element!.hasCallToAction {
+            callToActionBtn!.alpha = 1
+            callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
+            callToActionTitle!.alpha = 1
+            callToActionTitle!.text = self.element!.callToActionTitle!
+            callToActionBtn!.enabled = true
+        } else {
+            callToActionBtn!.alpha = 0
+            callToActionTitle!.alpha = 0
+            callToActionBtn!.enabled = false
+        }
+        
+        scroll!.bringSubviewToFront(callToActionBtn!)
+        callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 55)
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
