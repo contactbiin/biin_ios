@@ -465,4 +465,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         self.mainView!.show()
     }
+    
+    func enableCollectionBtnOnMenu(){
+        menuView!.collectionsBtn!.showEnable()
+    }
 }

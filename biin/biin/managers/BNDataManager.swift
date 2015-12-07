@@ -620,12 +620,29 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 bnUser!.temporalCollectionIdentifier = collection.identifier
                 
                 for (_id, element) in collection.elements {
-                    new_collection.elements[_id] = elements_by_id[element._id!]
-                    new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
+                    if let store_element = elements_by_id[_id] {
+                        new_collection.elements[_id] = store_element
+                        new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
+                    } else {
+                        print("element not store:\(_id)")
+                        if let element_by_identifier = elements_by_identifier[element.identifier!] {
+                            
+                            elements_by_id[_id] = element_by_identifier.clone()
+                            elements_by_id[_id]!._id = _id
+                            
+                            if let showcase = showcases[element.showcase!._id!] {
+                                elements_by_id[_id]!.showcase = showcase
+                            }
+                            
+                            new_collection.elements[_id] = elements_by_id[_id]
+                            new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
+                        }
+                        
+                    }
                 }
                 
                 bnUser!.collections![collection.identifier!] = new_collection
-                
+                BNAppSharedManager.instance.mainViewController!.enableCollectionBtnOnMenu()
 
 //                if bnUser!.collections![collection.identifier!] == nil {
 //                    bnUser!.collections![collection.identifier!] = collection
@@ -713,6 +730,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func receivedOrganization(organization: BNOrganization) {
+        print("organization: \(organization.identifier!)")
         organizations[organization.identifier!] = organization
     }
     
@@ -735,7 +753,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if !isSiteStored(site.identifier!) {
             
             
-            
+            print("site received: org ide: \(site.organizationIdentifier!)")
             sites_ordered.append(site)
             site.organization = organizations[site.organizationIdentifier!]
             sites[site.identifier!] = site
