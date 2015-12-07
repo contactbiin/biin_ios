@@ -77,6 +77,7 @@ class BNElement:NSObject {
     var hasCallToAction = false
     var callToActionURL:String?
     var callToActionTitle:String?
+    var isRemovedFromShowcase = false
     
     //var biinieProximity:Float? //same as the site where it belongs
     
@@ -131,6 +132,7 @@ class BNElement:NSObject {
         clone.userCollected = self.userCollected
         clone.userLiked = self.userLiked
         clone.isHighlight = self.isHighlight
+        clone.isRemovedFromShowcase = self.isRemovedFromShowcase
 //        if let value = self.siteIdentifier { clone.siteIdentifier = value }
         if let value = self.showcase { clone.showcase = value }
         clone.stars = self.stars

@@ -619,14 +619,31 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 new_collection.subTitle = collection.subTitle
                 bnUser!.temporalCollectionIdentifier = collection.identifier
                 
-                for (identifier, element) in collection.elements {
-                    new_collection.elements[identifier] = elements_by_id[element._id!]
+                for (_id, element) in collection.elements {
+                    if let store_element = elements_by_id[_id] {
+                        new_collection.elements[_id] = store_element
+                        new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
+                    } else {
+                        print("element not store:\(_id)")
+                        if let element_by_identifier = elements_by_identifier[element.identifier!] {
+                            
+                            elements_by_id[_id] = element_by_identifier.clone()
+                            elements_by_id[_id]!._id = _id
+                            
+                            if let showcase = showcases[element.showcase!._id!] {
+                                elements_by_id[_id]!.showcase = showcase
+                            }
+                            
+                            new_collection.elements[_id] = elements_by_id[_id]
+                            new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
+                        }
+                        
+                    }
                 }
                 
                 bnUser!.collections![collection.identifier!] = new_collection
-                
-                
-                
+                BNAppSharedManager.instance.mainViewController!.enableCollectionBtnOnMenu()
+
 //                if bnUser!.collections![collection.identifier!] == nil {
 //                    bnUser!.collections![collection.identifier!] = collection
 //                    bnUser!.temporalCollectionIdentifier = collection.identifier!
@@ -713,6 +730,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func receivedOrganization(organization: BNOrganization) {
+        print("organization: \(organization.identifier!)")
         organizations[organization.identifier!] = organization
     }
     
@@ -735,7 +753,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if !isSiteStored(site.identifier!) {
             
             
-            
+            print("site received: org ide: \(site.organizationIdentifier!)")
             sites_ordered.append(site)
             site.organization = organizations[site.organizationIdentifier!]
             sites[site.identifier!] = site
@@ -925,9 +943,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func applyCollectedElement(element:BNElement?) {
         
-        if self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!.identifier!] == nil {
+        if self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] == nil {
         
-            self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!.identifier!] = self.elements_by_id[element!._id!]
+            self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] = self.elements_by_id[element!._id!]
 
             element!.collectCount++
             elements_by_identifier[element!.identifier!]?.collectCount = element!.collectCount

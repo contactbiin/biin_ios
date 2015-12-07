@@ -99,7 +99,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
                 self.childPosition += self.children[i].frame.height + space
             }
             
-            self.scroll!.contentSize = CGSize(width: self.frame.width, height:(self.childPosition - self.space))
+            self.scroll!.contentSize = CGSize(width: self.frame.width, height:(self.childPosition - self.space + self.extraSpace ))
             
             break
         case .VERTICAL_TWO_COLS:

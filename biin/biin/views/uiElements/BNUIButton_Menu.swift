@@ -87,12 +87,15 @@ class BNUIButton_Menu:BNUIButton {
     
     override func showEnable() {
         //self.icon!.color = UIColor.appButtonColor()
+        label!.textColor = UIColor.whiteColor()
+        self.enabled = true
         setNeedsDisplay()
     }
     
     override func showDisable() {
         //icon!.color = UIColor.appButtonColor_Disable()
-        label!.textColor = UIColor.appButtonColor_Disable()
+        label!.textColor = UIColor.blackColor()
+        self.enabled = false
     }
 }
 

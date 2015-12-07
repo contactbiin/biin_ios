@@ -142,9 +142,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
 
         for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
             for (_,element) in collection.elements {
-                if addedElementsIdentifiers![element.identifier!] == nil {
+                if addedElementsIdentifiers![element._id!] == nil {
                     self.showcase!.elements.append(element)
-                    addedElementsIdentifiers![element.identifier!] = element
+                    addedElementsIdentifiers![element._id!] = element
                 }
             }
         }
@@ -182,7 +182,11 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             }
         }
 
-
+        
+        if colunmCounter == 1 {
+            ypos += elements![0].frame.height
+        }
+        
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
     }
@@ -220,7 +224,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
 
         
         for var i = 0; i < elements!.count; i++ {
-            if elements![i].element!.identifier! == view.element!.identifier {
+            if elements![i].element!._id! == view.element!._id {
                 elements!.removeAtIndex(i)
                 continue
             }
