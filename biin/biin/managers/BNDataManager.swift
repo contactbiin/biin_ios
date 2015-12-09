@@ -624,7 +624,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         new_collection.elements[_id] = store_element
                         new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
                     } else {
-                        print("element not store:\(_id)")
+                        //print("element not store:\(_id)")
                         if let element_by_identifier = elements_by_identifier[element.identifier!] {
                             
                             elements_by_id[_id] = element_by_identifier.clone()
@@ -730,7 +730,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func receivedOrganization(organization: BNOrganization) {
-        print("organization: \(organization.identifier!)")
         organizations[organization.identifier!] = organization
     }
     
@@ -752,8 +751,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         if !isSiteStored(site.identifier!) {
             
-            
-            print("site received: org ide: \(site.organizationIdentifier!)")
             sites_ordered.append(site)
             site.organization = organizations[site.organizationIdentifier!]
             sites[site.identifier!] = site
@@ -797,14 +794,34 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                                 }
                             }
                             
-                            let element = BNElement()
-                            element.identifier = object.identifier!
-                            element._id = object._id!
-                            let showcase = BNShowcase()
-                            showcase.site = biin.site
-                            element.showcase = showcase
-                            //element.siteIdentifier = site.identifier
-                            requestElement(element)
+//                            let element = BNElement()
+//                            element.identifier = object.identifier!
+//                            element._id = object._id!//Use as a element _id
+//                            let showcase = BNShowcase()
+//                            showcase.site = biin.site
+//                            element.showcase = showcase
+//                            requestElement(element)
+                            
+                            //Check if element exist.
+                            if elements_by_id[object._id!] == nil {
+                                
+                                //Checks if element received is already on elements_by_identifier list.
+                                if let element = elements_by_identifier[object.identifier!] {
+                                    //Checks if element received is reference on element and clone it self.
+                                    
+                                    
+                                    //                for (element_identifier, element_by_identifier) in elements_by_identifier {
+                                    if object.identifier! == element.identifier! {
+                                        
+                                        elements_by_id[object._id!] = element.clone()
+                                        elements_by_id[object._id!]!._id = object._id
+                                        let showcase = BNShowcase()
+                                        showcase.site = biin.site
+                                        elements_by_id[object._id!]!.showcase = showcase
+                                    }
+                                    //                }
+                                }
+                            }
                             
                             break
                         case .SHOWCASE:
@@ -963,7 +980,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func applyUnCollectedElement(element:BNElement?) {
 
-        self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]!.elements.removeValueForKey(element!.identifier!)
+        self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]!.elements.removeValueForKey(element!._id!)
         
         elements_by_identifier[element!.identifier!]?.userCollected = element!.userCollected
         

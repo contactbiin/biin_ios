@@ -191,7 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         appManager.IS_APP_UP = true
 
-        //appManager.positionManager.start_BEACON_RANGING()
+        appManager.positionManager.start_BEACON_RANGING()
 
         BNAppSharedManager.instance.show()
         
