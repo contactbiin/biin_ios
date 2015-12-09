@@ -143,7 +143,7 @@ class ElementView: BNView, UIWebViewDelegate {
         scroll!.addSubview(showSiteBtn!)
         
         callToActionBtn = UIButton(frame: CGRectMake(5,  (screenWidth + 30), (screenWidth - 10), 50))
-        callToActionBtn!.backgroundColor = UIColor.redColor()
+        callToActionBtn!.backgroundColor = UIColor.clearColor()
         callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(callToActionBtn!)
         

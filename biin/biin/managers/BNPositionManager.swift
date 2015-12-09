@@ -210,6 +210,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func start_SITES_MONITORING(){
         
+        print("start_SITES_MONITORING")
+        
         if BNAppSharedManager.instance.IS_APP_UP {
             return
         }
@@ -259,7 +261,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     //When entering an EXT beacon  region.
     func start_SITE_EXTERIOR_MONITORING(beaconRegion:CLBeaconRegion){
-//        NSLog("BIIN - start_SITE_EXTERIOR_MONITORING")
+        NSLog("BIIN - start_SITE_EXTERIOR_MONITORING")
         if BNAppSharedManager.instance.IS_APP_UP {
             return
         }
@@ -349,7 +351,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //When entering an interior region start monitoring for its children.
     func start_SITE_INTERIOR_MONITORING(interiorBeaconRegion:CLBeaconRegion){
         
-//        NSLog("start_SITE_INTERIOR_MONITORING")
+        NSLog("start_SITE_INTERIOR_MONITORING")
         
         if BNAppSharedManager.instance.IS_APP_UP {
             return
@@ -462,7 +464,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-//        NSLog("BIIN - didEnterRegion() 1")
+        NSLog("BIIN - didEnterRegion() 1")
         
         if BNAppSharedManager.instance.IS_APP_UP{
 //            NSLog("BIIN - didEnterRegion() 2")
@@ -702,6 +704,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     func start_BEACON_RANGING() {
         
     
+        print("start_BEACON_RANGING")
         
         stop_REGION_MONITORING()
         nowMonitoring = BNRegionMonitoringType.RANGING
@@ -757,7 +760,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            
+            //print("value: \(value)")
         }
         
         self.myBeacons = self.myBeacons.sort{ $0.rssi > $1.rssi  }
@@ -782,24 +785,24 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     //TESTING ->
                     
                     
-                    for b:CLBeacon in self.myBeacons {
-                    
-                        switch b.proximity {
-                        case .Unknown:
-                    break
-                        case .Immediate:
-                    
-                         break
-                        case .Near:
-                    break
-                        case .Far:
-                        break
-                        
-//                            default:
-//                            break
-                        }
-                        
-                    }
+//                    for b:CLBeacon in self.myBeacons {
+//                    
+//                        switch b.proximity {
+//                        case .Unknown:
+//                    break
+//                        case .Immediate:
+//                    
+//                         break
+//                        case .Near:
+//                    break
+//                        case .Far:
+//                        break
+//                        
+////                            default:
+////                            break
+//                        }
+//                        
+//                    }
 
                         isBiinsViewContainerEmpty = false
                     
@@ -1092,8 +1095,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         self.myBeacons = Array<CLBeacon>()
         self.rangedRegions = NSMutableDictionary()
-        
-        
         
         let proximityUUID:NSUUID = NSUUID(UUIDString:"AABBCCDD-A101-B202-C303-AABBCCDDEEFF")!
         let region:CLBeaconRegion = CLBeaconRegion(proximityUUID:proximityUUID, identifier:"BIIN_COMMERCIAL")
