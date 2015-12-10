@@ -23,6 +23,8 @@ class BNLocalNotification:NSObject, NSCoding {
     var onSaturday = false
     var onSunday = false
     
+    var hasTimeOptions = false
+    
     var endTime:Float = 0.0
     var startTime:Float = 0.0
     var isUserNotified = false
@@ -75,6 +77,7 @@ class BNLocalNotification:NSObject, NSCoding {
         self.onFriday = aDecoder.decodeBoolForKey("onFriday")
         self.onSaturday = aDecoder.decodeBoolForKey("onSaturday")
         self.onSunday = aDecoder.decodeBoolForKey("onSunday")
+        self.hasTimeOptions = aDecoder.decodeBoolForKey("hasTimeOptions")
         self.endTime = aDecoder.decodeFloatForKey("endTime")
         self.startTime = aDecoder.decodeFloatForKey("startTime")
         self.isUserNotified = aDecoder.decodeBoolForKey("isUserNotified")
@@ -115,6 +118,7 @@ class BNLocalNotification:NSObject, NSCoding {
         aCoder.encodeBool(self.onFriday, forKey: "onFriday")
         aCoder.encodeBool(self.onSaturday, forKey: "onSaturday")
         aCoder.encodeBool(self.onSunday, forKey: "onSunday")
+        aCoder.encodeBool(self.hasTimeOptions, forKey: "hasTimeOptions")
         aCoder.encodeBool(self.isUserNotified, forKey: "isUserNotified")
         aCoder.encodeFloat(self.startTime, forKey: "startTime")
         aCoder.encodeFloat(self.endTime, forKey: "endTime")
