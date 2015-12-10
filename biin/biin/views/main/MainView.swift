@@ -372,7 +372,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showNotificationContext(){
-//        NSLog("BIIN - showNotificationContext")
+        NSLog("BIIN - showNotificationContext")
         
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
             switch BNAppSharedManager.instance.notificationManager.currentNotification!.notificationType! {
@@ -394,19 +394,19 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 }
                 break
             case .EXTERNAL:
-//                NSLog("BIIN - GOTO TO SITE VIEW on external notification")
+                NSLog("BIIN - GOTO TO SITE VIEW on external notification")
                 if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
                     (siteState!.view as! SiteView).updateSiteData(site)
                     setNextState(BNGoto.Site)
                 } else if let element = BNAppSharedManager.instance.dataManager.elements_by_id[BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!] {
                     
-//                    NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)")
+                    NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)")
                     
                     (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                     //(siteState!.view as! SiteView).updateSiteData(site)
                     
                     setNextState(BNGoto.Element)
-//                    NSLog("BIIN - Show element view for element: \(element._id!)")
+                    NSLog("BIIN - Show element view for element: \(element._id!)")
 //                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
                     //(self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
                 }

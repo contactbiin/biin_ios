@@ -778,10 +778,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             if object.hasNotification {
                                 switch biin.biinType {
                                 case .EXTERNO:
-                                    if !isExternalBiinAdded {
-                                        isExternalBiinAdded = true
+//                                    if !isExternalBiinAdded {
+//                                        isExternalBiinAdded = true
                                         BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-                                    }
+//                                    }
                                     break
                                 case .INTERNO:
                                     BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
