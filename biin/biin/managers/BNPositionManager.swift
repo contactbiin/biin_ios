@@ -760,7 +760,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            //print("value: \(value)")
+            print("value: \(value)")
         }
         
         self.myBeacons = self.myBeacons.sort{ $0.rssi > $1.rssi  }

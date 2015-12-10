@@ -86,16 +86,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "biin/managers/BNDataManager.swift"
-            timestampString = "471370710.461197"
+            filePath = "biin/viewControllers/MainViewController.swift"
+            timestampString = "471461492.93067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "983"
-            endingLineNumber = "983"
-            landmarkName = "applyUnCollectedElement(_:)"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "initViewController(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

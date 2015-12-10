@@ -256,7 +256,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///- parameter BNSite: received from web service in json format already parse in an site object.
     func manager(manager: BNNetworkManager!, didReceivedSite site: BNSite) {
         
-        var isExternalBiinAdded = false
+        //var isExternalBiinAdded = false
         
         sites[site.identifier!] = site
         
@@ -316,10 +316,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         if object.hasNotification {
                             switch biin.biinType {
                             case .EXTERNO:
-                                if !isExternalBiinAdded {
-                                    isExternalBiinAdded = true
+                                //if !isExternalBiinAdded {
+                                    //isExternalBiinAdded = true
                                     BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-                                }
+                                //}
                                 break
                             case .INTERNO:
                                 BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
@@ -746,7 +746,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func receivedSite(site: BNSite) {
         
-        var isExternalBiinAdded = false
+        //var isExternalBiinAdded = false
         
         
         if !isSiteStored(site.identifier!) {
@@ -778,10 +778,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             if object.hasNotification {
                                 switch biin.biinType {
                                 case .EXTERNO:
-                                    if !isExternalBiinAdded {
-                                        isExternalBiinAdded = true
+//                                    if !isExternalBiinAdded {
+//                                        isExternalBiinAdded = true
                                         BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-                                    }
+//                                    }
                                     break
                                 case .INTERNO:
                                     BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)

@@ -376,10 +376,10 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     let showcase_id = BNParser.findString("showcase_id", dictionary: elementData)
                                     let identifier = BNParser.findString("identifier", dictionary: elementData)
                                     
-                                    print("element for category")
-                                    print("id:\(_id)")
-                                    print("identifier:\(identifier!)")
-                                    print("showcase:\(showcase_id!)")
+//                                    print("element for category")
+//                                    print("id:\(_id)")
+//                                    print("identifier:\(identifier!)")
+//                                    print("showcase:\(showcase_id!)")
                                     
                                     BNAppSharedManager.instance.dataManager.receivedElementOnCategory(_id, identifier: identifier!, showcase_id:showcase_id! )
                                     

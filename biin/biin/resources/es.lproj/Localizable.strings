@@ -151,7 +151,7 @@ ShareBody3 = "Las mejores ofertas y lugares en tu smartphone están en Biin. Des
 
 
 /*Alert messages*/
-PleaseWait = "Guardando, espera un momento!";
+PleaseWait = "Espera un momento!";
 
 /*Loyalty*/
 Points = "Puntos";

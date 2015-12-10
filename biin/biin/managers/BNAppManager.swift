@@ -291,7 +291,11 @@ class BNAppManager {
         imagesMB = 0
     }
     
-    func show(){ }
+    func show(){
+        if notificationManager.currentNotification != nil && notificationManager.didSendNotificationOnAppDown {
+            mainViewController!.mainView!.showNotificationContext()
+        }
+    }
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {
