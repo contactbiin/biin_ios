@@ -13,14 +13,10 @@ class MainViewContainer_Elements:BNView {
     var title:UILabel?
     var subTitle:UILabel?
     var scroll:BNScroll?
-    //weak var biin:BNBiin?
-    //var showcase:BNShowcase?
     var category:BNCategory?
     
     var isWorking = true
     var spacer:CGFloat = 1
-//    var elements:Array<ElementMiniView>?
-    //var addedElementsIdentifiers:Dictionary<String, BNElement>?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,29 +72,17 @@ class MainViewContainer_Elements:BNView {
 
         let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height// + SharedUIManager.instance.miniView_headerHeight
         
-//        scroll = EPUIScrollView(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), isHorizontal: true, text: "", space: 1, extraSpace: 0, color: UIColor.clearColor(), showRefreshControl: true)
-
         scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(scroll!)
         
-        //addedElementsIdentifiers = Dictionary<String, BNElement>()
-        //showcase = BNShowcase()
         addElementViews()
     }
     
-    deinit{
-        
-    }
+    deinit{ }
     
+    override func transitionIn() { }
     
-    override func transitionIn() {
-        
-    }
-    
-    override func transitionOut( state:BNState? ) {
-
-        
-    }
+    override func transitionOut( state:BNState? ) { }
     
     override func setNextState(goto:BNGoto){
         //Start transition on root view controller
@@ -147,15 +131,6 @@ class MainViewContainer_Elements:BNView {
     
     
     func addElementViews(){
-        
-
-        
-//        for (_, element) in category!.elements {
-////            if addedElementsIdentifiers![element._id!] == nil {
-//                self.showcase!.elements.append(element)
-////                addedElementsIdentifiers![element._id!] = element
-////            }
-//        }
 
         var elementPosition:Int = 1
         let xpos:CGFloat = 0
@@ -176,66 +151,35 @@ class MainViewContainer_Elements:BNView {
         
         for (element_id, element) in category!.elements {
 
-
-            
             if element._id != nil {
                 if !isElementAdded(element._id!) {
-                    //element.showcase = showcase
+
                     let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
-                    
-        //            if element != showcase!.elements.last {
-        //                xpos += elementView_width + spacer
-        //            } else  {
-        //                xpos += (elementView_width - 1)
-        //            }
-                    
                     elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
-                    //elementView.delegate = self
-        //            self.scroll!.addChild(elementView)
-        //            scroll!.addSubview(elementView)
                     elements.append(elementView)
                     elementPosition++
-                    
-                    
                     
                     if element.userViewed {
                         elementsViewed++
                     }
-                    
-                    //if elementPosition < 4 {
+
                     elementView.requestImage()
                 }
-                //}
+
             } else {
-                print("\(element_id)")
+//                print("\(element_id)")
                 category!.elements.removeValueForKey(element_id)
             }
         }
         
         self.scroll!.addMoreChildren(elements)
-        //self.scroll!.updateEnable = false
-//        self.scroll!.setChildrenPosition()
-//        scroll!.contentSize = CGSizeMake(xpos, 0)
-//        scroll!.setContentOffset(CGPointZero, animated: false)
     }
     
-    func updatePointCounter() {
-
-    }
+    func updatePointCounter() { }
     
-    func updatePoints(sender:NSTimer){
-
-
-    }
+    func updatePoints(sender:NSTimer){ }
     
-    func manageElementMiniViewImageRequest(){
-        
-    }
-    
-    //ElementMiniView_Delegate
-//    func showElementView(viewiew: ElementMiniView, element: BNElement) {
-//        (father! as! MainViewContainer).showElementView(element)
-//    }
+    func manageElementMiniViewImageRequest(){ }
     
     func moreElementsBtnAction(sender:UIButton){
         delegate!.showAllElementsViewForCategory!(self.category)
@@ -243,22 +187,6 @@ class MainViewContainer_Elements:BNView {
     
     func clean() {
         
-        
-        //clean()
-//        if elements?.count > 0 {
-//        
-//            
-//            for elementView in elements! {
-//                elementView.removeFromSuperview()
-//                elementView.clean()
-//            }
-//            
-//            
-//            elements!.removeAll(keepCapacity: false)
-//            elements = nil
-//            addedElementsIdentifiers!.removeAll(keepCapacity: false)
-//            addedElementsIdentifiers = nil
-//        }
         self.scroll!.clean()
         
         delegate = nil
@@ -266,7 +194,6 @@ class MainViewContainer_Elements:BNView {
         title?.removeFromSuperview()
         subTitle?.removeFromSuperview()
         scroll?.removeFromSuperview()
-//        showcase = nil
         category = nil
         
     }
@@ -276,7 +203,6 @@ class MainViewContainer_Elements:BNView {
     }
     
     override func request() {
-//        self.showcase!.batch++
         BNAppSharedManager.instance.dataManager.requestElementsForCategory(self.category!, view: self)
     }
     

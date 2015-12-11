@@ -179,8 +179,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
-//        appManager.positionManager.requestStateForMonitoredRegions()
-        
         
         BNAppSharedManager.instance.clean()
         
