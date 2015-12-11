@@ -80,10 +80,11 @@ class BNRequest_SendBiinieActions: BNRequest {
 //                    }
 //                    
                 
+                /*
                 let end = NSDate()
                 let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                 print("BNRequest_SendBiinieActions [\(timeInterval)] - \(self.requestString)")
-                
+                */
                 
                 BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
                 BNAppSharedManager.instance.dataManager.bnUser!.save()

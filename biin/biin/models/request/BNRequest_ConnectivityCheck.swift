@@ -36,9 +36,11 @@ class BNRequest_ConnectivityCheck: BNRequest {
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
                 
+                /*
                 let end = NSDate()
                 let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                 print("BNRequest_ConnectivityCheck [\(timeInterval)] - \(self.requestString)")
+                */
                 
                 self.inCompleted = true
                 self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedConnectionStatus: true)

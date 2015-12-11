@@ -148,22 +148,18 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             let locationArray = locations as NSArray
             let locationObj = locationArray.lastObject as? CLLocation
             userCoordinates = locationObj!.coordinate
-//            NSLog("LAT:  \(userCoordinates!.latitude)")
-//            NSLog("LONG: \(userCoordinates!.longitude)")
-//            NSLog("BIIN - 2")
             locationManager!.stopUpdatingLocation()
-//            NSLog("BIIN - 3")
             self.locationManager!.startMonitoringSignificantLocationChanges()
-//            NSLog("BIIN - 4")
         }
+
         
         if BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST {
-            NSLog("BIIN - Request initialData background when user moved!")
-            
+            NSLog("BIIN - Request initialData background when user moved! - DISABLED")
+        /*
             locationFixAchieved = true
             let locationArray = locations as NSArray
             let locationObj = locationArray.lastObject as? CLLocation
-            userCoordinates = locationObj!.coordinate
+             userCoordinates = locationObj!.coordinate
 
             NSLog("LAT on background:  \(userCoordinates!.latitude)")
             NSLog("LONG on background: \(userCoordinates!.longitude)")
@@ -176,9 +172,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 //            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
 
             BNAppSharedManager.instance.dataManager.requestInitialData()
+        */
         }
-        
-//        NSLog("BIIN - END")
+
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -646,8 +642,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
         if let beaconRegion = region as? CLBeaconRegion {
             
-
-            
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier)
             
             switch nowMonitoring {
@@ -703,9 +697,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //BNDataManagerDelegate Methods
     func start_BEACON_RANGING() {
         
-    
-        print("start_BEACON_RANGING")
-        
         stop_REGION_MONITORING()
         nowMonitoring = BNRegionMonitoringType.RANGING
         
@@ -726,8 +717,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //BNDataManagerDelegate Methods
     func stop_BEACON_RANGING() {
         
-        
-        
         //self.stopMonitoringBeaconRegions()
         for (key, _): (AnyObject, AnyObject) in self.rangedRegions {
             self.locationManager!.stopRangingBeaconsInRegion(key as! CLBeaconRegion)
@@ -735,14 +724,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         self.myBeacons = Array<CLBeacon>()
         self.rangedRegions = NSMutableDictionary()
-
-        
     }
 
-    
-    
-    
-    
     func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
 
     }
@@ -760,7 +743,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            print("value: \(value)")
+            //print("value: \(value)")
         }
         
         self.myBeacons = self.myBeacons.sort{ $0.rssi > $1.rssi  }
@@ -861,9 +844,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     }
     
     func handleBiiniePositionOnFirstBiinDetected(beacon:CLBeacon){
-        
-        
-        
+
         var changeSite = false
         
         if currentSite == nil {
@@ -878,14 +859,11 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             for (_, site) in BNAppSharedManager.instance.dataManager.sites {
                 if site.major == beacon.major.integerValue {
                     
-                    
                     currentSite = site
                     self.delegateView!.showInSiteView!(currentSite)
                     
                     for biin in site.biins {
                         if biin.minor == beacon.minor.integerValue {
-                            
-                            
                             
                             /*
                             var localNotification:UILocalNotification = UILocalNotification()

@@ -28,7 +28,7 @@ class BNRequest_Register: BNRequest {
     
     override func run() {
         
-        print("BNRequest_Register - \(requestString)")
+        //print("BNRequest_Register - \(requestString)")
 
         
         isRunning = true

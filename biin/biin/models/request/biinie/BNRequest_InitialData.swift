@@ -402,10 +402,11 @@ class BNRequest_InitialData: BNRequest {
                         }
                     }
                     
+                    /*
                     let end = NSDate()
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                    
                     print("BNRequest_InitialData  \(timeInterval)  - \(self.requestString)")
+                    */
 
                     self.inCompleted = true
                     self.networkManager!.removeFromQueue(self)

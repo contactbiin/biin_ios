@@ -392,10 +392,11 @@ class BNRequest_ElementsForCategory: BNRequest {
                         }
                     }
                     
+                    /*
                     let end = NSDate()
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                    
                     print("BNRequest_ElementsForCategory  \(timeInterval)  - \(self.requestString)")
+                    */
                     
                     self.view!.requestCompleted()
                     self.inCompleted = true

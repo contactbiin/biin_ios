@@ -30,7 +30,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        NSLog("MainViewContainer init()")
+        //NSLog("MainViewContainer init()")
         
         self.backgroundColor = UIColor.appBackground()
         
