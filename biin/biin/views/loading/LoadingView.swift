@@ -21,12 +21,13 @@ class LoadingView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
-        var xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
+        //var xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
         var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
         
+        /*
         scroll = UIScrollView(frame: CGRectMake(xpos, 0, screenHeight, screenHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.backgroundColor = UIColor.clearColor()
@@ -64,15 +65,15 @@ class LoadingView:UIView {
         self.addSubview(visualEffectView)
         
         
-//        let viewDark = UIView(frame: self.bounds)
-//        viewDark.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-//        self.addSubview(viewDark)
-
+        let viewDark = UIView(frame: self.bounds)
+        viewDark.backgroundColor = UIColor.whiteColor()
+        self.addSubview(viewDark)
+        */
         
         biinLogo = BNUIBiinView(position:CGPoint(x:0, y:ypos), scale:SharedUIManager.instance.signupView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
         biinLogo!.frame.origin.y = (((screenHeight - biinLogo!.frame.height) / 2) - 50)
-        biinLogo!.icon!.color = UIColor.whiteColor()
+        biinLogo!.icon!.color = UIColor.blackColor()
         self.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
 
@@ -81,7 +82,7 @@ class LoadingView:UIView {
         
         version = UILabel(frame: CGRectMake(0, ypos, screenWidth, 15))
         version!.font = UIFont(name: "Lato-Light", size: 13)
-        version!.textColor = UIColor.whiteColor()
+        version!.textColor = UIColor.blackColor()
         version!.textAlignment = NSTextAlignment.Center
         let versionTxt = NSLocalizedString("Version", comment: "the version title")
         version!.text = "\( versionTxt ) \(BNAppSharedManager.instance.version)"
@@ -90,20 +91,20 @@ class LoadingView:UIView {
         progressView = UIProgressView(frame: CGRectMake(0, (screenHeight - 2), screenWidth, 6))
         progressView!.setProgress(0.0, animated: false)
         progressView!.progressViewStyle = UIProgressViewStyle.Bar
-        progressView!.trackTintColor = UIColor.darkGrayColor()
-        progressView!.progressTintColor = UIColor.whiteColor()
+        progressView!.trackTintColor = UIColor.whiteColor()
+        progressView!.progressTintColor = UIColor.biinColor()
         self.addSubview(progressView!)
         
         ypos += 8
         loadingLbl = UILabel(frame: CGRect(x:0, y:(screenHeight - 25), width:frame.width, height:18))
         loadingLbl!.font = UIFont(name: "Lato-Light", size: 15)
-        loadingLbl!.textColor = UIColor.whiteColor()
+        loadingLbl!.textColor = UIColor.blackColor()
         loadingLbl!.textAlignment = NSTextAlignment.Center
         loadingLbl!.numberOfLines = 0
         loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
         
-        startTimer()
+        //startTimer()
     }
     
     required init?(coder aDecoder: NSCoder) {

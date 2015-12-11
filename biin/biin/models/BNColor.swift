@@ -257,15 +257,15 @@ extension UIColor {
         //return UIColor.blackColor()
     }
     
-    class func elementColor() -> UIColor! {
-        
-        if BNAppSharedManager.instance.elementColorIndex  >= (BNAppSharedManager.instance.elementColors.count - 1) {
-            BNAppSharedManager.instance.elementColorIndex = -1
-        }
-        
-        BNAppSharedManager.instance.elementColorIndex++
-        
-        return BNAppSharedManager.instance.elementColors[BNAppSharedManager.instance.elementColorIndex]
-    }
+//    class func elementColor() -> UIColor! {
+//        
+//        if BNAppSharedManager.instance.elementColorIndex  >= (BNAppSharedManager.instance.elementColors.count - 1) {
+//            BNAppSharedManager.instance.elementColorIndex = -1
+//        }
+//        
+//        BNAppSharedManager.instance.elementColorIndex++
+//        
+//        return BNAppSharedManager.instance.elementColors[BNAppSharedManager.instance.elementColorIndex]
+//    }
 }
 

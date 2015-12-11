@@ -425,10 +425,11 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                         }
                     }
                     
+                    /*
                     let end = NSDate()
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                    
                     print("BNRequest_CollectionsForBiinie  \(timeInterval)  - \(self.requestString)")
+                    */
                     
                     //self.view!.requestCompleted()
                     self.inCompleted = true

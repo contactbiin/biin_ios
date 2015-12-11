@@ -30,7 +30,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        
+        //NSLog("MainViewContainer init()")
         
         self.backgroundColor = UIColor.appBackground()
         
@@ -40,13 +40,11 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
         self.addSubview(scroll!)
         
-        
         inSiteView = InSiteView(frame: CGRectMake(0, (screenHeight - 20), screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
         
 
-        
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         self.addSubview(header!)
         
@@ -58,7 +56,6 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         elementContainers = Array<MainViewContainer_Elements>()
         
         updateContainer()
-        
     }
     
     func updateContainer(){
@@ -90,13 +87,13 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         self.scroll!.addChild(self.nearSitesContainer!)
         
         ypos += height
-
-
         
-//        self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
-//        self.scroll!.addSubview(self.bannerContainer!)
-//        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
-
+        /*
+        self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
+        self.scroll!.addSubview(self.bannerContainer!)
+        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
+        */
+        
         var colorIndex:Int = 1
         for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
             
@@ -105,7 +102,6 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
                 let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
                 elementContainer.delegate = (self.father! as! MainView)
                 ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
-//                self.scroll!.addSubview(elementContainer)
                 self.scroll!.addChild(elementContainer)
                 self.elementContainers!.append(elementContainer)
                 
@@ -116,27 +112,18 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             }
         }
         
-
-        
         ypos += SharedUIManager.instance.categoriesHeaderHeight
-//        scroll!.contentSize = CGSize(width: screenWidth, height: ypos)
         self.scroll!.setChildrenPosition()
-        
-
-        
     }
     
     func isThereElementsInCategory (category:BNCategory) ->Bool {
         
-//        if category.hasSites {
-            if category.elements.count > 0 {
-                return true
-            }
-//        } 
-        
+        if category.elements.count > 0 {
+            return true
+        }
+
         return false
     }
-    
     
     func showMenuBtnActon(sender:BNUIButton) {
         (father as! MainView).showMenu(UIScreenEdgePanGestureRecognizer())
@@ -206,18 +193,17 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             }
         }
     }
-    
 
-    
     func hideInSiteView(){
         
         UIView.animateWithDuration(0.25, animations: {()-> Void in
             self.inSiteView!.frame.origin.y = (SharedUIManager.instance.screenHeight - 20)
-            //self.header!.frame.origin.y = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)
         })
     }
     
     func clean(){
+        
+        NSLog("MainViewContainer clean()")
         
         if highlightContainer != nil {
             highlightContainer!.clean()
@@ -259,9 +245,3 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         fade!.removeFromSuperview()
     }
 }
-
-//@objc protocol BiinieCategoriesView_Delegate:NSObjectProtocol {
-//    ///Update categories icons on header
-//    optional func updateCategoriesPoints(view:BiinieCategoriesView, index:Int)
-//    optional func updateCategoriesControl(view:BiinieCategoriesView,  position:CGFloat)
-//}
