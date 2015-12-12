@@ -30,6 +30,8 @@
 		5B1F55111AE851BB00130CFE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F55131AE851BB00130CFE /* Localizable.strings */; };
 		5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */; };
 		5B25B25A1B5980510094B378 /* notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B25B2591B5980510094B378 /* notification.wav */; };
+		5B26FCF81C1C720200837B4B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B26FCF61C1C720200837B4B /* Fabric.framework */; };
+		5B26FCF91C1C720200837B4B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B26FCF71C1C720200837B4B /* Crashlytics.framework */; };
 		5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */; };
 		5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */; };
 		5B285B4A1A8D142500A2356B /* BNIcon_MaleSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B285B491A8D142500A2356B /* BNIcon_MaleSmall.swift */; };
@@ -383,6 +385,8 @@
 		5B1F55121AE851BB00130CFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5B246B281A813FBC00B0B6C1 /* BNUIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIScrollView.swift; sourceTree = "<group>"; };
 		5B25B2591B5980510094B378 /* notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notification.wav; sourceTree = "<group>"; };
+		5B26FCF61C1C720200837B4B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		5B26FCF71C1C720200837B4B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		5B285B451A8D136F00A2356B /* BNUIButton_Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Gender.swift; sourceTree = "<group>"; };
 		5B285B471A8D141900A2356B /* BNIcon_FemaleSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_FemaleSmall.swift; sourceTree = "<group>"; };
 		5B285B491A8D142500A2356B /* BNIcon_MaleSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MaleSmall.swift; sourceTree = "<group>"; };
@@ -712,6 +716,8 @@
 			files = (
 				5BB2B49A1AEAA46B002E3121 /* CoreBluetooth.framework in Frameworks */,
 				5BB2B4981AEAA45C002E3121 /* CoreLocation.framework in Frameworks */,
+				5B26FCF91C1C720200837B4B /* Crashlytics.framework in Frameworks */,
+				5B26FCF81C1C720200837B4B /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,6 +903,8 @@
 				5B3D758D1A67052100CB0D1C /* biin */,
 				5B3D75A61A67052100CB0D1C /* biinTests */,
 				5B3D758C1A67052100CB0D1C /* Products */,
+				5B26FCF61C1C720200837B4B /* Fabric.framework */,
+				5B26FCF71C1C720200837B4B /* Crashlytics.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1444,6 +1452,7 @@
 				5B3D75871A67052100CB0D1C /* Sources */,
 				5B3D75881A67052100CB0D1C /* Frameworks */,
 				5B3D75891A67052100CB0D1C /* Resources */,
+				5B26FCF51C1C717600837B4B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1576,6 +1585,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5B26FCF51C1C717600837B4B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 395290815646a41ff6986014f02c140206579f96 e969912a7587c550b941ce163b355d2581986aabaeb9a0810371dba550b7b24a";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5B3D75871A67052100CB0D1C /* Sources */ = {
@@ -2007,6 +2032,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = biin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2023,6 +2052,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = biin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
