@@ -5,6 +5,8 @@
 
 import UIKit
 import CoreData
+import Fabric
+import Crashlytics
 
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -105,6 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
+        
+        Fabric.with([Crashlytics.self])
         
         return true
     }
