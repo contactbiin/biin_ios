@@ -26,6 +26,8 @@ class BNScroll: BNView, UIScrollViewDelegate {
     var isRuningRequest = false
     
     var lastScrollPosition:CGFloat = 0
+    var loadingIndicator:UIActivityIndicatorView?
+    var loadingIndicatorView:UIView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -59,6 +61,20 @@ class BNScroll: BNView, UIScrollViewDelegate {
         } else {
             self.scroll!.delegate = delegate
         }
+        
+        
+        /*
+        loadingIndicatorView = UIView(frame:CGRectMake(((frame.width / 2) - 20), ((frame.width / 2) - 20), 50, 50))
+        loadingIndicatorView!.backgroundColor = color
+        self.addSubview(loadingIndicatorView!)
+        
+        loadingIndicator = UIActivityIndicatorView(frame: CGRectMake(((frame.width / 2) - 20), ((frame.width / 2) - 20), 40, 40))
+        loadingIndicator!.hidesWhenStopped = true
+        loadingIndicator!.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        loadingIndicator!.startAnimating();
+        self.addSubview(loadingIndicator!)
+        */
+        
     }
     
     func addChild(view:BNView) {

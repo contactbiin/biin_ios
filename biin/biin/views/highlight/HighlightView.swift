@@ -127,13 +127,32 @@ class HighlightView: BNView {
         ypos += (subTitle.frame.height + 2)
         if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             
-            //ypos += (subTitle.frame.height + 1)
-            self.textPrice1 = UILabel(frame: CGRectMake(xpos, ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
+            
+            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            
+            
+            self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
-            self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
+            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
             containerView.addSubview(self.textPrice1!)
+            
+            self.textPrice2 = UILabel(frame: CGRectMake((xpos + text1Length + 7), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
+            self.textPrice2!.textColor = textColor
+            self.textPrice2!.textAlignment = NSTextAlignment.Left
+            self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
+            containerView.addSubview(self.textPrice2!)
+            
+//            
+//            //ypos += (subTitle.frame.height + 1)
+//            self.textPrice1 = UILabel(frame: CGRectMake(xpos, ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
+//            self.textPrice1!.textColor = textColor
+//            self.textPrice1!.textAlignment = NSTextAlignment.Left
+//            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
+//            self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
+//            containerView.addSubview(self.textPrice1!)
             
         } else if self.element!.hasPrice && self.element!.hasListPrice {
             
@@ -282,9 +301,15 @@ class HighlightView: BNView {
             image!.showAfterDownload()
         }
         
-        if site!.organization!.media.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
-            siteAvatar!.cover!.backgroundColor = self.site!.organization!.media[0].vibrantColor!
+        
+        if let organization  = site!.organization {
+            if organization.media.count > 0 {
+                BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
+                siteAvatar!.cover!.backgroundColor = self.site!.organization!.media[0].vibrantColor!
+            } else {
+                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+                siteAvatar!.showAfterDownload()
+            }
         } else {
             siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
             siteAvatar!.showAfterDownload()

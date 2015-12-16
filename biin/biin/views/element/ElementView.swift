@@ -27,6 +27,8 @@ class ElementView: BNView, UIWebViewDelegate {
     var percentageView:ElementMiniView_Precentage?    
     var textPrice1:UILabel?
     var textPrice2:UILabel?
+    var text_before:UILabel?
+    var text_now:UILabel?
     
     var lineView:UIView?
     
@@ -92,9 +94,17 @@ class ElementView: BNView, UIWebViewDelegate {
         
         lineView = UIView(frame: CGRectMake(0, 0, 0, 0))
         lineView!.alpha = 0
+        scroll!.addSubview(lineView!)
 
         self.textPrice1 = UILabel(frame: CGRectMake(0, 0, 0, 0))
         self.textPrice2 = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        self.text_before = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        self.text_now = UILabel(frame: CGRectMake(0, 0, 0, 0))
+        
+        scroll!.addSubview(textPrice1!)
+        scroll!.addSubview(textPrice2!)
+        scroll!.addSubview(text_before!)
+        scroll!.addSubview(text_now!)
         
         var buttonSpace:CGFloat = 5
         let ypos:CGFloat = screenWidth + 2
@@ -139,6 +149,7 @@ class ElementView: BNView, UIWebViewDelegate {
         showSiteBtn!.setTitle("More from Site name.", forState: UIControlState.Normal)
         showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
+        showSiteBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(showSiteBtn!)
         
@@ -265,20 +276,20 @@ class ElementView: BNView, UIWebViewDelegate {
             
             imagesScrollView!.updateImages(self.element!.media, isElement:true)
             imagesScrollView!.backgroundColor = self.element!.media[0].vibrantColor
-            scroll!.backgroundColor = self.element!.media[0].vibrantColor
+            scroll!.backgroundColor = UIColor.whiteColor()//self.element!.media[0].vibrantColor
             
             if self.element!.useWhiteText {
-                textColor = UIColor.whiteColor()
-                iconColor = UIColor.whiteColor()
+                textColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
+                iconColor = UIColor.darkGrayColor()//self.element!.media[0].vibrantColor//UIColor.whiteColor()
                 decorationColor = self.element!.media[0].vibrantDarkColor
             } else {
-                textColor = UIColor.whiteColor()
+                textColor = self.element!.media[0].vibrantColor
                 decorationColor = self.element!.media[0].vibrantDarkColor
-                iconColor = self.element!.media[0].vibrantDarkColor
+                iconColor = UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
             }
             
             animationView!.updateAnimationView(decorationColor, textColor: textColor)
-            butonContainer!.backgroundColor = self.element!.media[0].vibrantColor
+            butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
             
             updateBackBtn()
             updateLikeItBtn()
@@ -297,11 +308,17 @@ class ElementView: BNView, UIWebViewDelegate {
                 percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
                 
-                scroll!.addSubview(percentageView!)
+                //scroll!.addSubview(percentageView!)
             }
             
             self.textPrice1!.text = ""
-            self.textPrice2!.text = ""
+            self.textPrice2!.text = "HOLA"
+            self.text_before!.text = ""
+//            self.text_before!.alpha = 0.7
+            self.text_now!.text = ""
+//            self.text_now!.alpha = 0.7
+
+            
             self.lineView!.alpha = 0
             
             if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
@@ -311,7 +328,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice1!.textAlignment = NSTextAlignment.Center
                 self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
                 self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
-                scroll!.addSubview(self.textPrice1!)
+                //scroll!.addSubview(self.textPrice1!)
                 
                 ypos += SharedUIManager.instance.elementView_titleSize
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
@@ -319,39 +336,70 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
-                scroll!.addSubview(self.textPrice2!)
+                //scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
-                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
                 
             } else if self.element!.hasPrice && self.element!.hasListPrice {
                 
-                let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
-                let xposition:CGFloat = ( frame.width - text1Length ) / 2
+                var text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Before", comment: "Before"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
+                var price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.listPrice!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
+                
+//                let xposition:CGFloat = ( frame.width - price_Length ) / 2
+                var xposition:CGFloat = ((frame.width - (text_Length + 10 + price_Length)) / 2)
+
                 ypos += 35
-                self.textPrice1 = UILabel(frame:CGRectMake(xposition, ypos, text1Length, (SharedUIManager.instance.elementView_titleSize + 2)))
-                self.textPrice1!.textColor = textColor
+                
+                self.text_before!.frame = CGRectMake(xposition, ypos, text_Length, (SharedUIManager.instance.elementView_titleSize + 2))
+                self.text_before!.textColor = textColor!.colorWithAlphaComponent(0.75)
+                self.text_before!.textAlignment = NSTextAlignment.Left
+                self.text_before!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
+                self.text_before!.text = NSLocalizedString("Before", comment: "Before")
+                xposition += text_Length
+                xposition += 10
+
+                self.textPrice1!.frame = CGRectMake(xposition, ypos, price_Length, (SharedUIManager.instance.elementView_titleSize + 2))
+                self.textPrice1!.textColor = textColor!.colorWithAlphaComponent(0.75)
                 self.textPrice1!.textAlignment = NSTextAlignment.Left
                 self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
                 self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
-                self.scroll!.addSubview(self.textPrice1!)
+                //self.scroll!.addSubview(self.textPrice1!)
                 
                 lineView!.alpha = 1
-                lineView!.frame = CGRectMake(xposition, (ypos + 18), (text1Length + 1), 1)
-                lineView!.backgroundColor = self.textColor
-                self.scroll!.addSubview(lineView!)
+                lineView!.frame = CGRectMake(xposition, (ypos + 16), (price_Length + 1), 1)
+                lineView!.backgroundColor = textColor!.colorWithAlphaComponent(0.75)
+                //self.scroll!.addSubview(lineView!)
+               
                 
-                ypos += SharedUIManager.instance.elementView_titleSize
-                self.textPrice2 = UILabel(frame: CGRectMake(0, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2)))
+                
+                
+                text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Now", comment: "Now"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
+                
+                price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.listPrice!)", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
+                
+                xposition = ((frame.width - (text_Length + 10 + price_Length)) / 2)
+
+                ypos += (SharedUIManager.instance.elementView_titleSize + 5)
+                
+                self.text_now!.frame = CGRectMake(xposition, ypos, text_Length, (SharedUIManager.instance.elementView_titleSize + 2))
+                self.text_now!.textColor = textColor
+                self.text_now!.textAlignment = NSTextAlignment.Left
+                self.text_now!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+                self.text_now!.text = NSLocalizedString("Now", comment: "Now")
+                xposition += text_Length
+                xposition += 10
+                
+                self.textPrice2!.frame = CGRectMake(xposition, ypos, price_Length, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
-                self.textPrice2!.textAlignment = NSTextAlignment.Center
+                self.textPrice2!.textAlignment = NSTextAlignment.Left
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
-                self.scroll!.addSubview(self.textPrice2!)
-                ypos += 40
+                //self.scroll!.addSubview(self.textPrice2!)
+                ypos += 45
                 
-                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
 
                 
             } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
@@ -361,7 +409,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice1!.textAlignment = NSTextAlignment.Center
                 self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
                 self.textPrice1!.text = NSLocalizedString("From", comment: "From")
-                scroll!.addSubview(self.textPrice1!)
+                //scroll!.addSubview(self.textPrice1!)
                 
                 ypos += SharedUIManager.instance.elementView_titleSize
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
@@ -369,15 +417,15 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
-                scroll!.addSubview(self.textPrice2!)
+                //scroll!.addSubview(self.textPrice2!)
                 ypos += 40
                 
-                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
 
                 
             } else {
                 ypos += 30
-                butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 30)
+                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 30)
 
             }
             

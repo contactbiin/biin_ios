@@ -28,26 +28,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
         appManager.IS_APP_REQUESTING_NEW_DATA = false
         
-        switch application.applicationState {
-        case .Active:
-//            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
-            appManager.IS_APP_UP = true
-            appManager.IS_APP_DOWN = false
-            break
-        case .Background:
-//            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
-            appManager.IS_APP_UP = false
-            appManager.IS_APP_DOWN = true
-            break
-        case .Inactive:
-//            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
-            appManager.IS_APP_UP = false
-            appManager.IS_APP_DOWN = true
-            break
-//        default:
-//            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
+//        switch application.applicationState {
+//        case .Active:
+////            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+//            appManager.IS_APP_UP = true
+//            appManager.IS_APP_DOWN = false
 //            break
-        }
+//        case .Background:
+////            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+//            appManager.IS_APP_UP = false
+//            appManager.IS_APP_DOWN = true
+//            break
+//        case .Inactive:
+////            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
+//            appManager.IS_APP_UP = false
+//            appManager.IS_APP_DOWN = true
+//            break
+////        default:
+////            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
+////            break
+//        }
         
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)

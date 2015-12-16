@@ -194,6 +194,8 @@
 		5B760E591AAE5FB7003E017A /* BNIcon_RightArrowSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B760E581AAE5FB7003E017A /* BNIcon_RightArrowSmall.swift */; };
 		5B7D26681BCBFD90003B0091 /* ElementFromSiteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D26671BCBFD90003B0091 /* ElementFromSiteState.swift */; };
 		5B7D266A1BCC3F8D003B0091 /* InSiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D26691BCC3F8D003B0091 /* InSiteView.swift */; };
+		5B8449D51C1F2AED0069B669 /* BNUIBluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8449D41C1F2AED0069B669 /* BNUIBluetoothView.swift */; };
+		5B8449D71C1F2B500069B669 /* BNIcon_Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8449D61C1F2B500069B669 /* BNIcon_Bluetooth.swift */; };
 		5B861FA51BA6878900930BD7 /* BNUIButton_CollectionIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861FA41BA6878900930BD7 /* BNUIButton_CollectionIt.swift */; };
 		5B861FA71BA6881000930BD7 /* BNIcon_CollectIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861FA61BA6881000930BD7 /* BNIcon_CollectIt.swift */; };
 		5B861FA91BA70B6E00930BD7 /* BNUIButton_SiteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B861FA81BA70B6E00930BD7 /* BNUIButton_SiteLocation.swift */; };
@@ -553,6 +555,8 @@
 		5B760E581AAE5FB7003E017A /* BNIcon_RightArrowSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_RightArrowSmall.swift; sourceTree = "<group>"; };
 		5B7D26671BCBFD90003B0091 /* ElementFromSiteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementFromSiteState.swift; sourceTree = "<group>"; };
 		5B7D26691BCC3F8D003B0091 /* InSiteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InSiteView.swift; sourceTree = "<group>"; };
+		5B8449D41C1F2AED0069B669 /* BNUIBluetoothView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBluetoothView.swift; sourceTree = "<group>"; };
+		5B8449D61C1F2B500069B669 /* BNIcon_Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Bluetooth.swift; sourceTree = "<group>"; };
 		5B861FA41BA6878900930BD7 /* BNUIButton_CollectionIt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_CollectionIt.swift; sourceTree = "<group>"; };
 		5B861FA61BA6881000930BD7 /* BNIcon_CollectIt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_CollectIt.swift; sourceTree = "<group>"; };
 		5B861FA81BA70B6E00930BD7 /* BNUIButton_SiteLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_SiteLocation.swift; sourceTree = "<group>"; };
@@ -789,6 +793,7 @@
 				5BA46FAE1A840776006C685D /* BNUIPricesView.swift */,
 				5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */,
 				5BA7B4731B558BCC00AFD326 /* BNUIWarningView.swift */,
+				5B8449D41C1F2AED0069B669 /* BNUIBluetoothView.swift */,
 				5B650E141ADECA2B0050ED5E /* BNUIBiinMiniView.swift */,
 				5BF78A691A9BCDB200F9E7AD /* BNUITexfield.swift */,
 				5BECEFE41AE5505500ECDE28 /* BNUIView_PriceX.swift */,
@@ -873,6 +878,7 @@
 				5B5D77E11A8E722E001C4A34 /* BNIcon_FoodMedium.swift */,
 				5B5339621A8514910049FB00 /* BNIcon_Biin.swift */,
 				5BA7B4711B558A2500AFD326 /* BNIcon_Warning.swift */,
+				5B8449D61C1F2B500069B669 /* BNIcon_Bluetooth.swift */,
 				5B650E161ADECB040050ED5E /* BNIcon_MiniBiin.swift */,
 				5B60A4C71AA21D420025ACBA /* BNIcon_PhoneMedium.swift */,
 				5B60A4C91AA21D620025ACBA /* BNIcon_EmailSmall.swift */,
@@ -1848,6 +1854,7 @@
 				5B047D621A8160B500281B17 /* BNIcon_InformationSmall.swift in Sources */,
 				5B1E2C201A830DEE00633C46 /* BNUIJoinGameIconView.swift in Sources */,
 				5B64D4691A71929F0082B9EA /* BNIcon_UmbrellaMedium.swift in Sources */,
+				5B8449D71C1F2B500069B669 /* BNIcon_Bluetooth.swift in Sources */,
 				5B16A19A1BE7B077008AE4A1 /* ServerErrorView.swift in Sources */,
 				5BA0B7941A686A6700DBEB74 /* ShowcaseState.swift in Sources */,
 				5BA7B4701B5567A100AFD326 /* ErrorState.swift in Sources */,
@@ -1861,6 +1868,7 @@
 				5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */,
 				5B2907E31A687C0C0000658A /* BNIcon.swift in Sources */,
 				5BF60D6E1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift in Sources */,
+				5B8449D51C1F2AED0069B669 /* BNUIBluetoothView.swift in Sources */,
 				5B5D77DA1A8E6B9F001C4A34 /* BNIcon_PersonalCareMedium.swift in Sources */,
 				5BB079231BF2873A00A3C85B /* BNRequest_InitialData.swift in Sources */,
 				5B3D76061A6816B300CB0D1C /* BNSection.swift in Sources */,

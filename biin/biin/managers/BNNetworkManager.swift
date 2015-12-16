@@ -245,8 +245,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //        if SimulatorUtility.isRunningSimulator {
 //            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
 //        } else
-            if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
-            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
+        if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
+            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.73854872449546, -83.99879993264159)
         }
         
         let s1 = "\(rootURL)/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"

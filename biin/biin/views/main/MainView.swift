@@ -5,8 +5,6 @@
 
 import Foundation
 import UIKit
-import CoreLocation
-
 
 class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate {
     
@@ -220,20 +218,26 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         testButton = UIButton(frame: CGRectMake(10, 100, 100, 50))
         testButton!.backgroundColor = UIColor.bnOrange()
-        testButton!.setTitle("TEST", forState: UIControlState.Normal)
+        testButton!.setTitle("test", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(testButton!)
-        
     }
     
     func testButtonAction(sender:UIButton) {
         
 
-        if SimulatorUtility.isRunningSimulator {
-            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
-        }
+//        if SimulatorUtility.isRunningSimulator {
+//            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
+//        }
+//        
+//        BNAppSharedManager.instance.dataManager.requestInitialData()
+        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
         
-        BNAppSharedManager.instance.dataManager.requestInitialData()
+        
+    }
+    
+    func show_refreshButton(){
+        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
