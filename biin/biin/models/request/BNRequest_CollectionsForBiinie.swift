@@ -100,6 +100,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                                 let identifier = BNParser.findString("identifier", dictionary: elementData)
                                 
                                 if BNAppSharedManager.instance.dataManager.elements_by_identifier[identifier!] == nil {
+                                    
                                     let element = BNElement()
                                     element.isDownloadCompleted = true
                                     element.identifier = identifier//BNParser.findString("identifier", dictionary: elementData)
@@ -205,6 +206,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                                     let identifier = BNParser.findString("identifier", dictionary: siteData)
                                     
                                     if !BNAppSharedManager.instance.dataManager.isSiteStored(identifier!) {
+
                                         let site = BNSite()
                                         site.identifier = identifier//BNParser.findString("identifier", dictionary: siteData)
                                         site.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: siteData)

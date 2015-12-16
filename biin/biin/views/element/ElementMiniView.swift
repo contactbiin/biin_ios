@@ -170,12 +170,31 @@ class ElementMiniView: BNView {
             
         if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
 
-            self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
+           let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_titleSize)
+            
+            
+            self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
-            self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
+            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_titleSize)
+            self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
             self.header!.addSubview(self.textPrice1!)
+            
+            self.textPrice2 = UILabel(frame: CGRectMake((text1Length + 7), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
+            self.textPrice2!.textColor = textColor
+            self.textPrice2!.textAlignment = NSTextAlignment.Left
+            self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+            self.textPrice2!.text = "\(element!.currency!)\(element!.price!)"
+            self.header!.addSubview(self.textPrice2!)
+            
+            
+//            
+//            self.textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
+//            self.textPrice1!.textColor = textColor
+//            self.textPrice1!.textAlignment = NSTextAlignment.Left
+//            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+//            self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
+//            self.header!.addSubview(self.textPrice1!)
             
         } else if element!.hasPrice && element!.hasListPrice {
             

@@ -69,7 +69,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             element.isDownloadCompleted = true
                             element.identifier = BNParser.findString("identifier", dictionary: elementData)
                             element._id = BNParser.findString("_id", dictionary: elementData)
-                            print("add element to showcase: \(element._id!)")
+                            //print("add element to showcase: \(element._id!)")
                             element.title = BNParser.findString("title", dictionary: elementData)
                             element.subTitle = BNParser.findString("subTitle", dictionary: elementData)
                             element.currency = BNParser.findCurrency("currencyType", dictionary: elementData)

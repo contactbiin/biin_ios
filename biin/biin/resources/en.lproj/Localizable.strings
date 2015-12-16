@@ -67,7 +67,7 @@ About = "About";
 SignUpTitle = "Sign up";
 LoginTitle = "Log in";
 LoginDesc = "Enter your email and password you previously use on biin.";
-ContinueBtn = "Continue";
+ContinueBtn = "CONTINUE";
 WelcomeDesc = "We are glad to see you here, if you are new you can create an account or login to continue using biin.";
 StartDesc = "Excelent, now is time to discover and enjoy special rewards with Biin.";
 
@@ -173,9 +173,14 @@ HardwareErrorTitle = "Too bad!";
 HardwareErrorText = "We are sorry but your device does not support Biin due to harware requirements, please close this app.";
 HardwareErrorButton = "Continue";
 
-BluetoothErrorTitle = "Oops, Biin needs bluetooth!";
-BluetoothErrorText = "Please turn on blutooth and enable Biin to use it.";
-BluetoothErrorButton = "Go to settings.";
+
+//BluetoothErrorTitle = "Oops, Biin needs bluetooth!";
+//BluetoothErrorText = "Please turn on blutooth and enable Biin to use it.";
+//BluetoothErrorButton = "Go to settings.";
+
+BluetoothErrorText = "Biin uses a low energy bluetooth to give you a better experience on the places you visit.";
+BluetoothErrorTitle = "Biin works better with bluetooth enabled!";
+BluetoothErrorButton = "Continue";
 
 LocationErrorTitle = "Hey, Biin needs location services enabled!";
 LocationErrorText = "Please, turn on location services on your device and enable Biin to use them.";
@@ -205,3 +210,9 @@ BadEmail = "Bad email or password!";
 RequestFailed = "Request Failed!";
 NotInternet = "Internet is not available!";
 Cool = "Cool";
+
+Refresh = "REFRESH?";
+Refreshing = "REFRESHING...";
+
+Before = "Before";
+Now = "Now";

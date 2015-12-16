@@ -53,6 +53,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     func initViewController(frame:CGRect){
         
         
+        BNAppSharedManager.instance.IS_MAINVIEW_ON = true
         BNAppSharedManager.instance.mainViewController = self
 
         BNAppSharedManager.instance.networkManager.delegateVC = self
@@ -65,7 +66,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         mainView!.addUIViews()
         
         self.view.addSubview(self.mainView!)
-        
         
         fadeView = UIView(frame: frame)
         fadeView!.backgroundColor = UIColor.blackColor()
@@ -99,6 +99,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             mainView!.showNotificationContext()
         }
         
+    }
+    
+    func show_refreshButton(){
+        mainView!.show_refreshButton()
     }
     
     func refresh(){

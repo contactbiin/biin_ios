@@ -27,20 +27,20 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
     var elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
     var highlights = Array<BNElement>()//list of hightlight element
-    var availableBiins = Array<String>()//list of biins detected
+    //var availableBiins = Array<String>()//list of biins detected
     //var elementsBiined = Dictionary<String, String>()
     
     //var notifications = Array<BNNotification>()
     
     //var showcasesIdentifiersToRequest:Dictionary<String, String> = Dictionary<String, String>()
-    var sharedBiins = Dictionary<String, BNBiin>()
+    //var sharedBiins = Dictionary<String, BNBiin>()
     
     var categories:Array<BNCategory>?/// = Dictionary<String, BNCategory>()
     //var sections:Array<BNSection> = Array<BNSection>()
     
-    var currentRegionIdentifier:String?
+    //var currentRegionIdentifier:String?
     
-    var timer:NSTimer?
+    //var timer:NSTimer?
     
     var commercialUUID:NSUUID?
     
@@ -53,6 +53,30 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         loadCategories()
         
         loadBiinie()
+    }
+    
+    func clean(){
+        
+        sites.removeAll()
+        sites = Dictionary<String, BNSite>()
+
+        sites_ordered.removeAll()
+        sites_ordered = Array<BNSite>()
+        
+        organizations.removeAll()
+        organizations = Dictionary<String, BNOrganization>()
+        
+        showcases.removeAll()
+        showcases = Dictionary<String, BNShowcase>()
+        
+        elements_by_id.removeAll()
+        elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
+
+        elements_by_identifier.removeAll()
+        elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
+        
+        highlights.removeAll()
+        highlights = Array<BNElement>()
     }
     
     func loadBiinie() {
@@ -671,21 +695,21 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     
     //BNPositionManagerDelegate
-    func manager(manager:BNPositionManager!, startEnterRegionProcessWithIdentifier identifier:String)
-    {
-
-        if self.delegateNM is BNNetworkManagerDelegate
-        {
-            self.delegateNM!.manager!(self, requestRegionData: identifier)
-            self.currentRegionIdentifier = identifier
-
-        }
-    }
+//    func manager(manager:BNPositionManager!, startEnterRegionProcessWithIdentifier identifier:String)
+//    {
+//
+//        if self.delegateNM is BNNetworkManagerDelegate
+//        {
+//            self.delegateNM!.manager!(self, requestRegionData: identifier)
+//            self.currentRegionIdentifier = identifier
+//
+//        }
+//    }
     
-    func manager(manager:BNPositionManager!, startExitRegionProcessWithIdentifier identifier:String)
-    {
-        currentRegionIdentifier = nil
-    }
+//    func manager(manager:BNPositionManager!, startExitRegionProcessWithIdentifier identifier:String)
+//    {
+//        currentRegionIdentifier = nil
+//    }
     
     func manager(manager:BNPositionManager!, markBiinAsDetectedWithUUID uuid:String)
     {

@@ -30,11 +30,13 @@ class BNAppManager {
     
     weak var appDelegate:AppDelegate?
     
-    var IS_APP_UP:Bool = false
-    var IS_APP_DOWN:Bool = false
+    var IS_APP_UP = false
+    var IS_APP_DOWN = false
     var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
     var IS_APP_REQUESTING_NEW_DATA = false
     var isWaitingForLocationServicesPermision = false
+    var IS_BLUETOOTH_ENABLED = false
+    var IS_MAINVIEW_ON = false
     
 //    var elementColorIndex = 0
 //    var elementColors:Array<UIColor> = Array<UIColor>()
@@ -62,7 +64,6 @@ class BNAppManager {
         
         // Try loading a saved version first
         if let savedNotificationManager = BNNotificationManager.loadSaved() {
-            
             notificationManager = savedNotificationManager
         } else {
             // Create a new Course List
@@ -104,11 +105,15 @@ class BNAppManager {
                 isWaitingForLocationServicesPermision = false
                 
                 if positionManager.checkHardwareStatus() {
+                    
                     if positionManager.checkBluetoothServicesStatus() {
+                        BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED = true
                         continueAfterIntialChecking()
                     } else {
                         errorManager.showBluetoothError()
+                        //continueAfterIntialChecking()
                     }
+                    
                 } else  {
                     errorManager.showHardwareNotSupportedError()
                 }

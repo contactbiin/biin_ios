@@ -50,6 +50,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
         
         //BNAppSharedManager.instance.dataManager.addHighlights()
+     
+        checkAppState()
         
         if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
             loadingView!.hideProgressView()
@@ -61,6 +63,25 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
             vc.initViewController(self.view.frame)
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             self.presentViewController(vc, animated: true, completion: nil)
+        }
+    }
+    
+    func checkAppState(){
+        switch  UIApplication.sharedApplication().applicationState {
+        case .Active:
+//            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+            BNAppSharedManager.instance.IS_APP_UP = true
+            BNAppSharedManager.instance.IS_APP_DOWN = false
+            break
+        case .Background, .Inactive:
+//            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+            BNAppSharedManager.instance.IS_APP_UP = false
+            BNAppSharedManager.instance.IS_APP_DOWN = true
+            break
+
+//        default:
+//            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
+//            break
         }
     }
     

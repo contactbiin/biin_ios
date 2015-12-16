@@ -5,6 +5,8 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+
 
 class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
     
@@ -18,6 +20,9 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     var scroll:BNScroll?
     
     var fade:UIView?
+    
+    var refreshButton:UIButton?
+    var isShowing_refreshButton = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,9 +58,46 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         fade!.alpha = 0
         self.addSubview(fade!)
         
+        refreshButton = UIButton(frame: CGRectMake(0, -50, self.frame.width, 50))
+        refreshButton!.addTarget(self, action: "refreshButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        refreshButton!.titleLabel!.font = UIFont(name: "Lato-Light", size: 15)
+        refreshButton!.setTitle(NSLocalizedString("Refresh", comment: "Refresh"), forState: UIControlState.Normal)
+        
+        refreshButton!.backgroundColor = UIColor.biinDarkColor()
+        self.addSubview(refreshButton!)
+        
         elementContainers = Array<MainViewContainer_Elements>()
         
         updateContainer()
+    }
+    
+    func refreshButtonAction(sender:UIButton) {
+        
+        let vc = LoadingViewController()
+        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+        BNAppSharedManager.instance.mainViewController!.presentViewController(vc, animated: true, completion: nil)
+        
+        if SimulatorUtility.isRunningSimulator {
+            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.923165731693336, -84.03725208107909)
+        }
+        
+        BNAppSharedManager.instance.dataManager.clean()
+        BNAppSharedManager.instance.dataManager.requestInitialData()
+    }
+    
+    func show_refreshButton(){
+        
+        if !isShowing_refreshButton {
+            isShowing_refreshButton = true
+            let scroll_height = (scroll!.scroll!.frame.height - 50)
+            scroll!.scroll!.frame = CGRectMake(0, 0, self.frame.width, scroll_height)
+            
+            UIView.animateWithDuration(0.25, animations: {()-> Void in
+                self.scroll!.frame.origin.y = 50
+                self.refreshButton!.frame.origin.y = 0
+            })
+        }
+        
     }
     
     func updateContainer(){

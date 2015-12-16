@@ -154,7 +154,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
         
         if BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST {
-            NSLog("BIIN - Request initialData background when user moved! - DISABLED")
+            NSLog("BIIN - Request initialData background when user moved!")
         /*
             locationFixAchieved = true
             let locationArray = locations as NSArray
@@ -173,6 +173,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
             BNAppSharedManager.instance.dataManager.requestInitialData()
         */
+            BNAppSharedManager.instance.mainViewController!.show_refreshButton()
         }
 
     }
@@ -208,11 +209,10 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         print("start_SITES_MONITORING")
         
-        if BNAppSharedManager.instance.IS_APP_UP {
+        if BNAppSharedManager.instance.IS_APP_UP  || !BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED {
             return
         }
 
-    
         stop_BEACON_RANGING()
         
         //Stop Monitoring all
@@ -697,6 +697,12 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //BNDataManagerDelegate Methods
     func start_BEACON_RANGING() {
         
+        if !BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED {
+            return
+        }
+        
+        NSLog("start_BEACON_RANGING")
+        
         stop_REGION_MONITORING()
         nowMonitoring = BNRegionMonitoringType.RANGING
         
@@ -716,6 +722,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     //BNDataManagerDelegate Methods
     func stop_BEACON_RANGING() {
+        
+        NSLog("stop_BEACON_RANGING")
         
         //self.stopMonitoringBeaconRegions()
         for (key, _): (AnyObject, AnyObject) in self.rangedRegions {
@@ -1003,7 +1011,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         isBiinsViewContainerEmpty = true
         self.biins.removeAll(keepCapacity: false)
-        BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
+//        BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
         self.delegateView!.hideInSiteView!()
         self.myBeaconsPrevious.removeAll(keepCapacity: false)
         self.myBeacons.removeAll(keepCapacity: false)
@@ -1140,33 +1148,34 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //Methods related to Beacons
     func centralManagerDidUpdateState(central: CBCentralManager) {
 
+        BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED = false
+        
         switch central.state {
-            
-        case .PoweredOn: break
-            
-            
-        case .PoweredOff: break
-            
-            
-        case .Resetting: break
-            
-            
-        case .Unauthorized: break
-            
-            
-        case .Unknown: break
-            
-            
-        case .Unsupported: break
-            
+            case .PoweredOn:
+                BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED = true
+                
+                break
+            case .PoweredOff: break
+            case .Resetting: break
+            case .Unauthorized: break
+            case .Unknown: break
+            case .Unsupported: break
         }
         
-        BNAppSharedManager.instance.continueAppInitialization()
+        
+        if BNAppSharedManager.instance.IS_MAINVIEW_ON {
+            if BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED {
+                start_BEACON_RANGING()
+            } else {
+                stop_BEACON_RANGING()
+            }
+        } else {
+            BNAppSharedManager.instance.continueAppInitialization()
+        }
     }
     
     func checkBluetoothServicesStatus()-> Bool{
 
-        
         switch bluetoothManager!.state {
         case .PoweredOn:
             return true
