@@ -163,6 +163,10 @@ class BNRequest_InitialData: BNRequest {
 
                                     let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                                     
+                                    if mediaArray!.count == 0 {
+                                        print("element with not media:\(element.identifier)")
+                                    }
+                                    
                                     for var j = 0; j < mediaArray?.count; j++ {
                                         let mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
                                         let url = BNParser.findString("url", dictionary: mediaData)!
@@ -421,11 +425,11 @@ class BNRequest_InitialData: BNRequest {
                         }
                     }
                     
-                    /*
+                    
                     let end = NSDate()
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                     print("BNRequest_InitialData  \(timeInterval)  - \(self.requestString)")
-                    */
+                    
 
                     self.inCompleted = true
                     self.networkManager!.removeFromQueue(self)

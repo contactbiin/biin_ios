@@ -38,7 +38,14 @@ class ElementMiniView_Header:BNView {
 //        self.addSubview(visualEffectView)
         
         containerView = UIView(frame: self.bounds)
-        containerView!.backgroundColor = element!.media[0].vibrantColor
+        
+        if element!.media.count > 0 {
+
+            containerView!.backgroundColor = element!.media[0].vibrantColor
+        } else {
+            containerView!.backgroundColor = UIColor.darkGrayColor()
+        }
+        
         self.addSubview(containerView!)
         
         
