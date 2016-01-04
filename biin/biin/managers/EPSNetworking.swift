@@ -125,8 +125,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         //var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         //NSLog("BIIN - getJson 1")
-        
-        
+                
         if BNAppSharedManager.instance.settings!.IS_USING_CACHE {
             request.cachePolicy = NSURLRequestCachePolicy.ReturnCacheDataElseLoad
             //NSLog("BIIN - getJson 2 -- \(url)")
