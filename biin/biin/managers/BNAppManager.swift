@@ -199,7 +199,7 @@ class BNAppManager {
     
     func show(){
         if notificationManager.currentNotification != nil && notificationManager.didSendNotificationOnAppDown {
-            mainViewController!.mainView!.showNotificationContext()
+            mainViewController?.mainView?.showNotificationContext()
         }
     }
 }

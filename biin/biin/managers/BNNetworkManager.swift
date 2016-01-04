@@ -175,7 +175,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             date = "none"
         }
         
-        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(user.firstName!)/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)", errorManager: self.errorManager!, networkManager: self)
+        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     

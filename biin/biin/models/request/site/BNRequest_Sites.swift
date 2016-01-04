@@ -153,6 +153,10 @@ class BNRequest_Sites: BNRequest {
                                     
                                     let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                                     
+                                    if mediaArray!.count == 0 {
+                                        print("element with not media:\(element.identifier)")
+                                    }
+                                    
                                     for var j = 0; j < mediaArray?.count; j++ {
                                         let mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
                                         let url = BNParser.findString("url", dictionary: mediaData)!

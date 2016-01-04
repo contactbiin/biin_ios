@@ -81,12 +81,19 @@ class ElementMiniView: BNView {
         self.element = element
         var textColor:UIColor?
         var decorationColor:UIColor?
-        if self.element!.useWhiteText {
-            textColor = UIColor.whiteColor()
-            decorationColor = self.element!.media[0].vibrantDarkColor
+        
+        
+        if self.element!.media.count > 0 {
+            if self.element!.useWhiteText {
+                textColor = UIColor.whiteColor()
+                decorationColor = self.element!.media[0].vibrantDarkColor
+            } else {
+                textColor = UIColor.bnGrayDark()
+                decorationColor = self.element!.media[0].vibrantDarkColor
+            }
         } else {
-            textColor = UIColor.bnGrayDark()
-            decorationColor = self.element!.media[0].vibrantDarkColor
+            textColor = UIColor.whiteColor()
+            decorationColor = UIColor.bnGrayDark()
         }
         
         var ypos:CGFloat = 0
@@ -100,10 +107,13 @@ class ElementMiniView: BNView {
             ypos = ((imageSize - frame.height) / 2) * -1
         }
 
-        //Positioning image
-        image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
-        self.addSubview(image!)
- 
+        if self.element!.media.count > 0 {
+
+            //Positioning image
+            image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
+            self.addSubview(image!)
+        }
+            
         var headerHeight:CGFloat = 0
         if showlocation {
             headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight

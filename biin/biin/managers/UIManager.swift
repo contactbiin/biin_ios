@@ -363,12 +363,34 @@ class UIManager {
         
         for c in text.characters {
             switch (c) {
-            case "\"", "/", "*", " ", "&", "{", "}", "[", "]", "+", "=", "^", "'", ",", "#", "(", ")", ":", ";", "-", "?":
+            case "\"", "/", "*", "&", "{", "}", "[", "]", "+", "=", "^", "'", ",", "#", "(", ")", ":", ";", "-", "?":
                 continue
             default:
                 formatted.append(c)
                 break
             }
+        }
+        
+        return formatted
+    }
+    
+    func fixEmptySpace(text:String) -> String {
+        var formatted = ""
+        
+        for c in text.characters {
+            
+            switch (c) {
+            case " ":
+                formatted += "%"
+                formatted += "2"
+                formatted += "0"
+                break
+            default:
+                formatted.append(c)
+                break
+            }
+            
+
         }
         
         return formatted
