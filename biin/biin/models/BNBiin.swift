@@ -145,72 +145,73 @@ class BNBiin:NSObject
         //TODO: get the correct object depending on the time and properties.
         var isCurrentObjectSet = false
         
-
-        if self.objects?.count > 0 {
-        
-            let date = NSDate()
-            let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components([.Hour, .Minute], fromDate: date)
-            let hour = components.hour
-            let minutes = components.minute
-            let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
-            
-            var isAvailableToday = false
-            
-            let dayNumber = getDayOfWeek()
-            for var i = 0; i < objects?.count; i++ {
+        if objects != nil {
+            if self.objects!.count > 0 {
                 
-                if currentTime >= objects![i].startTime {
-                    if currentTime <= objects![i].endTime {
+                let date = NSDate()
+                let calendar = NSCalendar.currentCalendar()
+                let components = calendar.components([.Hour, .Minute], fromDate: date)
+                let hour = components.hour
+                let minutes = components.minute
+                let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
+                
+                var isAvailableToday = false
+                
+                let dayNumber = getDayOfWeek()
+                for var i = 0; i < objects?.count; i++ {
+                    
+                    if currentTime >= objects![i].startTime {
+                        if currentTime <= objects![i].endTime {
 
-                        switch dayNumber {
-                        case 1://Sunday
-                            if objects![i].onSunday {
-                                isAvailableToday = true
+                            switch dayNumber {
+                            case 1://Sunday
+                                if objects![i].onSunday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 2://Monday
+                                if objects![i].onMonday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 3://Tuesday
+                                if objects![i].onTuesday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 4://Wednesday
+                                if objects![i].onWednesday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 5://Thurday
+                                if objects![i].onThursday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 6://Friday
+                                if objects![i].onFriday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 7://Saturday
+                                if objects![i].onSaturday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            default:
+                                isAvailableToday = false
+                                break
                             }
-                            break
-                        case 2://Monday
-                            if objects![i].onMonday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 3://Tuesday
-                            if objects![i].onTuesday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 4://Wednesday
-                            if objects![i].onWednesday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 5://Thurday
-                            if objects![i].onThursday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 6://Friday
-                            if objects![i].onFriday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 7://Saturday
-                            if objects![i].onSaturday {
-                                isAvailableToday = true
-                            }
-                            break
-                        default:
-                            isAvailableToday = false
-                            break
-                        }
 
-                        
-                        if isAvailableToday {
-                            currentObjectIndex = i
-                            isCurrentObjectSet = true
-                        } else {
-                            currentObjectIndex = 0
-                            isCurrentObjectSet = true
+                            
+                            if isAvailableToday {
+                                currentObjectIndex = i
+                                isCurrentObjectSet = true
+                            } else {
+                                currentObjectIndex = 0
+                                isCurrentObjectSet = true
+                            }
                         }
                     }
                 }
