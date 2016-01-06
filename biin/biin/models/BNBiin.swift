@@ -145,7 +145,8 @@ class BNBiin:NSObject
         //TODO: get the correct object depending on the time and properties.
         var isCurrentObjectSet = false
         
-        if objects!.count > 0 {
+
+        if self.objects?.count > 0 {
         
             let date = NSDate()
             let calendar = NSCalendar.currentCalendar()
