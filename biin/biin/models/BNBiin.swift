@@ -63,12 +63,12 @@ class BNBiin:NSObject
     
     func setBiinState(){
         
-        if objects != nil {
-            if objects!.count > 0 {
+        if self.objects != nil {
+            if self.objects!.count > 0 {
                 assingCurrectObject()
-                if objects![currentObjectIndex].isCollected {
+                if self.objects![currentObjectIndex].isCollected {
                     //Biined
-                    if objects![currentObjectIndex].isUserNotified {
+                    if self.objects![currentObjectIndex].isUserNotified {
                         //User notified
                         state = Biined_Notified_State(biin: self)
                     } else {
@@ -77,7 +77,7 @@ class BNBiin:NSObject
                     }
                 } else {
                     //Biin (not biined)
-                    if objects![currentObjectIndex].isUserNotified {
+                    if self.objects![currentObjectIndex].isUserNotified {
                         //User notified
                         state = Biin_Notified_State(biin: self)
                     } else {
@@ -145,7 +145,7 @@ class BNBiin:NSObject
         //TODO: get the correct object depending on the time and properties.
         var isCurrentObjectSet = false
         
-        if objects != nil {
+        if self.objects != nil {
             if self.objects!.count > 0 {
                 
                 let date = NSDate()
@@ -158,44 +158,44 @@ class BNBiin:NSObject
                 var isAvailableToday = false
                 
                 let dayNumber = getDayOfWeek()
-                for var i = 0; i < objects?.count; i++ {
+                for var i = 0; i < self.objects!.count; i++ {
                     
-                    if currentTime >= objects![i].startTime {
-                        if currentTime <= objects![i].endTime {
+                    if currentTime >= self.objects![i].startTime {
+                        if currentTime <= self.objects![i].endTime {
 
                             switch dayNumber {
                             case 1://Sunday
-                                if objects![i].onSunday {
+                                if self.objects![i].onSunday {
                                     isAvailableToday = true
                                 }
                                 break
                             case 2://Monday
-                                if objects![i].onMonday {
+                                if self.objects![i].onMonday {
                                     isAvailableToday = true
                                 }
                                 break
                             case 3://Tuesday
-                                if objects![i].onTuesday {
+                                if self.objects![i].onTuesday {
                                     isAvailableToday = true
                                 }
                                 break
                             case 4://Wednesday
-                                if objects![i].onWednesday {
+                                if self.objects![i].onWednesday {
                                     isAvailableToday = true
                                 }
                                 break
                             case 5://Thurday
-                                if objects![i].onThursday {
+                                if self.objects![i].onThursday {
                                     isAvailableToday = true
                                 }
                                 break
                             case 6://Friday
-                                if objects![i].onFriday {
+                                if self.objects![i].onFriday {
                                     isAvailableToday = true
                                 }
                                 break
                             case 7://Saturday
-                                if objects![i].onSaturday {
+                                if self.objects![i].onSaturday {
                                     isAvailableToday = true
                                 }
                                 break
