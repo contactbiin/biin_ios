@@ -63,12 +63,12 @@ class BNBiin:NSObject
     
     func setBiinState(){
         
-        if objects != nil {
-            if objects!.count > 0 {
+        if self.objects != nil {
+            if self.objects!.count > 0 {
                 assingCurrectObject()
-                if objects![currentObjectIndex].isCollected {
+                if self.objects![currentObjectIndex].isCollected {
                     //Biined
-                    if objects![currentObjectIndex].isUserNotified {
+                    if self.objects![currentObjectIndex].isUserNotified {
                         //User notified
                         state = Biined_Notified_State(biin: self)
                     } else {
@@ -77,7 +77,7 @@ class BNBiin:NSObject
                     }
                 } else {
                     //Biin (not biined)
-                    if objects![currentObjectIndex].isUserNotified {
+                    if self.objects![currentObjectIndex].isUserNotified {
                         //User notified
                         state = Biin_Notified_State(biin: self)
                     } else {
@@ -145,71 +145,73 @@ class BNBiin:NSObject
         //TODO: get the correct object depending on the time and properties.
         var isCurrentObjectSet = false
         
-        if objects!.count > 0 {
-        
-            let date = NSDate()
-            let calendar = NSCalendar.currentCalendar()
-            let components = calendar.components([.Hour, .Minute], fromDate: date)
-            let hour = components.hour
-            let minutes = components.minute
-            let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
-            
-            var isAvailableToday = false
-            
-            let dayNumber = getDayOfWeek()
-            for var i = 0; i < objects?.count; i++ {
+        if self.objects != nil {
+            if self.objects!.count > 0 {
                 
-                if currentTime >= objects![i].startTime {
-                    if currentTime <= objects![i].endTime {
+                let date = NSDate()
+                let calendar = NSCalendar.currentCalendar()
+                let components = calendar.components([.Hour, .Minute], fromDate: date)
+                let hour = components.hour
+                let minutes = components.minute
+                let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
+                
+                var isAvailableToday = false
+                
+                let dayNumber = getDayOfWeek()
+                for var i = 0; i < self.objects!.count; i++ {
+                    
+                    if currentTime >= self.objects![i].startTime {
+                        if currentTime <= self.objects![i].endTime {
 
-                        switch dayNumber {
-                        case 1://Sunday
-                            if objects![i].onSunday {
-                                isAvailableToday = true
+                            switch dayNumber {
+                            case 1://Sunday
+                                if self.objects![i].onSunday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 2://Monday
+                                if self.objects![i].onMonday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 3://Tuesday
+                                if self.objects![i].onTuesday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 4://Wednesday
+                                if self.objects![i].onWednesday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 5://Thurday
+                                if self.objects![i].onThursday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 6://Friday
+                                if self.objects![i].onFriday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            case 7://Saturday
+                                if self.objects![i].onSaturday {
+                                    isAvailableToday = true
+                                }
+                                break
+                            default:
+                                isAvailableToday = false
+                                break
                             }
-                            break
-                        case 2://Monday
-                            if objects![i].onMonday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 3://Tuesday
-                            if objects![i].onTuesday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 4://Wednesday
-                            if objects![i].onWednesday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 5://Thurday
-                            if objects![i].onThursday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 6://Friday
-                            if objects![i].onFriday {
-                                isAvailableToday = true
-                            }
-                            break
-                        case 7://Saturday
-                            if objects![i].onSaturday {
-                                isAvailableToday = true
-                            }
-                            break
-                        default:
-                            isAvailableToday = false
-                            break
-                        }
 
-                        
-                        if isAvailableToday {
-                            currentObjectIndex = i
-                            isCurrentObjectSet = true
-                        } else {
-                            currentObjectIndex = 0
-                            isCurrentObjectSet = true
+                            
+                            if isAvailableToday {
+                                currentObjectIndex = i
+                                isCurrentObjectSet = true
+                            } else {
+                                currentObjectIndex = 0
+                                isCurrentObjectSet = true
+                            }
                         }
                     }
                 }
