@@ -62,13 +62,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //appManager.networkManager.delegateVC = lvc
         }
         
-        
         // path to documents directory
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
         
         // create the custom folder path
         let biinCacheImagesFolder = documentDirectoryPath!.stringByAppendingPathComponent(appManager.biinCacheImagesFolder)
-        
         
         // check if directory does not exist
         if NSFileManager.defaultManager().fileExistsAtPath(biinCacheImagesFolder) == false {
@@ -79,7 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
             }
 
-            
         } else {
             
             let selectedImage = UIImage(named:"loading1.jpg")
@@ -97,13 +94,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 
             }
-
-            
-            
         }
         
         setupNotificationSettings()
-        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
