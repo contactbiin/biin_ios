@@ -97,65 +97,68 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
                 self.refreshButton!.frame.origin.y = 0
             })
         }
-        
     }
     
     func updateContainer(){
         
-
-        
-        let screenWidth = SharedUIManager.instance.screenWidth
-        //let screenHeight = SharedUIManager.instance.screenHeight
-        var ypos:CGFloat = 0
-        let spacer:CGFloat = 0
-        var height:CGFloat = 0
-        
-        SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth + SharedUIManager.instance.sitesContainer_headerHeight
-
-        height = SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight
-        self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, height), father: self)
-        self.scroll!.addChild(self.highlightContainer!)
-        
-
-        ypos += height
-
-        height = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
-        
-        
-        self.nearSitesContainer = MainViewContainer_NearSites(frame: CGRectMake(0, ypos, screenWidth, height))
-        self.nearSitesContainer!.delegate = (self.father! as! MainView)
-        self.nearSitesContainer!.father = self
-        self.nearSitesContainer!.addAllSites()
-        self.scroll!.addChild(self.nearSitesContainer!)
-        
-        ypos += height
-        
-        /*
-        self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
-        self.scroll!.addSubview(self.bannerContainer!)
-        ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
-        */
-        
-        var colorIndex:Int = 1
-        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+        if BNAppSharedManager.instance.dataManager.sites_ordered.count == 0 {
             
-            if isThereElementsInCategory(category) {
+            self.refreshButtonAction(UIButton())
+            
+        } else {
+            
+            let screenWidth = SharedUIManager.instance.screenWidth
+            //let screenHeight = SharedUIManager.instance.screenHeight
+            var ypos:CGFloat = 0
+            let spacer:CGFloat = 0
+            var height:CGFloat = 0
+            
+            SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth + SharedUIManager.instance.sitesContainer_headerHeight
+
+            height = SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight
+            self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, height), father: self)
+            self.scroll!.addChild(self.highlightContainer!)
+            
+
+            ypos += height
+
+            height = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
+            
+            self.nearSitesContainer = MainViewContainer_NearSites(frame: CGRectMake(0, ypos, screenWidth, height))
+            self.nearSitesContainer!.delegate = (self.father! as! MainView)
+            self.nearSitesContainer!.father = self
+            self.nearSitesContainer!.addAllSites()
+            self.scroll!.addChild(self.nearSitesContainer!)
+            
+            ypos += height
+            
+            /*
+            self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
+            self.scroll!.addSubview(self.bannerContainer!)
+            ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
+            */
+            
+            var colorIndex:Int = 1
+            for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
                 
-                let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
-                elementContainer.delegate = (self.father! as! MainView)
-                ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
-                self.scroll!.addChild(elementContainer)
-                self.elementContainers!.append(elementContainer)
-                
-                colorIndex++
-                if colorIndex  > 1 {
-                    colorIndex = 0
+                if isThereElementsInCategory(category) {
+                    
+                    let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
+                    elementContainer.delegate = (self.father! as! MainView)
+                    ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
+                    self.scroll!.addChild(elementContainer)
+                    self.elementContainers!.append(elementContainer)
+                    
+                    colorIndex++
+                    if colorIndex  > 1 {
+                        colorIndex = 0
+                    }
                 }
             }
+            
+            ypos += SharedUIManager.instance.categoriesHeaderHeight
+            self.scroll!.setChildrenPosition()
         }
-        
-        ypos += SharedUIManager.instance.categoriesHeaderHeight
-        self.scroll!.setChildrenPosition()
     }
     
     func isThereElementsInCategory (category:BNCategory) ->Bool {
