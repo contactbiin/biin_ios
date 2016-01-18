@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate, SurveyView_Delegate {
     
     var delegate:MainViewDelegate?
     //var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -35,6 +35,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var allSitesState:AllSitesState?
     var allElementsState:AllElementsState?
     var allCollectedState:AllCollectedState?
+    var surveyState:SurveyState?
     //var errorState:ErrorState?
     
     var isShowingSite = false
@@ -128,7 +129,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         siteState = SiteState(context: self, view:nil)
         elementState = ElementState(context: self, view:nil)
         elementFromSiteState = ElementFromSiteState(context: self, view:nil)
-
+        surveyState = SurveyState(context: self, view: nil)
         
     
         
@@ -231,8 +232,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        }
 //        
 //        BNAppSharedManager.instance.dataManager.requestInitialData()
-        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
-        
+//        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
+        setNextState(BNGoto.Survey)
         
     }
     
@@ -291,6 +292,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             break
         case .ElementFromSite:
             state!.next(self.elementFromSiteState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .Survey:
+            state!.next(self.surveyState)
             self.bringSubviewToFront(state!.view!)
             break
         }
@@ -570,6 +575,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (allCollectedState!.view as? AllCollectedView)!.refresh()
     }
     
+    //SurveyView_Delegate Methods
+    func hideSurveyView() {
+        setNextState(BNGoto.Main)
+    }
+    
     func clean(){
         
         
@@ -612,7 +622,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         elementFromSiteState!.view!.removeFromSuperview()
         elementFromSiteState!.view = nil
 
-
+        (surveyState!.view as! SurveyView).clean()
+        surveyState!.view!.removeFromSuperview()
+        surveyState!.view = nil
     }
     
     func show(){
@@ -672,6 +684,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         elementViewFromSite.delegate = self
         self.addSubview(elementViewFromSite)
         
+        let surveyView = SurveyView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        surveyState!.view = surveyView
+        surveyView.delegate = self
+        self.addSubview(surveyView)
     }
 }
 
@@ -708,4 +724,5 @@ enum BNGoto {
     case Collected
     case AllSites
     case AllElements
+    case Survey
 }
