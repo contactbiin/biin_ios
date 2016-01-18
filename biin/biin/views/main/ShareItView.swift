@@ -92,21 +92,21 @@ class ShareItView:UIView {
         
         ypos += (subTitle!.frame.height + 10)
         
-        lineView = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
-        lineView!.backgroundColor = textColor
-        self.addSubview(lineView!)
+        //lineView = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+//        lineView!.backgroundColor = textColor
+//        self.addSubview(lineView!)
         
 
         
         if element.hasPrice && !element.hasListPrice && !element.hasFromPrice {
 
-            var height:CGFloat = 0
-            let bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
-            bg.backgroundColor = decorationColor
-            self.addSubview(bg)
-            height += 10
+            //var height:CGFloat = 0
+//            let bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+//            bg.backgroundColor = decorationColor
+//            self.addSubview(bg)
+            //height += 10
             
-            ypos += 10
+            //ypos += 10
             textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2)))
             textPrice1!.textColor = textColor
             textPrice1!.textAlignment = NSTextAlignment.Center
@@ -123,19 +123,19 @@ class ShareItView:UIView {
             self.addSubview(textPrice2!)
             ypos += 40
             
-            height += 60
-            bg.frame = CGRectMake(0, bg.frame.origin.y, bg.frame.width, height)
+            //height += 60
+            //bg.frame = CGRectMake(0, bg.frame.origin.y, bg.frame.width, height)
             
         } else if element.hasPrice && element.hasListPrice {
             
-            var height:CGFloat = 0
-            bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
-            bg!.backgroundColor = decorationColor
-            self.addSubview(bg!)
-            height += 10
+            //var height:CGFloat = 0
+//            bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+//            bg!.backgroundColor = decorationColor
+//            self.addSubview(bg!)
+            //height += 10
             
             
-            ypos += 10
+            //ypos += 10
             let text1Length = SharedUIManager.instance.getStringLength("\(element.currency!)\(element.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
             let xposition:CGFloat = ( frame.width - text1Length ) / 2
             
@@ -159,18 +159,18 @@ class ShareItView:UIView {
             self.addSubview(textPrice2!)
             ypos += 40
             
-            height += 60
-            bg!.frame = CGRectMake(0, bg!.frame.origin.y, bg!.frame.width, height)
+            //height += 60
+//            bg!.frame = CGRectMake(0, bg!.frame.origin.y, bg!.frame.width, height)
             
         } else if element.hasPrice && element.hasFromPrice {
             
-            var height:CGFloat = 0
-            bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
-            bg!.backgroundColor = decorationColor
-            self.addSubview(bg!)
-            height += 10
+            //var height:CGFloat = 0
+//            bg = UIView(frame: CGRectMake(0, ypos, (frame.width), 1))
+//            bg!.backgroundColor = decorationColor
+//            self.addSubview(bg!)
+            //height += 10
             
-            ypos += 10
+            //ypos += 10
             textPrice1 = UILabel(frame: CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2)))
             textPrice1!.textColor = textColor
             textPrice1!.textAlignment = NSTextAlignment.Center
@@ -187,8 +187,8 @@ class ShareItView:UIView {
             self.addSubview(textPrice2!)
             ypos += 40
             
-            height += 60
-            bg!.frame = CGRectMake(0, bg!.frame.origin.y, bg!.frame.width, height)
+            //height += 60
+//            bg!.frame = CGRectMake(0, bg!.frame.origin.y, bg!.frame.width, height)
         }
 
         whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))

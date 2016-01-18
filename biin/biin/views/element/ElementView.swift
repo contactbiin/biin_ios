@@ -480,7 +480,7 @@ class ElementView: BNView, UIWebViewDelegate {
             
             let siteForSharing = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
             shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), element: element, site:siteForSharing)
-            
+            //self.addSubview(shareView!)
         }
     }
 
@@ -525,6 +525,7 @@ class ElementView: BNView, UIWebViewDelegate {
     }
     
     func shareit(sender:BNUIButton_ShareIt){
+        //self.bringSubviewToFront(shareView!)
         BNAppSharedManager.instance.shareElement(self.element, shareView: self.shareView)
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!)
     }
