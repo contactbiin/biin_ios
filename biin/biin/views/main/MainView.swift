@@ -233,7 +233,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        
 //        BNAppSharedManager.instance.dataManager.requestInitialData()
 //        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
-        setNextState(BNGoto.Survey)
+        
+        
+        //setNextState(BNGoto.Survey)
         
     }
     
@@ -491,12 +493,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func showSiteFromElement(element: BNElement) {
         
         if let site = BNAppSharedManager.instance.dataManager.sites[element.showcase!.site!.identifier!] {
+            isShowingSite = true
+            isShowingSiteFromElement = true
+            
             (elementState!.view as! ElementView).showFade()
             self.bringSubviewToFront((siteState!.view as! SiteView))
             (siteState!.view as! SiteView).updateSiteData(site)
             setNextState(BNGoto.Site)
-            isShowingSite = true
-            isShowingSiteFromElement = true
+
         }
     }
     

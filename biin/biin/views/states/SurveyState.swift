@@ -10,7 +10,7 @@ class SurveyState:BNState {
     
     override init(context:BNView, view:BNView?){
         super.init(context:context, view: view)
-        self.stateType = BNStateType.AboutState
+        self.stateType = BNStateType.SurveyState
     }
     
     override init(context: BNView, view: BNView, stateType: BNStateType) {
