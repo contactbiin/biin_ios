@@ -28,7 +28,7 @@ class BNRequest_SendSharedElement: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendSharedElement - \(requestString)")
+        //print("BNRequest_SendSharedElement - \(requestString)")
 
         isRunning = true
         requestAttemps++
