@@ -51,4 +51,5 @@ enum BNStateType {
     case AboutState
     case ErrorState
     case AllCollectedState
+    case SurveyState
 }

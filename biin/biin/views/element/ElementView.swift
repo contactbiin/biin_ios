@@ -220,9 +220,9 @@ class ElementView: BNView, UIWebViewDelegate {
     
     //Instance Methods
     func openUrl(sender:UIButton) {
-        let targetURL = NSURL(string:self.element!.callToActionURL!)
-        let application = UIApplication.sharedApplication()
-        application.openURL(targetURL!)
+        //let targetURL = NSURL(string:self.element!.callToActionURL!)
+        //let application = UIApplication.sharedApplication()
+        //application.openURL(targetURL!)
     }
     
     func backBtnAction(sender:UIButton) {

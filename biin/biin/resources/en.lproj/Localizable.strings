@@ -216,3 +216,6 @@ Refreshing = "REFRESHING...";
 
 Before = "Before";
 Now = "Now";
+
+/*Survey*/
+SurveyTitle = "Your opinion matters.";

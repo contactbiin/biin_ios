@@ -50,14 +50,14 @@ class BluetoothErrorView: BNView {
 //        fade!.alpha = 0
 //        self.addSubview(fade!)
         
-        ypos = (screenHeight - 300) / 2
+        ypos = (screenHeight - 350) / 2
         warningLogo = BNUIBluetoothView(position:CGPoint(x:((screenWidth - 100) / 2), y:ypos), scale:1.25)
         warningLogo!.frame.origin.x = ((screenWidth - warningLogo!.frame.width) / 2)
         self.addSubview(warningLogo!)
         warningLogo!.icon!.color = UIColor.bnBlueDark()
         warningLogo!.setNeedsDisplay()
         
-        ypos += (warningLogo!.frame.height + 30)
+        ypos += (warningLogo!.frame.height + 10)
         
         let text = UILabel(frame: CGRectMake(20, ypos, (screenWidth - 40), (SharedUIManager.instance.errorView_text + 3)))
         text.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.errorView_text)
@@ -72,7 +72,7 @@ class BluetoothErrorView: BNView {
         
 //        ypos += (screenHeight - 100)
         
-        title = UILabel(frame: CGRectMake(0, (screenHeight - 90), screenWidth, (SharedUIManager.instance.errorView_title + 3)))
+        title = UILabel(frame: CGRectMake(0, (screenHeight - 110), screenWidth, (SharedUIManager.instance.errorView_title + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.errorView_title)
         title!.textColor = UIColor.bnBlueDark()
         title!.textAlignment = NSTextAlignment.Center
@@ -85,7 +85,7 @@ class BluetoothErrorView: BNView {
         self.addSubview(title!)
         
 //        ypos = (screenHeight - 100)
-        let siteUrl =  UIButton(frame: CGRectMake(5, (screenHeight - 60), (screenWidth - 10), 55))
+        let siteUrl = UIButton(frame: CGRectMake(5, (screenHeight - 60), (screenWidth - 10), 55))
         siteUrl.setTitle(NSLocalizedString("BluetoothErrorButton", comment: "BluetoothErrorButton"), forState: UIControlState.Normal)
         siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         siteUrl.backgroundColor = UIColor.darkGrayColor()

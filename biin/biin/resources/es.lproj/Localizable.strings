@@ -209,3 +209,6 @@ Refreshing = "REFRESCANDO...";
 
 Before = "Antes";
 Now = "Ahora";
+
+/*Survey*/
+SurveyTitle = "Su opinión es importante.";
