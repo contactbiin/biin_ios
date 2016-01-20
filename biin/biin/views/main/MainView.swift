@@ -221,7 +221,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("test", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(testButton!)
+        self.addSubview(testButton!)
     }
     
     func testButtonAction(sender:UIButton) {
@@ -235,7 +235,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
         
         
-        //setNextState(BNGoto.Survey)
+        setNextState(BNGoto.Survey)
         
     }
     
