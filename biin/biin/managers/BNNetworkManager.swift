@@ -440,6 +440,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
+    func sendSurvey(user: Biinie, site: BNSite?, rating:Int, comment:String) {
+        let request = BNRequest_SendSurvey(requestString: "\(rootURL)/mobile/rating/site", errorManager: self.errorManager!, networkManager: self, site: site, rating: rating, comment: comment, user: user)
+        
+        addToQueue(request)
+    }
+    
     
     func runRequest(){
         

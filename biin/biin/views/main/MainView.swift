@@ -44,6 +44,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var isShowingAllElements = false
     var isShowingAllCollectedView = false
     
+    var isReadyToShowSurvey = false
+    weak var site_to_survey:BNSite?
+    
     var searchState:SearchState?
     var settingsState:SettingsState?
     
@@ -235,9 +238,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
         
         
-        setNextState(BNGoto.Survey)
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+        
+//        setNextState(BNGoto.Survey)
+//        updateSurveyView(BNAppSharedManager.instance.dataManager.sites_ordered[0])
         
     }
+    
+    func updateSurveyView(site:BNSite?) {
+        (self.surveyState!.view as! SurveyView).updateSiteData(site)
+    }
+    
     
     func show_refreshButton(){
         (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
@@ -375,11 +386,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showInSiteView(site:BNSite?) {
+        site_to_survey = site
         (mainViewContainerState!.view as! MainViewContainer).showInSiteView(site)
     }
     
     func hideInSiteView(){
         (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
+        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+    }
+    
+    func showSurveyOnTimer(sender:NSTimer){
+        setNextState(BNGoto.Survey)
+        updateSurveyView(BNAppSharedManager.instance.dataManager.sites_ordered[0])
     }
     
     func showNotificationContext(){

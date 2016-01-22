@@ -211,4 +211,10 @@ Before = "Antes";
 Now = "Ahora";
 
 /*Survey*/
-SurveyTitle = "Su opinión es importante.";
+SurveyTitle = "Su opinión es importante";
+Optional = "Opcional";
+BrandGreetings = "Muchas gracias por visitarnos el día de hoy, esperamos que regreses pronto.";
+SurveyQuestion_1 = "Que tan probable es que recomiendes a ";
+SurveyQuestion_2 = " basado en tu experiencia de hoy?";
+SurveyQuestion_3 = "Dejanos tu comentario para saber que te gusto o que podemos mejorar.";
+Thankyou = "Muchas gracias";

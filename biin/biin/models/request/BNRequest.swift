@@ -41,6 +41,8 @@ enum BNRequestType
     case ServerError
     case InitialData
     case ElementsForShowcase
+    
+    case SendSurvey
 }
 
 class BNRequest:NSObject {
@@ -53,6 +55,8 @@ class BNRequest:NSObject {
     var requestString:String = ""
     var dataIdentifier:String = ""//identifier for the object data is requested for.
     var requestType:BNRequestType = BNRequestType.None
+    var rating:Int = 0
+    var comment:String = ""
     
     weak var showcase:BNShowcase?
     weak var element:BNElement?

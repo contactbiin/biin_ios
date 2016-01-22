@@ -220,9 +220,9 @@ class ElementView: BNView, UIWebViewDelegate {
     
     //Instance Methods
     func openUrl(sender:UIButton) {
-        //let targetURL = NSURL(string:self.element!.callToActionURL!)
-        //let application = UIApplication.sharedApplication()
-        //application.openURL(targetURL!)
+        let targetURL = NSURL(string:"http://\(self.element!.callToActionURL!)")
+        let application = UIApplication.sharedApplication()
+        application.openURL(targetURL!)
     }
     
     func backBtnAction(sender:UIButton) {
@@ -686,12 +686,12 @@ class ElementView: BNView, UIWebViewDelegate {
             scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
         }
         
-        if false {//self.element!.hasCallToAction {
-//            callToActionBtn!.alpha = 1
-//            callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
-//            callToActionTitle!.alpha = 1
-//            callToActionTitle!.text = self.element!.callToActionTitle!
-//            callToActionBtn!.enabled = true
+        if self.element!.hasCallToAction {
+            callToActionBtn!.alpha = 1
+            callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
+            callToActionTitle!.alpha = 1
+            callToActionTitle!.text = self.element!.callToActionTitle!
+            callToActionBtn!.enabled = true
         } else {
             callToActionBtn!.alpha = 0
             callToActionTitle!.alpha = 0

@@ -63,10 +63,12 @@ class BNUIButton:UIButton {
     }
     
     func showEnable(){
-        self.backgroundColor = UIColor.appButtonColor()
+        self.enabled = true
+        self.backgroundColor = UIColor.darkGrayColor()
     }
     
     func showDisable(){
+        self.enabled = false
         self.backgroundColor = UIColor.appBackground()
     }
 }
