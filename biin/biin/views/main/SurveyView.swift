@@ -130,12 +130,13 @@ class SurveyView: BNView, UITextViewDelegate {
         var x:CGFloat = 10
         for var i = 1; i <= 10; i++ {
 
+            let color = getButtonColor(CGFloat(i))
             let button = UIButton(frame: CGRectMake(x, 0, buttonWidth, buttonWidth))
             button.setTitle("\(i)", forState: UIControlState.Normal)
-            button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+            button.setTitleColor(color, forState: UIControlState.Normal)
             button.titleLabel!.font = UIFont(name: "Lato-Black", size: 12)
-            button.layer.borderColor = UIColor.darkGrayColor().CGColor
-            button.layer.borderWidth = 1
+            button.layer.borderColor = color.CGColor
+            button.layer.borderWidth = 1.5
             button.layer.cornerRadius = buttonWidth / 2
             button.backgroundColor = UIColor.darkGrayColor()
             button.addTarget(self, action: "surveyAction:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -180,14 +181,16 @@ class SurveyView: BNView, UITextViewDelegate {
     
     func surveyAction(sender:UIButton) {
         
+        let previous_color = getButtonColor(CGFloat(self.rating))
         self.rating = Int(sender.titleForState(UIControlState.Normal)!)!
-        sender.backgroundColor = getButtonColor(CGFloat(self.rating))
+        let color = getButtonColor(CGFloat(self.rating))
+        sender.backgroundColor = color
         sender.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         continueBtn!.showEnable()
         
         if previousButton != nil {
             previousButton!.backgroundColor = UIColor.darkGrayColor()
-            previousButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+            previousButton!.setTitleColor(previous_color, forState: UIControlState.Normal)
             previousButton = sender
         } else {
             previousButton = sender
@@ -270,18 +273,20 @@ class SurveyView: BNView, UITextViewDelegate {
         var question = NSLocalizedString("SurveyQuestion_1", comment: "SurveyQuestion_1")
         question += site!.title!
         question += NSLocalizedString("SurveyQuestion_2", comment: "SurveyQuestion_2")
+        surveyQuestionLbl!.frame = CGRectMake(30, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 60), 28)
         surveyQuestionLbl!.text = question
-        surveyQuestionLbl!.font = UIFont(name: "Lato-Black", size: 25)
+        surveyQuestionLbl!.font = UIFont(name: "Lato-Light", size: 25)
         surveyQuestionLbl!.numberOfLines = 0
         surveyQuestionLbl!.textAlignment = NSTextAlignment.Center
         surveyQuestionLbl!.sizeToFit()
         surveyQuestionLbl!.frame.origin.y = (SharedUIManager.instance.screenHeight / 2) - surveyQuestionLbl!.frame.height
 
         for var i = 0; i < buttons.count; i++ {
+            let color = getButtonColor(CGFloat(i))
             buttons[i].alpha = 1
             buttons[i].frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + 20
             buttons[i].backgroundColor = UIColor.darkGrayColor()
-            buttons[i].setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+            buttons[i].setTitleColor(color, forState: UIControlState.Normal)
         }
         
         textFieldView!.alpha = 0
@@ -348,6 +353,7 @@ class SurveyView: BNView, UITextViewDelegate {
             
             BNAppSharedManager.instance.networkManager.sendSurvey(BNAppSharedManager.instance.dataManager.bnUser! , site: self.site, rating: self.rating, comment:comment)
 
+            surveyQuestionLbl!.frame = CGRectMake(30, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 60), 28)
             surveyQuestionLbl!.text = NSLocalizedString("Thankyou", comment: "Thankyou")
             textFieldView!.alpha = 0
             continueBtn!.alpha = 0
@@ -358,8 +364,10 @@ class SurveyView: BNView, UITextViewDelegate {
             
             isSurveyDone = true
             continueBtn!.label!.text = NSLocalizedString("Done", comment: "Done").capitalizedString
+            
+            surveyQuestionLbl!.frame = CGRectMake(20, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 40), 28)
             surveyQuestionLbl!.text = NSLocalizedString("SurveyQuestion_3", comment: "SurveyQuestion_3")
-            surveyQuestionLbl!.font = UIFont(name: "Lato-Black", size: 25)
+            surveyQuestionLbl!.font = UIFont(name: "Lato-Light", size: 25)
             surveyQuestionLbl!.numberOfLines = 0
             surveyQuestionLbl!.textAlignment = NSTextAlignment.Center
             surveyQuestionLbl!.sizeToFit()
@@ -377,6 +385,7 @@ class SurveyView: BNView, UITextViewDelegate {
     func backBtnAction(sender:UIButton) {
         //delegate!.hideElementView!(self.element!)
 //        delegate!.hideAllSitesView!()
+        commentTxt!.resignFirstResponder()
         delegate!.hideSurveyView!()
     }
 

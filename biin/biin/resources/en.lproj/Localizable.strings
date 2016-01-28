@@ -219,8 +219,8 @@ Now = "Now";
 
 /*Survey*/
 SurveyTitle = "Your opinion matters";
-Optional = "Opcional";
-BrandGreetings = "Muchas gracias por visitarnos el día de hoy, esperamos que regreses pronto.";
+Optional = "Optional";
+BrandGreetings = "Thank you for stoping by today and come back soon!";
 SurveyQuestion_1 = "Que tan probable es que recomiendes a ";
 SurveyQuestion_2 = " basado en tu experiencia de hoy?";
 SurveyQuestion_3 = "Dejanos tu comentario para saber que te gusto o que podemos mejorar.";
