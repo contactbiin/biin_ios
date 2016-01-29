@@ -499,65 +499,72 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         print("Request error: \(error!.code) request: \(request.requestString)")
         
-        
-        if error?.code == -1001 && request.requestType == .InitialData{
-            request.requestAttemps = 0
-            request.isRunning = false
-            self.errorManager!.showServerError()
-
-        }
-        
-        switch request.requestType {
-        case .None:
-            break
-        case .Login:
-            let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
-            self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
-            break
-        case .Register:
-            let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
-            self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
-            break
-        case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Categories, .Organization, .Collections, .ElementsForShowcase:
+        if error != nil {
             
-            if request.requestAttemps >= 3 {
-                request.requestAttemps = 0
-                request.isRunning = false
-                self.errorManager!.showInternetError()
-            } else {
-                request.isRunning = false
-                request.run()
-            }
-            
-            break
-        case .Image:
-            
-            request.isRunning = false
-            request.run()
-            
-            break
-        case .ConnectivityCheck:
-            if request.requestAttemps >= 3 {
-                request.requestAttemps = 0
-                request.isRunning = false
-                self.errorManager!.showInternetError()
-            } else {
-                request.isRunning = false
-                request.run()
-            }
-            break
-        case .ServerError:
-            if request.requestAttemps >= 3 {
+            if error?.code == -1001 && request.requestType == .InitialData{
                 request.requestAttemps = 0
                 request.isRunning = false
                 self.errorManager!.showServerError()
-            } else {
+
+            }
+            
+            switch request.requestType {
+            case .None:
+                break
+            case .Login:
+                let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
+                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+                break
+            case .Register:
+                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
+                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+                break
+            case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Categories, .Organization, .Collections, .ElementsForShowcase:
+                
+                if request.requestAttemps >= 3 {
+                    request.requestAttemps = 0
+                    request.isRunning = false
+                    self.errorManager!.showInternetError()
+                } else {
+                    request.isRunning = false
+                    request.run()
+                }
+                
+                break
+            case .Image:
+                
                 request.isRunning = false
                 request.run()
+                
+                break
+            case .ConnectivityCheck:
+                if request.requestAttemps >= 3 {
+                    request.requestAttemps = 0
+                    request.isRunning = false
+                    self.errorManager!.showInternetError()
+                } else {
+                    request.isRunning = false
+                    request.run()
+                }
+                break
+            case .ServerError:
+                if request.requestAttemps >= 3 {
+                    request.requestAttemps = 0
+                    request.isRunning = false
+                    self.errorManager!.showServerError()
+                } else {
+                    request.isRunning = false
+                    request.run()
+                }
+                break
+            default:
+                break
             }
-            break
-        default:
-            break
+        } else {
+            //If error is nil
+            request.requestAttemps = 0
+            request.isRunning = false
+            self.errorManager!.showInternetError()
         }
     }
     

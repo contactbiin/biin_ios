@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "471907837.413064"
+            timestampString = "475775148.284031"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "830"
-            endingLineNumber = "830"
+            startingLineNumber = "836"
+            endingLineNumber = "836"
             landmarkName = "didSomethingChangeOnBeaconsDetected(_:array2:)"
             landmarkType = "5">
          </BreakpointContent>

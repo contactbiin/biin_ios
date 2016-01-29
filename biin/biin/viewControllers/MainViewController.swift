@@ -461,7 +461,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func clean(){
-        
         self.mainView!.clean()
     }
     

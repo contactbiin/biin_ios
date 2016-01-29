@@ -181,7 +181,7 @@ class SurveyView: BNView, UITextViewDelegate {
     
     func surveyAction(sender:UIButton) {
         
-        let previous_color = getButtonColor(CGFloat(self.rating))
+        //let previous_color = getButtonColor(CGFloat(self.rating))
         self.rating = Int(sender.titleForState(UIControlState.Normal)!)!
         let color = getButtonColor(CGFloat(self.rating))
         sender.backgroundColor = color
@@ -190,7 +190,7 @@ class SurveyView: BNView, UITextViewDelegate {
         
         if previousButton != nil {
             previousButton!.backgroundColor = UIColor.darkGrayColor()
-            previousButton!.setTitleColor(previous_color, forState: UIControlState.Normal)
+            previousButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             previousButton = sender
         } else {
             previousButton = sender
@@ -248,6 +248,8 @@ class SurveyView: BNView, UITextViewDelegate {
     */
     func updateSiteData(site:BNSite?){
 
+        backBtn!.alpha = 1
+        
         continueBtn!.showDisable()
         continueBtn!.alpha = 1
         
@@ -282,11 +284,11 @@ class SurveyView: BNView, UITextViewDelegate {
         surveyQuestionLbl!.frame.origin.y = (SharedUIManager.instance.screenHeight / 2) - surveyQuestionLbl!.frame.height
 
         for var i = 0; i < buttons.count; i++ {
-            let color = getButtonColor(CGFloat(i))
+            //let color = getButtonColor(CGFloat(i))
             buttons[i].alpha = 1
             buttons[i].frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + 20
             buttons[i].backgroundColor = UIColor.darkGrayColor()
-            buttons[i].setTitleColor(color, forState: UIControlState.Normal)
+            buttons[i].setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         }
         
         textFieldView!.alpha = 0
@@ -362,6 +364,7 @@ class SurveyView: BNView, UITextViewDelegate {
             
         } else {
             
+            backBtn!.alpha = 0
             isSurveyDone = true
             continueBtn!.label!.text = NSLocalizedString("Done", comment: "Done").capitalizedString
             
