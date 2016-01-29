@@ -642,8 +642,11 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
         if let beaconRegion = region as? CLBeaconRegion {
             
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier)
+            if BNAppSharedManager.instance.dataManager.bnUser != nil {
+                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier)
+            }
             
+            /*
             switch nowMonitoring {
             case .NONE:
                 break
@@ -659,6 +662,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             default:
                 break
             }
+            */
         }
 
     }
@@ -751,8 +755,10 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            print("value: \(value)")
+            //print("value: \(value)")
         }
+        
+        //print("\(self.myBeacons.count)")
         
         self.myBeacons = self.myBeacons.sort{ $0.rssi > $1.rssi  }
         

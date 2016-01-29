@@ -110,7 +110,7 @@ class SiteView_Header:BNView {
         subTitle!.textColor = textColor
         nutshell!.textColor = textColor
         
-        if site!.organization!.media.count > 0 {
+        if site!.organization?.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
             siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
         } else {

@@ -48,9 +48,9 @@ class BNRequest_Login: BNRequest {
                     
                     let status = BNParser.findInt("status", dictionary: data)
                     let result = BNParser.findBool("result", dictionary: data)
-                    let identifier = BNParser.findString("identifier", dictionary: loginData)
-                    
+
                     if result {
+                        let identifier = BNParser.findString("identifier", dictionary: loginData)
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier:identifier)
                     } else {

@@ -177,6 +177,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
         
+        BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])
+        
         BNAppSharedManager.instance.clean()
         
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.

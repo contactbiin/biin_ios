@@ -5,6 +5,8 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+
 
 class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate, SurveyView_Delegate {
     
@@ -224,25 +226,25 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("test", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(testButton!)
+        //self.addSubview(testButton!)
     }
     
     func testButtonAction(sender:UIButton) {
         
 
 //        if SimulatorUtility.isRunningSimulator {
-//            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
+//        BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
 //        }
-//        
+
+        //BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])
+        
+        
+        //BNAppSharedManager.instance.dataManager.clean()
+        //(mainViewContainerState!.view as! MainViewContainer).updateContainer()
 //        BNAppSharedManager.instance.dataManager.requestInitialData()
 //        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
-        
-        
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
-        
 //        setNextState(BNGoto.Survey)
 //        updateSurveyView(BNAppSharedManager.instance.dataManager.sites_ordered[0])
-        
     }
     
     func updateSurveyView(site:BNSite?) {
@@ -396,8 +398,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showSurveyOnTimer(sender:NSTimer){
-        setNextState(BNGoto.Survey)
-        updateSurveyView(BNAppSharedManager.instance.dataManager.sites_ordered[0])
+        if site_to_survey != nil {
+            setNextState(BNGoto.Survey)
+            updateSurveyView(site_to_survey)
+        }
     }
     
     func showNotificationContext(){
@@ -600,11 +604,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     //SurveyView_Delegate Methods
     func hideSurveyView() {
         setNextState(BNGoto.Main)
+        site_to_survey = nil
     }
     
     func clean(){
-        
-        
+
         showMenuSwipe?.removeTarget(self, action: "showMenu:")
         showMenuSwipe = nil
         

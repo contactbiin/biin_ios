@@ -34,6 +34,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
+            
             if (error != nil) {
                 self.networkManager!.handleFailedRequest(self, error: error )
             } else {
@@ -444,7 +445,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                 } else  {
                     
                     self.requestType = BNRequestType.ServerError
-                    self.networkManager!.handleFailedRequest(self, error: error )
+                    self.networkManager!.handleFailedRequest(self, error: NSError(domain: "none", code: 0, userInfo: nil) )
                 }
             }
         })

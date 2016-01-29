@@ -102,7 +102,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     func updateContainer(){
         
         if BNAppSharedManager.instance.dataManager.sites_ordered.count == 0 {
-            
+            print("not sites in list, request data again")
             self.refreshButtonAction(UIButton())
             
         } else {
