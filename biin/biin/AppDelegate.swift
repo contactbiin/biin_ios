@@ -176,10 +176,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
+        NSLog("BIIN - applicationDidEnterBackground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
+
+        //BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])
         
-        BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])
-        
-        BNAppSharedManager.instance.clean()
+        //BNAppSharedManager.instance.clean()
         
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -191,6 +192,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.positionManager.start_BEACON_RANGING()
 
         BNAppSharedManager.instance.show()
+        
+        NSLog("BIIN - applicationWillEnterForeground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
