@@ -137,7 +137,7 @@ class ElementView: BNView, UIWebViewDelegate {
         butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         scroll!.addSubview(butonContainer!)
         
-        var buttonSpace:CGFloat = 40
+        var buttonSpace:CGFloat = 45
         let ypos:CGFloat = 5//screenWidth + 2
         
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
@@ -145,19 +145,19 @@ class ElementView: BNView, UIWebViewDelegate {
         backBtn_Bg!.addSubview(collectItButton!)
         
         //Like button
-        buttonSpace += 30
+        buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
         likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
 
-        buttonSpace += 30
+        buttonSpace += 35
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake(buttonSpace,  ypos, 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
         showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), ypos, (screenWidth / 2), 27))
         showSiteBtn!.setTitle("More from Site name.", forState: UIControlState.Normal)
-        showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
+        showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 13)
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
         showSiteBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -290,7 +290,7 @@ class ElementView: BNView, UIWebViewDelegate {
             
             if self.element!.useWhiteText {
                 textColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                iconColor = UIColor.darkGrayColor()//self.element!.media[0].vibrantColor//UIColor.whiteColor()
+                iconColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
                 decorationColor = self.element!.media[0].vibrantDarkColor
             } else {
                 textColor = self.element!.media[0].vibrantColor
