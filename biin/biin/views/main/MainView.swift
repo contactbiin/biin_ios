@@ -245,6 +245,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
 //        setNextState(BNGoto.Survey)
 //        updateSurveyView(BNAppSharedManager.instance.dataManager.sites_ordered[0])
+        
+        rootViewController!.shareWhatsapp()
     }
     
     func updateSurveyView(site:BNSite?) {
