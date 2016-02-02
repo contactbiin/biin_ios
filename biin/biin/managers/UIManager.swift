@@ -77,14 +77,14 @@ class UIManager {
     var inSiteView_nutshellSize:CGFloat = 10
     
     
-    var siteView_headerHeight:CGFloat = 95
+    var siteView_headerHeight:CGFloat = 70
     var siteView_bottomHeight:CGFloat = 30
     var siteView_showcaseHeaderHeight:CGFloat = 50
     var siteView_showcase_titleSize:CGFloat = 12
     var siteView_showcase_subTittleSize:CGFloat = 12
-    var siteView_titleSize:CGFloat = 25
-    var siteView_subTittleSize:CGFloat = 15
-    var siteView_nutshellSize:CGFloat = 12
+    var siteView_titleSize:CGFloat = 18
+    var siteView_subTittleSize:CGFloat = 13
+    var siteView_nutshellSize:CGFloat = 13
     
     //Element view sizes
     var elementView_titleSize:CGFloat = 30

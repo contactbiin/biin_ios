@@ -25,7 +25,7 @@ class SiteView_Header:BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
 
-        var ypos:CGFloat = 4
+
         
         viewContainer = UIView(frame: self.bounds)
         viewContainer!.backgroundColor = UIColor.redColor()
@@ -36,22 +36,24 @@ class SiteView_Header:BNView {
         self.addSubview(siteAvatar!)
         
         let xpos:CGFloat = siteAvatarSize + 10
+        var ypos:CGFloat = 8
+        
         title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        title!.textColor = UIColor.whiteColor()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
         viewContainer!.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_subTittleSize + 3)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
+        subTitle!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_subTittleSize)
         subTitle!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.text = "Site subtitle here"
         viewContainer!.addSubview(subTitle!)
         
-        ypos += SharedUIManager.instance.siteView_subTittleSize + 3
+        ypos += SharedUIManager.instance.siteView_subTittleSize + 2
         nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_nutshellSize + 3)))
         nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_nutshellSize)
         nutshell!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
@@ -95,12 +97,14 @@ class SiteView_Header:BNView {
         var textColor:UIColor?
         
         if site!.useWhiteText {
+//            textColor = site!.media[0].vibrantLightColor
             textColor = UIColor.whiteColor()
         } else {
-            textColor = UIColor.bnGrayDark()
+//            textColor = site!.media[0].vibrantLightColor
+            textColor = UIColor.whiteColor()
         }
         
-        viewContainer!.backgroundColor = site!.media[0].vibrantColor!
+        viewContainer!.backgroundColor = UIColor.darkGrayColor()
         
         title!.text = site!.title!
         subTitle!.text = site!.subTitle!

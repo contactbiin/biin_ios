@@ -70,7 +70,7 @@ class ElementView: BNView, UIWebViewDelegate {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
+        scroll = UIScrollView(frame: CGRectMake(0, 35, screenWidth, (screenHeight - (20 + 35))))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -84,9 +84,6 @@ class ElementView: BNView, UIWebViewDelegate {
         
         backBtn_Bg = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         backBtn_Bg!.frame = CGRectMake(0, 0, screenWidth, 35)
-//        self.addSubview(visualEffectView)
-        
-//        backBtn_Bg = UIView(frame: CGRectMake(0, 0, screenWidth, 35))
         self.addSubview(backBtn_Bg!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
@@ -164,13 +161,14 @@ class ElementView: BNView, UIWebViewDelegate {
         backBtn_Bg!.addSubview(showSiteBtn!)
         
         callToActionBtn = UIButton(frame: CGRectMake(5,  (screenWidth + 30), (screenWidth - 10), 50))
-        callToActionBtn!.backgroundColor = UIColor.clearColor()
+        callToActionBtn!.backgroundColor = UIColor.bnVisitSiteColor()
+//        callToActionBtn!.setTitleColor(UIColor.bnGrayDark(), forState: UIControlState.Normal)
         callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
         scroll!.addSubview(callToActionBtn!)
         
         callToActionTitle = UILabel(frame: CGRectMake(0, 0, screenWidth, 50))
-        callToActionTitle!.textColor = UIColor.whiteColor()
-        callToActionTitle!.font = UIFont(name: "Lato-Regular", size: 20)
+        callToActionTitle!.textColor = UIColor.bnGrayDark()//UIColor.whiteColor()
+        callToActionTitle!.font = UIFont(name: "Lato-Light", size: 16)
         callToActionTitle!.textAlignment =  NSTextAlignment.Center
         callToActionBtn!.addSubview(callToActionTitle!)
     }
@@ -298,7 +296,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 iconColor = UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
             }
             
-            animationView!.updateAnimationView(decorationColor, textColor: textColor)
+            animationView!.updateAnimationView(decorationColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
             
             updateBackBtn()
@@ -699,7 +697,7 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if self.element!.hasCallToAction {
             callToActionBtn!.alpha = 1
-            callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
+            //callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
             callToActionTitle!.alpha = 1
             callToActionTitle!.text = self.element!.callToActionTitle!
             callToActionBtn!.enabled = true

@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/views/element/ElementView.swift"
-            timestampString = "476049544.115859"
+            timestampString = "476126042.744682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "updateElementData(_:showSiteBtn:)"
             landmarkType = "5">
          </BreakpointContent>
