@@ -348,6 +348,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         let imageToShare:UIImage?
         imageToShare = imageFromView(shareView!)
         
+        
+        
+        
         let subjectToShare:String?
         subjectToShare = NSLocalizedString("InviteSubject", comment: "InviteSubject")
         
@@ -471,5 +474,9 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func enableCollectionBtnOnMenu(){
         menuView!.collectionsBtn!.showEnable()
+    }
+    
+    func shareWhatsapp(){
+        
     }
 }

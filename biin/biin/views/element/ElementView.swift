@@ -12,6 +12,7 @@ class ElementView: BNView, UIWebViewDelegate {
     var element:BNElement?
     
     var backBtn:BNUIButton_Back?
+    var backBtn_Bg:UIVisualEffectView?
     
     var scroll:UIScrollView?
     
@@ -80,9 +81,17 @@ class ElementView: BNView, UIWebViewDelegate {
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        
+        backBtn_Bg = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        backBtn_Bg!.frame = CGRectMake(0, 0, screenWidth, 35)
+//        self.addSubview(visualEffectView)
+        
+//        backBtn_Bg = UIView(frame: CGRectMake(0, 0, screenWidth, 35))
+        self.addSubview(backBtn_Bg!)
+        
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(backBtn!)
+        backBtn_Bg!.addSubview(backBtn!)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
@@ -106,8 +115,6 @@ class ElementView: BNView, UIWebViewDelegate {
         scroll!.addSubview(text_before!)
         scroll!.addSubview(text_now!)
         
-        var buttonSpace:CGFloat = 5
-        let ypos:CGFloat = screenWidth + 2
         
         titlesBackground = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         titlesBackground!.backgroundColor = UIColor.whiteColor()
@@ -130,28 +137,31 @@ class ElementView: BNView, UIWebViewDelegate {
         butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         scroll!.addSubview(butonContainer!)
         
+        var buttonSpace:CGFloat = 45
+        let ypos:CGFloat = 5//screenWidth + 2
+        
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
         collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(collectItButton!)
+        backBtn_Bg!.addSubview(collectItButton!)
         
         //Like button
-        buttonSpace += 28
+        buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
         likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(likeItButton!)
+        backBtn_Bg!.addSubview(likeItButton!)
 
-        buttonSpace += 28
+        buttonSpace += 35
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake(buttonSpace,  ypos, 25, 25))
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(shareItButton!)
+        backBtn_Bg!.addSubview(shareItButton!)
         
-        showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), screenWidth, (screenWidth / 2), 27))
+        showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), 0, (screenWidth / 2), 35))
         showSiteBtn!.setTitle("More from Site name.", forState: UIControlState.Normal)
         showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
         showSiteBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        scroll!.addSubview(showSiteBtn!)
+        backBtn_Bg!.addSubview(showSiteBtn!)
         
         callToActionBtn = UIButton(frame: CGRectMake(5,  (screenWidth + 30), (screenWidth - 10), 50))
         callToActionBtn!.backgroundColor = UIColor.clearColor()
@@ -280,7 +290,7 @@ class ElementView: BNView, UIWebViewDelegate {
             
             if self.element!.useWhiteText {
                 textColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                iconColor = UIColor.darkGrayColor()//self.element!.media[0].vibrantColor//UIColor.whiteColor()
+                iconColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
                 decorationColor = self.element!.media[0].vibrantDarkColor
             } else {
                 textColor = self.element!.media[0].vibrantColor
@@ -580,7 +590,8 @@ class ElementView: BNView, UIWebViewDelegate {
     }
     
     func updateBackBtn(){
-        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
+        
+        backBtn!.icon!.color = UIColor.whiteColor()
         backBtn!.layer.borderColor = decorationColor!.CGColor
         backBtn!.layer.backgroundColor = decorationColor!.CGColor
         backBtn!.setNeedsDisplay()
