@@ -155,9 +155,9 @@ class ElementView: BNView, UIWebViewDelegate {
         shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
-        showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), ypos, (screenWidth / 2), 27))
+        showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), 0, (screenWidth / 2), 35))
         showSiteBtn!.setTitle("More from Site name.", forState: UIControlState.Normal)
-        showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 13)
+        showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
         showSiteBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
