@@ -110,6 +110,12 @@ class BNRequest_Sites: BNRequest {
                                     element.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
                                     element.detailsHtml = BNParser.findString("detailsHtml", dictionary: elementData)
                                     
+                                    element.hasCallToAction = BNParser.findBool("hasCallToAction", dictionary: elementData)
+                                    if element.hasCallToAction {
+                                        element.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
+                                        element.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
+                                    }
+                                    
                                     element.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
                                     if element.hasFromPrice {
                                         element.fromPrice = BNParser.findString("fromPrice", dictionary: elementData)
