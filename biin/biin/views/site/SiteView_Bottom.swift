@@ -29,7 +29,7 @@ class SiteView_Bottom:BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = UIColor.whiteColor()
         
 //        self.layer.masksToBounds = false
 //        self.layer.shadowOffset = CGSizeMake(3, 0)
@@ -45,14 +45,14 @@ class SiteView_Bottom:BNView {
         title = UILabel(frame: CGRectMake(10, 10, (SharedUIManager.instance.screenWidth - 50), (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.textAlignment = NSTextAlignment.Left
         title!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.whiteColor()
+        title!.textColor = UIColor.appTextColor()
         self.addSubview(title!)
         
         
         subTitle = UILabel(frame: CGRectMake(10, (SharedUIManager.instance.siteView_titleSize + 13), (SharedUIManager.instance.screenWidth - 50), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         subTitle!.textAlignment = NSTextAlignment.Left
         subTitle!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_subTittleSize)
-        subTitle!.textColor = UIColor.whiteColor()
+        subTitle!.textColor = UIColor.appTextColor()
         self.addSubview(subTitle!)
         
         //informationBtn = BNUIButton_Information(frame: CGRectMake(5, 2, 26, 26))
@@ -103,7 +103,7 @@ class SiteView_Bottom:BNView {
             height = 100
         }
         
-        self.backgroundColor = site!.media[0].vibrantColor!
+        //self.backgroundColor = site!.media[0].vibrantColor!
         
         self.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, height)
         //let points = NSLocalizedString("Points", comment: "Points")

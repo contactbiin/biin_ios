@@ -316,7 +316,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
                 
-                //scroll!.addSubview(percentageView!)
+                scroll!.addSubview(percentageView!)
             }
             
             self.textPrice1!.text = ""

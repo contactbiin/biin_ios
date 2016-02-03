@@ -237,7 +237,7 @@ class BNRequest_InitialData: BNRequest {
                                         site.city = BNParser.findString("city", dictionary: siteData)
                                         site.zipCode = BNParser.findString("zipCode", dictionary: siteData)
                                         site.streetAddress1 = BNParser.findString("streetAddress1", dictionary: siteData)
-                                        site.ubication = BNParser.findString("ubication", dictionary: siteData)
+                                        site.streetAddress2 = BNParser.findString("streetAddress2", dictionary: siteData)
                                         site.phoneNumber = BNParser.findString("phoneNumber", dictionary: siteData)
                                         site.email = BNParser.findString("email", dictionary: siteData)
                                         site.nutshell = BNParser.findString("nutshell", dictionary: siteData)

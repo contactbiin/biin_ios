@@ -126,7 +126,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         self.addSubview(fade!)
         
         locationView = SiteView_Location(frame: CGRectMake(0, screenHeight, screenWidth, locationViewHeigh), father: self)
-        self.addSubview(locationView!)
+        scroll!.addSubview(locationView!)
         
         //informationView = SiteView_Information(frame: CGRectMake(screenWidth, 0, screenWidth, screenHeight), father: self)
         //self.addSubview(informationView!)
@@ -279,8 +279,9 @@ class SiteView:BNView, UIScrollViewDelegate {
             bottom!.updateForSite(site)
             
             imagesScrollView!.updateImages(site!.media, isElement:false)
-            updateShowcases(site)
-            locationView!.updateForSite(site)
+            updateShowcasesAndLocation(site)
+
+//            self.bringSubviewToFront(self.locationView!)
             
             backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
             backBtn!.layer.borderColor = decorationColor!.CGColor
@@ -387,7 +388,7 @@ class SiteView:BNView, UIScrollViewDelegate {
 //        })
 //    }
 
-    func updateShowcases(site:BNSite?){
+    func updateShowcasesAndLocation(site:BNSite?){
         
         //clean()
         
@@ -427,6 +428,11 @@ class SiteView:BNView, UIScrollViewDelegate {
             }
         }
 
+        
+        locationView!.updateForSite(site)
+        locationView!.frame.origin.y = ypos
+        ypos += locationView!.frame.height
+        
         scrollSpaceForShowcases = ypos
         bottom!.frame.origin.y = ypos
         ypos += bottom!.frame.height
@@ -439,7 +445,9 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         if showcases!.count > 0 {
             showcases![0].getToWork()
-        }    
+        }
+        
+
     }
     
     
