@@ -358,7 +358,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 
                 var text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Before", comment: "Before"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
-                var price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.listPrice!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
+                var price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
 //                let xposition:CGFloat = ( frame.width - price_Length ) / 2
                 var xposition:CGFloat = ((frame.width - (text_Length + 10 + price_Length)) / 2)
