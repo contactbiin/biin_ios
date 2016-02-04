@@ -24,6 +24,7 @@ class ShareItView:UIView {
     var whiteBackground2:UIView?
     var siteLocation:SiteView_Location?
     var biinLogo:BNUIBiinMiniView?
+    var downloadLbl:UILabel?
     
     
     override init(frame: CGRect) {
@@ -209,6 +210,12 @@ class ShareItView:UIView {
         biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
         self.addSubview(biinLogo!)
         
+        downloadLbl = UILabel(frame: CGRectMake(10, (ypos - 2), (self.frame.width - 20), 30))
+        downloadLbl!.font = UIFont(name: "Lato-Light", size: 14)
+        downloadLbl!.textColor = UIColor.whiteColor()
+        downloadLbl!.text = NSLocalizedString("Download", comment: "Download")
+        self.addSubview(downloadLbl!)
+        
         ypos += 30
         self.frame = CGRectMake(80, 50, frame.width, ypos)
     }
@@ -263,6 +270,12 @@ class ShareItView:UIView {
         biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
         self.addSubview(biinLogo!)
         
+        downloadLbl = UILabel(frame: CGRectMake(10, (ypos - 2), (self.frame.width - 20), 30))
+        downloadLbl!.font = UIFont(name: "Lato-Light", size: 14)
+        downloadLbl!.textColor = UIColor.whiteColor()
+        downloadLbl!.text = NSLocalizedString("Download", comment: "Download")
+        self.addSubview(downloadLbl!)
+        
         ypos += 30
         self.frame = CGRectMake(80, 50, frame.width, ypos)
     }
@@ -284,5 +297,6 @@ class ShareItView:UIView {
         siteLocation?.clean()
         siteLocation?.removeFromSuperview()
         biinLogo?.removeFromSuperview()
+        downloadLbl!.removeFromSuperview()
     }
 }

@@ -33,7 +33,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     //var elementMiniView:ElementMiniView?
     //var isShowingElementView = false
     
-    var siteLocationButton:BNUIButton_SiteLocation?
+    //var siteLocationButton:BNUIButton_SiteLocation?
     var likeItButton:BNUIButton_LikeIt?
     var shareItButton:BNUIButton_ShareIt?
     var collectItButton:BNUIButton_CollectionIt?
@@ -61,7 +61,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.appShowcaseBackground()
+        self.backgroundColor = UIColor.whiteColor()
 
         showcases = Array<SiteView_Showcase>()
         
@@ -136,12 +136,12 @@ class SiteView:BNView, UIScrollViewDelegate {
         var ypos:CGFloat = 5//screenWidth + 2
 
         //Site location button
-        siteLocationButton = BNUIButton_SiteLocation(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        siteLocationButton!.addTarget(self, action: "showInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn_Bg!.addSubview(siteLocationButton!)
+        //siteLocationButton = BNUIButton_SiteLocation(frame: CGRectMake(buttonSpace, ypos, 25, 25))
+        //siteLocationButton!.addTarget(self, action: "showInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
+        //backBtn_Bg!.addSubview(siteLocationButton!)
         
         //Like button
-        buttonSpace += 35
+        //buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
         likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
@@ -271,7 +271,7 @@ class SiteView:BNView, UIScrollViewDelegate {
                 decorationColor = self.site!.media[0].vibrantDarkColor
             }
             
-            scroll!.backgroundColor = self.site!.media[0].vibrantColor!
+            //scroll!.backgroundColor = self.site!.media[0].vibrantColor!
             
             animationView!.updateAnimationView(decorationColor, textColor: textColor)
             
@@ -288,12 +288,12 @@ class SiteView:BNView, UIScrollViewDelegate {
             backBtn!.layer.backgroundColor = decorationColor!.CGColor
             backBtn!.setNeedsDisplay()
             
-            siteLocationButton!.icon!.color = iconColor
+            //siteLocationButton!.icon!.color = iconColor
             shareItButton!.icon!.color = iconColor
+            shareItButton!.setNeedsDisplay()
             //likeItButton!.icon!.color = iconColor
             
-            siteLocationButton!.setNeedsDisplay()
-            shareItButton!.setNeedsDisplay()
+            //siteLocationButton!.setNeedsDisplay()
 //            likeItButton!.setNeedsDisplay()
 
             updateLikeItBtn()
@@ -431,7 +431,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         locationView!.updateForSite(site)
         locationView!.frame.origin.y = ypos
-        ypos += locationView!.frame.height
+        ypos += (locationView!.frame.height + 40)
         
         scrollSpaceForShowcases = ypos
         bottom!.frame.origin.y = ypos
@@ -505,7 +505,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         fade?.removeFromSuperview()
 
-        siteLocationButton?.removeFromSuperview()
+        //siteLocationButton?.removeFromSuperview()
         likeItButton?.removeFromSuperview()
         shareItButton?.removeFromSuperview()
         collectItButton?.removeFromSuperview()

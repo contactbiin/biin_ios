@@ -64,6 +64,9 @@ class SignupView:UIView, UITextFieldDelegate {
         backBtn!.icon!.color = UIColor.darkGrayColor()
         backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.whiteColor().CGColor
+        backBtn!.layer.cornerRadius  = 17.5
+        backBtn!.layer.borderWidth = 1
+        backBtn!.layer.masksToBounds = true
         self.addSubview(backBtn!)
         
         ypos += SharedUIManager.instance.loginView_ypos_1
