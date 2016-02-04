@@ -328,7 +328,7 @@ class ElementView: BNView, UIWebViewDelegate {
             }
             
             self.textPrice1!.text = ""
-            self.textPrice2!.text = "HOLA"
+            self.textPrice2!.text = ""
             self.text_before!.text = ""
 //            self.text_before!.alpha = 0.7
             self.text_now!.text = ""
