@@ -221,9 +221,9 @@ Now = "Now";
 SurveyTitle = "Your opinion matters";
 Optional = "Optional";
 BrandGreetings = "Thank you for stoping by today and come back soon!";
-SurveyQuestion_1 = "Que tan probable es que recomiendes a ";
-SurveyQuestion_2 = " basado en tu experiencia de hoy?";
-SurveyQuestion_3 = "Dejanos tu comentario para saber que te gusto o que podemos mejorar.";
+SurveyQuestion_1 = "How likely would you recommend ";
+SurveyQuestion_2 = " based in your today's experience?";
+SurveyQuestion_3 = "Leave your comments about what did you like or dislike so we can improve.";
 Thankyou = "Thank you";
 Download = "Download it at www.biin.io";
 

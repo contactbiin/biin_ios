@@ -220,5 +220,5 @@ SurveyQuestion_3 = "Dejanos tu comentario para saber que te gusto o que podemos 
 Thankyou = "Muchas gracias";
 Download = "Descarga en www.biin.io";
 
-likely = "likely";
-not_likely = "not_likely";
+likely = "muy probablemente";
+not_likely = "poco probable";
