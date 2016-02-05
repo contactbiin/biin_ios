@@ -58,6 +58,8 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     organization.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData)
                                     organization.organizationDescription = BNParser.findString("description", dictionary: organizationData)
                                     
+                                    organization.hasNPS = BNParser.findBool("hasNPS", dictionary: organizationData)
+                                    
                                     let mediaArray = BNParser.findNSArray("media", dictionary: organizationData)
                                     
                                     for var i = 0; i < mediaArray?.count; i++ {

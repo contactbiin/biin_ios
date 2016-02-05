@@ -11,7 +11,9 @@ class SurveyView: BNView, UITextViewDelegate {
     var delegate:SurveyView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    
+    var siteAvatar:BNUIImageView?
+    var organizationName:UILabel?
+
     var spacer:CGFloat = 1
     
     var fade:UIView?
@@ -23,12 +25,15 @@ class SurveyView: BNView, UITextViewDelegate {
 //    var surveyAnswerLbl:UILabel?
     var rating:Int = 5
 //    var slider:UISlider?
-    var continueBtn:BNUIButton_Loging?
+    var continueBtn:UIButton?
 
     //Comment section
     var textFieldView:UIView?
     var commentTxt:UITextView?
     var isSurveyDone = false
+    
+    var not_likely:UILabel?
+    var likely:UILabel?
     
     weak var site:BNSite?
     var previousButton:UIButton?
@@ -43,6 +48,13 @@ class SurveyView: BNView, UITextViewDelegate {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
+        var siteAvatarSize:CGFloat = 120//(SharedUIManager.instance.siteView_headerHeight)
+        
+        
+        if SharedUIManager.instance.deviceType == BNDeviceType.iphone4s || SharedUIManager.instance.deviceType == BNDeviceType.iphone5 {
+            siteAvatarSize = 80
+        }
+        
         
         var ypos:CGFloat = 20
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
@@ -60,6 +72,9 @@ class SurveyView: BNView, UITextViewDelegate {
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
+        backBtn!.layer.cornerRadius  = 17.5
+        backBtn!.layer.borderWidth = 1
+        self.layer.masksToBounds = true
         self.addSubview(backBtn!)
         
         ypos = 75
@@ -71,6 +86,21 @@ class SurveyView: BNView, UITextViewDelegate {
 //        self.addSubview(brandGreetingsLbl!)
         
 //        ypos += brandGreetingsLbl!.frame.height + 50
+        
+        
+        
+        siteAvatar = BNUIImageView(frame: CGRectMake(((screenWidth - siteAvatarSize) / 2), ypos, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
+        self.addSubview(siteAvatar!)
+
+        ypos += (siteAvatarSize + 5)
+        organizationName = UILabel(frame: CGRectMake(0, ypos, screenWidth, 30))
+        organizationName!.text = "Org name here"
+        organizationName!.font = UIFont(name:"Lato-Regular", size:28)
+        organizationName!.textColor = UIColor.blackColor()
+        organizationName!.textAlignment = NSTextAlignment.Center
+        self.addSubview(organizationName!)
+        
+        ypos += (organizationName!.frame.height + 10)
         surveyQuestionLbl = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), 28))
         self.addSubview(surveyQuestionLbl!)
         
@@ -122,7 +152,9 @@ class SurveyView: BNView, UITextViewDelegate {
 //        ten.textColor = UIColor.bnGrayDark()
 //        slider!.addSubview(ten)
         
-        continueBtn = BNUIButton_Loging(frame: CGRectMake(5, (screenHeight - 75), (screenWidth - 10), 50), color: UIColor.darkGrayColor(), text:NSLocalizedString("Continue", comment: "Continue").uppercaseString, textColor:UIColor.whiteColor())
+        continueBtn = UIButton(frame:CGRectMake(5, (screenHeight - 75), (screenWidth - 10), 50))
+//            BNUIButton_Loging(frame: CGRectMake(5, (screenHeight - 75), (screenWidth - 10), 50), color: UIColor.darkGrayColor(), text:NSLocalizedString("Continue", comment: "Continue").uppercaseString, textColor:UIColor.whiteColor())
+        continueBtn!.setTitle(NSLocalizedString("Continue", comment: "Continue"), forState: UIControlState.Normal)
         continueBtn!.addTarget(self, action: "continueBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(continueBtn!)
         
@@ -144,6 +176,21 @@ class SurveyView: BNView, UITextViewDelegate {
             self.addSubview(button)
             x += buttonWidth + 2
         }
+        
+        not_likely = UILabel(frame: CGRectMake(10, 0, screenWidth, 20))
+        not_likely!.text = NSLocalizedString("not_likely", comment: "not_likely")
+        not_likely!.font = UIFont(name:"Lato-Regular", size:13)
+        not_likely!.textColor = UIColor.blackColor()
+        not_likely!.textAlignment = NSTextAlignment.Left
+        self.addSubview(not_likely!)
+
+        likely = UILabel(frame: CGRectMake(0, 0, (screenWidth - 10), 20))
+        likely!.text = NSLocalizedString("likely", comment: "likely")
+        likely!.font = UIFont(name:"Lato-Regular", size:13)
+        likely!.textColor = UIColor.blackColor()
+        likely!.textAlignment = NSTextAlignment.Right
+        self.addSubview(likely!)
+        
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
@@ -186,7 +233,7 @@ class SurveyView: BNView, UITextViewDelegate {
         let color = getButtonColor(CGFloat(self.rating))
         sender.backgroundColor = color
         sender.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
-        continueBtn!.showEnable()
+        continueBtn!.enabled = true
         
         if previousButton != nil {
             previousButton!.backgroundColor = UIColor.darkGrayColor()
@@ -250,8 +297,39 @@ class SurveyView: BNView, UITextViewDelegate {
 
         backBtn!.alpha = 1
         
-        continueBtn!.showDisable()
+        continueBtn!.enabled = false
         continueBtn!.alpha = 1
+        
+        
+        if let organization = site!.organization {
+            
+            organizationName!.alpha = 1
+            organizationName!.text = site!.organization!.name!
+            organizationName!.numberOfLines = 0
+            organizationName!.textAlignment = NSTextAlignment.Center
+            organizationName!.sizeToFit()
+            organizationName!.frame.origin.x = ((SharedUIManager.instance.screenWidth - organizationName!.frame.width) / 2)
+            
+            if organization.media.count > 0 {
+                BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
+                siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
+                
+            } else {
+                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+                siteAvatar!.showAfterDownload()
+            }
+        } else  {
+            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+            siteAvatar!.showAfterDownload()
+            organizationName!.text = ""
+        }
+    
+        
+        if SharedUIManager.instance.deviceType == BNDeviceType.iphone4s {
+            siteAvatar!.alpha = 0
+        } else {
+            siteAvatar!.alpha = 1
+        }
         
         commentTxt!.text = NSLocalizedString("Optional", comment: "Optional")
         commentTxt!.textColor = UIColor.lightGrayColor()
@@ -259,7 +337,10 @@ class SurveyView: BNView, UITextViewDelegate {
         
         self.site = site
         isSurveyDone = false
-        continueBtn!.label!.text = NSLocalizedString("Continue", comment: "Continue").uppercaseString
+        continueBtn!.setTitle(NSLocalizedString("Continue", comment: "Continue").uppercaseString, forState: UIControlState.Normal)
+        continueBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+        continueBtn!.setTitleColor(UIColor.lightGrayColor() , forState: UIControlState.Disabled)
+//        continueBtn!.color = site!.media[0].vibrantDarkColor
 
 //        brandNameLbl!.text = site!.title!
 //        brandNameLbl!.font = UIFont(name: "Lato-Black", size: 35)
@@ -272,17 +353,24 @@ class SurveyView: BNView, UITextViewDelegate {
 //        brandGreetingsLbl!.textAlignment = NSTextAlignment.Center
 //        brandGreetingsLbl!.sizeToFit()
         
+        
+        
+        
         var question = NSLocalizedString("SurveyQuestion_1", comment: "SurveyQuestion_1")
         question += site!.title!
         question += NSLocalizedString("SurveyQuestion_2", comment: "SurveyQuestion_2")
         surveyQuestionLbl!.frame = CGRectMake(30, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 60), 28)
         surveyQuestionLbl!.text = question
-        surveyQuestionLbl!.font = UIFont(name: "Lato-Light", size: 25)
+        surveyQuestionLbl!.font = UIFont(name: "Lato-Light", size: 20)
         surveyQuestionLbl!.numberOfLines = 0
         surveyQuestionLbl!.textAlignment = NSTextAlignment.Center
         surveyQuestionLbl!.sizeToFit()
         surveyQuestionLbl!.frame.origin.y = (SharedUIManager.instance.screenHeight / 2) - surveyQuestionLbl!.frame.height
-
+        surveyQuestionLbl!.frame.origin.x = ((SharedUIManager.instance.screenWidth - surveyQuestionLbl!.frame.width) / 2)
+        
+        organizationName!.frame.origin.y = (surveyQuestionLbl!.frame.origin.y - 70)
+        siteAvatar!.frame.origin.y = (organizationName!.frame.origin.y - (siteAvatar!.frame.height))
+        
         for var i = 0; i < buttons.count; i++ {
             //let color = getButtonColor(CGFloat(i))
             buttons[i].alpha = 1
@@ -290,6 +378,11 @@ class SurveyView: BNView, UITextViewDelegate {
             buttons[i].backgroundColor = UIColor.darkGrayColor()
             buttons[i].setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         }
+        
+        not_likely!.alpha = 1
+        not_likely!.frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + buttons[0].frame.height + 25
+        likely!.alpha = 1
+        likely!.frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + buttons[0].frame.height + 25
         
         textFieldView!.alpha = 0
         self.rating = 8
@@ -302,21 +395,26 @@ class SurveyView: BNView, UITextViewDelegate {
     }
     
     override func transitionIn() {
-        UIView.animateWithDuration(0.25, animations: {()->Void in
-            self.frame.origin.x = 0
+        UIView.animateWithDuration(0.25, delay: 0.75, options: UIViewAnimationOptions.CurveEaseIn, animations: {()->Void in
+                self.frame.origin.x = 0
+            }, completion: {(completed:Bool)->Void in
         })
+//        
+//        UIView.animateWithDuration(0.25, animations: {()->Void in
+//            self.frame.origin.x = 0
+//        })
     }
     
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType != BNStateType.SiteState {
+//        if state!.stateType != BNStateType.SiteState {
             UIView.animateWithDuration(0.3, animations: {()->Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
                 }, completion: {(completed:Bool)->Void in
 
             })
-        }
+//        }
     }
     
     override func setNextState(goto:BNGoto){
@@ -355,7 +453,7 @@ class SurveyView: BNView, UITextViewDelegate {
             
             BNAppSharedManager.instance.networkManager.sendSurvey(BNAppSharedManager.instance.dataManager.bnUser! , site: self.site, rating: self.rating, comment:comment)
 
-            surveyQuestionLbl!.frame = CGRectMake(30, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 60), 28)
+            surveyQuestionLbl!.frame = CGRectMake(30, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 60), 20)
             surveyQuestionLbl!.text = NSLocalizedString("Thankyou", comment: "Thankyou")
             textFieldView!.alpha = 0
             continueBtn!.alpha = 0
@@ -366,21 +464,26 @@ class SurveyView: BNView, UITextViewDelegate {
             
             backBtn!.alpha = 0
             isSurveyDone = true
-            continueBtn!.label!.text = NSLocalizedString("Done", comment: "Done").capitalizedString
+            continueBtn!.setTitle(NSLocalizedString("Done", comment: "Done").uppercaseString, forState: UIControlState.Normal)
+//            continueBtn!.label!.text = NSLocalizedString("Done", comment: "Done").capitalizedString
             
             surveyQuestionLbl!.frame = CGRectMake(20, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 40), 28)
             surveyQuestionLbl!.text = NSLocalizedString("SurveyQuestion_3", comment: "SurveyQuestion_3")
-            surveyQuestionLbl!.font = UIFont(name: "Lato-Light", size: 25)
+            surveyQuestionLbl!.font = UIFont(name: "Lato-Light", size: 20)
             surveyQuestionLbl!.numberOfLines = 0
             surveyQuestionLbl!.textAlignment = NSTextAlignment.Center
             surveyQuestionLbl!.sizeToFit()
-
+            surveyQuestionLbl!.frame.origin.x = ((SharedUIManager.instance.screenWidth - surveyQuestionLbl!.frame.width) / 2)
             textFieldView!.alpha = 1
             textFieldView!.frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + 10
+
             
             for var i = 0; i < buttons.count; i++ {
                 buttons[i].alpha = 0
             }
+            
+            not_likely!.alpha = 0
+            likely!.alpha = 0
         }
     }
     
@@ -432,7 +535,8 @@ class SurveyView: BNView, UITextViewDelegate {
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
         if !isKeyboardUp {
             isKeyboardUp = true
-            
+            self.siteAvatar!.alpha = 0
+            self.organizationName!.alpha = 0
             if SharedUIManager.instance.deviceType == BNDeviceType.iphone4s {
                 UIView.animateWithDuration(0.25, animations: {() -> Void in
                     self.textFieldView!.frame.origin.y -= 140
@@ -449,18 +553,39 @@ class SurveyView: BNView, UITextViewDelegate {
     }
     
     func textViewShouldEndEditing(textView: UITextView) -> Bool {
+
+
         
         if isKeyboardUp {
             isKeyboardUp = false
+            
             if SharedUIManager.instance.deviceType == BNDeviceType.iphone4s {
-                UIView.animateWithDuration(0.25, animations: {() -> Void in
+//                UIView.animateWithDuration(0.25, animations: {() -> Void in
+//                    self.textFieldView!.frame.origin.y += 140
+//                    self.surveyQuestionLbl!.alpha = 1
+//
+//                })
+                
+                UIView.animateWithDuration(0.25, animations: {()->Void in
                     self.textFieldView!.frame.origin.y += 140
                     self.surveyQuestionLbl!.alpha = 1
+                    }, completion: {(completed:Bool) -> Void in
+                        self.siteAvatar!.alpha = 1
+                        self.organizationName!.alpha = 1
                 })
+                
             } else {
-                UIView.animateWithDuration(0.25, animations: {() -> Void in
+//                UIView.animateWithDuration(0.25, animations: {() -> Void in
+//                    self.textFieldView!.frame.origin.y += 120
+//                    self.surveyQuestionLbl!.frame.origin.y += 120
+//                })
+                
+                UIView.animateWithDuration(0.25, animations: {()->Void in
                     self.textFieldView!.frame.origin.y += 120
                     self.surveyQuestionLbl!.frame.origin.y += 120
+                    }, completion: {(completed:Bool) -> Void in
+                        self.siteAvatar!.alpha = 1
+                        self.organizationName!.alpha = 1
                 })
             }
         }

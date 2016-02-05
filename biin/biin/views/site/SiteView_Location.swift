@@ -57,10 +57,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         site_phoneNumber = ""
         site_email = ""
         
-        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenWidth = frame.width//SharedUIManager.instance.screenWidth
         //var screenHeight = SharedUIManager.instance.screenHeight
         
-        let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
+        //let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
         var ypos:CGFloat = 10
 
         closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
@@ -78,13 +78,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
+        title!.numberOfLines = 0
         self.addSubview(title!)
     
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         streetAddress1!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         streetAddress1!.text = "Address"
-        streetAddress1!.textColor = UIColor.appTextColor()
+        streetAddress1!.textColor = UIColor.bnGrayDark()
         streetAddress1!.numberOfLines = 0
         self.addSubview(streetAddress1!)
 
@@ -92,31 +93,31 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         streetAddress2 = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         streetAddress2!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         streetAddress2!.text = ""
-        streetAddress2!.textColor = UIColor.appTextColor()
+        streetAddress2!.textColor = UIColor.bnGrayDark()
         streetAddress2!.numberOfLines = 0
         self.addSubview(streetAddress2!)
         
         ypos += SharedUIManager.instance.siteView_nutshellSize + 2
-        ubication = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        ubication = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         ubication!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         ubication!.text = ""
-        ubication!.textColor = UIColor.appTextColor()
+        ubication!.textColor = UIColor.bnGrayDark()
         ubication!.numberOfLines = 0
         self.addSubview(ubication!)
 
         ypos += SharedUIManager.instance.siteView_nutshellSize + 2
-        phoneLbl = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        phoneLbl = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         phoneLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         phoneLbl!.text = ""
-        phoneLbl!.textColor = UIColor.appTextColor()
+        phoneLbl!.textColor = UIColor.bnGrayDark()
         phoneLbl!.numberOfLines = 0
         self.addSubview(phoneLbl!)
         
         ypos += SharedUIManager.instance.siteView_nutshellSize + 2
-        emailLbl = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        emailLbl = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         emailLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         emailLbl!.text = ""
-        emailLbl!.textColor = UIColor.appTextColor()
+        emailLbl!.textColor = UIColor.bnGrayDark()
         emailLbl!.numberOfLines = 0
         self.addSubview(emailLbl!)
         
@@ -237,7 +238,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //title!.textColor = site!.titleColor
         title!.text = "\(site!.title!) - \(site!.subTitle!)"
         //title!.numberOfLines = 1
-        //title!.sizeToFit()
+        title!.sizeToFit()
         ypos += title!.frame.height
         
         //var headerWidth = SharedUIManager.instance.screenWidth - 30
@@ -245,17 +246,20 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         if site!.streetAddress1! != "" {
             streetAddress1!.frame.origin.y = ypos
             streetAddress1!.text = "\(site!.streetAddress1!)"
+            streetAddress1!.sizeToFit()
             ypos += streetAddress1!.frame.height
         }
         
         if site!.streetAddress2! != "" {
             streetAddress2!.frame.origin.y = ypos
             streetAddress2!.text = "\(site!.streetAddress2!)"
+            streetAddress2!.sizeToFit()
             ypos += streetAddress2!.frame.height
         }
         
         ubication!.frame.origin.y = ypos
         ubication!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
+        ubication!.sizeToFit()
         ypos += ubication!.frame.height
         
         var hasPhone = false
@@ -264,6 +268,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             site_phoneNumber = site!.phoneNumber!
             phoneLbl!.frame.origin.y = ypos
             phoneLbl!.text =  "\(NSLocalizedString("Phone", comment: "Phone")): \(site!.phoneNumber!)"
+            phoneLbl!.sizeToFit()
             ypos += phoneLbl!.frame.height
             hasPhone = true
             callBtn!.enabled = true
@@ -276,6 +281,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             site_email = site!.email!
             emailLbl!.frame.origin.y = ypos
             emailLbl!.text = "\(NSLocalizedString("Email", comment: "Email")): \(site!.email!)"
+            emailLbl!.sizeToFit()
             ypos += emailLbl!.frame.height
             hasEmail = true
             
@@ -294,7 +300,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         }
         ypos += 10
 
-        
+        yStop = ypos
         //commentBtn!.icon!.color = site!.titleColor!
         //commentBtn!.showDisable()
        

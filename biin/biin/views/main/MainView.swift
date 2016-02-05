@@ -246,11 +246,33 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        setNextState(BNGoto.Survey)
 //        updateSurveyView(BNAppSharedManager.instance.dataManager.sites_ordered[0])
         
-        rootViewController!.shareWhatsapp()
+        //rootViewController!.shareWhatsapp()
+        
+        
+        site_to_survey = BNAppSharedManager.instance.dataManager.sites_ordered[0]
+        
+        if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
+            
+            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+        } else {
+            print("site: \(site_to_survey!.title!) is already survyed today")
+        }
+        
+
+//        BNAppSharedManager.instance.notificationManager.clear()
     }
     
     func updateSurveyView(site:BNSite?) {
+        
         (self.surveyState!.view as! SurveyView).updateSiteData(site)
+        
+        if state?.stateType == BNStateType.MainViewContainerState {
+            BNAppSharedManager.instance.notificationManager.add_surveyedSite(site_to_survey!.identifier)
+            setNextState(BNGoto.Survey)
+            isReadyToShowSurvey = false
+        } else {
+            isReadyToShowSurvey = true
+        }
     }
     
     
@@ -277,7 +299,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         switch (goto) {
         case .Main:
-            state!.next(self.mainViewContainerState)
+            
+            if isReadyToShowSurvey {
+                BNAppSharedManager.instance.notificationManager.add_surveyedSite(site_to_survey!.identifier)
+                state!.next(self.surveyState)
+                isReadyToShowSurvey = false
+            } else {
+                state!.next(self.mainViewContainerState)
+            }
             break
         case .Site:
             state!.next(self.siteState)
@@ -396,12 +425,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func hideInSiteView(){
         (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+        
+        if BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
+        
+            NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+        } else {
+            print("site: \(site_to_survey!.title!) is already survyed today")
+        }
     }
     
     func showSurveyOnTimer(sender:NSTimer){
         if site_to_survey != nil {
-            setNextState(BNGoto.Survey)
             updateSurveyView(site_to_survey)
         }
     }

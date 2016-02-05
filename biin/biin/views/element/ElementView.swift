@@ -482,6 +482,8 @@ class ElementView: BNView, UIWebViewDelegate {
             scroll!.addSubview(webView!)
 
             if shareView != nil {
+                shareView!.clean()
+                shareView!.removeFromSuperview()
                 shareView = nil
             }
             

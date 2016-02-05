@@ -91,7 +91,7 @@ class AllSitesView: BNView {
     }
     
     override func transitionOut( state:BNState? ) {
-        state!.action()
+        state?.action()
 
         if state!.stateType != BNStateType.SiteState {
             UIView.animateWithDuration(0.3, animations: {()->Void in

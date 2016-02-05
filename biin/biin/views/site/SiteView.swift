@@ -207,9 +207,9 @@ class SiteView:BNView, UIScrollViewDelegate {
     }
     
     override func transitionOut( state:BNState? ) {
-        state!.action()
+        state?.action()
         
-        if state!.stateType == BNStateType.MainViewContainerState || state!.stateType == BNStateType.AllSitesState || state!.stateType == BNStateType.ElementState  {
+        if state!.stateType == BNStateType.MainViewContainerState || state!.stateType == BNStateType.AllSitesState || state!.stateType == BNStateType.ElementState || state!.stateType == BNStateType.SurveyState {
             UIView.animateWithDuration(0.3, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
             })
@@ -303,12 +303,17 @@ class SiteView:BNView, UIScrollViewDelegate {
             updateFollowBtn()
             
             if shareView != nil {
+                shareView!.clean()
+                shareView!.removeFromSuperview()
                 shareView = nil
             }
             
             shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:self.site!)
             //scroll!.addSubview(shareView!)
+            
+
         }
+        
         
         //scroll!.backgroundColor = decorationColor
 //        nutshell!.frame = CGRectMake(10, 0, (SharedUIManager.instance.screenWidth - 20), 18)
