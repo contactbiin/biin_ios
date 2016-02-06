@@ -214,8 +214,10 @@ public class RequestButton: UIButton {
         return CGSizeMake(width, height)
     }
     
+    /*
     // override to change colors when button is tapped
     override public var highlighted: Bool {
+        
         didSet {
             if buttonStyle == .Black {
                 if highlighted {
@@ -232,6 +234,7 @@ public class RequestButton: UIButton {
             }
         }
     }
+    */
     
     // initiate deeplink when button is tapped
     public func uberButtonTapped(sender: UIButton) {

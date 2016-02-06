@@ -175,6 +175,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
         uber_button!.layer.shadowOpacity = 0.25
         self.addSubview(uber_button!)
+        uber_button!.setNeedsDisplay()
         
         ypos += 55
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
@@ -239,17 +240,30 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     //Instance methods
     func updateForSite(site: BNSite?){
         
-        
-        title!.text = ""
-        streetAddress1!.text = ""
-        streetAddress2!.text = ""
-        ubication!.text = ""
-        phoneLbl!.text = ""
-        
-        
-        
         var ypos:CGFloat = title!.frame.origin.y
+        let xpos:CGFloat = 10
+
+        title!.text = ""
+        title!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_titleSize + 3))
         
+        
+        streetAddress1!.text = ""
+        streetAddress1!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        
+        streetAddress2!.text = ""
+        streetAddress2!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        
+        ubication!.text = ""
+        ubication!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+
+        
+        
+        
+        phoneLbl!.text = ""
+        phoneLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+
+        emailLbl!.text = ""
+        emailLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
         
         
         //title!.textColor = site!.titleColor
