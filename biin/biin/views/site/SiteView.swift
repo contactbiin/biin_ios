@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 
+
 class SiteView:BNView, UIScrollViewDelegate {
  
     var delegate:SiteView_Delegate?
@@ -49,6 +50,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     var animationView:BiinItAnimationView?
     
     var shareView:ShareItView?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -183,6 +185,8 @@ class SiteView:BNView, UIScrollViewDelegate {
         //var showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: father!, action: "showMenu:")
         //showMenuSwipe.edges = UIRectEdge.Left
         //elementView!.scroll!.addGestureRecognizer(showMenuSwipe)
+        
+
         
         let backGesture = UISwipeGestureRecognizer(target: self, action: "backGestureAction:")
         backGesture.direction = UISwipeGestureRecognizerDirection.Right

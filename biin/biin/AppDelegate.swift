@@ -7,6 +7,7 @@ import UIKit
 import CoreData
 import Fabric
 import Crashlytics
+import UberRides
 
 //@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -103,6 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics.self])
         
+        RidesClient.sharedInstance.configureClientID("Kvswd-Zkg5J9xNnMHZIxUQ1nPiIc5Tid")
         return true
     }
     

@@ -7,7 +7,6 @@ import Foundation
 import UIKit
 import CoreLocation
 
-
 class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate, SurveyView_Delegate {
     
     var delegate:MainViewDelegate?

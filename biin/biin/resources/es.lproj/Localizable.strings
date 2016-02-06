@@ -222,3 +222,5 @@ Download = "Descarga en www.biin.io";
 
 likely = "muy probablemente";
 not_likely = "poco probable";
+
+UBER = "Llega allí con Uber";

@@ -7,6 +7,7 @@ import Foundation
 import UIKit
 import MapKit
 import MessageUI
+import UberRides
 
 class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDelegate {
 
@@ -40,6 +41,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //    override init() {
 //        super.init()
 //    }
+    var uber_button:RequestButton?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -161,6 +163,19 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
         
+        
+        uber_button = RequestButton()
+        uber_button!.frame = CGRectMake(5, 0, (self.frame.width - 10), 50)
+        uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
+        uber_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        uber_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        uber_button!.backgroundColor = UIColor.darkGrayColor()
+        uber_button!.layer.cornerRadius = 2
+        uber_button!.layer.shadowColor = UIColor.blackColor().CGColor
+        uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        uber_button!.layer.shadowOpacity = 0.25
+        self.addSubview(uber_button!)
+        
         ypos += 55
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
         
@@ -234,6 +249,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         
         var ypos:CGFloat = title!.frame.origin.y
+        
+        
         
         //title!.textColor = site!.titleColor
         title!.text = "\(site!.title!) - \(site!.subTitle!)"
@@ -316,7 +333,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 
         map!.frame.origin.y = ypos
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
-        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let span = MKCoordinateSpanMake(0.03, 0.03)
         let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
 
@@ -348,6 +365,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += emailLbl!.frame.height
             ypos += 5
         }
+        
+        let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
+        let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
+        uber_button!.setProductID(site!.identifier!)
+        uber_button!.setPickupLocation(latitude: lat, longitude:long, nickname:site!.title)
+        uber_button!.setDropoffLocation(latitude: Double(site!.latitude!), longitude:Double(site!.longitude!), nickname: BNAppSharedManager.instance.dataManager.bnUser!.firstName)
+        uber_button!.frame.origin.y = (ypos + 33)
+        ypos += uber_button!.frame.height
+        
         
         ypos += 10
         
