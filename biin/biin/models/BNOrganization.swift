@@ -23,6 +23,8 @@ class BNOrganization:NSObject {
 
     var media:Array<BNMedia> = Array<BNMedia>()
     
+    var hasNPS = false
+    
     override init(){
         super.init()
     }

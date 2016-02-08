@@ -24,7 +24,9 @@ class ShareItView:UIView {
     var whiteBackground2:UIView?
     var siteLocation:SiteView_Location?
     var biinLogo:BNUIBiinMiniView?
+    var downloadLbl:UILabel?
     
+    var siteAvatar:BNUIImageView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -146,7 +148,7 @@ class ShareItView:UIView {
             textPrice1!.text = "\(element.currency!)\(element.price!)"
             self.addSubview(textPrice1!)
             
-            let lineView = UIView(frame: CGRectMake(xposition, (ypos + 11), (text1Length + 1), 1))
+            let lineView = UIView(frame: CGRectMake(xposition, (ypos + 20), (text1Length + 1), 1))
             lineView.backgroundColor = textColor
             self.addSubview(lineView)
             
@@ -190,24 +192,53 @@ class ShareItView:UIView {
             //height += 60
 //            bg!.frame = CGRectMake(0, bg!.frame.origin.y, bg!.frame.width, height)
         }
-
-        whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
+        
+        
+        whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 125))
         whiteBackground2!.backgroundColor = UIColor.whiteColor()
         self.addSubview(whiteBackground2!)
-                
-        siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
+        
+        
+        
+        let siteAvatarSize:CGFloat = 50
+        siteAvatar = BNUIImageView(frame: CGRectMake(5, (ypos + 5), siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
+        self.addSubview(siteAvatar!)
+        
+        if let organization = site!.organization {
+            if organization.media.count > 0 {
+                BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
+                siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
+            } else {
+                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+                siteAvatar!.showAfterDownload()
+            }
+        } else  {
+            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+            siteAvatar!.showAfterDownload()
+        }
+        
+        
+        siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 5)), 0), father: nil)
         siteLocation!.updateForSite(site!)
         siteLocation!.map!.alpha = 0
-        siteLocation!.frame.origin.y = ypos
+//        siteLocation!.frame.origin.y = ypos
         siteLocation!.callBtn!.alpha = 0
         siteLocation!.emailBtn!.alpha = 0
         siteLocation!.closeBtn!.alpha = 0
+        siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         
-        ypos += 110
+        ypos += siteLocation!.yStop
+        whiteBackground2!.frame = CGRectMake(0, whiteBackground2!.frame.origin.y, frame.width, siteLocation!.yStop)
         
         biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
         self.addSubview(biinLogo!)
+        
+        downloadLbl = UILabel(frame: CGRectMake(10, (ypos - 2), (self.frame.width - 20), 30))
+        downloadLbl!.font = UIFont(name: "Lato-Light", size: 14)
+        downloadLbl!.textColor = UIColor.whiteColor()
+        downloadLbl!.text = NSLocalizedString("Download", comment: "Download")
+        self.addSubview(downloadLbl!)
         
         ypos += 30
         self.frame = CGRectMake(80, 50, frame.width, ypos)
@@ -245,29 +276,58 @@ class ShareItView:UIView {
         
         ypos += 320
         
-        whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 105))
+        whiteBackground2 = UIView(frame: CGRectMake(0, ypos, frame.width, 125))
         whiteBackground2!.backgroundColor = UIColor.whiteColor()
         self.addSubview(whiteBackground2!)
         
-        siteLocation = SiteView_Location(frame: CGRectMake(0, 330, 0, 0), father: nil)
+        
+        
+        let siteAvatarSize:CGFloat = 50
+        siteAvatar = BNUIImageView(frame: CGRectMake(5, (ypos + 5), siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
+        self.addSubview(siteAvatar!)
+        
+        if let organization = site.organization {
+            if organization.media.count > 0 {
+                BNAppSharedManager.instance.networkManager.requestImageData(site.organization!.media[0].url!, image: siteAvatar)
+                siteAvatar!.cover!.backgroundColor = site.organization!.media[0].vibrantColor!
+            } else {
+                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+                siteAvatar!.showAfterDownload()
+            }
+        } else  {
+            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+            siteAvatar!.showAfterDownload()
+        }
+        
+        
+        siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 5)), 0), father: nil)
         siteLocation!.updateForSite(site)
         siteLocation!.map!.alpha = 0
-        siteLocation!.frame.origin.y = ypos
+        //        siteLocation!.frame.origin.y = ypos
         siteLocation!.callBtn!.alpha = 0
         siteLocation!.emailBtn!.alpha = 0
         siteLocation!.closeBtn!.alpha = 0
+        siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         
-        ypos += 110
+        ypos += siteLocation!.yStop
+        whiteBackground2!.frame = CGRectMake(0, whiteBackground2!.frame.origin.y, frame.width, siteLocation!.yStop)
         
         biinLogo = BNUIBiinMiniView(frame: CGRectMake((frame.width - 50), ypos, 100, 30), color:textColor!)
         self.addSubview(biinLogo!)
+        
+        downloadLbl = UILabel(frame: CGRectMake(10, (ypos - 2), (self.frame.width - 20), 30))
+        downloadLbl!.font = UIFont(name: "Lato-Light", size: 14)
+        downloadLbl!.textColor = UIColor.whiteColor()
+        downloadLbl!.text = NSLocalizedString("Download", comment: "Download")
+        self.addSubview(downloadLbl!)
         
         ypos += 30
         self.frame = CGRectMake(80, 50, frame.width, ypos)
     }
     
     func clean() {
+        
         textColor = nil
         decorationColor = nil
         image?.removeFromSuperview()
@@ -276,6 +336,7 @@ class ShareItView:UIView {
         subTitle?.removeFromSuperview()
         
         lineView?.removeFromSuperview()
+        siteAvatar?.removeFromSuperview()
         
         textPrice1?.removeFromSuperview()
         textPrice2?.removeFromSuperview()
@@ -284,5 +345,6 @@ class ShareItView:UIView {
         siteLocation?.clean()
         siteLocation?.removeFromSuperview()
         biinLogo?.removeFromSuperview()
+        downloadLbl!.removeFromSuperview()
     }
 }

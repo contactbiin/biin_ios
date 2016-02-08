@@ -218,3 +218,9 @@ SurveyQuestion_1 = "Que tan probable es que recomiendes a ";
 SurveyQuestion_2 = " basado en tu experiencia de hoy?";
 SurveyQuestion_3 = "Dejanos tu comentario para saber que te gusto o que podemos mejorar.";
 Thankyou = "Muchas gracias";
+Download = "Descarga en www.biin.io";
+
+likely = "muy probablemente";
+not_likely = "poco probable";
+
+UBER = "Llega allí con Uber";

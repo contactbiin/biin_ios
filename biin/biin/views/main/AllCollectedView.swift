@@ -55,6 +55,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
+        backBtn!.layer.cornerRadius  = 17.5
+        backBtn!.layer.borderWidth = 1
+        backBtn!.layer.masksToBounds = true
         self.addSubview(backBtn!)
         
         ypos = 55

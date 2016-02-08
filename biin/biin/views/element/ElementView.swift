@@ -70,7 +70,7 @@ class ElementView: BNView, UIWebViewDelegate {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
+        scroll = UIScrollView(frame: CGRectMake(0, 35, screenWidth, (screenHeight - (20 + 35))))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -84,9 +84,6 @@ class ElementView: BNView, UIWebViewDelegate {
         
         backBtn_Bg = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         backBtn_Bg!.frame = CGRectMake(0, 0, screenWidth, 35)
-//        self.addSubview(visualEffectView)
-        
-//        backBtn_Bg = UIView(frame: CGRectMake(0, 0, screenWidth, 35))
         self.addSubview(backBtn_Bg!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
@@ -100,10 +97,6 @@ class ElementView: BNView, UIWebViewDelegate {
         
         animationView = BiinItAnimationView(frame:CGRectMake(0, screenWidth, screenWidth, 0))
         scroll!.addSubview(animationView!)
-        
-        lineView = UIView(frame: CGRectMake(0, 0, 0, 0))
-        lineView!.alpha = 0
-        scroll!.addSubview(lineView!)
 
         self.textPrice1 = UILabel(frame: CGRectMake(0, 0, 0, 0))
         self.textPrice2 = UILabel(frame: CGRectMake(0, 0, 0, 0))
@@ -118,7 +111,14 @@ class ElementView: BNView, UIWebViewDelegate {
         
         titlesBackground = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         titlesBackground!.backgroundColor = UIColor.whiteColor()
-        scroll!.addSubview(titlesBackground!)
+        titlesBackground!.layer.shadowColor = UIColor.blackColor().CGColor
+        titlesBackground!.layer.shadowOffset = CGSize(width: 0, height: 2)
+        titlesBackground!.layer.shadowOpacity = 0.5
+        //scroll!.addSubview(titlesBackground!)
+        
+        lineView = UIView(frame: CGRectMake(0, 0, screenWidth, 2))
+        lineView!.alpha = 0
+//        scroll!.addSubview(lineView!)
         
         self.title = UILabel(frame: CGRectMake(20, 30, (frame.width - 40), 20))
         self.subTitle = UILabel(frame: CGRectMake(20, 50, (frame.width - 40), 20))
@@ -126,13 +126,13 @@ class ElementView: BNView, UIWebViewDelegate {
         self.title!.textAlignment = NSTextAlignment.Left
         self.title!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
         self.title!.text = "title"
-        titlesBackground!.addSubview(self.title!)
+        scroll!.addSubview(self.title!)
         
         self.subTitle!.textColor = UIColor.appTextColor()
         self.subTitle!.textAlignment = NSTextAlignment.Left
         self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
         self.subTitle!.text = "Subtitle"
-        titlesBackground!.addSubview(self.subTitle!)
+        scroll!.addSubview(self.subTitle!)
 
         butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         scroll!.addSubview(butonContainer!)
@@ -164,13 +164,19 @@ class ElementView: BNView, UIWebViewDelegate {
         backBtn_Bg!.addSubview(showSiteBtn!)
         
         callToActionBtn = UIButton(frame: CGRectMake(5,  (screenWidth + 30), (screenWidth - 10), 50))
-        callToActionBtn!.backgroundColor = UIColor.clearColor()
+        callToActionBtn!.backgroundColor = UIColor.bnVisitSiteColor()
+        //callToActionBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        callToActionBtn!.layer.cornerRadius = 2
+        callToActionBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+        callToActionBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        callToActionBtn!.layer.shadowOpacity = 0.25
         scroll!.addSubview(callToActionBtn!)
+        
         
         callToActionTitle = UILabel(frame: CGRectMake(0, 0, screenWidth, 50))
         callToActionTitle!.textColor = UIColor.whiteColor()
-        callToActionTitle!.font = UIFont(name: "Lato-Regular", size: 20)
+        callToActionTitle!.font = UIFont(name: "Lato-Light", size: 16)
         callToActionTitle!.textAlignment =  NSTextAlignment.Center
         callToActionBtn!.addSubview(callToActionTitle!)
     }
@@ -230,7 +236,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     //Instance Methods
     func openUrl(sender:UIButton) {
-        let targetURL = NSURL(string:"http://\(self.element!.callToActionURL!)")
+        let targetURL = NSURL(string:"\(self.element!.callToActionURL!)")
         let application = UIApplication.sharedApplication()
         application.openURL(targetURL!)
     }
@@ -298,7 +304,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 iconColor = UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
             }
             
-            animationView!.updateAnimationView(decorationColor, textColor: textColor)
+            animationView!.updateAnimationView(decorationColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
             
             updateBackBtn()
@@ -318,11 +324,11 @@ class ElementView: BNView, UIWebViewDelegate {
                 percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
                 
-                //scroll!.addSubview(percentageView!)
+                scroll!.addSubview(percentageView!)
             }
             
             self.textPrice1!.text = ""
-            self.textPrice2!.text = "HOLA"
+            self.textPrice2!.text = ""
             self.text_before!.text = ""
 //            self.text_before!.alpha = 0.7
             self.text_now!.text = ""
@@ -332,35 +338,32 @@ class ElementView: BNView, UIWebViewDelegate {
             self.lineView!.alpha = 0
             
             if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
-                ypos += 35
+                ypos += 20
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor
                 self.textPrice1!.textAlignment = NSTextAlignment.Center
                 self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
                 self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
-                //scroll!.addSubview(self.textPrice1!)
                 
-                ypos += SharedUIManager.instance.elementView_titleSize
+                
+                ypos += (SharedUIManager.instance.elementView_titleSize + 5)
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
-                //scroll!.addSubview(self.textPrice2!)
-                ypos += 40
-                
-                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
                 
             } else if self.element!.hasPrice && self.element!.hasListPrice {
                 
                 var text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Before", comment: "Before"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
-                var price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.listPrice!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
+                var price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
 //                let xposition:CGFloat = ( frame.width - price_Length ) / 2
                 var xposition:CGFloat = ((frame.width - (text_Length + 10 + price_Length)) / 2)
 
-                ypos += 35
+                ypos += 20
                 
                 self.text_before!.frame = CGRectMake(xposition, ypos, text_Length, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.text_before!.textColor = textColor!.colorWithAlphaComponent(0.75)
@@ -376,13 +379,6 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
                 self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
                 //self.scroll!.addSubview(self.textPrice1!)
-                
-                lineView!.alpha = 1
-                lineView!.frame = CGRectMake(xposition, (ypos + 16), (price_Length + 1), 1)
-                lineView!.backgroundColor = textColor!.colorWithAlphaComponent(0.75)
-                //self.scroll!.addSubview(lineView!)
-               
-                
                 
                 
                 text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Now", comment: "Now"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
@@ -407,71 +403,73 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
                 //self.scroll!.addSubview(self.textPrice2!)
-                ypos += 45
-                
-                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
+                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
 
-                
             } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
-                ypos += 35
+                ypos += 20
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor
                 self.textPrice1!.textAlignment = NSTextAlignment.Center
                 self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
                 self.textPrice1!.text = NSLocalizedString("From", comment: "From")
-                //scroll!.addSubview(self.textPrice1!)
+                ypos += (SharedUIManager.instance.elementView_titleSize + 5)
                 
-                ypos += SharedUIManager.instance.elementView_titleSize
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
-                //scroll!.addSubview(self.textPrice2!)
-                ypos += 40
-                
-                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 90)
-
+                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
                 
             } else {
-                ypos += 30
-                //butonContainer!.frame = CGRectMake(0, butonContainer!.frame.origin.y, butonContainer!.frame.width, 30)
-
+                ypos += 20
             }
             
-            self.title!.frame = CGRectMake(10, 20, (frame.width - 20), 0)
+            self.title!.frame = CGRectMake(10, ypos, (frame.width - 20), 0)
             self.title!.textColor = self.element!.media[0].vibrantDarkColor!//UIColor.appTextColor()
             self.title!.textAlignment = NSTextAlignment.Left
             self.title!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
             self.title!.text = self.element!.title!
-            self.title!.numberOfLines = 2
+            self.title!.numberOfLines = 0
             self.title!.sizeToFit()
             
-            self.subTitle!.frame = CGRectMake(10, (20 + self.title!.frame.height + 2), (frame.width - 20), (SharedUIManager.instance.elementView_subTitleSize + 2))
+            
+            ypos += title!.frame.height + 5
+            self.subTitle!.frame = CGRectMake(10,ypos, (frame.width - 20), (SharedUIManager.instance.elementView_subTitleSize + 2))
             self.subTitle!.textColor = self.element!.media[0].vibrantDarkColor!// UIColor.appTextColor()
             self.subTitle!.textAlignment = NSTextAlignment.Left
             self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
             self.subTitle!.text = self.element!.subTitle!
-            self.subTitle!.numberOfLines = 2
+            self.subTitle!.numberOfLines = 0
             self.subTitle!.sizeToFit()
             
-            var height:CGFloat = 0
             
-            if self.element!.detailsHtml == "" {
-                height = self.subTitle!.frame.height + self.title!.frame.height + 130//(SharedUIManager.instance.screenHeight - (ypos))
-                if (ypos + height) < SharedUIManager.instance.screenHeight {
-                    height = (SharedUIManager.instance.screenHeight - (ypos + 20))
-                }
-            } else {
-                height = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
-            }
+            ypos += subTitle!.frame.height + 10
             
             
- 
             
-            titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
-            ypos += titlesBackground!.frame.height
+//            var height:CGFloat = 0
+//            if self.element!.detailsHtml == "" {
+//                height = self.subTitle!.frame.height + self.title!.frame.height + 130//(SharedUIManager.instance.screenHeight - (ypos))
+//                if ypos < SharedUIManager.instance.screenHeight {
+//                    height = (SharedUIManager.instance.screenHeight - (ypos + 20))
+//                }
+//            } else {
+//                //height = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
+//            }
+            
+//            titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
+//            titlesBackground!.backgroundColor = UIColor.redColor()
+            //ypos += height//titlesBackground!.frame.height
 
+            
+//            lineView!.alpha = 1
+//            lineView!.frame.origin.y = ypos
+//            lineView!.backgroundColor = textColor
+////            self.scroll!.addSubview(lineView!)
+//            ypos += lineView!.frame.height
+//            
+            
             if webView != nil {
                 webView!.removeFromSuperview()
                 webView = nil
@@ -484,6 +482,8 @@ class ElementView: BNView, UIWebViewDelegate {
             scroll!.addSubview(webView!)
 
             if shareView != nil {
+                shareView!.clean()
+                shareView!.removeFromSuperview()
                 shareView = nil
             }
             
@@ -621,7 +621,7 @@ class ElementView: BNView, UIWebViewDelegate {
         html += "</style></head>"
         html += "<body>"
         html += element!.detailsHtml!
-        html += "<br><br><br><br>"
+        //html += "<br><br><br><br>"
         html += "</body></html>"
         return html
     }
@@ -651,7 +651,7 @@ class ElementView: BNView, UIWebViewDelegate {
         let colorDark = "rgb(\(rdInt), \(gdInt), \(bdInt))"
         
         var css = ""
-        css += "html { font-family: Lato, Helvetica, sans-serif; }"
+        css += "html { font-family: Lato, Helvetica, sans-serif; background-color: rgb(248,248,248); }"
         css += "p { font-size: 14px; font-weight:300 !important;}"
         css += "b { font-size: 14px; font-weight:500 !important;}"
         css += "li { font-size: 14px; font-weight:300 !important; margin-bottom: 5px; margin-left: -15px !important; }"
@@ -682,11 +682,10 @@ class ElementView: BNView, UIWebViewDelegate {
     func webViewDidFinishLoad(webView: UIWebView) {
         
         
-        if self.element!.detailsHtml! == "" {
-            
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        if self.element!.detailsHtml! != "" {
 
-        } else {
+            
+            webView.alpha = 1
             var frame:CGRect = webView.frame
             frame.size.height = 1
             webView.frame = frame
@@ -694,10 +693,34 @@ class ElementView: BNView, UIWebViewDelegate {
             frame.size = fittingSize
             webView.frame = frame
             ypos += fittingSize.height
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
+            
+            
+//            
+//            webView.alpha = 0
+//            
+//            if (ypos + 70) < (SharedUIManager.instance.screenHeight - 55) {
+//                scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 55))
+//            } else {
+//                
+//                scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+//            }
+
+
+        } else {
+            
+            webView.alpha = 0
+//            var frame:CGRect = webView.frame
+//            frame.size.height = 1
+//            webView.frame = frame
+//            let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
+//            frame.size = fittingSize
+//            webView.frame = frame
+//            ypos += fittingSize.height
+//            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
         }
         
         if self.element!.hasCallToAction {
+            ypos += 60
             callToActionBtn!.alpha = 1
             callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
             callToActionTitle!.alpha = 1
@@ -709,6 +732,15 @@ class ElementView: BNView, UIWebViewDelegate {
             callToActionBtn!.enabled = false
         }
         
+        if (ypos + 5) < (SharedUIManager.instance.screenHeight - 55) {
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 55))
+        } else {
+
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+        }
+        
+        
+//        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
         scroll!.bringSubviewToFront(callToActionBtn!)
         callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 55)
     }

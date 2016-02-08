@@ -12,6 +12,8 @@ class BNNotificationManager:NSObject, NSCoding {
     var localNotifications:[BNLocalNotification] = [BNLocalNotification]()
     var lastNotificationObjectId:String = ""
     var didSendNotificationOnAppDown = false
+    var surveyed_Sites:[String] = [String]()
+    var currentDay:NSDate?
     
     override init(){
         super.init()
@@ -28,15 +30,47 @@ class BNNotificationManager:NSObject, NSCoding {
         self.lastNotificationObjectId = aDecoder.decodeObjectForKey("lastNotificationObjectId") as! String
         self.didSendNotificationOnAppDown = aDecoder.decodeBoolForKey("didSendNotificationOnAppDown")
         
+        if let saved_surveyed_Sites = aDecoder.decodeObjectForKey("surveyed_Sites") as? [String] {
+            self.surveyed_Sites = saved_surveyed_Sites
+        }
+        
+//        self.surveyed_Sites = aDecoder.decodeObjectForKey("surveyed_Sites") as! [String]
+        if let saved_currentDay = aDecoder.decodeObjectForKey("currentDay") as? NSDate {
+            self.currentDay = saved_currentDay
+        } else {
+            currentDay =  NSDate()
+        }
+        
         if didSendNotificationOnAppDown {
             self.findNotificationByObjectId()
         }
+        
+        let now = NSDate()
+        
+        let order = NSCalendar.currentCalendar().compareDate(now, toDate: currentDay!,
+            toUnitGranularity: .Hour)
+        
+        switch order {
+        case .OrderedDescending:
+                print("DESCENDING")
+                currentDay = now
+                surveyed_Sites = [String]()
+            break
+        case .OrderedAscending:
+            print("ASCENDING")
+        case .OrderedSame:
+            print("SAME")
+        }
+        
+        save()
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(localNotifications, forKey: "localNotifications")
         aCoder.encodeObject(lastNotificationObjectId, forKey:"lastNotificationObjectId")
         aCoder.encodeBool(didSendNotificationOnAppDown, forKey: "didSendNotificationOnAppDown")
+        aCoder.encodeObject(surveyed_Sites, forKey: "surveyed_Sites")
+        aCoder.encodeObject(currentDay, forKey: "currentDay")
     }
     
     func save() {
@@ -461,6 +495,20 @@ class BNNotificationManager:NSObject, NSCoding {
         }
         
         save()
+    }
+    
+    func add_surveyedSite(identifier:String?) {
+        surveyed_Sites.append(identifier!)
+        save()
+    }
+    
+    func is_site_surveyed(identifier:String?) -> Bool {
+        for site in surveyed_Sites {
+            if site == identifier {
+                return true
+            }
+        }
+        return false
     }
 }
 

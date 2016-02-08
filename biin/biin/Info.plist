@@ -5,6 +5,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>whatsapp</string>
+		<string>uber</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>

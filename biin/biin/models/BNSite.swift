@@ -32,7 +32,7 @@ class BNSite:NSObject, NSCoding {
     var zipCode:String?
     var streetAddress1:String?
     var streetAddress2:String?
-    var ubication:String?
+    //var ubication:String?
     var phoneNumber:String?
     var email:String?
     var nutshell:String?

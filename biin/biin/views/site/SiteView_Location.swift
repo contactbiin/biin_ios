@@ -7,6 +7,7 @@ import Foundation
 import UIKit
 import MapKit
 import MessageUI
+import UberRides
 
 class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDelegate {
 
@@ -17,6 +18,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var streetAddress1:UILabel?
     var streetAddress2:UILabel?
     var ubication:UILabel?
+    var phoneLbl:UILabel?
+    var emailLbl:UILabel?
     //var phoneNumber:UILabel?
     //var email:UILabel?
     
@@ -38,6 +41,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //    override init() {
 //        super.init()
 //    }
+    var uber_button:RequestButton?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,54 +59,72 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         site_phoneNumber = ""
         site_email = ""
         
-        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenWidth = frame.width//SharedUIManager.instance.screenWidth
         //var screenHeight = SharedUIManager.instance.screenHeight
         
-        let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
-        var ypos:CGFloat = 4
+        //let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
+        var ypos:CGFloat = 10
 
         closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
         closeBtn!.addTarget(father, action: "hideInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(closeBtn!)
+        //self.addSubview(closeBtn!)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
-        self.addSubview(siteAvatar!)
+        //self.addSubview(siteAvatar!)
         
-        let xpos:CGFloat = siteAvatarSize + 10
+        let xpos:CGFloat = 10
         
-        title = UILabel(frame: CGRectMake(xpos, ypos, (headerWidth - (siteAvatarSize)), (SharedUIManager.instance.siteView_titleSize + 3)))
+        title = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
+        title!.numberOfLines = 0
         self.addSubview(title!)
     
         ypos += SharedUIManager.instance.siteView_titleSize + 2
-        streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         streetAddress1!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         streetAddress1!.text = "Address"
-        streetAddress1!.textColor = UIColor.appTextColor()
+        streetAddress1!.textColor = UIColor.bnGrayDark()
         streetAddress1!.numberOfLines = 0
         self.addSubview(streetAddress1!)
 
         ypos += SharedUIManager.instance.siteView_nutshellSize + 2
-        streetAddress2 = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        streetAddress2 = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         streetAddress2!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         streetAddress2!.text = ""
-        streetAddress2!.textColor = UIColor.appTextColor()
+        streetAddress2!.textColor = UIColor.bnGrayDark()
         streetAddress2!.numberOfLines = 0
         self.addSubview(streetAddress2!)
         
         ypos += SharedUIManager.instance.siteView_nutshellSize + 2
-        ubication = UILabel(frame: CGRectMake(xpos, ypos, headerWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        ubication = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
         ubication!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
         ubication!.text = ""
-        ubication!.textColor = UIColor.appTextColor()
+        ubication!.textColor = UIColor.bnGrayDark()
         ubication!.numberOfLines = 0
         self.addSubview(ubication!)
 
-        map = MKMapView(frame:CGRectMake(5, (siteAvatarSize + 10), (screenWidth - 10), 150))
+        ypos += SharedUIManager.instance.siteView_nutshellSize + 2
+        phoneLbl = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        phoneLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
+        phoneLbl!.text = ""
+        phoneLbl!.textColor = UIColor.bnGrayDark()
+        phoneLbl!.numberOfLines = 0
+        self.addSubview(phoneLbl!)
+        
+        ypos += SharedUIManager.instance.siteView_nutshellSize + 2
+        emailLbl = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        emailLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
+        emailLbl!.text = ""
+        emailLbl!.textColor = UIColor.bnGrayDark()
+        emailLbl!.numberOfLines = 0
+        self.addSubview(emailLbl!)
+        
+        ypos += 10
+        map = MKMapView(frame:CGRectMake(5, ypos, (screenWidth - 10), 150))
         map!.userInteractionEnabled = false
 
         map!.delegate = self
@@ -110,31 +132,53 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
     
-
+        ypos += 155
         
-        emailBtn = UIButton(frame: CGRectMake((siteAvatarSize + 10), (siteAvatarSize - 11), 80, 16))
-        emailBtn!.setTitle("EMAIL", forState: UIControlState.Normal)
-        emailBtn!.setTitleColor(UIColor.biinColor(), forState: UIControlState.Normal)
-        emailBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 10)
-        emailBtn!.layer.cornerRadius = 8
-        emailBtn!.layer.masksToBounds = true
-        emailBtn!.layer.borderColor = UIColor.biinColor().CGColor
-        emailBtn!.layer.borderWidth = 1
-        emailBtn!.backgroundColor = UIColor.clearColor()
+        emailBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        emailBtn!.setTitle(NSLocalizedString("EmailUs", comment: "EmailUs"), forState: UIControlState.Normal)
+        emailBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        emailBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        //emailBtn!.backgroundColor = UIColor.bnVisitSiteColor()
+        
+        emailBtn!.layer.cornerRadius = 2
+        emailBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        emailBtn!.layer.shadowOpacity = 0.25
+        
         emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
         
-        callBtn = UIButton(frame: CGRectMake((siteAvatarSize + 100), (siteAvatarSize - 11), 80, 16))
-        callBtn!.setTitle("CALL", forState: UIControlState.Normal)
-        callBtn!.setTitleColor(UIColor.biinColor(), forState: UIControlState.Normal)
-        callBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 10)
-        callBtn!.layer.cornerRadius = 8
-        callBtn!.layer.masksToBounds = true
-        callBtn!.layer.borderColor = UIColor.biinColor().CGColor
-        callBtn!.layer.borderWidth = 1
-        callBtn!.backgroundColor = UIColor.clearColor()
+        ypos += 55
+        callBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        callBtn!.setTitle(NSLocalizedString("CallUs", comment: "CallUs"), forState: UIControlState.Normal)
+        callBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        callBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        //callBtn!.backgroundColor = UIColor.bnVisitSiteColor()
+
+        callBtn!.layer.cornerRadius = 2
+        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        callBtn!.layer.shadowOpacity = 0.25
+
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
+        
+        
+        uber_button = RequestButton()
+        uber_button!.frame = CGRectMake(5, 0, (self.frame.width - 10), 50)
+        uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
+        uber_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        uber_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        uber_button!.backgroundColor = UIColor.darkGrayColor()
+        uber_button!.layer.cornerRadius = 2
+        uber_button!.layer.shadowColor = UIColor.blackColor().CGColor
+        uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        uber_button!.layer.shadowOpacity = 0.25
+        self.addSubview(uber_button!)
+        uber_button!.setNeedsDisplay()
+        
+        ypos += 55
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
         
     }
     /*
@@ -196,66 +240,98 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     //Instance methods
     func updateForSite(site: BNSite?){
         
-        //var ypos:CGFloat = title!.frame.origin.y
+        var ypos:CGFloat = title!.frame.origin.y
+        let xpos:CGFloat = 10
+
+        title!.text = ""
+        title!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_titleSize + 3))
+        
+        
+        streetAddress1!.text = ""
+        streetAddress1!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        
+        streetAddress2!.text = ""
+        streetAddress2!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        
+        ubication!.text = ""
+        ubication!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+
+        
+        
+        
+        phoneLbl!.text = ""
+        phoneLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+
+        emailLbl!.text = ""
+        emailLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        
         
         //title!.textColor = site!.titleColor
-        title!.text = site!.title!
+        title!.text = "\(site!.title!) - \(site!.subTitle!)"
         //title!.numberOfLines = 1
-        //title!.sizeToFit()
-        //ypos += title!.frame.height
+        title!.sizeToFit()
+        ypos += title!.frame.height
         
         //var headerWidth = SharedUIManager.instance.screenWidth - 30
         //streetAddress1!.frame = CGRectMake(streetAddress1!.frame.origin.x, ypos, (headerWidth - 95), 12)
-        streetAddress1!.text = "\(site!.streetAddress1!)"
-        //streetAddress1!.numberOfLines = 0
-        //streetAddress1!.sizeToFit()
+        if site!.streetAddress1! != "" {
+            streetAddress1!.frame.origin.y = ypos
+            streetAddress1!.text = "\(site!.streetAddress1!)"
+            streetAddress1!.sizeToFit()
+            ypos += streetAddress1!.frame.height
+        }
         
-        //ypos += streetAddress1!.frame.height
-        streetAddress2!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
-        //streetAddress2!.frame.origin.y = ypos
+        if site!.streetAddress2! != "" {
+            streetAddress2!.frame.origin.y = ypos
+            streetAddress2!.text = "\(site!.streetAddress2!)"
+            streetAddress2!.sizeToFit()
+            ypos += streetAddress2!.frame.height
+        }
         
-        //ypos += streetAddress2!.frame.height
-        ubication!.text = site!.ubication!
-        //ubication!.frame = CGRectMake(ubication!.frame.origin.x, ypos, (headerWidth - 95), 12)
-        //ubication!.numberOfLines = 2
-        //ubication!.sizeToFit()
-        //ubication!.frame.origin.y = ypos
+        ubication!.frame.origin.y = ypos
+        ubication!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
+        ubication!.sizeToFit()
+        ypos += ubication!.frame.height
         
-        //ypos += ubication!.frame.height
-        callBtn!.setTitleColor(site!.media[0].vibrantColor!, forState: UIControlState.Normal)
-        callBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
-        emailBtn!.setTitleColor(site!.media[0].vibrantColor!, forState: UIControlState.Normal)
-        emailBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
-        
+        var hasPhone = false
+        var hasEmail = false
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
-            
-//            var value = NSLocalizedString("Phone", comment: "Phone")
-//            phoneNumber!.text = "\(value): \(site!.phoneNumber!)"
-//            phoneNumber!.frame.origin.y = ypos
-//            phoneNumber!.sizeToFit()
-//            ypos += phoneNumber!.frame.height
+            phoneLbl!.frame.origin.y = ypos
+            phoneLbl!.text =  "\(NSLocalizedString("Phone", comment: "Phone")): \(site!.phoneNumber!)"
+            phoneLbl!.sizeToFit()
+            ypos += phoneLbl!.frame.height
+            hasPhone = true
             callBtn!.enabled = true
-
+            callBtn!.backgroundColor = site!.media[0].vibrantDarkColor
         }else {
             callBtn!.enabled = false
         }
  
         if site!.email! != "" {
             site_email = site!.email!
+            emailLbl!.frame.origin.y = ypos
+            emailLbl!.text = "\(NSLocalizedString("Email", comment: "Email")): \(site!.email!)"
+            emailLbl!.sizeToFit()
+            ypos += emailLbl!.frame.height
+            hasEmail = true
+            
 //            var value = NSLocalizedString("Email", comment: "Email")
 //            email!.text = "\(value): \(site!.email!)"
 //            email!.frame.origin.y = ypos
 //            email!.sizeToFit()
 //            ypos += email!.frame.height
+            
+            
             emailBtn!.enabled = true
+            emailBtn!.backgroundColor = site!.media[0].vibrantDarkColor
         } else {
             emailBtn!.enabled = false
             
         }
+        ypos += 10
 
-
-        
+        yStop = ypos
         //commentBtn!.icon!.color = site!.titleColor!
         //commentBtn!.showDisable()
        
@@ -269,9 +345,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        map!.delegate = self
 //        self.addSubview(map!)
 
-        //map!.frame.origin.y = ypos
+        map!.frame.origin.y = ypos
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
-        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let span = MKCoordinateSpanMake(0.03, 0.03)
         let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
 
@@ -289,42 +365,62 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         annotation.subtitle = site!.streetAddress1!
         map!.addAnnotation(annotation)
         
-        //ypos += (map!.frame.height + 10)
+        ypos += (map!.frame.height + 5)
         
-        //emailBtn!.frame.origin.y = ypos
+        if hasPhone {
+            callBtn!.frame.origin.y = ypos
+            ypos += callBtn!.frame.height
+            ypos += 5
+        }
         //ypos += (50 + 10)
-        //callBtn!.frame.origin.y = ypos
         
-        //ypos += (50 + 10)
-        
-        if site!.media.count > 0{
-            closeBtn!.icon!.color = site!.media[0].vibrantColor!
-            closeBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
-            closeBtn!.setNeedsDisplay()
-        } else {
-            closeBtn!.icon!.color = UIColor.blackColor()
-            closeBtn!.layer.borderColor = UIColor.blackColor().CGColor
+        if hasEmail {
+            emailBtn!.frame.origin.y = ypos
+            ypos += emailLbl!.frame.height
+            ypos += 5
         }
         
-        if let organization = site!.organization {
-            if organization.media.count > 0 {
-                BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
-                siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
-            } else {
-                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
-                siteAvatar!.showAfterDownload()
-            }
-        } else  {
-            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
-            siteAvatar!.showAfterDownload()
-        }
+        let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
+        let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
+        uber_button!.setProductID(site!.identifier!)
+        uber_button!.setPickupLocation(latitude: lat, longitude:long, nickname:"\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)")
+        uber_button!.setDropoffLocation(latitude: Double(site!.latitude!), longitude:Double(site!.longitude!), nickname: site!.title!)
+        uber_button!.frame.origin.y = (ypos + 33)
+        ypos += uber_button!.frame.height
+        
+        
+        ypos += 10
+        
+//        if site!.media.count > 0{
+//            closeBtn!.icon!.color = site!.media[0].vibrantColor!
+//            closeBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
+//            closeBtn!.setNeedsDisplay()
+//        } else {
+//            closeBtn!.icon!.color = UIColor.blackColor()
+//            closeBtn!.layer.borderColor = UIColor.blackColor().CGColor
+//        }
+        
+//        if let organization = site!.organization {
+//            if organization.media.count > 0 {
+//                BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
+//                siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
+//            } else {
+//                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+//                siteAvatar!.showAfterDownload()
+//            }
+//        } else  {
+//            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+//            siteAvatar!.showAfterDownload()
+//        }
+        
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 10))
         
     }
     
     func call(sender:BNUIButton_Contact){
         
-        if site_phoneNumber! != "" {
-            let url:NSURL = NSURL(string:"tel://\(site_phoneNumber!)")!
+        if self.site_phoneNumber! != "" {
+            let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
             UIApplication.sharedApplication().openURL(url)
         }
     }
@@ -343,9 +439,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         (father!.father! as? MainView)?.rootViewController!.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
-
     
     func clean() {
 

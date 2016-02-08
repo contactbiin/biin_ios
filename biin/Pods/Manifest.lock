@@ -1,0 +1,10 @@
+PODS:
+  - UberRides (0.3.0)
+
+DEPENDENCIES:
+  - UberRides
+
+SPEC CHECKSUMS:
+  UberRides: 6ce7697fcb04231865eda938c84bcf0104e65d9e
+
+COCOAPODS: 0.39.0

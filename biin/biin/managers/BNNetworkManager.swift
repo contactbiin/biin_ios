@@ -497,7 +497,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
-        print("Request error: \(error!.code) request: \(request.requestString)")
+        print("Request error: \(error?.code) request: \(request.requestString)")
         
         if error != nil {
             

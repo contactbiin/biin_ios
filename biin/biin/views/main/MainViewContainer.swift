@@ -138,7 +138,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
             */
             
-            var colorIndex:Int = 1
+            var colorIndex:Int = 0
             for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
                 
                 if isThereElementsInCategory(category) {
