@@ -426,9 +426,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
         
         if site_to_survey != nil {
-            if BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
+            if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
             
-                NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+                NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
             } else {
                 print("site: \(site_to_survey!.title!) is already survyed today")
             }
