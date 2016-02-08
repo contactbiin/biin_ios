@@ -56,7 +56,7 @@ class SurveyView: BNView, UITextViewDelegate {
         }
         
         
-        var ypos:CGFloat = 20
+        var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
         let titleText = NSLocalizedString("SurveyTitle", comment: "SurveyTitle").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -303,6 +303,7 @@ class SurveyView: BNView, UITextViewDelegate {
         
         if let organization = site!.organization {
             
+            organizationName!.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, 30)
             organizationName!.alpha = 1
             organizationName!.text = site!.organization!.name!
             organizationName!.numberOfLines = 0

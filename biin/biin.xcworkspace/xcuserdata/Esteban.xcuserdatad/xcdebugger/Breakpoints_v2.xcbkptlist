@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/views/main/MainView.swift"
-            timestampString = "476648577.776608"
+            timestampString = "476650285.230707"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
             landmarkName = "hideInSiteView()"
             landmarkType = "5">
          </BreakpointContent>

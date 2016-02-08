@@ -225,7 +225,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("test", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(testButton!)
+        self.addSubview(testButton!)
     }
     
     func testButtonAction(sender:UIButton) {
@@ -249,13 +249,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         
         site_to_survey = BNAppSharedManager.instance.dataManager.sites_ordered[0]
-        
-        if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
-            
-            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
-        } else {
-            print("site: \(site_to_survey!.title!) is already survyed today")
-        }
+//        
+//        if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
+//            
+//            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+//        } else {
+//            print("site: \(site_to_survey!.title!) is already survyed today")
+//        }
+//        
+        hideInSiteView()
         
 
 //        BNAppSharedManager.instance.notificationManager.clear()
