@@ -31,7 +31,7 @@ class AboutView: BNView {
         self.addSubview(visualEffectView!)
 
             
-        var ypos:CGFloat = 20
+        var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
         let titleText = NSLocalizedString("About", comment: "About").uppercaseString
         var attributedString = NSMutableAttributedString(string:titleText)
@@ -43,34 +43,34 @@ class AboutView: BNView {
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
-        backBtn!.layer.cornerRadius  = 17.5
-        backBtn!.layer.borderWidth = 1
-        backBtn!.layer.masksToBounds = true
+//        backBtn!.layer.cornerRadius  = 17.5
+//        backBtn!.layer.borderWidth = 1
+//        backBtn!.layer.masksToBounds = true
         self.addSubview(backBtn!)
         
         //let headerWidth = screenWidth - 60
         //var xpos:CGFloat = (screenWidth - headerWidth) / 2
     
-        ypos = SharedUIManager.instance.siteView_headerHeight
-        //let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        //line.backgroundColor = UIColor.appButtonColor()
+        ypos = 35
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        line.backgroundColor = UIColor.darkGrayColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
         scroll!.backgroundColor = UIColor.clearColor()
         self.addSubview(scroll!)
-        //self.addSubview(line)
+        self.addSubview(line)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        ypos = 0
+        ypos = 50
         biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:0.75)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
         scroll!.addSubview(biinLogo!)

@@ -644,6 +644,11 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             
             if BNAppSharedManager.instance.dataManager.bnUser != nil {
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier)
+                
+                print("Exit region:\(beaconRegion.identifier)")
+            } else {
+                print("User nil when exit region")
+
             }
             
             /*

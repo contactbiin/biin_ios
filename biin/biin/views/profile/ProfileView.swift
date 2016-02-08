@@ -63,7 +63,7 @@ class ProfileView: BNView, UITextFieldDelegate {
 //        title!.textAlignment = NSTextAlignment.Center
 //        self.addSubview(title!)
         
-        var ypos:CGFloat = 20
+        var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
         let titleText = NSLocalizedString("Profile", comment: "title").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -75,15 +75,15 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
 
-        backBtn!.layer.cornerRadius  = 17.5
-        backBtn!.layer.borderWidth = 1
-        backBtn!.layer.masksToBounds = true
+//        backBtn!.layer.cornerRadius  = 17.5
+//        backBtn!.layer.borderWidth = 1
+//        backBtn!.layer.masksToBounds = true
         
         self.addSubview(backBtn!)
         
@@ -136,9 +136,9 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(biinieUserNameLbl!)
         */
         
-        ypos = 55
+        ypos = 35
         var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.whiteColor()
+        line.backgroundColor = UIColor.darkGrayColor()
         
         //scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
         //scroll!.backgroundColor = UIColor.clearColor()
@@ -148,7 +148,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         let fontSize:CGFloat = 13
         let labelHeight:CGFloat = fontSize + 3
         
-        ypos += 5
+        ypos += 25
         let nameLbl = UILabel(frame: CGRectMake(0, (ypos + 8), ((screenWidth / 2 ) + 10), labelHeight))
         nameLbl.font = UIFont(name: "Lato-Regular", size: fontSize)
         nameLbl.text = NSLocalizedString("Name", comment: "name").uppercaseString
