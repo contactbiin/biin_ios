@@ -383,7 +383,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
         let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
         uber_button!.setProductID(site!.identifier!)
-        uber_button!.setPickupLocation(latitude: lat, longitude:long, nickname:"\(BNAppSharedManager.instance.dataManager.bnUser!.firstName) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName)")
+        uber_button!.setPickupLocation(latitude: lat, longitude:long, nickname:"\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)")
         uber_button!.setDropoffLocation(latitude: Double(site!.latitude!), longitude:Double(site!.longitude!), nickname: site!.title!)
         uber_button!.frame.origin.y = (ypos + 33)
         ypos += uber_button!.frame.height
