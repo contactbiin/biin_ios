@@ -457,7 +457,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //                }
                 break
             case .INTERNAL:
-                show()
 //                NSLog("BIIN - GOTO TO SITE VIEW on Internal notification")
                 if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.siteIdentifier!] {
                     (siteState!.view as! SiteView).updateSiteData(site)
