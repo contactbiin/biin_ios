@@ -38,7 +38,6 @@ class BiinItAnimationView:UIView {
     
     func animate(value:Bool){
 
-        
         if !isRunning {
             isRunning = true
             if value {

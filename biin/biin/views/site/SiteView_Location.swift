@@ -165,7 +165,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         
         uber_button = RequestButton()
-        uber_button!.frame = CGRectMake(5, 0, (self.frame.width - 10), 50)
+        uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
         uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
         uber_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         uber_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
@@ -303,9 +303,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += phoneLbl!.frame.height
             hasPhone = true
             callBtn!.enabled = true
+            callBtn!.alpha = 1
             callBtn!.backgroundColor = site!.media[0].vibrantDarkColor
         }else {
             callBtn!.enabled = false
+            callBtn!.alpha = 0
         }
  
         if site!.email! != "" {
@@ -324,10 +326,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
             
             emailBtn!.enabled = true
+            emailBtn!.alpha = 1
             emailBtn!.backgroundColor = site!.media[0].vibrantDarkColor
         } else {
             emailBtn!.enabled = false
-            
+            emailBtn!.alpha = 0
         }
         ypos += 10
 
@@ -372,11 +375,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += callBtn!.frame.height
             ypos += 5
         }
-        //ypos += (50 + 10)
         
         if hasEmail {
             emailBtn!.frame.origin.y = ypos
-            ypos += emailLbl!.frame.height
+            ypos += emailBtn!.frame.height
             ypos += 5
         }
         
@@ -385,7 +387,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.setProductID(site!.identifier!)
         uber_button!.setPickupLocation(latitude: lat, longitude:long, nickname:"\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)")
         uber_button!.setDropoffLocation(latitude: Double(site!.latitude!), longitude:Double(site!.longitude!), nickname: site!.title!)
-        uber_button!.frame.origin.y = (ypos + 33)
+        uber_button!.frame.origin.y = ypos
         ypos += uber_button!.frame.height
         
         
