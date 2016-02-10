@@ -85,7 +85,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         scroll!.addSubview(imagesScrollView!)
         
         
-        animationView = BiinItAnimationView(frame:CGRectMake(0, screenWidth, screenWidth, 0))
+        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, 0))
         scroll!.addSubview(animationView!)
         
         header = SiteView_Header(frame: CGRectMake(0, (screenWidth), screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)

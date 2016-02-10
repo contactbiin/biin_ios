@@ -95,7 +95,7 @@ class ElementView: BNView, UIWebViewDelegate {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        animationView = BiinItAnimationView(frame:CGRectMake(0, screenWidth, screenWidth, 0))
+        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, 0))
         scroll!.addSubview(animationView!)
 
         self.textPrice1 = UILabel(frame: CGRectMake(0, 0, 0, 0))
@@ -304,7 +304,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 iconColor = UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
             }
             
-            animationView!.updateAnimationView(decorationColor, textColor: UIColor.whiteColor())
+            animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
             
             updateBackBtn()

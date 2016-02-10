@@ -475,7 +475,6 @@ class BNNotificationManager:NSObject, NSCoding {
 
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
                 currentNotification!.isUserNotified = true
-                
                 currentNotification!.fireDate = NSDate()
                 lastNotificationObjectId = currentNotification!.object_id!
                 save()

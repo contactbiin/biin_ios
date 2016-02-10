@@ -74,7 +74,7 @@ class BiinItAnimationView:UIView {
 //            self.circleIcon!.alpha = 1
 //            self.biinItLbl!.alpha = 1
             self.label!.alpha = 1
-            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, -50)
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, 50)
             
             }, completion: {(completed:Bool)-> Void in
                 self.animateOut()
@@ -86,16 +86,21 @@ class BiinItAnimationView:UIView {
         
         //self.animatedCircle!.animateOut()
 
+        UIView.animateWithDuration(0.1, animations: {() -> Void in
+            self.label!.alpha = 0
+        })
+        
+        
         UIView.animateWithDuration(0.35, animations: {()->Void in
             
-            
+
 //            self.frame.origin.y = SharedUIManager.instance.screenWidth
-            self.frame = CGRectMake(self.frame.origin.x, SharedUIManager.instance.screenWidth, self.frame.width, 0)
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, 0)
 //            self.circleIcon!.alpha = 0
 //            self.biinItLbl!.alpha = 0
             
             }, completion: {(completed:Bool)-> Void in
-            self.label!.alpha = 0
+
                 self.isRunning = false
         })
     }
