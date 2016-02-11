@@ -249,6 +249,7 @@ class BNRequest_InitialData: BNRequest {
                                         site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
                                         site.latitude = BNParser.findFloat("latitude", dictionary:siteData)
                                         site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
+                                        site.siteSchedule = BNParser.findString("siteSchedule", dictionary: siteData)
                                         
                                         let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
                                         

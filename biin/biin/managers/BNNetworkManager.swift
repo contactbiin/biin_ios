@@ -157,7 +157,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     @param password:Biinie password.
     */
     func login(email:String, password:String){
-        let request = BNRequest_Login(requestString: "\(rootURL)/mobile/biinies/auth/\(email)/\(password)", errorManager: self.errorManager!, networkManager: self)
+//        
+//        let address = "\(rootURL)/mobile/biinies/auth/\(email)/\(password)"
+//        let escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+//        let urlpath = NSString(format: "\(escapedAddress!)")
+        
+        let url : NSString = "\(rootURL)/mobile/biinies/auth/\(email)/\(password)"
+//        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+//        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
+        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let request = BNRequest_Login(requestString:"\(urlStr)" , errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -175,7 +184,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             date = "none"
         }
         
-        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)", errorManager: self.errorManager!, networkManager: self)
+        let url : NSString = "\(rootURL)/mobile/biinies/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)"
+//        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+//        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
+        
+//        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())
+
+        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let request = BNRequest_Register(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     

@@ -20,6 +20,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var ubication:UILabel?
     var phoneLbl:UILabel?
     var emailLbl:UILabel?
+    var scheduleLbl:UILabel?
     //var phoneNumber:UILabel?
     //var email:UILabel?
     
@@ -122,6 +123,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         emailLbl!.textColor = UIColor.bnGrayDark()
         emailLbl!.numberOfLines = 0
         self.addSubview(emailLbl!)
+        
+        ypos += SharedUIManager.instance.siteView_nutshellSize + 2
+        scheduleLbl = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        scheduleLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
+        scheduleLbl!.text = ""
+        scheduleLbl!.textColor = UIColor.bnGrayDark()
+        scheduleLbl!.numberOfLines = 0
+        self.addSubview(scheduleLbl!)
         
         ypos += 10
         map = MKMapView(frame:CGRectMake(5, ypos, (screenWidth - 10), 150))
@@ -256,15 +265,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ubication!.text = ""
         ubication!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
 
-        
-        
-        
         phoneLbl!.text = ""
         phoneLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
 
         emailLbl!.text = ""
         emailLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
         
+        scheduleLbl!.text = ""
+        scheduleLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+    
         
         //title!.textColor = site!.titleColor
         title!.text = "\(site!.title!) - \(site!.subTitle!)"
@@ -332,7 +341,17 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             emailBtn!.enabled = false
             emailBtn!.alpha = 0
         }
-        ypos += 10
+        
+        if site!.siteSchedule != "" {
+            scheduleLbl!.text = "\(NSLocalizedString("Schedule", comment: "Schedule")): \(site!.siteSchedule!)"
+            scheduleLbl!.frame.origin.y = ypos
+            scheduleLbl!.sizeToFit()
+            ypos += scheduleLbl!.frame.height
+        } else {
+            
+        }
+        
+        ypos += 15
 
         yStop = ypos
         //commentBtn!.icon!.color = site!.titleColor!

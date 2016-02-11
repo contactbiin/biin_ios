@@ -224,3 +224,4 @@ likely = "muy probablemente";
 not_likely = "poco probable";
 
 UBER = "Llega allí con Uber";
+Schedule = "Horario";

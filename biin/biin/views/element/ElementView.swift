@@ -95,8 +95,8 @@ class ElementView: BNView, UIWebViewDelegate {
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        animationView = BiinItAnimationView(frame:CGRectMake(0, 0, screenWidth, 0))
-        scroll!.addSubview(animationView!)
+        animationView = BiinItAnimationView(frame:CGRectMake(0, 35, screenWidth, 0))
+        self.addSubview(animationView!)
 
         self.textPrice1 = UILabel(frame: CGRectMake(0, 0, 0, 0))
         self.textPrice2 = UILabel(frame: CGRectMake(0, 0, 0, 0))
