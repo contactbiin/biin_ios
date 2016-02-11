@@ -257,22 +257,22 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         
         streetAddress1!.text = ""
-        streetAddress1!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        streetAddress1!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
         
         streetAddress2!.text = ""
-        streetAddress2!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        streetAddress2!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
         
         ubication!.text = ""
-        ubication!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        ubication!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
 
         phoneLbl!.text = ""
-        phoneLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        phoneLbl!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
 
         emailLbl!.text = ""
-        emailLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        emailLbl!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
         
         scheduleLbl!.text = ""
-        scheduleLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        scheduleLbl!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
     
         
         //title!.textColor = site!.titleColor
