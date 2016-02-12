@@ -154,7 +154,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
         
         if BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST {
-            NSLog("BIIN - Request initialData background when user moved!")
+            //NSLog("BIIN - Request initialData background when user moved!")
         /*
             locationFixAchieved = true
             let locationArray = locations as NSArray
@@ -207,7 +207,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func start_SITES_MONITORING(){
         
-        print("start_SITES_MONITORING")
+        //print("start_SITES_MONITORING")
         
         if BNAppSharedManager.instance.IS_APP_UP  || !BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED {
             return
@@ -257,7 +257,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     //When entering an EXT beacon  region.
     func start_SITE_EXTERIOR_MONITORING(beaconRegion:CLBeaconRegion){
-        NSLog("BIIN - start_SITE_EXTERIOR_MONITORING")
+        //NSLog("BIIN - start_SITE_EXTERIOR_MONITORING")
         if BNAppSharedManager.instance.IS_APP_UP {
             return
         }
@@ -460,7 +460,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        NSLog("BIIN - didEnterRegion() 1")
+        //NSLog("BIIN - didEnterRegion() 1")
         
         if BNAppSharedManager.instance.IS_APP_UP{
 //            NSLog("BIIN - didEnterRegion() 2")
@@ -645,7 +645,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             if BNAppSharedManager.instance.dataManager.bnUser != nil {
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier)
                 
-                print("Exit region:\(beaconRegion.identifier)")
+                //print("Exit region:\(beaconRegion.identifier)")
             } else {
                 print("User nil when exit region")
 
@@ -710,7 +710,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             return
         }
         
-        NSLog("start_BEACON_RANGING")
+        //NSLog("start_BEACON_RANGING")
         
         stop_REGION_MONITORING()
         nowMonitoring = BNRegionMonitoringType.RANGING
@@ -732,7 +732,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //BNDataManagerDelegate Methods
     func stop_BEACON_RANGING() {
         
-        NSLog("stop_BEACON_RANGING")
+        //NSLog("stop_BEACON_RANGING")
         
         //self.stopMonitoringBeaconRegions()
         for (key, _): (AnyObject, AnyObject) in self.rangedRegions {

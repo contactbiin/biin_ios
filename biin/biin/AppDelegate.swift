@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
-        NSLog("BIIN - didFinishLaunchingWithOptions()")
+        //NSLog("BIIN - didFinishLaunchingWithOptions()")
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
@@ -178,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
-        NSLog("BIIN - applicationDidEnterBackground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
+        //NSLog("BIIN - applicationDidEnterBackground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
 
         //BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])
         
@@ -195,7 +195,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         BNAppSharedManager.instance.show()
         
-        NSLog("BIIN - applicationWillEnterForeground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
+        //NSLog("BIIN - applicationWillEnterForeground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }

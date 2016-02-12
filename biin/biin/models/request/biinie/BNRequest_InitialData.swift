@@ -50,7 +50,7 @@ class BNRequest_InitialData: BNRequest {
                         
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
                             
-                            NSLog("BIIN - Organization: \(organizationsData.count)")
+                            //NSLog("BIIN - Organization: \(organizationsData.count)")
                             
                             for var i = 0; i < organizationsData.count; i++ {
                                 if let organizationData = organizationsData.objectAtIndex(i) as? NSDictionary {
@@ -103,7 +103,7 @@ class BNRequest_InitialData: BNRequest {
                         //Parse elements
                         if let elementsData = BNParser.findNSArray("elements", dictionary: initialData) {
                             
-                            NSLog("BIIN - Elements: \(elementsData.count)")
+                            //NSLog("BIIN - Elements: \(elementsData.count)")
                             
                             for var i = 0; i < elementsData.count; i++ {
                                 let elementData = elementsData.objectAtIndex(i) as! NSDictionary
@@ -216,7 +216,7 @@ class BNRequest_InitialData: BNRequest {
                         
                         if let sitesData = BNParser.findNSArray("sites", dictionary: initialData) {
                         
-                            NSLog("BIIN - Sites: \(sitesData.count)")
+                            //NSLog("BIIN - Sites: \(sitesData.count)")
                             
                             for var i = 0; i < sitesData.count; i++ {
                                 if let siteData = sitesData.objectAtIndex(i) as? NSDictionary {
@@ -394,7 +394,7 @@ class BNRequest_InitialData: BNRequest {
                         var categories = Array<BNCategory>()
                         if let categoriesData = BNParser.findNSArray("categories", dictionary: initialData) {
                         
-                            NSLog("BIIN - Categories: \(categoriesData.count)")
+                            //NSLog("BIIN - Categories: \(categoriesData.count)")
                             
                             for var i = 0; i < categoriesData.count; i++ {
                                 
