@@ -760,7 +760,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            //print("value: \(value)")
+            print("value: \(value)")
         }
         
         //print("\(self.myBeacons.count)")
@@ -996,7 +996,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             
                             currentSite = site
                             self.delegateView!.showInSiteView!(currentSite!)
-
+                            
                         }
                     }
                 }
@@ -1023,6 +1023,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         isBiinsViewContainerEmpty = true
         self.biins.removeAll(keepCapacity: false)
 //        BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
+        currentSite = nil
         self.delegateView!.hideInSiteView!()
         self.myBeaconsPrevious.removeAll(keepCapacity: false)
         self.myBeacons.removeAll(keepCapacity: false)
