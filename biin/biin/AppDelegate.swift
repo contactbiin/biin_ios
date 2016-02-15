@@ -193,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         appManager.positionManager.start_BEACON_RANGING()
 
-        BNAppSharedManager.instance.show()
+        //BNAppSharedManager.instance.show()
         
         //NSLog("BIIN - applicationWillEnterForeground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
         

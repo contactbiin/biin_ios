@@ -84,11 +84,12 @@ class ElementMiniView: BNView {
         
         
         if self.element!.media.count > 0 {
+            
             if self.element!.useWhiteText {
                 textColor = UIColor.whiteColor()
                 decorationColor = self.element!.media[0].vibrantDarkColor
             } else {
-                textColor = UIColor.bnGrayDark()
+                textColor = UIColor.whiteColor()
                 decorationColor = self.element!.media[0].vibrantDarkColor
             }
         } else {
@@ -99,6 +100,7 @@ class ElementMiniView: BNView {
         var ypos:CGFloat = 0
         var xpos:CGFloat = 0
         var imageSize:CGFloat = 0
+        
         if frame.width < frame.height {
             imageSize = frame.height
             xpos = ((imageSize - frame.width) / 2) * -1

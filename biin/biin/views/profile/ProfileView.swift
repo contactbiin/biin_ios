@@ -237,7 +237,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         emailVerifyTxt!.textField!.textColor = UIColor.appTextColor()
         }else {
             emailVerifyTxt!.textField!.text = NSLocalizedString("No", comment: "no")
-            emailVerifyTxt!.textField!.textColor = UIColor.bnRed()
+            emailVerifyTxt!.textField!.textColor = UIColor.biinOrange()
         }
         
         self.addSubview(emailVerifyTxt!)
