@@ -162,7 +162,7 @@ Of = "of";
 
 /*About*/
 AboutTitle = "About Biin";
-AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 and iPhone6Plus. All current data is not real and is only for testing purposes on this beta release.";
+AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6, iPhone6 Plus, iPhone6s and iPhone6s Plus.";
 
 /*Internet Error View*/
 InternetErrorTitle = "You're offline.";

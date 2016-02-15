@@ -73,6 +73,7 @@ class AboutView: BNView {
         ypos = 50
         biinLogo = BNUIBiinView(position:CGPoint(x:((screenWidth - 110) / 2), y:ypos), scale:0.75)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
+        biinLogo!.icon!.color = UIColor.blackColor()
         scroll!.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
@@ -100,6 +101,17 @@ class AboutView: BNView {
         aboutText.numberOfLines = 0
         aboutText.sizeToFit()
         scroll!.addSubview(aboutText)
+
+        
+        ypos += (aboutText.frame.height + 10)
+        let versionText = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.siteView_subTittleSize + 3)))
+        versionText.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
+        versionText.textColor = UIColor.appTextColor()
+        versionText.text = "\(NSLocalizedString("Version", comment: "Version")) \(BNAppSharedManager.instance.version)"
+        versionText.textAlignment = NSTextAlignment.Center
+        versionText.numberOfLines = 0
+//        versionText.sizeToFit()
+        scroll!.addSubview(versionText)
         
         ypos = (self.frame.height - 50)
         let siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.siteView_subTittleSize))

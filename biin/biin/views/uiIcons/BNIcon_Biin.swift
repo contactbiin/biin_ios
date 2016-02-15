@@ -101,7 +101,8 @@ class BNIcon_Biin:BNIcon {
         
         bezier5Path.lineJoinStyle = .Round;
         
-        color!.setStroke()
+        UIColor.biinOrange().setStroke()
+        //color!.setStroke()
         bezier5Path.lineWidth = 8
         bezier5Path.stroke()
         
@@ -114,7 +115,8 @@ class BNIcon_Biin:BNIcon {
         
         bezier6Path.lineJoinStyle = .Round;
         
-        color!.setStroke()
+        UIColor.biinOrange().setStroke()
+//        color!.setStroke()
         bezier6Path.lineWidth = 8
         bezier6Path.stroke()
         

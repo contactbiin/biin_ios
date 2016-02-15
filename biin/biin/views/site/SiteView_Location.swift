@@ -342,13 +342,13 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             emailBtn!.alpha = 0
         }
         
-        if site!.siteSchedule != "" {
+        if site!.siteSchedule != "" && site!.siteSchedule != nil {
             scheduleLbl!.text = "\(NSLocalizedString("Schedule", comment: "Schedule")): \(site!.siteSchedule!)"
             scheduleLbl!.frame.origin.y = ypos
             scheduleLbl!.sizeToFit()
             ypos += scheduleLbl!.frame.height
         } else {
-            
+            print("Site schedule not set:\(site!.identifier!)")
         }
         
         ypos += 15

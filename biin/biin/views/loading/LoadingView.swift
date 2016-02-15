@@ -92,7 +92,7 @@ class LoadingView:UIView {
         progressView!.setProgress(0.0, animated: false)
         progressView!.progressViewStyle = UIProgressViewStyle.Bar
         progressView!.trackTintColor = UIColor.whiteColor()
-        progressView!.progressTintColor = UIColor.biinColor()
+        progressView!.progressTintColor = UIColor.biinOrange()
         self.addSubview(progressView!)
         
         ypos += 8
