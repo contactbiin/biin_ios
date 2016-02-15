@@ -43,15 +43,20 @@ class MainViewContainer_Elements:BNView {
         switch colorIndex {
         case 0:
             self.backgroundColor = UIColor.lightGrayColor()
+            category.backgroundColor = UIColor.lightGrayColor()
             textColor = UIColor.bnGrayDark()
         case 1:
             self.backgroundColor = UIColor.grayColor()
+            category.backgroundColor = UIColor.grayColor()
             textColor = UIColor.whiteColor()
         default:
             self.backgroundColor = UIColor.lightGrayColor()
+            category.backgroundColor = UIColor.lightGrayColor()
             textColor = UIColor.bnGrayDark()
             break
         }
+        
+        
         
         moreElementsBtn = UIButton(frame: CGRectMake(screenWidth - 50, 0, 50, 38))
         moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)

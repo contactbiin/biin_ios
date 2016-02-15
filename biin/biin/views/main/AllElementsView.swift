@@ -35,10 +35,12 @@ class AllElementsView: BNView {
     convenience init(frame: CGRect, father: BNView?, showBiinItBtn:Bool) {
         
         self.init(frame: frame, father:father )
-                
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+        
+        self.backgroundColor = UIColor.whiteColor()
+        
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -150,6 +152,8 @@ class AllElementsView: BNView {
     func updateCategoryData(category:BNCategory?) {
         
         if !isSameCategory(category) {
+//            self.backgroundColor = category!.backgroundColor
+            self.scroll!.backgroundColor = category!.backgroundColor
             scroll!.clean()
             let titleText = category!.name!//.uppercaseString
             let attributedString = NSMutableAttributedString(string:titleText)

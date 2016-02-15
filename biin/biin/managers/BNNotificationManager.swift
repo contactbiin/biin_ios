@@ -52,14 +52,16 @@ class BNNotificationManager:NSObject, NSCoding {
         
         switch order {
         case .OrderedDescending:
-                print("DESCENDING")
+//                print("DESCENDING")
                 currentDay = now
                 surveyed_Sites = [String]()
             break
         case .OrderedAscending:
-            print("ASCENDING")
+//            print("ASCENDING")
+            break
         case .OrderedSame:
-            print("SAME")
+//            print("SAME")
+            break
         }
         
         save()

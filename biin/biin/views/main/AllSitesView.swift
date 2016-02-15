@@ -31,11 +31,11 @@ class AllSitesView: BNView {
         
         self.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -65,7 +65,7 @@ class AllSitesView: BNView {
         line.backgroundColor = UIColor.darkGrayColor()
         
 //        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL_TWO_COLS, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
+        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL_TWO_COLS, space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), delegate: nil)
         self.addSubview(scroll!)
         self.addSubview(line)
         

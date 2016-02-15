@@ -257,7 +257,7 @@ class ElementMiniView: BNView {
         }
         
         if showRemoveBtn {
-            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 20), (headerHeight + 4), 15, 15), color:decorationColor)
+            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 20), (headerHeight + 4), 15, 15), color:UIColor.blackColor())
             removeItButton!.addTarget(self, action: "unCollect:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(removeItButton!)
         }

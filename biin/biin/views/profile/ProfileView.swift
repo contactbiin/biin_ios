@@ -37,7 +37,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     var emailVerifyTxt:BNUITexfield?
     var birthDateTxt:BNUITexfield?
     
-    var saveBtn:BNUIButton_Loging?
+    var saveBtn:UIButton?
     var areCategoriesChanged = false
     var categoriesTitle:UILabel?
     var categoriesSelected = Dictionary<String, String>()
@@ -47,11 +47,11 @@ class ProfileView: BNView, UITextFieldDelegate {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -392,9 +392,16 @@ class ProfileView: BNView, UITextFieldDelegate {
         }
         */
         ypos += 36
-        saveBtn = BNUIButton_Loging(frame: CGRectMake(1, (screenHeight - 82), (screenWidth - 2), 60), color: UIColor.darkGrayColor(), text:NSLocalizedString("Save", comment: "Save").uppercaseString, textColor:UIColor.whiteColor())
+        saveBtn = UIButton(frame: CGRectMake(5, (self.frame.height - 75), (screenWidth - 10), 50))
+        saveBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        saveBtn!.setTitle(NSLocalizedString("Save", comment: "Save"), forState: UIControlState.Normal)
+        saveBtn!.backgroundColor = UIColor.biinOrange()
+        saveBtn!.layer.cornerRadius = 2
+        saveBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+        saveBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        saveBtn!.layer.shadowOpacity = 0.25
+        
         saveBtn!.addTarget(self, action: "saveBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        //saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColors
         self.addSubview(saveBtn!)
         
         //ypos += 200
@@ -655,10 +662,8 @@ class ProfileView: BNView, UITextFieldDelegate {
         birthDateTxt?.clean()
         birthDateTxt?.removeFromSuperview()
         
-        saveBtn?.clean()
         saveBtn?.removeFromSuperview()
-        
-        
+                
         categoriesTitle?.removeFromSuperview()
         categoriesSelected.removeAll()
         

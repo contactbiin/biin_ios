@@ -348,7 +348,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             scheduleLbl!.sizeToFit()
             ypos += scheduleLbl!.frame.height
         } else {
-            print("Site schedule not set:\(site!.identifier!)")
+            //print("Site schedule not set:\(site!.identifier!)")
         }
         
         ypos += 15

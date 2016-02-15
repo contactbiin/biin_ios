@@ -21,14 +21,14 @@ class AboutView: BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        visualEffectView!.frame = self.bounds
-        self.addSubview(visualEffectView!)
+//        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView!.frame = self.bounds
+//        self.addSubview(visualEffectView!)
 
             
         var ypos:CGFloat = 10

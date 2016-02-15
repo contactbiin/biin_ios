@@ -32,9 +32,12 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     convenience init(frame: CGRect, father: BNView?, showBiinItBtn:Bool) {
         
         self.init(frame: frame, father:father )
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+        
+        self.backgroundColor = UIColor.whiteColor()
+        
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -65,7 +68,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         line.backgroundColor = UIColor.darkGrayColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll!.backgroundColor = UIColor.clearColor()
+        scroll!.backgroundColor = UIColor.lightGrayColor()
         scroll!.bounces = false
         scroll!.pagingEnabled = false
         self.addSubview(scroll!)
@@ -128,7 +131,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     
     func updateCollectedElements() {
         
-        print("updateCollectedElements")
+        //print("updateCollectedElements")
         
         if elements != nil {
             addedElementsIdentifiers!.removeAll(keepCapacity: false)
