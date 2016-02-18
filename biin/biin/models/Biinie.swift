@@ -153,7 +153,7 @@ class Biinie:NSObject, NSCoding {
     
     func addAction(at:NSDate, did:BiinieActionType, to:String) {
         
-//        NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+        NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
         
         var isActionReadyToAdd = false
         
