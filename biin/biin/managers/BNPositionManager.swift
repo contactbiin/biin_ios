@@ -220,6 +220,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             stop_SITES_MONITORING()
         }
         
+        
         //STAGE 1-5 / SITES_MONITORING
         var site_counter = 0
         for (_, site) in BNAppSharedManager.instance.dataManager.sites {
@@ -241,6 +242,16 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 }
             }
         }
+
+        /*
+        let exteriorBeaconRegion = CLBeaconRegion(proximityUUID:NSUUID(UUIDString: "AABBCCDD-A101-B202-C303-AABBCCDDEEFF")!, major:CLBeaconMajorValue(1), identifier:"biin")
+        exteriorBeaconRegion.notifyEntryStateOnDisplay = true
+//        self.monitoredBeaconRegions![site.major!] = exteriorBeaconRegion
+        self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
+        self.locationManager!.requestAlwaysAuthorization()
+        self.locationManager!.requestStateForRegion(exteriorBeaconRegion)
+        */
+        
     }
     
     func stop_SITES_MONITORING() {
@@ -760,7 +771,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            print("value: \(value)")
+            print(" \(value)")
         }
         
         //print("\(self.myBeacons.count)")

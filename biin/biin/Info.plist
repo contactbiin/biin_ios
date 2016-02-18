@@ -105,7 +105,6 @@
 	<false/>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>bluetooth-central</string>
 		<string>fetch</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
