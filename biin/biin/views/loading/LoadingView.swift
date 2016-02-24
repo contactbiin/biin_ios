@@ -21,6 +21,8 @@ class LoadingView:UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        NSLog("LoadingView()")
+        
         self.backgroundColor = UIColor.whiteColor()
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight

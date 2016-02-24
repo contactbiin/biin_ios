@@ -374,7 +374,6 @@ class BNNotificationManager:NSObject, NSCoding {
                             break
                         }
                         
-                        
                         if isAvailableToday {
                             
                             if isCurrentObjectSet {

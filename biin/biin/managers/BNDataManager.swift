@@ -105,12 +105,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func requestBiinieInitialData(){
+        
+        NSLog("BIIN - requestBiinieInitialData()")
         if isUserLoaded {
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
         }
     }
     
     func requestInitialData(){
+        
+        NSLog("BIIN - requestInitialData()")
         delegateNM!.manager!(self, initialdata: bnUser!)
         
         //Changes request flow.
@@ -197,7 +201,15 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     - parameter Network: status.
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
+        
+        NSLog("BIIN - didReceivedConnectionStatus \(status)")
         if status && BNAppSharedManager.instance.IS_APP_UP {
+            NSLog("BIIN - didReceivedConnectionStatus 1")
+
+            requestBiinieInitialData()
+        } else if status && BNAppSharedManager.instance.IS_APP_DOWN {
+            NSLog("BIIN - didReceivedConnectionStatus 2")
+
             requestBiinieInitialData()
         }
     }

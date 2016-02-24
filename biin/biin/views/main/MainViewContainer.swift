@@ -73,6 +73,8 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     func refreshButtonAction(sender:UIButton) {
         
+        NSLog("BIIN - refreshButtonAction")
+        
         let vc = LoadingViewController()
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         BNAppSharedManager.instance.mainViewController!.presentViewController(vc, animated: true, completion: nil)
@@ -86,6 +88,8 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     }
     
     func show_refreshButton(){
+        
+        
         
         if !isShowing_refreshButton {
             isShowing_refreshButton = true
@@ -102,8 +106,13 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     func updateContainer(){
         
         if BNAppSharedManager.instance.dataManager.sites_ordered.count == 0 {
-            print("not sites in list, request data again")
+            NSLog("BIIN ----------------------------------------------------")
+            NSLog("BIIN - not sites in list, request data again")
+            NSLog("BIIN - sites:\(BNAppSharedManager.instance.dataManager.sites.count)")
+            NSLog("BIIN - elements_by_identifier:\(BNAppSharedManager.instance.dataManager.elements_by_identifier.count)")
+            NSLog("BIIN ----------------------------------------------------")
             self.refreshButtonAction(UIButton())
+            
             
         } else {
             
@@ -211,6 +220,9 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     }
     
     override func refresh() {
+        
+        NSLog("BIIN - refresh()")
+        
         refresh_NearSitesContainer()
     }
 

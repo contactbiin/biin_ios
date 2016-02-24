@@ -82,6 +82,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         self.layer.masksToBounds = true
     }
     
+
+    
     func addUIViews(){
         
         
@@ -232,7 +234,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         BNAppSharedManager.instance.notificationManager.clear()
         
-        if let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"] {
+        if let site = BNAppSharedManager.instance.dataManager.sites["771c7b04-4d26-43ee-a415-82f1df35a7d2"] {
             site_to_survey = site
             hideInSiteView()
         }
@@ -387,6 +389,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     override func refresh() {
+        NSLog("BIIN - Mainview refresh()")
         mainViewContainerState!.view!.refresh()
     }
     

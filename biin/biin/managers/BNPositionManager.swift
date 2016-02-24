@@ -207,7 +207,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     func start_SITES_MONITORING(){
         
-        //print("start_SITES_MONITORING")
+        print("start_SITES_MONITORING")
         
         if BNAppSharedManager.instance.IS_APP_UP  || !BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED {
             return
@@ -268,7 +268,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     //When entering an EXT beacon  region.
     func start_SITE_EXTERIOR_MONITORING(beaconRegion:CLBeaconRegion){
-        //NSLog("BIIN - start_SITE_EXTERIOR_MONITORING")
+        NSLog("BIIN - start_SITE_EXTERIOR_MONITORING")
         if BNAppSharedManager.instance.IS_APP_UP {
             return
         }
@@ -771,7 +771,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            //print(" \(value)")
+            		print(" \(value)")
         }
         
         //print("\(self.myBeacons.count)")

@@ -24,6 +24,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSLog("MainViewController - viewDidLoad()")
+        
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -51,7 +53,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func initViewController(frame:CGRect){
-        
         
         BNAppSharedManager.instance.IS_MAINVIEW_ON = true
         BNAppSharedManager.instance.mainViewController = self
