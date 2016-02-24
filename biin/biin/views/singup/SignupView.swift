@@ -38,36 +38,40 @@ class SignupView:UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
         
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        var ypos:CGFloat = 20
+        var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
         let titleText = NSLocalizedString("SignUpTitle", comment: "SignUpTitle").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
         title!.font = UIFont(name:"Lato-Regular", size:13)
-        title!.textColor = UIColor.whiteColor()
+        title!.textColor = UIColor.darkGrayColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.darkGrayColor()
-        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.whiteColor().CGColor
-        backBtn!.layer.cornerRadius  = 17.5
-        backBtn!.layer.borderWidth = 1
+        backBtn!.icon!.color = UIColor.whiteColor()
+//        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
+        backBtn!.layer.backgroundColor = UIColor.biinOrange().CGColor
+//        backBtn!.layer.cornerRadius  = 17.5
+//        backBtn!.layer.borderWidth = 1
         backBtn!.layer.masksToBounds = true
         self.addSubview(backBtn!)
+        
+        let line = UIView(frame: CGRectMake(0, 35, screenWidth, 1))
+        line.backgroundColor = UIColor.biinOrange()
+        self.addSubview(line)
         
         ypos += SharedUIManager.instance.loginView_ypos_1
 
@@ -106,7 +110,7 @@ class SignupView:UIView, UITextFieldDelegate {
         let optionalLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 16))
         optionalLbl.text = NSLocalizedString("Optionales", comment: "Optionales")
         optionalLbl.textAlignment = NSTextAlignment.Left
-        optionalLbl.textColor = UIColor.whiteColor()
+        optionalLbl.textColor = UIColor.darkGrayColor()
         optionalLbl.numberOfLines = 0
         optionalLbl.font = UIFont(name: "Lato-Light", size: 13)
         optionalLbl.sizeToFit()
@@ -140,7 +144,7 @@ class SignupView:UIView, UITextFieldDelegate {
         self.addSubview(birthDateTxt!)
         
         ypos += (5 + birthDateTxt!.frame.height)
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 65), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), textColor:UIColor.whiteColor())
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 65), color:UIColor.biinOrange(), text:NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), textColor:UIColor.whiteColor())
         singupBtn!.addTarget(self, action: "singup:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         
@@ -148,7 +152,7 @@ class SignupView:UIView, UITextFieldDelegate {
         signupLbl = UILabel(frame: CGRectMake(10, 0, (screenWidth - 20), 16))
         signupLbl!.text = NSLocalizedString("DontForget", comment: "DontForget")
         signupLbl!.textAlignment = NSTextAlignment.Left
-        signupLbl!.textColor = UIColor.whiteColor()
+        signupLbl!.textColor = UIColor.darkGrayColor()
         signupLbl!.numberOfLines = 0
         signupLbl!.font = UIFont(name: "Lato-Light", size: 13)
         signupLbl!.sizeToFit()

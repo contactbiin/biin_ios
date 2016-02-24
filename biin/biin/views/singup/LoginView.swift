@@ -39,36 +39,40 @@ class LoginView:UIView, UITextFieldDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
         
         let screenWidth = SharedUIManager.instance.screenWidth
 
-        var ypos:CGFloat = 20
+        var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
         let titleText = NSLocalizedString("LoginTitle", comment: "LoginTitle").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
         title!.font = UIFont(name:"Lato-Regular", size:13)
-        title!.textColor = UIColor.whiteColor()
+        title!.textColor = UIColor.darkGrayColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.darkGrayColor()
-        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.whiteColor().CGColor
-        backBtn!.layer.cornerRadius  = 17.5
-        backBtn!.layer.borderWidth = 1
+        backBtn!.icon!.color = UIColor.whiteColor()
+//        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
+        backBtn!.layer.backgroundColor = UIColor.biinOrange().CGColor
+//        backBtn!.layer.cornerRadius  = 17.5
+//        backBtn!.layer.borderWidth = 1
         backBtn!.layer.masksToBounds = true
         self.addSubview(backBtn!)
 
+        let line = UIView(frame: CGRectMake(0, 35, screenWidth, 1))
+        line.backgroundColor = UIColor.biinOrange()
+        self.addSubview(line)
+        
         ypos += SharedUIManager.instance.signupView_ypos_1
   
         let textBg = UIView(frame: CGRectMake(0, ypos, screenWidth, 100))
@@ -76,12 +80,12 @@ class LoginView:UIView, UITextFieldDelegate {
         self.addSubview(textBg)
 
         let descLbl = UILabel(frame: CGRectMake(20, 30, (screenWidth - 40), 60))
-        descLbl.textColor = UIColor.whiteColor()
+        descLbl.textColor = UIColor.darkGrayColor()
         descLbl.font = UIFont(name: "Lato-Light", size: 18)
         descLbl.textAlignment = NSTextAlignment.Center
         descLbl.text = NSLocalizedString("LoginDesc", comment: "LoginDesc")
-//        descLbl.numberOfLines = 2
-//        descLbl.sizeToFit()
+        descLbl.numberOfLines = 2
+        descLbl.sizeToFit()
         textBg.addSubview(descLbl)
         
         ypos += 105
@@ -103,7 +107,7 @@ class LoginView:UIView, UITextFieldDelegate {
         
         ypos += (5 + passwordTxt!.frame.height)
         
-        continueBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 65), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("ContinueBtn", comment: "ContinueBtn"), textColor:UIColor.whiteColor())
+        continueBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:frame.width, height: 65), color:UIColor.biinOrange(), text:NSLocalizedString("ContinueBtn", comment: "ContinueBtn"), textColor:UIColor.whiteColor())
         continueBtn!.addTarget(self, action: "login:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(continueBtn!)
 

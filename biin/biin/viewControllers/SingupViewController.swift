@@ -43,44 +43,45 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
         self.becomeFirstResponder()
         
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.whiteColor()
 
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         let xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
         var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
 
-        let image = UIImageView(image: UIImage(named: "loading1.jpg"))
-        image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
-        self.view.addSubview(image)
+//        let image = UIImageView(image: UIImage(named: "loading1.jpg"))
+//        image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
+//        self.view.addSubview(image)
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.alpha = 1
-        visualEffectView.frame = self.view.bounds
-        self.view.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+//        visualEffectView.alpha = 1
+//        visualEffectView.frame = self.view.bounds
+//        self.view.addSubview(visualEffectView)
 
         
         biinLogo = BNUIBiinView(position:CGPoint(x:0, y:ypos), scale:SharedUIManager.instance.signupView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
+        biinLogo!.icon!.color = UIColor.blackColor()
         self.view.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-        ypos += (SharedUIManager.instance.signupView_spacer + biinLogo!.frame.height)
+        ypos += biinLogo!.frame.height//(SharedUIManager.instance.signupView_spacer + biinLogo!.frame.height)
         let textBg = UIView(frame: CGRectMake(0, ypos, screenWidth, 150))
-        textBg.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.05)
+        textBg.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(textBg)
 
         welcomeLbl = UILabel(frame: CGRectMake(0, 20, screenWidth, 28))
         welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
         welcomeLbl!.textAlignment = NSTextAlignment.Center
-        welcomeLbl!.textColor = UIColor.whiteColor()
+        welcomeLbl!.textColor = UIColor.darkGrayColor()
         welcomeLbl!.font = UIFont(name: "Lato-Regular", size: 25)
         textBg.addSubview(welcomeLbl!)
         
 //        ypos += (25 + welcomeLbl!.frame.height)
         welcomeDescLbl = UILabel(frame: CGRectMake(20, (25 + welcomeLbl!.frame.height), (screenWidth - 40), 0))
         welcomeDescLbl!.text = NSLocalizedString("WelcomeDesc", comment: "WelcomeDesc")
-        welcomeDescLbl!.textColor = UIColor.whiteColor()
+        welcomeDescLbl!.textColor = UIColor.darkGrayColor()
         welcomeDescLbl!.font = UIFont(name: "Lato-Light", size: 18)
         welcomeDescLbl!.textAlignment = NSTextAlignment.Center
         welcomeDescLbl!.numberOfLines = 4
@@ -88,12 +89,12 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         textBg.addSubview(welcomeDescLbl!)
         
          ypos += 155//(SharedUIManager.instance.signupView_spacer + welcomeDescLbl!.frame.height)
-        loginBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 60), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("Login", comment: "Login"), textColor:UIColor.whiteColor())
+        loginBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 60), color:UIColor.biinOrange(), text:NSLocalizedString("Login", comment: "Login"), textColor:UIColor.whiteColor())
         loginBtn!.addTarget(self, action: "showLogin:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(loginBtn!)
         
         ypos += (5 + loginBtn!.frame.height)//        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"))
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 60), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"), textColor:UIColor.whiteColor())
+        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 60), color:UIColor.biinOrange(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"), textColor:UIColor.whiteColor())
         singupBtn!.addTarget(self, action: "showSignUp:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(singupBtn!)
         

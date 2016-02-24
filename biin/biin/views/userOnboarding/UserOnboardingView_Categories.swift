@@ -29,7 +29,7 @@ class UserOnboardingView_Categories:UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -51,10 +51,11 @@ class UserOnboardingView_Categories:UIView {
         
         biinLogo = BNUIBiinView(position:CGPoint(x:0, y:ypos), scale:SharedUIManager.instance.signupView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
+        biinLogo!.icon!.color = UIColor.blackColor()
         self.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-        ypos += (SharedUIManager.instance.signupView_spacer + biinLogo!.frame.height)
+        ypos += biinLogo!.frame.height//(SharedUIManager.instance.signupView_spacer + biinLogo!.frame.height)
         let textBg = UIView(frame: CGRectMake(0, ypos, screenWidth, 150))
         textBg.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.05)
         self.addSubview(textBg)
@@ -62,14 +63,14 @@ class UserOnboardingView_Categories:UIView {
         welcomeLbl = UILabel(frame: CGRectMake(0, 20, screenWidth, 28))
         welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
         welcomeLbl!.textAlignment = NSTextAlignment.Center
-        welcomeLbl!.textColor = UIColor.whiteColor()
+        welcomeLbl!.textColor = UIColor.darkGrayColor()
         welcomeLbl!.font = UIFont(name: "Lato-Regular", size: 25)
         textBg.addSubview(welcomeLbl!)
         
         //        ypos += (25 + welcomeLbl!.frame.height)
         welcomeDescLbl = UILabel(frame: CGRectMake(20, (25 + welcomeLbl!.frame.height), (screenWidth - 40), 0))
         welcomeDescLbl!.text = NSLocalizedString("StartDesc", comment: "StartDesc")
-        welcomeDescLbl!.textColor = UIColor.whiteColor()
+        welcomeDescLbl!.textColor = UIColor.darkGrayColor()
         welcomeDescLbl!.font = UIFont(name: "Lato-Light", size: 18)
         welcomeDescLbl!.textAlignment = NSTextAlignment.Center
         welcomeDescLbl!.numberOfLines = 4
@@ -134,7 +135,7 @@ class UserOnboardingView_Categories:UIView {
 //        let x_space:CGFloat = ( SharedUIManager.instance.screenWidth - descriptionText.frame.width ) / 2
 //        descriptionText.frame.origin.x = x_space
         
-        startBtn = BNUIButton_Loging(frame: CGRect(x:0, y:ypos, width: screenWidth, height: 60), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.whiteColor())
+        startBtn = BNUIButton_Loging(frame: CGRect(x:0, y:ypos, width: screenWidth, height: 60), color:UIColor.biinOrange(), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.whiteColor())
         startBtn!.addTarget(self, action: "startBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(startBtn!)
     }

@@ -27,7 +27,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         UIApplication.sharedApplication().statusBarHidden = true
         self.setNeedsStatusBarAppearanceUpdate()
         
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.whiteColor()
         
 //        self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
@@ -39,15 +39,15 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         var xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
         //var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
         
-        let image = UIImageView(image: UIImage(named: "landing.jpg"))
-        image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
-        self.view.addSubview(image)
+//        let image = UIImageView(image: UIImage(named: "landing.jpg"))
+//        image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
+//        self.view.addSubview(image)
         
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.alpha = 1
-        visualEffectView.frame = self.view.bounds
-        self.view.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+//        visualEffectView.alpha = 1
+//        visualEffectView.frame = self.view.bounds
+//        self.view.addSubview(visualEffectView)
         
         
         xpos = 0

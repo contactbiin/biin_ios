@@ -116,7 +116,7 @@ class UIManager {
     
     //Signup
     var signupView_spacer:CGFloat = 0
-    var signupView_logoSize:CGFloat = 200
+    var signupView_logoSize:CGFloat = 150
     var signupView_ypos_1:CGFloat = 0
     
     
