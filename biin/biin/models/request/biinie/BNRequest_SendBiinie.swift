@@ -29,7 +29,7 @@ class BNRequest_SendBiinie:BNRequest {
     
     override func run() {
         
-        self.start = NSDate()
+        //self.start = NSDate()
         
         isRunning = true
         requestAttemps++
@@ -40,9 +40,18 @@ class BNRequest_SendBiinie:BNRequest {
         modelContent["lastName"] = self.user!.lastName!
         modelContent["email"] = self.user!.email!
         modelContent["gender"] = self.user!.gender!
+        modelContent["facebook_id"] = self.user!.facebook_id!
+        
+        if self.user!.isEmailVerified! {
+            modelContent["isEmailVerified"] = "1"
+        } else {
+            modelContent["isEmailVerified"] = "0"
+        }
+        
         if self.user!.birthDate != nil {
             modelContent["birthDate"] = self.user!.birthDate!.bnDateFormatt()
         }
+        
         model["model"] = modelContent
         
         //var httpError: NSError?
@@ -79,9 +88,9 @@ class BNRequest_SendBiinie:BNRequest {
                     
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
          
-                let end = NSDate()
-                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                print("BNRequest_SendBiinie [\(timeInterval)] - \(self.requestString)")
+                //let end = NSDate()
+                //let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                //print("BNRequest_SendBiinie [\(timeInterval)] - \(self.requestString)")
                 
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)

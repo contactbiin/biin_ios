@@ -154,7 +154,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
         
         if BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST {
-            NSLog("BIIN - Request initialData background when user moved!")
+            //NSLog("BIIN - Request initialData background when user moved!")
         /*
             locationFixAchieved = true
             let locationArray = locations as NSArray
@@ -220,6 +220,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             stop_SITES_MONITORING()
         }
         
+        
         //STAGE 1-5 / SITES_MONITORING
         var site_counter = 0
         for (_, site) in BNAppSharedManager.instance.dataManager.sites {
@@ -241,6 +242,16 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 }
             }
         }
+
+        /*
+        let exteriorBeaconRegion = CLBeaconRegion(proximityUUID:NSUUID(UUIDString: "AABBCCDD-A101-B202-C303-AABBCCDDEEFF")!, major:CLBeaconMajorValue(1), identifier:"biin")
+        exteriorBeaconRegion.notifyEntryStateOnDisplay = true
+//        self.monitoredBeaconRegions![site.major!] = exteriorBeaconRegion
+        self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
+        self.locationManager!.requestAlwaysAuthorization()
+        self.locationManager!.requestStateForRegion(exteriorBeaconRegion)
+        */
+        
     }
     
     func stop_SITES_MONITORING() {
@@ -460,7 +471,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        NSLog("BIIN - didEnterRegion() 1")
+        //NSLog("BIIN - didEnterRegion() 1")
         
         if BNAppSharedManager.instance.IS_APP_UP{
 //            NSLog("BIIN - didEnterRegion() 2")
@@ -644,6 +655,11 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             
             if BNAppSharedManager.instance.dataManager.bnUser != nil {
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:beaconRegion.identifier)
+                
+                //print("Exit region:\(beaconRegion.identifier)")
+            } else {
+                print("User nil when exit region")
+
             }
             
             /*
@@ -705,7 +721,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             return
         }
         
-        NSLog("start_BEACON_RANGING")
+        //NSLog("start_BEACON_RANGING")
         
         stop_REGION_MONITORING()
         nowMonitoring = BNRegionMonitoringType.RANGING
@@ -727,7 +743,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //BNDataManagerDelegate Methods
     func stop_BEACON_RANGING() {
         
-        NSLog("stop_BEACON_RANGING")
+        //NSLog("stop_BEACON_RANGING")
         
         //self.stopMonitoringBeaconRegions()
         for (key, _): (AnyObject, AnyObject) in self.rangedRegions {
@@ -755,7 +771,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            //print("value: \(value)")
+            		print(" \(value)")
         }
         
         //print("\(self.myBeacons.count)")
@@ -991,7 +1007,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             
                             currentSite = site
                             self.delegateView!.showInSiteView!(currentSite!)
-
+                            
                         }
                     }
                 }
@@ -1018,6 +1034,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         isBiinsViewContainerEmpty = true
         self.biins.removeAll(keepCapacity: false)
 //        BNAppSharedManager.instance.dataManager.availableBiins.removeAll(keepCapacity: false)
+        currentSite = nil
         self.delegateView!.hideInSiteView!()
         self.myBeaconsPrevious.removeAll(keepCapacity: false)
         self.myBeacons.removeAll(keepCapacity: false)

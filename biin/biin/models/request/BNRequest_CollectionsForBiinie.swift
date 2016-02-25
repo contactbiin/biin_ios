@@ -27,7 +27,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
     
     override func run() {
         
-        self.start = NSDate()
+        //self.start = NSDate()
         
         isRunning = true
         requestAttemps++
@@ -236,6 +236,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                                         site.userLiked = BNParser.findBool("userLiked", dictionary: siteData)
                                         site.latitude = BNParser.findFloat("latitude", dictionary:siteData)
                                         site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
+                                        site.siteSchedule = BNParser.findString("siteSchedule", dictionary: siteData)
                                         
                                         let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
                                         

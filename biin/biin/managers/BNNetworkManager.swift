@@ -141,6 +141,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
  
     func checkConnectivity() {
         
+        NSLog("BIIN - checkConnectivity()")
+        
         let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
         
@@ -157,9 +159,39 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     @param password:Biinie password.
     */
     func login(email:String, password:String){
-        let request = BNRequest_Login(requestString: "\(rootURL)/mobile/biinies/auth/\(email)/\(password)", errorManager: self.errorManager!, networkManager: self)
+//        
+//        let address = "\(rootURL)/mobile/biinies/auth/\(email)/\(password)"
+//        let escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+//        let urlpath = NSString(format: "\(escapedAddress!)")
+        
+        let url : NSString = "\(rootURL)/mobile/biinies/auth/\(email)/\(password)"
+//        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+//        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
+        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let request = BNRequest_Login(requestString:"\(urlStr)" , errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
+    
+    
+    /**
+     Enable biinie to login.
+     @param email:Biinie email.
+     @param password:Biinie password.
+     */
+    func login_Facebook(email:String){
+        
+        //        let address = "\(rootURL)/mobile/biinies/auth/\(email)/\(password)"
+        //        let escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        //        let urlpath = NSString(format: "\(escapedAddress!)")
+        
+        let url : NSString = "\(rootURL)/mobile/biinies/auth/thirdparty/facebook/\(email)"
+        //        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        //        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
+        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let request = BNRequest_Login_Facebook(requestString:"\(urlStr)" , errorManager: self.errorManager!, networkManager: self)
+        addToQueue(request)
+    }
+
     
     /**
     Enable biinie to register.
@@ -175,7 +207,44 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             date = "none"
         }
         
-        let request = BNRequest_Register(requestString: "\(rootURL)/mobile/biinies/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)", errorManager: self.errorManager!, networkManager: self)
+        let url : NSString = "\(rootURL)/mobile/biinies/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)"
+//        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+//        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
+        
+//        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())
+
+        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let request = BNRequest_Register(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
+        addToQueue(request)
+    }
+    
+    
+    /**
+     Enable biinie to register using Facebook.
+     @param user:Biinie data.
+     */
+    func register_with_Facebook(user:Biinie) {
+        
+        var date:String?
+        
+        if user.birthDate != nil {
+            date = user.birthDate?.bnDateFormattForActions()
+        }else {
+            date = "none"
+        }
+        
+        if user.password == "" {
+            user.password = "none"
+        }
+        
+        let url : NSString = "\(rootURL)/mobile/biinies/facebook/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)/\(user.facebook_id!)"
+        //        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        //        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
+        
+        //        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())
+        
+        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let request = BNRequest_Register_with_Facebook(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -716,11 +785,20 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 }
 
 extension NSDate {
+    
     convenience init(dateString:String) {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         let d = formatter.dateFromString(dateString)
+        self.init(timeInterval:0, sinceDate:d!)
+    }
+    
+    convenience init(dateStringMMddyyyy:String) {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        let d = formatter.dateFromString(dateStringMMddyyyy)
         self.init(timeInterval:0, sinceDate:d!)
     }
     

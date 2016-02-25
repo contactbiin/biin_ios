@@ -24,7 +24,7 @@ class BNRequest_Organization: BNRequest {
     
     override func run() {
 
-        self.start = NSDate()
+        //self.start = NSDate()
         
         isRunning = true
         requestAttemps++
@@ -75,10 +75,11 @@ class BNRequest_Organization: BNRequest {
                     }
                 }
                 
+                /*
                 let end = NSDate()
                 let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                 print("BNRequest_Organization [\(timeInterval)] - \(self.requestString)")
-                
+                */
                 
                 self.inCompleted = true
                 self.networkManager!.removeFromQueue(self)

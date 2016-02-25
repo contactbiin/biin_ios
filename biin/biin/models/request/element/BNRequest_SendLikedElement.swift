@@ -28,7 +28,7 @@ class BNRequest_SendLikedElement: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendLikedElement - \(requestString)")
+        //print("BNRequest_SendLikedElement - \(requestString)")
 
         isRunning = true
         requestAttemps++

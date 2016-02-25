@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
-        //NSLog("BIIN - didFinishLaunchingWithOptions()")
+        NSLog("BIIN - didFinishLaunchingWithOptions()")
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
@@ -29,31 +29,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
         appManager.IS_APP_REQUESTING_NEW_DATA = false
         
-//        switch application.applicationState {
-//        case .Active:
-////            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
-//            appManager.IS_APP_UP = true
-//            appManager.IS_APP_DOWN = false
+        switch application.applicationState {
+        case .Active:
+            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+            appManager.IS_APP_UP = true
+            appManager.IS_APP_DOWN = false
+            break
+        case .Background:
+            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+            appManager.IS_APP_UP = false
+            appManager.IS_APP_DOWN = true
+            break
+        case .Inactive:
+            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
+            appManager.IS_APP_UP = false
+            appManager.IS_APP_DOWN = true
+            break
+//        default:
+//            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
 //            break
-//        case .Background:
-////            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
-//            appManager.IS_APP_UP = false
-//            appManager.IS_APP_DOWN = true
-//            break
-//        case .Inactive:
-////            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
-//            appManager.IS_APP_UP = false
-//            appManager.IS_APP_DOWN = true
-//            break
-////        default:
-////            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
-////            break
-//        }
+        }
         
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
         if BNAppSharedManager.instance.dataManager.isUserLoaded {
+            NSLog("Stating LoadingViewController()")
             let lvc = LoadingViewController()
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
@@ -105,9 +106,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         RidesClient.sharedInstance.configureClientID("Kvswd-Zkg5J9xNnMHZIxUQ1nPiIc5Tid")
-        return true
+//        return true
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
+    func application(application: UIApplication,
+        openURL url: NSURL,
+        sourceApplication: String?,
+        annotation: AnyObject) -> Bool {
+            return FBSDKApplicationDelegate.sharedInstance().application(
+                application,
+                openURL: url,
+                sourceApplication: sourceApplication,
+                annotation: annotation)
+    }
 
     func setupNotificationSettings() {
         
@@ -178,12 +190,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
-        NSLog("BIIN - applicationDidEnterBackground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
+        //NSLog("BIIN - applicationDidEnterBackground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
 
         //BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])
         
-        //BNAppSharedManager.instance.clean()
-        
+
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -193,9 +204,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         appManager.positionManager.start_BEACON_RANGING()
 
-        BNAppSharedManager.instance.show()
+        //BNAppSharedManager.instance.show()
         
-        NSLog("BIIN - applicationWillEnterForeground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
+        //NSLog("BIIN - applicationWillEnterForeground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
         
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
@@ -204,9 +215,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         appManager.IS_APP_UP = true
         
-//        if appManager.dataManager.bnUser != nil {
-//            appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
-//        }
+        if appManager.dataManager.bnUser != nil {
+            appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 

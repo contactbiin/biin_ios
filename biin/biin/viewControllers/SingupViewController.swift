@@ -1,32 +1,21 @@
-//
 //  SingupViewController.swift
 //  biin
-//
 //  Created by Esteban Padilla on 2/6/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
-//
 
 import Foundation
 import UIKit
 
-class SingupViewController:UIViewController, UIPopoverPresentationControllerDelegate, LoginView_Delegate, SignupView_Delegate, BNNetworkManagerDelegate {
-    
-    
-    
+class SingupViewController:UIViewController, UIPopoverPresentationControllerDelegate, LoginView_Delegate, SignupView_Delegate, BNNetworkManagerDelegate, FBSDKLoginButtonDelegate {
+   
     var biinLogo:BNUIBiinView?
     var welcomeLbl:UILabel?
     var welcomeDescLbl:UILabel?
-    
-    var loginBtn:BNUIButton_Loging?
-    var singupBtn:BNUIButton_Loging?
-    
+    var loginBtn:UIButton?
+    var singupBtn:UIButton?
     var fade:UIView?
-
-    
     var signupView:SignupView?
     var loginView:LoginView?
-    //var fadeView:UIView?
-    
     var alert:BNUIAlertView?
     
     override func viewDidLoad() {
@@ -43,85 +32,112 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
         self.becomeFirstResponder()
         
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.whiteColor()
 
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
-        let xpos:CGFloat = ((screenHeight - screenWidth) / 2) * -1
-        var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
+        var ypos:CGFloat = 0
 
-        let image = UIImageView(image: UIImage(named: "loading1.jpg"))
-        image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
-        self.view.addSubview(image)
+//        let image = UIImageView(image: UIImage(named: "loading1.jpg"))
+//        image.frame = CGRectMake(xpos, 0, screenHeight, screenHeight)
+//        self.view.addSubview(image)
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
-        visualEffectView.alpha = 1
-        visualEffectView.frame = self.view.bounds
-        self.view.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
+//        visualEffectView.alpha = 1
+//        visualEffectView.frame = self.view.bounds
+//        self.view.addSubview(visualEffectView)
 
-        
         biinLogo = BNUIBiinView(position:CGPoint(x:0, y:ypos), scale:SharedUIManager.instance.signupView_logoSize)
         biinLogo!.frame.origin.x = ((screenWidth - biinLogo!.frame.width) / 2)
+        biinLogo!.icon!.color = UIColor.blackColor()
         self.view.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-        ypos += (SharedUIManager.instance.signupView_spacer + biinLogo!.frame.height)
-        let textBg = UIView(frame: CGRectMake(0, ypos, screenWidth, 150))
-        textBg.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.05)
-        self.view.addSubview(textBg)
-
-        welcomeLbl = UILabel(frame: CGRectMake(0, 20, screenWidth, 28))
+        ypos += (biinLogo!.frame.height + 20)
+        welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 23))
         welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
         welcomeLbl!.textAlignment = NSTextAlignment.Center
-        welcomeLbl!.textColor = UIColor.whiteColor()
-        welcomeLbl!.font = UIFont(name: "Lato-Regular", size: 25)
-        textBg.addSubview(welcomeLbl!)
+        welcomeLbl!.textColor = UIColor.darkGrayColor()
+        welcomeLbl!.font = UIFont(name: "Lato-Light", size: 20)
+        self.view.addSubview(welcomeLbl!)
         
-//        ypos += (25 + welcomeLbl!.frame.height)
-        welcomeDescLbl = UILabel(frame: CGRectMake(20, (25 + welcomeLbl!.frame.height), (screenWidth - 40), 0))
+        ypos += (welcomeLbl!.frame.height + 5)
+        welcomeDescLbl = UILabel(frame: CGRectMake(20, ypos, (screenWidth - 40), 0))
         welcomeDescLbl!.text = NSLocalizedString("WelcomeDesc", comment: "WelcomeDesc")
-        welcomeDescLbl!.textColor = UIColor.whiteColor()
-        welcomeDescLbl!.font = UIFont(name: "Lato-Light", size: 18)
+        welcomeDescLbl!.textColor = UIColor.darkGrayColor()
+        welcomeDescLbl!.font = UIFont(name: "Lato-Light", size: 14)
         welcomeDescLbl!.textAlignment = NSTextAlignment.Center
         welcomeDescLbl!.numberOfLines = 4
         welcomeDescLbl!.sizeToFit()
-        textBg.addSubview(welcomeDescLbl!)
+        self.view.addSubview(welcomeDescLbl!)
         
-         ypos += 155//(SharedUIManager.instance.signupView_spacer + welcomeDescLbl!.frame.height)
-        loginBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 60), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("Login", comment: "Login"), textColor:UIColor.whiteColor())
-        loginBtn!.addTarget(self, action: "showLogin:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(loginBtn!)
+        ypos += (welcomeDescLbl!.frame.height + 30)
         
-        ypos += (5 + loginBtn!.frame.height)//        singupBtn = BNUIButton_Loging(frame: CGRect(x:((screenWidth - 195) / 2), y: ypos, width: 195, height: 65), color:UIColor.bnYellow(), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"))
-        singupBtn = BNUIButton_Loging(frame: CGRect(x:0, y: ypos, width:screenWidth, height: 60), color:UIColor.whiteColor().colorWithAlphaComponent(0.25), text:NSLocalizedString("ImNewHere", comment: "ImNewHere"), textColor:UIColor.whiteColor())
+        var facebookBtn:FBSDKLoginButton?
+
+        FBSDKApplicationDelegate.sharedInstance().application(nil, didFinishLaunchingWithOptions: nil)
+        
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            // User is already logged in, do work such as go to next view controller.
+            print("alredy in facebook")
+        } else {
+            facebookBtn = FBSDKLoginButton()
+            self.view.addSubview(facebookBtn!)
+            facebookBtn!.frame = CGRectMake(5, ypos, (screenWidth - 10), 60)
+            facebookBtn!.readPermissions = ["public_profile", "email", "user_friends", "user_birthday"]
+            facebookBtn!.layer.cornerRadius = 2
+            facebookBtn!.delegate = self
+            ypos += 65
+        }
+        
+        singupBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 60))
+        singupBtn!.backgroundColor = UIColor.biinOrange()
+        singupBtn!.layer.cornerRadius = 2
+        singupBtn!.setTitle(NSLocalizedString("ImNewHere", comment: "ImNewHere"), forState: UIControlState.Normal)
+        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
         singupBtn!.addTarget(self, action: "showSignUp:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(singupBtn!)
         
+        ypos += (singupBtn!.frame.height + 5)
+        loginBtn = UIButton(frame: CGRectMake(5, (screenHeight - 30), (screenWidth - 10), 30))
+        loginBtn!.backgroundColor = UIColor.clearColor()
+        loginBtn!.setTitle(NSLocalizedString("Login", comment: "Login"), forState: UIControlState.Normal)
+        loginBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        loginBtn!.addTarget(self, action: "showLogin:", forControlEvents: UIControlEvents.TouchUpInside)
+        loginBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        self.view.addSubview(loginBtn!)
+
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.view.addSubview(fade!)
 
-        
-        loginView = LoginView(frame:CGRectMake(screenWidth, 0, self.view.frame.width, screenHeight))
-        //loginView!.layer.cornerRadius = 5
-        //loginView!.layer.masksToBounds = true
+        loginView = LoginView(frame:CGRectMake(screenWidth, 0, screenWidth, screenHeight))
         loginView!.delegate = self
         self.view.addSubview(loginView!)
         
-//        fadeView = UIView(frame:CGRectMake(0, 25, self.view.frame.width, (self.view.frame.height - 25)))
-//        fadeView!.backgroundColor = UIColor.blackColor()
-//        fadeView!.alpha = 0
-//        self.view.addSubview(fadeView!)
-//        fadeView!.frame.origin.x = SharedUIManager.instance.screenWidth
-        
-        signupView = SignupView(frame:CGRectMake(0, 0, self.view.frame.width, screenHeight))
-        //signupView!.layer.cornerRadius = 5
-        //signupView!.layer.masksToBounds = true
+        signupView = SignupView(frame:CGRectMake(screenWidth, 0, screenWidth, screenHeight))
         signupView!.delegate = self
-        
         self.view.addSubview(signupView!)
-        signupView!.frame.origin.x = SharedUIManager.instance.screenWidth
+        
+        
+        ypos = (screenHeight - ypos ) / 2
+        biinLogo!.frame.origin.y = ypos
+        ypos += (biinLogo!.frame.height + 20)
+        welcomeLbl!.frame.origin.y = ypos
+        ypos += (welcomeLbl!.frame.height + 5)
+        welcomeDescLbl!.frame.origin.y = ypos
+        
+        ypos += (welcomeDescLbl!.frame.height + 30)
+        if facebookBtn != nil {
+            facebookBtn!.frame.origin.y = ypos
+            ypos += (facebookBtn!.frame.height + 5)
+
+        }
+        
+        singupBtn!.frame.origin.y = ypos
+        
+        //self.view.layerGradient()
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -179,6 +195,17 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         }
         
         showProgressView()
+    }
+    
+    func hideProgressView(){
+        if (alert?.isOn != nil) {
+            alert!.hideWithCallback({() -> Void in
+                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:"Error on Facebook!")
+                self.view.addSubview(self.alert!)
+                self.alert!.showAndHide()
+                self.loginView!.clean()
+            })
+        }
     }
     
     func test(view: UIView) {
@@ -252,6 +279,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     func showLogin(sender:BNUIButton_Loging){
+        
         UIView.animateWithDuration(0.3, animations: {()->Void in
             self.loginView!.frame.origin.x = 0
             self.fade!.alpha = 0.5
@@ -276,6 +304,79 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         UIView.animateWithDuration(0.3, animations: {()->Void in
             self.signupView!.frame.origin.x = SharedUIManager.instance.screenWidth
             self.fade!.alpha = 0
+        })
+    }
+    
+    // Facebook Delegate Methods
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        
+
+        
+        if ((error) != nil) {
+            // Process error
+            self.hideProgressView()
+        }  else if result.isCancelled {
+            // Handle cancellations
+            self.hideProgressView()
+        }  else {
+            // If you ask for multiple permissions at once, you
+            // should check if specific permissions missing
+            if result.grantedPermissions.contains("email")
+            {
+                // Do work
+                self.showProgress(self.view)
+                returnUserData()
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        print("User Logged Out")
+    }
+    
+    func returnUserData() {
+        
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath:"me", parameters:["fields":"id,first_name,last_name,gender,picture,email,birthday,friends"])
+        
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            
+            if ((error) != nil) {
+                // Process error
+                print("Error: \(error)")
+            } else {
+                let user = Biinie()
+                user.identifier = ""
+                if let first_name = result.valueForKey("first_name") {
+                    user.firstName = first_name as? String
+                }
+
+                if let last_name = result.valueForKey("last_name") {
+                    user.lastName = last_name as? String
+                }
+                
+                if let userEmail = result.valueForKey("email") {
+                    user.email = userEmail as? String
+                    user.biinName = userEmail as? String
+                }
+                
+                if let birthday = result.valueForKey("birthday") {
+                    let bd = NSDate(dateStringMMddyyyy: (birthday as! String))
+                    user.birthDate = bd
+                }
+                
+                if let gender = result.valueForKey("gender") {
+                    user.gender = gender as? String
+                }
+                
+                if let facebook_id = result.valueForKey("id") {
+                    user.facebook_id = facebook_id as? String
+                }
+                
+                user.isEmailVerified = true
+                user.password = ""
+                BNAppSharedManager.instance.dataManager.bnUser = user
+                BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
+            }
         })
     }
 }

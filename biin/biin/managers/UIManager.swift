@@ -116,7 +116,7 @@ class UIManager {
     
     //Signup
     var signupView_spacer:CGFloat = 0
-    var signupView_logoSize:CGFloat = 200
+    var signupView_logoSize:CGFloat = 50
     var signupView_ypos_1:CGFloat = 0
     
     
@@ -140,8 +140,8 @@ class UIManager {
     
     
     //Onboarding
-    var onboardingSlide_TitleSize:CGFloat = 23
-    var onboardingSlide_DescriptionSize:CGFloat = 21
+    var onboardingSlide_TitleSize:CGFloat = 20
+    var onboardingSlide_DescriptionSize:CGFloat = 15
     var columns:Int = 2
     
     //Detail View

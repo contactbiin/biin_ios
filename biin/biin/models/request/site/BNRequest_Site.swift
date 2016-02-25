@@ -28,7 +28,7 @@ class BNRequest_Site: BNRequest {
 
     override func run() {
         
-        self.start = NSDate()
+        //self.start = NSDate()
 
         isRunning = true
         requestAttemps++

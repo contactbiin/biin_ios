@@ -20,6 +20,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var ubication:UILabel?
     var phoneLbl:UILabel?
     var emailLbl:UILabel?
+    var scheduleLbl:UILabel?
     //var phoneNumber:UILabel?
     //var email:UILabel?
     
@@ -30,6 +31,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     var emailBtn:UIButton?
     var callBtn:UIButton?
+    var npsBtn:UIButton?
     var commentBtn:BNUIButton_Contact?
     var closeBtn:BNUIButton_Close?
     
@@ -42,6 +44,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        super.init()
 //    }
     var uber_button:RequestButton?
+    weak var site:BNSite?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -123,6 +126,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         emailLbl!.numberOfLines = 0
         self.addSubview(emailLbl!)
         
+        ypos += SharedUIManager.instance.siteView_nutshellSize + 2
+        scheduleLbl = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
+        scheduleLbl!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
+        scheduleLbl!.text = ""
+        scheduleLbl!.textColor = UIColor.bnGrayDark()
+        scheduleLbl!.numberOfLines = 0
+        self.addSubview(scheduleLbl!)
+        
         ypos += 10
         map = MKMapView(frame:CGRectMake(5, ypos, (screenWidth - 10), 150))
         map!.userInteractionEnabled = false
@@ -141,9 +152,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //emailBtn!.backgroundColor = UIColor.bnVisitSiteColor()
         
         emailBtn!.layer.cornerRadius = 2
-        emailBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        emailBtn!.layer.shadowOpacity = 0.25
+//        emailBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+//        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        emailBtn!.layer.shadowOpacity = 0.25
         
         emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
@@ -156,24 +167,34 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //callBtn!.backgroundColor = UIColor.bnVisitSiteColor()
 
         callBtn!.layer.cornerRadius = 2
-        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        callBtn!.layer.shadowOpacity = 0.25
+//        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+//        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        callBtn!.layer.shadowOpacity = 0.25
 
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
         
         
+        
+        ypos += 55
+        npsBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
+        npsBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        npsBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        npsBtn!.layer.cornerRadius = 2
+        npsBtn!.addTarget(self, action: "nps:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(npsBtn!)
+
         uber_button = RequestButton()
-        uber_button!.frame = CGRectMake(5, 0, (self.frame.width - 10), 50)
+        uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
         uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
         uber_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         uber_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
         uber_button!.backgroundColor = UIColor.darkGrayColor()
         uber_button!.layer.cornerRadius = 2
-        uber_button!.layer.shadowColor = UIColor.blackColor().CGColor
-        uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        uber_button!.layer.shadowOpacity = 0.25
+//        uber_button!.layer.shadowColor = UIColor.blackColor().CGColor
+//        uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        uber_button!.layer.shadowOpacity = 0.25
         self.addSubview(uber_button!)
         uber_button!.setNeedsDisplay()
         
@@ -240,6 +261,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     //Instance methods
     func updateForSite(site: BNSite?){
         
+        self.site = site
+        
         var ypos:CGFloat = title!.frame.origin.y
         let xpos:CGFloat = 10
 
@@ -248,23 +271,23 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         
         streetAddress1!.text = ""
-        streetAddress1!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        streetAddress1!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
         
         streetAddress2!.text = ""
-        streetAddress2!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        streetAddress2!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
         
         ubication!.text = ""
-        ubication!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        ubication!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
 
-        
-        
-        
         phoneLbl!.text = ""
-        phoneLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        phoneLbl!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
 
         emailLbl!.text = ""
-        emailLbl!.frame = CGRectMake(xpos, ypos, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3))
+        emailLbl!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
         
+        scheduleLbl!.text = ""
+        scheduleLbl!.frame = CGRectMake(xpos, ypos, (SharedUIManager.instance.screenWidth - 20), (SharedUIManager.instance.siteView_nutshellSize + 3))
+    
         
         //title!.textColor = site!.titleColor
         title!.text = "\(site!.title!) - \(site!.subTitle!)"
@@ -303,9 +326,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += phoneLbl!.frame.height
             hasPhone = true
             callBtn!.enabled = true
+            callBtn!.alpha = 1
             callBtn!.backgroundColor = site!.media[0].vibrantDarkColor
         }else {
             callBtn!.enabled = false
+            callBtn!.alpha = 0
         }
  
         if site!.email! != "" {
@@ -324,12 +349,23 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
             
             emailBtn!.enabled = true
+            emailBtn!.alpha = 1
             emailBtn!.backgroundColor = site!.media[0].vibrantDarkColor
         } else {
             emailBtn!.enabled = false
-            
+            emailBtn!.alpha = 0
         }
-        ypos += 10
+        
+        if site!.siteSchedule != "" && site!.siteSchedule != nil {
+            scheduleLbl!.text = "\(NSLocalizedString("Schedule", comment: "Schedule")): \(site!.siteSchedule!)"
+            scheduleLbl!.frame.origin.y = ypos
+            scheduleLbl!.sizeToFit()
+            ypos += scheduleLbl!.frame.height
+        } else {
+            //print("Site schedule not set:\(site!.identifier!)")
+        }
+        
+        ypos += 15
 
         yStop = ypos
         //commentBtn!.icon!.color = site!.titleColor!
@@ -372,12 +408,28 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += callBtn!.frame.height
             ypos += 5
         }
-        //ypos += (50 + 10)
         
         if hasEmail {
             emailBtn!.frame.origin.y = ypos
-            ypos += emailLbl!.frame.height
+            ypos += emailBtn!.frame.height
             ypos += 5
+        }
+        
+        if site!.organization!.hasNPS {
+            if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site!.identifier) {
+                npsBtn!.alpha = 1
+                npsBtn!.enabled = true
+                npsBtn!.frame.origin.y = ypos
+                npsBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+                ypos += npsBtn!.frame.height
+                ypos += 5
+            } else {
+                npsBtn!.alpha = 0
+                npsBtn!.enabled = false
+            }
+        } else {
+            npsBtn!.alpha = 0
+            npsBtn!.enabled = false
         }
         
         let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
@@ -385,7 +437,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.setProductID(site!.identifier!)
         uber_button!.setPickupLocation(latitude: lat, longitude:long, nickname:"\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)")
         uber_button!.setDropoffLocation(latitude: Double(site!.latitude!), longitude:Double(site!.longitude!), nickname: site!.title!)
-        uber_button!.frame.origin.y = (ypos + 33)
+        uber_button!.frame.origin.y = ypos
         ypos += uber_button!.frame.height
         
         
@@ -417,7 +469,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
     }
     
-    func call(sender:BNUIButton_Contact){
+    func call(sender:UIButton){
         
         if self.site_phoneNumber! != "" {
             let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
@@ -425,7 +477,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         }
     }
     
-    func sendMail(sender: BNUIButton_Contact) {
+    func sendMail(sender: UIButton) {
         let picker = MFMailComposeViewController()
         let toRecipents = [site_email!]
         picker.setToRecipients(toRecipents)
@@ -434,6 +486,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         picker.setMessageBody("", isHTML: true)
         
         (father!.father! as? MainView)?.rootViewController!.presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    func nps(sender:UIButton){
+        npsBtn!.alpha = 0.5
+        npsBtn!.enabled = false
+        (father!.father! as? MainView)?.site_to_survey = self.site
+//        (father!.father! as? MainView)?.setNextState(BNGoto.Survey)
+        (father!.father! as? MainView)?.showSurveyViewOnRequest()
     }
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {

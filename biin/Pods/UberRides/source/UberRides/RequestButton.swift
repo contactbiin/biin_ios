@@ -56,7 +56,7 @@ public class RequestButton: UIButton {
         //uberImageView = UIImageView()
         //uberTitleLabel = UILabel()
         buttonStyle = colorStyle
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRectMake(10, 10, 100, 50))
         setUp(colorStyle)
     }
     

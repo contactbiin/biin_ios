@@ -8,6 +8,7 @@ import UIKit
 
 class Biinie:NSObject, NSCoding {
     
+    var facebook_id:String?
     var identifier:String?
     var biinName:String?
     var firstName:String?
@@ -63,6 +64,12 @@ class Biinie:NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
+//        
+//        if let facebook_id_stored = aDecoder.decodeObjectForKey("facebook_id") {
+//            self.facebook_id = facebook_id_stored as? String
+//        }
+//        
+        self.facebook_id = aDecoder.decodeObjectForKey("facebook_id") as? String
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
         self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
@@ -83,6 +90,11 @@ class Biinie:NSObject, NSCoding {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        
+        if let facebook_id = self.facebook_id {
+            aCoder.encodeObject(facebook_id, forKey: "facebook_id")
+        }
+        
         if let identifier = self.identifier {
             aCoder.encodeObject(identifier, forKey: "identifier")
         }
@@ -153,7 +165,7 @@ class Biinie:NSObject, NSCoding {
     
     func addAction(at:NSDate, did:BiinieActionType, to:String) {
         
-//        NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
+        //NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
         
         var isActionReadyToAdd = false
         

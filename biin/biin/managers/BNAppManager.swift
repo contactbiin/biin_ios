@@ -99,6 +99,8 @@ class BNAppManager {
     
     func continueAppInitialization(){
         
+        NSLog("BIIN - continueAppInitialization()")
+        
         if !SimulatorUtility.isRunningSimulator {
             if positionManager.checkLocationServicesStatus() {
         
@@ -130,6 +132,7 @@ class BNAppManager {
     }
     
     func continueAfterIntialChecking(){
+        NSLog("BIIN = continueAfterIntialChecking()")
         networkManager.checkConnectivity()
     }
 
@@ -198,6 +201,9 @@ class BNAppManager {
     func clean(){ }
     
     func show(){
+        
+        mainViewController?.mainView!.show()
+
         if notificationManager.currentNotification != nil && notificationManager.didSendNotificationOnAppDown {
             mainViewController?.mainView?.showNotificationContext()
         }

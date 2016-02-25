@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate, FBSDKLoginButtonDelegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -23,6 +23,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSLog("MainViewController - viewDidLoad()")
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
@@ -51,7 +53,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func initViewController(frame:CGRect){
-        
         
         BNAppSharedManager.instance.IS_MAINVIEW_ON = true
         BNAppSharedManager.instance.mainViewController = self
@@ -278,6 +279,16 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         showProgressView()
     }
     
+    func hideProgressView(){
+        if (alert?.isOn != nil) {
+            alert!.hideWithCallback({() -> Void in
+                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:"Error on Facebook!")
+                self.view.addSubview(self.alert!)
+                self.alert!.showAndHide()
+            })
+        }
+    }
+        
     func showProgressView(){
         alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
         self.view.addSubview(alert!)
@@ -476,5 +487,82 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func shareWhatsapp(){
         
+    }
+    
+    // Facebook Delegate Methods
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        print("User Logged In")
+        
+        if ((error) != nil) {
+            // Process error
+            self.hideProgressView()
+        } else if result.isCancelled {
+            // Handle cancellations
+            self.hideProgressView()
+        } else {
+            // If you ask for multiple permissions at once, you
+            // should check if specific permissions missing
+            if result.grantedPermissions.contains("email")
+            {
+                // Do work
+                self.showProgress(self.view)
+                returnUserData()
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        print("User Logged Out")
+    }
+    
+    func returnUserData()
+    {
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath:"me", parameters: ["fields":"id,first_name,last_name,gender,picture,email,birthday,friends"])
+        
+        //        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath:"me/friends", parameters: nil)
+        
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            
+            if ((error) != nil)
+            {
+                // Process error
+                print("Error: \(error)")
+            }
+            else
+            {
+                print("fetched user: \(result)")
+                if let first_name = result.valueForKey("first_name") {
+                    BNAppSharedManager.instance.dataManager.bnUser!.firstName = first_name as? String
+                }
+                
+                if let last_name = result.valueForKey("last_name") {
+                    BNAppSharedManager.instance.dataManager.bnUser!.lastName = last_name as? String
+                }
+                
+                if let userEmail = result.valueForKey("email") {
+                    BNAppSharedManager.instance.dataManager.bnUser!.email = userEmail as? String
+                    BNAppSharedManager.instance.dataManager.bnUser!.biinName = userEmail as? String
+                    
+                }
+                
+                if let birthday = result.valueForKey("birthday") {
+                    let bd = NSDate(dateStringMMddyyyy: (birthday as! String))
+                    BNAppSharedManager.instance.dataManager.bnUser!.birthDate = bd
+                }
+                
+                if let gender = result.valueForKey("gender") {
+                    BNAppSharedManager.instance.dataManager.bnUser!.gender = gender as? String
+                }
+                
+                if let facebook_id = result.valueForKey("id") {
+                    BNAppSharedManager.instance.dataManager.bnUser!.facebook_id = facebook_id as? String
+                }
+                
+                BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified = true
+                BNAppSharedManager.instance.dataManager.bnUser!.save()
+                BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+                self.mainView!.updateProfileView()
+            }
+        })
     }
 }

@@ -73,6 +73,8 @@ class BNSite:NSObject, NSCoding {
     
     var showInView = true
     
+    var siteSchedule:String?
+    
     override init(){
         super.init()
     }

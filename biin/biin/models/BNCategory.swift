@@ -4,6 +4,7 @@
 //  Copyright (c) 2014 Biin. All rights reserved.
 
 import Foundation
+import UIKit
 
 struct BNCategorySiteDetails {
     init(){ }
@@ -24,6 +25,7 @@ class BNCategory:NSObject {
 //    var elements:Array<BNElement> = Array<BNElement>()
     var elements:Dictionary<String, BNElement> = Dictionary<String, BNElement>()
     var priority = 1
+    var backgroundColor:UIColor?
     
     override init(){
         super.init()

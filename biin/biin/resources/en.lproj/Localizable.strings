@@ -19,8 +19,8 @@ EmailUs = "Email us";
 CallUs = "Call us";
 Phone = "Phone";
 Password = "Password";
-Login = "Log in";
-ImNewHere = "Create a new account";
+Login = "Have an account? Log in";
+ImNewHere = "Sign up using email";
 SignUpMsj = "Sign up using your email address.";
 LetsGetStarted = "Let's get started!";
 DontForget = "* Don't forget to check your inbox and verify your email address later on.";
@@ -67,8 +67,8 @@ About = "About";
 SignUpTitle = "Sign up";
 LoginTitle = "Log in";
 LoginDesc = "Enter your email and password you previously use on biin.";
-ContinueBtn = "CONTINUE";
-WelcomeDesc = "We are glad to see you here, if you are new you can create an account or login to continue using biin.";
+ContinueBtn = "Continue";
+WelcomeDesc = "We are glad to see you here, if you are new, you can sign up with your email or login with Facebook.";
 StartDesc = "Excelent, now is time to discover and enjoy special rewards with Biin.";
 
 /* Categories */
@@ -162,7 +162,7 @@ Of = "of";
 
 /*About*/
 AboutTitle = "About Biin";
-AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6 and iPhone6Plus. All current data is not real and is only for testing purposes on this beta release.";
+AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6, iPhone6 Plus, iPhone6s and iPhone6s Plus.";
 
 /*Internet Error View*/
 InternetErrorTitle = "You're offline.";
@@ -232,3 +232,6 @@ likely = "likely";
 not_likely = "not_likely";
 
 UBER = "Ride there with Uber";
+Schedule = "Schedule";
+
+npsBtn = "Help us to improve";

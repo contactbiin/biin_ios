@@ -28,7 +28,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
     
     override func run() {
         
-        print("BNRequest_SendBiinieCategories - \(requestString)")
+        //print("BNRequest_SendBiinieCategories - \(requestString)")
 
         isRunning = true
         requestAttemps++

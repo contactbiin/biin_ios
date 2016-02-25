@@ -18,7 +18,7 @@ extension UIColor {
     }
     
     class func bnGrayLight() -> UIColor! {
-        return UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+        return UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
     }
     
     class func bnBlack() -> UIColor! {
@@ -110,7 +110,7 @@ extension UIColor {
     }
     
     class func bnOrange() -> UIColor! {
-        return UIColor(red: 220/255, green: 69/255, blue: 40/255, alpha: 1)
+        return UIColor(red: 255/255, green: 164/255, blue: 64/255, alpha: 1)
     }
     
     class func bnOrangeBase() ->UIColor! {
@@ -230,7 +230,7 @@ extension UIColor {
     }
     
     class func appButtonColor_Disable() -> UIColor {
-        return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+        return UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
     }
     
     class func appNotificationRedColor() -> UIColor {
@@ -240,6 +240,10 @@ extension UIColor {
     class func biinColor() -> UIColor! {
         return UIColor(red:0/255, green: 173/255, blue: 239/199, alpha: 1)
         //return UIColor.blackColor()
+    }
+    
+    class func biinOrange() -> UIColor! {
+        return UIColor(red: 255/255, green: 164/255, blue: 64/255, alpha: 1)
     }
     
     class func biinDarkColor() -> UIColor! {
@@ -259,6 +263,14 @@ extension UIColor {
     
     class func bnVisitSiteColor() -> UIColor! {
         return UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+    }
+    
+    class func bnGradientColor1() -> UIColor {
+        return UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+    }
+    
+    class func bnGradientColor2() -> UIColor {
+        return UIColor(red: 255/255, green: 240/255, blue: 240/255, alpha: 1)
     }
     
 //    class func elementColor() -> UIColor! {

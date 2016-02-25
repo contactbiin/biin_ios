@@ -37,7 +37,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     var emailVerifyTxt:BNUITexfield?
     var birthDateTxt:BNUITexfield?
     
-    var saveBtn:BNUIButton_Loging?
+    var saveBtn:UIButton?
     var areCategoriesChanged = false
     var categoriesTitle:UILabel?
     var categoriesSelected = Dictionary<String, String>()
@@ -47,11 +47,11 @@ class ProfileView: BNView, UITextFieldDelegate {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.whiteColor()
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        visualEffectView.frame = self.bounds
-        self.addSubview(visualEffectView)
+//        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+//        visualEffectView.frame = self.bounds
+//        self.addSubview(visualEffectView)
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -63,7 +63,7 @@ class ProfileView: BNView, UITextFieldDelegate {
 //        title!.textAlignment = NSTextAlignment.Center
 //        self.addSubview(title!)
         
-        var ypos:CGFloat = 20
+        var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
         let titleText = NSLocalizedString("Profile", comment: "title").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -75,15 +75,15 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
 
-        backBtn!.layer.cornerRadius  = 17.5
-        backBtn!.layer.borderWidth = 1
-        backBtn!.layer.masksToBounds = true
+//        backBtn!.layer.cornerRadius  = 17.5
+//        backBtn!.layer.borderWidth = 1
+//        backBtn!.layer.masksToBounds = true
         
         self.addSubview(backBtn!)
         
@@ -136,9 +136,9 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(biinieUserNameLbl!)
         */
         
-        ypos = 55
+        ypos = 35
         var line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.whiteColor()
+        line.backgroundColor = UIColor.darkGrayColor()
         
         //scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
         //scroll!.backgroundColor = UIColor.clearColor()
@@ -148,7 +148,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         let fontSize:CGFloat = 13
         let labelHeight:CGFloat = fontSize + 3
         
-        ypos += 5
+        ypos += 25
         let nameLbl = UILabel(frame: CGRectMake(0, (ypos + 8), ((screenWidth / 2 ) + 10), labelHeight))
         nameLbl.font = UIFont(name: "Lato-Regular", size: fontSize)
         nameLbl.text = NSLocalizedString("Name", comment: "name").uppercaseString
@@ -237,7 +237,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         emailVerifyTxt!.textField!.textColor = UIColor.appTextColor()
         }else {
             emailVerifyTxt!.textField!.text = NSLocalizedString("No", comment: "no")
-            emailVerifyTxt!.textField!.textColor = UIColor.bnRed()
+            emailVerifyTxt!.textField!.textColor = UIColor.biinOrange()
         }
         
         self.addSubview(emailVerifyTxt!)
@@ -391,10 +391,39 @@ class ProfileView: BNView, UITextFieldDelegate {
 //            }
         }
         */
+        
+        
         ypos += 36
-        saveBtn = BNUIButton_Loging(frame: CGRectMake(1, (screenHeight - 82), (screenWidth - 2), 60), color: UIColor.darkGrayColor(), text:NSLocalizedString("Save", comment: "Save").uppercaseString, textColor:UIColor.whiteColor())
+        
+        FBSDKApplicationDelegate.sharedInstance().application(nil, didFinishLaunchingWithOptions: nil)
+
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            // User is already logged in, do work such as go to next view controller.
+        } else {
+        
+            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+            self.addSubview(loginView)
+            //            loginView.center = self.view.center
+            loginView.frame = CGRectMake(5, (self.frame.height - 140), (screenWidth - 10), 60)
+            loginView.readPermissions = ["public_profile", "email", "user_friends", "user_birthday"]
+            loginView.layer.cornerRadius = 2
+//            loginView.layer.shadowColor = UIColor.blackColor().CGColor
+//            loginView.layer.shadowOffset = CGSize(width: 0, height: 0)
+//            loginView.layer.shadowOpacity = 0.25
+            loginView.delegate = (self.father as! MainView).rootViewController!
+            loginView
+        }
+        
+        saveBtn = UIButton(frame: CGRectMake(5, (self.frame.height - 75), (screenWidth - 10), 50))
+        saveBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 16)
+        saveBtn!.setTitle(NSLocalizedString("Save", comment: "Save"), forState: UIControlState.Normal)
+        saveBtn!.backgroundColor = UIColor.biinOrange()
+        saveBtn!.layer.cornerRadius = 2
+//        saveBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+//        saveBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        saveBtn!.layer.shadowOpacity = 0.25
+        
         saveBtn!.addTarget(self, action: "saveBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        //saveBtn!.layer.borderColor = UIColor.appButtonColor().CGColors
         self.addSubview(saveBtn!)
         
         //ypos += 200
@@ -655,10 +684,8 @@ class ProfileView: BNView, UITextFieldDelegate {
         birthDateTxt?.clean()
         birthDateTxt?.removeFromSuperview()
         
-        saveBtn?.clean()
         saveBtn?.removeFromSuperview()
-        
-        
+                
         categoriesTitle?.removeFromSuperview()
         categoriesSelected.removeAll()
         
@@ -667,6 +694,43 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     func show() {
         
+    }
+    
+    func update(){
+        nameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.firstName!
+        lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.lastName!
+        emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.email!
+        usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.biinName!
+        birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        
+        if BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified! {
+            emailVerifyTxt!.textField!.text = NSLocalizedString("Yes", comment: "yes")
+            emailVerifyTxt!.textField!.textColor = UIColor.appTextColor()
+        }else {
+            emailVerifyTxt!.textField!.text = NSLocalizedString("No", comment: "no")
+            emailVerifyTxt!.textField!.textColor = UIColor.biinOrange()
+        }
+        
+        genderStr = BNAppSharedManager.instance.dataManager.bnUser!.gender!
+        
+        if genderStr == "none" {
+            genderLbl!.text = NSLocalizedString("GenderSelect", comment: "GenderSelect").uppercaseString
+        } else if genderStr == "male" {
+            genderLbl!.text = NSLocalizedString("GenderMale", comment: "GenderMale").uppercaseString
+        } else  {
+            genderLbl!.text = NSLocalizedString("GenderFemale", comment: "GenderFemale").uppercaseString
+        }
+        
+        if genderStr == "none" {
+            femaleBtn!.showEnable()
+            maleBtn!.showEnable()
+        } else if genderStr! == "male" {
+            maleBtn!.showSelected()
+            femaleBtn!.showEnable()
+        } else {
+            femaleBtn!.showSelected()
+            maleBtn!.showEnable()
+        }
     }
 }
 
