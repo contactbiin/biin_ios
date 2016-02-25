@@ -168,9 +168,9 @@ class ElementView: BNView, UIWebViewDelegate {
         //callToActionBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
         callToActionBtn!.layer.cornerRadius = 2
-        callToActionBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-        callToActionBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        callToActionBtn!.layer.shadowOpacity = 0.25
+//        callToActionBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+//        callToActionBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        callToActionBtn!.layer.shadowOpacity = 0.25
         scroll!.addSubview(callToActionBtn!)
         
         

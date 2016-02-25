@@ -31,6 +31,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     var emailBtn:UIButton?
     var callBtn:UIButton?
+    var npsBtn:UIButton?
     var commentBtn:BNUIButton_Contact?
     var closeBtn:BNUIButton_Close?
     
@@ -43,6 +44,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        super.init()
 //    }
     var uber_button:RequestButton?
+    weak var site:BNSite?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -150,9 +152,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //emailBtn!.backgroundColor = UIColor.bnVisitSiteColor()
         
         emailBtn!.layer.cornerRadius = 2
-        emailBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        emailBtn!.layer.shadowOpacity = 0.25
+//        emailBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+//        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        emailBtn!.layer.shadowOpacity = 0.25
         
         emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
@@ -165,14 +167,24 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //callBtn!.backgroundColor = UIColor.bnVisitSiteColor()
 
         callBtn!.layer.cornerRadius = 2
-        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        callBtn!.layer.shadowOpacity = 0.25
+//        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+//        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        callBtn!.layer.shadowOpacity = 0.25
 
         callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
         
         
+        
+        ypos += 55
+        npsBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
+        npsBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        npsBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        npsBtn!.layer.cornerRadius = 2
+        npsBtn!.addTarget(self, action: "nps:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(npsBtn!)
+
         uber_button = RequestButton()
         uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
         uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
@@ -180,9 +192,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
         uber_button!.backgroundColor = UIColor.darkGrayColor()
         uber_button!.layer.cornerRadius = 2
-        uber_button!.layer.shadowColor = UIColor.blackColor().CGColor
-        uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        uber_button!.layer.shadowOpacity = 0.25
+//        uber_button!.layer.shadowColor = UIColor.blackColor().CGColor
+//        uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        uber_button!.layer.shadowOpacity = 0.25
         self.addSubview(uber_button!)
         uber_button!.setNeedsDisplay()
         
@@ -248,6 +260,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     //Instance methods
     //Instance methods
     func updateForSite(site: BNSite?){
+        
+        self.site = site
         
         var ypos:CGFloat = title!.frame.origin.y
         let xpos:CGFloat = 10
@@ -401,6 +415,23 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += 5
         }
         
+        if site!.organization!.hasNPS {
+            if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site!.identifier) {
+                npsBtn!.alpha = 1
+                npsBtn!.enabled = true
+                npsBtn!.frame.origin.y = ypos
+                npsBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+                ypos += npsBtn!.frame.height
+                ypos += 5
+            } else {
+                npsBtn!.alpha = 0
+                npsBtn!.enabled = false
+            }
+        } else {
+            npsBtn!.alpha = 0
+            npsBtn!.enabled = false
+        }
+        
         let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
         let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
         uber_button!.setProductID(site!.identifier!)
@@ -438,7 +469,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
     }
     
-    func call(sender:BNUIButton_Contact){
+    func call(sender:UIButton){
         
         if self.site_phoneNumber! != "" {
             let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
@@ -446,7 +477,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         }
     }
     
-    func sendMail(sender: BNUIButton_Contact) {
+    func sendMail(sender: UIButton) {
         let picker = MFMailComposeViewController()
         let toRecipents = [site_email!]
         picker.setToRecipients(toRecipents)
@@ -455,6 +486,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         picker.setMessageBody("", isHTML: true)
         
         (father!.father! as? MainView)?.rootViewController!.presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    func nps(sender:UIButton){
+        npsBtn!.alpha = 0.5
+        npsBtn!.enabled = false
+        (father!.father! as? MainView)?.site_to_survey = self.site
+//        (father!.father! as? MainView)?.setNextState(BNGoto.Survey)
+        (father!.father! as? MainView)?.showSurveyViewOnRequest()
     }
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {

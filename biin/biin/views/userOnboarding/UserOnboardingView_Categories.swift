@@ -16,7 +16,7 @@ class UserOnboardingView_Categories:UIView {
     
 //    var title:UILabel?
 //    var selectedLbl:UILabel?
-    var startBtn:BNUIButton_Loging?
+    var startBtn:UIButton?
     var categoriesSelected = Dictionary<String, String>()
     
 //    override init() {
@@ -33,8 +33,7 @@ class UserOnboardingView_Categories:UIView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
-        var ypos:CGFloat = ((screenHeight - (330 + SharedUIManager.instance.signupView_spacer + SharedUIManager.instance.signupView_spacer )) / 2)
-
+        var ypos:CGFloat = 0
 //        title = UILabel(frame:CGRectMake(0, ypos, (screenWidth / 2), 45))
 //        title!.textColor = UIColor.appTextColor()
 //        title!.font = UIFont(name: "Lato-Black", size: 20)
@@ -55,32 +54,44 @@ class UserOnboardingView_Categories:UIView {
         self.addSubview(biinLogo!)
         biinLogo!.setNeedsDisplay()
         
-        ypos += biinLogo!.frame.height//(SharedUIManager.instance.signupView_spacer + biinLogo!.frame.height)
-        let textBg = UIView(frame: CGRectMake(0, ypos, screenWidth, 150))
-        textBg.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.05)
-        self.addSubview(textBg)
-        
-        welcomeLbl = UILabel(frame: CGRectMake(0, 20, screenWidth, 28))
+        ypos += (biinLogo!.frame.height + 20)
+        welcomeLbl = UILabel(frame: CGRectMake(0, ypos, screenWidth, 23))
         welcomeLbl!.text = NSLocalizedString("Wellcome", comment: "Wellcome")
         welcomeLbl!.textAlignment = NSTextAlignment.Center
         welcomeLbl!.textColor = UIColor.darkGrayColor()
-        welcomeLbl!.font = UIFont(name: "Lato-Regular", size: 25)
-        textBg.addSubview(welcomeLbl!)
+        welcomeLbl!.font = UIFont(name: "Lato-Light", size: 20)
+        self.addSubview(welcomeLbl!)
         
-        //        ypos += (25 + welcomeLbl!.frame.height)
-        welcomeDescLbl = UILabel(frame: CGRectMake(20, (25 + welcomeLbl!.frame.height), (screenWidth - 40), 0))
+        ypos += (welcomeLbl!.frame.height + 5)
+        welcomeDescLbl = UILabel(frame: CGRectMake(20, ypos, (screenWidth - 40), 0))
         welcomeDescLbl!.text = NSLocalizedString("StartDesc", comment: "StartDesc")
         welcomeDescLbl!.textColor = UIColor.darkGrayColor()
-        welcomeDescLbl!.font = UIFont(name: "Lato-Light", size: 18)
+        welcomeDescLbl!.font = UIFont(name: "Lato-Light", size: 14)
         welcomeDescLbl!.textAlignment = NSTextAlignment.Center
         welcomeDescLbl!.numberOfLines = 4
         welcomeDescLbl!.sizeToFit()
-        textBg.addSubview(welcomeDescLbl!)
+        self.addSubview(welcomeDescLbl!)
         
+        ypos += (welcomeDescLbl!.frame.height + 30)
+        startBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 60))
+        startBtn!.backgroundColor = UIColor.biinOrange()
+        startBtn!.layer.cornerRadius = 2
+        startBtn!.setTitle(NSLocalizedString("Start", comment: "Start"), forState: UIControlState.Normal)
+        startBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        startBtn!.addTarget(self, action: "startBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(startBtn!)
         
+        ypos = ((screenHeight - ypos) / 2)
+        biinLogo!.frame.origin.y = ypos
+        ypos += (biinLogo!.frame.height + 20)
+        welcomeLbl!.frame.origin.y = ypos
+        ypos += (welcomeLbl!.frame.height + 5)
+        welcomeDescLbl!.frame.origin.y = ypos
+        ypos += (welcomeDescLbl!.frame.height + 30)
+        startBtn!.frame.origin.y = ypos
 //        var buttonCounter:Int = 1
 //        var xpos:CGFloat = (screenWidth - 295) / 2
-        ypos += textBg.frame.height + 10
+        //ypos += textBg.frame.height + 10
         //var space:CGFloat = 5
         
         //var line = UIView(frame: CGRectMake(5, (ypos - 10), (screenWidth - 10), 0.5))
@@ -135,9 +146,7 @@ class UserOnboardingView_Categories:UIView {
 //        let x_space:CGFloat = ( SharedUIManager.instance.screenWidth - descriptionText.frame.width ) / 2
 //        descriptionText.frame.origin.x = x_space
         
-        startBtn = BNUIButton_Loging(frame: CGRect(x:0, y:ypos, width: screenWidth, height: 60), color:UIColor.biinOrange(), text:NSLocalizedString("Start", comment:"Start"), textColor:UIColor.whiteColor())
-        startBtn!.addTarget(self, action: "startBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(startBtn!)
+
     }
     
 //    func categoryBtnAction(sender:BNUIButton_Category){

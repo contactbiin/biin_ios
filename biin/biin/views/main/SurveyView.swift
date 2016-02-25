@@ -375,6 +375,7 @@ class SurveyView: BNView, UITextViewDelegate {
         for var i = 0; i < buttons.count; i++ {
             //let color = getButtonColor(CGFloat(i))
             buttons[i].alpha = 1
+            previousButton = nil
             buttons[i].frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + 20
             buttons[i].backgroundColor = UIColor.darkGrayColor()
             buttons[i].setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)

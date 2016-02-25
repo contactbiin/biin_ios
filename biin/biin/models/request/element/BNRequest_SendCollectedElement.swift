@@ -29,7 +29,7 @@ class BNRequest_SendCollectedElement: BNRequest {
     
     override func run() {
 
-        print("BNRequest_SendCollectedElement - \(requestString)")
+        //print("BNRequest_SendCollectedElement - \(requestString)")
 
         
         isRunning = true

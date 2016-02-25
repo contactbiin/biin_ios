@@ -391,15 +391,37 @@ class ProfileView: BNView, UITextFieldDelegate {
 //            }
         }
         */
+        
+        
         ypos += 36
+        
+        FBSDKApplicationDelegate.sharedInstance().application(nil, didFinishLaunchingWithOptions: nil)
+
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            // User is already logged in, do work such as go to next view controller.
+        } else {
+        
+            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+            self.addSubview(loginView)
+            //            loginView.center = self.view.center
+            loginView.frame = CGRectMake(5, (self.frame.height - 140), (screenWidth - 10), 60)
+            loginView.readPermissions = ["public_profile", "email", "user_friends", "user_birthday"]
+            loginView.layer.cornerRadius = 2
+//            loginView.layer.shadowColor = UIColor.blackColor().CGColor
+//            loginView.layer.shadowOffset = CGSize(width: 0, height: 0)
+//            loginView.layer.shadowOpacity = 0.25
+            loginView.delegate = (self.father as! MainView).rootViewController!
+            loginView
+        }
+        
         saveBtn = UIButton(frame: CGRectMake(5, (self.frame.height - 75), (screenWidth - 10), 50))
-        saveBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        saveBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 16)
         saveBtn!.setTitle(NSLocalizedString("Save", comment: "Save"), forState: UIControlState.Normal)
         saveBtn!.backgroundColor = UIColor.biinOrange()
         saveBtn!.layer.cornerRadius = 2
-        saveBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-        saveBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        saveBtn!.layer.shadowOpacity = 0.25
+//        saveBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+//        saveBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        saveBtn!.layer.shadowOpacity = 0.25
         
         saveBtn!.addTarget(self, action: "saveBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(saveBtn!)
@@ -672,6 +694,43 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     func show() {
         
+    }
+    
+    func update(){
+        nameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.firstName!
+        lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.lastName!
+        emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.email!
+        usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.biinName!
+        birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        
+        if BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified! {
+            emailVerifyTxt!.textField!.text = NSLocalizedString("Yes", comment: "yes")
+            emailVerifyTxt!.textField!.textColor = UIColor.appTextColor()
+        }else {
+            emailVerifyTxt!.textField!.text = NSLocalizedString("No", comment: "no")
+            emailVerifyTxt!.textField!.textColor = UIColor.biinOrange()
+        }
+        
+        genderStr = BNAppSharedManager.instance.dataManager.bnUser!.gender!
+        
+        if genderStr == "none" {
+            genderLbl!.text = NSLocalizedString("GenderSelect", comment: "GenderSelect").uppercaseString
+        } else if genderStr == "male" {
+            genderLbl!.text = NSLocalizedString("GenderMale", comment: "GenderMale").uppercaseString
+        } else  {
+            genderLbl!.text = NSLocalizedString("GenderFemale", comment: "GenderFemale").uppercaseString
+        }
+        
+        if genderStr == "none" {
+            femaleBtn!.showEnable()
+            maleBtn!.showEnable()
+        } else if genderStr! == "male" {
+            maleBtn!.showSelected()
+            femaleBtn!.showEnable()
+        } else {
+            femaleBtn!.showSelected()
+            maleBtn!.showEnable()
+        }
     }
 }
 

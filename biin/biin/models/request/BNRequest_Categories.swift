@@ -27,7 +27,7 @@ class BNRequest_Categories: BNRequest {
     
     override func run() {
 
-        self.start = NSDate()
+        //self.start = NSDate()
         
         isRunning = true
         requestAttemps++
@@ -78,11 +78,12 @@ class BNRequest_Categories: BNRequest {
                         
                         categories.append(category)
                     }
-                                        
+                    
+                    /*
                     let end = NSDate()
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                     print("BNRequest_Categories [\(timeInterval)] - \(self.requestString)")
-                    
+                    */
                     self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserCategories:categories)
                     self.inCompleted = true
                     self.networkManager!.removeFromQueue(self)

@@ -404,12 +404,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func hideInSiteView(){
         (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
-        
-        
+        showSurveyView()
+    }
+    
+    func showSurveyView() {
         if site_to_survey != nil {
             if site_to_survey!.organization!.hasNPS {
                 if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
-                
+                    
                     NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
                 } else {
                     print("site: \(site_to_survey!.title!) is already survyed today")
@@ -419,6 +421,27 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             }
         }
     }
+    
+    func showSurveyViewOnRequest() {
+        if site_to_survey != nil {
+            if site_to_survey!.organization!.hasNPS {
+                if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
+                
+                    (self.surveyState!.view as! SurveyView).updateSiteData(site_to_survey)
+                    BNAppSharedManager.instance.notificationManager.add_surveyedSite(site_to_survey!.identifier)
+                    
+                    state!.next(self.surveyState)
+                    isReadyToShowSurvey = false
+
+                } else {
+                    print("site: \(site_to_survey!.title!) is already survyed today")
+                }
+            } else {
+                print("NPS not available")
+            }
+        }
+    }
+
     
     func showSurveyOnTimer(sender:NSTimer){
         if site_to_survey != nil {
@@ -737,6 +760,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         surveyState!.view = surveyView
         surveyView.delegate = self
         self.addSubview(surveyView)
+    }
+    
+    func updateProfileView(){
+        (profileState!.view as! ProfileView).update()
     }
 }
 

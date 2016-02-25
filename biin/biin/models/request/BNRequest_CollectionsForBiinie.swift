@@ -27,7 +27,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
     
     override func run() {
         
-        self.start = NSDate()
+        //self.start = NSDate()
         
         isRunning = true
         requestAttemps++
