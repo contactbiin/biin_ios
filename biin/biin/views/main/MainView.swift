@@ -651,8 +651,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //SurveyView_Delegate Methods
     func hideSurveyView() {
-        setNextState(BNGoto.Main)
-        site_to_survey = nil
+        
+        if isShowingSiteFromElement {
+            setNextState(BNGoto.Element)
+            (elementState!.view as! ElementView).hideFade()
+            isShowingSiteFromElement = false
+        } else {
+            setNextState(BNGoto.Main)
+            site_to_survey = nil
+        }
     }
     
     func clean(){

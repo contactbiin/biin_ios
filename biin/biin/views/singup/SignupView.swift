@@ -225,10 +225,15 @@ class SignupView:UIView, UITextFieldDelegate {
         
         if ready {
             
+            let firstName = firstNameTxt!.textField!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let lastName = lastNameTxt!.textField!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let email = emailTxt!.textField!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            
+            
             newUser!.identifier = emailTxt!.textField!.text!
-            newUser!.firstName = firstNameTxt!.textField!.text!
-            newUser!.lastName = lastNameTxt!.textField!.text!
-            newUser!.email = emailTxt!.textField!.text
+            newUser!.firstName = firstName
+            newUser!.lastName = lastName
+            newUser!.email = email
             newUser!.gender = genderStr
             newUser!.password = passwordTxt!.textField!.text
             BNAppSharedManager.instance.dataManager.bnUser = newUser

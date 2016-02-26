@@ -271,7 +271,8 @@ class ElementView: BNView, UIWebViewDelegate {
             
             BNAppSharedManager.instance.dataManager.applyViewedElement(element)
             SharedAnswersManager.instance.logContentView_Element(element)
-            
+            scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+
             if showSiteBtn && !self.element!.isRemovedFromShowcase {
 
                 self.showSiteBtn!.alpha = 1
@@ -744,13 +745,13 @@ class ElementView: BNView, UIWebViewDelegate {
             scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 55))
         } else {
 
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos + 100))
         }
         
         
 //        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
         scroll!.bringSubviewToFront(callToActionBtn!)
-        callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 55)
+        callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 75)
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
