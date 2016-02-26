@@ -460,6 +460,8 @@ class SurveyView: BNView, UITextViewDelegate {
             textFieldView!.alpha = 0
             continueBtn!.alpha = 0
             
+            SharedAnswersManager.instance.logCompletedNPS(site)
+            
             NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "hide:", userInfo: nil, repeats: false)
             
         } else {
@@ -493,6 +495,7 @@ class SurveyView: BNView, UITextViewDelegate {
     func backBtnAction(sender:UIButton) {
         //delegate!.hideElementView!(self.element!)
 //        delegate!.hideAllSitesView!()
+        SharedAnswersManager.instance.logNotCompletedNPS(site)
         commentTxt!.resignFirstResponder()
         delegate!.hideSurveyView!()
     }

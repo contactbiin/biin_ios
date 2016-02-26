@@ -491,7 +491,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     // Facebook Delegate Methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("User Logged In")
         
         if ((error) != nil) {
             // Process error
@@ -523,14 +522,11 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
             
-            if ((error) != nil)
-            {
+            if ((error) != nil) {
                 // Process error
                 print("Error: \(error)")
-            }
-            else
-            {
-                print("fetched user: \(result)")
+            } else {
+                //print("fetched user: \(result)")
                 if let first_name = result.valueForKey("first_name") {
                     BNAppSharedManager.instance.dataManager.bnUser!.firstName = first_name as? String
                 }
@@ -541,8 +537,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
                 
                 if let userEmail = result.valueForKey("email") {
                     BNAppSharedManager.instance.dataManager.bnUser!.email = userEmail as? String
-                    BNAppSharedManager.instance.dataManager.bnUser!.biinName = userEmail as? String
-                    
+                    BNAppSharedManager.instance.dataManager.bnUser!.biinName = userEmail as? String 
                 }
                 
                 if let birthday = result.valueForKey("birthday") {

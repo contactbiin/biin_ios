@@ -140,7 +140,6 @@ class BNAppManager {
 
         dataManager.applyUnCollectedElement(element)
         networkManager.sendUnCollectedElement(dataManager.bnUser!, element: element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
-        
         mainViewController!.mainView!.updateAllCollectedView()
     }
     

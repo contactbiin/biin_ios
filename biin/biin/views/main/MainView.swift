@@ -291,25 +291,26 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             break
         case .Profile:
             state!.next(self.profileState)
+            SharedAnswersManager.instance.logContentView_Profile()
             break
         case .Collected:
             
-//            if !isShowingAllCollectedView {
-                self.allCollectedState!.view!.refresh()
-//            }
-            
+            self.allCollectedState!.view!.refresh()
+            SharedAnswersManager.instance.logContentView_Collected()
             isShowingAllCollectedView = true
             state!.next(self.allCollectedState)
             
             break
         case .About:
             state!.next(self.aboutState)
+            SharedAnswersManager.instance.logContentView_About()
             break
         case .Element:
             state!.next(self.elementState)
             break
         case .AllSites:
             state!.next(self.allSitesState)
+            SharedAnswersManager.instance.logContentView_AllSites()
             break
         case .AllElements:
             state!.next(self.allElementsState)
@@ -319,6 +320,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             self.bringSubviewToFront(state!.view!)
             break
         case .Survey:
+            SharedAnswersManager.instance.logContentView_Survey(site_to_survey)
             state!.next(self.surveyState)
             self.bringSubviewToFront(state!.view!)
             break

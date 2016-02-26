@@ -270,6 +270,7 @@ class ElementView: BNView, UIWebViewDelegate {
         if !isSameElement(element) {
             
             BNAppSharedManager.instance.dataManager.applyViewedElement(element)
+            SharedAnswersManager.instance.logContentView_Element(element)
             
             if showSiteBtn && !self.element!.isRemovedFromShowcase {
 
@@ -538,6 +539,7 @@ class ElementView: BNView, UIWebViewDelegate {
         //self.bringSubviewToFront(shareView!)
         BNAppSharedManager.instance.shareElement(self.element, shareView: self.shareView)
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!)
+        SharedAnswersManager.instance.logShare_Element(element)
     }
     
     func likeit(sender:BNUIButton_BiinIt){
@@ -547,9 +549,12 @@ class ElementView: BNView, UIWebViewDelegate {
         if self.element!.userLiked {
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logLike_Element(element)
         } else {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logUnLike_Element(element)
+
         }
         
         BNAppSharedManager.instance.likeElement(self.element)
@@ -573,8 +578,11 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if self.element!.userCollected {
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logCollect_Element(element)
         } else {
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logUnCollect_Element(element)
+
         }
     }
     

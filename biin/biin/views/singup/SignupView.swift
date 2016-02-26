@@ -236,6 +236,7 @@ class SignupView:UIView, UITextFieldDelegate {
             BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.bnUser!)
             delegate!.showProgress!(self)
             self.endEditing(true)
+            SharedAnswersManager.instance.logSignUp("Email")
         }
     }
     
