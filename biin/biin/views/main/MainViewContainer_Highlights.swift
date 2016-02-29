@@ -16,6 +16,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     var timer:NSTimer?
     
     var hightlights:Array<HighlightView>?
+    var points:Array<BNUIPointView>?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +32,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         self.backgroundColor = UIColor.darkGrayColor()
         
         
-        title = UILabel(frame: CGRectMake(10, 11, (frame.width - 20), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title = UILabel(frame: CGRectMake(10, 16, (frame.width - 20), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
         let titleText = NSLocalizedString("Recomended", comment: "Recomended").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -53,6 +54,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         self.addSubview(scroll!)
         
         hightlights = Array<HighlightView>()
+        points = Array<BNUIPointView>()
         updateHighlightView()
         
         startTimer()
@@ -103,10 +105,8 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     func change(sender:NSTimer){
         if currentHighlight < hightlights!.count {
-            let xpos:CGFloat = SharedUIManager.instance.screenWidth * CGFloat((currentHighlight))
+            let xpos:CGFloat = SharedUIManager.instance.screenWidth * CGFloat((currentHighlight + 1))
             scroll!.setContentOffset(CGPoint(x: xpos, y: 0), animated: true)
-            currentHighlight++
-            
         }
     }
     
@@ -116,21 +116,27 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         if BNAppSharedManager.instance.dataManager.highlights.count > 0{
 
             var xpos:CGFloat = 0
+            var xpos_for_point:CGFloat = ((SharedUIManager.instance.screenWidth - CGFloat((BNAppSharedManager.instance.dataManager.highlights.count - 1 ) * 20)) / 2)
 
             let highlightHeight:CGFloat = ((SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)) - SharedUIManager.instance.sitesContainer_headerHeight
             
             for element in BNAppSharedManager.instance.dataManager.highlights {
                 
-
                 let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, highlightHeight), father: self, element: element)
-                
                 
                 highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
                 scroll!.addSubview(highlight)
                 hightlights!.append(highlight)
                 highlight.requestImage()
                 xpos += (SharedUIManager.instance.screenWidth )
+                
+                let point = BNUIPointView(frame: CGRectMake(xpos_for_point, 35, 10, 10), activeColor: UIColor.whiteColor())
+                points!.append(point)
+                self.addSubview(point)
+                xpos_for_point += 20
             }
+            
+            points![0].setActive()
             
             let lastHightLight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, highlightHeight), father: self, element: hightlights![0].element!)
             lastHightLight.frame.origin.x = xpos
@@ -154,6 +160,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         //handlePan(scrollView.panGestureRecognizer)
         //let mainView = father!.father! as! MainView
         //mainView.delegate!.mainView!(mainView, hideMenu: false)
+        stopTimer()
     }
     
     // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
@@ -174,18 +181,35 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         let scrollPosition = scrollView.contentOffset
         currentHighlight = Int(scrollPosition.x / SharedUIManager.instance.screenWidth)
         
- 
-        
-
-        
-    }// called when scroll view grinds to a halt
-    
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-
-        if currentHighlight == hightlights!.count {
+        if currentHighlight == (hightlights!.count - 1) {
             scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             currentHighlight = 0
         }
+        
+        setCurrentPoint()
+        startTimer()
+        
+    }// called when scroll view grinds to a halt
+    
+    func setCurrentPoint() {
+        
+        for point in points! {
+            point.setInactive()
+        }
+        
+        points![currentHighlight].setActive()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        let scrollPosition = scrollView.contentOffset
+        currentHighlight = Int(scrollPosition.x / SharedUIManager.instance.screenWidth)
+        
+        if currentHighlight == (hightlights!.count - 1) {
+            scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            currentHighlight = 0
+        }
+        
+        setCurrentPoint()
 
     }// called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
     
@@ -205,17 +229,19 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
 //    }
 
     func stopTimer(){
-        self.timer!.invalidate()
+        if timer != nil {
+            self.timer!.invalidate()
+            self.timer = nil
+        }
     }
     
     func startTimer(){
-        timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
-        timer!.fire()
+        if timer == nil {
+            timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
+        }
     }
     
     func clean() {
-        
-        
         
         if hightlights?.count > 0 {
             
@@ -224,14 +250,12 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
                 highlight.removeFromSuperview()
             }
             
-//            for view in scroll!.subviews {
-//                
-////                if view is HighlightView {
-//                    (view as! HighlightView).clean()
-//                    (view as! HighlightView).removeFromSuperview()
-////                }
-//            }
+            for point in points! {
+                point.removeFromSuperview()
+            }
             
+            points!.removeAll()
+
             hightlights!.removeAll(keepCapacity: false)
         }
         

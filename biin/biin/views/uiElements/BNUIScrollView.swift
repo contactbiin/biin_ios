@@ -93,6 +93,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             if points!.count > 0 {
                 points![previousPoint].setActive()
             }
+            
             scroll!.contentSize = CGSizeMake(scrollXPos, 0)
             scroll!.setContentOffset(CGPointZero, animated: false)
             scroll!.pagingEnabled = true

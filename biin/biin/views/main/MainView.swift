@@ -230,14 +230,33 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         //self.addSubview(testButton!)
     }
     
+    var isShowingInsiteView = false
+    
     func testButtonAction(sender:UIButton) {
         
+
         BNAppSharedManager.instance.notificationManager.clear()
         
-        if let site = BNAppSharedManager.instance.dataManager.sites["771c7b04-4d26-43ee-a415-82f1df35a7d2"] {
+        if let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"]
+        {
             site_to_survey = site
-            hideInSiteView()
+            showSurveyView()
         }
+
+  
+        /*
+        if !isShowingInsiteView {
+            if let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"] {
+
+                isShowingInsiteView = true
+                showInSiteView(site)
+                
+            }
+        } else {
+            hideInSiteView()
+            isShowingInsiteView = false
+        }
+        */
     }
     
     func updateSurveyView(site:BNSite?) {
@@ -400,13 +419,21 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showInSiteView(site:BNSite?) {
-        site_to_survey = site
-        (mainViewContainerState!.view as! MainViewContainer).showInSiteView(site)
+
+        if !isShowingInsiteView {
+            isShowingInsiteView = true
+            site_to_survey = site
+            (mainViewContainerState!.view as! MainViewContainer).showInSiteView(site)
+        }
     }
     
     func hideInSiteView(){
-        (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
-        showSurveyView()
+        
+        if isShowingInsiteView {
+            isShowingInsiteView = false
+            (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
+            showSurveyView()
+        }
     }
     
     func showSurveyView() {

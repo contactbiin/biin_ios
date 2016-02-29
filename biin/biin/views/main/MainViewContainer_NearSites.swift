@@ -12,7 +12,7 @@ class MainViewContainer_NearSites: BNView {
 
     var delegate:MainViewContainer_NearSites_Delegate?
     var title:UILabel?
-    var moreSitesBtn:UIButton?
+    var moreSitesBtn:BNUIButton_More?
     var subTitle:UILabel?
     var scroll:BNScroll?
     
@@ -27,14 +27,19 @@ class MainViewContainer_NearSites: BNView {
         let screenWidth = SharedUIManager.instance.screenWidth
         
         self.backgroundColor = UIColor.darkGrayColor()
-        moreSitesBtn = UIButton(frame: CGRectMake((screenWidth - 50), 0, 50, 38))
-        moreSitesBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
-        moreSitesBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        moreSitesBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
+        
+        moreSitesBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
+        moreSitesBtn!.icon!.color = UIColor.whiteColor()
+
+        
+//        moreSitesBtn = UIButton(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
+//        moreSitesBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
+//        moreSitesBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+//        moreSitesBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
         moreSitesBtn!.addTarget(self, action: "moreSitesBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreSitesBtn!)
         
-        title = UILabel(frame: CGRectMake(15, 11, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title = UILabel(frame: CGRectMake(15, 16, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
         let titleText = NSLocalizedString("NearYou", comment: "NearYou").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)

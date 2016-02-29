@@ -10,8 +10,8 @@ import  UIKit
 
 class BNUIImageView:UIImageView {
     
-    var loadingIndicator:UIActivityIndicatorView?
-    
+//    var loadingIndicator:UIActivityIndicatorView?
+    var loadingIndicator:BNActivityIndicator?
 //    override init() {
 //        super.init()
 //    }
@@ -41,11 +41,12 @@ class BNUIImageView:UIImageView {
         cover!.backgroundColor = color
         self.addSubview(cover!)
         
-        loadingIndicator = UIActivityIndicatorView(frame: CGRectMake(((frame.width / 2) - 20), ((frame.width / 2) - 20), 40, 40))
-        loadingIndicator!.hidesWhenStopped = true
-        loadingIndicator!.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        loadingIndicator!.startAnimating();
+        loadingIndicator = BNActivityIndicator(frame:CGRectMake(((frame.width / 2) - 15), ((frame.height / 2) - 15), 30, 30))
+//        loadingIndicator!.hidesWhenStopped = true
+//        loadingIndicator!.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+//        loadingIndicator!.startAnimating();
         self.addSubview(loadingIndicator!)
+        loadingIndicator!.start()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,8 +65,9 @@ class BNUIImageView:UIImageView {
 
         
         //BNAppSharedManager.instance.addImagesMB(size)
-        
-        loadingIndicator!.stopAnimating()
+        loadingIndicator!.stop()
+        loadingIndicator!.removeFromSuperview()
+//        loadingIndicator!.stopAnimating()
         //self.alpha = 0
         
         UIView.animateWithDuration(0.25, animations: {()-> Void in

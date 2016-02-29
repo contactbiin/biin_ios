@@ -84,9 +84,9 @@ class BNAppManager {
         
         if let dict = myDict {
             version = dict.objectForKey("CFBundleShortVersionString") as! String
-            if IS_DEVELOPMENT_BUILD {
-                version += " Development"
-            }
+//            if IS_DEVELOPMENT_BUILD {
+//                version += " Development"
+//            }
         }
         
     }

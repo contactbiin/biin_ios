@@ -67,15 +67,19 @@ class SurveyView: BNView, UITextViewDelegate {
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(10, 10, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
         backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
+//        backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
-        backBtn!.layer.cornerRadius  = 17.5
-        backBtn!.layer.borderWidth = 1
+//        backBtn!.layer.cornerRadius  = 17.5
+//        backBtn!.layer.borderWidth = 1
         self.layer.masksToBounds = true
         self.addSubview(backBtn!)
+        
+        let line = UIView(frame: CGRectMake(0, 35, screenWidth, 1))
+        line.backgroundColor = UIColor.lightGrayColor()
+        self.addSubview(line)
         
         ypos = 75
 //        brandNameLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 40))

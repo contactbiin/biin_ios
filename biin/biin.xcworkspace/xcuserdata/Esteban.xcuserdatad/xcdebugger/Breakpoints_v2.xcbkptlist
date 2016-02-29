@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/UIManager.swift"
-            timestampString = "478128366.818789"
+            timestampString = "478308374.612169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
             landmarkName = "setIPadVariables()"
             landmarkType = "5">
          </BreakpointContent>

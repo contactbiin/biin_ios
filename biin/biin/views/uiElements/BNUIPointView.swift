@@ -53,6 +53,7 @@ class BNUIPointView:UIView {
     convenience init(frame: CGRect, activeColor:UIColor) {
         self.init(frame:frame)
         self.activeColor = activeColor
+        inactiveColor = UIColor.appButtonColor()
     }
     
     
