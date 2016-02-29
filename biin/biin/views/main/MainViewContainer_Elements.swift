@@ -9,7 +9,7 @@ import UIKit
 class MainViewContainer_Elements:BNView {
 
     var delegate:MainViewContainer_Elements_Delegate?
-    var moreElementsBtn:UIButton?
+    var moreElementsBtn:BNUIButton_More?
     var title:UILabel?
     var subTitle:UILabel?
     var scroll:BNScroll?
@@ -35,7 +35,7 @@ class MainViewContainer_Elements:BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        let ypos:CGFloat = 11
+        let ypos:CGFloat = 16
 
         self.category = category
         
@@ -58,10 +58,12 @@ class MainViewContainer_Elements:BNView {
         
         
         
-        moreElementsBtn = UIButton(frame: CGRectMake(screenWidth - 50, 0, 50, 38))
-        moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
-        moreElementsBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
-        moreElementsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
+        moreElementsBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
+        moreElementsBtn!.icon!.color = textColor
+
+//        moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
+//        moreElementsBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
+//        moreElementsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
         moreElementsBtn!.addTarget(self, action: "moreElementsBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreElementsBtn!)
         

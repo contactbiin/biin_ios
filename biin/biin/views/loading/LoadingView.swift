@@ -18,6 +18,8 @@ class LoadingView:UIView {
     var currentHighlight:Int = 0
     var timer:NSTimer?
     
+    var biinLogoView:BiinLogoView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -111,10 +113,17 @@ class LoadingView:UIView {
         self.addSubview(loadingLbl!)
         
         //self.layerGradient()
+    
+//        biinLogoView = BiinLogoView(frame: CGRectMake(20, 100, 165, 90))
+//        self.addSubview(biinLogoView!)
+//        self.biinLogoView!.addTarget(self, action: "toggle:", forControlEvents:.TouchUpInside)
         
-        //startTimer()
+        //biinLogoView!.startAnimation()
     }
     
+    func toggle(sender: AnyObject!) {
+        self.biinLogoView!.showsMenu = !self.biinLogoView!.showsMenu
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -158,14 +167,18 @@ class LoadingView:UIView {
     }
     
     func change(sender:NSTimer){
-        if currentHighlight <= 3 {
-            let xpos:CGFloat = (SharedUIManager.instance.screenHeight * CGFloat(currentHighlight))
-            scroll!.setContentOffset(CGPoint(x:xpos, y: 0), animated: true)
-            currentHighlight++
-        } else {
-            scroll!.setContentOffset(CGPoint(x:0, y: 0), animated: false)
-            currentHighlight = 0
-        }
+        
+        //biinLogoView!.startAnimation()
+
+//        
+//        if currentHighlight <= 3 {
+//            let xpos:CGFloat = (SharedUIManager.instance.screenHeight * CGFloat(currentHighlight))
+//            scroll!.setContentOffset(CGPoint(x:xpos, y: 0), animated: true)
+//            currentHighlight++
+//        } else {
+//            scroll!.setContentOffset(CGPoint(x:0, y: 0), animated: false)
+//            currentHighlight = 0
+//        }
     }
     
     func stopTimer(){
@@ -173,7 +186,7 @@ class LoadingView:UIView {
     }
     
     func startTimer(){
-        timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "change:", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: "change:", userInfo: nil, repeats: false)
         timer!.fire()
     }
 }

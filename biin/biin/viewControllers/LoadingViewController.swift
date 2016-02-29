@@ -57,17 +57,18 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         NSLog("BIIN - \(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
         //checkAppState()
         
-        if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
-            loadingView!.hideProgressView()
-            let developmentView = DevelopmentView(frame:CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), viewController:self)
-            self.view.addSubview(developmentView)
-        } else  {
+        
+//        if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
+//            loadingView!.hideProgressView()
+//            let developmentView = DevelopmentView(frame:CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), viewController:self)
+//            self.view.addSubview(developmentView)
+//        } else  {
             loadingView!.hideProgressView()
             let vc = MainViewController()
             vc.initViewController(self.view.frame)
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             self.presentViewController(vc, animated: true, completion: nil)
-        }
+//        }
     }
     
 //    func checkAppState(){

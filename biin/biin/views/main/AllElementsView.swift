@@ -154,6 +154,8 @@ class AllElementsView: BNView {
         if !isSameCategory(category) {
 //            self.backgroundColor = category!.backgroundColor
             self.scroll!.backgroundColor = category!.backgroundColor
+            SharedAnswersManager.instance.logContentView_Category(category)
+            
             scroll!.clean()
             let titleText = category!.name!//.uppercaseString
             let attributedString = NSMutableAttributedString(string:titleText)

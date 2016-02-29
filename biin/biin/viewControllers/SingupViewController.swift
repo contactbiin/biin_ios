@@ -344,6 +344,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 // Process error
                 print("Error: \(error)")
             } else {
+                //print("fetched user: \(result)")
                 let user = Biinie()
                 user.identifier = ""
                 if let first_name = result.valueForKey("first_name") {
@@ -356,6 +357,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 
                 if let userEmail = result.valueForKey("email") {
                     user.email = userEmail as? String
+                    user.biinName = userEmail as? String
                     user.biinName = userEmail as? String
                 }
                 
@@ -376,6 +378,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 user.password = ""
                 BNAppSharedManager.instance.dataManager.bnUser = user
                 BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
+                SharedAnswersManager.instance.logSignUp("Facebook")
             }
         })
     }

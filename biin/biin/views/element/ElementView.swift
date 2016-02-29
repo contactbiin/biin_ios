@@ -270,7 +270,9 @@ class ElementView: BNView, UIWebViewDelegate {
         if !isSameElement(element) {
             
             BNAppSharedManager.instance.dataManager.applyViewedElement(element)
-            
+            SharedAnswersManager.instance.logContentView_Element(element)
+            scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+
             if showSiteBtn && !self.element!.isRemovedFromShowcase {
 
                 self.showSiteBtn!.alpha = 1
@@ -538,6 +540,7 @@ class ElementView: BNView, UIWebViewDelegate {
         //self.bringSubviewToFront(shareView!)
         BNAppSharedManager.instance.shareElement(self.element, shareView: self.shareView)
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!)
+        SharedAnswersManager.instance.logShare_Element(element)
     }
     
     func likeit(sender:BNUIButton_BiinIt){
@@ -547,9 +550,12 @@ class ElementView: BNView, UIWebViewDelegate {
         if self.element!.userLiked {
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logLike_Element(element)
         } else {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logUnLike_Element(element)
+
         }
         
         BNAppSharedManager.instance.likeElement(self.element)
@@ -573,8 +579,11 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if self.element!.userCollected {
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logCollect_Element(element)
         } else {
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!)
+            SharedAnswersManager.instance.logUnCollect_Element(element)
+
         }
     }
     
@@ -736,13 +745,13 @@ class ElementView: BNView, UIWebViewDelegate {
             scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 55))
         } else {
 
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos + 100))
         }
         
         
 //        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
         scroll!.bringSubviewToFront(callToActionBtn!)
-        callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 55)
+        callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 75)
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {

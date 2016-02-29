@@ -45,11 +45,10 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
         self.addSubview(scroll!)
         
-        inSiteView = InSiteView(frame: CGRectMake(0, (screenHeight - 20), screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
+        inSiteView = InSiteView(frame: CGRectMake(0, -60, screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
         
-
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         self.addSubview(header!)
         
@@ -73,7 +72,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     func refreshButtonAction(sender:UIButton) {
         
-        NSLog("BIIN - refreshButtonAction")
+        //NSLog("BIIN - refreshButtonAction")
         
         let vc = LoadingViewController()
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
@@ -87,10 +86,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         BNAppSharedManager.instance.dataManager.requestInitialData()
     }
     
-    func show_refreshButton(){
-        
-        
-        
+    func show_refreshButton(){        
         if !isShowing_refreshButton {
             isShowing_refreshButton = true
             let scroll_height = (scroll!.scroll!.frame.height - 50)
@@ -232,7 +228,14 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         inSiteView!.updateForSite(site!)
         
         UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.inSiteView!.frame.origin.y = ( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + SharedUIManager.instance.categoriesHeaderHeight + 20 ))
+            self.inSiteView!.frame.origin.y += 60//( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + SharedUIManager.instance.categoriesHeaderHeight + 20 ))
+            
+            
+            self.highlightContainer!.frame.origin.y += 60
+            self.nearSitesContainer!.frame.origin.y += 60
+            for container in self.elementContainers! {
+                container.frame.origin.y += 60
+            }
             
             //self.header!.frame.origin.y = (SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + SharedUIManager.instance.inSiteView_Height + 20))
         })
@@ -254,7 +257,13 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     func hideInSiteView(){
         
         UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.inSiteView!.frame.origin.y = (SharedUIManager.instance.screenHeight - 20)
+            self.inSiteView!.frame.origin.y -= 60//(SharedUIManager.instance.screenHeight - 20)
+            
+            self.highlightContainer!.frame.origin.y -= 60
+            self.nearSitesContainer!.frame.origin.y -= 60
+            for container in self.elementContainers! {
+                container.frame.origin.y -= 60
+            }
         })
     }
     

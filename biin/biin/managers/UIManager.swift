@@ -61,7 +61,7 @@ class UIManager {
     var highlightView_priceSize:CGFloat = 13
     
     //Site Container
-    var sitesContainer_headerHeight:CGFloat = 40
+    var sitesContainer_headerHeight:CGFloat = 50
     var sitesContainer_Height:CGFloat = 0
     
     //Banner Container
@@ -177,11 +177,17 @@ class UIManager {
         var viewHeight:CGFloat = 0
         
         switch deviceType {
-        case .iphone4s, .iphone5, .iphone6:
+        case .iphone4s, .iphone5:
+            viewWidth = (screenWidth - 10) / 2
+            viewHeight = screenHeight / 3.5
+            columns = 2
+            break
+        case .iphone6:
             viewWidth = (screenWidth - 30) / 2
             viewHeight = screenHeight / 3.5
             columns = 2
             break
+
         case .iphone6Plus:
             viewWidth = (screenWidth - 40) / 2.5
             viewHeight = screenHeight / 4.5

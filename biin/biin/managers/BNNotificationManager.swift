@@ -494,6 +494,9 @@ class BNNotificationManager:NSObject, NSCoding {
             notification.isUserNotified = false
         }
         
+        
+        surveyed_Sites.removeAll()
+        
         save()
     }
     

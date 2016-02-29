@@ -106,15 +106,18 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestBiinieInitialData(){
         
-        NSLog("BIIN - requestBiinieInitialData()")
+        //NSLog("BIIN - requestBiinieInitialData()")
         if isUserLoaded {
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
+            if bnUser!.email! == "ep@estebanpadilla.com" {
+                BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD = true
+            }
         }
     }
     
     func requestInitialData(){
         
-        NSLog("BIIN - requestInitialData()")
+        //NSLog("BIIN - requestInitialData()")
         delegateNM!.manager!(self, initialdata: bnUser!)
         
         //Changes request flow.

@@ -84,9 +84,9 @@ class BNAppManager {
         
         if let dict = myDict {
             version = dict.objectForKey("CFBundleShortVersionString") as! String
-            if IS_DEVELOPMENT_BUILD {
-                version += " Development"
-            }
+//            if IS_DEVELOPMENT_BUILD {
+//                version += " Development"
+//            }
         }
         
     }
@@ -140,7 +140,6 @@ class BNAppManager {
 
         dataManager.applyUnCollectedElement(element)
         networkManager.sendUnCollectedElement(dataManager.bnUser!, element: element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
-        
         mainViewController!.mainView!.updateAllCollectedView()
     }
     

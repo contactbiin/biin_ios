@@ -316,6 +316,7 @@ class ElementMiniView: BNView {
     func unCollect(sender:BNUIButton_RemoveIt) {
         self.element!.userCollected = false
         BNAppSharedManager.instance.unCollectElement(self.element)
+        SharedAnswersManager.instance.logUnCollect_Element(element)
     }
     
     /* Gesture hadlers */

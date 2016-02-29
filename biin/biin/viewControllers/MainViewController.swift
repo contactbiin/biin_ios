@@ -21,6 +21,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     var uiDocumentInteractionController:UIDocumentInteractionController?
     
+    var developmentView:DevelopmentView?
+    var showDevelopmentBtn:UIButton?
+    var isShowing_developmentView = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +45,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         BNAppSharedManager.instance.positionManager.delegateView = self
         
         BNAppSharedManager.instance.dataManager.requestDataOnWhenAppIsRunning()
+        
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -100,6 +105,31 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             mainView!.showNotificationContext()
         }
         
+        if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
+            
+            developmentView = DevelopmentView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), viewController:self)
+            self.view.addSubview(developmentView!)
+            
+            showDevelopmentBtn = UIButton(frame: CGRectMake((SharedUIManager.instance.screenWidth - 100), (SharedUIManager.instance.screenHeight - 45), 100, 45))
+            showDevelopmentBtn!.backgroundColor = UIColor.biinOrange()
+            showDevelopmentBtn!.addTarget(self, action: "showDevelopmentView:", forControlEvents: UIControlEvents.TouchUpInside)
+            showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
+            self.view!.addSubview(showDevelopmentBtn!)
+        }
+    }
+    
+    func showDevelopmentView(sender:UIButton) {
+        UIView.animateWithDuration(0.25, animations: {() -> Void in
+            if !self.isShowing_developmentView {
+                self.developmentView!.frame.origin.x = 0
+                self.isShowing_developmentView = true
+                self.showDevelopmentBtn!.setTitle("Hide Dev", forState: UIControlState.Normal)
+            } else {
+                self.developmentView!.frame.origin.x = SharedUIManager.instance.screenWidth
+                self.isShowing_developmentView = false
+                self.showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
+            }
+        })
     }
     
     func show_refreshButton(){
@@ -491,7 +521,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     // Facebook Delegate Methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("User Logged In")
         
         if ((error) != nil) {
             // Process error
@@ -523,14 +552,11 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
             
-            if ((error) != nil)
-            {
+            if ((error) != nil) {
                 // Process error
                 print("Error: \(error)")
-            }
-            else
-            {
-                print("fetched user: \(result)")
+            } else {
+                //print("fetched user: \(result)")
                 if let first_name = result.valueForKey("first_name") {
                     BNAppSharedManager.instance.dataManager.bnUser!.firstName = first_name as? String
                 }
@@ -541,8 +567,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
                 
                 if let userEmail = result.valueForKey("email") {
                     BNAppSharedManager.instance.dataManager.bnUser!.email = userEmail as? String
-                    BNAppSharedManager.instance.dataManager.bnUser!.biinName = userEmail as? String
-                    
+                    BNAppSharedManager.instance.dataManager.bnUser!.biinName = userEmail as? String 
                 }
                 
                 if let birthday = result.valueForKey("birthday") {
