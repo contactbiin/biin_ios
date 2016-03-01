@@ -110,7 +110,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if isUserLoaded {
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
             if bnUser!.email! == "ep@estebanpadilla.com"
-                || bnUser!.email! == "carce@biin.io" {
+                || bnUser!.email! == "carce@biin.io"
+                || bnUser!.email! == "demo@biin.io" {
                 BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD = true
             }
         }
