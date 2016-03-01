@@ -109,7 +109,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //NSLog("BIIN - requestBiinieInitialData()")
         if isUserLoaded {
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
-            if bnUser!.email! == "ep@estebanpadilla.com" {
+            if bnUser!.email! == "ep@estebanpadilla.com"
+                || bnUser!.email! == "carce@biin.io" {
                 BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD = true
             }
         }
@@ -154,6 +155,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         categories!.append(BNCategory(identifier: "category15", name: "Mascotas"))
         categories!.append(BNCategory(identifier: "category16", name: "Electrodomesticos"))
         categories!.append(BNCategory(identifier: "category17", name: "Muebles"))
+        categories!.append(BNCategory(identifier: "category18", name: "Servicios"))
         /*
         categories!.append(BNCategory(identifier: "category16", name: "Ferias"))
         categories!.append(BNCategory(identifier: "category17", name: "Marcas"))
