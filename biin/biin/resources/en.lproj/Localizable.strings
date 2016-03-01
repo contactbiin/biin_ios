@@ -235,3 +235,4 @@ UBER = "Ride there with Uber";
 Schedule = "Schedule";
 
 npsBtn = "Help us to improve";
+npsBtn_completed = "We received your help!";

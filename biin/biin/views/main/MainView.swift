@@ -457,7 +457,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
                 
                     (self.surveyState!.view as! SurveyView).updateSiteData(site_to_survey)
-                    BNAppSharedManager.instance.notificationManager.add_surveyedSite(site_to_survey!.identifier)
                     
                     state!.next(self.surveyState)
                     isReadyToShowSurvey = false

@@ -317,6 +317,9 @@ class SiteView:BNView, UIScrollViewDelegate {
             //scroll!.addSubview(shareView!)
             
 
+        } else {
+            
+            locationView!.updateButtons()
         }
         
         

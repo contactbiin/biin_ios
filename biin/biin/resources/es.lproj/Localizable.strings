@@ -227,3 +227,4 @@ UBER = "Llega allí con Uber";
 Schedule = "Horario";
 
 npsBtn = "Ayúdanos a mejorar";
+npsBtn_completed = "Hemos recivido tu ayuda!";
