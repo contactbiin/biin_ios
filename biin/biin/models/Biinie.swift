@@ -141,9 +141,7 @@ class Biinie:NSObject, NSCoding {
 
     }
     
-    deinit {
-        
-    }
+    deinit { }
     
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)

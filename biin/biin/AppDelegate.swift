@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {// Override point for customization a fter application launch.
         
-        NSLog("BIIN - didFinishLaunchingWithOptions()")
+        //NSLog("BIIN - didFinishLaunchingWithOptions()")
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
@@ -31,17 +31,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         switch application.applicationState {
         case .Active:
-            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
+            //NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
             appManager.IS_APP_UP = true
             appManager.IS_APP_DOWN = false
             break
         case .Background:
-            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
+            //NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
             appManager.IS_APP_UP = false
             appManager.IS_APP_DOWN = true
             break
         case .Inactive:
-            NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
+            //NSLog("BIIN - didFinishLaunchingWithOptions - INACTIVE")
             appManager.IS_APP_UP = false
             appManager.IS_APP_DOWN = true
             break
@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
         if BNAppSharedManager.instance.dataManager.isUserLoaded {
-            NSLog("Stating LoadingViewController()")
+            //NSLog("Stating LoadingViewController()")
             let lvc = LoadingViewController()
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc

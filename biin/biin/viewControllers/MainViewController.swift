@@ -28,7 +28,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSLog("MainViewController - viewDidLoad()")
+        //NSLog("MainViewController - viewDidLoad()")
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false

@@ -771,7 +771,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            		print(" \(value)")
+            print(" \(value)")
         }
         
         //print("\(self.myBeacons.count)")

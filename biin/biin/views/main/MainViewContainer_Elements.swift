@@ -150,8 +150,6 @@ class MainViewContainer_Elements:BNView {
             elementView_width = SharedUIManager.instance.screenWidth
         } else if category!.elements.count == 2 {
             elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
-        } else if category!.elements.count == 3 {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 2) / 2.75)
         } else {
             elementView_width = SharedUIManager.instance.miniView_width
         }

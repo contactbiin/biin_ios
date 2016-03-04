@@ -316,15 +316,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ubication!.sizeToFit()
         ypos += ubication!.frame.height
         
-        var hasPhone = false
-        var hasEmail = false
+//        var hasPhone = false
+//        var hasEmail = false
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
             phoneLbl!.frame.origin.y = ypos
             phoneLbl!.text =  "\(NSLocalizedString("Phone", comment: "Phone")): \(site!.phoneNumber!)"
             phoneLbl!.sizeToFit()
             ypos += phoneLbl!.frame.height
-            hasPhone = true
+//            hasPhone = true
             callBtn!.enabled = true
             callBtn!.alpha = 1
             callBtn!.backgroundColor = site!.media[0].vibrantDarkColor
@@ -339,7 +339,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             emailLbl!.text = "\(NSLocalizedString("Email", comment: "Email")): \(site!.email!)"
             emailLbl!.sizeToFit()
             ypos += emailLbl!.frame.height
-            hasEmail = true
+//            hasEmail = true
             
 //            var value = NSLocalizedString("Email", comment: "Email")
 //            email!.text = "\(value): \(site!.email!)"

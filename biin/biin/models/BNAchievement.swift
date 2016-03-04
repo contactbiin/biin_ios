@@ -18,7 +18,5 @@ class BNAchievement:NSObject {
         self.identifier = identifier
     }
     
-    deinit {
-        
-    }
+    deinit { }
 }

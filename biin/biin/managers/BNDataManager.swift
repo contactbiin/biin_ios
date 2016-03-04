@@ -110,7 +110,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if isUserLoaded {
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
             if bnUser!.email! == "ep@estebanpadilla.com"
-                || bnUser!.email! == "carce@biin.io"
                 || bnUser!.email! == "demo@biin.io" {
                 BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD = true
             }
@@ -208,13 +207,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
         
-        NSLog("BIIN - didReceivedConnectionStatus \(status)")
+        //NSLog("BIIN - didReceivedConnectionStatus \(status)")
         if status && BNAppSharedManager.instance.IS_APP_UP {
-            NSLog("BIIN - didReceivedConnectionStatus 1")
+            //NSLog("BIIN - didReceivedConnectionStatus 1")
 
             requestBiinieInitialData()
         } else if status && BNAppSharedManager.instance.IS_APP_DOWN {
-            NSLog("BIIN - didReceivedConnectionStatus 2")
+            //NSLog("BIIN - didReceivedConnectionStatus 2")
 
             requestBiinieInitialData()
         }

@@ -141,7 +141,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
  
     func checkConnectivity() {
         
-        NSLog("BIIN - checkConnectivity()")
+        //NSLog("BIIN - checkConnectivity()")
         
         let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)

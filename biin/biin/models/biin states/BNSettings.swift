@@ -10,8 +10,8 @@ class BNSettings:NSObject, NSCoding {
     var IS_USING_CACHE = false
     var IS_QA_DATABASE = false
     var IS_DEMO_DATABASE = false
-    var IS_PRODUCTION_DATABASE = true
-    var IS_DEVELOPMENT_DATABASE = false
+    var IS_PRODUCTION_DATABASE = false
+    var IS_DEVELOPMENT_DATABASE = true
 
     override init() {
         super.init()
@@ -33,9 +33,7 @@ class BNSettings:NSObject, NSCoding {
         aCoder.encodeBool(IS_USING_CACHE, forKey: "IS_USING_CACHE")
     }
     
-    deinit {
-        
-    }
+    deinit { }
     
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
