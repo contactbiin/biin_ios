@@ -142,12 +142,12 @@ class DevelopmentView:UIView {
 //        self.addSubview(clearUserBtn!)
 //        ypos += 65
         
-        addActionBtn = UIButton(frame: CGRectMake(0, ypos, screenWidth, 60))
-        addActionBtn!.backgroundColor = UIColor.appBackground()
-        addActionBtn!.setTitle("Clear Notificacions", forState: UIControlState.Normal)
-        addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
-        addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+//        addActionBtn = UIButton(frame: CGRectMake(0, ypos, screenWidth, 60))
+//        addActionBtn!.backgroundColor = UIColor.appBackground()
+//        addActionBtn!.setTitle("Clear Notificacions", forState: UIControlState.Normal)
+//        addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+//        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
+//        addActionBtn!.addTarget(self, action: "resetNotificationsBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
 //        self.addSubview(addActionBtn!)
 //        ypos += 65
         
@@ -246,10 +246,10 @@ class DevelopmentView:UIView {
 //        self.viewController!.presentViewController(vc, animated: true, completion: nil)
     }
     
-    func addActionBtnAction(sender:UIButton!){
+    func resetNotificationsBtnAction(sender:UIButton!){
         //BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BIINED_ELEMENT, to: "55db879e2fde320300fb9321")
         
-        BNAppSharedManager.instance.notificationManager.clear()
+        BNAppSharedManager.instance.notificationManager.resetAllNotifications()
     }
     
     func resetNotificationAction(sender:UIButton){

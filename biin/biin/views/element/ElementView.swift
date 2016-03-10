@@ -660,7 +660,7 @@ class ElementView: BNView, UIWebViewDelegate {
         let colorDark = "rgb(\(rdInt), \(gdInt), \(bdInt))"
         
         var css = ""
-        css += "html { font-family: Lato, Helvetica, sans-serif; background-color: rgb(248,248,248); }"
+        css += "html { font-family: Lato, Helvetica, sans-serif; background-color: rgb(255,255,255); }"
         css += "p { font-size: 14px; font-weight:300 !important;}"
         css += "b { font-size: 14px; font-weight:500 !important;}"
         css += "li { font-size: 14px; font-weight:300 !important; margin-bottom: 5px; margin-left: -15px !important; }"
@@ -676,7 +676,7 @@ class ElementView: BNView, UIWebViewDelegate {
         css += ".listPrice_Right p{ width: 20%; float: right; font-size: 17px; font-weight:400; text-align: right; margin-top: 0px; margin-bottom: 0px; }"
         css += ".highlight { display:table; text-align: center; width: 100%; margin-top: 20px; }"
         css += ".highlight_title p { font-size: 20px; font-weight:300; margin-top: 0px; margin-bottom: 0px; }"
-        css += ".highlight_text p { font-size: 80px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:\(color);}"
+        css += ".highlight_text p { font-size: 70px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:\(color);}"
         css += ".highlight_subtext p { font-size: 12px; font-weight:300; margin-top: -10px; margin-bottom: 0px; }"
         css += ".biin_h2 { font-size: 25px; font-weight:300 !important; }"
         css += ".biin_h1 { font-size: 30px; font-weight:300 !important; }"

@@ -251,6 +251,9 @@ class BNRequest_InitialData: BNRequest {
                                         site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
                                         site.siteSchedule = BNParser.findString("siteSchedule", dictionary: siteData)
                                         
+                                        print("site:\(site.identifier!), name:\(site.title!), location:\(site.city!), major:\(site.major!)")
+                                        
+                                        
                                         let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
                                         
                                         if neighbors?.count > 0{

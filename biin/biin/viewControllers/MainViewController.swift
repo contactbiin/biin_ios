@@ -46,6 +46,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
         BNAppSharedManager.instance.dataManager.requestDataOnWhenAppIsRunning()
         
+//        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+//            mainView!.showNotificationContext()
+//        }
+        
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

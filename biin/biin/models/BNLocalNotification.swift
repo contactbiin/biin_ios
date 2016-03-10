@@ -8,11 +8,12 @@ import Foundation
 class BNLocalNotification:NSObject, NSCoding {
 
     var object_id:String?
+    var objectIdentifier:String?
     var notificationText:String?
     var notificationType:BNLocalNotificationType?
     var siteIdentifier:String?
     var biinIdentifier:String?
-    var elementIdentifier:String?
+    //var elementIdentifier:String?
     
     //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
     var onMonday = false
@@ -38,22 +39,30 @@ class BNLocalNotification:NSObject, NSCoding {
         super.init()
     }
     
-    convenience init( object_id:String, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String ) {
+    convenience init( object_id:String, objectIdentifier:String, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String ) {
         self.init()
         self.object_id = object_id
+        self.objectIdentifier = objectIdentifier
         self.notificationText = notificationText
         self.notificationType = notificationType
         self.siteIdentifier = siteIdentifier
         self.biinIdentifier = biinIdentifier
-        self.elementIdentifier = elementIdentifier
+        //self.elementIdentifier = elementIdentifier
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.object_id  = aDecoder.decodeObjectForKey("object_id") as? String
+
+        if let object_identifier  = aDecoder.decodeObjectForKey("objectIdentifier") as? String {
+            self.objectIdentifier  = object_identifier
+        } else {
+            self.objectIdentifier = ""
+        }
+        
         self.notificationText = aDecoder.decodeObjectForKey("notificationText") as? String
         self.siteIdentifier = aDecoder.decodeObjectForKey("siteIdentifier") as? String
         self.biinIdentifier = aDecoder.decodeObjectForKey("biinIdentifier") as? String
-        self.elementIdentifier = aDecoder.decodeObjectForKey("elementIdentifier") as? String
+        //self.elementIdentifier = aDecoder.decodeObjectForKey("elementIdentifier") as? String
         
         let value = aDecoder.decodeIntForKey("notificationType")
         switch value {
@@ -91,6 +100,10 @@ class BNLocalNotification:NSObject, NSCoding {
             aCoder.encodeObject(object_id, forKey: "object_id")
         }
         
+        if let objectIdentifier = self.objectIdentifier {
+            aCoder.encodeObject(objectIdentifier, forKey: "objectIdentifier")
+        }
+        
         if let notificationText = self.notificationText {
             aCoder.encodeObject(notificationText, forKey: "notificationText")
         }
@@ -107,9 +120,9 @@ class BNLocalNotification:NSObject, NSCoding {
             aCoder.encodeObject(biinIdentifier, forKey: "biinIdentifier")
         }
         
-        if let elementIdentifier = self.elementIdentifier {
-            aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
-        }
+//        if let elementIdentifier = self.elementIdentifier {
+//            aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
+//        }
         
         aCoder.encodeBool(self.onMonday, forKey: "onMonday")
         aCoder.encodeBool(self.onTuesday, forKey: "onTuesday")

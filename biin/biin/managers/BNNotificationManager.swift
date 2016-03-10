@@ -146,7 +146,7 @@ class BNNotificationManager:NSObject, NSCoding {
         }
         
         if !isNotificationSaved {
-            let notification = BNLocalNotification(object_id:object._id!, notificationText:notificationText!, notificationType:notificationType, siteIdentifier:siteIdentifier, biinIdentifier:biinIdentifier, elementIdentifier:elementIdentifier)
+            let notification = BNLocalNotification(object_id:object._id!, objectIdentifier:object.identifier!,notificationText:notificationText!, notificationType:notificationType, siteIdentifier:siteIdentifier, biinIdentifier:biinIdentifier, elementIdentifier:elementIdentifier)
             
             //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
             notification.onMonday = object.onMonday
@@ -187,7 +187,43 @@ class BNNotificationManager:NSObject, NSCoding {
         localNotifications.removeAll(keepCapacity: false)
         save()
     }
+    
+    //NEW IMPLEMENTATION
+    func sendNotificationForBeaconRegionDetected(siteIdentifier:String, major:Int, minor:Int){
+        
+        NSLog("BIIN - sendNotificationForBeaconRegoinDetected()")
+        
+        didSendNotificationOnAppDown = true
+        var siteNotifications:Array<BNLocalNotification> = Array<BNLocalNotification>()
+        
+        for notification in localNotifications {
+            
+            NSLog("BIIN - localNotifications Site identifier: \(notification.siteIdentifier!)")
+            NSLog("BIIN - localNotifications major: \(notification.major)")
+            NSLog("BIIN - localNotifications minor: \(notification.minor)")
+            
+            if major == notification.major && minor == notification.minor {
+                
+                NSLog("BIIN - FOUND Site identifier: \(notification.siteIdentifier!)")
+                NSLog("BIIN - FOUND major: \(notification.major)")
+                NSLog("BIIN - FOUND minor: \(notification.minor)")
+                siteNotifications.append(notification)
+                
+            } else {
+                NSLog("BIIN - Site identifier: \(siteIdentifier) major:\(major) NOT IN LIST")
+            }
+        }
+        
+        if siteNotifications.count > 0 {
+            assingCurrentNotificationByDate(siteNotifications)
+            sendCurrentNotification()
 
+        }
+
+    }
+    
+
+    //OLD IMPLEMENTATION
     func activateNotificationForSite(siteIdentifier:String, major:Int) {
         
         NSLog("BIIN - activateNotificationForSite()")
@@ -297,13 +333,13 @@ class BNNotificationManager:NSObject, NSCoding {
         }
         
         if siteNotifications.count > 0 {
-            assingCurrectNotificationByDate(siteNotifications)
+            assingCurrentNotificationByDate(siteNotifications)
         }
         
     }
     
     
-    func assingCurrectNotificationByDate(siteNotifications:Array<BNLocalNotification>){
+    func assingCurrentNotificationByDate(siteNotifications:Array<BNLocalNotification>){
         //TODO: get the correct object depending on the time and properties.
         NSLog("BIIN - assingCurrectNotificationByDate: \(siteNotifications.count)")
         var currentNotificationIndex = 0

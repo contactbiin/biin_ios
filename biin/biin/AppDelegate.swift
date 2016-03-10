@@ -218,6 +218,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if appManager.dataManager.bnUser != nil {
             appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
         }
+        
+        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+            BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
+        }
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
