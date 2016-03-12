@@ -7,9 +7,12 @@ import Foundation
 import CoreLocation
 import CoreBluetooth
 import UIKit
+import KontaktSDK
 
-class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelegate, CBCentralManagerDelegate
+class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelegate, CBCentralManagerDelegate, KTKDevicesManagerDelegate
 {
+    
+    
     var locationManager:CLLocationManager?// = CLLocationManager()
     var bluetoothManager:CBCentralManager?
     
@@ -64,12 +67,18 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     
     var currentSite:BNSite?
     
+    var devicesManager:KTKDevicesManager?
+    
     init(errorManager:BNErrorManager){
         
         self.errorManager = errorManager
 
         super.init()
 
+        Kontakt.setAPIKey("HIMVKoKndBpLfFsOqRXCrsizRqsJcGDU")
+        devicesManager = KTKDevicesManager(delegate: self)
+        devicesManager!.startDevicesDiscoveryWithInterval(10.0)
+        
         self.startLocationService()
     }
     
@@ -106,6 +115,22 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         locationManager!.startUpdatingLocation()
     }
     
+    func devicesManager(manager: KTKDevicesManager, didDiscoverDevices devices: [KTKNearbyDevice]?) {
+        if devices!.count > 0 {
+            for device in devices! {
+                
+                print("Battery: \(device.uniqueID!)")
+                print("Battery: \(device.batteryLevel)")
+                
+                if device.batteryLevel <= 50 {
+                    print("Add battery waring action")
+                    BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BEACON_BATTERY, to: device.uniqueID!)
+                }
+            }
+        }
+        
+        devicesManager!.stopDevicesDiscovery()
+    }
     
     //CLLocationManagerDelegate - Responding to Authorization Changes
     
@@ -866,6 +891,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     
                     
                     if myBeacons.count > 0 {
+                        devicesManager!.startDevicesDiscoveryWithInterval(10.0)
                         handleBiiniePositionOnFirstBiinDetected(myBeacons[0])
                     }
                     

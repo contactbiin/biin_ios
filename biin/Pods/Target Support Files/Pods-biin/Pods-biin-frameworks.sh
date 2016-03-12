@@ -84,8 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${PODS_ROOT}/KontaktSDK/Cocoapods/iOS/KontaktSDK.framework"
   install_framework "Pods-biin/UberRides.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${PODS_ROOT}/KontaktSDK/Cocoapods/iOS/KontaktSDK.framework"
   install_framework "Pods-biin/UberRides.framework"
 fi

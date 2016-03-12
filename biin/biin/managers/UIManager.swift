@@ -187,7 +187,6 @@ class UIManager {
             viewHeight = screenHeight / 3.5
             columns = 2
             break
-
         case .iphone6Plus:
             viewWidth = (screenWidth - 40) / 2.1
             viewHeight = screenHeight / 4.5

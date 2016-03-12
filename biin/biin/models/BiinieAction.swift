@@ -155,4 +155,6 @@ enum BiinieActionType {
     
     case OPEN_APP//21
     case CLOSE_APP//22
+    
+    case BEACON_BATTERY//23
 }

@@ -107,6 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         RidesClient.sharedInstance.configureClientID("Kvswd-Zkg5J9xNnMHZIxUQ1nPiIc5Tid")
 //        return true
+
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     

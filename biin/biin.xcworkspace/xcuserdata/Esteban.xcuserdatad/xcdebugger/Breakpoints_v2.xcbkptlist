@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "478891403.243687"
+            timestampString = "479431403.011674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1041"
-            endingLineNumber = "1041"
+            startingLineNumber = "1062"
+            endingLineNumber = "1062"
             landmarkName = "orderAndSentBiinsToDisplay(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "478891403.243687"
+            timestampString = "479431403.011674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "834"
-            endingLineNumber = "834"
+            startingLineNumber = "855"
+            endingLineNumber = "855"
             landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "478891403.243687"
+            timestampString = "479431403.011674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "836"
-            endingLineNumber = "836"
+            startingLineNumber = "857"
+            endingLineNumber = "857"
             landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "478885616.715475"
+            timestampString = "479431403.011674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "552"
+            endingLineNumber = "552"
             landmarkName = "locationManager(_:didEnterRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "478891403.243687"
+            timestampString = "479431403.011674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "831"
-            endingLineNumber = "831"
+            startingLineNumber = "852"
+            endingLineNumber = "852"
             landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "478891403.243687"
+            timestampString = "479431403.011674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "825"
-            endingLineNumber = "825"
+            startingLineNumber = "846"
+            endingLineNumber = "846"
             landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/managers/BNPositionManager.swift"
-            timestampString = "478891403.243687"
+            timestampString = "479431403.011674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "934"
-            endingLineNumber = "934"
+            startingLineNumber = "955"
+            endingLineNumber = "955"
             landmarkName = "handleBiiniePositionOnFirstBiinDetected(_:)"
             landmarkType = "5">
          </BreakpointContent>
