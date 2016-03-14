@@ -28,8 +28,6 @@ class BNRequest_Sites: BNRequest {
     
     override func run() {
         
-        //self.start = NSDate()
-        
         isRunning = true
         requestAttemps++
         
@@ -56,11 +54,14 @@ class BNRequest_Sites: BNRequest {
                                         
                                         
                                         let organization = BNOrganization()
-                                        organization.identifier = identifier//BNParser.findString("identifier", dictionary: organizationData)
+                                        organization.identifier = identifier
+                                        //BNParser.findString("identifier", dictionary: organizationData)
                                         organization.name = BNParser.findString("name", dictionary: organizationData)
                                         organization.brand = BNParser.findString("brand", dictionary: organizationData)
                                         organization.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData)
                                         organization.organizationDescription = BNParser.findString("description", dictionary: organizationData)
+                                        organization.primaryColor = BNParser.findUIColor("primaryColor", dictionary:organizationData)
+                                        organization.secundaryColor = BNParser.findUIColor("secundaryColor", dictionary:organizationData)
                                         
                                         let mediaArray = BNParser.findNSArray("media", dictionary: organizationData)
                                         

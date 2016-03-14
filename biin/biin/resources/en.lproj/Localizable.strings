@@ -198,10 +198,10 @@ OnboardingTitle1 = "Discover!";
 OnboardingText1 = "The best deals and rewards just steps away from you.";
 
 OnboardingTitle2 = "Collect and share!";
-OnboardingText2 = "All the things your find in Biin with your friends.";
+OnboardingText2 = "All the things you find in Biin with your friends.";
 
 OnboardingTitle3 = "Enjoy!";
-OnboardingText3 = "Visit you favorite stores and take advantage the best deals and rewards.";
+OnboardingText3 = "Visit your favorite stores and take advantage the best deals and rewards.";
 
 SiteBottomTitle = "Thank you!";
 SiteBottomSubtitle = "Please comeback soon.";

@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
         } else {
+            
             let lvc = SingupViewController()
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc

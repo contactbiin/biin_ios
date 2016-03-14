@@ -48,7 +48,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         } else if BNAppSharedManager.instance.settings!.IS_QA_DATABASE {
             rootURL = "https://qa-biin-backend.herokuapp.com"
         } else if BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE {
-            rootURL = "https://dev-biin-backend.herokuapp.com"//"https://dev-biinapp.herokuapp.com"
+            rootURL = "https://dev-biin-backend.herokuapp.com"
         }
     }
     
@@ -673,13 +673,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 
 @objc protocol BNNetworkManagerDelegate:NSObjectProtocol {
     
-    
+
     optional func manager(manager:BNNetworkManager!, didReceivedLoginValidation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)
     optional func manager(manager:BNNetworkManager!, didReceivedEmailVerification value:Bool)
     optional func manager(manager:BNNetworkManager!, didReceivedRegisterConfirmation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedUpdateConfirmation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedCategoriesSavedConfirmation response:BNResponse?)
+    optional func manager(manager:BNNetworkManager!, didReceivedFacebookLoginValidation response:BNResponse?)
     
     optional func manager(manager:BNNetworkManager!, didReceivedInitialData biins:Array<BNBiin>?)
     

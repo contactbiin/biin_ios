@@ -91,12 +91,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
             }
         } else {
-            // Create a new Course List
             isUserLoaded = false
             bnUser = Biinie(identifier:"", firstName: "none", lastName:"none", email: "none.com")
             bnUser!.isEmailVerified = false
-            bnUser!.biinName = ""
-            
+            bnUser!.biinName = ""            
         }
     }
     
