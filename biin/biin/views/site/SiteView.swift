@@ -265,16 +265,20 @@ class SiteView:BNView, UIScrollViewDelegate {
             SharedAnswersManager.instance.logContentView_Site(site)
             
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:site!.identifier!)
-            
-            if self.site!.useWhiteText {
-                textColor = UIColor.whiteColor()
-                iconColor = self.site!.media[0].vibrantDarkColor
-                decorationColor = self.site!.media[0].vibrantDarkColor
-            } else {
-                textColor = UIColor.whiteColor()
-                iconColor = self.site!.media[0].vibrantDarkColor
-                decorationColor = self.site!.media[0].vibrantDarkColor
-            }
+//            
+//            if self.site!.useWhiteText {
+//                textColor = UIColor.whiteColor()
+//                iconColor = self.site!.media[0].vibrantDarkColor
+//                decorationColor = self.site!.media[0].vibrantDarkColor
+//            } else {
+//                textColor = UIColor.whiteColor()
+//                iconColor = self.site!.media[0].vibrantDarkColor
+//                decorationColor = self.site!.media[0].vibrantDarkColor
+//            }
+//            
+            textColor = site!.organization!.secondaryColor
+            iconColor = site!.organization!.primaryColor
+            decorationColor = site!.organization!.primaryColor
             
             //scroll!.backgroundColor = self.site!.media[0].vibrantColor!
             

@@ -297,13 +297,13 @@ class ElementView: BNView, UIWebViewDelegate {
             scroll!.backgroundColor = UIColor.whiteColor()//self.element!.media[0].vibrantColor
             
             if self.element!.useWhiteText {
-                textColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                iconColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                decorationColor = self.element!.media[0].vibrantDarkColor
+                textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
+                iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
+                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
             } else {
-                textColor = self.element!.media[0].vibrantColor
-                decorationColor = self.element!.media[0].vibrantDarkColor
-                iconColor = UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
+                textColor = self.element!.showcase!.site!.organization!.secondaryColor//self.element!.media[0].vibrantColor
+                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
+                iconColor = self.element!.showcase!.site!.organization!.primaryColor//UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
             }
             
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
@@ -600,9 +600,9 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func updateBackBtn(){
         
-        backBtn!.icon!.color = UIColor.whiteColor()
-        backBtn!.layer.borderColor = decorationColor!.CGColor
-        backBtn!.layer.backgroundColor = decorationColor!.CGColor
+        backBtn!.icon!.color = self.element!.showcase!.site!.organization!.secondaryColor//UIColor.whiteColor()
+        backBtn!.layer.borderColor = self.element!.showcase!.site!.organization!.primaryColor!.CGColor//decorationColor!.CGColor
+        backBtn!.layer.backgroundColor = self.element!.showcase!.site!.organization!.primaryColor!.CGColor//decorationColor!.CGColor
         backBtn!.setNeedsDisplay()
     }
     

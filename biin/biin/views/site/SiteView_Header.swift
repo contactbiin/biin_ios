@@ -94,17 +94,19 @@ class SiteView_Header:BNView {
     //Instance methods
     func updateForSite(site: BNSite?){
 
-        var textColor:UIColor?
+//        var textColor:UIColor?
+//
+//        if site!.useWhiteText {
+////            textColor = site!.media[0].vibrantLightColor
+//            textColor = UIColor.whiteColor()
+//        } else {
+////            textColor = site!.media[0].vibrantLightColor
+//            textColor = UIColor.whiteColor()
+//        }
         
-        if site!.useWhiteText {
-//            textColor = site!.media[0].vibrantLightColor
-            textColor = UIColor.whiteColor()
-        } else {
-//            textColor = site!.media[0].vibrantLightColor
-            textColor = UIColor.whiteColor()
-        }
-        
-        viewContainer!.backgroundColor = UIColor.darkGrayColor()
+        let textColor = site!.organization!.secondaryColor
+        viewContainer!.backgroundColor = site!.organization!.primaryColor
+        //viewContainer!.backgroundColor = UIColor.darkGrayColor()
         
         title!.text = site!.title!
         subTitle!.text = site!.subTitle!

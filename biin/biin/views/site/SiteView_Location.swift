@@ -327,7 +327,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //            hasPhone = true
             callBtn!.enabled = true
             callBtn!.alpha = 1
-            callBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+            callBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
+            callBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
         }else {
             callBtn!.enabled = false
             callBtn!.alpha = 0
@@ -350,7 +351,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
             emailBtn!.enabled = true
             emailBtn!.alpha = 1
-            emailBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+            emailBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
+            emailBtn!.backgroundColor = site!.organization!.primaryColor// site!.media[0].vibrantDarkColor
         } else {
             emailBtn!.enabled = false
             emailBtn!.alpha = 0
@@ -449,8 +451,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
                 npsBtn!.alpha = 1
                 npsBtn!.enabled = true
                 npsBtn!.frame.origin.y = ypos
-                npsBtn!.backgroundColor = site!.media[0].vibrantDarkColor
-                npsBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+                npsBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
+                npsBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
                 ypos += npsBtn!.frame.height
                 npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
                 npsBtn!.layer.borderColor = UIColor.clearColor().CGColor
@@ -463,9 +465,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
                 ypos += npsBtn!.frame.height
                 npsBtn!.setTitle(NSLocalizedString("npsBtn_completed", comment: "npsBtn_completed"), forState: UIControlState.Normal)
                 npsBtn!.backgroundColor = UIColor.whiteColor()
-                npsBtn!.layer.borderColor = site!.media[0].vibrantDarkColor?.CGColor
+                npsBtn!.layer.borderColor = site!.organization!.primaryColor!.CGColor//site!.media[0].vibrantDarkColor?.CGColor
                 npsBtn!.layer.borderWidth = 1
-                npsBtn!.setTitleColor(site!.media[0].vibrantDarkColor, forState: UIControlState.Normal)
+                npsBtn!.setTitleColor(site!.organization!.primaryColor!, forState: UIControlState.Normal)
                 
             }
         } else {
