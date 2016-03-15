@@ -67,7 +67,7 @@ class BNRequest_InitialData: BNRequest {
                                         organization.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData)
                                         organization.organizationDescription = BNParser.findString("description", dictionary: organizationData)
                                         organization.primaryColor = BNParser.findUIColor("primaryColor", dictionary:organizationData)
-                                        organization.secundaryColor = BNParser.findUIColor("secundaryColor", dictionary:organizationData)
+                                        organization.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary:organizationData)
                                         
                                         organization.hasNPS = BNParser.findBool("hasNPS", dictionary: organizationData)
                                         

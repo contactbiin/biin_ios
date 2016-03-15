@@ -48,7 +48,7 @@ class BNRequest_Organization: BNRequest {
                         self.organization!.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData!)
                         self.organization!.organizationDescription = BNParser.findString("description", dictionary: organizationData!)
                         self.organization!.primaryColor = BNParser.findUIColor("primaryColor", dictionary:organizationData!)
-                        self.organization!.secundaryColor = BNParser.findUIColor("secundaryColor", dictionary:organizationData!)
+                        self.organization!.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary:organizationData!)
                         
                         
                         let mediaArray = BNParser.findNSArray("media", dictionary: organizationData!)

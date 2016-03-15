@@ -22,7 +22,7 @@ class BNOrganization:NSObject {
     var loyalty:BNLoyalty?
 
     var primaryColor:UIColor?
-    var secundaryColor:UIColor?
+    var secondaryColor:UIColor?
     
     var media:Array<BNMedia> = Array<BNMedia>()
     

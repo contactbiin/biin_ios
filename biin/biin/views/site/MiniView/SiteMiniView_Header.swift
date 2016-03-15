@@ -28,21 +28,21 @@ class SiteMiniView_Header:BNView {
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?, showShareButton:Bool){
         self.init(frame: frame, father:father )
-        self.backgroundColor = site!.media[0].vibrantColor
+        self.backgroundColor = site!.organization!.primaryColor
+        let textColor = site!.organization!.secondaryColor
         
-        
-        var textColor:UIColor?
-        if site!.useWhiteText {
-            textColor = UIColor.whiteColor()
-        } else {
-            textColor = UIColor.bnGrayDark()
-        }
+        //var textColor:UIColor?
+//        if site!.useWhiteText {
+//            textColor = UIColor.whiteColor()
+//        } else {
+//            textColor = UIColor.bnGrayDark()
+//        }
         
         var ypos:CGFloat = 7
         
         let title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_title + 2)))
         title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteMiniView_title)
-        title.textColor = UIColor.whiteColor()
+        title.textColor = textColor
         title.textAlignment = NSTextAlignment.Center
         title.text = site!.title
         self.addSubview(title)

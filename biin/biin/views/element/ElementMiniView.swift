@@ -83,19 +83,22 @@ class ElementMiniView: BNView {
         var decorationColor:UIColor?
         
         
-        if self.element!.media.count > 0 {
-            
-            if self.element!.useWhiteText {
-                textColor = UIColor.whiteColor()
-                decorationColor = self.element!.media[0].vibrantDarkColor
-            } else {
-                textColor = UIColor.whiteColor()
-                decorationColor = self.element!.media[0].vibrantDarkColor
-            }
-        } else {
-            textColor = UIColor.whiteColor()
-            decorationColor = UIColor.bnGrayDark()
-        }
+//        if self.element!.media.count > 0 {
+//            
+//            if self.element!.useWhiteText {
+//                textColor = UIColor.whiteColor()
+//                decorationColor = self.element!.media[0].vibrantDarkColor
+//            } else {
+//                textColor = UIColor.whiteColor()
+//                decorationColor = self.element!.media[0].vibrantDarkColor
+//            }
+//        } else {
+//            textColor = UIColor.whiteColor()
+//            decorationColor = UIColor.bnGrayDark()
+//        }
+        
+        decorationColor = self.element!.showcase!.site!.organization!.primaryColor
+        textColor = self.element!.showcase!.site!.organization!.secondaryColor//UIColor.whiteColor()
         
         var ypos:CGFloat = 0
         var xpos:CGFloat = 0
