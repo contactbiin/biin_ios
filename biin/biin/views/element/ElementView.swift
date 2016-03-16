@@ -348,12 +348,18 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
                 
                 
+                var price = "\(self.element!.currency!)\(self.element!.price!)"
+                
+                if element.isTaxIncludedInPrice {
+                    price += " i.i."
+                }
+                
                 ypos += (SharedUIManager.instance.elementView_titleSize + 5)
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-                self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
+                self.textPrice2!.text = price
                 ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
                 
             } else if self.element!.hasPrice && self.element!.hasListPrice {
@@ -374,7 +380,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.text_before!.text = NSLocalizedString("Before", comment: "Before")
                 xposition += text_Length
                 xposition += 10
-
+                
                 self.textPrice1!.frame = CGRectMake(xposition, ypos, price_Length, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor!.colorWithAlphaComponent(0.75)
                 self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -385,7 +391,14 @@ class ElementView: BNView, UIWebViewDelegate {
                 
                 text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Now", comment: "Now"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
-                price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.listPrice!)", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
+                
+                var price = "\(self.element!.currency!)\(self.element!.listPrice!)"
+                
+                if element.isTaxIncludedInPrice {
+                    price += " i.i."
+                }
+                
+                price_Length = SharedUIManager.instance.getStringLength(price, fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
                 xposition = ((frame.width - (text_Length + 10 + price_Length)) / 2)
 
@@ -403,7 +416,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Left
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-                self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
+                self.textPrice2!.text = price
                 //self.scroll!.addSubview(self.textPrice2!)
                 ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
 
@@ -416,11 +429,17 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice1!.text = NSLocalizedString("From", comment: "From")
                 ypos += (SharedUIManager.instance.elementView_titleSize + 5)
                 
+                var price = "\(self.element!.currency!)\(self.element!.price!)"
+                
+                if element.isTaxIncludedInPrice {
+                    price += " i.i."
+                }
+                
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-                self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
+                self.textPrice2!.text = price
                 ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
                 
             } else {

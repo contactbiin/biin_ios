@@ -277,7 +277,7 @@ class SiteView:BNView, UIScrollViewDelegate {
 //            }
 //            
             textColor = site!.organization!.secondaryColor
-            iconColor = site!.organization!.primaryColor
+            iconColor = site!.organization!.secondaryColor
             decorationColor = site!.organization!.primaryColor
             
             //scroll!.backgroundColor = self.site!.media[0].vibrantColor!
@@ -292,7 +292,7 @@ class SiteView:BNView, UIScrollViewDelegate {
 
 //            self.bringSubviewToFront(self.locationView!)
             
-            backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
+            backBtn!.icon!.color = iconColor//UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
             backBtn!.layer.borderColor = decorationColor!.CGColor
             backBtn!.layer.backgroundColor = decorationColor!.CGColor
             backBtn!.setNeedsDisplay()
@@ -576,8 +576,12 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(site!.userLiked)
+        
+        
         likeItButton!.icon!.color = iconColor!
         likeItButton!.setNeedsDisplay()
+        
+        
     }
     
     func shareit(sender:BNUIButton_ShareIt){

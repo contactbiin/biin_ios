@@ -19,15 +19,16 @@ class BNElement:NSObject {
     var nutshellDescription:String?
 
     //Hightlights - Price
-    var hasFromPrice:Bool = false
+    var isTaxIncludedInPrice = false
+    var hasFromPrice = false
     var fromPrice:String?
     var hasListPrice:Bool = false
     var listPrice:String?
-    var hasDiscount:Bool = false
+    var hasDiscount = false
     var discount:String?
-    var hasPrice:Bool = false //after discount applied
+    var hasPrice = false //after discount applied
     var price:String? //after discount applied
-    var hasSaving:Bool = false
+    var hasSaving = false
     var savings:String?
     var currency:String?
     
@@ -102,6 +103,7 @@ class BNElement:NSObject {
         clone.hasCallToAction = self.hasCallToAction
         if let value = self.callToActionURL { clone.callToActionURL = value }
         if let value = self.callToActionTitle { clone.callToActionTitle = value }
+        clone.isTaxIncludedInPrice = self.isTaxIncludedInPrice
         clone.hasFromPrice = self.hasFromPrice
         if let value = self.fromPrice { clone.fromPrice = value }
         clone.hasListPrice = self.hasListPrice

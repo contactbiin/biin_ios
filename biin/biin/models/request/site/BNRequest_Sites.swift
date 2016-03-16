@@ -117,6 +117,9 @@ class BNRequest_Sites: BNRequest {
                                         element.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
                                     }
                                     
+                                    
+                                    element.isTaxIncludedInPrice = BNParser.findBool("isTaxIncludedInPrice", dictionary: elementData)
+                                    
                                     element.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
                                     if element.hasFromPrice {
                                         element.fromPrice = BNParser.findString("fromPrice", dictionary: elementData)
