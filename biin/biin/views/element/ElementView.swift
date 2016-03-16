@@ -295,16 +295,20 @@ class ElementView: BNView, UIWebViewDelegate {
             imagesScrollView!.updateImages(self.element!.media, isElement:true)
             imagesScrollView!.backgroundColor = self.element!.media[0].vibrantColor
             scroll!.backgroundColor = UIColor.whiteColor()//self.element!.media[0].vibrantColor
+//            
+//            if self.element!.useWhiteText {
+//                textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
+//                iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
+//                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
+//            } else {
+//                textColor = self.element!.showcase!.site!.organization!.secondaryColor//self.element!.media[0].vibrantColor
+//                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
+//                iconColor = self.element!.showcase!.site!.organization!.primaryColor//UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
+//            }
             
-            if self.element!.useWhiteText {
-                textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
-            } else {
-                textColor = self.element!.showcase!.site!.organization!.secondaryColor//self.element!.media[0].vibrantColor
-                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
-                iconColor = self.element!.showcase!.site!.organization!.primaryColor//UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
-            }
+            textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
+            iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
+            decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
             
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
@@ -584,7 +588,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(self.element!.userLiked)
-        likeItButton!.icon!.color = self.iconColor!
+        likeItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
@@ -608,12 +612,12 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func updateCollectItBtn(){
         collectItButton!.changeToCollectIcon(self.element!.userCollected)
-        collectItButton!.icon!.color = self.iconColor!
+        collectItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
         collectItButton!.setNeedsDisplay()
     }
     
     func updateShareBtn() {
-        shareItButton!.icon!.color = self.iconColor!
+        shareItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
         shareItButton!.setNeedsDisplay()
     }
     

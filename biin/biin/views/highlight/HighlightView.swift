@@ -48,18 +48,21 @@ class HighlightView: BNView {
         self.element = element
 
         
-        var textColor:UIColor?
-        if self.element!.useWhiteText {
-            textColor = UIColor.whiteColor()
-            iconColor = UIColor.whiteColor()
-            decorationColor = self.element!.media[0].vibrantDarkColor
-        } else {
-            textColor = UIColor.bnGrayDark()
-            decorationColor = self.element!.media[0].vibrantLightColor
-            iconColor = self.element!.media[0].vibrantLightColor
-        }
+//        var textColor:UIColor?
+//        if self.element!.useWhiteText {
+//            textColor = self.element!.showcase!.site!.organization!.secondaryColor
+//            iconColor = self.element!.showcase!.site!.organization!.secondaryColor
+//            decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
+//        } else {
+//            textColor = UIColor.bnGrayDark()
+//            decorationColor = self.element!.media[0].vibrantLightColor
+//            iconColor = self.element!.media[0].vibrantLightColor
+//        }
         
-        
+
+        var textColor = self.element!.showcase!.site!.organization!.secondaryColor
+        iconColor = self.element!.showcase!.site!.organization!.secondaryColor
+        decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
         
         var ypos:CGFloat = 0
         let imageSize:CGFloat = frame.width
@@ -80,7 +83,7 @@ class HighlightView: BNView {
         animationView!.updateAnimationView(decorationColor, textColor: textColor)
 
         let containerView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
-        containerView.backgroundColor = self.element!.media[0].vibrantColor!
+        containerView.backgroundColor = decorationColor// self.element!.media[0].vibrantColor!
         self.addSubview(containerView)
         
         let siteAvatarSize = (SharedUIManager.instance.highlightView_headerHeight - 8)
