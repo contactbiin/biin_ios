@@ -466,7 +466,10 @@ class SurveyView: BNView, UITextViewDelegate {
             
             SharedAnswersManager.instance.logCompletedNPS(site)
             
+            BNAppSharedManager.instance.notificationManager.add_surveyedSite(site!.identifier)
+            
             NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "hide:", userInfo: nil, repeats: false)
+            
             
         } else {
             

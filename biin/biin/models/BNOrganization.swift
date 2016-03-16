@@ -21,6 +21,9 @@ class BNOrganization:NSObject {
     var isLoyaltyEnabled:Bool = false
     var loyalty:BNLoyalty?
 
+    var primaryColor:UIColor?
+    var secondaryColor:UIColor?
+    
     var media:Array<BNMedia> = Array<BNMedia>()
     
     var hasNPS = false

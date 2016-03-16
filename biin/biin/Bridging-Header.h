@@ -16,4 +16,5 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <KontaktSDK/KontaktSDK.h>
 #endif

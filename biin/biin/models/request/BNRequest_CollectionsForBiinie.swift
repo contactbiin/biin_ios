@@ -61,6 +61,8 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                                         organization.brand = BNParser.findString("brand", dictionary: organizationData)
                                         organization.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData)
                                         organization.organizationDescription = BNParser.findString("description", dictionary: organizationData)
+                                        organization.primaryColor = BNParser.findUIColor("primaryColor", dictionary:organizationData)
+                                        organization.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary:organizationData)
                                         
                                         organization.hasNPS = BNParser.findBool("hasNPS", dictionary: organizationData)
                                         
@@ -117,6 +119,8 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                                         element.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
                                         element.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
                                     }
+                                    
+                                    element.isTaxIncludedInPrice = BNParser.findBool("isTaxIncludedInPrice", dictionary: elementData)
                                     
                                     element.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
                                     if element.hasFromPrice {

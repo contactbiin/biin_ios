@@ -54,11 +54,11 @@ class BNRequest_Biinie: BNRequest {
                         self.user!.firstName = BNParser.findString("firstName", dictionary: biinieData)
                         self.user!.lastName = BNParser.findString("lastName", dictionary: biinieData)
                         self.user!.email = BNParser.findString("email", dictionary: biinieData)
-                        self.user!.imgUrl = BNParser.findString("imgUrl", dictionary: biinieData)
+//                        self.user!.imgUrl = BNParser.findString("imgUrl", dictionary: biinieData)
                         self.user!.gender = BNParser.findString("gender", dictionary: biinieData)
                         self.user!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
                         self.user!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
-                        
+                        self.user!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
                         //var friends = BNParser.findNSArray("friends", dictionary: biinieData)
                         var categories = Array<BNCategory>()
                         let categoriesData = BNParser.findNSArray("categories", dictionary: biinieData)

@@ -316,18 +316,19 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ubication!.sizeToFit()
         ypos += ubication!.frame.height
         
-        var hasPhone = false
-        var hasEmail = false
+//        var hasPhone = false
+//        var hasEmail = false
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
             phoneLbl!.frame.origin.y = ypos
             phoneLbl!.text =  "\(NSLocalizedString("Phone", comment: "Phone")): \(site!.phoneNumber!)"
             phoneLbl!.sizeToFit()
             ypos += phoneLbl!.frame.height
-            hasPhone = true
+//            hasPhone = true
             callBtn!.enabled = true
             callBtn!.alpha = 1
-            callBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+            callBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
+            callBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
         }else {
             callBtn!.enabled = false
             callBtn!.alpha = 0
@@ -339,7 +340,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             emailLbl!.text = "\(NSLocalizedString("Email", comment: "Email")): \(site!.email!)"
             emailLbl!.sizeToFit()
             ypos += emailLbl!.frame.height
-            hasEmail = true
+//            hasEmail = true
             
 //            var value = NSLocalizedString("Email", comment: "Email")
 //            email!.text = "\(value): \(site!.email!)"
@@ -350,7 +351,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
             emailBtn!.enabled = true
             emailBtn!.alpha = 1
-            emailBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+            emailBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
+            emailBtn!.backgroundColor = site!.organization!.primaryColor// site!.media[0].vibrantDarkColor
         } else {
             emailBtn!.enabled = false
             emailBtn!.alpha = 0
@@ -401,7 +403,25 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         annotation.subtitle = site!.streetAddress1!
         map!.addAnnotation(annotation)
         
+        updateButtons()
+    }
+    
+    func updateButtons() {
+        var ypos:CGFloat = map!.frame.origin.y
         ypos += (map!.frame.height + 5)
+        
+        var hasPhone = false
+        var hasEmail = false
+        
+        if site!.phoneNumber! != "" {
+
+            hasPhone = true
+        }
+        
+        if site!.email! != "" {
+
+            hasEmail = true
+        }
         
         if hasPhone {
             callBtn!.frame.origin.y = ypos
@@ -415,23 +435,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += 5
         }
         
-        if site!.organization!.hasNPS {
-            if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site!.identifier) {
-                npsBtn!.alpha = 1
-                npsBtn!.enabled = true
-                npsBtn!.frame.origin.y = ypos
-                npsBtn!.backgroundColor = site!.media[0].vibrantDarkColor
-                ypos += npsBtn!.frame.height
-                ypos += 5
-            } else {
-                npsBtn!.alpha = 0
-                npsBtn!.enabled = false
-            }
-        } else {
-            npsBtn!.alpha = 0
-            npsBtn!.enabled = false
-        }
-        
         let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
         let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
         uber_button!.setProductID(site!.identifier!)
@@ -441,32 +444,43 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ypos += uber_button!.frame.height
         
         
+        
+        if site!.organization!.hasNPS {
+            ypos += 5
+            if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site!.identifier) {
+                npsBtn!.alpha = 1
+                npsBtn!.enabled = true
+                npsBtn!.frame.origin.y = ypos
+                npsBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
+                npsBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
+                ypos += npsBtn!.frame.height
+                npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
+                npsBtn!.layer.borderColor = UIColor.clearColor().CGColor
+                
+            } else {
+                npsBtn!.alpha = 1
+                npsBtn!.enabled = false
+                npsBtn!.frame.origin.y = ypos
+                //                npsBtn!.backgroundColor = site!.media[0].vibrantDarkColor
+                ypos += npsBtn!.frame.height
+                npsBtn!.setTitle(NSLocalizedString("npsBtn_completed", comment: "npsBtn_completed"), forState: UIControlState.Normal)
+                npsBtn!.backgroundColor = UIColor.whiteColor()
+                npsBtn!.layer.borderColor = site!.organization!.primaryColor!.CGColor//site!.media[0].vibrantDarkColor?.CGColor
+                npsBtn!.layer.borderWidth = 1
+                npsBtn!.setTitleColor(site!.organization!.primaryColor!, forState: UIControlState.Normal)
+                
+            }
+        } else {
+            npsBtn!.alpha = 0
+            npsBtn!.enabled = false
+        }
+        
         ypos += 10
-        
-//        if site!.media.count > 0{
-//            closeBtn!.icon!.color = site!.media[0].vibrantColor!
-//            closeBtn!.layer.borderColor = site!.media[0].vibrantColor!.CGColor
-//            closeBtn!.setNeedsDisplay()
-//        } else {
-//            closeBtn!.icon!.color = UIColor.blackColor()
-//            closeBtn!.layer.borderColor = UIColor.blackColor().CGColor
-//        }
-        
-//        if let organization = site!.organization {
-//            if organization.media.count > 0 {
-//                BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
-//                siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
-//            } else {
-//                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
-//                siteAvatar!.showAfterDownload()
-//            }
-//        } else  {
-//            siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
-//            siteAvatar!.showAfterDownload()
-//        }
+
         
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 10))
         
+
     }
     
     func call(sender:UIButton){
@@ -489,8 +503,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     }
     
     func nps(sender:UIButton){
-        npsBtn!.alpha = 0.5
-        npsBtn!.enabled = false
         (father!.father! as? MainView)?.site_to_survey = self.site
 //        (father!.father! as? MainView)?.setNextState(BNGoto.Survey)
         (father!.father! as? MainView)?.showSurveyViewOnRequest()

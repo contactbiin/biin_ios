@@ -143,6 +143,8 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             ypos += (SharedUIManager.instance.bannerContainer_Height + spacer)
             */
             
+            //let biinie = BNAppSharedManager.instance.dataManager.bnUser
+            
             var colorIndex:Int = 0
             for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
                 

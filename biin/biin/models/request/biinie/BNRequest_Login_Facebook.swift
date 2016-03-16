@@ -56,7 +56,7 @@ class BNRequest_Login_Facebook: BNRequest {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
                     }
                     
-                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedLoginValidation: response)
+                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedFacebookLoginValidation: response)
                     
                     self.inCompleted = true
                     self.networkManager!.removeFromQueue(self)

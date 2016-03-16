@@ -89,7 +89,7 @@ category14 = "In the super market";
 category15 = "Pets";
 category16 = "Appliances";
 category17 = "Furniture";
-
+category18 = "Services";
 /*category16 = "Events";
 category17 = "Brands";
 category18 = "Concerts";
@@ -198,10 +198,10 @@ OnboardingTitle1 = "Discover!";
 OnboardingText1 = "The best deals and rewards just steps away from you.";
 
 OnboardingTitle2 = "Collect and share!";
-OnboardingText2 = "All the things your find in Biin with your friends.";
+OnboardingText2 = "All the things you find in Biin with your friends.";
 
 OnboardingTitle3 = "Enjoy!";
-OnboardingText3 = "Visit you favorite stores and take advantage the best deals and rewards.";
+OnboardingText3 = "Visit your favorite stores and take advantage the best deals and rewards.";
 
 SiteBottomTitle = "Thank you!";
 SiteBottomSubtitle = "Please comeback soon.";
@@ -235,3 +235,4 @@ UBER = "Ride there with Uber";
 Schedule = "Schedule";
 
 npsBtn = "Help us to improve";
+npsBtn_completed = "We received your help!";

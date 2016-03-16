@@ -51,21 +51,23 @@ class SiteMiniView: BNView {
         
         self.site = site
         
-        if site!.media.count > 0 {
-            if let color = site!.media[0].vibrantColor {
-                self.backgroundColor = color
-            } else {
-                self.backgroundColor = UIColor.appMainColor()
-            }
-        } else {
-            self.backgroundColor = UIColor.appMainColor()
-        }
+//        if site!.media.count > 0 {
+//            if let color = site!.media[0].vibrantColor {
+//                self.backgroundColor = color
+//            } else {
+//                self.backgroundColor = UIColor.appMainColor()
+//            }
+//        } else {
+//            self.backgroundColor = UIColor.appMainColor()
+//        }
 
-
+        let decorationColor = site!.organization!.primaryColor
+        self.backgroundColor = decorationColor
+        
         //Positioning image
         let imageSize = frame.width
         //let xpos = ((imageSize - frame.width) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:site!.media[0].vibrantColor!)
+        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:decorationColor!)
         //image!.alpha = 0
         self.addSubview(image!)
         

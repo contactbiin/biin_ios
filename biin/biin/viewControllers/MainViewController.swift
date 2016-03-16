@@ -28,7 +28,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSLog("MainViewController - viewDidLoad()")
+        //NSLog("MainViewController - viewDidLoad()")
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = false
@@ -45,6 +45,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         BNAppSharedManager.instance.positionManager.delegateView = self
         
         BNAppSharedManager.instance.dataManager.requestDataOnWhenAppIsRunning()
+        
+//        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+//            mainView!.showNotificationContext()
+//        }
         
     }
     

@@ -12,7 +12,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        NSLog("LoadingViewController()")
+        //NSLog("LoadingViewController()")
         
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
@@ -53,8 +53,8 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
         
         //BNAppSharedManager.instance.dataManager.addHighlights()
      
-        NSLog("BIIN - didReceivedAllInitialData()")
-        NSLog("BIIN - \(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
+        //NSLog("BIIN - didReceivedAllInitialData()")
+        //NSLog("BIIN - \(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
         //checkAppState()
         
         

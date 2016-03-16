@@ -295,16 +295,20 @@ class ElementView: BNView, UIWebViewDelegate {
             imagesScrollView!.updateImages(self.element!.media, isElement:true)
             imagesScrollView!.backgroundColor = self.element!.media[0].vibrantColor
             scroll!.backgroundColor = UIColor.whiteColor()//self.element!.media[0].vibrantColor
+//            
+//            if self.element!.useWhiteText {
+//                textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
+//                iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
+//                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
+//            } else {
+//                textColor = self.element!.showcase!.site!.organization!.secondaryColor//self.element!.media[0].vibrantColor
+//                decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
+//                iconColor = self.element!.showcase!.site!.organization!.primaryColor//UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
+//            }
             
-            if self.element!.useWhiteText {
-                textColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                iconColor = self.element!.media[0].vibrantColor//UIColor.whiteColor()
-                decorationColor = self.element!.media[0].vibrantDarkColor
-            } else {
-                textColor = self.element!.media[0].vibrantColor
-                decorationColor = self.element!.media[0].vibrantDarkColor
-                iconColor = UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
-            }
+            textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
+            iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
+            decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
             
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
@@ -348,12 +352,18 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
                 
                 
+                var price = "\(self.element!.currency!)\(self.element!.price!)"
+                
+                if element.isTaxIncludedInPrice {
+                    price += " i.i."
+                }
+                
                 ypos += (SharedUIManager.instance.elementView_titleSize + 5)
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-                self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
+                self.textPrice2!.text = price
                 ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
                 
             } else if self.element!.hasPrice && self.element!.hasListPrice {
@@ -374,7 +384,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.text_before!.text = NSLocalizedString("Before", comment: "Before")
                 xposition += text_Length
                 xposition += 10
-
+                
                 self.textPrice1!.frame = CGRectMake(xposition, ypos, price_Length, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor!.colorWithAlphaComponent(0.75)
                 self.textPrice1!.textAlignment = NSTextAlignment.Left
@@ -385,7 +395,14 @@ class ElementView: BNView, UIWebViewDelegate {
                 
                 text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Now", comment: "Now"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
-                price_Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.listPrice!)", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
+                
+                var price = "\(self.element!.currency!)\(self.element!.listPrice!)"
+                
+                if element.isTaxIncludedInPrice {
+                    price += " i.i."
+                }
+                
+                price_Length = SharedUIManager.instance.getStringLength(price, fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
                 xposition = ((frame.width - (text_Length + 10 + price_Length)) / 2)
 
@@ -403,7 +420,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Left
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-                self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
+                self.textPrice2!.text = price
                 //self.scroll!.addSubview(self.textPrice2!)
                 ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
 
@@ -416,11 +433,17 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice1!.text = NSLocalizedString("From", comment: "From")
                 ypos += (SharedUIManager.instance.elementView_titleSize + 5)
                 
+                var price = "\(self.element!.currency!)\(self.element!.price!)"
+                
+                if element.isTaxIncludedInPrice {
+                    price += " i.i."
+                }
+                
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
                 self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
-                self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
+                self.textPrice2!.text = price
                 ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
                 
             } else {
@@ -565,7 +588,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(self.element!.userLiked)
-        likeItButton!.icon!.color = self.iconColor!
+        likeItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
     }
     
     func collectIt(sender:BNUIButton_CollectionIt){
@@ -589,20 +612,20 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func updateCollectItBtn(){
         collectItButton!.changeToCollectIcon(self.element!.userCollected)
-        collectItButton!.icon!.color = self.iconColor!
+        collectItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
         collectItButton!.setNeedsDisplay()
     }
     
     func updateShareBtn() {
-        shareItButton!.icon!.color = self.iconColor!
+        shareItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
         shareItButton!.setNeedsDisplay()
     }
     
     func updateBackBtn(){
         
-        backBtn!.icon!.color = UIColor.whiteColor()
-        backBtn!.layer.borderColor = decorationColor!.CGColor
-        backBtn!.layer.backgroundColor = decorationColor!.CGColor
+        backBtn!.icon!.color = self.element!.showcase!.site!.organization!.secondaryColor//UIColor.whiteColor()
+        backBtn!.layer.borderColor = self.element!.showcase!.site!.organization!.primaryColor!.CGColor//decorationColor!.CGColor
+        backBtn!.layer.backgroundColor = self.element!.showcase!.site!.organization!.primaryColor!.CGColor//decorationColor!.CGColor
         backBtn!.setNeedsDisplay()
     }
     
@@ -660,7 +683,7 @@ class ElementView: BNView, UIWebViewDelegate {
         let colorDark = "rgb(\(rdInt), \(gdInt), \(bdInt))"
         
         var css = ""
-        css += "html { font-family: Lato, Helvetica, sans-serif; background-color: rgb(248,248,248); }"
+        css += "html { font-family: Lato, Helvetica, sans-serif; background-color: rgb(255,255,255); }"
         css += "p { font-size: 14px; font-weight:300 !important;}"
         css += "b { font-size: 14px; font-weight:500 !important;}"
         css += "li { font-size: 14px; font-weight:300 !important; margin-bottom: 5px; margin-left: -15px !important; }"
@@ -676,7 +699,7 @@ class ElementView: BNView, UIWebViewDelegate {
         css += ".listPrice_Right p{ width: 20%; float: right; font-size: 17px; font-weight:400; text-align: right; margin-top: 0px; margin-bottom: 0px; }"
         css += ".highlight { display:table; text-align: center; width: 100%; margin-top: 20px; }"
         css += ".highlight_title p { font-size: 20px; font-weight:300; margin-top: 0px; margin-bottom: 0px; }"
-        css += ".highlight_text p { font-size: 80px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:\(color);}"
+        css += ".highlight_text p { font-size: 70px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:\(color);}"
         css += ".highlight_subtext p { font-size: 12px; font-weight:300; margin-top: -10px; margin-bottom: 0px; }"
         css += ".biin_h2 { font-size: 25px; font-weight:300 !important; }"
         css += ".biin_h1 { font-size: 30px; font-weight:300 !important; }"

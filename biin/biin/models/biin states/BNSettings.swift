@@ -33,9 +33,7 @@ class BNSettings:NSObject, NSCoding {
         aCoder.encodeBool(IS_USING_CACHE, forKey: "IS_USING_CACHE")
     }
     
-    deinit {
-        
-    }
+    deinit { }
     
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)

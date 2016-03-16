@@ -91,12 +91,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
             }
         } else {
-            // Create a new Course List
             isUserLoaded = false
             bnUser = Biinie(identifier:"", firstName: "none", lastName:"none", email: "none.com")
             bnUser!.isEmailVerified = false
-            bnUser!.biinName = ""
-            
+            bnUser!.biinName = ""            
         }
     }
     
@@ -109,7 +107,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //NSLog("BIIN - requestBiinieInitialData()")
         if isUserLoaded {
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
-            if bnUser!.email! == "ep@estebanpadilla.com" {
+            if bnUser!.email! == "ep@estebanpadilla.com"
+                || bnUser!.email! == "demo@biin.io" {
                 BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD = true
             }
         }
@@ -154,6 +153,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         categories!.append(BNCategory(identifier: "category15", name: "Mascotas"))
         categories!.append(BNCategory(identifier: "category16", name: "Electrodomesticos"))
         categories!.append(BNCategory(identifier: "category17", name: "Muebles"))
+        categories!.append(BNCategory(identifier: "category18", name: "Servicios"))
         /*
         categories!.append(BNCategory(identifier: "category16", name: "Ferias"))
         categories!.append(BNCategory(identifier: "category17", name: "Marcas"))
@@ -205,13 +205,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
         
-        NSLog("BIIN - didReceivedConnectionStatus \(status)")
+        //NSLog("BIIN - didReceivedConnectionStatus \(status)")
         if status && BNAppSharedManager.instance.IS_APP_UP {
-            NSLog("BIIN - didReceivedConnectionStatus 1")
+            //NSLog("BIIN - didReceivedConnectionStatus 1")
 
             requestBiinieInitialData()
         } else if status && BNAppSharedManager.instance.IS_APP_DOWN {
-            NSLog("BIIN - didReceivedConnectionStatus 2")
+            //NSLog("BIIN - didReceivedConnectionStatus 2")
 
             requestBiinieInitialData()
         }

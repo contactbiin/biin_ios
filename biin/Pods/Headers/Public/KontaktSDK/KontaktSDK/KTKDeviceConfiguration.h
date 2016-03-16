@@ -1,0 +1,1 @@
+../../../../KontaktSDK/Cocoapods/iOS/KontaktSDK.framework/Headers/KTKDeviceConfiguration.h

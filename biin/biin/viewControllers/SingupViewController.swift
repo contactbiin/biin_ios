@@ -17,6 +17,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     var signupView:SignupView?
     var loginView:LoginView?
     var alert:BNUIAlertView?
+    var isBiinieAlreadyInFacebook = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +81,9 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             // User is already logged in, do work such as go to next view controller.
             print("alredy in facebook")
+            showProgressView()
+            isBiinieAlreadyInFacebook = true
+            returnUserData()
         } else {
             facebookBtn = FBSDKLoginButton()
             self.view.addSubview(facebookBtn!)
@@ -268,6 +272,33 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         }
     }
     
+    
+    //BNNetworkManagerDelegate Methods
+    func manager(manager: BNNetworkManager!, didReceivedFacebookLoginValidation response: BNResponse?) {
+        
+        if response!.code == 0 {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+                    let vc = LoadingViewController()
+                    vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+                    self.presentViewController(vc, animated: true, completion: nil)
+                })
+            }
+            
+        } else {
+            if (alert?.isOn != nil) {
+                alert!.hideWithCallback({() -> Void in
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.view.addSubview(self.alert!)
+                    self.alert!.showAndHide()
+                    self.loginView!.clean()
+                })
+            }
+        }
+    }
+    
+    
     func showProgressView(){
         alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
         self.view.addSubview(alert!)
@@ -344,7 +375,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 // Process error
                 print("Error: \(error)")
             } else {
-                //print("fetched user: \(result)")
+                print("fetched user: \(result)")
                 let user = Biinie()
                 user.identifier = ""
                 if let first_name = result.valueForKey("first_name") {
@@ -372,13 +403,47 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 
                 if let facebook_id = result.valueForKey("id") {
                     user.facebook_id = facebook_id as? String
+                } 
+            
+                if let friends = result["friends"] as? NSDictionary {
+                    if let data = friends["data"] as? NSArray {
+                        for friend in data {
+                            if let facebook_id = friend.valueForKey("id") {
+                                let biinie = Biinie()
+                                biinie.facebook_id = facebook_id as? String
+                                user.friends.append(biinie)
+                            }
+                        }
+                    }
+                }
+                
+                if let picture = result["picture"] as? NSDictionary {
+                    if let data = picture["data"] as? NSDictionary {
+                        
+                        if let picture_url = data.valueForKey("url") as? String {
+                            user.facebookAvatarUrl = picture_url
+                        }
+                    }
                 }
                 
                 user.isEmailVerified = true
                 user.password = ""
+
                 BNAppSharedManager.instance.dataManager.bnUser = user
-                BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
-                SharedAnswersManager.instance.logSignUp("Facebook")
+
+                
+                if self.isBiinieAlreadyInFacebook {
+                    BNAppSharedManager.instance.networkManager.login_Facebook(user.email!)
+                    SharedAnswersManager.instance.logSignUp("Facebook")
+                } else {
+                    
+                    //OLD for now until ivan is completed with request
+                    BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
+                    
+                    //New
+                    //BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+                    SharedAnswersManager.instance.logSignUp("Facebook")
+                }
             }
         })
     }

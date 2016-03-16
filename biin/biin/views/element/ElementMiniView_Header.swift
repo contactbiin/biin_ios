@@ -41,7 +41,7 @@ class ElementMiniView_Header:BNView {
         
         if element!.showcase!.site!.media.count > 0 {
 
-            containerView!.backgroundColor =  element!.media[0].vibrantColor
+            containerView!.backgroundColor =  element!.showcase!.site!.organization!.primaryColor//element!.media[0].vibrantColor
         } else {
             containerView!.backgroundColor = UIColor.darkGrayColor()
         }

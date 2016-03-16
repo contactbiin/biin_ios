@@ -42,32 +42,32 @@ class DevelopmentView:UIView {
         //var screenHeight = SharedUIManager.instance.screenHeight
 
         var ypos:CGFloat = 10
-//        let xpos:CGFloat = 10
+        let xpos:CGFloat = 10
         
-//        developmentLbl = UILabel(frame: CGRect(x:xpos, y:ypos, width:frame.width, height:20))
-//        developmentLbl!.font = UIFont(name: "Lato-Black", size: 17)
-//        developmentLbl!.textColor = UIColor.appTextColor()
-//        developmentLbl!.textAlignment = NSTextAlignment.Left
-//        developmentLbl!.numberOfLines = 0
-//        developmentLbl!.text = "Development Build"
-//        self.addSubview(developmentLbl!)
-//        ypos += 50
+        developmentLbl = UILabel(frame: CGRect(x:xpos, y:ypos, width:frame.width, height:20))
+        developmentLbl!.font = UIFont(name: "Lato-Black", size: 17)
+        developmentLbl!.textColor = UIColor.appTextColor()
+        developmentLbl!.textAlignment = NSTextAlignment.Left
+        developmentLbl!.numberOfLines = 0
+        developmentLbl!.text = "Development Build"
+        self.addSubview(developmentLbl!)
+        ypos += 50
         
         //Switch buttons
-//        isProductionBD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
-//        isProductionBD!.setOn(BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE, animated: false)
-//        isProductionBD!.addTarget(self, action: "isProductionBDAction:", forControlEvents: UIControlEvents.ValueChanged)
-//        self.addSubview(isProductionBD!)
+        isProductionBD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
+        isProductionBD!.setOn(BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE, animated: false)
+        isProductionBD!.addTarget(self, action: "isProductionBDAction:", forControlEvents: UIControlEvents.ValueChanged)
+        self.addSubview(isProductionBD!)
 
-//        var label = UILabel(frame: CGRect(x:70, y:ypos, width:frame.width, height:15))
-//        label.font = UIFont(name: "Lato-Light", size: 14)
-//        label.textColor = UIColor.appTextColor()
-//        label.textAlignment = NSTextAlignment.Left
-//        label.numberOfLines = 0
-//        label.text = "Use production database."
-//        self.addSubview(label)
-//        ypos += 35
-//        
+        var label = UILabel(frame: CGRect(x:70, y:ypos, width:frame.width, height:15))
+        label.font = UIFont(name: "Lato-Light", size: 14)
+        label.textColor = UIColor.appTextColor()
+        label.textAlignment = NSTextAlignment.Left
+        label.numberOfLines = 0
+        label.text = "Use production database."
+        self.addSubview(label)
+        ypos += 35
+//
 //        isDemoBD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
 //        isDemoBD!.setOn(BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE, animated: false)
 //        isDemoBD!.addTarget(self, action: "isDemoBDAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -82,20 +82,20 @@ class DevelopmentView:UIView {
 //        self.addSubview(label)
 //        ypos += 35
         
-//        isQABD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
-//        isQABD!.setOn(BNAppSharedManager.instance.settings!.IS_QA_DATABASE, animated: false)
-//        isQABD!.addTarget(self, action: "isQABDAction:", forControlEvents: UIControlEvents.ValueChanged)
-//        self.addSubview(isQABD!)
-//        
-//        label = UILabel(frame: CGRect(x:70, y:ypos, width:frame.width, height:15))
-//        label.font = UIFont(name: "Lato-Light", size: 14)
-//        label.textColor = UIColor.appTextColor()
-//        label.textAlignment = NSTextAlignment.Left
-//        label.numberOfLines = 0
-//        label.text = "Use QA database."
-//        self.addSubview(label)
-//        ypos += 35
-//        
+        isQABD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
+        isQABD!.setOn(BNAppSharedManager.instance.settings!.IS_QA_DATABASE, animated: false)
+        isQABD!.addTarget(self, action: "isQABDAction:", forControlEvents: UIControlEvents.ValueChanged)
+        self.addSubview(isQABD!)
+        
+        label = UILabel(frame: CGRect(x:70, y:ypos, width:frame.width, height:15))
+        label.font = UIFont(name: "Lato-Light", size: 14)
+        label.textColor = UIColor.appTextColor()
+        label.textAlignment = NSTextAlignment.Left
+        label.numberOfLines = 0
+        label.text = "Use QA database."
+        self.addSubview(label)
+        ypos += 35
+//
 //        isDevelopmentBD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
 //        isDevelopmentBD!.setOn(BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE, animated: false)
 //        isDevelopmentBD!.addTarget(self, action: "isDevelopmentBDAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -142,12 +142,12 @@ class DevelopmentView:UIView {
 //        self.addSubview(clearUserBtn!)
 //        ypos += 65
         
-        addActionBtn = UIButton(frame: CGRectMake(0, ypos, screenWidth, 60))
-        addActionBtn!.backgroundColor = UIColor.appBackground()
-        addActionBtn!.setTitle("Clear Notificacions", forState: UIControlState.Normal)
-        addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
-        addActionBtn!.addTarget(self, action: "addActionBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+//        addActionBtn = UIButton(frame: CGRectMake(0, ypos, screenWidth, 60))
+//        addActionBtn!.backgroundColor = UIColor.appBackground()
+//        addActionBtn!.setTitle("Clear Notificacions", forState: UIControlState.Normal)
+//        addActionBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+//        addActionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
+//        addActionBtn!.addTarget(self, action: "resetNotificationsBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
 //        self.addSubview(addActionBtn!)
 //        ypos += 65
         
@@ -158,16 +158,16 @@ class DevelopmentView:UIView {
         resetNotification!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
         resetNotification!.addTarget(self, action: "resetNotificationAction:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(resetNotification!)
-        ypos += 65
+        ypos += 80
         
-//        label = UILabel(frame: CGRect(x:25, y:ypos, width:(frame.width - 50), height:30))
-//        label.text = "** If you make any changes you will need to relaunch the application."
-//        label.font = UIFont(name: "Lato-Light", size: 14)
-//        label.textColor = UIColor.bnRed()
-//        label.textAlignment = NSTextAlignment.Center
-//        label.numberOfLines = 0
-//        label.sizeToFit()
-//        self.addSubview(label)
+        label = UILabel(frame: CGRect(x:25, y:ypos, width:(frame.width - 50), height:30))
+        label.text = "Si haces algun cambio en la conexion de la base de datos deben cerrar y abrir Biin e  iniciar session con tu correo y clave."
+        label.font = UIFont(name: "Lato-Black", size: 20)
+        label.textColor = UIColor.bnRed()
+        label.textAlignment = NSTextAlignment.Center
+        label.numberOfLines = 0
+        label.sizeToFit()
+        self.addSubview(label)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -180,27 +180,26 @@ class DevelopmentView:UIView {
         BNAppSharedManager.instance.settings!.IS_QA_DATABASE = false
         BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE = false
         
-        isDemoBD!.setOn(false, animated: true)
+//        isDemoBD!.setOn(false, animated: true)
         isQABD!.setOn(false, animated: true)
-        isDevelopmentBD!.setOn(false, animated: true)
+//        isDevelopmentBD!.setOn(false, animated: true)
         
         BNAppSharedManager.instance.saveSettings()
-
     }
     
-    func isDemoBDAction(sender:UISwitch) {
-        BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE = false
-        BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE = true
-        BNAppSharedManager.instance.settings!.IS_QA_DATABASE = false
-        BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE = false
-        
-        isProductionBD!.setOn(false, animated: true)
-        isQABD!.setOn(false, animated: true)
-        isDevelopmentBD!.setOn(false, animated: true)
-        
-        BNAppSharedManager.instance.saveSettings()
-
-    }
+//    func isDemoBDAction(sender:UISwitch) {
+//        BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE = false
+//        BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE = true
+//        BNAppSharedManager.instance.settings!.IS_QA_DATABASE = false
+//        BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE = false
+//        
+//        isProductionBD!.setOn(false, animated: true)
+//        isQABD!.setOn(false, animated: true)
+////        isDevelopmentBD!.setOn(false, animated: true)
+//        
+//        BNAppSharedManager.instance.saveSettings()
+//
+//    }
     
     func isQABDAction(sender:UISwitch) {
         BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE = false
@@ -209,25 +208,25 @@ class DevelopmentView:UIView {
         BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE = false
         
         isProductionBD!.setOn(false, animated: true)
-        isDemoBD!.setOn(false, animated: true)
-        isDevelopmentBD!.setOn(false, animated: true)
+//        isDemoBD!.setOn(false, animated: true)
+//        isDevelopmentBD!.setOn(false, animated: true)
         
         BNAppSharedManager.instance.saveSettings()
 
     }
     
-    func isDevelopmentBDAction(sender:UISwitch) {
-        BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE = false
-        BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE = false
-        BNAppSharedManager.instance.settings!.IS_QA_DATABASE = false
-        BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE = true
-        
-        isProductionBD!.setOn(false, animated: true)
-        isDemoBD!.setOn(false, animated: true)
-        isQABD!.setOn(false, animated: true)
-        
-        BNAppSharedManager.instance.saveSettings()
-    }
+//    func isDevelopmentBDAction(sender:UISwitch) {
+//        BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE = false
+//        BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE = false
+//        BNAppSharedManager.instance.settings!.IS_QA_DATABASE = false
+//        BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE = true
+//        
+//        isProductionBD!.setOn(false, animated: true)
+////        isDemoBD!.setOn(false, animated: true)
+//        isQABD!.setOn(false, animated: true)
+//        
+//        BNAppSharedManager.instance.saveSettings()
+//    }
     
     func isUsingCacheAction(sender:UISwitch) {
 //        BNAppSharedManager.instance.settings!.IS_USING_CACHE = sender.on
@@ -247,10 +246,10 @@ class DevelopmentView:UIView {
 //        self.viewController!.presentViewController(vc, animated: true, completion: nil)
     }
     
-    func addActionBtnAction(sender:UIButton!){
+    func resetNotificationsBtnAction(sender:UIButton!){
         //BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BIINED_ELEMENT, to: "55db879e2fde320300fb9321")
         
-        BNAppSharedManager.instance.notificationManager.clear()
+        BNAppSharedManager.instance.notificationManager.resetAllNotifications()
     }
     
     func resetNotificationAction(sender:UIButton){

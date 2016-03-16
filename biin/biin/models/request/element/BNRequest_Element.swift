@@ -70,6 +70,8 @@ class BNRequest_Element: BNRequest {
                             self.element!.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
                             self.element!.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
                         }
+
+                        self.element!.isTaxIncludedInPrice = BNParser.findBool("isTaxIncludedInPrice", dictionary: elementData)
                         
                         self.element!.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
 

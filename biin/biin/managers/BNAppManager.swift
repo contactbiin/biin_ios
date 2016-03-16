@@ -99,7 +99,7 @@ class BNAppManager {
     
     func continueAppInitialization(){
         
-        NSLog("BIIN - continueAppInitialization()")
+        //NSLog("BIIN - continueAppInitialization()")
         
         if !SimulatorUtility.isRunningSimulator {
             if positionManager.checkLocationServicesStatus() {
@@ -132,7 +132,7 @@ class BNAppManager {
     }
     
     func continueAfterIntialChecking(){
-        NSLog("BIIN = continueAfterIntialChecking()")
+        //NSLog("BIIN = continueAfterIntialChecking()")
         networkManager.checkConnectivity()
     }
 

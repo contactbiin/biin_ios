@@ -23,8 +23,11 @@ class BNParser {
     }
     
     class func findInt(name:String, dictionary:NSDictionary) ->Int? {
-        let value =  Int(dictionary[name] as! String)
-        return value
+        if let intString = dictionary[name]  {
+            return Int(intString as! String)
+        }
+        
+        return 0
     }
     
     class func findFloat(name:String, dictionary:NSDictionary) ->Float? {

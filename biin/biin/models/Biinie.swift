@@ -17,8 +17,8 @@ class Biinie:NSObject, NSCoding {
     var birthDate:NSDate?
     var password:String?
     var gender:String?
-    var friends:Array<Biinie>?
-    var imgUrl:String?
+    var friends = Array<Biinie>()
+//    var imgUrl:String?
 
     var biins:Int?
     var following:Int?
@@ -40,6 +40,8 @@ class Biinie:NSObject, NSCoding {
     var storedElementsViewed:[String] = [String]()
     var elementsViewed = Dictionary<String, String>()
     
+    var facebookAvatarUrl:String?
+    
     override init() {
         super.init()
         
@@ -55,6 +57,7 @@ class Biinie:NSObject, NSCoding {
         self.email = email
         newNotificationCount = 0
         notificationIndex = 0
+        facebookAvatarUrl = ""
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String, gender:String) {
@@ -70,6 +73,7 @@ class Biinie:NSObject, NSCoding {
 //        }
 //        
         self.facebook_id = aDecoder.decodeObjectForKey("facebook_id") as? String
+        self.facebookAvatarUrl = aDecoder.decodeObjectForKey("facebookAvatarUrl") as? String
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.biinName = aDecoder.decodeObjectForKey("biinName") as? String
         self.firstName  = aDecoder.decodeObjectForKey("firstName") as? String
@@ -93,6 +97,10 @@ class Biinie:NSObject, NSCoding {
         
         if let facebook_id = self.facebook_id {
             aCoder.encodeObject(facebook_id, forKey: "facebook_id")
+        }
+        
+        if let facebookAvatarUrl = self.facebookAvatarUrl {
+            aCoder.encodeObject(facebookAvatarUrl, forKey: "facebookAvatarUrl")
         }
         
         if let identifier = self.identifier {
@@ -141,9 +149,7 @@ class Biinie:NSObject, NSCoding {
 
     }
     
-    deinit {
-        
-    }
+    deinit { }
     
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)

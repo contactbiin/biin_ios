@@ -265,16 +265,20 @@ class SiteView:BNView, UIScrollViewDelegate {
             SharedAnswersManager.instance.logContentView_Site(site)
             
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:site!.identifier!)
-            
-            if self.site!.useWhiteText {
-                textColor = UIColor.whiteColor()
-                iconColor = self.site!.media[0].vibrantDarkColor
-                decorationColor = self.site!.media[0].vibrantDarkColor
-            } else {
-                textColor = UIColor.whiteColor()
-                iconColor = self.site!.media[0].vibrantDarkColor
-                decorationColor = self.site!.media[0].vibrantDarkColor
-            }
+//            
+//            if self.site!.useWhiteText {
+//                textColor = UIColor.whiteColor()
+//                iconColor = self.site!.media[0].vibrantDarkColor
+//                decorationColor = self.site!.media[0].vibrantDarkColor
+//            } else {
+//                textColor = UIColor.whiteColor()
+//                iconColor = self.site!.media[0].vibrantDarkColor
+//                decorationColor = self.site!.media[0].vibrantDarkColor
+//            }
+//            
+            textColor = site!.organization!.secondaryColor
+            iconColor = site!.organization!.secondaryColor
+            decorationColor = site!.organization!.primaryColor
             
             //scroll!.backgroundColor = self.site!.media[0].vibrantColor!
             
@@ -288,13 +292,13 @@ class SiteView:BNView, UIScrollViewDelegate {
 
 //            self.bringSubviewToFront(self.locationView!)
             
-            backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
+            backBtn!.icon!.color = iconColor//UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
             backBtn!.layer.borderColor = decorationColor!.CGColor
             backBtn!.layer.backgroundColor = decorationColor!.CGColor
             backBtn!.setNeedsDisplay()
             
             //siteLocationButton!.icon!.color = iconColor
-            shareItButton!.icon!.color = iconColor
+            shareItButton!.icon!.color = UIColor.grayColor()
             shareItButton!.setNeedsDisplay()
             //likeItButton!.icon!.color = iconColor
             
@@ -303,7 +307,7 @@ class SiteView:BNView, UIScrollViewDelegate {
 
             updateLikeItBtn()
             
-            updateCollectItBtn()
+            //updateCollectItBtn()
             
             updateFollowBtn()
             
@@ -317,6 +321,9 @@ class SiteView:BNView, UIScrollViewDelegate {
             //scroll!.addSubview(shareView!)
             
 
+        } else {
+            
+            locationView!.updateButtons()
         }
         
         
@@ -569,8 +576,9 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(site!.userLiked)
-        likeItButton!.icon!.color = iconColor!
+        likeItButton!.icon!.color = UIColor.grayColor()
         likeItButton!.setNeedsDisplay()
+        
     }
     
     func shareit(sender:BNUIButton_ShareIt){
@@ -610,21 +618,24 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     func updateFollowBtn() {
         
-        followButton!.layer.borderColor = iconColor!.CGColor
+        followButton!.backgroundColor = UIColor.clearColor()
+//        followButton!.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         
         if site!.userFollowed {
             followButton!.setTitle(NSLocalizedString("Following", comment: "Following"), forState: UIControlState.Normal)
+            followButton!.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+
 //            followButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
 //            followButton!.backgroundColor = iconColor!
-            followButton!.setTitleColor(iconColor, forState: UIControlState.Normal)
-            followButton!.backgroundColor = UIColor.clearColor()
+//            followButton!.setTitleColor(iconColor, forState: UIControlState.Normal)
+//            followButton!.backgroundColor = UIColor.clearColor()
         } else  {
             followButton!.setTitle(NSLocalizedString("Follow", comment: "Follow"), forState: UIControlState.Normal)
 //            followButton!.setTitleColor(iconColor, forState: UIControlState.Normal)
 //            followButton!.backgroundColor = UIColor.clearColor()
             
-            followButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-            followButton!.backgroundColor = iconColor!
+            followButton!.setTitleColor(iconColor, forState: UIControlState.Normal)
+            followButton!.backgroundColor = decorationColor!
         }
     }
 }

@@ -48,18 +48,21 @@ class HighlightView: BNView {
         self.element = element
 
         
-        var textColor:UIColor?
-        if self.element!.useWhiteText {
-            textColor = UIColor.whiteColor()
-            iconColor = UIColor.whiteColor()
-            decorationColor = self.element!.media[0].vibrantDarkColor
-        } else {
-            textColor = UIColor.bnGrayDark()
-            decorationColor = self.element!.media[0].vibrantLightColor
-            iconColor = self.element!.media[0].vibrantLightColor
-        }
+//        var textColor:UIColor?
+//        if self.element!.useWhiteText {
+//            textColor = self.element!.showcase!.site!.organization!.secondaryColor
+//            iconColor = self.element!.showcase!.site!.organization!.secondaryColor
+//            decorationColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantDarkColor
+//        } else {
+//            textColor = UIColor.bnGrayDark()
+//            decorationColor = self.element!.media[0].vibrantLightColor
+//            iconColor = self.element!.media[0].vibrantLightColor
+//        }
         
-        
+
+        var textColor = self.element!.showcase!.site!.organization!.secondaryColor
+        iconColor = self.element!.showcase!.site!.organization!.secondaryColor
+        decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
         
         var ypos:CGFloat = 0
         let imageSize:CGFloat = frame.width
@@ -80,7 +83,7 @@ class HighlightView: BNView {
         animationView!.updateAnimationView(decorationColor, textColor: textColor)
 
         let containerView = UIView(frame: CGRectMake(0, (frame.height - SharedUIManager.instance.highlightView_headerHeight), frame.width, SharedUIManager.instance.highlightView_headerHeight))
-        containerView.backgroundColor = self.element!.media[0].vibrantColor!
+        containerView.backgroundColor = decorationColor// self.element!.media[0].vibrantColor!
         self.addSubview(containerView)
         
         let siteAvatarSize = (SharedUIManager.instance.highlightView_headerHeight - 8)
@@ -127,9 +130,7 @@ class HighlightView: BNView {
         ypos += (subTitle.frame.height + 2)
         if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             
-            
             let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
-            
             
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice1!.textColor = textColor
@@ -138,11 +139,16 @@ class HighlightView: BNView {
             self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
             containerView.addSubview(self.textPrice1!)
             
+            var price = "\(self.element!.currency!)\(self.element!.price!)"
+            if element.isTaxIncludedInPrice {
+                price += " i.i."
+            }
+            
             self.textPrice2 = UILabel(frame: CGRectMake((xpos + text1Length + 7), ypos, frame.width, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice2!.textColor = textColor
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
-            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
+            self.textPrice2!.text = price
             containerView.addSubview(self.textPrice2!)
             
 //            
@@ -170,11 +176,16 @@ class HighlightView: BNView {
             lineView.backgroundColor = textColor
             containerView.addSubview(lineView)
             
+            var price = "\(self.element!.currency!)\(self.element!.listPrice!)"
+            if element.isTaxIncludedInPrice {
+                price += " i.i."
+            }
+            
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos + 5), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice2!.textColor = textColor
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
-            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.listPrice!)"
+            self.textPrice2!.text = price//"\(self.element!.currency!)\(self.element!.listPrice!)"
             containerView.addSubview(self.textPrice2!)
             
         } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
@@ -189,15 +200,18 @@ class HighlightView: BNView {
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
             containerView.addSubview(self.textPrice1!)
             
+            var price = "\(self.element!.currency!)\(self.element!.price!)"
+            if element.isTaxIncludedInPrice {
+                price += " i.i."
+            }
+            
             self.textPrice2 = UILabel(frame: CGRectMake((text1Length + xpos + 5), ypos, frame.width, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice2!.textColor = textColor
             self.textPrice2!.textAlignment = NSTextAlignment.Left
             self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
-            self.textPrice2!.text = "\(self.element!.currency!)\(self.element!.price!)"
+            self.textPrice2!.text = price//"\(self.element!.currency!)\(self.element!.price!)"
             containerView.addSubview(self.textPrice2!)
         }
-        
-        
         
         if shareView != nil {
             shareView = nil

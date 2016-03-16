@@ -7,6 +7,8 @@ import Foundation
 
 class BNRequest_SendBiinie:BNRequest {
     
+    var isUpdate = false
+    
     override init() {
         super.init()
     }
@@ -34,14 +36,27 @@ class BNRequest_SendBiinie:BNRequest {
         isRunning = true
         requestAttemps++
         
-        var model = Dictionary<String, Dictionary <String, String>>()
-        var modelContent = Dictionary<String, String>()
+        
+        if self.user!.identifier == "" {
+            isUpdate = true
+        } else {
+            isUpdate = false
+        }
+        
+        var model = Dictionary<String, Dictionary <String, AnyObject>>()
+        var modelContent = Dictionary<String, AnyObject>()
         modelContent["firstName"] = self.user!.firstName!
         modelContent["lastName"] = self.user!.lastName!
         modelContent["email"] = self.user!.email!
         modelContent["gender"] = self.user!.gender!
         modelContent["facebook_id"] = self.user!.facebook_id!
         
+        if self.user!.facebookAvatarUrl == "" {
+            modelContent["facebookAvatarUrl"] = "none"
+        } else {
+            modelContent["facebookAvatarUrl"] = self.user!.facebookAvatarUrl!
+        }
+            
         if self.user!.isEmailVerified! {
             modelContent["isEmailVerified"] = "1"
         } else {
@@ -51,6 +66,17 @@ class BNRequest_SendBiinie:BNRequest {
         if self.user!.birthDate != nil {
             modelContent["birthDate"] = self.user!.birthDate!.bnDateFormatt()
         }
+        
+        if self.user!.friends.count > 0 {
+            var friends = Array<String>()
+            
+            for biinie in self.user!.friends {
+                friends.append(biinie.facebook_id!)
+            }
+            
+            modelContent["facebookFriends"] = friends
+        }
+        
         
         model["model"] = modelContent
         
@@ -70,23 +96,29 @@ class BNRequest_SendBiinie:BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-
                 self.networkManager!.handleFailedRequest(self, error: error )
-//                response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
                 
-                //if let dataData = data["data"] as? NSDictionary {
+                if let registerData = data["data"] as? NSDictionary {
                     
                     let status = BNParser.findInt("status", dictionary: data)
                     let result = BNParser.findBool("result", dictionary: data)
-                    
+                    let identifier = BNParser.findString("identifier", dictionary: registerData)
+
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier: identifier)
+                        
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
                     }
                     
-                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
+                    if self.isUpdate {
+                        self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
+                    } else {
+                        self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)
+                    }
+                }
          
                 //let end = NSDate()
                 //let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
