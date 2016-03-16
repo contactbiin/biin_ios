@@ -246,6 +246,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let request = BNRequest_Register_with_Facebook(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
+        
+        
+        
+        
+        
     }
     
     /**

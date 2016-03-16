@@ -403,19 +403,45 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 
                 if let facebook_id = result.valueForKey("id") {
                     user.facebook_id = facebook_id as? String
+                } 
+            
+                if let friends = result["friends"] as? NSDictionary {
+                    if let data = friends["data"] as? NSArray {
+                        for friend in data {
+                            if let facebook_id = friend.valueForKey("id") {
+                                let biinie = Biinie()
+                                biinie.facebook_id = facebook_id as? String
+                                user.friends.append(biinie)
+                            }
+                        }
+                    }
+                }
+                
+                if let picture = result["picture"] as? NSDictionary {
+                    if let data = picture["data"] as? NSDictionary {
+                        
+                        if let picture_url = data.valueForKey("url") as? String {
+                            user.facebookAvatarUrl = picture_url
+                        }
+                    }
                 }
                 
                 user.isEmailVerified = true
                 user.password = ""
+
                 BNAppSharedManager.instance.dataManager.bnUser = user
-            
+
+                
                 if self.isBiinieAlreadyInFacebook {
-                    
                     BNAppSharedManager.instance.networkManager.login_Facebook(user.email!)
-//                    BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
                     SharedAnswersManager.instance.logSignUp("Facebook")
                 } else {
+                    
+                    //OLD for now until ivan is completed with request
                     BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
+                    
+                    //New
+                    //BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
                     SharedAnswersManager.instance.logSignUp("Facebook")
                 }
             }
