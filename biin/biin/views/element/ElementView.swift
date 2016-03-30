@@ -87,7 +87,7 @@ class ElementView: BNView, UIWebViewDelegate {
         self.addSubview(backBtn_Bg!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(backBtn!)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
@@ -141,18 +141,18 @@ class ElementView: BNView, UIWebViewDelegate {
         let ypos:CGFloat = 5//screenWidth + 2
         
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
+        collectItButton!.addTarget(self, action: #selector(self.collectIt(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(collectItButton!)
         
         //Like button
         buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
+        likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
 
         buttonSpace += 35
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake(buttonSpace,  ypos, 25, 25))
-        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        shareItButton!.addTarget(self, action: #selector(self.shareit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
         showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), 0, (screenWidth / 2), 35))
@@ -160,13 +160,13 @@ class ElementView: BNView, UIWebViewDelegate {
         showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
         showSiteBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
-        showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        showSiteBtn!.addTarget(self, action: #selector(self.showSiteBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(showSiteBtn!)
         
         callToActionBtn = UIButton(frame: CGRectMake(5,  (screenWidth + 30), (screenWidth - 10), 50))
         callToActionBtn!.backgroundColor = UIColor.bnVisitSiteColor()
         //callToActionBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        callToActionBtn!.addTarget(self, action: #selector(self.openUrl(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         callToActionBtn!.layer.cornerRadius = 2
 //        callToActionBtn!.layer.shadowColor = UIColor.blackColor().CGColor
 //        callToActionBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)

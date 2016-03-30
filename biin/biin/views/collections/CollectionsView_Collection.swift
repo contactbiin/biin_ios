@@ -173,7 +173,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
                     scroll!.addSubview(elementView!)
                     //items!.append(itemView!)
                     elements!.append(elementView!)
-                    itemPosition++
+                    itemPosition += 1
                 //}
             } else {
 
@@ -277,7 +277,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
                     
                         (elements![i] as ElementMiniView).requestImage()
 
-                    i--
+                    i -= 1
                     
                 } else  {
                     stop = true
@@ -296,22 +296,29 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
     func resizeScrollOnRemoved(view:ElementMiniView) {
         var startPosition = 0
         
-        for var i = 0; i < self.elements!.count; i++ {
+        var i:Int = 0
+        for _ in self.elements! {
+//        for var i = 0; i < self.elements!.count; i++ {
             if self.elements![i].collectionScrollPosition == view.collectionScrollPosition {
                 startPosition = i
                 self.elements!.removeAtIndex(i)
             }
+            i += 1
         }
         
         
         let width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
         var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
 
-        for var i = startPosition; i < self.elements!.count; i++ {
+        i = startPosition
+        for _ in self.elements! {
+//        for var i = startPosition; i < self.elements!.count; i++ {
+            
             UIView.animateWithDuration(0.2, animations: {()->Void in
                 self.elements![i].frame.origin.x = xpos
             })
             
+            i += 1
             xpos += SharedUIManager.instance.miniView_width + spacer
         }
 

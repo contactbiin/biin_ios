@@ -15,7 +15,7 @@ class BNRequest_Sites: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, view:BNView?){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.InitialData

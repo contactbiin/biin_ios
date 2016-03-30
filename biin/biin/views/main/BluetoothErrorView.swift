@@ -90,7 +90,7 @@ class BluetoothErrorView: BNView {
         siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         siteUrl.backgroundColor = UIColor.darkGrayColor()
         siteUrl.titleLabel!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_button)
-        siteUrl.addTarget(self, action: "tryAgainAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        siteUrl.addTarget(self, action: #selector(self.tryAgainAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(siteUrl)
     }
     

@@ -18,7 +18,7 @@ class BNRequest_SendBiinieActions: BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie) {
         
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.SendBiinieActions

@@ -527,7 +527,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         elements = elements.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
                         
                         highlights.append(elements[0])
-                        categoryCounter++
+                        categoryCounter += 1
                         
                         if elements.count > 1 {
                             
@@ -625,7 +625,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
         } else {
             bnUser!.clear()
-            BNAppSharedManager.instance.settings!.clear()
+            //BNAppSharedManager.instance.settings!.clear()
             errorManager.showNotBiinieError()
         }
         /*x
@@ -761,7 +761,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //if elementsBiined[_id] == nil {
             //elementsBiined[_id] = _id
             elements_by_id[_id]!.userCollected = true
-            elements_by_id[_id]!.collectCount++
+            elements_by_id[_id]!.collectCount += 1
             return elements_by_id[_id]!.collectCount
             //TODO: Post user just biined an element
         //}
@@ -916,11 +916,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
-        for var i = 0; i < showcase.elements.count; i++ {
+        
+        var i:Int = 0
+        for _ in showcase.elements {
+            
             if elements_by_id[showcase.elements[i]._id!] != nil {
                 showcase.elements[i] = elements_by_id[ showcase.elements[i]._id! ]!
             }
+            
+            i += 1
         }
+        
+//        for var i = 0; i < showcase.elements.count; i++ {
+//            if elements_by_id[showcase.elements[i]._id!] != nil {
+//                showcase.elements[i] = elements_by_id[ showcase.elements[i]._id! ]!
+//            }
+//        }
     }
 
     func receivedElement(element: BNElement) {
@@ -1003,7 +1014,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
             self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] = self.elements_by_id[element!._id!]
 
-            element!.collectCount++
+            element!.collectCount += 1
             elements_by_identifier[element!.identifier!]?.collectCount = element!.collectCount
             elements_by_identifier[element!.identifier!]?.userCollected = element!.userCollected
             

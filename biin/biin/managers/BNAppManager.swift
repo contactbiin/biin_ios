@@ -48,7 +48,7 @@ class BNAppManager {
     
     init(){
         
-        self.counter++
+        self.counter += 1
 
         if let settings = BNSettings.loadSaved() {
             self.settings = settings

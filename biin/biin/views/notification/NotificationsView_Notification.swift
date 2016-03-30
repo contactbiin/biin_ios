@@ -86,10 +86,10 @@ class NotificationsView_Notification: BNView {
         self.addSubview(text!)
         
         removeBtn = BNUIButton_RemoveIt(frame:CGRectMake((screenWidth - 30), 5, 15, 15))
-        removeBtn!.addTarget(self, action: "remove:", forControlEvents: UIControlEvents.TouchUpInside)
+        removeBtn!.addTarget(self, action: #selector(self.remove(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(removeBtn!)
         
-        let tap = UITapGestureRecognizer(target: self, action: "tap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tap(_:)))
         self.addGestureRecognizer(tap)
     }
     

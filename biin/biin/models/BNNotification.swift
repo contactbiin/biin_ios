@@ -26,7 +26,7 @@ class BNNotification:NSObject {
     
     convenience init(title:String, text:String, biin:BNBiin, notificationType:BNNotificationType, time:NSDate){
         self.init()
-        self.identifier = BNNotificationData.notificationCounter++
+        //self.identifier = BNNotificationData.notificationCounter += 1
         self.title = title
         self.text = text
         self.biin = biin

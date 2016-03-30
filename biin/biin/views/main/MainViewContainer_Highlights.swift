@@ -237,7 +237,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     func startTimer(){
         if timer == nil {
-            timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: #selector(MainViewContainer_Highlights.change(_:)), userInfo: nil, repeats: true)
         }
     }
     

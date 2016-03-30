@@ -75,7 +75,7 @@ class SiteView_MiniLocation:BNView {
         streetAddress1!.numberOfLines = 1
         self.addSubview(streetAddress1!)
         
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()

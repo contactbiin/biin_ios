@@ -115,7 +115,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(backBtn!)
         
         bottom = SiteView_Bottom(frame: CGRectMake(0, 0, screenWidth, 0), father:self)
@@ -144,19 +144,19 @@ class SiteView:BNView, UIScrollViewDelegate {
         //Like button
         //buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
+        likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
         
         //Share button
         buttonSpace += 35
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake( buttonSpace, ypos, 25, 25))
-        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        shareItButton!.addTarget(self, action: #selector(self.shareit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
         //Collect button
         buttonSpace += 35
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
-        collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
+        collectItButton!.addTarget(self, action: #selector(self.collectIt(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         //header!.addSubview(collectItButton!)
         
         ypos = 7
@@ -169,7 +169,7 @@ class SiteView:BNView, UIScrollViewDelegate {
 //        followButton!.layer.borderColor = UIColor.blackColor().CGColor
 //        followButton!.layer.borderWidth = 1
         followButton!.backgroundColor = UIColor.clearColor()
-        followButton!.addTarget(self, action: "followit:", forControlEvents: UIControlEvents.TouchUpInside)
+        followButton!.addTarget(self, action: #selector(self.followit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(followButton!)
         
         followButton!.frame.origin.x = (screenWidth - (followButton!.frame.width))
@@ -187,7 +187,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
 
         
-        let backGesture = UISwipeGestureRecognizer(target: self, action: "backGestureAction:")
+        let backGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.backGestureAction(_:)))
         backGesture.direction = UISwipeGestureRecognizerDirection.Right
         self.addGestureRecognizer(backGesture)
     }
@@ -438,7 +438,7 @@ class SiteView:BNView, UIScrollViewDelegate {
                 showcases!.append(showcaseView)
                 ypos += showcaseHeight
                 //ypos += 2
-                colorIndex++
+                colorIndex += 1
                 if colorIndex  > 1 {
                     colorIndex = 0
                 }

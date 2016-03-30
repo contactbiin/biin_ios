@@ -83,7 +83,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //fadeView!.userInteractionEnabled = false
         self.view.addSubview(fadeView!)
         
-        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
+        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.hideMenu(_:)))
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         fadeView!.addGestureRecognizer(hideMenuSwipe)
         
@@ -91,7 +91,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         menuView!.delegate = self
         self.view.addSubview(menuView!)
         
-        hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
+        hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.hideMenu(_:)))
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         menuView!.addGestureRecognizer(hideMenuSwipe)
         
@@ -116,7 +116,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             
             showDevelopmentBtn = UIButton(frame: CGRectMake((SharedUIManager.instance.screenWidth - 100), (SharedUIManager.instance.screenHeight - 45), 100, 45))
             showDevelopmentBtn!.backgroundColor = UIColor.biinOrange()
-            showDevelopmentBtn!.addTarget(self, action: "showDevelopmentView:", forControlEvents: UIControlEvents.TouchUpInside)
+            showDevelopmentBtn!.addTarget(self, action: #selector(self.showDevelopmentView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
             self.view!.addSubview(showDevelopmentBtn!)
         }
@@ -585,6 +585,27 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
                 
                 if let facebook_id = result.valueForKey("id") {
                     BNAppSharedManager.instance.dataManager.bnUser!.facebook_id = facebook_id as? String
+                }
+                
+                if let friends = result["friends"] as? NSDictionary {
+                    if let data = friends["data"] as? NSArray {
+                        for friend in data {
+                            if let facebook_id = friend.valueForKey("id") {
+                                let biinie = Biinie()
+                                biinie.facebook_id = facebook_id as? String
+                                BNAppSharedManager.instance.dataManager.bnUser!.friends.append(biinie)
+                            }
+                        }
+                    }
+                }
+                
+                if let picture = result["picture"] as? NSDictionary {
+                    if let data = picture["data"] as? NSDictionary {
+                        
+                        if let picture_url = data.valueForKey("url") as? String {
+                            BNAppSharedManager.instance.dataManager.bnUser!.facebookAvatarUrl = picture_url
+                        }
+                    }
                 }
                 
                 BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified = true

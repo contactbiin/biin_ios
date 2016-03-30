@@ -55,7 +55,7 @@ class MenuView:UIView {
         */
         
         profileBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Profile", comment: "profile button title").uppercaseString, iconType: BNIconType.none)
-        profileBtn!.addTarget(self, action: "profileBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        profileBtn!.addTarget(self, action: #selector(self.profileBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(profileBtn!)
         
 //        ypos += (distance + buttonHeight)
@@ -66,13 +66,13 @@ class MenuView:UIView {
 
         ypos += (distance + buttonHeight)
         collectionsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Collections", comment: "collections button title").uppercaseString, iconType: BNIconType.none)
-        collectionsBtn!.addTarget(self, action: "collectionsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        collectionsBtn!.addTarget(self, action: #selector(self.collectionsBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(collectionsBtn!)
         collectionsBtn!.showDisable()
         
         //ypos += (distance + buttonHeight)
         loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Loyalty", comment: "loyalty button title").uppercaseString, iconType: BNIconType.none)
-        loyaltyBtn!.addTarget(self, action: "loyaltyBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        loyaltyBtn!.addTarget(self, action: #selector(self.loyaltyBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(loyaltyBtn!)
 
 //        ypos += distance
@@ -82,7 +82,7 @@ class MenuView:UIView {
         
         ypos += (distance + buttonHeight)
         inviteFriendsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("InviteFriends", comment: "invite friends button title").uppercaseString, iconType: BNIconType.none)
-        inviteFriendsBtn!.addTarget(self, action: "inviteFriendsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        inviteFriendsBtn!.addTarget(self, action: #selector(self.inviteFriendsBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(inviteFriendsBtn!)
 
 //        ypos += distance
@@ -97,7 +97,7 @@ class MenuView:UIView {
         
         
         aboutBtn = BNUIButton_Menu(frame: CGRectMake(40, (SharedUIManager.instance.screenHeight - 80), buttonWidth, buttonHeight), text:NSLocalizedString("About", comment: "About").uppercaseString, iconType: BNIconType.none)
-        aboutBtn!.addTarget(self, action: "aboutBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        aboutBtn!.addTarget(self, action: #selector(self.aboutBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(aboutBtn!)
         
         

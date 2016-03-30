@@ -64,7 +64,7 @@ class MainViewContainer_Elements:BNView {
 //        moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
 //        moreElementsBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
 //        moreElementsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
-        moreElementsBtn!.addTarget(self, action: "moreElementsBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        moreElementsBtn!.addTarget(self, action: #selector(self.moreElementsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreElementsBtn!)
         
         title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
@@ -165,7 +165,7 @@ class MainViewContainer_Elements:BNView {
                     elementPosition++
                     
                     if element.userViewed {
-                        elementsViewed++
+                        elementsViewed += 1
                     }
 
                     elementView.requestImage()

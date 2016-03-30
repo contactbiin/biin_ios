@@ -18,7 +18,7 @@ class BNRequest_CheckEmail_IsVerified: BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager ) {
         
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.CheckEmail_IsVerified
@@ -29,7 +29,7 @@ class BNRequest_CheckEmail_IsVerified: BNRequest {
     override func run() {
                 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url:requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in

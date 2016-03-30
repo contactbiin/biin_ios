@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct BNRequestData { static var requestCounter = 0 }
+struct BNRequestData { static var requestCounter:Int = 0 }
 
 enum BNRequestType
 {
@@ -80,7 +80,7 @@ class BNRequest:NSObject {
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter +Int(1)
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = requestType
@@ -88,7 +88,7 @@ class BNRequest:NSObject {
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter += 1
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = requestType

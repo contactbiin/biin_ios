@@ -18,7 +18,7 @@ class BNRequest_Element: BNRequest {
     
     convenience init(requestString:String, dataIdentifier:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, element:BNElement){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.Element
@@ -32,7 +32,7 @@ class BNRequest_Element: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         //var response:BNResponse?
         
         networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {

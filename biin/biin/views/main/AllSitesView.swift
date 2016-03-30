@@ -54,7 +54,7 @@ class AllSitesView: BNView {
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
@@ -193,7 +193,7 @@ class AllSitesView: BNView {
                     //scroll!.addSubview(miniSiteView)
                     
                     xpos += siteView_width + 1
-                    colunmCounter++
+                    colunmCounter += 1
                     
                     if colunmCounter == 2 {
                         colunmCounter = 0

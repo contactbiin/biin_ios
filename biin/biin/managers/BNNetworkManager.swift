@@ -85,7 +85,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             if !request.isRunning {
                 
             } else {
-                totalRequestRunnin++
+                totalRequestRunnin += 1
             }
         }
         
@@ -100,7 +100,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 
                 request.run()
                 
-                queueCounter++
+                queueCounter += 1
     
             } else {
 
@@ -109,8 +109,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
     
     func removeFromQueue(request:BNRequest){
-        queueCounter--
-        requestProcessed++
+        queueCounter -= 1
+        requestProcessed += 1
         
         request.clean()
         requestsQueue.removeValueForKey(request.identifier)
@@ -126,7 +126,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func addToQueue(request:BNRequest){
         self.requestsQueue[request.identifier] = request
         runQueue()
-        totalNumberOfRequest++
+        totalNumberOfRequest += 1
     }
     
     func isQueued(stringUrl:String) -> Bool {

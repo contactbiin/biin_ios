@@ -265,7 +265,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                             self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
                             self.locationManager!.requestAlwaysAuthorization()
                             self.locationManager!.requestStateForRegion(exteriorBeaconRegion)
-                            site_counter++
+                            site_counter += 1
                         }
                     }
                 }
@@ -859,7 +859,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             //Frist return value checks is there are more biins available
             if value.0 || value.1 {
                 
-                self.counter++
+                self.counter += 1
                 
                 if self.counter == self.counterLimmit {
                     self.counter = 0
@@ -927,7 +927,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             }
             
             if !value.0 {
-                for var i = 0; i < array1.count; i++ {
+                var i:Int = 0
+                for _ in array1 {
+//                for var i = 0; i < array1.count; i++ {
                     
                     if array1[i].minor.integerValue != array2[i].minor.integerValue {
                         value.1 = true
@@ -936,6 +938,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     if array1[i].proximity != array2[i].proximity {
                         value.2 = true
                     }
+                    
+                    i += 1
                 }
             }
         }

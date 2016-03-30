@@ -69,7 +69,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var ypos:CGFloat = 10
 
         closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
-        closeBtn!.addTarget(father, action: "hideInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
+        closeBtn!.addTarget(father, action: Selector("hideInformationView:"), forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(closeBtn!)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
@@ -156,7 +156,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        emailBtn!.layer.shadowOpacity = 0.25
         
-        emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
+        emailBtn!.addTarget(self, action: #selector(self.sendMail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
         
         ypos += 55
@@ -171,7 +171,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        callBtn!.layer.shadowOpacity = 0.25
 
-        callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
+        callBtn!.addTarget(self, action: #selector(self.call(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
         
         
@@ -182,7 +182,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         npsBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         npsBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
         npsBtn!.layer.cornerRadius = 2
-        npsBtn!.addTarget(self, action: "nps:", forControlEvents: UIControlEvents.TouchUpInside)
+        npsBtn!.addTarget(self, action: #selector(self.nps(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(npsBtn!)
 
         uber_button = RequestButton()

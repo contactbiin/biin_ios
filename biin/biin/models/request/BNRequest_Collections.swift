@@ -13,7 +13,7 @@ class BNRequest_Collections: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.Collections
@@ -26,7 +26,7 @@ class BNRequest_Collections: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url:requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -43,7 +43,9 @@ class BNRequest_Collections: BNRequest {
                         var collectionList = Array<BNCollection>()
                         let collections = BNParser.findNSArray("biinieCollections", dictionary: dataData)
                         
-                        for var i = 0; i < collections?.count; i++ {
+                        var i:Int = 0
+                        for _ in collections! {
+//                        for var i = 0; i < collections?.count; i++ {
                             
                             let collectionData = collections!.objectAtIndex(i) as! NSDictionary
                             let collection = BNCollection()
@@ -57,18 +59,21 @@ class BNRequest_Collections: BNRequest {
                             if elements?.count > 0 {
                                 
                                 collection.elements = Dictionary<String, BNElement>()
-                                
-                                for ( var j = 0; j < elements?.count; j++ ) {
+                                var j:Int = 0
+                                for _ in elements! {
+//                                for ( var j = 0; j < elements?.count; j++ ) {
                                     let elementData = elements!.objectAtIndex(j) as! NSDictionary
                                     let element = BNElement()
                                     element.identifier = BNParser.findString("identifier", dictionary: elementData)
                                     element._id = BNParser.findString("_id", dictionary: elementData)
                                     collection.elements[element.identifier!] = element
                                     //collection.items.append(element.identifier!)
+                                    j += 1
                                 }
                             }
                             
                             collectionList.append(collection)
+                            i += 1
                         }
                         
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedCollections: collectionList)

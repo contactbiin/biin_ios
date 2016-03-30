@@ -56,7 +56,7 @@ class DevelopmentView:UIView {
         //Switch buttons
         isProductionBD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
         isProductionBD!.setOn(BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE, animated: false)
-        isProductionBD!.addTarget(self, action: "isProductionBDAction:", forControlEvents: UIControlEvents.ValueChanged)
+        isProductionBD!.addTarget(self, action: #selector(self.isProductionBDAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.addSubview(isProductionBD!)
 
         var label = UILabel(frame: CGRect(x:70, y:ypos, width:frame.width, height:15))
@@ -84,7 +84,7 @@ class DevelopmentView:UIView {
         
         isQABD = UISwitch(frame: CGRectMake(10, (ypos - 7), screenWidth, 30))
         isQABD!.setOn(BNAppSharedManager.instance.settings!.IS_QA_DATABASE, animated: false)
-        isQABD!.addTarget(self, action: "isQABDAction:", forControlEvents: UIControlEvents.ValueChanged)
+        isQABD!.addTarget(self, action: #selector(self.isQABDAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.addSubview(isQABD!)
         
         label = UILabel(frame: CGRect(x:70, y:ypos, width:frame.width, height:15))
@@ -138,7 +138,7 @@ class DevelopmentView:UIView {
         clearUserBtn!.setTitle("Delete User", forState: UIControlState.Normal)
         clearUserBtn!.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         clearUserBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
-        clearUserBtn!.addTarget(self, action: "clearUserBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        clearUserBtn!.addTarget(self, action: #selector(self.clearUserBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
 //        self.addSubview(clearUserBtn!)
 //        ypos += 65
         
@@ -156,7 +156,7 @@ class DevelopmentView:UIView {
         resetNotification!.setTitle("Reset Notification", forState: UIControlState.Normal)
         resetNotification!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         resetNotification!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
-        resetNotification!.addTarget(self, action: "resetNotificationAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        resetNotification!.addTarget(self, action: #selector(self.resetNotificationAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(resetNotification!)
         ypos += 80
         

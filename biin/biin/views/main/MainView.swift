@@ -231,7 +231,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton = UIButton(frame: CGRectMake(10, 100, 100, 50))
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("test", forState: UIControlState.Normal)
-        testButton!.addTarget(self, action: "testButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        testButton!.addTarget(self, action: #selector(self.testButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(testButton!)
     }
     
@@ -446,7 +446,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             if site_to_survey!.organization!.hasNPS {
                 if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
                     
-                    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "showSurveyOnTimer:", userInfo: nil, repeats: false)
+                    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.showSurveyOnTimer(_:)), userInfo: nil, repeats: false)
                 } else {
                     print("site: \(site_to_survey!.title!) is already survyed today")
                 }
@@ -723,7 +723,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func clean(){
 
-        showMenuSwipe?.removeTarget(self, action: "showMenu:")
+        showMenuSwipe?.removeTarget(self, action: #selector(self.showMenu(_:)))
         showMenuSwipe = nil
         
         (mainViewContainerState!.view as! MainViewContainer).clean()
@@ -774,7 +774,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         mainViewContainerState!.view = mainViewContainer
         state = mainViewContainerState!
         
-        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")
+        showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(self.showMenu(_:)))
         showMenuSwipe!.edges = UIRectEdge.Left
         mainViewContainer.scroll!.addGestureRecognizer(showMenuSwipe!)
 

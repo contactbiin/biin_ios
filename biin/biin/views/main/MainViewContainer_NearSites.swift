@@ -36,7 +36,7 @@ class MainViewContainer_NearSites: BNView {
 //        moreSitesBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
 //        moreSitesBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
 //        moreSitesBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
-        moreSitesBtn!.addTarget(self, action: "moreSitesBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        moreSitesBtn!.addTarget(self, action: #selector(self.moreSitesBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreSitesBtn!)
         
         title = UILabel(frame: CGRectMake(15, 16, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))

@@ -69,7 +69,7 @@ class InSiteView: BNView {
         viewContainer!.addSubview(nutshell!)
         
 
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()

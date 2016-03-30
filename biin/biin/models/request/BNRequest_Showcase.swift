@@ -18,7 +18,7 @@ class BNRequest_Showcase: BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, showcase:BNShowcase, user:Biinie) {
         
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.Showcase
@@ -56,7 +56,9 @@ class BNRequest_Showcase: BNRequest {
                         
                         let elements = BNParser.findNSArray("elements", dictionary: showcaseData)
                         
-                        for var i = 0; i < elements?.count; i++ {
+                        var i:Int = 0
+                        for _ in elements! {
+//                        for var i = 0; i < elements?.count; i++ {
                             
                             let elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
                             let element = BNElement()
@@ -65,6 +67,7 @@ class BNRequest_Showcase: BNRequest {
                             element.userViewed = BNParser.findBool("hasBeenSeen", dictionary: elementData)
                             element.showcase = self.showcase
                             self.showcase!.elements.append(element)
+                            i += 1
                         }
                         
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedShowcase: self.showcase!)

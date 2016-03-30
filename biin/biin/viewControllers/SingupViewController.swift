@@ -107,7 +107,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         loginBtn!.backgroundColor = UIColor.clearColor()
         loginBtn!.setTitle(NSLocalizedString("Login", comment: "Login"), forState: UIControlState.Normal)
         loginBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
-        loginBtn!.addTarget(self, action: "showLogin:", forControlEvents: UIControlEvents.TouchUpInside)
+        loginBtn!.addTarget(self, action: #selector(self.showLogin(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         loginBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         self.view.addSubview(loginBtn!)
 
@@ -389,7 +389,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 if let userEmail = result.valueForKey("email") {
                     user.email = userEmail as? String
                     user.biinName = userEmail as? String
-                    user.biinName = userEmail as? String
                 }
                 
                 if let birthday = result.valueForKey("birthday") {
@@ -438,10 +437,10 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 } else {
                     
                     //OLD for now until ivan is completed with request
-                    BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
+                    //BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
                     
                     //New
-                    //BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+                    BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
                     SharedAnswersManager.instance.logSignUp("Facebook")
                 }
             }

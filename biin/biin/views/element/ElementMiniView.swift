@@ -280,11 +280,11 @@ class ElementMiniView: BNView {
         
         if showRemoveBtn {
             removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 20), (headerHeight + 4), 15, 15), color:UIColor.blackColor())
-            removeItButton!.addTarget(self, action: "unCollect:", forControlEvents: UIControlEvents.TouchUpInside)
+            removeItButton!.addTarget(self, action: #selector(self.unCollect(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(removeItButton!)
         }
         
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()

@@ -380,19 +380,27 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     }
 
     func sentImages(imageUrl:String){
-        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i++){
+        
+        var i:Int = 0
+        for _ in ShareEPSNetworking.requestingImages {
+//        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i += 1){
             if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
                 if let cacheImage = ShareEPSNetworking.cacheImages[imageUrl] {
                     ShareEPSNetworking.requestingImages[i].image.image = cacheImage
                     ShareEPSNetworking.requestingImages[i].image.showAfterDownload()
                 }
             }
+            i += 1
         }
         
-        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i++){
+        i = 0
+        for _ in ShareEPSNetworking.requestingImages {
+//        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i++){
             if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
                 ShareEPSNetworking.requestingImages.removeAtIndex(i)
             }
+            
+            i += 1
         }
         
 

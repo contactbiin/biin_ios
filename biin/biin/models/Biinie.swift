@@ -47,6 +47,8 @@ class Biinie:NSObject, NSCoding {
         
         self.newNotificationCount = 0
         self.notificationIndex = 0
+        facebookAvatarUrl = ""
+        facebook_id = ""
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String) {
@@ -55,9 +57,6 @@ class Biinie:NSObject, NSCoding {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
-        newNotificationCount = 0
-        notificationIndex = 0
-        facebookAvatarUrl = ""
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String, gender:String) {
@@ -88,6 +87,7 @@ class Biinie:NSObject, NSCoding {
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         self.temporalCollectionIdentifier = "collection1"
+        self.password = ""
         for _id in storedElementsViewed {
             elementsViewed[_id] = _id
         }
@@ -217,7 +217,7 @@ class Biinie:NSObject, NSCoding {
         if isActionReadyToAdd {
         //if true {
             
-            self.actionCounter++
+            self.actionCounter += 1
             self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
             save()
 //            NSLog("BIIN - add first action: \(at.bnDateFormatt()), did:\(did), to:\(to)")

@@ -17,7 +17,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, categories:Dictionary<String, String> ){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.SendBiinieCategories
@@ -31,7 +31,7 @@ class BNRequest_SendBiinieCategories: BNRequest {
         //print("BNRequest_SendBiinieCategories - \(requestString)")
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         var model = ["model":Array<Dictionary <String, String>>()] as Dictionary<String, Array<Dictionary <String, String>>>
         

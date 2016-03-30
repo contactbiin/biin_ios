@@ -54,7 +54,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         self.addSubview(title!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
@@ -179,7 +179,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             elements!.append(elementView)
             
             xpos += elementView_width + spacer
-            colunmCounter++
+            colunmCounter += 1
             
             if colunmCounter == 2 {
                 colunmCounter = 0
@@ -228,16 +228,21 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         var elementView_width:CGFloat = 0
         
 
-        
-        for var i = 0; i < elements!.count; i++ {
+        var i:Int = 0
+        for _ in elements! {
+//        for var i = 0; i < elements!.count; i++ {
             if elements![i].element!._id! == view.element!._id {
                 elements!.removeAtIndex(i)
                 continue
             }
+            i += 1
         }
         
-        for var i = 0; i < elements!.count; i++ {
-                  
+        i = 0
+        
+        for _ in elements! {
+//        for var i = 0; i < elements!.count; i++ {
+            
             if showcase!.elements.count == 1 {
                 elementView_width = SharedUIManager.instance.screenWidth
             } else {
@@ -247,7 +252,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             elements![i].frame = CGRectMake(xpos, ypos, elementView_width, miniViewHeight)
             
             xpos += elementView_width + spacer
-            colunmCounter++
+            colunmCounter += 1
             
             if colunmCounter == 2 {
                 colunmCounter = 0

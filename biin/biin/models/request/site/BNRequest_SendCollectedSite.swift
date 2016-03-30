@@ -17,8 +17,7 @@ class BNRequest_SendCollectedSite: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite ){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
-
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.SendCollectedSite

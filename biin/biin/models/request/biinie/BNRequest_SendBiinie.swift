@@ -20,7 +20,7 @@ class BNRequest_SendBiinie:BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie) {
         
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.SendBiinie
@@ -34,13 +34,13 @@ class BNRequest_SendBiinie:BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         
         if self.user!.identifier == "" {
-            isUpdate = true
-        } else {
             isUpdate = false
+        } else {
+            isUpdate = true
         }
         
         var model = Dictionary<String, Dictionary <String, AnyObject>>()
@@ -48,8 +48,10 @@ class BNRequest_SendBiinie:BNRequest {
         modelContent["firstName"] = self.user!.firstName!
         modelContent["lastName"] = self.user!.lastName!
         modelContent["email"] = self.user!.email!
+        modelContent["password"] = self.user!.password!
         modelContent["gender"] = self.user!.gender!
         modelContent["facebook_id"] = self.user!.facebook_id!
+
         
         if self.user!.facebookAvatarUrl == "" {
             modelContent["facebookAvatarUrl"] = "none"
@@ -107,17 +109,21 @@ class BNRequest_SendBiinie:BNRequest {
 
                     if result {
                         response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier: identifier)
+                    
+                        
+                        if self.isUpdate {
+                            self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
+                        } else {
+                            self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier: identifier)
+                            self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)
+                        }
+                        
                         
                     } else {
                         response = BNResponse(code:status!, type: BNResponse_Type.Suck)
                     }
                     
-                    if self.isUpdate {
-                        self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
-                    } else {
-                        self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)
-                    }
+           
                 }
          
                 //let end = NSDate()

@@ -76,4 +76,8 @@ class BNUIImageView:UIImageView {
         })
     }
     
+    func clean() {
+        self.image = nil
+    }
+    
 }
