@@ -195,7 +195,7 @@ class BNParser {
                 }
                 continue
             case ",":
-                counter++
+                counter += 1
                 continue
             default:
                 break

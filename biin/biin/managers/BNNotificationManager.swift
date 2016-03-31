@@ -117,7 +117,8 @@ class BNNotificationManager:NSObject, NSCoding {
         
         var isNotificationSaved = false
         
-        for var i = 0; i < localNotifications.count; i++ {
+        for i in (0..<localNotifications.count) {
+//        for var i = 0; i < localNotifications.count; i++ {
             
             if localNotifications[i].object_id == object._id! {
                 
@@ -174,7 +175,8 @@ class BNNotificationManager:NSObject, NSCoding {
     }
     
     func removeLocalNotification(object_id:String) {
-        for var i = 0; i < localNotifications.count; i++ {
+        for i in (0..<localNotifications.count){
+//        for var i = 0; i < localNotifications.count; i++ {
             if localNotifications[i].object_id == object_id {
                 localNotifications.removeAtIndex(i)
                 return
@@ -358,8 +360,9 @@ class BNNotificationManager:NSObject, NSCoding {
             
             let dayNumber = getDayOfWeek()
         
-            for var i = 0; i < siteNotifications.count; i++ {
-                
+            for i in (0..<siteNotifications.count) {
+//            for var i = 0; i < siteNotifications.count; i++ {
+            
                 NSLog("Day:\(getDayOfWeek())")
                 NSLog("CUrrent object:\(siteNotifications[i].siteIdentifier!) index;\(i)")
                 NSLog("Start time:\(siteNotifications[i].startTime)")

@@ -99,7 +99,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         singupBtn!.layer.cornerRadius = 2
         singupBtn!.setTitle(NSLocalizedString("ImNewHere", comment: "ImNewHere"), forState: UIControlState.Normal)
         singupBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
-        singupBtn!.addTarget(self, action: "showSignUp:", forControlEvents: UIControlEvents.TouchUpInside)
+        singupBtn!.addTarget(self, action: #selector(self.showSignUp(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(singupBtn!)
         
         ypos += (singupBtn!.frame.height + 5)

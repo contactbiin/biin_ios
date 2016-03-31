@@ -111,7 +111,7 @@ class LocationErrorView: BNView {
                 })
         } else {
             
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideView:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
         }
     }
     

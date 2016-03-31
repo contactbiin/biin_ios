@@ -60,7 +60,7 @@ class HighlightView: BNView {
 //        }
         
 
-        var textColor = self.element!.showcase!.site!.organization!.secondaryColor
+        let textColor = self.element!.showcase!.site!.organization!.secondaryColor
         iconColor = self.element!.showcase!.site!.organization!.secondaryColor
         decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
         
@@ -243,7 +243,7 @@ class HighlightView: BNView {
         collectItButton!.icon!.color = iconColor
         containerView.addSubview(collectItButton!)
         */
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()

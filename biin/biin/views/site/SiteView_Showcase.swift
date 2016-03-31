@@ -225,10 +225,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
                     
                     elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
                     elements.append(elementView)
-                    elementPosition++
+                    elementPosition += 1
                     
                     if element.userViewed {
-                        elementsViewed++
+                        elementsViewed += 1
                     }
                     
                     //if elementPosition < 4 {
@@ -349,7 +349,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }// called when scroll view grinds to a halt
     
     func updatePointCounter() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:"updatePoints:", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:#selector(self.updatePoints(_:)), userInfo: nil, repeats: true)
     }
     
     func updatePoints(sender:NSTimer){
@@ -424,7 +424,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }
     
     override func request() {
-        self.showcase!.batch++
+        self.showcase!.batch += 1
         BNAppSharedManager.instance.dataManager.requestElementsForShowcase(self.showcase, view: self)
     }
     

@@ -30,7 +30,7 @@ class BNRequest_Login_Facebook: BNRequest {
         //print("BNRequest_Login_Facebook - \(requestString)")
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         var response:BNResponse?
         

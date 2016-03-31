@@ -30,7 +30,7 @@ class BNRequest_SendCollectedSite: BNRequest {
         
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

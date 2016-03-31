@@ -33,7 +33,7 @@ class BNRequest_Showcase: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in

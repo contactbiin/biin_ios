@@ -58,7 +58,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         self.addSubview(fade!)
         
         refreshButton = UIButton(frame: CGRectMake(0, -50, self.frame.width, 50))
-        refreshButton!.addTarget(self, action: "refreshButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        refreshButton!.addTarget(self, action: #selector(self.refreshButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         refreshButton!.titleLabel!.font = UIFont(name: "Lato-Light", size: 15)
         refreshButton!.setTitle(NSLocalizedString("Refresh", comment: "Refresh"), forState: UIControlState.Normal)
         
@@ -156,7 +156,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
                     self.scroll!.addChild(elementContainer)
                     self.elementContainers!.append(elementContainer)
                     
-                    colorIndex++
+                    colorIndex += 1
                     if colorIndex  > 1 {
                         colorIndex = 0
                     }

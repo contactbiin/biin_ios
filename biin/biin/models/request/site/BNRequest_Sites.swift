@@ -29,7 +29,7 @@ class BNRequest_Sites: BNRequest {
     override func run() {
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -45,7 +45,7 @@ class BNRequest_Sites: BNRequest {
                         
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
                             
-                            for var i = 0; i < organizationsData.count; i++ {
+                            for i in (0..<organizationsData.count){
                                 if let organizationData = organizationsData.objectAtIndex(i) as? NSDictionary {
                                     
                                     let identifier = BNParser.findString("identifier", dictionary: organizationData)
@@ -63,19 +63,21 @@ class BNRequest_Sites: BNRequest {
                                         organization.primaryColor = BNParser.findUIColor("primaryColor", dictionary:organizationData)
                                         organization.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary:organizationData)
                                         
-                                        let mediaArray = BNParser.findNSArray("media", dictionary: organizationData)
+                                        if let mediaArray = BNParser.findNSArray("media", dictionary: organizationData) {
                                         
-                                        for var i = 0; i < mediaArray?.count; i++ {
-                                            let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
-                                            let url = BNParser.findString("url", dictionary:mediaData)
-                                            let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
-                                            let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
-                                            let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
-                                            let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
-                                            let media = BNMedia(mediaType:type, url:url!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
-                                            organization.media.append(media)
+                                            for t in (0..<mediaArray.count) {
+                                                let mediaData = mediaArray.objectAtIndex(t) as! NSDictionary
+                                                let url = BNParser.findString("url", dictionary:mediaData)
+                                                let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
+                                                let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
+                                                let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
+                                                let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
+                                                let media = BNMedia(mediaType:type, url:url!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
+                                                organization.media.append(media)
+                                            }
                                         }
                                         
+
                                         organization.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData)
                                         
                                         if organization.isLoyaltyEnabled {
@@ -96,7 +98,8 @@ class BNRequest_Sites: BNRequest {
                         
                         //Parse elements
                         if let elementsData = BNParser.findNSArray("elements", dictionary: initialData) {
-                            for var i = 0; i < elementsData.count; i++ {
+                            
+                            for i in (0..<elementsData.count) {
                                 let elementData = elementsData.objectAtIndex(i) as! NSDictionary
                                 
                                 let identifier = BNParser.findString("identifier", dictionary: elementData)
@@ -161,41 +164,43 @@ class BNRequest_Sites: BNRequest {
                                     
                                     element.isHighlight = BNParser.findBool("isHighlight", dictionary: elementData)
                                     
-                                    let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
+                                    if let mediaArray = BNParser.findNSArray("media", dictionary: elementData) {
                                     
-                                    if mediaArray!.count == 0 {
-                                        print("element with not media:\(element.identifier)")
-                                    }
-                                    
-                                    for var j = 0; j < mediaArray?.count; j++ {
-                                        let mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
-                                        let url = BNParser.findString("url", dictionary: mediaData)!
-                                        let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
-                                        let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
-                                        let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
-                                        let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
-                                        
-                                        var white:CGFloat = 0.0
-                                        var alpha:CGFloat = 0.0
-                                        _ = vibrantColor.getWhite(&white, alpha: &alpha)
-                                        
-                                        if white <= 0.7 {
-                                            element.useWhiteText = true
-                                            
+                                        if mediaArray.count == 0 {
+                                            print("element with not media:\(element.identifier)")
+                                        } else {
+                                            for j in (0..<mediaArray.count){
+                                                let mediaData = mediaArray.objectAtIndex(j) as! NSDictionary
+                                                let url = BNParser.findString("url", dictionary: mediaData)!
+                                                let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                                                let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
+                                                let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
+                                                let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                                                
+                                                var white:CGFloat = 0.0
+                                                var alpha:CGFloat = 0.0
+                                                _ = vibrantColor.getWhite(&white, alpha: &alpha)
+                                                
+                                                if white <= 0.7 {
+                                                    element.useWhiteText = true
+                                                    
+                                                }
+                                                
+                                                let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
+                                                element.media.append(media)
+                                            }
                                         }
-                                        
-                                        let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
-                                        element.media.append(media)
                                     }
                                     
-                                    let categories = BNParser.findNSArray("categories", dictionary: elementData)
+                                    if let categories = BNParser.findNSArray("categories", dictionary: elementData) {
                                     
-                                    for var j = 0; j < categories?.count; j++ {
-                                        let categoryData = categories!.objectAtIndex(j) as! NSDictionary
-                                        let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                                        BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                        for j in (0..<categories.count){
+                                            let categoryData = categories.objectAtIndex(j) as! NSDictionary
+                                            let identifier = BNParser.findString("identifier", dictionary: categoryData)!
+                                            BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                        }
                                     }
-                                    
+                                
                                     element.collectCount = BNParser.findInt("collectCount", dictionary: elementData)!
                                     element.userCollected = BNParser.findBool("userCollected", dictionary: elementData)
                                     element.userLiked = BNParser.findBool("userLiked", dictionary: elementData)
@@ -208,8 +213,7 @@ class BNRequest_Sites: BNRequest {
                         }
                         
                         if let sitesData = BNParser.findNSArray("sites", dictionary: initialData) {
-                            
-                            for var i = 0; i < sitesData.count; i++ {
+                            for i in (0..<sitesData.count){
                                 if let siteData = sitesData.objectAtIndex(i) as? NSDictionary {
                                     
                                     let identifier = BNParser.findString("identifier", dictionary: siteData)
@@ -241,47 +245,47 @@ class BNRequest_Sites: BNRequest {
                                         site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
                                         site.siteSchedule = BNParser.findString("siteSchedule", dictionary: siteData)
 
-                                        let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData)
+                                        if let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData) {
                                         
-                                        if neighbors?.count > 0{
-                                            
-                                            site.neighbors = Array<String>()
-                                            
-                                            for var i = 0; i < neighbors?.count; i++ {
-                                                let neighborData = neighbors!.objectAtIndex(i) as! NSDictionary
-                                                let neighbor = BNParser.findString("siteIdentifier", dictionary:neighborData)
-                                                site.neighbors!.append(neighbor!)
+                                            if neighbors.count > 0{
+                                                
+                                                site.neighbors = Array<String>()
+                                                for j in (0..<neighbors.count){
+                                                    let neighborData = neighbors.objectAtIndex(j) as! NSDictionary
+                                                    let neighbor = BNParser.findString("siteIdentifier", dictionary:neighborData)
+                                                    site.neighbors!.append(neighbor!)
+                                                }
                                             }
                                         }
                                         
-                                        let mediaArray = BNParser.findNSArray("media", dictionary: siteData)
-                                        
-                                        for var i = 0; i < mediaArray?.count; i++ {
-                                            let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
-                                            let url = BNParser.findString("url", dictionary:mediaData)!
-                                            let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
-                                            let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
-                                            let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
-                                            let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
-                                            
-                                            var white:CGFloat = 0.0
-                                            var alpha:CGFloat = 0.0
-                                            _ = vibrantColor.getWhite(&white, alpha: &alpha)
-                                            
-                                            if white <= 0.7 {
-                                                site.useWhiteText = true
+                                        if let mediaArray = BNParser.findNSArray("media", dictionary: siteData) {
+                                       
+                                            for j in (0..<mediaArray.count){
+                                                let mediaData = mediaArray.objectAtIndex(j) as! NSDictionary
+                                                let url = BNParser.findString("url", dictionary:mediaData)!
+                                                let type = BNMediaType.Image// BNParser.findMediaType("mediaType", dictionary: mediaData)
+                                                let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
+                                                let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
+                                                let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                                                
+                                                var white:CGFloat = 0.0
+                                                var alpha:CGFloat = 0.0
+                                                _ = vibrantColor.getWhite(&white, alpha: &alpha)
+                                                
+                                                if white <= 0.7 {
+                                                    site.useWhiteText = true
+                                                }
+                                                
+                                                let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
+                                                site.media.append(media)
                                             }
-                                            
-                                            let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
-                                            site.media.append(media)
                                         }
                                         
                                         if let showcases = BNParser.findNSArray("showcases", dictionary: siteData) {
                                             
                                             site.showcases = Array<BNShowcase>()
-                                            
-                                            for var i = 0; i < showcases.count; i++ {
-                                                if let showcaseData = showcases.objectAtIndex(i) as? NSDictionary {
+                                            for j in (0..<showcases.count){
+                                                if let showcaseData = showcases.objectAtIndex(j) as? NSDictionary {
                                                     
                                                     let showcase = BNShowcase()
                                                     showcase._id = BNParser.findString("_id", dictionary: showcaseData)
@@ -290,17 +294,19 @@ class BNRequest_Sites: BNRequest {
                                                     showcase.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
                                                     showcase.elements_quantity = BNParser.findInt("elements_quantity", dictionary: showcaseData)!
                                                     
-                                                    let elements = BNParser.findNSArray("elements", dictionary: showcaseData)
                                                     
-                                                    for var i = 0; i < elements?.count; i++ {
+                                                    if let elements = BNParser.findNSArray("elements", dictionary: showcaseData){
                                                         
-                                                        let elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
-                                                        let element = BNElement()
-                                                        element._id = BNParser.findString("_id", dictionary: elementData)
-                                                        element.identifier = BNParser.findString("identifier", dictionary: elementData)
-                                                        //element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
-                                                        element.showcase = showcase
-                                                        showcase.elements.append(element)
+                                                        for k in (0..<elements.count) {
+                                                            
+                                                            let elementData:NSDictionary = elements.objectAtIndex(k) as! NSDictionary
+                                                            let element = BNElement()
+                                                            element._id = BNParser.findString("_id", dictionary: elementData)
+                                                            element.identifier = BNParser.findString("identifier", dictionary: elementData)
+                                                            //element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
+                                                            element.showcase = showcase
+                                                            showcase.elements.append(element)
+                                                        }
                                                     }
                                                     
                                                     showcase.site = site
@@ -310,10 +316,9 @@ class BNRequest_Sites: BNRequest {
                                             }
                                         }
                                         
-                                        let biins = BNParser.findNSArray("biins", dictionary: siteData)
-                                        
-                                        for var j = 0; j < biins?.count; j++ {
-                                            if let biinData = biins!.objectAtIndex(j) as? NSDictionary {
+                                        if let biins = BNParser.findNSArray("biins", dictionary: siteData) {
+                                            for h in (0..<biins.count) {
+                                            if let biinData = biins.objectAtIndex(h) as? NSDictionary {
                                                 let biin = BNBiin()
                                                 biin.identifier = BNParser.findString("identifier", dictionary: biinData)
                                                 biin.major = site.major
@@ -323,57 +328,57 @@ class BNRequest_Sites: BNRequest {
                                                 biin.name = BNParser.findString("name", dictionary: biinData)
                                                 biin.biinType = BNParser.findBNBiinType("biinType", dictionary: biinData)
                                                 biin.site = site
-                                                let children = BNParser.findNSArray("children", dictionary: biinData)
                                                 
-                                                if children?.count > 0 {
-                                                    
-                                                    biin.children = Array<Int>()
-                                                    
-                                                    for var i = 0; i < children?.count; i++ {
-                                                        let child = Int(((children!.objectAtIndex(i) as? String))!)
-                                                        biin.children!.append(child!)
-                                                    }
-                                                }
-                                                
-                                                let objects = BNParser.findNSArray("objects", dictionary: biinData)
-                                                
-                                                if objects!.count > 0 {
-                                                    biin.objects = Array<BNBiinObject>()
-                                                    for var k = 0; k < objects!.count; k++ {
-                                                        if let objectData = objects!.objectAtIndex(k) as? NSDictionary {
-                                                            let object = BNBiinObject()
-                                                            object._id = BNParser.findString("_id", dictionary: objectData)
-                                                            object.identifier = BNParser.findString("identifier", dictionary: objectData)
-                                                            object.isDefault = BNParser.findBool("isDefault", dictionary: objectData)
-                                                            object.onMonday = BNParser.findBool("onMonday", dictionary: objectData)
-                                                            object.onTuesday = BNParser.findBool("onTuesday", dictionary: objectData)
-                                                            object.onWednesday = BNParser.findBool("onWednesday", dictionary: objectData)
-                                                            object.onThursday = BNParser.findBool("onThursday", dictionary: objectData)
-                                                            object.onFriday = BNParser.findBool("onFriday", dictionary: objectData)
-                                                            object.onSaturday = BNParser.findBool("onSaturday", dictionary: objectData)
-                                                            object.onSunday = BNParser.findBool("onSunday", dictionary: objectData)
-                                                            object.startTime = BNParser.findFloat("startTime", dictionary: objectData)!
-                                                            object.endTime = BNParser.findFloat("endTime", dictionary: objectData)!
-                                                            object.hasTimeOptions = BNParser.findBool("hasTimeOptions", dictionary: objectData)
-                                                            object.hasNotification = BNParser.findBool("hasNotification", dictionary: objectData)
-                                                            object.notification = BNParser.findString("notification", dictionary: objectData)
-                                                            object.isUserNotified = BNParser.findBool("isUserNotified", dictionary: objectData)
-                                                            object.isCollected = BNParser.findBool("isCollected", dictionary: objectData)
-                                                            object.objectType = BNParser.findBiinObjectType("objectType", dictionary: objectData)
-                                                            
-                                                            //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
-                                                            object.major = biin.major!
-                                                            object.minor = biin.minor!
-                                                            
-                                                            biin.objects!.append(object)
+                                                if let children = BNParser.findNSArray("children", dictionary: biinData) {
+                                                    if children.count > 0 {
+                                                        
+                                                        biin.children = Array<Int>()
+                                                        for m in (0..<children.count) {
+                                                            let child = Int(((children.objectAtIndex(m) as? String))!)
+                                                            biin.children!.append(child!)
                                                         }
                                                     }
                                                 }
                                                 
+                                                if let objects = BNParser.findNSArray("objects", dictionary: biinData) {
+                                                
+                                                    if objects.count > 0 {
+                                                        biin.objects = Array<BNBiinObject>()
+                                                        for k in (0..<objects.count){
+                                                            if let objectData = objects.objectAtIndex(k) as? NSDictionary {
+                                                                let object = BNBiinObject()
+                                                                object._id = BNParser.findString("_id", dictionary: objectData)
+                                                                object.identifier = BNParser.findString("identifier", dictionary: objectData)
+                                                                object.isDefault = BNParser.findBool("isDefault", dictionary: objectData)
+                                                                object.onMonday = BNParser.findBool("onMonday", dictionary: objectData)
+                                                                object.onTuesday = BNParser.findBool("onTuesday", dictionary: objectData)
+                                                                object.onWednesday = BNParser.findBool("onWednesday", dictionary: objectData)
+                                                                object.onThursday = BNParser.findBool("onThursday", dictionary: objectData)
+                                                                object.onFriday = BNParser.findBool("onFriday", dictionary: objectData)
+                                                                object.onSaturday = BNParser.findBool("onSaturday", dictionary: objectData)
+                                                                object.onSunday = BNParser.findBool("onSunday", dictionary: objectData)
+                                                                object.startTime = BNParser.findFloat("startTime", dictionary: objectData)!
+                                                                object.endTime = BNParser.findFloat("endTime", dictionary: objectData)!
+                                                                object.hasTimeOptions = BNParser.findBool("hasTimeOptions", dictionary: objectData)
+                                                                object.hasNotification = BNParser.findBool("hasNotification", dictionary: objectData)
+                                                                object.notification = BNParser.findString("notification", dictionary: objectData)
+                                                                object.isUserNotified = BNParser.findBool("isUserNotified", dictionary: objectData)
+                                                                object.isCollected = BNParser.findBool("isCollected", dictionary: objectData)
+                                                                object.objectType = BNParser.findBiinObjectType("objectType", dictionary: objectData)
+                                                                
+                                                                //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
+                                                                object.major = biin.major!
+                                                                object.minor = biin.minor!
+                                                                
+                                                                biin.objects!.append(object)
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                                 site.biins.append(biin)
                                             }
                                         }
-                                        
+                                        }
                                         BNAppSharedManager.instance.dataManager.receivedSite(site)
                                     }
                                 }

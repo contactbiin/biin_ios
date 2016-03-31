@@ -26,7 +26,7 @@ class BNRequest_ConnectivityCheck: BNRequest {
         //self.start = NSDate()
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         networkManager!.epsNetwork!.checkConnection(false, url:requestString, callback:{
             (error: NSError?) -> Void in

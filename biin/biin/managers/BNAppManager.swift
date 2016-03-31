@@ -176,7 +176,7 @@ class BNAppManager {
     
     func processNotification(notification:BNNotification){
         areNewNotificationsPendingToShow = true
-        dataManager.bnUser!.newNotificationCount!++
+        dataManager.bnUser!.newNotificationCount! += 1
         dataManager.bnUser!.notificationIndex! = notification.identifier
 
         //Notify main view to show circle

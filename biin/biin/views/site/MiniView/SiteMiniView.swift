@@ -86,7 +86,7 @@ class SiteMiniView: BNView {
 //        //self.addSubview(nutshell)
 //        nutshell.frame.origin.y = (frame.height - (nutshell.frame.height + 10))
         
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()

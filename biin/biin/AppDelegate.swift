@@ -101,8 +101,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupNotificationSettings()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleModifyListNotification), name: "modifyListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleDeleteListNotification), name: "deleteListNotification", object: nil)
         
         Fabric.with([Crashlytics.self])
         

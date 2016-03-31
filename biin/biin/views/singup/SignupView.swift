@@ -67,7 +67,7 @@ class SignupView:UIView, UITextFieldDelegate {
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()
 //        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.biinOrange().CGColor
@@ -123,14 +123,14 @@ class SignupView:UIView, UITextFieldDelegate {
         self.addSubview(genderTxt!)
         
         femaleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 73, 8, 30, 30), iconType: BNIconType.femaleSmall)
-        femaleBtn!.addTarget(self, action: "femaleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        femaleBtn!.addTarget(self, action: #selector(self.femaleBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         genderTxt!.addSubview(femaleBtn!)
         genderStr = "none"
         genderTxt!.backgroundColor = UIColor.bnGrayLight()
         genderTxt!.point!.backgroundColor = UIColor.bnGrayLight()
         
         maleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 38, 8, 30, 30), iconType: BNIconType.maleSmall)
-        maleBtn!.addTarget(self, action: "maleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        maleBtn!.addTarget(self, action: #selector(self.maleBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         genderTxt!.addSubview(maleBtn!)
         
         ypos += (1 + genderTxt!.frame.height)
@@ -155,7 +155,7 @@ class SignupView:UIView, UITextFieldDelegate {
 //        singupBtn!.layer.shadowOpacity = 0.25
         singupBtn!.setTitle(NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), forState: UIControlState.Normal)
         singupBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
-        singupBtn!.addTarget(self, action: "singup:", forControlEvents: UIControlEvents.TouchUpInside)
+        singupBtn!.addTarget(self, action: #selector(self.singup(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         
 
@@ -170,9 +170,9 @@ class SignupView:UIView, UITextFieldDelegate {
         
         signupLbl!.frame.origin.y = SharedUIManager.instance.screenHeight - (signupLbl!.frame.height + 5)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow), name: UIKeyboardDidShowNotification , object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidHide), name: UIKeyboardDidHideNotification, object: nil)
         
         newUser = Biinie()
 
@@ -292,7 +292,7 @@ class SignupView:UIView, UITextFieldDelegate {
             let datePickerView  : UIDatePicker = UIDatePicker()
             datePickerView.datePickerMode = UIDatePickerMode.Date
             textField.inputView = datePickerView
-            datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+            datePickerView.addTarget(self, action: #selector(self.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
             
         }
     }// became first responder

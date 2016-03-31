@@ -162,7 +162,7 @@ class MainViewContainer_Elements:BNView {
                     let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
                     elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
                     elements.append(elementView)
-                    elementPosition++
+                    elementPosition += 1
                     
                     if element.userViewed {
                         elementsViewed += 1

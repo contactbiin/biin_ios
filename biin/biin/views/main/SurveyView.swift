@@ -380,7 +380,8 @@ class SurveyView: BNView, UITextViewDelegate {
         organizationName!.frame.origin.y = (surveyQuestionLbl!.frame.origin.y - 70)
         siteAvatar!.frame.origin.y = (organizationName!.frame.origin.y - (siteAvatar!.frame.height))
         
-        for var i = 0; i < buttons.count; i++ {
+        for i in (0..<buttons.count){
+//        for var i = 0; i < buttons.count; i++ {
             //let color = getButtonColor(CGFloat(i))
             buttons[i].alpha = 1
             previousButton = nil
@@ -492,8 +493,8 @@ class SurveyView: BNView, UITextViewDelegate {
             textFieldView!.alpha = 1
             textFieldView!.frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + 10
 
-            
-            for var i = 0; i < buttons.count; i++ {
+            for i in (0..<buttons.count) {
+//            for var i = 0; i < buttons.count; i++ {
                 buttons[i].alpha = 0
             }
             

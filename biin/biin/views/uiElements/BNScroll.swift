@@ -88,7 +88,9 @@ class BNScroll: BNView, UIScrollViewDelegate {
         
         switch self.direction! {
         case .HORIZONTAL:
-            for var i = 0; i < children.count; i++ {
+            
+            for i in (0..<children.count) {
+//            for var i = 0; i < children.count; i++ {
                 
                 if !children[i].isAddedToScroll {
                     self.children[i].isAddedToScroll = true
@@ -104,7 +106,8 @@ class BNScroll: BNView, UIScrollViewDelegate {
             break
         case .VERTICAL:
             
-            for var i = 0; i < children.count; i++ {
+            for i in (0..<children.count){
+//            for var i = 0; i < children.count; i++ {
                 
                 if !children[i].isAddedToScroll {
                     self.children[i].isAddedToScroll = true
@@ -122,8 +125,8 @@ class BNScroll: BNView, UIScrollViewDelegate {
             
             colunmCounter = 0
             colunmXpos = 0
-            
-            for var i = 0; i < children.count; i++ {
+            for i in (0..<children.count){
+//            for var i = 0; i < children.count; i++ {
                 
                 //if !children[i].isAddedToScroll {
                     
@@ -132,7 +135,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
                     self.children[i].frame.origin.x = colunmXpos
                     
                     colunmXpos += self.children[i].frame.width + space
-                    colunmCounter++
+                    colunmCounter += 1
                     
                     if colunmCounter == 2 {
                         colunmCounter = 0
@@ -179,7 +182,8 @@ class BNScroll: BNView, UIScrollViewDelegate {
     
     func addMoreChildren(childrenToAdd:Array<BNView>){
         
-        for var i = 0; i < childrenToAdd.count; i++ {
+        for i in (0..<childrenToAdd.count) {
+//        for var i = 0; i < childrenToAdd.count; i++ {
             self.addChild(childrenToAdd[i])
         }
         

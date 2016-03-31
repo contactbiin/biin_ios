@@ -186,7 +186,7 @@ class LoadingView:UIView {
     }
     
     func startTimer(){
-        timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: "change:", userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: #selector(self.change(_:)), userInfo: nil, repeats: false)
         timer!.fire()
     }
 }
