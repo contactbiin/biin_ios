@@ -132,7 +132,7 @@ class BNAppManager {
     }
     
     func continueAfterIntialChecking(){
-        //NSLog("BIIN = continueAfterIntialChecking()")
+        print("FLOW 1 - continueAfterIntialChecking")
         networkManager.checkConnectivity()
     }
 

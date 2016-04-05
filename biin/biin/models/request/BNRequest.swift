@@ -45,9 +45,13 @@ enum BNRequestType
     case SendSurvey
 }
 
+
+
 class BNRequest:NSObject {
     
     var start:NSDate?
+    
+    static var requestCounter:Int = 0
     
     var isRunning = false
     var inCompleted = false
@@ -76,6 +80,7 @@ class BNRequest:NSObject {
     
     override init() {
         super.init()
+        identifier = get_request_identifier()
     }
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType){
@@ -108,5 +113,15 @@ class BNRequest:NSObject {
         user = nil
         categories?.removeAll()
         categories = nil
+    }
+    
+    func get_request_identifier() -> Int {
+        struct Holder {
+            static var timesCalled = 0
+        }
+        
+        Holder.timesCalled += 1
+        
+        return Holder.timesCalled
     }
 }

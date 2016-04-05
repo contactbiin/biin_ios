@@ -279,7 +279,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     func getImageInCache(urlString:NSString, image:BNUIImageView) {
         
         //OLD
-        ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
+        //ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
 
         
     }
@@ -381,30 +381,21 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
 
     func sentImages(imageUrl:String){
         
-        var i:Int = 0
-        for _ in ShareEPSNetworking.requestingImages {
-//        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i += 1){
+        for i in 0..<ShareEPSNetworking.requestingImages.count {
+
             if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
                 if let cacheImage = ShareEPSNetworking.cacheImages[imageUrl] {
                     ShareEPSNetworking.requestingImages[i].image.image = cacheImage
                     ShareEPSNetworking.requestingImages[i].image.showAfterDownload()
                 }
             }
-            i += 1
         }
         
-        i = 0
-        for _ in ShareEPSNetworking.requestingImages {
-//        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i++){
-            if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
-                ShareEPSNetworking.requestingImages.removeAtIndex(i)
+        for j in (0..<ShareEPSNetworking.requestingImages.count).reverse() {
+            if ShareEPSNetworking.requestingImages[j].imageUrl == imageUrl {
+                ShareEPSNetworking.requestingImages.removeAtIndex(j)
             }
-            
-            i += 1
         }
-        
-
-        
         
         if ShareEPSNetworking.requestingImages.count == 0 {
             ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)

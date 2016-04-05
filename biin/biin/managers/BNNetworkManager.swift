@@ -112,6 +112,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         queueCounter -= 1
         requestProcessed += 1
         
+        print("--- Remove request: \(request.requestType)")
         request.clean()
         requestsQueue.removeValueForKey(request.identifier)
 
@@ -140,9 +141,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
  
     func checkConnectivity() {
-        
-        //NSLog("BIIN - checkConnectivity()")
-        
+        print("FLOW 2 - checkConnectivity()")
         let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
         
