@@ -18,7 +18,7 @@ class BNRequest_Sites: BNRequest {
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.InitialData
+        self.requestType = BNRequestType.Sites
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.view = view

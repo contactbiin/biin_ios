@@ -18,7 +18,7 @@ class BNRequest_ElementsForCategory: BNRequest {
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.InitialData
+        self.requestType = BNRequestType.ElementsForCategory
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.category = category

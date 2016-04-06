@@ -18,7 +18,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.InitialData
+        self.requestType = BNRequestType.CollectionsForBiinie
         self.errorManager = errorManager
         self.networkManager = networkManager
     }

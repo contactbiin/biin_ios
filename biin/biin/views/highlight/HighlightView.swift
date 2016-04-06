@@ -68,7 +68,7 @@ class HighlightView: BNView {
         let imageSize:CGFloat = frame.width
         
         //Positioning image
-        image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
+        image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.showcase!.site!.organization!.primaryColor!)
         self.addSubview(image!)
         
 
@@ -319,7 +319,7 @@ class HighlightView: BNView {
         if let organization  = site!.organization {
             if organization.media.count > 0 {
                 BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
-                siteAvatar!.cover!.backgroundColor = self.site!.organization!.media[0].vibrantColor!
+                siteAvatar!.cover!.backgroundColor = self.site!.organization!.primaryColor!
             } else {
                 siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
                 siteAvatar!.showAfterDownload()

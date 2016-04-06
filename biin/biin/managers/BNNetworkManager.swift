@@ -563,6 +563,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             
             let request = BNRequest_Image(requestString: stringUrl, errorManager: self.errorManager!, networkManager: self, image:image)
             addToQueue(request)
+            
         } else {
             epsNetwork!.getImageInCache(stringUrl, image: image)
         }

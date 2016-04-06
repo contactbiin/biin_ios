@@ -31,18 +31,22 @@ enum BNRequestType
     case ConnectivityCheck
     
     case Site
+    case Sites
     case Showcase
     case Element
     case Image
     case Categories
     case Organization
     case Collections
+    case CollectionsForBiinie
     
     case ServerError
     case InitialData
     case ElementsForShowcase
     
     case SendSurvey
+    
+    case ElementsForCategory
 }
 
 

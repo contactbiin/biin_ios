@@ -279,7 +279,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     func getImageInCache(urlString:NSString, image:BNUIImageView) {
         
         //OLD
-        //ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
+        ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
 
         
     }
@@ -380,27 +380,38 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     }
 
     func sentImages(imageUrl:String){
+//        
+//        for i in 0..<ShareEPSNetworking.requestingImages.count {
+//
+//            if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
+//                if let cacheImage = ShareEPSNetworking.cacheImages[imageUrl] {
+//                    ShareEPSNetworking.requestingImages[i].image.image = cacheImage
+//                    ShareEPSNetworking.requestingImages[i].image.showAfterDownload()
+//                }
+//            }
+//        }
         
-        for i in 0..<ShareEPSNetworking.requestingImages.count {
-
-            if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
+        for image in ShareEPSNetworking.requestingImages {
+            if image.imageUrl == imageUrl {
                 if let cacheImage = ShareEPSNetworking.cacheImages[imageUrl] {
-                    ShareEPSNetworking.requestingImages[i].image.image = cacheImage
-                    ShareEPSNetworking.requestingImages[i].image.showAfterDownload()
+                    image.image.image = cacheImage
+                    image.image.showAfterDownload()
+                    
                 }
             }
         }
         
-//        for j in (0..<ShareEPSNetworking.requestingImages.count).reverse() {
-//            if ShareEPSNetworking.requestingImages[j].imageUrl == imageUrl {
-//                ShareEPSNetworking.requestingImages.removeAtIndex(j)
-//            }
-//        }
-//        
-//        if ShareEPSNetworking.requestingImages.count == 0 {
-//            ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)
-//            ShareEPSNetworking.requestingImages.removeAll(keepCapacity: false)
-//        }
+        
+        for j in (0..<ShareEPSNetworking.requestingImages.count).reverse() {
+            if ShareEPSNetworking.requestingImages[j].imageUrl == imageUrl {
+                ShareEPSNetworking.requestingImages.removeAtIndex(j)
+            }
+        }
+        
+        if ShareEPSNetworking.requestingImages.count == 0 {
+            ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)
+            ShareEPSNetworking.requestingImages.removeAll(keepCapacity: false)
+        }
     }
     
     
