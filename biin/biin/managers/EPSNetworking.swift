@@ -391,16 +391,16 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             }
         }
         
-        for j in (0..<ShareEPSNetworking.requestingImages.count).reverse() {
-            if ShareEPSNetworking.requestingImages[j].imageUrl == imageUrl {
-                ShareEPSNetworking.requestingImages.removeAtIndex(j)
-            }
-        }
-        
-        if ShareEPSNetworking.requestingImages.count == 0 {
-            ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)
-            ShareEPSNetworking.requestingImages.removeAll(keepCapacity: false)
-        }
+//        for j in (0..<ShareEPSNetworking.requestingImages.count).reverse() {
+//            if ShareEPSNetworking.requestingImages[j].imageUrl == imageUrl {
+//                ShareEPSNetworking.requestingImages.removeAtIndex(j)
+//            }
+//        }
+//        
+//        if ShareEPSNetworking.requestingImages.count == 0 {
+//            ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)
+//            ShareEPSNetworking.requestingImages.removeAll(keepCapacity: false)
+//        }
     }
     
     
