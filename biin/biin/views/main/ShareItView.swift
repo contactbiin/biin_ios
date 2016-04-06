@@ -68,7 +68,10 @@ class ShareItView:UIView {
         
         if element.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(element.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            
+            percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text: "⁃\(element.discount!)⁒", textSize: 15, textColor: textColor!, color: decorationColor!, textPosition: CGPoint(x: 10, y: -10))
+            
+//            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(element.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
             
             self.addSubview(percentageView!)
         }

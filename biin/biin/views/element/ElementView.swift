@@ -327,7 +327,10 @@ class ElementView: BNView, UIWebViewDelegate {
             
             if self.element!.hasDiscount {
                 let percentageViewSize:CGFloat = 60
-                percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+                
+                percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 15, textColor: textColor!, color: decorationColor!, textPosition: CGPoint(x: 10, y: -10))
+                
+//                percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
                 
                 scroll!.addSubview(percentageView!)

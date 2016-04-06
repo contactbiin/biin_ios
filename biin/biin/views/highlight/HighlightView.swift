@@ -120,7 +120,10 @@ class HighlightView: BNView {
         
         if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            
+            percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 15, textColor: textColor!, color: decorationColor!, textPosition: CGPoint(x: 10, y: -10))
+            
+//            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, textcolor:textColor?, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
             
             
@@ -321,7 +324,7 @@ class HighlightView: BNView {
                 BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
                 siteAvatar!.cover!.backgroundColor = self.site!.organization!.primaryColor!
             } else {
-                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+                siteAvatar!.image = UIImage(contentsOfFile: "noImage.jpg")
                 siteAvatar!.showAfterDownload()
             }
         } else {

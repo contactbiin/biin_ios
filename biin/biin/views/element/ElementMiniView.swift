@@ -140,7 +140,9 @@ class ElementMiniView: BNView {
         var percentageViewSize:CGFloat = 0
         if element!.hasDiscount {
             percentageViewSize = ( SharedUIManager.instance.miniView_headerHeight - 5 )
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(element!.discount!)⁒", textSize:12, color:decorationColor!, textPosition:CGPoint(x: 6, y: -6))
+            
+            percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(element!.discount!)⁒", textSize: 12, textColor: textColor!, color: decorationColor!, textPosition: CGPoint(x: 6, y: -6))
+//            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(element!.discount!)⁒", textSize:12, color:decorationColor!, textPosition:CGPoint(x: 6, y: -6))
             self.addSubview(percentageView!)
             percentageViewSize -= 20
         }
