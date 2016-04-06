@@ -155,7 +155,6 @@ class MainViewContainer_Elements:BNView {
         }
         
         for (element_id, element) in category!.elements {
-
             if element._id != nil {
                 if !isElementAdded(element._id!) {
 

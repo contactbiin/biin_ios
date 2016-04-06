@@ -172,10 +172,10 @@ class ElementMiniView: BNView {
             
             let subTitleLength = SharedUIManager.instance.getStringLength(titleText, fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_subTittleSize)
             
-            location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
+            location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (10 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
             location!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
             location!.textColor = textColor
-            location!.text = " | \(self.element!.showcase!.site!.city!)"
+            location!.text = " | \(self.element!.showcase!.site!.subTitle!)"
             self.header!.addSubview(location!)
             ypos += SharedUIManager.instance.miniView_subTittleSize + 2
             
