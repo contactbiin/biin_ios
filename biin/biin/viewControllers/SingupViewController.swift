@@ -111,10 +111,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         loginBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         self.view.addSubview(loginBtn!)
 
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.view.addSubview(fade!)
+
 
         loginView = LoginView(frame:CGRectMake(screenWidth, 0, screenWidth, screenHeight))
         loginView!.delegate = self
@@ -140,6 +137,11 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         }
         
         singupBtn!.frame.origin.y = ypos
+        
+        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+        fade!.backgroundColor = UIColor.blackColor()
+        fade!.alpha = 0
+        self.view.addSubview(fade!)
         
         //self.view.layerGradient()
     }

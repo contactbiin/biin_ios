@@ -541,8 +541,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             }
             
             
-            return
-        
+            
+            /*
             switch nowMonitoring {
             case .NONE:
                 break
@@ -679,6 +679,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             default:
                 break
             }
+            */
+            
         }
 
     }

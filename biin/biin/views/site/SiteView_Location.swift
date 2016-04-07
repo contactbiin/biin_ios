@@ -33,7 +33,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var callBtn:UIButton?
     var npsBtn:UIButton?
     var commentBtn:BNUIButton_Contact?
-    var closeBtn:BNUIButton_Close?
+//    var closeBtn:BNUIButton_Close?
     
     var siteLocation:CLLocationCoordinate2D?
 //    var annotation:MKPointAnnotation?
@@ -68,8 +68,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
         var ypos:CGFloat = 10
 
-        closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
-        closeBtn!.addTarget(father, action: Selector("hideInformationView:"), forControlEvents: UIControlEvents.TouchUpInside)
+//        closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
+//        closeBtn!.addTarget(father, action: Selector("hideInformationView:"), forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(closeBtn!)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
@@ -527,7 +527,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         callBtn?.removeFromSuperview()
         commentBtn?.clean()
         commentBtn?.removeFromSuperview()
-        closeBtn?.removeFromSuperview()
+//        closeBtn?.removeFromSuperview()
         
         siteLocation = nil
     }

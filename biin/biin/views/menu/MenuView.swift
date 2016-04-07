@@ -21,6 +21,8 @@ class MenuView:UIView {
     var searchBtn:BNUIButton_Menu?
     var aboutBtn:BNUIButton_Menu?
     
+    var developmentBtn:BNUIButton_Menu?
+    
     var buttons = Array<BNUIButton_Menu>()
 
 //    override init() {
@@ -95,6 +97,12 @@ class MenuView:UIView {
 //        searchBtn!.addTarget(self, action: "searchBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
 //        self.addSubview(searchBtn!)
         
+        if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
+            ypos += (distance + buttonHeight)
+            developmentBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:"DEVELOPMENT", iconType: BNIconType.none)
+            developmentBtn!.addTarget(self, action: #selector(self.developmentBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            self.addSubview(developmentBtn!)
+        }
         
         aboutBtn = BNUIButton_Menu(frame: CGRectMake(40, (SharedUIManager.instance.screenHeight - 80), buttonWidth, buttonHeight), text:NSLocalizedString("About", comment: "About").uppercaseString, iconType: BNIconType.none)
         aboutBtn!.addTarget(self, action: #selector(self.aboutBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -142,6 +150,10 @@ class MenuView:UIView {
     func loyaltyBtnActon(sender:BNUIButton) {
         //disableButton(3)
         delegate!.menuView!(self, showLoyalty: true)
+    }
+
+    func developmentBtnAction(sender:BNUIButton) {
+        delegate!.menuView!(self, showDevelopmentView: true)
     }
     
     func notificationsBtnActon(sender:BNUIButton) {
@@ -193,4 +205,5 @@ class MenuView:UIView {
     optional func menuView(menuView:MenuView!, showSettings value:Bool)
     optional func menuView(menuView:MenuView!, showSearch value:Bool)
     optional func menuView(menuView:MenuView!, showAbout value:Bool)
+    optional func menuView(menuView:MenuView!, showDevelopmentView value:Bool)
 }

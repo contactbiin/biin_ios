@@ -679,6 +679,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         isShowingSite = true
     }
     
+    
+    
     func hideSiteView(view: SiteView) {
 
         isShowingSite = false

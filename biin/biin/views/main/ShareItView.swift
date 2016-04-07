@@ -227,7 +227,7 @@ class ShareItView:UIView {
 //        siteLocation!.frame.origin.y = ypos
         siteLocation!.callBtn!.alpha = 0
         siteLocation!.emailBtn!.alpha = 0
-        siteLocation!.closeBtn!.alpha = 0
+//        siteLocation!.closeBtn!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         
@@ -309,7 +309,7 @@ class ShareItView:UIView {
         //        siteLocation!.frame.origin.y = ypos
         siteLocation!.callBtn!.alpha = 0
         siteLocation!.emailBtn!.alpha = 0
-        siteLocation!.closeBtn!.alpha = 0
+//        siteLocation!.closeBtn!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         

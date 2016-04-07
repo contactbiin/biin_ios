@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate, FBSDKLoginButtonDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, DevelopmentViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate, FBSDKLoginButtonDelegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -113,25 +113,29 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
             
             developmentView = DevelopmentView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), viewController:self)
             self.view.addSubview(developmentView!)
+            developmentView!.delegate = self
             
-            showDevelopmentBtn = UIButton(frame: CGRectMake((SharedUIManager.instance.screenWidth - 100), (SharedUIManager.instance.screenHeight - 45), 100, 45))
-            showDevelopmentBtn!.backgroundColor = UIColor.biinOrange()
-            showDevelopmentBtn!.addTarget(self, action: #selector(self.showDevelopmentView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
-            self.view!.addSubview(showDevelopmentBtn!)
+//            showDevelopmentBtn = UIButton(frame: CGRectMake((SharedUIManager.instance.screenWidth - 100), (SharedUIManager.instance.screenHeight - 45), 100, 45))
+//            showDevelopmentBtn!.backgroundColor = UIColor.biinOrange()
+//            showDevelopmentBtn!.addTarget(self, action: #selector(self.showDevelopmentView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//            showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
+//            self.view!.addSubview(showDevelopmentBtn!)
         }
     }
     
-    func showDevelopmentView(sender:UIButton) {
+    func showDevelopmentView() {
+        
+        hideMenuOnChange()
+        
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             if !self.isShowing_developmentView {
                 self.developmentView!.frame.origin.x = 0
                 self.isShowing_developmentView = true
-                self.showDevelopmentBtn!.setTitle("Hide Dev", forState: UIControlState.Normal)
+                //self.showDevelopmentBtn!.setTitle("Hide Dev", forState: UIControlState.Normal)
             } else {
                 self.developmentView!.frame.origin.x = SharedUIManager.instance.screenWidth
                 self.isShowing_developmentView = false
-                self.showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
+                //self.showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
             }
         })
     }
@@ -252,6 +256,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func menuView(menuView: MenuView!, showAbout value: Bool) {
         mainView!.setNextState(BNGoto.About)
+    }
+    
+    func menuView(menuView: MenuView!, showDevelopmentView value: Bool) {
+        self.showDevelopmentView()
     }
     
     func showError(){
@@ -521,6 +529,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func shareWhatsapp(){
         
+    }
+    
+    func developmentView(developmentView: DevelopmentView!, hideDevelopmentView value: Bool) {
+        showDevelopmentView()
     }
     
     // Facebook Delegate Methods
