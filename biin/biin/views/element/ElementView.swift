@@ -307,12 +307,24 @@ class ElementView: BNView, UIWebViewDelegate {
 //            }
             
  
+            var white:CGFloat = 0.0
+            var alpha:CGFloat = 0.0
+            _ = self.element!.showcase!.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
             
             
-            textColor = self.element!.showcase!.site!.organization!.primaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
-            iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
-            decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
+            if white >= 0.95 {
+                print("Is white")
+                textColor = self.element!.showcase!.site!.organization!.secondaryColor
+                iconColor = self.element!.showcase!.site!.organization!.secondaryColor
+                decorationColor = self.element!.showcase!.site!.organization!.secondaryColor
+            } else {
+                textColor = self.element!.showcase!.site!.organization!.primaryColor
+                iconColor = self.element!.showcase!.site!.organization!.primaryColor
+                decorationColor = self.element!.showcase!.site!.organization!.primaryColor
+            }
             
+            
+
             
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor

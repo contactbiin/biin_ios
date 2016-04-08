@@ -322,14 +322,12 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var white:CGFloat = 0.0
         var alpha:CGFloat = 0.0
         _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
-        var isWhitePrimary = false
         var textColor:UIColor?
         var bgColor:UIColor?
         
         
         if white >= 0.95 {
             print("Is white")
-            isWhitePrimary = true
             textColor = site!.organization!.primaryColor!
             bgColor = site!.organization!.secondaryColor!
         } else {

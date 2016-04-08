@@ -27,7 +27,7 @@ class UIManager {
     
     //MiniView
     //Sites MiniView sizes
-    var miniView_headerHeight:CGFloat = 45
+    var miniView_headerHeight:CGFloat = 50
 
     //In showcase
     var miniView_headerHeight_showcase:CGFloat = 35
