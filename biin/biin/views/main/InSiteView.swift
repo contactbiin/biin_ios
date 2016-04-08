@@ -117,7 +117,7 @@ class InSiteView: BNView {
             textColor = UIColor.bnGrayDark()
         }
         
-        viewContainer!.backgroundColor = site!.media[0].vibrantColor!
+        viewContainer!.backgroundColor = site!.organization!.primaryColor!
         
         title!.text = site!.title!
         subTitle!.text = site!.subTitle!
