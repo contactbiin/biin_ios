@@ -112,7 +112,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         queueCounter -= 1
         requestProcessed += 1
         
-        print("--- Remove request: \(request.requestType)")
+//        print("--- Remove request: \(request.requestType)")
         request.clean()
         requestsQueue.removeValueForKey(request.identifier)
 

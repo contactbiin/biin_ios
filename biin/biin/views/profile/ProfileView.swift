@@ -700,7 +700,10 @@ class ProfileView: BNView, UITextFieldDelegate {
         lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.lastName!
         emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.email!
         usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.biinName!
-        birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        
+        if BNAppSharedManager.instance.dataManager.bnUser!.birthDate != nil {
+            birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        }
         
         if BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified! {
             emailVerifyTxt!.textField!.text = NSLocalizedString("Yes", comment: "yes")
