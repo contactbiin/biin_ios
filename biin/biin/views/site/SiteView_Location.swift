@@ -318,6 +318,25 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
 //        var hasPhone = false
 //        var hasEmail = false
+        
+        var white:CGFloat = 0.0
+        var alpha:CGFloat = 0.0
+        _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+        var isWhitePrimary = false
+        var textColor:UIColor?
+        var bgColor:UIColor?
+        
+        
+        if white >= 0.95 {
+            print("Is white")
+            isWhitePrimary = true
+            textColor = site!.organization!.primaryColor!
+            bgColor = site!.organization!.secondaryColor!
+        } else {
+            textColor = site!.organization!.secondaryColor!
+            bgColor = site!.organization!.primaryColor
+        }
+        
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
             phoneLbl!.frame.origin.y = ypos
@@ -327,8 +346,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //            hasPhone = true
             callBtn!.enabled = true
             callBtn!.alpha = 1
-            callBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
-            callBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
+            callBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
+            callBtn!.backgroundColor = bgColor!//site!.media[0].vibrantDarkColor
         }else {
             callBtn!.enabled = false
             callBtn!.alpha = 0
@@ -351,8 +370,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
             emailBtn!.enabled = true
             emailBtn!.alpha = 1
-            emailBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
-            emailBtn!.backgroundColor = site!.organization!.primaryColor// site!.media[0].vibrantDarkColor
+            emailBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
+            emailBtn!.backgroundColor = bgColor!
         } else {
             emailBtn!.enabled = false
             emailBtn!.alpha = 0
@@ -407,6 +426,26 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     }
     
     func updateButtons() {
+        
+        
+        var white:CGFloat = 0.0
+        var alpha:CGFloat = 0.0
+        _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+        var isWhitePrimary = false
+        var textColor:UIColor?
+        var bgColor:UIColor?
+        
+        
+        if white >= 0.95 {
+            print("Is white")
+            isWhitePrimary = true
+            textColor = site!.organization!.primaryColor!
+            bgColor = site!.organization!.secondaryColor!
+        } else {
+            textColor = site!.organization!.secondaryColor!
+            bgColor = site!.organization!.primaryColor
+        }
+        
         var ypos:CGFloat = map!.frame.origin.y
         ypos += (map!.frame.height + 5)
         
@@ -443,16 +482,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.frame.origin.y = ypos
         ypos += uber_button!.frame.height
         
-        
-        
         if site!.organization!.hasNPS {
             ypos += 5
             if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site!.identifier) {
                 npsBtn!.alpha = 1
                 npsBtn!.enabled = true
                 npsBtn!.frame.origin.y = ypos
-                npsBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
-                npsBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
+                npsBtn!.backgroundColor = bgColor!//site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
+                npsBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
                 ypos += npsBtn!.frame.height
                 npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
                 npsBtn!.layer.borderColor = UIColor.clearColor().CGColor
@@ -465,9 +502,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
                 ypos += npsBtn!.frame.height
                 npsBtn!.setTitle(NSLocalizedString("npsBtn_completed", comment: "npsBtn_completed"), forState: UIControlState.Normal)
                 npsBtn!.backgroundColor = UIColor.whiteColor()
-                npsBtn!.layer.borderColor = site!.organization!.primaryColor!.CGColor//site!.media[0].vibrantDarkColor?.CGColor
+                npsBtn!.layer.borderColor = bgColor!.CGColor//site!.media[0].vibrantDarkColor?.CGColor
                 npsBtn!.layer.borderWidth = 1
-                npsBtn!.setTitleColor(site!.organization!.primaryColor!, forState: UIControlState.Normal)
+                npsBtn!.setTitleColor(bgColor, forState: UIControlState.Normal)
                 
             }
         } else {

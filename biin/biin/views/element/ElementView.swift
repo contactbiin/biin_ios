@@ -306,9 +306,13 @@ class ElementView: BNView, UIWebViewDelegate {
 //                iconColor = self.element!.showcase!.site!.organization!.primaryColor//UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
 //            }
             
-            textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
+ 
+            
+            
+            textColor = self.element!.showcase!.site!.organization!.primaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
             iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
             decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
+            
             
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
