@@ -353,7 +353,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             callBtn!.alpha = 0
         }
  
-        if site!.email! != "" {
+ 
+        
+        if site!.email! != "" && MFMailComposeViewController.canSendMail() {
             site_email = site!.email!
             emailLbl!.frame.origin.y = ypos
             emailLbl!.text = "\(NSLocalizedString("Email", comment: "Email")): \(site!.email!)"
@@ -457,7 +459,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             hasPhone = true
         }
         
-        if site!.email! != "" {
+        if site!.email! != "" && MFMailComposeViewController.canSendMail() {
 
             hasEmail = true
         }
