@@ -37,7 +37,7 @@ class BNRequest_SendBiinie:BNRequest {
         requestAttemps += 1
         
         
-        if self.user!.identifier == "" {
+        if self.user!.identifier == "none" {
             isUpdate = false
         } else {
             isUpdate = true

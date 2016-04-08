@@ -377,7 +377,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
             } else {
                 print("fetched user: \(result)")
                 let user = Biinie()
-                user.identifier = ""
+                user.identifier = "none"
                 if let first_name = result.valueForKey("first_name") {
                     user.firstName = first_name as? String
                 }
