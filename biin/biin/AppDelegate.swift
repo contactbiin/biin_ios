@@ -215,6 +215,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
 
+        NSLog("BIIN - applicationDidBecomeActive")
+        
         appManager.IS_APP_UP = true
         
         if appManager.dataManager.bnUser != nil {

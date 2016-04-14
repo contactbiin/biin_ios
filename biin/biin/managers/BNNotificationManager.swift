@@ -118,7 +118,6 @@ class BNNotificationManager:NSObject, NSCoding {
         var isNotificationSaved = false
         
         for i in (0..<localNotifications.count) {
-//        for var i = 0; i < localNotifications.count; i++ {
             
             if localNotifications[i].object_id == object._id! {
                 
@@ -191,7 +190,7 @@ class BNNotificationManager:NSObject, NSCoding {
     }
     
     //NEW IMPLEMENTATION
-    func sendNotificationForBeaconRegionDetected(siteIdentifier:String, major:Int, minor:Int){
+    func sendNotificationForBeaconRegionDetected(siteIdentifier:String, major:Int ){
         
         NSLog("BIIN - sendNotificationForBeaconRegoinDetected()")
         
@@ -202,13 +201,11 @@ class BNNotificationManager:NSObject, NSCoding {
             
             NSLog("BIIN - localNotifications Site identifier: \(notification.siteIdentifier!)")
             NSLog("BIIN - localNotifications major: \(notification.major)")
-            NSLog("BIIN - localNotifications minor: \(notification.minor)")
             
-            if major == notification.major && minor == notification.minor {
+            if major == notification.major {
                 
                 NSLog("BIIN - FOUND Site identifier: \(notification.siteIdentifier!)")
                 NSLog("BIIN - FOUND major: \(notification.major)")
-                NSLog("BIIN - FOUND minor: \(notification.minor)")
                 siteNotifications.append(notification)
                 
             } else {
@@ -481,9 +478,8 @@ class BNNotificationManager:NSObject, NSCoding {
             
             let days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
             
-            NSLog("BIIN - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
+            NSLog("BIIN - sendCurrentNotification - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
             
-
             if !self.currentNotification!.isUserNotified || days > 1 {
 
                 var time:NSTimeInterval = 0
@@ -492,7 +488,6 @@ class BNNotificationManager:NSObject, NSCoding {
                 localNotification.alertTitle = "Biin"
                 localNotification.soundName = "notification.wav"//UILocalNotificationDefaultSoundName
                 //localNotification.alertLaunchImage = "biinLogoLS"
-                
                 
                 switch self.currentNotification!.notificationType! {
                 case .EXTERNAL:
@@ -512,13 +507,26 @@ class BNNotificationManager:NSObject, NSCoding {
                 }
                 
                 localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
-
+                
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                
                 currentNotification!.isUserNotified = true
-                currentNotification!.fireDate = NSDate()
+                currentNotification!.fireDate = NSDate(timeIntervalSinceNow: time)
                 lastNotificationObjectId = currentNotification!.object_id!
+                
+                for notification in localNotifications {
+                    if notification.object_id == currentNotification?.object_id! {
+                        notification.isUserNotified = true
+                        notification.fireDate = NSDate(timeIntervalSinceNow: time)
+                        return
+                    }
+                }
+                
+                
                 save()
+                
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!)
+                
             } else {
                 NSLog("BIIN - USER ALREADY NOTIFIED!")
                 NSLog("BIIN - Current notification:\(currentNotification!.object_id!)")
@@ -529,10 +537,10 @@ class BNNotificationManager:NSObject, NSCoding {
     }
     
     func resetAllNotifications(){
+        
         for notification in localNotifications {
             notification.isUserNotified = false
         }
-        
         
         surveyed_Sites.removeAll()
         

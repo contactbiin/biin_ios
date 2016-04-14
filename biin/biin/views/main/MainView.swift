@@ -192,7 +192,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-            showNotificationContext()
+            //showNotificationContext()
         }
         
         
@@ -487,11 +487,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
             
+            NSLog("BIIN - showNotificationContext 1")
             let notification = BNAppSharedManager.instance.notificationManager.currentNotification
             
+            NSLog("BIIN - showNotificationContext 2")
             //show()
             if let site = BNAppSharedManager.instance.dataManager.sites[notification!.objectIdentifier!] {
                 
+                NSLog("BIIN - showNotificationContext3")
                 NSLog("BIIN - GOTO TO SITE VIEW on external notification")
                 (siteState!.view as! SiteView).updateSiteData(site)
                 setNextState(BNGoto.Site)
@@ -504,14 +507,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                     if notification!.objectIdentifier == element.identifier! && element.showcase!.site!.identifier == notification!.siteIdentifier! {
                         
                         NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(notification!.object_id!)")
-                        
                         (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                         setNextState(BNGoto.Element)
                         NSLog("BIIN - Show element view for element: \(element._id!)")
+                        return
                     }
                 }
             }
 
+            NSLog("BIIN - showNotificationContext FIN")
             /*
             switch BNAppSharedManager.instance.notificationManager.currentNotification!.notificationType! {
             case .PRODUCT:

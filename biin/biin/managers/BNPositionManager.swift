@@ -77,7 +77,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
         Kontakt.setAPIKey("HIMVKoKndBpLfFsOqRXCrsizRqsJcGDU")
         devicesManager = KTKDevicesManager(delegate: self)
-        devicesManager!.startDevicesDiscoveryWithInterval(10.0)
+        devicesManager!.startDevicesDiscoveryWithInterval(120.0)
         
         self.startLocationService()
     }
@@ -179,7 +179,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
 
         
-        if BNAppSharedManager.instance.IS_APP_READY_FOR_NEW_DATA_REQUEST {
+        if BNAppSharedManager.instance.IS_APP_UP {
             //NSLog("BIIN - Request initialData background when user moved!")
         /*
             locationFixAchieved = true
@@ -199,7 +199,9 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
             BNAppSharedManager.instance.dataManager.requestInitialData()
         */
-            BNAppSharedManager.instance.mainViewController!.show_refreshButton()
+            if BNAppSharedManager.instance.mainViewController != nil {
+                BNAppSharedManager.instance.mainViewController!.show_refreshButton()
+            }
         }
 
     }
@@ -255,17 +257,19 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     if site_counter < MAX_NUMBER_OF_REGIONS {
                         
                         for biin in site.biins {
-                            nowMonitoring = .SITES_MONITORING
-                            print("biin:\(biin.identifier!), site:\(site.identifier!), mane:\(site.title!), location:\(site.city!), major:\(site.major!), minor:\(biin.minor!)")
-                            
-                            let exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), minor:CLBeaconMajorValue(biin.minor!), identifier:biin.identifier!)
-                            exteriorBeaconRegion.notifyEntryStateOnDisplay = true
+                            if biin.biinType == BNBiinType.EXTERNO {
+                                nowMonitoring = .SITES_MONITORING
+                                print("biin:\(biin.identifier!), site:\(site.identifier!), mane:\(site.title!), location:\(site.city!), major:\(site.major!), minor:\(biin.minor!)")
+                                
+                                let exteriorBeaconRegion = CLBeaconRegion(proximityUUID:site.proximityUUID!, major:CLBeaconMajorValue(site.major!), minor:CLBeaconMajorValue(biin.minor!), identifier:biin.identifier!)
+                                exteriorBeaconRegion.notifyEntryStateOnDisplay = true
 
-                            self.monitoredBeaconRegions![site.major!] = exteriorBeaconRegion
-                            self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
-                            self.locationManager!.requestAlwaysAuthorization()
-                            self.locationManager!.requestStateForRegion(exteriorBeaconRegion)
-                            site_counter += 1
+                                self.monitoredBeaconRegions![site.major!] = exteriorBeaconRegion
+                                self.locationManager!.startMonitoringForRegion(exteriorBeaconRegion)
+                                self.locationManager!.requestAlwaysAuthorization()
+                                self.locationManager!.requestStateForRegion(exteriorBeaconRegion)
+                                site_counter += 1
+                            }
                         }
                     }
                 }
@@ -501,42 +505,40 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     */
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        //NSLog("BIIN - didEnterRegion() 1")
         
         if BNAppSharedManager.instance.IS_APP_UP {
-//            NSLog("BIIN - didEnterRegion() 2")
+            NSLog("BIIN - App is running and enter beacon region")
             return
         }
-        
-//        NSLog("BIIN - didEnterRegion() 3")
-        
         
         if let beaconRegion = region as? CLBeaconRegion {
             
             if currentBeaconRegion == nil {
                 
-                
-                print("ENTER region: \(beaconRegion.identifier), \(beaconRegion.major!), \(beaconRegion.minor)")
-                NSLog("ENTER region: \(beaconRegion.identifier), \(beaconRegion.major!), \(beaconRegion.minor)")
+                print("ENTER region: \(beaconRegion.identifier), \(beaconRegion.major!)")
+                NSLog("ENTER region: \(beaconRegion.identifier), \(beaconRegion.major!)")
 
                 currentBeaconRegion = beaconRegion
-                BNAppSharedManager.instance.notificationManager.sendNotificationForBeaconRegionDetected(beaconRegion.identifier, major: beaconRegion.major!.integerValue, minor: beaconRegion.minor!.integerValue)
+                BNAppSharedManager.instance.notificationManager.sendNotificationForBeaconRegionDetected(beaconRegion.identifier, major: beaconRegion.major!.integerValue )
             
-                
-  
             } else {
                 
-                print("ENTER region again: \(beaconRegion.identifier), \(beaconRegion.major!), \(beaconRegion.minor)")
-                NSLog("ENTER region again: \(beaconRegion.identifier), \(beaconRegion.major!), \(beaconRegion.minor)")
+                print("ENTER region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
+                NSLog("ENTER region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
 
-                
                 if currentBeaconRegion!.identifier == beaconRegion.identifier
-                && currentBeaconRegion!.major!.integerValue == beaconRegion.major!.integerValue
-                    && currentBeaconRegion!.minor!.integerValue == beaconRegion.minor!.integerValue {
-                        
+                    && currentBeaconRegion!.major!.integerValue == beaconRegion.major!.integerValue {
+                    
+                    print("STILL ON SAME REGION: \(beaconRegion.identifier), \(beaconRegion.major!)")
+                    NSLog("STILL ON SAME REGION: \(beaconRegion.identifier), \(beaconRegion.major!)")
+                    
                 } else {
+                    
+                    print("ENTER NEW region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
+                    NSLog("ENTER NEW region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
+    
                     currentBeaconRegion = beaconRegion
-                    BNAppSharedManager.instance.notificationManager.sendNotificationForBeaconRegionDetected(beaconRegion.identifier, major: beaconRegion.major!.integerValue, minor: beaconRegion.minor!.integerValue)
+                    BNAppSharedManager.instance.notificationManager.sendNotificationForBeaconRegionDetected(beaconRegion.identifier, major: beaconRegion.major!.integerValue )
                 }
             }
             
@@ -967,7 +969,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 if site.major == beacon.major.integerValue {
                     
                     for biin in site.biins {
-                        if biin.minor == beacon.minor.integerValue {
+                        //if biin.minor == beacon.minor.integerValue {
 
                             switch biin.biinType {
                             case .EXTERNO:
@@ -993,7 +995,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                                 print("User is outside or entering: \(site.title!)")
                             }
                             
-                        }
+                        //}
                     }
                     
                     return

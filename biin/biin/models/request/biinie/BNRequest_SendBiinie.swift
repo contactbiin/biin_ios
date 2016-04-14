@@ -115,8 +115,6 @@ class BNRequest_SendBiinie:BNRequest {
                             self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
                         } else {
                             
-                            
-                            
                             self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier: identifier)
                             self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)
                         }

@@ -478,7 +478,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         textToShare = NSLocalizedString("InviteBody", comment: "InviteBody")
         
         let myWebsite:NSURL?
-        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        myWebsite = NSURL(string: "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=971157984&mt=8")
         
         var sharingItems = [AnyObject]()
         

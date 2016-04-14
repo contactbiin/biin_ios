@@ -288,6 +288,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     
+    //NOT IN USE
     ///Received site and start proccesing depending on data store.
     ///- parameter Network: manager that handled the request.
     ///- parameter BNSite: received from web service in json format already parse in an site object.
@@ -351,26 +352,26 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     switch object.objectType {
                     case .ELEMENT:
                         if object.hasNotification {
-                            switch biin.biinType {
-                            case .EXTERNO:
+//                            switch biin.biinType {
+//                            case .EXTERNO:
                                 //if !isExternalBiinAdded {
                                     //isExternalBiinAdded = true
                                 
                                     let notificaitonText = "\(site.title!) - \(object.notification!)"
                                     BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                 //}
-                                break
-                            case .INTERNO:
-                                let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-                                break
-                            case .PRODUCT:
-                                let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
-                                break
-                            default:
-                                break
-                            }
+//                                break
+//                            case .INTERNO:
+                                //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+//                                break
+//                            case .PRODUCT:
+                                //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+//                                break
+//                            default:
+//                                break
+//                            }
                         }
                         
                         let element = BNElement()
@@ -828,12 +829,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 //                                    }
                                     break
                                 case .INTERNO:
-                                    let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                    //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                    //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                     break
                                 case .PRODUCT:
-                                    let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+                                    //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                    //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
                                     break
                                 default:
                                     break
@@ -870,6 +871,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             }
                             
                             break
+                        /*
                         case .SHOWCASE:
                             if showcases[object.identifier!] == nil {
                                 //Showcase does not exist, store it and request it's data.
@@ -881,6 +883,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                                 delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
                             }
                             break
+                        */
                         default:
                             break
                         }

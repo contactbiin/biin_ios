@@ -329,7 +329,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    
+    //NOT IN USE
     /**
     Request categories
     @param biinie:Biinie object.

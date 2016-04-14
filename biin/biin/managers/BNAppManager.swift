@@ -204,7 +204,7 @@ class BNAppManager {
         mainViewController?.mainView!.show()
 
         if notificationManager.currentNotification != nil && notificationManager.didSendNotificationOnAppDown {
-            mainViewController?.mainView?.showNotificationContext()
+            //mainViewController?.mainView?.showNotificationContext()
         }
     }
 }

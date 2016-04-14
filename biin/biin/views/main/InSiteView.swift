@@ -109,14 +109,8 @@ class InSiteView: BNView {
     func updateForSite(site: BNSite?){
         
         self.site = site
-        var textColor:UIColor?
         
-        if site!.useWhiteText {
-            textColor = UIColor.whiteColor()
-        } else {
-            textColor = UIColor.bnGrayDark()
-        }
-        
+        let textColor:UIColor = self.site!.organization!.secondaryColor!
         viewContainer!.backgroundColor = site!.organization!.primaryColor!
         
         title!.text = site!.title!
@@ -126,6 +120,8 @@ class InSiteView: BNView {
         title!.textColor = textColor
         subTitle!.textColor = textColor
         nutshell!.textColor = textColor
+        
+        
         
         if site!.organization!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)

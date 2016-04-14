@@ -124,7 +124,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         signupView!.delegate = self
         self.view.addSubview(signupView!)
         
-        
         ypos = (screenHeight - ypos ) / 2
         biinLogo!.frame.origin.y = ypos
         ypos += (biinLogo!.frame.height + 20)
