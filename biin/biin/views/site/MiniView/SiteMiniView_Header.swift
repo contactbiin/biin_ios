@@ -50,7 +50,7 @@ class SiteMiniView_Header:BNView {
         ypos += SharedUIManager.instance.siteMiniView_title + 2
         
         let subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_subTitle + 2)))
-        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteMiniView_subTitle)
+        subTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteMiniView_subTitle)
         subTitle.textColor = textColor
         subTitle.text = site!.subTitle!
         subTitle.textAlignment = NSTextAlignment.Center

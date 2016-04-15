@@ -133,12 +133,12 @@ class HighlightView: BNView {
         ypos += (subTitle.frame.height + 2)
         if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             
-            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
             containerView.addSubview(self.textPrice1!)
             
@@ -165,17 +165,17 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice && self.element!.hasListPrice {
             
-            let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
             containerView.addSubview(self.textPrice1!)
             
-            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 7), (text1Length + 1), 0.5))
+            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 7), (text1Length + 1), 1.5))
             lineView.backgroundColor = textColor
             containerView.addSubview(lineView)
             
@@ -193,13 +193,13 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
             
-            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
             containerView.addSubview(self.textPrice1!)
             

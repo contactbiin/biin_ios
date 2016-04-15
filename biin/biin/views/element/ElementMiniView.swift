@@ -197,13 +197,13 @@ class ElementMiniView: BNView {
             
         if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {
 
-           let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_pricingSize)
+           let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.miniView_pricingSize)
             
             
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_pricingSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_pricingSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_pricingSize)
             self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
             self.header!.addSubview(self.textPrice1!)
             
@@ -231,17 +231,17 @@ class ElementMiniView: BNView {
             
         } else if element!.hasPrice && element!.hasListPrice {
             
-            let text1Length = SharedUIManager.instance.getStringLength("\(element!.currency!)\(element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_pricingSize)
+            let text1Length = SharedUIManager.instance.getStringLength("\(element!.currency!)\(element!.price!)", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.miniView_pricingSize)
             
 
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_pricingSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_pricingSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_pricingSize)
             self.textPrice1!.text = "\(element!.currency!)\(element!.price!)"
             self.header!.addSubview(self.textPrice1!)
             
-            let lineView = UIView(frame: CGRectMake(5, (ypos + 7.5), (text1Length + 1), 0.5))
+            let lineView = UIView(frame: CGRectMake(5, (ypos + 6.5), (text1Length + 1), 1))
             lineView.backgroundColor = textColor
             self.header!.addSubview(lineView)
             
@@ -260,12 +260,12 @@ class ElementMiniView: BNView {
             
         } else if element!.hasPrice &&  element!.hasFromPrice {
   
-            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_pricingSize)
+            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.miniView_pricingSize)
             
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, text1Length, (SharedUIManager.instance.miniView_pricingSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_pricingSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_pricingSize)
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
             self.header!.addSubview(self.textPrice1!)
 
@@ -285,7 +285,7 @@ class ElementMiniView: BNView {
             self.textPrice1 = UILabel(frame:CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.miniView_pricingSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.miniView_pricingSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_pricingSize)
             self.textPrice1!.text = element!.title!
             self.header!.addSubview(self.textPrice1!)
         }
