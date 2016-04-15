@@ -105,9 +105,17 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         //statusBarLine.backgroundColor = UIColor.appMainColor()
         //self.view.addSubview(statusBarLine)
         
+
+        
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-            mainView!.showNotificationContext()
+            
+            if BNAppSharedManager.instance.isOpeningForLocalNotification {
+                
+                BNAppSharedManager.instance.isOpeningForLocalNotification = false
+                mainView!.showNotificationContext()
+            }
         }
+        
         
         if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
             

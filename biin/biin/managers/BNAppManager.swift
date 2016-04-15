@@ -37,6 +37,7 @@ class BNAppManager {
     var isWaitingForLocationServicesPermision = false
     var IS_BLUETOOTH_ENABLED = false
     var IS_MAINVIEW_ON = false
+    var isOpeningForLocalNotification = false
     
 //    var elementColorIndex = 0
 //    var elementColors:Array<UIColor> = Array<UIColor>()

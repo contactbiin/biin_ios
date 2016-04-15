@@ -192,9 +192,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         show()
         
         
-        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-            //showNotificationContext()
-        }
+//        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+//            //showNotificationContext()
+//        }
         
         
         //showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: "showMenu:")

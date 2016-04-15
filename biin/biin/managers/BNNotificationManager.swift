@@ -178,7 +178,7 @@ class BNNotificationManager:NSObject, NSCoding {
 //        for var i = 0; i < localNotifications.count; i++ {
             if localNotifications[i].object_id == object_id {
                 localNotifications.removeAtIndex(i)
-                return
+                break
             }
         }
         save()
@@ -249,7 +249,7 @@ class BNNotificationManager:NSObject, NSCoding {
                             if localNotification.object_id == biin.currectObject()._id! {
                                 self.currentNotification = localNotification
                                 sendCurrentNotification()
-                                return
+                                break
                             }
                         }
                     }
@@ -482,8 +482,8 @@ class BNNotificationManager:NSObject, NSCoding {
             
             NSLog("BIIN - sendCurrentNotification - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
             
-            if !self.currentNotification!.isUserNotified || days > 1 {
-
+//            if !self.currentNotification!.isUserNotified || days > 1 {
+            if days > 1 {
                 var time:NSTimeInterval = 0
                 let localNotification:UILocalNotification = UILocalNotification()
                 localNotification.alertBody = currentNotification!.notificationText
@@ -519,11 +519,11 @@ class BNNotificationManager:NSObject, NSCoding {
                     if notification.object_id == self.lastNotificationObjectId {
                         notification.isUserNotified = true
                         notification.fireDate = NSDate(timeIntervalSinceNow: time)
-                        continue
+                        break
                     }
                 }
                 
-                
+                clear()
                 save()
                 
                 BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!)

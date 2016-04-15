@@ -314,11 +314,11 @@ class ElementView: BNView, UIWebViewDelegate {
             
             if white >= 0.95 {
                 print("Is white")
-                textColor = self.element!.showcase!.site!.organization!.secondaryColor
+                textColor = self.element!.showcase!.site!.organization!.primaryColor
                 iconColor = self.element!.showcase!.site!.organization!.secondaryColor
                 decorationColor = self.element!.showcase!.site!.organization!.secondaryColor
             } else {
-                textColor = self.element!.showcase!.site!.organization!.primaryColor
+                textColor = self.element!.showcase!.site!.organization!.secondaryColor
                 iconColor = self.element!.showcase!.site!.organization!.primaryColor
                 decorationColor = self.element!.showcase!.site!.organization!.primaryColor
             }
@@ -773,9 +773,10 @@ class ElementView: BNView, UIWebViewDelegate {
         if self.element!.hasCallToAction {
             ypos += 60
             callToActionBtn!.alpha = 1
-            callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
+            callToActionBtn!.backgroundColor = self.element!.showcase!.site!.organization!.primaryColor
             callToActionTitle!.alpha = 1
             callToActionTitle!.text = self.element!.callToActionTitle!
+            callToActionTitle!.textColor = self.element!.showcase!.site!.organization!.secondaryColor!
             callToActionBtn!.enabled = true
         } else {
             callToActionBtn!.alpha = 0

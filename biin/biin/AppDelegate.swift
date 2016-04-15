@@ -222,11 +222,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
         }
         
-        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+        if BNAppSharedManager.instance.isOpeningForLocalNotification {
+            if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+                
+                BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
+            }
             
-            BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
+            BNAppSharedManager.instance.isOpeningForLocalNotification = false
         }
-        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -327,9 +330,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        if appManager.notificationManager.currentNotification != nil {
 //            appManager.mainViewController!.mainView!.showNotificationContext()
 //        }
+        BNAppSharedManager.instance.isOpeningForLocalNotification = true
+        NSLog("BIIN - didReceiveLocalNotification")
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        
+        
+        NSLog("BIIN - handleActionWithIdentifier")
         
         if identifier == "externalAction" {
             NSNotificationCenter.defaultCenter().postNotificationName("modifyListNotification", object: nil)
