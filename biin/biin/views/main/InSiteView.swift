@@ -31,7 +31,7 @@ class InSiteView: BNView {
         self.layer.masksToBounds = true
         
         //self.site = site!
-        var ypos:CGFloat = 4
+        var ypos:CGFloat = 6
         
         viewContainer = UIView(frame: self.bounds)
         viewContainer!.backgroundColor = UIColor.redColor()

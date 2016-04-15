@@ -61,7 +61,7 @@ class UIManager {
     var highlightView_priceSize:CGFloat = 13
     
     //Site Container
-    var sitesContainer_headerHeight:CGFloat = 50
+    var sitesContainer_headerHeight:CGFloat = 60
     var sitesContainer_Height:CGFloat = 0
     
     //Banner Container
@@ -71,10 +71,10 @@ class UIManager {
     var elementContainer_Height:CGFloat = 0
     
     //Sites View sizes
-    var inSiteView_Height:CGFloat = 60
-    var inSiteView_titleSize:CGFloat = 20
-    var inSiteView_subTittleSize:CGFloat = 13
-    var inSiteView_nutshellSize:CGFloat = 10
+    var inSiteView_Height:CGFloat = 80
+    var inSiteView_titleSize:CGFloat = 25
+    var inSiteView_subTittleSize:CGFloat = 15
+    var inSiteView_nutshellSize:CGFloat = 15
     
     
     var siteView_headerHeight:CGFloat = 70

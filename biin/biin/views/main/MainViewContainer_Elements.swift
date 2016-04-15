@@ -35,7 +35,7 @@ class MainViewContainer_Elements:BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        let ypos:CGFloat = 16
+        let ypos:CGFloat = 20
 
         self.category = category
         
@@ -77,7 +77,7 @@ class MainViewContainer_Elements:BNView {
         
         self.addSubview(title!)
 
-        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height// + SharedUIManager.instance.miniView_headerHeight
+        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height//+ SharedUIManager.instance.miniView_headerHeight
         
         scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(scroll!)
