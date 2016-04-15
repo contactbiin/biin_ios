@@ -34,7 +34,7 @@ class ElementView: BNView, UIWebViewDelegate {
     var lineView:UIView?
     
     var textColor:UIColor?
-    var decorationColor:UIColor?
+    var bgColor:UIColor?
     var iconColor:UIColor?
     var animationView:BiinItAnimationView?
 
@@ -309,18 +309,16 @@ class ElementView: BNView, UIWebViewDelegate {
  
             var white:CGFloat = 0.0
             var alpha:CGFloat = 0.0
-            _ = self.element!.showcase!.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+            _ = self.element!.showcase!.site!.organization!.secondaryColor!.getWhite(&white, alpha: &alpha)
             
             
             if white >= 0.95 {
                 print("Is white")
                 textColor = self.element!.showcase!.site!.organization!.primaryColor
-                iconColor = self.element!.showcase!.site!.organization!.secondaryColor
-                decorationColor = self.element!.showcase!.site!.organization!.secondaryColor
+                bgColor = self.element!.showcase!.site!.organization!.secondaryColor
             } else {
                 textColor = self.element!.showcase!.site!.organization!.secondaryColor
-                iconColor = self.element!.showcase!.site!.organization!.primaryColor
-                decorationColor = self.element!.showcase!.site!.organization!.primaryColor
+                bgColor = self.element!.showcase!.site!.organization!.primaryColor
             }
             
             
@@ -344,7 +342,7 @@ class ElementView: BNView, UIWebViewDelegate {
             if self.element!.hasDiscount {
                 let percentageViewSize:CGFloat = 60
                 
-                percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 15, textColor: textColor!, color: decorationColor!, textPosition: CGPoint(x: 10, y: -10))
+                percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 15, textColor: self.element!.showcase!.site!.organization!.secondaryColor!, color: self.element!.showcase!.site!.organization!.primaryColor!, textPosition: CGPoint(x: 10, y: -10))
                 
 //                percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
@@ -559,7 +557,7 @@ class ElementView: BNView, UIWebViewDelegate {
         lineView?.removeFromSuperview()
         
         textColor = nil
-        decorationColor = nil
+        bgColor = nil
         iconColor = nil
         animationView?.clean()
         animationView?.removeFromSuperview()
@@ -773,10 +771,10 @@ class ElementView: BNView, UIWebViewDelegate {
         if self.element!.hasCallToAction {
             ypos += 60
             callToActionBtn!.alpha = 1
-            callToActionBtn!.backgroundColor = self.element!.showcase!.site!.organization!.primaryColor
+            callToActionBtn!.backgroundColor = bgColor
             callToActionTitle!.alpha = 1
             callToActionTitle!.text = self.element!.callToActionTitle!
-            callToActionTitle!.textColor = self.element!.showcase!.site!.organization!.secondaryColor!
+            callToActionTitle!.textColor = textColor
             callToActionBtn!.enabled = true
         } else {
             callToActionBtn!.alpha = 0

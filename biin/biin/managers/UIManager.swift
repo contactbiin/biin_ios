@@ -30,13 +30,14 @@ class UIManager {
     var miniView_headerHeight:CGFloat = 50
 
     //In showcase
-    var miniView_headerHeight_showcase:CGFloat = 35
+    var miniView_headerHeight_showcase:CGFloat = 40
     var miniView_height_showcase:CGFloat = 0
     
     //Font sizes
-    var miniView_titleSize:CGFloat = 12
-    var miniView_subTittleSize:CGFloat = 10
-    var miniView_nutshellSize:CGFloat = 13
+    var miniView_titleSize:CGFloat = 15
+    var miniView_subTittleSize:CGFloat = 11
+    var miniView_nutshellSize:CGFloat = 11
+    var miniView_pricingSize:CGFloat = 12
     var miniView_height:CGFloat = 0
     var miniView_width:CGFloat = 0
     var miniView_columns:Int = 0
