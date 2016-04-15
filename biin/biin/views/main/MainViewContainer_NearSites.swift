@@ -39,7 +39,7 @@ class MainViewContainer_NearSites: BNView {
         moreSitesBtn!.addTarget(self, action: #selector(self.moreSitesBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreSitesBtn!)
         
-        title = UILabel(frame: CGRectMake(15, 20, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title = UILabel(frame: CGRectMake(15, 21, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
         let titleText = NSLocalizedString("NearYou", comment: "NearYou").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)

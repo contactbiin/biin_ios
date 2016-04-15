@@ -523,6 +523,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             
             } else {
                 
+                
                 print("ENTER region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
                 NSLog("ENTER region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
 
@@ -534,8 +535,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                     
                 } else {
                     
-                    print("ENTER NEW region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
-                    NSLog("ENTER NEW region again: \(beaconRegion.identifier), \(beaconRegion.major!)")
+                    print("ENTER NEW region: \(beaconRegion.identifier), \(beaconRegion.major!)")
+                    NSLog("ENTER NEW region: \(beaconRegion.identifier), \(beaconRegion.major!)")
     
                     currentBeaconRegion = beaconRegion
                     BNAppSharedManager.instance.notificationManager.sendNotificationForBeaconRegionDetected(beaconRegion.identifier, major: beaconRegion.major!.integerValue )
@@ -732,6 +733,15 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             } else {
                 print("User nil when exit region")
 
+            }
+            
+            
+            if self.currentBeaconRegion != nil {
+                if currentBeaconRegion!.identifier == beaconRegion.identifier
+                    && currentBeaconRegion!.major!.integerValue == beaconRegion.major!.integerValue {
+                    
+                 self.currentBeaconRegion = nil
+                }
             }
             
             /*

@@ -540,6 +540,7 @@ class BNNotificationManager:NSObject, NSCoding {
         
         for notification in localNotifications {
             notification.isUserNotified = false
+            notification.fireDate = NSDate(timeIntervalSince1970: 0)
         }
         
         surveyed_Sites.removeAll()

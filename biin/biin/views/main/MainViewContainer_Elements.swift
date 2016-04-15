@@ -35,24 +35,24 @@ class MainViewContainer_Elements:BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        let ypos:CGFloat = 20
+        let ypos:CGFloat = 22
 
         self.category = category
         
         var textColor:UIColor?
         switch colorIndex {
         case 0:
-            self.backgroundColor = UIColor.lightGrayColor()
+            self.backgroundColor = UIColor.grayColor()
             category.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
+            textColor = UIColor.whiteColor()
         case 1:
             self.backgroundColor = UIColor.grayColor()
             category.backgroundColor = UIColor.grayColor()
             textColor = UIColor.whiteColor()
         default:
-            self.backgroundColor = UIColor.lightGrayColor()
+            self.backgroundColor = UIColor.grayColor()
             category.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
+            textColor = UIColor.whiteColor()
             break
         }
         
@@ -67,13 +67,14 @@ class MainViewContainer_Elements:BNView {
         moreElementsBtn!.addTarget(self, action: #selector(self.moreElementsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreElementsBtn!)
         
-        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 60), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
-        let titleText = category.name!
+        let titleText = NSLocalizedString(category.identifier!, comment: "category_identifier!").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
         title!.textColor = textColor
+        //title!.sizeToFit()
         
         self.addSubview(title!)
 

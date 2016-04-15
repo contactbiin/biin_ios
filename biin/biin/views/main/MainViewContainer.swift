@@ -123,7 +123,6 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             height = SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight
             self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, height), father: self)
             self.scroll!.addChild(self.highlightContainer!)
-            
 
             ypos += height
 
