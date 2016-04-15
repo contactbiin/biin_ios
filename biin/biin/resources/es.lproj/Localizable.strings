@@ -198,7 +198,7 @@ OnboardingTitle3 = "Beneficios!";
 OnboardingText3 = "Visitá tus lugares favoritos y aprovechá las mejores ofertas y novedades.";
 
 SiteBottomTitle = "Muchas gracias!";
-SiteBottomSubtitle = "Vuelve pronto";
+SiteBottomSubtitle = "Volvé pronto";
 
 BadEmail = "La clave o correo están mal.";
 RequestFailed = "La solicitud fallo!";
