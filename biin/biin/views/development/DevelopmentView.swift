@@ -147,9 +147,9 @@ class DevelopmentView:UIView {
 //        self.addSubview(addActionBtn!)
 //        ypos += 65
 
-        label = UILabel(frame: CGRect(x:25, y:ypos, width:(frame.width - 50), height:30))
+        label = UILabel(frame: CGRect(x:25, y:ypos, width:(frame.width - 50), height:20))
         label.text = "Si haces algun cambio en la conexion de la base de datos deben cerrar y abrir Biin e  iniciar session con tu correo y clave."
-        label.font = UIFont(name: "Lato-Light", size: 30)
+        label.font = UIFont(name: "Lato-Light", size: 20)
         label.textColor = UIColor.bnRed()
         label.textAlignment = NSTextAlignment.Center
         label.numberOfLines = 0

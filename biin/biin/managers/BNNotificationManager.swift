@@ -519,7 +519,7 @@ class BNNotificationManager:NSObject, NSCoding {
                     if notification.object_id == self.lastNotificationObjectId {
                         notification.isUserNotified = true
                         notification.fireDate = NSDate(timeIntervalSinceNow: time)
-                        return
+                        continue
                     }
                 }
                 
