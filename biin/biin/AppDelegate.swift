@@ -203,7 +203,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         appManager.IS_APP_UP = true
-
         appManager.positionManager.start_BEACON_RANGING()
 
         //BNAppSharedManager.instance.show()
@@ -224,6 +223,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+            
             BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
         }
         

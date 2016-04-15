@@ -201,6 +201,7 @@ class BNNotificationManager:NSObject, NSCoding {
             
             NSLog("BIIN - localNotifications Site identifier: \(notification.siteIdentifier!)")
             NSLog("BIIN - localNotifications major: \(notification.major)")
+            NSLog("BIIN - userNotified: \(notification.isUserNotified)")
             
             if major == notification.major {
                 
@@ -315,16 +316,17 @@ class BNNotificationManager:NSObject, NSCoding {
         didSendNotificationOnAppDown = true
         var siteNotifications:Array<BNLocalNotification> = Array<BNLocalNotification>()
         
-        for notification in localNotifications {
+        for notification in self.localNotifications {
             
             NSLog("BIIN - localNotifications Site identifier: \(notification.siteIdentifier!)")
             NSLog("BIIN - localNotifications major: \(notification.major)")
-            NSLog("BIIN - localNotifications minor: \(notification.minor)")
+//            NSLog("BIIN - localNotifications minor: \(notification.minor)")
+            NSLog("BIIN - userNotified: \(notification.isUserNotified)")
             
             if notification.notificationType == .EXTERNAL && major == notification.major {
                 NSLog("BIIN - FOUND Site identifier: \(notification.siteIdentifier!)")
                 NSLog("BIIN - FOUND major: \(notification.major)")
-                NSLog("BIIN - FOUND minor: \(notification.minor)")
+//                NSLog("BIIN - FOUND minor: \(notification.minor)")
                 siteNotifications.append(notification)
             } else {
                 NSLog("BIIN - Site identifier: \(siteIdentifier) major:\(major) NOT IN LIST")
@@ -507,7 +509,6 @@ class BNNotificationManager:NSObject, NSCoding {
                 }
                 
                 localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
-                
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
                 
                 currentNotification!.isUserNotified = true
@@ -515,7 +516,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 lastNotificationObjectId = currentNotification!.object_id!
                 
                 for notification in localNotifications {
-                    if notification.object_id == currentNotification?.object_id! {
+                    if notification.object_id == self.lastNotificationObjectId {
                         notification.isUserNotified = true
                         notification.fireDate = NSDate(timeIntervalSinceNow: time)
                         return

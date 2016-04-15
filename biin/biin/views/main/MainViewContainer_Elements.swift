@@ -56,8 +56,6 @@ class MainViewContainer_Elements:BNView {
             break
         }
         
-        
-        
         moreElementsBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreElementsBtn!.icon!.color = textColor
 

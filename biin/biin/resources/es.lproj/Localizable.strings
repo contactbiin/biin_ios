@@ -13,7 +13,7 @@ Start = "Iniciar";
 Loading = "Descargando contenido...";
 Finishing = "Actualizando...";
 EmailUs = "Escribínos";
-CallUs = "Llamános";
+CallUs = "Llamanos";
 Phone = "Teléfono";
 Password = "Clave";
 Login = "Ya tienes cuenta? Iniciar sesión";
@@ -224,8 +224,8 @@ Download = "Descarga en www.biin.io";
 likely = "muy probablemente";
 not_likely = "poco probable";
 
-UBER = "Llega allí con Uber";
+UBER = "Llegá allí con Uber";
 Schedule = "Horario";
 
-npsBtn = "Ayúdanos a mejorar";
+npsBtn = "Ayudanos a mejorar";
 npsBtn_completed = "Hemos recibido tu ayuda!";
