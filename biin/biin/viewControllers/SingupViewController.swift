@@ -81,7 +81,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             // User is already logged in, do work such as go to next view controller.
             print("alredy in facebook")
-            showProgressView()
             isBiinieAlreadyInFacebook = true
             returnUserData()
         } else {
@@ -115,6 +114,10 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.view.addSubview(fade!)
+        
+        if isBiinieAlreadyInFacebook {
+            showProgressView()
+        }
 
         loginView = LoginView(frame:CGRectMake(screenWidth, 0, screenWidth, screenHeight))
         loginView!.delegate = self
@@ -299,9 +302,14 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     
     func showProgressView(){
-        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
-        self.view.addSubview(alert!)
-        alert!.show()
+        if self.alert == nil {
+            alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
+        
+            self.view.addSubview(alert!)
+            alert!.show()
+        } else {
+            alert!.show()
+        }
     }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
