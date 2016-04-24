@@ -451,10 +451,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                     
                     NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.showSurveyOnTimer(_:)), userInfo: nil, repeats: false)
                 } else {
-                    print("site: \(site_to_survey!.title!) is already survyed today")
+                    //print("site: \(site_to_survey!.title!) is already survyed today")
                 }
             } else {
-                print("NPS not available")
+                //print("NPS not available")
             }
         }
     }

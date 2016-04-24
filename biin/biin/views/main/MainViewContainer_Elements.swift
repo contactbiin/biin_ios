@@ -153,6 +153,26 @@ class MainViewContainer_Elements:BNView {
             elementView_width = SharedUIManager.instance.miniView_width
         }
         
+        
+        
+        for element_id  in category!.elements {
+            if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
+                if !isElementAdded(element_id) {
+                    let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                    elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+                    elements.append(elementView)
+                    elementPosition += 1
+                    
+                    if element.userViewed {
+                        elementsViewed += 1
+                    }
+                    
+                    elementView.requestImage()
+                }
+            }
+        }
+        
+        /*
         for (element_id, element) in category!.elements {
             if element._id != nil {
                 if !isElementAdded(element._id!) {
@@ -170,11 +190,10 @@ class MainViewContainer_Elements:BNView {
                 }
 
             } else {
-//                print("\(element_id)")
                 category!.elements.removeValueForKey(element_id)
             }
         }
-        
+        */
         self.scroll!.addMoreChildren(elements)
     }
     

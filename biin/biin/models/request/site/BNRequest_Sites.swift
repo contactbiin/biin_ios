@@ -167,7 +167,7 @@ class BNRequest_Sites: BNRequest {
                                     if let mediaArray = BNParser.findNSArray("media", dictionary: elementData) {
                                     
                                         if mediaArray.count == 0 {
-                                            print("element with not media:\(element.identifier)")
+                                            //print("element with not media:\(element.identifier)")
                                         } else {
                                             for j in (0..<mediaArray.count){
                                                 let mediaData = mediaArray.objectAtIndex(j) as! NSDictionary
@@ -197,7 +197,7 @@ class BNRequest_Sites: BNRequest {
                                         for j in (0..<categories.count){
                                             let categoryData = categories.objectAtIndex(j) as! NSDictionary
                                             let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                                            BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                            //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
                                         }
                                     }
                                 

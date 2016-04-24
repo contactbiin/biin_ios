@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class SingupViewController:UIViewController, UIPopoverPresentationControllerDelegate, LoginView_Delegate, SignupView_Delegate, BNNetworkManagerDelegate, FBSDKLoginButtonDelegate {
+class SingupViewController:UIViewController, UIPopoverPresentationControllerDelegate, LoginView_Delegate, SignupView_Delegate, PrivacyPolicyView_Delegate, TermOfServiceView_Delegate, BNNetworkManagerDelegate, FBSDKLoginButtonDelegate {
    
     var biinLogo:BNUIBiinView?
     var welcomeLbl:UILabel?
@@ -16,15 +16,19 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     var fade:UIView?
     var signupView:SignupView?
     var loginView:LoginView?
+    
+    var privacyPolicyView:PrivacyPolicyView?
+    var termOfServiceView:TermOfServiceView?
+    
     var alert:BNUIAlertView?
     var isBiinieAlreadyInFacebook = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
+        BNAppSharedManager.instance.networkManager.requestToS(self)
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = true
@@ -127,6 +131,14 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         signupView!.delegate = self
         self.view.addSubview(signupView!)
         
+        privacyPolicyView = PrivacyPolicyView(frame:CGRectMake(screenWidth, 0, screenWidth, screenHeight))
+        privacyPolicyView!.delegate = self
+        self.view.addSubview(privacyPolicyView!)
+
+        termOfServiceView = TermOfServiceView(frame:CGRectMake(screenWidth, 0, screenWidth, screenHeight))
+        termOfServiceView!.delegate = self
+        self.view.addSubview(termOfServiceView!)
+        
         ypos = (screenHeight - ypos ) / 2
         biinLogo!.frame.origin.y = ypos
         ypos += (biinLogo!.frame.height + 20)
@@ -173,6 +185,54 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
         
+    }
+    
+    func loadToS_webViews(){
+        privacyPolicyView!.loadWebView()
+        termOfServiceView!.loadWebView()
+    }
+    
+    func hidePrivacyPolicyView() {
+        UIView.animateWithDuration(0.3, animations: {()->Void in
+            self.privacyPolicyView!.frame.origin.x = SharedUIManager.instance.screenWidth
+            self.fade!.alpha = 0
+        })
+    }
+    
+    func acceptPrivacyPolicy() {
+        UIView.animateWithDuration(0.3, animations: { ()-> Void in
+            
+            self.privacyPolicyView!.frame.origin.x = SharedUIManager.instance.screenWidth
+            self.fade!.alpha = 0.5
+            
+            }, completion: {(completed:Bool)->Void in
+                UIView.animateWithDuration(0.3, animations: {()->Void in
+                    self.termOfServiceView!.frame.origin.x = 0
+                    self.fade!.alpha = 0
+                })
+        })
+    }
+    
+    func hideTermOfServiceView() {
+        UIView.animateWithDuration(0.3, animations: {()->Void in
+            self.termOfServiceView!.frame.origin.x = SharedUIManager.instance.screenWidth
+            self.fade!.alpha = 0
+        })
+    }
+    
+    func acceptTermOfService() {
+
+        UIView.animateWithDuration(0.3, animations: { ()-> Void in
+            
+            self.termOfServiceView!.frame.origin.x = SharedUIManager.instance.screenWidth
+            
+            }, completion: {(completed:Bool)->Void in
+                
+                UIView.animateWithDuration(0.3, animations: {()->Void in
+                    self.signupView!.frame.origin.x = 0
+                    self.fade!.alpha = 0.5
+                })
+        })
     }
     
     func showSignupView(view: UIView) {
@@ -333,7 +393,8 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     func showSignUp(sender:BNUIButton_Loging){
         UIView.animateWithDuration(0.3, animations: {()->Void in
-            self.signupView!.frame.origin.x = 0
+//            self.signupView!.frame.origin.x = 0
+            self.privacyPolicyView!.frame.origin.x = 0
             self.fade!.alpha = 0.5
         })
     }

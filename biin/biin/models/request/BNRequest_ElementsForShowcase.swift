@@ -130,7 +130,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                             
                             if mediaArray!.count == 0 {
-                                print("element with not media:\(element.identifier)")
+                                //print("element with not media:\(element.identifier)")
                             }
                             
                             var j:Int = 0
@@ -164,7 +164,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
 //                            for var j = 0; j < categories?.count; j++ {
                                 let categoryData = categories!.objectAtIndex(j) as! NSDictionary
                                 let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                                BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
                                 j += 1
                             }
                             

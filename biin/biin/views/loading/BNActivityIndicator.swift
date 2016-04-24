@@ -7,6 +7,7 @@ import Foundation
 import UIKit
 
 class BNActivityIndicator: UIView {
+    
     var rectShape:CAShapeLayer?
     
     override init(frame: CGRect) {

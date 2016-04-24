@@ -141,7 +141,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
  
     func checkConnectivity() {
-        print("FLOW 2 - checkConnectivity()")
+        //print("FLOW 2 - checkConnectivity()")
         let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
         
@@ -490,8 +490,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
 
-    
-    
     func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
         
         let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForShowcase/\(showcase!.site!.identifier!)/\(showcase!.identifier!)/\(showcase!.batch)"
@@ -519,6 +517,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
+    func requestToS(viewController:SingupViewController){
+        let request = BNRequest_ToS(requestString: "https://dev-biin-backend.herokuapp.com/mobile/termsofservice", errorManager: self.errorManager!, networkManager: self, viewController:viewController)
+        addToQueue(request)
+    }
     
     func runRequest(){
         
@@ -571,7 +573,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
-        print("Request error: \(error?.code) request: \(request.requestString)")
+        //print("Request error: \(error?.code) request: \(request.requestString)")
         
         if error != nil {
             

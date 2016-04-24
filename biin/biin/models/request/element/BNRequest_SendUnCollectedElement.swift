@@ -26,7 +26,7 @@ class BNRequest_SendUnCollectedElement: BNRequest {
     }
     
     override func run() {
-        print("BNRequest_SendUnCollectedElement - \(requestString)")
+        //print("BNRequest_SendUnCollectedElement - \(requestString)")
 
 
         isRunning = true

@@ -22,8 +22,8 @@ class BNCategory:NSObject {
     var isDownloaded = false
     var isUserCategory = false
     var hasSites = false
-//    var elements:Array<BNElement> = Array<BNElement>()
-    var elements:Dictionary<String, BNElement> = Dictionary<String, BNElement>()
+    var elements:Array<String> = Array<String>()
+//    var elements:Dictionary<String, BNElement> = Dictionary<String, BNElement>()
 //    var elements:Array<BNElement> = Array<BNElement>()
     var priority = 1
     var backgroundColor:UIColor?

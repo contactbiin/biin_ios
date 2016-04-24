@@ -36,6 +36,8 @@ class BNRequest_InitialData: BNRequest {
         isRunning = true
         requestAttemps += 1
         
+        print("INITIAL REQUEST: \(self.requestString)")
+        
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
@@ -180,7 +182,7 @@ class BNRequest_InitialData: BNRequest {
                                     if let mediaArray = BNParser.findNSArray("media", dictionary: elementData){
                                     
                                         if mediaArray.count == 0 {
-                                            print("element with not media:\(element.identifier)")
+                                            //print("element with not media:\(element.identifier)")
                                         }
                                         
                                         
@@ -214,7 +216,7 @@ class BNRequest_InitialData: BNRequest {
     //                                    for var j = 0; j < categories?.count; j++ {
                                             let categoryData = categories.objectAtIndex(e) as! NSDictionary
                                             let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                                            BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                            //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
                                         }
                                     }
                                     
@@ -266,7 +268,7 @@ class BNRequest_InitialData: BNRequest {
                                         site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
                                         site.siteSchedule = BNParser.findString("siteSchedule", dictionary: siteData)
                                         
-                                        print("site:\(site.identifier!), name:\(site.title!), location:\(site.city!), major:\(site.major!)")
+                                        //print("site:\(site.identifier!), name:\(site.title!), location:\(site.city!), major:\(site.major!)")
                                         
                                         
                                         if let neighbors = BNParser.findNSArray("neighbors", dictionary: siteData){
@@ -440,7 +442,8 @@ class BNRequest_InitialData: BNRequest {
                                         let elementData = elements.objectAtIndex(p) as! NSDictionary
                                         
                                         if let element_id = BNParser.findString("_id", dictionary: elementData) {
-                                            category.elements[element_id] = BNAppSharedManager.instance.dataManager.elements_by_id[element_id]
+                                            category.elements.append(element_id)
+//                                            category.elements[element_id] = BNAppSharedManager.instance.dataManager.elements_by_id[element_id]
                                         }
                                     }
                                 }

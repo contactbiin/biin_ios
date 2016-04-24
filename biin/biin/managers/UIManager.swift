@@ -46,7 +46,7 @@ class UIManager {
     var siteMiniView_width:CGFloat = 0
     var siteMiniView_imageheight:CGFloat = 200
     var siteMiniView_headerHeight:CGFloat = 0
-    var siteMiniView_title:CGFloat = 20
+    var siteMiniView_title:CGFloat = 15
     var siteMiniView_subTitle:CGFloat = 13
     
     //Onboarding

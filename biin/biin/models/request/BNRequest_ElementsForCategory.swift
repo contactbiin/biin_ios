@@ -34,6 +34,9 @@ class BNRequest_ElementsForCategory: BNRequest {
         isRunning = true
         requestAttemps += 1
         
+        print("BNRequest_ElementsForCategory: \(self.requestString)")
+
+        
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
@@ -163,7 +166,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                 if let mediaArray = BNParser.findNSArray("media", dictionary: elementData) {
                                 
                                     if mediaArray.count == 0 {
-                                        print("element with not media:\(element.identifier)")
+                                        //print("element with not media:\(element.identifier)")
                                     } else {
                         
                                         for d in (0..<mediaArray.count) {
@@ -196,7 +199,7 @@ class BNRequest_ElementsForCategory: BNRequest {
     //                                for var j = 0; j < categories?.count; j++ {
                                         let categoryData = categories.objectAtIndex(e) as! NSDictionary
                                         let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                                        BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                        //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
                                     }
                                 }
                                 
@@ -423,7 +426,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     
                                     BNAppSharedManager.instance.dataManager.receivedElementOnCategory(_id, identifier: identifier!, showcase_id:showcase_id! )
                                     
-                                    self.category!.elements[_id] = BNAppSharedManager.instance.dataManager.elements_by_id[_id]
+                                    //self.category!.elements[_id] = BNAppSharedManager.instance.dataManager.elements_by_id[_id]
                                 }
 
                             }

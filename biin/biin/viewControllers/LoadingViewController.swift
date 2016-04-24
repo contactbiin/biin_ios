@@ -52,7 +52,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
         
         
-        print("FLOW 6")
+        //print("FLOW 6")
         //BNAppSharedManager.instance.dataManager.addHighlights()
      
         //NSLog("BIIN - didReceivedAllInitialData()")

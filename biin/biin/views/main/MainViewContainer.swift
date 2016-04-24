@@ -102,11 +102,11 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     func updateContainer(){
         
         if BNAppSharedManager.instance.dataManager.sites_ordered.count == 0 {
-            NSLog("BIIN ----------------------------------------------------")
-            NSLog("BIIN - not sites in list, request data again")
-            NSLog("BIIN - sites:\(BNAppSharedManager.instance.dataManager.sites.count)")
-            NSLog("BIIN - elements_by_identifier:\(BNAppSharedManager.instance.dataManager.elements_by_identifier.count)")
-            NSLog("BIIN ----------------------------------------------------")
+            //NSLog("BIIN ----------------------------------------------------")
+            //NSLog("BIIN - not sites in list, request data again")
+            //NSLog("BIIN - sites:\(BNAppSharedManager.instance.dataManager.sites.count)")
+            //NSLog("BIIN - elements_by_identifier:\(BNAppSharedManager.instance.dataManager.elements_by_identifier.count)")
+            //NSLog("BIIN ----------------------------------------------------")
             self.refreshButtonAction(UIButton())
             
             
@@ -218,7 +218,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     override func refresh() {
         
-        NSLog("BIIN - refresh()")
+        //NSLog("BIIN - refresh()")
         
         refresh_NearSitesContainer()
     }
@@ -270,7 +270,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     func clean(){
         
-        NSLog("MainViewContainer clean()")
+        //NSLog("MainViewContainer clean()")
         
         if highlightContainer != nil {
             highlightContainer!.clean()

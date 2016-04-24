@@ -250,9 +250,9 @@ class BNRequest_Site: BNRequest {
                         site.loyalty = loyalty
                         */
                         
-                        let end = NSDate()
-                        let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                        print("BNRequest_Site [\(timeInterval)] - \(self.requestString)")
+                        //let end = NSDate()
+                        //let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
+                        //print("BNRequest_Site [\(timeInterval)] - \(self.requestString)")
                         
                         
                         

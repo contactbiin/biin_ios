@@ -12,7 +12,7 @@ Save = "Guardar";
 Start = "Iniciar";
 Loading = "Descargando contenido...";
 Finishing = "Actualizando...";
-EmailUs = "Escribínos";
+EmailUs = "Escríbenos";
 CallUs = "Llamanos";
 Phone = "Teléfono";
 Password = "Clave";
@@ -229,3 +229,8 @@ Schedule = "Horario";
 
 npsBtn = "Ayudanos a mejorar";
 npsBtn_completed = "Hemos recibido tu ayuda!";
+
+PrivacyPolicy = "Politicas de privacidad";
+TermOfUser = "Terminos de servicio";
+
+Accept = "Acepto";

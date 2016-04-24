@@ -192,7 +192,7 @@ class BNRequest_Element: BNRequest {
 //                        for var j = 0; j < categories?.count; j++ {
                             let categoryData = categories!.objectAtIndex(i) as! NSDictionary
                             let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                            BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element: self.element!)
+                            //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element: self.element!)
                         }
 
                         self.element!.commentedCount = BNParser.findInt("commentedCount", dictionary: elementData)!

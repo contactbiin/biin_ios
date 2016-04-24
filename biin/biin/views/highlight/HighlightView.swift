@@ -109,11 +109,11 @@ class HighlightView: BNView {
         subTitle.text = "\(self.site!.title!) "
         containerView.addSubview(subTitle)
         
-        let subTitleLength = SharedUIManager.instance.getStringLength("\(self.site!.title!) ", fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_subTitleSize)
+        let subTitleLength = SharedUIManager.instance.getStringLength("\(self.site!.title!) ", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_subTitleSize)
         
         
         let location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.highlightView_subTitleSize + 4)))
-        location.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
+        location.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.highlightView_subTitleSize)
         location.textColor = textColor
         location.text = " | \(self.site!.subTitle!)"
         containerView.addSubview(location)

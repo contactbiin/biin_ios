@@ -327,7 +327,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         
         if white >= 0.95 {
-            print("Is white")
+            //print("Is white")
             textColor = site!.organization!.primaryColor!
             bgColor = site!.organization!.secondaryColor!
         } else {

@@ -37,6 +37,7 @@ class BNRequest_SendSharedElement: BNRequest {
         
         var modelContent = Dictionary<String, String>()
         modelContent["identifier"] = self.element!.identifier!
+        modelContent["_id"] = self.element!._id!
         modelContent["type"] = "element"
         model["model"] = modelContent
         

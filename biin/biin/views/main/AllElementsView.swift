@@ -199,6 +199,20 @@ class AllElementsView: BNView {
             var elements = Array<ElementMiniView>()
 
             
+            for element_id in category!.elements {
+                if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
+                    if !isElementAdded(element_id) {
+                        let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+                        //                scroll!.addSubview(elementView)
+                        elements.append(elementView)
+                    }
+                }
+            }
+            
+            /*
             for (element_id, element) in category!.elements {
                 
                 if element._id != nil {
@@ -224,10 +238,12 @@ class AllElementsView: BNView {
                         
                     }
                 } else {
-                    print("\(element_id)")
+                    //print("\(element_id)")
                     category!.elements.removeValueForKey(element_id)
                 }
             }
+            */
+            
             self.scroll!.addMoreChildren(elements)
 
 //            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
@@ -246,6 +262,23 @@ class AllElementsView: BNView {
             
             var elements = Array<ElementMiniView>()
             
+            
+            for element_id in category!.elements {
+                if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
+                    if !isElementAdded(element_id) {
+                        
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+                        elements.append(elementView)
+                    }
+                }
+            }
+            
+            
+            /*
             for (element_id, element) in category!.elements {
                 
                 if element._id != nil {
@@ -260,11 +293,11 @@ class AllElementsView: BNView {
                         elements.append(elementView)
                     }
                 } else {
-                    print("\(element_id)")
+                    //print("\(element_id)")
                     category!.elements.removeValueForKey(element_id)
                 }
             }
-            
+            */
             self.scroll!.addMoreChildren(elements)
         }
     }

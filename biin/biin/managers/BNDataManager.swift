@@ -43,6 +43,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //var timer:NSTimer?
     
     var commercialUUID:NSUUID?
+    var privacyPolicy:String?
+    var termOfService:String?
     
     init(errorManager:BNErrorManager){
         
@@ -104,7 +106,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestBiinieInitialData(){
         
-        print("FLOW 4 - requestBiinieInitialData()")
+        //print("FLOW 4 - requestBiinieInitialData()")
         if isUserLoaded {
             
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
@@ -118,7 +120,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestInitialData(){
         
-        print("FLOW 6 - requestInitialData()")
+        //print("FLOW 6 - requestInitialData()")
         delegateNM!.manager!(self, initialdata: bnUser!)
         
         //Changes request flow.
@@ -173,7 +175,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func addElementToCategory(categoryIdentifier:String, element:BNElement){
         for category in self.bnUser!.categories {
             if category.identifier == categoryIdentifier {
-                category.elements[element.identifier!] = element
+                //category.elements[element.identifier!] = element
                 continue
             }
         }
@@ -182,7 +184,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func addElementToCategoryByIndetifier(categoryIdentifier:String, elementIdentifier:String){
         for category in self.bnUser!.categories {
             if category.identifier == categoryIdentifier {
-                category.elements[elementIdentifier] = elements_by_id[elementIdentifier]
+                //category.elements[elementIdentifier] = elements_by_id[elementIdentifier]
                 continue
             }
         }
@@ -207,7 +209,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
         
-        print("FLOW 3 - didReceivedConnectionStatus")
+        //print("FLOW 3 - didReceivedConnectionStatus")
         if status && BNAppSharedManager.instance.IS_APP_UP {
             requestBiinieInitialData()
         } else if status && BNAppSharedManager.instance.IS_APP_DOWN {
@@ -520,11 +522,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     
                     var elements = Array<BNElement>()
                     
-                    for (_, element) in category.elements {
-                        if element.isHighlight {
-                            elements.append(element)
-                        }
-                    }
+//                    for (_, element) in category.elements {
+//                        if element.isHighlight {
+//                            elements.append(element)
+//                        }
+//                    }
                     
                     if elements.count > 0 {
                         elements = elements.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
@@ -619,7 +621,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie, isBiinieOnBD:Bool) {
         
         
-        print("FLOW 5 - didReceivedBiinieData")
+        //print("FLOW 5 - didReceivedBiinieData")
         if isBiinieOnBD {
             if self.bnUser != nil {
                 self.bnUser = user

@@ -133,7 +133,7 @@ class BNAppManager {
     }
     
     func continueAfterIntialChecking(){
-        print("FLOW 1 - continueAfterIntialChecking")
+        //print("FLOW 1 - continueAfterIntialChecking")
         networkManager.checkConnectivity()
     }
 

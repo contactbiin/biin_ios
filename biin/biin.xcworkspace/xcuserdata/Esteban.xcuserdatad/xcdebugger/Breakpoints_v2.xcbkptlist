@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/viewControllers/SingupViewController.swift"
-            timestampString = "482372736.52572"
+            timestampString = "483216119.937625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "showProgress(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/viewControllers/SingupViewController.swift"
-            timestampString = "482372736.52572"
+            timestampString = "483216119.937625"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "306"
-            endingLineNumber = "306"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "showProgressView()"
             landmarkType = "5">
          </BreakpointContent>
@@ -112,6 +112,22 @@
             startingLineNumber = "529"
             endingLineNumber = "529"
             landmarkName = "sendCurrentNotification()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "biin/views/element/ElementMiniView.swift"
+            timestampString = "482453232.782964"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "init(frame:father:element:elementPosition:showRemoveBtn:isNumberVisible:showlocation:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

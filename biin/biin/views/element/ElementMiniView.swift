@@ -104,17 +104,30 @@ class ElementMiniView: BNView {
         var xpos:CGFloat = 0
         var imageSize:CGFloat = 0
         
+        var headerHeight:CGFloat = 0
+        var headerHeightForImage:CGFloat = 0
+        
+        if showlocation {
+            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight
+            headerHeightForImage = SharedUIManager.instance.miniView_headerHeight
+        } else {
+            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight_showcase
+            headerHeightForImage = SharedUIManager.instance.miniView_headerHeight_showcase
+        }
+        
+        
         if frame.width == frame.height {
-            imageSize = frame.height
+            imageSize = (frame.width)
             xpos = ((imageSize - frame.width) / 2) * -1
             ypos = ((imageSize - frame.height) / 2) * -1
             
-        } else if frame.width < frame.height {
-            imageSize = frame.height
-            xpos = ((imageSize - frame.width) / 2) * -1
+        } else if frame.width < (frame.height - headerHeightForImage) {
+            imageSize = (frame.height - headerHeightForImage)
+            xpos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
+            //ypos = ((imageSize - frame.height) / 2) * -1
         } else {
             imageSize = frame.width
-            ypos = ((imageSize - frame.height) / 2) * -1
+            ypos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
         }
 
         if self.element!.media.count > 0 {
@@ -124,13 +137,7 @@ class ElementMiniView: BNView {
             self.addSubview(image!)
         }
             
-        var headerHeight:CGFloat = 0
-        if showlocation {
-            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight
-        } else {
-            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight_showcase
-        }
-        
+
         
         if !isNumberVisible {
             header = ElementMiniView_Header(frame: CGRectMake(0, headerHeight, frame.width, SharedUIManager.instance.miniView_headerHeight), father: self, element:self.element, elementPosition:elementPosition, showCircle:false)
@@ -182,10 +189,10 @@ class ElementMiniView: BNView {
             subtitle.text =  "\(titleText) "
             self.header!.addSubview(subtitle)
             
-            let subTitleLength = SharedUIManager.instance.getStringLength("\(titleText) ", fontName: "Lato-Light", fontSize:SharedUIManager.instance.miniView_subTittleSize)
+            let subTitleLength = SharedUIManager.instance.getStringLength("\(titleText) ", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.miniView_subTittleSize)
             
             location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (10 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
-            location!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.miniView_subTittleSize)
+            location!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_subTittleSize)
             location!.textColor = textColor
             location!.text = " | \(self.element!.showcase!.site!.subTitle!)"
             self.header!.addSubview(location!)

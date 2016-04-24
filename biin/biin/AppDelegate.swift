@@ -59,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
         } else {
-            
             let lvc = SingupViewController()
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
@@ -214,7 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
 
-        NSLog("BIIN - applicationDidBecomeActive")
+        //NSLog("BIIN - applicationDidBecomeActive")
         
         appManager.IS_APP_UP = true
         
@@ -331,13 +330,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            appManager.mainViewController!.mainView!.showNotificationContext()
 //        }
         BNAppSharedManager.instance.isOpeningForLocalNotification = true
-        NSLog("BIIN - didReceiveLocalNotification")
+        //NSLog("BIIN - didReceiveLocalNotification")
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
         
         
-        NSLog("BIIN - handleActionWithIdentifier")
+        //NSLog("BIIN - handleActionWithIdentifier")
         
         if identifier == "externalAction" {
             NSNotificationCenter.defaultCenter().postNotificationName("modifyListNotification", object: nil)

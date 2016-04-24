@@ -565,7 +565,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User Logged Out")
+        //print("User Logged Out")
     }
     
     func returnUserData()

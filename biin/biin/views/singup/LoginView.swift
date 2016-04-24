@@ -8,9 +8,6 @@ import UIKit
 
 class LoginView:UIView, UITextFieldDelegate {
     
-    
-    
-    
     var delegate:LoginView_Delegate?
     //var biinLogo:BNUIBiinView?
 //    var biinLogoImage:UIImageView?
