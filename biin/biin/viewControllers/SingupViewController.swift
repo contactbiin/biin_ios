@@ -22,6 +22,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     var alert:BNUIAlertView?
     var isBiinieAlreadyInFacebook = false
+    var isSigningUpWithFacebook = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -221,22 +222,29 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     func acceptTermOfService() {
-
-        UIView.animateWithDuration(0.3, animations: { ()-> Void in
-            
-            self.termOfServiceView!.frame.origin.x = SharedUIManager.instance.screenWidth
-            
-            }, completion: {(completed:Bool)->Void in
+        if self.isSigningUpWithFacebook {
+            self.showProgressView()
+            BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+            SharedAnswersManager.instance.logSignUp("Facebook")
+        } else {
+        
+            UIView.animateWithDuration(0.3, animations: { ()-> Void in
                 
-                UIView.animateWithDuration(0.3, animations: {()->Void in
-                    self.signupView!.frame.origin.x = 0
-                    self.fade!.alpha = 0.5
-                })
-        })
+                self.termOfServiceView!.frame.origin.x = SharedUIManager.instance.screenWidth
+                
+                }, completion: {(completed:Bool)->Void in
+                    
+                    UIView.animateWithDuration(0.3, animations: {()->Void in
+                        self.signupView!.frame.origin.x = 0
+                        self.fade!.alpha = 0.5
+                    })
+            })
+        }
     }
     
     func showSignupView(view: UIView) {
         self.view.endEditing(true)
+        self.isSigningUpWithFacebook = false
         //fadeView!.frame.origin.x = 0
         UIView.animateWithDuration(0.4, animations: {() -> Void in
 //            self.fadeView!.alpha = 0.5
@@ -423,7 +431,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
             if result.grantedPermissions.contains("email")
             {
                 // Do work
-                self.showProgress(self.view)
+                //self.showProgress(self.view)
                 returnUserData()
             }
         }
@@ -434,6 +442,8 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     func returnUserData() {
+        
+        self.isSigningUpWithFacebook = true
         
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath:"me", parameters:["fields":"id,first_name,last_name,gender,picture,email,birthday,friends"])
         
@@ -504,12 +514,17 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                     SharedAnswersManager.instance.logSignUp("Facebook")
                 } else {
                     
-                    //OLD for now until ivan is completed with request
-                    //BNAppSharedManager.instance.networkManager.register_with_Facebook(BNAppSharedManager.instance.dataManager.bnUser!)
+                    if (self.alert?.isOn != nil) {
+                        self.alert!.hide()
+                    }
                     
-                    //New
-                    BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
-                    SharedAnswersManager.instance.logSignUp("Facebook")
+                    UIView.animateWithDuration(0.3, animations: {()->Void in
+                        self.privacyPolicyView!.frame.origin.x = 0
+                        self.fade!.alpha = 0.5
+                    })
+                    
+//                    BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+//                    SharedAnswersManager.instance.logSignUp("Facebook")
                 }
             }
         })
