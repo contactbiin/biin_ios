@@ -78,7 +78,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         let screenWidth = SharedUIManager.instance.screenWidth
         //var screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 11//SharedUIManager.instance.miniView_height + 6
+        var ypos:CGFloat = 21//SharedUIManager.instance.miniView_height + 6
         //ypos += 18
         
         title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))

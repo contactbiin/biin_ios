@@ -579,7 +579,7 @@ class ElementView: BNView, UIWebViewDelegate {
     func shareit(sender:BNUIButton_ShareIt){
         //self.bringSubviewToFront(shareView!)
         BNAppSharedManager.instance.shareElement(self.element, shareView: self.shareView)
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!._id!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!)
         SharedAnswersManager.instance.logShare_Element(element)
     }
     

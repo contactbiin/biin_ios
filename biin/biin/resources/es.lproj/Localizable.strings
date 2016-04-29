@@ -12,7 +12,7 @@ Save = "Guardar";
 Start = "Iniciar";
 Loading = "Descargando contenido...";
 Finishing = "Actualizando...";
-EmailUs = "Escríbenos";
+EmailUs = "Escribinos";
 CallUs = "Llamanos";
 Phone = "Teléfono";
 Password = "Clave";
@@ -215,22 +215,22 @@ Now = "Ahora";
 SurveyTitle = "Su opinión es importante";
 Optional = "Opcional";
 BrandGreetings = "Muchas gracias por visitarnos el día de hoy, esperamos que regreses pronto.";
-SurveyQuestion_1 = "Que tan probable es que recomiendes a ";
-SurveyQuestion_2 = " basado en tu experiencia de hoy?";
+SurveyQuestion_1 = "Que tan probable es que recomendés a ";
+SurveyQuestion_2 = " con amigos o familia?";
 SurveyQuestion_3 = "Dejanos tu comentario para saber que te gustó o que podemos mejorar.";
 Thankyou = "Muchas gracias";
 Download = "Descarga en www.biin.io";
 
-likely = "muy probablemente";
-not_likely = "poco probable";
+likely = "Muy probable";
+not_likely = "Poco probable";
 
-UBER = "Llegá allí con Uber";
+UBER = "Ir con Uber";
 Schedule = "Horario";
 
 npsBtn = "Ayudanos a mejorar";
 npsBtn_completed = "Hemos recibido tu ayuda!";
 
 PrivacyPolicy = "Politicas de privacidad";
-TermOfUser = "Terminos de servicio";
+TermOfUser = "Condiciones de uso";
 
 Accept = "Acepto";

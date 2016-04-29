@@ -35,7 +35,7 @@ class MainViewContainer_Elements:BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        let ypos:CGFloat = 22
+        let ypos:CGFloat = 21
 
         self.category = category
         

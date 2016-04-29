@@ -222,14 +222,14 @@ SurveyTitle = "Your opinion matters";
 Optional = "Optional";
 BrandGreetings = "Thank you for stoping by today and come back soon!";
 SurveyQuestion_1 = "How likely would you recommend ";
-SurveyQuestion_2 = " based in your today's experience?";
+SurveyQuestion_2 = " to your family or friends?";
 SurveyQuestion_3 = "Leave your comments about what did you like or dislike so we can improve.";
 Thankyou = "Thank you";
 Download = "Download it at www.biin.io";
 
 
-likely = "likely";
-not_likely = "not_likely";
+likely = "Very Likely";
+not_likely = "Not likely";
 
 UBER = "Ride there with Uber";
 Schedule = "Schedule";

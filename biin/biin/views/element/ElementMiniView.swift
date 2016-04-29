@@ -169,11 +169,11 @@ class ElementMiniView: BNView {
         if showlocation {
             ypos = 2
         } else {
-            ypos = 4
+            ypos = 9
         }
         
         title = UILabel(frame: CGRectMake(5, ypos, titleTextWidth, (SharedUIManager.instance.miniView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_titleSize)
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_titleSize)
         title!.textColor = textColor
         title!.text = element!.title!
         self.header!.addSubview(title!)
@@ -186,20 +186,20 @@ class ElementMiniView: BNView {
             let subtitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 10), (SharedUIManager.instance.miniView_subTittleSize + 3)))
             subtitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.miniView_subTittleSize)
             subtitle.textColor = textColor
-            subtitle.text =  "\(titleText) "
+            subtitle.text =  "\(titleText)"
             self.header!.addSubview(subtitle)
             
-            let subTitleLength = SharedUIManager.instance.getStringLength("\(titleText) ", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.miniView_subTittleSize)
+            let subTitleLength = SharedUIManager.instance.getStringLength("\(titleText)", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.miniView_subTittleSize)
             
-            location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (10 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 4)))
+            location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (10 + subTitleLength)), (SharedUIManager.instance.miniView_subTittleSize + 3)))
             location!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.miniView_subTittleSize)
             location!.textColor = textColor
-            location!.text = " | \(self.element!.showcase!.site!.subTitle!)"
+            location!.text = "  \(self.element!.showcase!.site!.subTitle!)"
             self.header!.addSubview(location!)
-            ypos += SharedUIManager.instance.miniView_subTittleSize + 2
+            ypos += SharedUIManager.instance.miniView_subTittleSize + 3
             
         } else {
-            ypos += SharedUIManager.instance.miniView_titleSize + 2
+            ypos += SharedUIManager.instance.miniView_titleSize + 3
         }
             
         if element!.hasPrice && !element!.hasListPrice && !element!.hasFromPrice {

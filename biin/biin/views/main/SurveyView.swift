@@ -164,9 +164,9 @@ class SurveyView: BNView, UITextViewDelegate {
         
         let buttonWidth:CGFloat = ((screenWidth - 38 ) / 10)
         var x:CGFloat = 10
-        var i:Int = 0
+        var i:Int = 1
         
-        while i < 10 {
+        while i < 11 {
 //        for var i = 1; i <= 10; i++ {
 
             let color = getButtonColor(CGFloat(i))

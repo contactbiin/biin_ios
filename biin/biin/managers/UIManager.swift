@@ -30,11 +30,11 @@ class UIManager {
     var miniView_headerHeight:CGFloat = 50
 
     //In showcase
-    var miniView_headerHeight_showcase:CGFloat = 40
+    var miniView_headerHeight_showcase:CGFloat = 50
     var miniView_height_showcase:CGFloat = 0
     
     //Font sizes
-    var miniView_titleSize:CGFloat = 15
+    var miniView_titleSize:CGFloat = 13
     var miniView_subTittleSize:CGFloat = 11
     var miniView_nutshellSize:CGFloat = 11
     var miniView_pricingSize:CGFloat = 12
@@ -80,7 +80,7 @@ class UIManager {
     
     var siteView_headerHeight:CGFloat = 70
     var siteView_bottomHeight:CGFloat = 30
-    var siteView_showcaseHeaderHeight:CGFloat = 50
+    var siteView_showcaseHeaderHeight:CGFloat = 60
     var siteView_showcase_titleSize:CGFloat = 12
     var siteView_showcase_subTittleSize:CGFloat = 12
     var siteView_titleSize:CGFloat = 18
