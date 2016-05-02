@@ -478,12 +478,13 @@ class BNNotificationManager:NSObject, NSCoding {
         
         if self.currentNotification != nil {
             
-            let days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
+            //let days:Int = NSDate().daysBetweenFromAndTo(self.currentNotification!.fireDate!)
             
             //NSLog("BIIN - sendCurrentNotification - DAYS: \(days), from:\(self.currentNotification!.fireDate!) to:\(NSDate()), \(self.currentNotification!.isUserNotified)")
             
 //            if !self.currentNotification!.isUserNotified || days > 1 {
-            if days > 1 {
+            if !NSCalendar.currentCalendar().isDateInToday(self.currentNotification!.fireDate!) {
+//            if days > 1 {
                 var time:NSTimeInterval = 0
                 let localNotification:UILocalNotification = UILocalNotification()
                 localNotification.alertBody = currentNotification!.notificationText

@@ -845,6 +845,10 @@ extension NSDate {
             return false
         }
     }
+    
+    func alredyPassedADay() {
+        
+    }
 
     func daysBetweenFromAndTo(toDate:NSDate) -> Int {
         let cal = NSCalendar.currentCalendar()

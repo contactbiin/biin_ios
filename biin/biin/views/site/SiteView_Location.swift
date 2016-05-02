@@ -44,6 +44,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        super.init()
 //    }
     var uber_button:RequestButton?
+    var waze_button:UIButton?
     weak var site:BNSite?
     
     override init(frame: CGRect) {
@@ -184,7 +185,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         npsBtn!.layer.cornerRadius = 2
         npsBtn!.addTarget(self, action: #selector(self.nps(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(npsBtn!)
-
+        
         uber_button = RequestButton()
         uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
         uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
@@ -197,6 +198,22 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        uber_button!.layer.shadowOpacity = 0.25
         self.addSubview(uber_button!)
         uber_button!.setNeedsDisplay()
+        
+        
+        ypos += 55
+        waze_button = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        waze_button!.setTitle(NSLocalizedString("Waze", comment: "Waze"), forState: UIControlState.Normal)
+        waze_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        waze_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        //callBtn!.backgroundColor = UIColor.bnVisitSiteColor()
+        
+        waze_button!.layer.cornerRadius = 2
+        //        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+        //        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        //        callBtn!.layer.shadowOpacity = 0.25
+        
+        waze_button!.addTarget(self, action: #selector(self.wazeAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(waze_button!)
         
         ypos += 55
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
@@ -386,6 +403,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             //print("Site schedule not set:\(site!.identifier!)")
         }
         
+        waze_button!.backgroundColor = bgColor!
+        
         ypos += 15
 
         yStop = ypos
@@ -471,6 +490,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += 5
         }
         
+        waze_button!.frame.origin.y = ypos
+        ypos += waze_button!.frame.height
+        ypos += 5
+        
+        
         let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
         let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
         uber_button!.setProductID(site!.identifier!)
@@ -522,6 +546,24 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         if self.site_phoneNumber! != "" {
             let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
             UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    func wazeAction(sender:UIButton){
+        
+//        if self.site_phoneNumber! != "" {
+//            let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
+//            UIApplication.sharedApplication().openURL(url)
+//        }
+        
+        if UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!) {
+            // Waze is installed. Launch Waze and start navigation
+            let urlStr = "waze://?ll=\(site!.latitude!),\(site!.longitude!)&navigate=yes"//"waze://?ll=\(),\()&navigate=yes"
+            UIApplication.sharedApplication().openURL(NSURL(string: urlStr)!)
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+
+        } else  {
+            UIApplication.sharedApplication().openURL(NSURL(string:"http://itunes.apple.com/us/app/id323229106")!)
         }
     }
     
