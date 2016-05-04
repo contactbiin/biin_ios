@@ -769,12 +769,29 @@ class ElementView: BNView, UIWebViewDelegate {
         }
         
         if self.element!.hasCallToAction {
+            
+            var white:CGFloat = 0.0
+            var alpha:CGFloat = 0.0
+            _ = self.element!.showcase!.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+            var textColorCA:UIColor?
+            var bgColorCA:UIColor?
+            
+            
+            if white >= 0.95 {
+                textColorCA = self.element!.showcase!.site!.organization!.primaryColor!
+                bgColorCA = self.element!.showcase!.site!.organization!.secondaryColor!
+            } else {
+                textColorCA = self.element!.showcase!.site!.organization!.secondaryColor!
+                bgColorCA = self.element!.showcase!.site!.organization!.primaryColor
+            }
+
+            
             ypos += 60
             callToActionBtn!.alpha = 1
-            callToActionBtn!.backgroundColor = bgColor
+            callToActionBtn!.backgroundColor = bgColorCA!
             callToActionTitle!.alpha = 1
             callToActionTitle!.text = self.element!.callToActionTitle!
-            callToActionTitle!.textColor = textColor
+            callToActionTitle!.textColor = textColorCA!
             callToActionBtn!.enabled = true
         } else {
             callToActionBtn!.alpha = 0

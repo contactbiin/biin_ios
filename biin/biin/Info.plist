@@ -53,6 +53,7 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>waze</string>
 		<string>whatsapp</string>
 		<string>uber</string>
 		<string>fbapi</string>

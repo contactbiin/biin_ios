@@ -103,7 +103,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
         subTitle!.textColor = UIColor.whiteColor()
         subTitle!.text = self.showcase!.subTitle!
-        self.addSubview(subTitle!)
+        ///self.addSubview(subTitle!)
         
         //TESTING NOTIFICATIONS
 //        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
