@@ -21,6 +21,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     
     var fade:UIView?
     
+    var likedElementsBtn:UIButton?
+    var likedSitesBtn:UIButton?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -79,6 +82,17 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
+        
+        likedElementsBtn = UIButton(frame: CGRectMake(0, (screenHeight - 80), ((screenWidth / 2) - 2), 60))
+        likedElementsBtn!.setTitle("Products", forState: UIControlState.Normal)
+        likedElementsBtn!.backgroundColor = UIColor.redColor()
+        self.addSubview(likedElementsBtn!)
+        
+        likedSitesBtn = UIButton(frame: CGRectMake((screenWidth / 2), (screenHeight - 80), (screenWidth / 2), 60))
+        likedSitesBtn!.setTitle("Sites", forState: UIControlState.Normal)
+        likedSitesBtn!.backgroundColor = UIColor.blueColor()
+        self.addSubview(likedSitesBtn!)
+        
         self.addSubview(fade!)
     }
     

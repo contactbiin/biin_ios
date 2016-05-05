@@ -142,10 +142,10 @@ class ElementView: BNView, UIWebViewDelegate {
         
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
         collectItButton!.addTarget(self, action: #selector(self.collectIt(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn_Bg!.addSubview(collectItButton!)
+        //backBtn_Bg!.addSubview(collectItButton!)
         
         //Like button
-        buttonSpace += 35
+        //buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
         likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)

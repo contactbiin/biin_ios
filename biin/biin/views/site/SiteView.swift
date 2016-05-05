@@ -170,7 +170,7 @@ class SiteView:BNView, UIScrollViewDelegate {
 //        followButton!.layer.borderWidth = 1
         followButton!.backgroundColor = UIColor.clearColor()
         followButton!.addTarget(self, action: #selector(self.followit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn_Bg!.addSubview(followButton!)
+        //backBtn_Bg!.addSubview(followButton!)
         
         followButton!.frame.origin.x = (screenWidth - (followButton!.frame.width))
         

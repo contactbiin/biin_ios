@@ -1,11 +1,9 @@
 /* 
-    Localizable.strings
-    biin
-    Created by Esteban Padilla - English on 4/22/15.
-    Copyright (c) 2015 Esteban Padilla. All rights reserved.
- 
-    NSLocalizedString("Version", comment: "the version title")
- 
+Localizable.strings
+biin
+Created by Esteban Padilla - English on 4/22/15.
+Copyright (c) 2015 Esteban Padilla. All rights reserved.
+NSLocalizedString("Version", comment: "the version title")
 */
 
 /* General button and labelss */
@@ -57,7 +55,7 @@ NotFollowTxt = "We are sorry to see you go!";
 /* Menu buttons */
 Profile = "Profile";
 Home = "Home";
-Collections = "Collections";
+Collections = "My Favotires";
 Loyalty = "Loyalty";
 Notifications = "Notifications";
 InviteFriends = "Invite Friends";

@@ -55,7 +55,7 @@ NotFollowTxt = "Lamentamos tu partida!";
 /* Menu buttons */
 Profile = "Perfil";
 Home = "Inicio";
-Collections = "Guardado";
+Collections = "Mis Favoritos";
 Loyalty = "Puntos";
 Notifications = "Notificaciones";
 InviteFriends = "Invitar Amigos";
