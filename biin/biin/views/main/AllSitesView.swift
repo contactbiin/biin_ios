@@ -14,10 +14,11 @@ class AllSitesView: BNView {
     var scroll:BNScroll?
     
     var spacer:CGFloat = 1    
-    //var sites:Array<SiteMiniView>?
-    //var addedSitesIdentifiers:Dictionary<String, SiteMiniView>?
 
     var fade:UIView?
+    
+    var isShowingFavorites = false
+    var siteCounter:Int = 0
 
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
@@ -43,10 +44,6 @@ class AllSitesView: BNView {
         
         var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
-        let titleText = NSLocalizedString("NearYou", comment: "NearYou").uppercaseString
-        let attributedString = NSMutableAttributedString(string:titleText)
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
-        title!.attributedText = attributedString
         title!.font = UIFont(name:"Lato-Regular", size:13)
         title!.textColor = UIColor.blackColor()
         title!.textAlignment = NSTextAlignment.Center
@@ -64,13 +61,9 @@ class AllSitesView: BNView {
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.darkGrayColor()
         
-//        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL_TWO_COLS, space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), delegate: nil)
+        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL, space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), delegate: nil)
         self.addSubview(scroll!)
         self.addSubview(line)
-        
-//        sites = Array<SiteMiniView>()
-//        addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
 
         addAllSites()
         
@@ -130,41 +123,19 @@ class AllSitesView: BNView {
     }
     
     func addAllSites(){
+      
+        siteCounter = 0
+        isShowingFavorites = false
         
+        //scroll?.clean()
         
-//        if sites != nil {
-//            addedSitesIdentifiers!.removeAll(keepCapacity: false)
-//            for view in sites! {
-//                view.isPositionedInFather = false
-//                view.isReadyToRemoveFromFather = true
-//            }
-//        } else {
-//            sites = Array<SiteMiniView>()
-//            addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
-//        }
+        let titleText = NSLocalizedString("NearYou", comment: "NearYou").uppercaseString
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+
         var sites = Array<SiteMiniView>()
         let sitesArray = BNAppSharedManager.instance.dataManager.sites_ordered
-        
-        /*
-        var sitesArray:Array<BNSite> = Array<BNSite>()
-
-        for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
-            if category.hasSites {
-                for var i = 0; i < category.sitesDetails.count; i++ {
-                    
-                    let siteIdentifier = category.sitesDetails[i].identifier!
-                    
-                    if let site = BNAppSharedManager.instance.dataManager.sites[ siteIdentifier ] {
-                        if site.showInView {
-                            sitesArray.append(site)
-                        }
-                    }
-                }
-            }
-        }
-
-        sitesArray = sitesArray.sort{ $0.biinieProximity < $1.biinieProximity  }
-        */
         
         var xpos:CGFloat = 0
         var ypos:CGFloat = 0
@@ -178,11 +149,73 @@ class AllSitesView: BNView {
             siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         }
         
+        siteView_width = SharedUIManager.instance.screenWidth
+        
         for site in sitesArray {
-//            if site.showInView {
+            if !isSiteAdded(site.identifier!) {
+                
+                siteCounter++
+                let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
+                miniSiteView.isPositionedInFather = true
+                miniSiteView.isReadyToRemoveFromFather = false
+                miniSiteView.delegate = father! as! MainView
+                
+                sites.append(miniSiteView)
+                
+                xpos += siteView_width + 1
+                colunmCounter += 1
+                
+                if colunmCounter == 2 {
+                    colunmCounter = 0
+                    xpos = 0
+                    ypos += (miniSiteHeight + 1)
+                }
+            }
+        }
+        
+        self.scroll!.addMoreChildren(sites)
+
+    }
+    
+    func showAllFavoriteSite(){
+        scroll?.clean()
+        addAllFavoriteSites()
+    }
+
+    func addAllFavoriteSites(){
+        
+        siteCounter = 0
+        isShowingFavorites = true
+
+        let titleText = NSLocalizedString("FavoritePlaces", comment: "FavoritePlaces").uppercaseString
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        
+        var sites = Array<SiteMiniView>()
+        let sitesArray = BNAppSharedManager.instance.dataManager.favoritesSites
+        
+        var xpos:CGFloat = 0
+        var ypos:CGFloat = 0
+        var colunmCounter = 0
+        var siteView_width:CGFloat = 0
+        let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
+        
+        if sitesArray.count == 1 {
+            siteView_width = SharedUIManager.instance.screenWidth
+        } else {
+            siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+        }
+        
+        siteView_width = SharedUIManager.instance.screenWidth
+        
+        for i in (0..<sitesArray.count) {
+
+            if let site = BNAppSharedManager.instance.dataManager.sites[sitesArray[i]] {
+                
                 if !isSiteAdded(site.identifier!) {
                     
-
+                    siteCounter++
                     
                     let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
                     miniSiteView.isPositionedInFather = true
@@ -190,7 +223,6 @@ class AllSitesView: BNView {
                     miniSiteView.delegate = father! as! MainView
                     
                     sites.append(miniSiteView)
-                    //scroll!.addSubview(miniSiteView)
                     
                     xpos += siteView_width + 1
                     colunmCounter += 1
@@ -201,23 +233,12 @@ class AllSitesView: BNView {
                         ypos += (miniSiteHeight + 1)
                     }
                 }
-//            }
+            }
         }
         
-        //scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-        
-//        for var i = 0; i < sites!.count; i++ {
-//            if sites![i].isReadyToRemoveFromFather {
-//                sites![i].removeFromSuperview()
-//                sites!.removeAtIndex(i)
-//                i = 0
-//                
-//            }
-//        }
-        
         self.scroll!.addMoreChildren(sites)
-
     }
+
     
     func isSiteAdded(identifier:String) -> Bool {
         for view in scroll!.children {
@@ -264,6 +285,10 @@ class AllSitesView: BNView {
         
     }
     
+    func showAllSites(){
+        addAllSites()
+    }
+    
     override func refresh() {
         addAllSites()
     }
@@ -273,8 +298,17 @@ class AllSitesView: BNView {
     }
     
     override func requestCompleted() {
-        self.addAllSites()
-        self.scroll!.requestCompleted()
+        if !isShowingFavorites {
+            if BNAppSharedManager.instance.dataManager.sites_ordered.count != siteCounter {
+                self.addAllSites()
+                self.scroll!.requestCompleted()
+            }
+        } else {
+            if BNAppSharedManager.instance.dataManager.favoritesSites.count != siteCounter {
+                self.addAllFavoriteSites()
+                self.scroll!.requestCompleted()
+            }
+        }
     }
 }
 

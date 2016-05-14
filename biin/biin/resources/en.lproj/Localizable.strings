@@ -42,6 +42,7 @@ Value = "VALUE";
 Calcel = "Cancel";
 More = "more";
 NearYou = "Places near you";
+FavoritePlaces = "Favorites Places";
 MoreFrom = "More from";
 Recomended = "Our picks";
 

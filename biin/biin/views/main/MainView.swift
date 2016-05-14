@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate, SurveyView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate, SurveyView_Delegate, MainViewContainer_FavoriteSites_Delegate {
     
     var delegate:MainViewDelegate?
     //var delegate_HighlightsContainer:MainViewDelegate_HighlightsContainer?
@@ -34,6 +34,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var loyaltiesState:LoyaltiesState?
     var aboutState:AboutState?
     var allSitesState:AllSitesState?
+    var allFavoriteSitesState:AllFavoriteSitesState?
     var allElementsState:AllElementsState?
     var allCollectedState:AllCollectedState?
     var surveyState:SurveyState?
@@ -103,6 +104,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         allSitesState = AllSitesState(context: self, view:nil)
 
+        allFavoriteSitesState = AllFavoriteSitesState(context: self, view: nil)
         
         allElementsState = AllElementsState(context: self, view:nil)
         
@@ -338,6 +340,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         case .AllSites:
             state!.next(self.allSitesState)
             SharedAnswersManager.instance.logContentView_AllSites()
+            break
+        case .AllFavoriteSites:
+            state!.next(self.allFavoriteSitesState)
+//            SharedAnswersManager.instance.logContentView_AllSites()
             break
         case .AllElements:
             state!.next(self.allElementsState)
@@ -648,7 +654,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //MainViewContainer_NearSites_Delegate Methods
     func showAllNearSitesView() {
-        (self.allSitesState!.view as! AllSitesView).refresh()
+        (self.allSitesState!.view as! AllSitesView).showAllSites()
         isShowingAllSite = true
         setNextState(BNGoto.AllSites)
     }
@@ -658,6 +664,26 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (self.mainViewContainerState!.view as! MainViewContainer).refresh_NearSitesContainer()
         isShowingAllSite = false
         setNextState(BNGoto.Main)
+    }
+    
+    
+    //MainViewContainer_NearSites_Delegate Methods
+    func showAllFavoriteSitesView() {
+        (self.allFavoriteSitesState!.view as! AllSitesView).showAllFavoriteSite()
+        isShowingAllSite = true
+        setNextState(BNGoto.AllFavoriteSites)
+    }
+    
+    //AllSitesView_Delegate Methdos
+    func hideAllFavoriteSitesView() {
+//        (self.mainViewContainerState!.view as! MainViewContainer).refresh_favoritesSitesContaier()
+//        isShowingAllSite = false
+//        setNextState(BNGoto.Main)
+    }
+    
+    func refresh_favoritesSitesContaier(){
+        (self.allFavoriteSitesState!.view as! AllSitesView).showAllFavoriteSite()
+        (self.mainViewContainerState!.view as! MainViewContainer).refresh_favoritesSitesContaier()
     }
     
     //AllElementsView_Delegate  Methods
@@ -691,8 +717,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Site)
         isShowingSite = true
     }
-    
-    
     
     func hideSiteView(view: SiteView) {
 
@@ -749,6 +773,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         allSitesState!.view!.removeFromSuperview()
         allSitesState!.view = nil
         
+        allFavoriteSitesState!.view = nil
+        
         (allElementsState!.view as! AllElementsView).clean()
         allElementsState!.view!.removeFromSuperview()
         allElementsState!.view = nil
@@ -799,6 +825,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         addSubview(allSitesView)
         allSitesState!.view = allSitesView
         allSitesView.delegate = self
+        
+        allFavoriteSitesState!.view = allSitesView
         
         let allElementsView = AllElementsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
             SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: true)
@@ -882,6 +910,7 @@ enum BNGoto {
     case About
     case Collected
     case AllSites
+    case AllFavoriteSites
     case AllElements
     case Survey
 }

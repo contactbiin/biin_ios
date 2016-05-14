@@ -28,7 +28,7 @@ class BNShowcase:NSObject {
     var batch:Int = 1
     
     //var siteIdentifier:String?
-    var site:BNSite?
+    weak var site:BNSite?
     
     override init(){
         super.init()

@@ -65,9 +65,42 @@ class SiteMiniView: BNView {
         self.backgroundColor = decorationColor
         
         //Positioning image
-        let imageSize = frame.width
+        var ypos:CGFloat = 0
+        var xpos:CGFloat = 0
+        var imageSize:CGFloat = 0
+        
+        var headerHeight:CGFloat = 0
+        var headerHeightForImage:CGFloat = 0
+        
+//        if showlocation {
+            headerHeight = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
+            headerHeightForImage = SharedUIManager.instance.siteMiniView_headerHeight
+//        } else {
+//            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight_showcase
+//            headerHeightForImage = SharedUIManager.instance.miniView_headerHeight_showcase
+//        }
+        
+        
+        if frame.width == frame.height {
+            imageSize = (frame.width)
+            xpos = ((imageSize - frame.width) / 2) * -1
+            ypos = ((imageSize - frame.height) / 2) * -1
+            
+        } else if frame.width < (frame.height - headerHeightForImage) {
+            imageSize = (frame.height - headerHeightForImage)
+            xpos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
+            //ypos = ((imageSize - frame.height) / 2) * -1
+        } else {
+            imageSize = frame.width
+            ypos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
+        }
+        
+        
+        
+        
+        
         //let xpos = ((imageSize - frame.width) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:decorationColor!)
+        image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:decorationColor!)
         //image!.alpha = 0
         self.addSubview(image!)
         

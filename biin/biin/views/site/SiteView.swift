@@ -557,11 +557,13 @@ class SiteView:BNView, UIScrollViewDelegate {
         site!.userLiked = !site!.userLiked
         
         if self.site!.userLiked {
+            BNAppSharedManager.instance.dataManager.addFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:site!.identifier!)
             SharedAnswersManager.instance.logLike_Site(site)
 
         } else {
+            BNAppSharedManager.instance.dataManager.removeFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!)
             SharedAnswersManager.instance.logUnLike_Site(site)

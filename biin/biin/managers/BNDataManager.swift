@@ -19,6 +19,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var isUserLoaded = false
     
     //var regions = Dictionary<String, BNRegion>()
+    var nearbySites = Array<String>()
+    var favoritesSites = Array<String>()
+    var favoritesElements = Array<String>()
+    
     var sites = Dictionary<String, BNSite>()
     var sites_ordered = Array<BNSite>()
     var organizations = Dictionary<String, BNOrganization>()
@@ -1103,6 +1107,28 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestSites(view:BNView?) {
         delegateNM!.requestSites!(view)
+    }
+    
+    func addFavoriteSite(identifier:String) {
+        var isAdded = false
+        for i in (0..<favoritesSites.count) {
+            if favoritesSites[i] == identifier {
+                isAdded = true
+            }
+        }
+        
+        if !isAdded {
+            favoritesSites.append(identifier)
+        }
+    }
+    
+    func removeFavoriteSite(identifier:String) {
+        for i in (0..<favoritesSites.count) {
+            if favoritesSites[i] == identifier {
+                favoritesSites.removeAtIndex(i)
+                break
+            }
+        }
     }
 }
 

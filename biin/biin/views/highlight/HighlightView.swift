@@ -115,7 +115,7 @@ class HighlightView: BNView {
         let location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.highlightView_subTitleSize + 4)))
         location.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.highlightView_subTitleSize)
         location.textColor = textColor
-        location.text = " | \(self.site!.subTitle!)"
+        location.text = " \(self.site!.subTitle!)"
         containerView.addSubview(location)
         
         if self.element!.hasDiscount {

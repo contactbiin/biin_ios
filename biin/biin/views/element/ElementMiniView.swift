@@ -293,7 +293,7 @@ class ElementMiniView: BNView {
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
             self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.miniView_pricingSize)
-            self.textPrice1!.text = element!.title!
+            self.textPrice1!.text = element!.subTitle!
             self.header!.addSubview(self.textPrice1!)
         }
         

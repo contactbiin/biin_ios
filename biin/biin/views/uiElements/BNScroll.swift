@@ -240,9 +240,10 @@ class BNScroll: BNView, UIScrollViewDelegate {
             
             for view in scroll!.subviews {
                 
-                if view is ElementMiniView {
-                    (view as! ElementMiniView).removeFromSuperview()
-                }
+                view.removeFromSuperview()
+//                if view is ElementMiniView {
+//                    (view as! ElementMiniView).removeFromSuperview()
+//                }
             }
             
             children.removeAll(keepCapacity: false)

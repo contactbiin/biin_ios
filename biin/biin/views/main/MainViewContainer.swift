@@ -14,6 +14,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     var inSiteView:InSiteView?
     var highlightContainer:MainViewContainer_Highlights?
     var nearSitesContainer:MainViewContainer_NearSites?
+    var favoriteSitesContainer:MainViewContainer_FavoriteSites?
     var bannerContainer:MainViewContainer_Banner?
     var elementContainers:Array <MainViewContainer_Elements>?
 
@@ -133,8 +134,17 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             self.nearSitesContainer!.father = self
             self.nearSitesContainer!.addAllSites()
             self.scroll!.addChild(self.nearSitesContainer!)
-            
             ypos += height
+            
+           
+            self.favoriteSitesContainer = MainViewContainer_FavoriteSites(frame: CGRectMake(0, ypos, screenWidth, height))
+            self.favoriteSitesContainer!.delegate = (self.father! as! MainView)
+            self.favoriteSitesContainer!.father = self
+            self.favoriteSitesContainer!.addAllSites()
+            self.scroll!.addChild(self.favoriteSitesContainer!)
+            ypos += height
+            
+            
             
             /*
             self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
@@ -217,9 +227,6 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     }
     
     override func refresh() {
-        
-        //NSLog("BIIN - refresh()")
-        
         refresh_NearSitesContainer()
     }
 
@@ -244,6 +251,10 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     func refresh_NearSitesContainer(){
         self.nearSitesContainer!.refresh()
+    }
+    
+    func refresh_favoritesSitesContaier() {
+        self.favoriteSitesContainer!.refresh()
     }
     
     func refresh_elementContainer(identifier:String) {
