@@ -54,6 +54,8 @@ class ElementView: BNView, UIWebViewDelegate {
     var callToActionTitle:UILabel?
     var callToActionBtn:UIButton?
     
+    var ypos:CGFloat = 0
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -118,19 +120,19 @@ class ElementView: BNView, UIWebViewDelegate {
         
         lineView = UIView(frame: CGRectMake(0, 0, screenWidth, 2))
         lineView!.alpha = 0
-//        scroll!.addSubview(lineView!)
+        scroll!.addSubview(lineView!)
         
         self.title = UILabel(frame: CGRectMake(20, 30, (frame.width - 40), 20))
         self.subTitle = UILabel(frame: CGRectMake(20, 50, (frame.width - 40), 20))
         self.title!.textColor = UIColor.appTextColor()
         self.title!.textAlignment = NSTextAlignment.Left
-        self.title!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+        self.title!.font = UIFont(name: "Lato-Black", size:SharedUIManager.instance.elementView_titleSize)
         self.title!.text = "title"
         scroll!.addSubview(self.title!)
         
         self.subTitle!.textColor = UIColor.appTextColor()
         self.subTitle!.textAlignment = NSTextAlignment.Left
-        self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
+        self.subTitle!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_subTitleSize)
         self.subTitle!.text = "Subtitle"
         scroll!.addSubview(self.subTitle!)
 
@@ -176,7 +178,7 @@ class ElementView: BNView, UIWebViewDelegate {
         
         callToActionTitle = UILabel(frame: CGRectMake(0, 0, screenWidth, 50))
         callToActionTitle!.textColor = UIColor.whiteColor()
-        callToActionTitle!.font = UIFont(name: "Lato-Light", size: 16)
+        callToActionTitle!.font = UIFont(name: "Lato-Black", size: 16)
         callToActionTitle!.textAlignment =  NSTextAlignment.Center
         callToActionBtn!.addSubview(callToActionTitle!)
     }
@@ -263,8 +265,6 @@ class ElementView: BNView, UIWebViewDelegate {
         return false
     }
     
-    var ypos:CGFloat = 0
-    
     func updateElementData(element:BNElement, showSiteBtn:Bool) {
         
         if !isSameElement(element) {
@@ -340,13 +340,9 @@ class ElementView: BNView, UIWebViewDelegate {
             }
             
             if self.element!.hasDiscount {
+                
                 let percentageViewSize:CGFloat = 60
-                
-                percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 15, textColor: self.element!.showcase!.site!.organization!.secondaryColor!, color: self.element!.showcase!.site!.organization!.primaryColor!, textPosition: CGPoint(x: 10, y: -10))
-                
-//                percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
-
-                
+                percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 16, textColor: self.element!.showcase!.site!.organization!.secondaryColor!, color: self.element!.showcase!.site!.organization!.primaryColor!, textPosition: CGPoint(x: 10, y: -8))
                 scroll!.addSubview(percentageView!)
             }
             
@@ -361,11 +357,11 @@ class ElementView: BNView, UIWebViewDelegate {
             self.lineView!.alpha = 0
             
             if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
-                ypos += 20
+                ypos += 30
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor
                 self.textPrice1!.textAlignment = NSTextAlignment.Center
-                self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+                self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
                 self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
                 
                 
@@ -379,9 +375,9 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
-                self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+                self.textPrice2!.font = UIFont(name: "Lato-Black", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = price
-                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
+                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 30)
                 
             } else if self.element!.hasPrice && self.element!.hasListPrice {
                 
@@ -392,7 +388,7 @@ class ElementView: BNView, UIWebViewDelegate {
 //                let xposition:CGFloat = ( frame.width - price_Length ) / 2
                 var xposition:CGFloat = ((frame.width - (text_Length + 10 + price_Length)) / 2)
 
-                ypos += 20
+                ypos += 30
                 
                 self.text_before!.frame = CGRectMake(xposition, ypos, text_Length, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.text_before!.textColor = textColor!.colorWithAlphaComponent(0.75)
@@ -410,7 +406,12 @@ class ElementView: BNView, UIWebViewDelegate {
                 //self.scroll!.addSubview(self.textPrice1!)
                 
                 
-                text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Now", comment: "Now"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
+                lineView!.alpha = 1
+                lineView!.frame = CGRectMake(xposition, (ypos + 16), price_Length, 1)
+                lineView!.backgroundColor = textColor!.colorWithAlphaComponent(0.5)
+                
+                text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Now", comment: "Now"), fontName: "Lato-Black", fontSize:SharedUIManager.instance.elementView_titleSize)
+                
                 
                 
                 var price = "\(self.element!.currency!)\(self.element!.listPrice!)"
@@ -419,7 +420,7 @@ class ElementView: BNView, UIWebViewDelegate {
                     price += " i.i."
                 }
                 
-                price_Length = SharedUIManager.instance.getStringLength(price, fontName: "Lato-Regular", fontSize:SharedUIManager.instance.elementView_titleSize)
+                price_Length = SharedUIManager.instance.getStringLength(price, fontName: "Lato-Black", fontSize:SharedUIManager.instance.elementView_titleSize)
                 
                 xposition = ((frame.width - (text_Length + 10 + price_Length)) / 2)
 
@@ -428,7 +429,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.text_now!.frame = CGRectMake(xposition, ypos, text_Length, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.text_now!.textColor = textColor
                 self.text_now!.textAlignment = NSTextAlignment.Left
-                self.text_now!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_titleSize)
+                self.text_now!.font = UIFont(name: "Lato-Black", size:SharedUIManager.instance.elementView_titleSize)
                 self.text_now!.text = NSLocalizedString("Now", comment: "Now")
                 xposition += text_Length
                 xposition += 10
@@ -436,13 +437,13 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.frame = CGRectMake(xposition, ypos, price_Length, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Left
-                self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+                self.textPrice2!.font = UIFont(name: "Lato-Black", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = price
                 //self.scroll!.addSubview(self.textPrice2!)
-                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
+                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 30)
 
             } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
-                ypos += 20
+                ypos += 30
                 self.textPrice1!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_titleSize + 2))
                 self.textPrice1!.textColor = textColor
                 self.textPrice1!.textAlignment = NSTextAlignment.Center
@@ -459,58 +460,33 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.textPrice2!.frame = CGRectMake(5, ypos, frame.width, (SharedUIManager.instance.elementView_priceTitleSize + 2))
                 self.textPrice2!.textColor = textColor
                 self.textPrice2!.textAlignment = NSTextAlignment.Center
-                self.textPrice2!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_priceTitleSize)
+                self.textPrice2!.font = UIFont(name: "Lato-Black", size:SharedUIManager.instance.elementView_priceTitleSize)
                 self.textPrice2!.text = price
-                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 10)
+                ypos += (SharedUIManager.instance.elementView_priceTitleSize + 30)
                 
             } else {
-                ypos += 20
+                ypos += 30
             }
             
             self.title!.frame = CGRectMake(10, ypos, (frame.width - 20), 0)
-            self.title!.textColor = self.element!.media[0].vibrantDarkColor!//UIColor.appTextColor()
+            self.title!.textColor = UIColor.appTextColor()
             self.title!.textAlignment = NSTextAlignment.Left
-            self.title!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_titleSize)
+            self.title!.font = UIFont(name: "Lato-Black", size:SharedUIManager.instance.elementView_titleSize)
             self.title!.text = self.element!.title!
             self.title!.numberOfLines = 0
             self.title!.sizeToFit()
             
             
             ypos += title!.frame.height + 5
-            self.subTitle!.frame = CGRectMake(10,ypos, (frame.width - 20), (SharedUIManager.instance.elementView_subTitleSize + 2))
-            self.subTitle!.textColor = self.element!.media[0].vibrantDarkColor!// UIColor.appTextColor()
+            self.subTitle!.frame = CGRectMake(10,ypos, (frame.width - 20), 0)
+            self.subTitle!.textColor = UIColor.appTextColor()
             self.subTitle!.textAlignment = NSTextAlignment.Left
-            self.subTitle!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.elementView_subTitleSize)
+            self.subTitle!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.elementView_subTitleSize)
             self.subTitle!.text = self.element!.subTitle!
             self.subTitle!.numberOfLines = 0
             self.subTitle!.sizeToFit()
             
-            
-            ypos += subTitle!.frame.height + 10
-            
-            
-            
-//            var height:CGFloat = 0
-//            if self.element!.detailsHtml == "" {
-//                height = self.subTitle!.frame.height + self.title!.frame.height + 130//(SharedUIManager.instance.screenHeight - (ypos))
-//                if ypos < SharedUIManager.instance.screenHeight {
-//                    height = (SharedUIManager.instance.screenHeight - (ypos + 20))
-//                }
-//            } else {
-//                //height = 20 + self.subTitle!.frame.height + 5 + self.title!.frame.height + 2
-//            }
-            
-//            titlesBackground!.frame =  CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height)
-//            titlesBackground!.backgroundColor = UIColor.redColor()
-            //ypos += height//titlesBackground!.frame.height
-
-            
-//            lineView!.alpha = 1
-//            lineView!.frame.origin.y = ypos
-//            lineView!.backgroundColor = textColor
-////            self.scroll!.addSubview(lineView!)
-//            ypos += lineView!.frame.height
-//            
+            ypos += subTitle!.frame.height
             
             if webView != nil {
                 webView!.removeFromSuperview()
@@ -672,6 +648,7 @@ class ElementView: BNView, UIWebViewDelegate {
         html += element!.detailsHtml!
         //html += "<br><br><br><br>"
         html += "</body></html>"
+        print(html)
         return html
     }
     
@@ -681,7 +658,7 @@ class ElementView: BNView, UIWebViewDelegate {
         var g:CGFloat = 0.0
         var b:CGFloat = 0.0
         var a:CGFloat = 0.0
-        _ = element!.media[0].vibrantColor!.getRed(&r, green: &g, blue: &b, alpha: &a)
+        _ = element!.showcase!.site!.organization!.primaryColor!.getRed(&r, green: &g, blue: &b, alpha: &a)
         
         let rInt:Int = Int(r * 255)
         let gInt:Int = Int(g * 255)
@@ -699,30 +676,45 @@ class ElementView: BNView, UIWebViewDelegate {
         let bdInt:Int = Int(bd * 255)
         let colorDark = "rgb(\(rdInt), \(gdInt), \(bdInt))"
         
+        
+        var rt:CGFloat = 0.0
+        var gt:CGFloat = 0.0
+        var bt:CGFloat = 0.0
+        var at:CGFloat = 0.0
+        _ = UIColor.appTextColor().getRed(&rt, green: &gt, blue: &bt, alpha: &at)
+        
+        let rtInt:Int = Int(rt * 255)
+        let gtInt:Int = Int(gt * 255)
+        let btInt:Int = Int(bt * 255)
+        let textColor = "rgb(\(rtInt), \(gtInt), \(btInt))"
+        
+        
         var css = ""
-        css += "html { font-family: Lato, Helvetica, sans-serif; background-color: rgb(255,255,255); }"
+        css += "html { font-family: Lato, Helvetica, sans-serif; background-color: rgb(255,255,255); color:\(textColor); margin-left: 5px; margin-right: 5px;}"
         css += "p { font-size: 14px; font-weight:300 !important;}"
         css += "b { font-size: 14px; font-weight:500 !important;}"
         css += "li { font-size: 14px; font-weight:300 !important; margin-bottom: 5px; margin-left: -15px !important; }"
-        css += "h1 { font-size: 30px; }"
-        css += "h2 { font-size: 25px; }"
+        css += "h1 { font-size: 25px; }"
+        css += "h2 { font-size: 20px; }"
         css += ".biin_html{ display:table; }"
         css += ".listPrice_Table { display:table; margin:0 auto; width: 95%; }"
-        css += ".listPrice_Title h2 { color:\(colorDark); font-size: 25px; font-weight:300; margin-bottom: 5px; !important;}"
+        css += ".listPrice_Title h2 { color:\(colorDark); font-size: 20px; font-weight:300; margin-bottom: 5px; !important;}"
         css += ".listPrice { width: 100%; }"
         css += ".listPrice_Left { width: 80%; float: left; }"
         css += ".listPrice_Left_Top p{ font-size: 17px; font-weight:400; text-align: left; margin-top: 0px; margin-bottom: 0px; }"
         css += ".listPrice_Left_Bottom p{ font-size: 14px; font-weight: 200; text-align: left; color: #707070; text-overflow: ellipsis; margin-top: 0px; margin-bottom: 10px; }"
         css += ".listPrice_Right p{ width: 20%; float: right; font-size: 17px; font-weight:400; text-align: right; margin-top: 0px; margin-bottom: 0px; }"
-        css += ".highlight { display:table; text-align: center; width: 100%; margin-top: 20px; }"
+        
+        css += ".highlight { display:table; text-align: center; width: 100%; margin-top: 10px; }"
         css += ".highlight_title p { font-size: 20px; font-weight:300; margin-top: 0px; margin-bottom: 0px; }"
-        css += ".highlight_text p { font-size: 70px; font-weight:300; margin-top: -15px; margin-bottom: 0px; color:\(color);}"
-        css += ".highlight_subtext p { font-size: 12px; font-weight:300; margin-top: -10px; margin-bottom: 0px; }"
-        css += ".biin_h2 { font-size: 25px; font-weight:300 !important; }"
-        css += ".biin_h1 { font-size: 30px; font-weight:300 !important; }"
-        css += ".biin_h6 { font-size: 12px; font-weight:300 !important; }"
-        css += ".biin_p { font-size: 14px; font-weight: 300 !important; }"
-        css += "blockquote { border-left: 2px solid \(color); margin: 1.5em 10px; padding: 0.5em 10px; quotes:none;}"
+        css += ".highlight_text p { font-size: 60px; font-weight:600 !important; margin-top: -5px; margin-bottom: 20px; color:\(color);  line-height: 105%;}"
+        css += ".highlight_subtext p { font-size: 15px; font-weight:300; margin-top: -10px; margin-bottom: 0px; }"
+        
+        css += ".biin_h2 { font-size: 25px; font-weight:500 !important; margin-top: 15px;}"
+        css += ".biin_h1 { font-size: 30px; font-weight:600 !important; margin-top: 45px; margin-bottom: 10px;}"
+        css += ".biin_h6 { font-size: 18px; font-weight:500 !important; }"
+        css += ".biin_p { font-size: 15px; font-weight: 300 !important; }"
+        css += "blockquote { border-left: 4px solid \(color); margin: 1.5em 10px; padding: 0.5em 10px; quotes:none;}"
         css += "blockquote:before { content: open-quote; vertical-align:middle; }"
         css += "blockquote p { font-size:25px; font-weight: 300; display: inline; }"
         return css
@@ -786,7 +778,7 @@ class ElementView: BNView, UIWebViewDelegate {
             }
 
             
-            ypos += 60
+            //ypos += 60
             callToActionBtn!.alpha = 1
             callToActionBtn!.backgroundColor = bgColorCA!
             callToActionTitle!.alpha = 1
@@ -799,17 +791,17 @@ class ElementView: BNView, UIWebViewDelegate {
             callToActionBtn!.enabled = false
         }
         
-        if (ypos + 5) < (SharedUIManager.instance.screenHeight - 55) {
+        if (ypos + 25) < (SharedUIManager.instance.screenHeight - 55) {
             scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - 55))
         } else {
 
-            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos + 100))
+            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos + 75))
         }
         
         
 //        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (ypos))
         scroll!.bringSubviewToFront(callToActionBtn!)
-        callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 75)
+        callToActionBtn!.frame.origin.y = (scroll!.contentSize.height - 55)
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {

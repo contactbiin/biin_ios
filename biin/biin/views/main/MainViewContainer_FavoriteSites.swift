@@ -55,6 +55,7 @@ class MainViewContainer_FavoriteSites: BNView {
         let xpos:CGFloat = ((frame.width / 2) - 40)
         
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(xpos, ypos, 86, 86))
+//        likeItButton!.addHeartBeatAnimation()
         self.addSubview(likeItButton!)
         
         ypos = ypos + 90

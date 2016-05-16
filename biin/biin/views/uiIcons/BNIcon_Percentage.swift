@@ -69,7 +69,7 @@ class BNIcon_Percentage:BNIcon {
         let textStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = .Center
         
-        let textFontAttributes = [NSFontAttributeName: UIFont(name: "Lato-Regular", size: self.textSize)!, NSForegroundColorAttributeName: self.textcolor!, NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSFontAttributeName: UIFont(name: "Lato-Black", size: self.textSize)!, NSForegroundColorAttributeName: self.textcolor!, NSParagraphStyleAttributeName: textStyle]
         
         let textTextHeight: CGFloat = textTextContent.boundingRectWithSize(CGSizeMake(textRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         CGContextSaveGState(context)
