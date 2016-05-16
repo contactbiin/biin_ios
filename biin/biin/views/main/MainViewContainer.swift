@@ -249,12 +249,22 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         })
     }
     
+    func updateLikeButtons(){
+        self.nearSitesContainer!.updateLikeButtons()
+    }
+    
     func refresh_NearSitesContainer(){
         self.nearSitesContainer!.refresh()
     }
     
-    func refresh_favoritesSitesContaier() {
-        self.favoriteSitesContainer!.refresh()
+    func refresh_favoritesSitesContaier(site:BNSite?) {
+        
+        if site!.userLiked {
+            self.favoriteSitesContainer!.addSite(site)
+        } else {
+            self.favoriteSitesContainer!.removeSite(site)
+        }
+//        self.favoriteSitesContainer!.refresh()
     }
     
     func refresh_elementContainer(identifier:String) {

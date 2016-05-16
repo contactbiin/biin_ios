@@ -156,7 +156,7 @@ class BNAppManager {
 
     func likeSite(site:BNSite?){
         networkManager.sendLikedSite(dataManager.bnUser!, site:site)
-        mainViewController!.mainView!.refresh_favoritesSitesContaier()
+        mainViewController!.mainView!.refresh_favoritesSitesContaier(site)
     }
     
     func followSite(site:BNSite? ){

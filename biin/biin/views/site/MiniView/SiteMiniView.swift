@@ -64,6 +64,7 @@ class SiteMiniView: BNView {
         let decorationColor = site!.organization!.primaryColor
         self.backgroundColor = decorationColor
         
+        
         //Positioning image
         var ypos:CGFloat = 0
         var xpos:CGFloat = 0
@@ -95,13 +96,14 @@ class SiteMiniView: BNView {
             ypos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
         }
         
-        
+ 
         
         
         
         //let xpos = ((imageSize - frame.width) / 2 ) * -1
         image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:decorationColor!)
         //image!.alpha = 0
+        image!.updatePosition(frame)
         self.addSubview(image!)
         
         header = SiteMiniView_Header(frame: CGRectMake(0, SharedUIManager.instance.siteMiniView_imageheight, frame.width, SharedUIManager.instance.siteMiniView_headerHeight), father: self, site: site, showShareButton:true)
@@ -155,6 +157,10 @@ class SiteMiniView: BNView {
             father!.updateUserControl(position)
         }
     }
+
+    func updateLikeButton(){
+        self.header!.updateLikeItBtn()
+    }
     
     func requestImage(){
         
@@ -187,12 +193,18 @@ class SiteMiniView: BNView {
         //sectionsViewDelegate!.showShowcaseFromBottom!(self, position:position, showcaseKey:view.showcaseKey)
         
     }
-    
+
     func clean() {
         
         site = nil
         image!.removeFromSuperview()
         header!.removeFromSuperview()
+    }
+    
+    override func updateWidth(frame: CGRect) {
+        self.frame = frame
+        self.header!.updateWidth(frame)
+        self.image!.updatePosition(frame)
     }
 }
 

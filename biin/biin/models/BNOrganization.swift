@@ -28,6 +28,8 @@ class BNOrganization:NSObject {
     
     var hasNPS = false
     
+    var sites:Array<String> = Array<String>()
+
     override init(){
         super.init()
     }

@@ -11,6 +11,10 @@ class MainViewContainer_FavoriteSites: BNView {
     
     var delegate:MainViewContainer_FavoriteSites_Delegate?
     var title:UILabel?
+    var addFavoritePlacesLbl:UILabel?
+    var likeItButton:BNUIButton_LikeIt?
+
+    
     var moreSitesBtn:BNUIButton_More?
     var subTitle:UILabel?
     var scroll:BNScroll?
@@ -25,7 +29,7 @@ class MainViewContainer_FavoriteSites: BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        self.backgroundColor = UIColor.darkGrayColor()
+        self.backgroundColor = UIColor.bnGrayDark()
         
         moreSitesBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreSitesBtn!.icon!.color = UIColor.whiteColor()
@@ -47,12 +51,36 @@ class MainViewContainer_FavoriteSites: BNView {
         title!.textColor = UIColor.whiteColor()
         self.addSubview(title!)
         
+        var ypos:CGFloat = 100
+        let xpos:CGFloat = ((frame.width / 2) - 40)
+        
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(xpos, ypos, 86, 86))
+        self.addSubview(likeItButton!)
+        
+        ypos = ypos + 90
+        
+        addFavoritePlacesLbl = UILabel(frame: CGRectMake(50, ypos, (frame.width - 100), 30))
+        addFavoritePlacesLbl!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
+        let titleText2 = NSLocalizedString("AddFavoritePlaces", comment: "AddFavoritePlaces").uppercaseString
+        let attributedString2 = NSMutableAttributedString(string:titleText2)
+        attributedString2.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText2.characters.count)))
+        addFavoritePlacesLbl!.textAlignment = NSTextAlignment.Center
+        addFavoritePlacesLbl!.numberOfLines = 2
+        addFavoritePlacesLbl!.attributedText = attributedString2
+        addFavoritePlacesLbl!.textColor = UIColor.whiteColor()
+        self.addSubview(addFavoritePlacesLbl!)
+        
+        
         let scrollHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
         
         scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father: self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(self.scroll!)
         //sites = Array<SiteMiniView>()
         addedSitesIdentifiers = Dictionary<String, SiteMiniView>()
+        
+        
+        
+        
         
         //addAllSites()
         
@@ -83,11 +111,10 @@ class MainViewContainer_FavoriteSites: BNView {
     
     func addAllSites(){
         
-        
         var sites = Array<SiteMiniView>()
         let favoritesSites = BNAppSharedManager.instance.dataManager.favoritesSites
         
-        var xpos:CGFloat = 0
+//        var xpos:CGFloat = 0
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
         
@@ -102,19 +129,65 @@ class MainViewContainer_FavoriteSites: BNView {
                 
                 if !isSiteAdded(site.identifier!) {
                     let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
-                    let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteView_width, miniSiteHeight), father: self, site:site)
+                    let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
                     miniSiteView.isPositionedInFather = true
                     miniSiteView.isReadyToRemoveFromFather = false
                     miniSiteView.delegate = father?.father! as! MainView
                     sites.append(miniSiteView)
                     
-                    xpos += siteView_width + 1
+                    //xpos += siteView_width + 1
                 }
             }
         }
         
-        self.scroll!.addMoreChildren(sites)
+        if favoritesSites.count > 0 {
+            title!.alpha = 1
+            moreSitesBtn!.alpha = 1
+            likeItButton!.alpha = 0
+            addFavoritePlacesLbl!.alpha = 0
+        } else {
+            title!.alpha = 0
+            moreSitesBtn!.alpha = 0
+        }
         
+        self.scroll!.addMoreChildren(sites)
+    }
+    
+    func addSite(site:BNSite?) {
+        
+        title!.alpha = 1
+        moreSitesBtn!.alpha = 1
+        likeItButton!.alpha = 0
+        addFavoritePlacesLbl!.alpha = 0
+        
+        let ypos:CGFloat = 1
+        var siteView_width:CGFloat = 0
+        
+        if BNAppSharedManager.instance.dataManager.favoritesSites.count == 1 {
+            siteView_width = SharedUIManager.instance.screenWidth
+        } else {
+            siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+        }
+        
+        let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
+        let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
+        
+        miniSiteView.isPositionedInFather = true
+        miniSiteView.isReadyToRemoveFromFather = false
+        miniSiteView.delegate = father?.father! as! MainView
+        
+        self.scroll?.addChildAtBegining(miniSiteView)
+    }
+    
+    func removeSite(site:BNSite?){
+        self.scroll!.removeChildByIdentifier(site!.identifier!)
+        
+        if self.scroll!.children.count == 0 {
+            title!.alpha = 0
+            moreSitesBtn!.alpha = 0
+            likeItButton!.alpha = 1
+            addFavoritePlacesLbl!.alpha = 1
+        }
     }
     
     override func refresh() {

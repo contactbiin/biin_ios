@@ -20,7 +20,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var scroll:UIScrollView?
     var showcases:Array<SiteView_Showcase>?
-    
+    var otherSitesView:SiteView_OtherSites?
     //var nutshell:UILabel?
     
     var imagesScrollView:BNUIScrollView?
@@ -42,7 +42,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var locationViewHeigh:CGFloat = 280
     var panIndex = 0
-    var scrollSpaceForShowcases:CGFloat = 0
+//    var scrollSpaceForShowcases:CGFloat = 0
     
     var showcaseHeight:CGFloat = 0
     var decorationColor:UIColor?
@@ -285,7 +285,7 @@ class SiteView:BNView, UIScrollViewDelegate {
             animationView!.updateAnimationView(decorationColor, textColor: textColor)
             
             header!.updateForSite(site)
-            bottom!.updateForSite(site)
+            //bottom!.updateForSite(site)
             
             imagesScrollView!.updateImages(site!.media, isElement:false)
             updateShowcasesAndLocation(site)
@@ -424,11 +424,9 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         showcaseHeight = SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height_showcase + 1
 
-        //scroll!.addSubview(imagesScrollView!)
-
         var ypos:CGFloat = SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_headerHeight
-        scrollSpaceForShowcases = 0
-        //ypos += 2
+//        scrollSpaceForShowcases = 0
+        
         var colorIndex:Int = 0
         
         if site!.showcases != nil {
@@ -444,17 +442,39 @@ class SiteView:BNView, UIScrollViewDelegate {
                 }
             }
         }
-
         
         locationView!.updateForSite(site)
         locationView!.frame.origin.y = ypos
-        ypos += (locationView!.frame.height + 40)
+        ypos += (locationView!.frame.height)
         
-        scrollSpaceForShowcases = ypos
-        bottom!.frame.origin.y = ypos
-        ypos += bottom!.frame.height
+        //scrollSpaceForShowcases = ypos
+        //bottom!.frame.origin.y = ypos
+        //ypos += bottom!.frame.height
         //locationView!.frame.origin.y = ypos
         //ypos += locationViewHeigh //200 for location View
+        
+        
+        if otherSitesView != nil {
+            otherSitesView!.removeFromSuperview()
+            otherSitesView = nil
+        }
+        
+        if site!.organization!.sites.count > 1 {
+            if otherSitesView == nil {
+                let height:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
+                
+                //            for i in (0..<site!.organization!.sites.count) {
+                otherSitesView = SiteView_OtherSites(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, site:site, colorIndex:colorIndex )
+                scroll!.addSubview(otherSitesView!)
+                ypos += height
+                //ypos += 2
+                colorIndex += 1
+                if colorIndex  > 1 {
+                    colorIndex = 0
+                }
+            }
+        }
+        
         
         scroll!.contentSize = CGSizeMake(0, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)

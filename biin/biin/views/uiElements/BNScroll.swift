@@ -77,6 +77,92 @@ class BNScroll: BNView, UIScrollViewDelegate {
         
     }
     
+    func addChildAtBegining(view:BNView){
+        
+        let viewWidth:CGFloat = view.frame.width
+        view.frame.origin.x = 0
+        childPosition = view.frame.width + space
+        
+        switch self.direction! {
+            case .HORIZONTAL:
+                
+                for i in (0..<children.count) {
+        
+                    if self.children[i].frame.width > viewWidth {
+                       self.children[i].updateWidth(CGRectMake(self.children[i].frame.origin.x, self.children[i].frame.origin.y, viewWidth, self.children[i].frame.height))
+                    }
+                    
+                    UIView.animateWithDuration(0.2, animations: {()-> Void in
+                        self.children[i].frame.origin.x = self.childPosition
+                    })
+                    
+                    self.childPosition += self.children[i].frame.width + space
+                }
+                
+                self.scroll!.contentSize = CGSize(width: (self.childPosition - self.space), height:self.frame.height)
+                
+                break
+            case .VERTICAL:
+                break
+            case .VERTICAL_TWO_COLS:
+                break
+        }
+        
+        children.insert(view, atIndex: 0)
+        scroll!.addSubview(view)
+    }
+    
+    func removeChildByIdentifier(identifier:String){
+        
+//        let viewWidth:CGFloat = view.frame.width
+//        view.frame.origin.x = 0
+        childPosition = 0
+        
+//        var startToAnimate = false
+        
+        switch self.direction! {
+        case .HORIZONTAL:
+            
+            
+            for i in (0..<children.count) {
+
+                if (self.children[i] as! SiteMiniView).site!.identifier! == identifier {
+                    self.children[i].removeFromSuperview()
+                    self.children.removeAtIndex(i)
+                    break
+                }
+            }
+            
+            if children.count == 1 {
+                print("solo uno")
+                let viewWidth:CGFloat = SharedUIManager.instance.screenWidth
+                self.children[0].updateWidth(CGRectMake(0, 0, viewWidth, self.children[0].frame.height))
+                self.children[0].frame.origin.x = self.childPosition
+            } else {
+                for i in (0..<children.count) {
+            
+                    UIView.animateWithDuration(0.2, animations: {()-> Void in
+                        self.children[i].frame.origin.x = self.childPosition
+                    })
+                
+                    self.childPosition += self.children[i].frame.width + space
+            
+                }
+            }
+            
+            self.scroll!.contentSize = CGSize(width: (self.childPosition - self.space), height:self.frame.height)
+            
+            break
+        case .VERTICAL:
+            break
+        case .VERTICAL_TWO_COLS:
+            break
+        }
+        
+//        children.insert(view, atIndex: 0)
+//        scroll!.addSubview(view)
+    }
+    
     func addChild(view:BNView) {
         children.append(view)
         scroll!.addSubview(view)

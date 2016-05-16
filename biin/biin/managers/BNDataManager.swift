@@ -803,6 +803,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             sites_ordered.append(site)
             site.organization = organizations[site.organizationIdentifier!]
+            
+            organizations[site.organizationIdentifier!]?.sites.append(site.identifier!)
+
             sites[site.identifier!] = site
             
             if sites[site.identifier!] == nil {
@@ -1118,7 +1121,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
         
         if !isAdded {
-            favoritesSites.append(identifier)
+            favoritesSites.insert(identifier, atIndex: 0)
+//            favoritesSites.append(identifier)
         }
     }
     

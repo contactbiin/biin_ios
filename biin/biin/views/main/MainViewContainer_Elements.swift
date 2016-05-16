@@ -40,21 +40,21 @@ class MainViewContainer_Elements:BNView {
         self.category = category
         
         var textColor:UIColor?
-        switch colorIndex {
-        case 0:
-            self.backgroundColor = UIColor.grayColor()
+//        switch colorIndex {
+//        case 0:
+            self.backgroundColor = UIColor.darkGrayColor()
             category.backgroundColor = UIColor.lightGrayColor()
             textColor = UIColor.whiteColor()
-        case 1:
-            self.backgroundColor = UIColor.grayColor()
-            category.backgroundColor = UIColor.grayColor()
-            textColor = UIColor.whiteColor()
-        default:
-            self.backgroundColor = UIColor.grayColor()
-            category.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.whiteColor()
-            break
-        }
+//        case 1:
+//            self.backgroundColor = UIColor.darkGrayColor()
+//            category.backgroundColor = UIColor.grayColor()
+//            textColor = UIColor.whiteColor()
+//        default:
+//            self.backgroundColor = UIColor.darkGrayColor()
+//            category.backgroundColor = UIColor.lightGrayColor()
+//            textColor = UIColor.whiteColor()
+//            break
+//        }
         
         moreElementsBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreElementsBtn!.icon!.color = textColor

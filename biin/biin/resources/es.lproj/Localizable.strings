@@ -43,7 +43,12 @@ Value = "VALOR";
 Calcel = "Cancelar";
 More = "más";
 NearYou = "Lugares cercanos a vos";
-FavoritePlaces = "Lugares Favoritos";
+FavoritePlaces = "Tus lugares Favoritos";
+AddFavoritePlaces = "Agrega algunos lugares a tus favoritos";
+
+OtherPlaces1 = "Otros ";
+OtherPlaces2 = " cerca de vos";
+
 MoreFrom = "Más de";
 Recomended = "Recomendaciones";
 

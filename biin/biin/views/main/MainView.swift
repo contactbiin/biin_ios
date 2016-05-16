@@ -681,9 +681,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
 //        setNextState(BNGoto.Main)
     }
     
-    func refresh_favoritesSitesContaier(){
+    func refresh_favoritesSitesContaier(site:BNSite?){
+        (self.mainViewContainerState!.view as! MainViewContainer).updateLikeButtons()
         (self.allFavoriteSitesState!.view as! AllSitesView).showAllFavoriteSite()
-        (self.mainViewContainerState!.view as! MainViewContainer).refresh_favoritesSitesContaier()
+        (self.mainViewContainerState!.view as! MainViewContainer).refresh_favoritesSitesContaier(site)
     }
     
     //AllElementsView_Delegate  Methods

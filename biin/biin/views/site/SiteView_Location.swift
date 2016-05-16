@@ -80,7 +80,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         let xpos:CGFloat = 10
         
         title = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
@@ -89,7 +89,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
-        streetAddress1!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
+        streetAddress1!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.siteView_nutshellSize)
         streetAddress1!.text = "Address"
         streetAddress1!.textColor = UIColor.bnGrayDark()
         streetAddress1!.numberOfLines = 0
@@ -533,10 +533,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             npsBtn!.enabled = false
         }
         
-        ypos += 10
+//        ypos += 10
 
         
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 10))
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
         
 
     }

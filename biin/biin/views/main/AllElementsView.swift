@@ -68,7 +68,7 @@ class AllElementsView: BNView {
         line.backgroundColor = UIColor.darkGrayColor()
         
 //        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
+        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL, space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), delegate: nil)
 //        scroll!.backgroundColor = UIColor.clearColor()
 //        scroll!.pagingEnabled = false
         self.addSubview(scroll!)
@@ -153,7 +153,7 @@ class AllElementsView: BNView {
         
         if !isSameCategory(category) {
 //            self.backgroundColor = category!.backgroundColor
-            self.scroll!.backgroundColor = category!.backgroundColor
+//            self.scroll!.backgroundColor = category!.backgroundColor
             SharedAnswersManager.instance.logContentView_Category(category)
             
             scroll!.clean()

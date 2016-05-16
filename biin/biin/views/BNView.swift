@@ -38,6 +38,7 @@ class BNView:UIView {
     func refresh(){}
     func request(){}
     func requestCompleted() {}
+    func updateWidth(frame:CGRect) {}
     
     //Social functions
     func awareBtnAction() { }

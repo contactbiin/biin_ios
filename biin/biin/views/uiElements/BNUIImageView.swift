@@ -80,4 +80,28 @@ class BNUIImageView:UIImageView {
         self.image = nil
     }
     
+    func updatePosition(frame:CGRect){
+        
+        var ypos:CGFloat = 0
+        var xpos:CGFloat = 0
+        var imageSize:CGFloat = 0
+        
+        let headerHeightForImage:CGFloat = SharedUIManager.instance.siteMiniView_headerHeight
+        
+        if frame.width == frame.height {
+            imageSize = (frame.width)
+            xpos = ((imageSize - frame.width) / 2) * -1
+            ypos = ((imageSize - frame.height) / 2) * -1
+            
+        } else if frame.width < (frame.height - headerHeightForImage) {
+            imageSize = (frame.height - headerHeightForImage)
+            xpos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
+        } else {
+            imageSize = frame.width
+            ypos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
+        }
+        
+        self.frame = CGRectMake(xpos, ypos, imageSize, imageSize)
+    }
+    
 }

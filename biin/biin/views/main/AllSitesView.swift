@@ -61,7 +61,7 @@ class AllSitesView: BNView {
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.darkGrayColor()
         
-        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL, space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), delegate: nil)
+        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL, space: 1, extraSpace: 0, color: UIColor.bnGrayDark(), delegate: nil)
         self.addSubview(scroll!)
         self.addSubview(line)
 
@@ -154,7 +154,7 @@ class AllSitesView: BNView {
         for site in sitesArray {
             if !isSiteAdded(site.identifier!) {
                 
-                siteCounter++
+                siteCounter += 1
                 let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
                 miniSiteView.isPositionedInFather = true
                 miniSiteView.isReadyToRemoveFromFather = false
@@ -215,7 +215,7 @@ class AllSitesView: BNView {
                 
                 if !isSiteAdded(site.identifier!) {
                     
-                    siteCounter++
+                    siteCounter += 1
                     
                     let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
                     miniSiteView.isPositionedInFather = true

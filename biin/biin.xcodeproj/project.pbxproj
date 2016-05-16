@@ -271,6 +271,8 @@
 		5BAD8AD81A828C480081B335 /* BNUIButton_BiinIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD71A828C480081B335 /* BNUIButton_BiinIt.swift */; };
 		5BAD8ADA1A828C530081B335 /* BNUIButton_ShareIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAD8AD91A828C530081B335 /* BNUIButton_ShareIt.swift */; };
 		5BB079231BF2873A00A3C85B /* BNRequest_InitialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB079221BF2873A00A3C85B /* BNRequest_InitialData.swift */; };
+		5BB0CD2C1CE922D6005C492B /* BNIcon_LikeIt_Big.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0CD2B1CE922D6005C492B /* BNIcon_LikeIt_Big.swift */; };
+		5BB0CD2E1CE93438005C492B /* SiteView_OtherSites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0CD2D1CE93438005C492B /* SiteView_OtherSites.swift */; };
 		5BB23B621C47F56800E77256 /* SurveyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB23B611C47F56800E77256 /* SurveyState.swift */; };
 		5BB23B641C47F5C500E77256 /* SurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB23B631C47F5C500E77256 /* SurveyView.swift */; };
 		5BB2B4981AEAA45C002E3121 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BB2B4971AEAA45C002E3121 /* CoreLocation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -654,6 +656,8 @@
 		5BAD8AD71A828C480081B335 /* BNUIButton_BiinIt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_BiinIt.swift; sourceTree = "<group>"; };
 		5BAD8AD91A828C530081B335 /* BNUIButton_ShareIt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_ShareIt.swift; sourceTree = "<group>"; };
 		5BB079221BF2873A00A3C85B /* BNRequest_InitialData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_InitialData.swift; sourceTree = "<group>"; };
+		5BB0CD2B1CE922D6005C492B /* BNIcon_LikeIt_Big.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LikeIt_Big.swift; sourceTree = "<group>"; };
+		5BB0CD2D1CE93438005C492B /* SiteView_OtherSites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_OtherSites.swift; sourceTree = "<group>"; };
 		5BB23B611C47F56800E77256 /* SurveyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyState.swift; sourceTree = "<group>"; };
 		5BB23B631C47F5C500E77256 /* SurveyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyView.swift; sourceTree = "<group>"; };
 		5BB2B4971AEAA45C002E3121 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -916,6 +920,7 @@
 				5B861FB01BA792EF00930BD7 /* BNIcon_CollectedIt.swift */,
 				5B861FB21BA7971000930BD7 /* BNIcon_LikeIt_Empty.swift */,
 				5B861FB41BA7973100930BD7 /* BNIcon_LikeIt_Full.swift */,
+				5BB0CD2B1CE922D6005C492B /* BNIcon_LikeIt_Big.swift */,
 				5B67B5E41A716A31009937C5 /* BNIcon_BurgerMedium.swift */,
 				5B48C8261A6FFFA6009FC4D4 /* BNIcon_NotificationMedium.swift */,
 				5B8B075B1A6F141A00780F74 /* BNIcon_ShareSmall.swift */,
@@ -1338,6 +1343,7 @@
 				5B047D5D1A815B8F00281B17 /* SiteView_Bottom.swift */,
 				5B3AADE51A9FB52A0022B572 /* SiteView_Location.swift */,
 				5B44C5BF1A816FC700E5AC68 /* SiteView_Showcase.swift */,
+				5BB0CD2D1CE93438005C492B /* SiteView_OtherSites.swift */,
 				5BA538981A82AA4900E0015F /* SiteView_Showcase_Game.swift */,
 				5B1E2C1D1A830B2400633C46 /* SiteView_Showcase_Join.swift */,
 				5B5253EE1B3C9E7F00F1FD52 /* SiteView_MiniLocation.swift */,
@@ -1763,6 +1769,7 @@
 				5B1E2C221A830EBF00633C46 /* BNIcon_JoinGameIcon.swift in Sources */,
 				5B5D77DC1A8E6DDF001C4A34 /* BNIcon_GamesMedium.swift in Sources */,
 				5B5D77E61A8E7582001C4A34 /* BNIcon_EducationMedium.swift in Sources */,
+				5BB0CD2E1CE93438005C492B /* SiteView_OtherSites.swift in Sources */,
 				5B60A4C81AA21D420025ACBA /* BNIcon_PhoneMedium.swift in Sources */,
 				5B3856071A9E376100755644 /* CollectionsView_Collection.swift in Sources */,
 				5BEE97D01BAC53BB004C2B30 /* BNRequest_SendSharedSite.swift in Sources */,
@@ -1780,6 +1787,7 @@
 				5BEE97BF1BAC53BB004C2B30 /* BNRequest_SendBiinieCategories.swift in Sources */,
 				5B4894E81ADD85C2006789E2 /* BNUIDetailView_From.swift in Sources */,
 				5B246B291A813FBC00B0B6C1 /* BNUIScrollView.swift in Sources */,
+				5BB0CD2C1CE922D6005C492B /* BNIcon_LikeIt_Big.swift in Sources */,
 				5B8905D21A8E4CC500637869 /* BNIcon_ShoeSmall.swift in Sources */,
 				5BEE97DB1BAC5567004C2B30 /* BNRequest_SendUnCollectedElement.swift in Sources */,
 				5B1655FB1BC70AD9001ED8ED /* AllCollectedState.swift in Sources */,

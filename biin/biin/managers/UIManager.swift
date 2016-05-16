@@ -84,8 +84,8 @@ class UIManager {
     var siteView_showcase_titleSize:CGFloat = 12
     var siteView_showcase_subTittleSize:CGFloat = 12
     var siteView_titleSize:CGFloat = 18
-    var siteView_subTittleSize:CGFloat = 13
-    var siteView_nutshellSize:CGFloat = 13
+    var siteView_subTittleSize:CGFloat = 14
+    var siteView_nutshellSize:CGFloat = 14
     
     //Element view sizes
     var elementView_titleSize:CGFloat = 30
@@ -237,7 +237,7 @@ class UIManager {
         
         onboardingSlide_DescriptionSize = 16
         
-        siteMiniView_headerHeight = 55
+        siteMiniView_headerHeight = 65
     }
     
     func setIPhone5Variables(){
@@ -269,7 +269,7 @@ class UIManager {
         
         loadingView_logoSize = 5
         
-        siteMiniView_headerHeight = 55
+        siteMiniView_headerHeight = 65
     }
     
     func setIPhone6Variables() {
@@ -299,7 +299,7 @@ class UIManager {
         
         loadingView_logoSize = 5
         
-        siteMiniView_headerHeight = 60
+        siteMiniView_headerHeight = 65
     }
     
     func setIPhone6PlusVariables() {
@@ -330,7 +330,7 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 6
-        siteMiniView_headerHeight = 60
+        siteMiniView_headerHeight = 65
     }
     
     func setIPadVariables() {
@@ -359,7 +359,7 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 6
-        siteMiniView_headerHeight = 60
+        siteMiniView_headerHeight = 65
     }
     
     
