@@ -44,10 +44,10 @@ Calcel = "Cancelar";
 More = "más";
 NearYou = "Lugares cercanos a vos";
 FavoritePlaces = "Tus lugares Favoritos";
-AddFavoritePlaces = "Agrega algunos lugares a tus favoritos";
+AddFavoritePlaces = "Usá el botón de gustar para agregar lugares a tus favoritos";
 
 OtherPlaces1 = "Otros ";
-OtherPlaces2 = " cerca de vos";
+OtherPlaces2 = " cercanos a vos";
 
 MoreFrom = "Más de";
 Recomended = "Recomendaciones";

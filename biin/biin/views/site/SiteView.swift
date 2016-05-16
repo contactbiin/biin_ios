@@ -262,10 +262,10 @@ class SiteView:BNView, UIScrollViewDelegate {
         if !isSameSite(site) {
             var textColor:UIColor?
 
-            SharedAnswersManager.instance.logContentView_Site(site)
-            
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:site!.identifier!)
+//            SharedAnswersManager.instance.logContentView_Site(site)
 //            
+//            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:site!.identifier!)
+//
 //            if self.site!.useWhiteText {
 //                textColor = UIColor.whiteColor()
 //                iconColor = self.site!.media[0].vibrantDarkColor

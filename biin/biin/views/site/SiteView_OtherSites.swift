@@ -151,22 +151,20 @@ class SiteView_OtherSites:BNView, UIScrollViewDelegate {
     func addSiteViews(){
         
         
-        
+        scroll!.clean()
         
         
         var sites = Array<SiteMiniView>()
-        let sitesArray = BNAppSharedManager.instance.dataManager.sites_ordered
         
         var xpos:CGFloat = 0
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
         
-        if sitesArray.count == 1 {
+        if site!.organization!.sites.count == 2 {
             siteView_width = SharedUIManager.instance.screenWidth
         } else {
             siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         }
-        
         
         for identifier in site!.organization!.sites  {
             //if site.showInView {
