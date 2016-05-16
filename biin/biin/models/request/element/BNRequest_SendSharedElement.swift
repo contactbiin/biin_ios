@@ -17,7 +17,7 @@ class BNRequest_SendSharedElement: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, element:BNElement? ){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.SendSharedElement
@@ -31,12 +31,13 @@ class BNRequest_SendSharedElement: BNRequest {
         //print("BNRequest_SendSharedElement - \(requestString)")
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
       
         var model = Dictionary<String, Dictionary <String, String>>()
         
         var modelContent = Dictionary<String, String>()
         modelContent["identifier"] = self.element!.identifier!
+        modelContent["_id"] = self.element!._id!
         modelContent["type"] = "element"
         model["model"] = modelContent
         

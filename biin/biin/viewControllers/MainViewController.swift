@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate, FBSDKLoginButtonDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, DevelopmentViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate, FBSDKLoginButtonDelegate {
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -83,7 +83,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //fadeView!.userInteractionEnabled = false
         self.view.addSubview(fadeView!)
         
-        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
+        var hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.hideMenu(_:)))
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         fadeView!.addGestureRecognizer(hideMenuSwipe)
         
@@ -91,7 +91,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         menuView!.delegate = self
         self.view.addSubview(menuView!)
         
-        hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: "hideMenu:")
+        hideMenuSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.hideMenu(_:)))
         hideMenuSwipe.direction = UISwipeGestureRecognizerDirection.Left
         menuView!.addGestureRecognizer(hideMenuSwipe)
         
@@ -105,33 +105,45 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         //statusBarLine.backgroundColor = UIColor.appMainColor()
         //self.view.addSubview(statusBarLine)
         
+
+        
         if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-            mainView!.showNotificationContext()
+            
+            if BNAppSharedManager.instance.isOpeningForLocalNotification {
+                
+                BNAppSharedManager.instance.isOpeningForLocalNotification = false
+                mainView!.showNotificationContext()
+            }
         }
+        
         
         if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
             
             developmentView = DevelopmentView(frame:CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), viewController:self)
             self.view.addSubview(developmentView!)
+            developmentView!.delegate = self
             
-            showDevelopmentBtn = UIButton(frame: CGRectMake((SharedUIManager.instance.screenWidth - 100), (SharedUIManager.instance.screenHeight - 45), 100, 45))
-            showDevelopmentBtn!.backgroundColor = UIColor.biinOrange()
-            showDevelopmentBtn!.addTarget(self, action: "showDevelopmentView:", forControlEvents: UIControlEvents.TouchUpInside)
-            showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
-            self.view!.addSubview(showDevelopmentBtn!)
+//            showDevelopmentBtn = UIButton(frame: CGRectMake((SharedUIManager.instance.screenWidth - 100), (SharedUIManager.instance.screenHeight - 45), 100, 45))
+//            showDevelopmentBtn!.backgroundColor = UIColor.biinOrange()
+//            showDevelopmentBtn!.addTarget(self, action: #selector(self.showDevelopmentView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//            showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
+//            self.view!.addSubview(showDevelopmentBtn!)
         }
     }
     
-    func showDevelopmentView(sender:UIButton) {
+    func showDevelopmentView() {
+        
+        hideMenuOnChange()
+        
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             if !self.isShowing_developmentView {
                 self.developmentView!.frame.origin.x = 0
                 self.isShowing_developmentView = true
-                self.showDevelopmentBtn!.setTitle("Hide Dev", forState: UIControlState.Normal)
+                //self.showDevelopmentBtn!.setTitle("Hide Dev", forState: UIControlState.Normal)
             } else {
                 self.developmentView!.frame.origin.x = SharedUIManager.instance.screenWidth
                 self.isShowing_developmentView = false
-                self.showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
+                //self.showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
             }
         })
     }
@@ -252,6 +264,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     
     func menuView(menuView: MenuView!, showAbout value: Bool) {
         mainView!.setNextState(BNGoto.About)
+    }
+    
+    func menuView(menuView: MenuView!, showDevelopmentView value: Bool) {
+        self.showDevelopmentView()
     }
     
     func showError(){
@@ -470,7 +486,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         textToShare = NSLocalizedString("InviteBody", comment: "InviteBody")
         
         let myWebsite:NSURL?
-        myWebsite = NSURL(string: "https:/www.biinapp.com")
+        myWebsite = NSURL(string: "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=971157984&mt=8")
         
         var sharingItems = [AnyObject]()
         
@@ -523,6 +539,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
         
     }
     
+    func developmentView(developmentView: DevelopmentView!, hideDevelopmentView value: Bool) {
+        showDevelopmentView()
+    }
+    
     // Facebook Delegate Methods
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
@@ -545,7 +565,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User Logged Out")
+        //print("User Logged Out")
     }
     
     func returnUserData()
@@ -585,6 +605,27 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, B
                 
                 if let facebook_id = result.valueForKey("id") {
                     BNAppSharedManager.instance.dataManager.bnUser!.facebook_id = facebook_id as? String
+                }
+                
+                if let friends = result["friends"] as? NSDictionary {
+                    if let data = friends["data"] as? NSArray {
+                        for friend in data {
+                            if let facebook_id = friend.valueForKey("id") {
+                                let biinie = Biinie()
+                                biinie.facebook_id = facebook_id as? String
+                                BNAppSharedManager.instance.dataManager.bnUser!.friends.append(biinie)
+                            }
+                        }
+                    }
+                }
+                
+                if let picture = result["picture"] as? NSDictionary {
+                    if let data = picture["data"] as? NSDictionary {
+                        
+                        if let picture_url = data.valueForKey("url") as? String {
+                            BNAppSharedManager.instance.dataManager.bnUser!.facebookAvatarUrl = picture_url
+                        }
+                    }
                 }
                 
                 BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified = true

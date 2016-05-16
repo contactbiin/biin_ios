@@ -37,6 +37,7 @@ class BNAppManager {
     var isWaitingForLocationServicesPermision = false
     var IS_BLUETOOTH_ENABLED = false
     var IS_MAINVIEW_ON = false
+    var isOpeningForLocalNotification = false
     
 //    var elementColorIndex = 0
 //    var elementColors:Array<UIColor> = Array<UIColor>()
@@ -48,7 +49,7 @@ class BNAppManager {
     
     init(){
         
-        self.counter++
+        self.counter += 1
 
         if let settings = BNSettings.loadSaved() {
             self.settings = settings
@@ -132,7 +133,7 @@ class BNAppManager {
     }
     
     func continueAfterIntialChecking(){
-        //NSLog("BIIN = continueAfterIntialChecking()")
+        //print("FLOW 1 - continueAfterIntialChecking")
         networkManager.checkConnectivity()
     }
 
@@ -155,6 +156,7 @@ class BNAppManager {
 
     func likeSite(site:BNSite?){
         networkManager.sendLikedSite(dataManager.bnUser!, site:site)
+        mainViewController!.mainView!.refresh_favoritesSitesContaier(site)
     }
     
     func followSite(site:BNSite? ){
@@ -176,7 +178,7 @@ class BNAppManager {
     
     func processNotification(notification:BNNotification){
         areNewNotificationsPendingToShow = true
-        dataManager.bnUser!.newNotificationCount!++
+        dataManager.bnUser!.newNotificationCount! += 1
         dataManager.bnUser!.notificationIndex! = notification.identifier
 
         //Notify main view to show circle
@@ -204,7 +206,7 @@ class BNAppManager {
         mainViewController?.mainView!.show()
 
         if notificationManager.currentNotification != nil && notificationManager.didSendNotificationOnAppDown {
-            mainViewController?.mainView?.showNotificationContext()
+            //mainViewController?.mainView?.showNotificationContext()
         }
     }
 }

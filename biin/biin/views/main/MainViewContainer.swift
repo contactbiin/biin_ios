@@ -14,6 +14,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     var inSiteView:InSiteView?
     var highlightContainer:MainViewContainer_Highlights?
     var nearSitesContainer:MainViewContainer_NearSites?
+    var favoriteSitesContainer:MainViewContainer_FavoriteSites?
     var bannerContainer:MainViewContainer_Banner?
     var elementContainers:Array <MainViewContainer_Elements>?
 
@@ -45,7 +46,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
         self.addSubview(scroll!)
         
-        inSiteView = InSiteView(frame: CGRectMake(0, -60, screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
+        inSiteView = InSiteView(frame: CGRectMake(0, -80, screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
         
@@ -58,7 +59,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         self.addSubview(fade!)
         
         refreshButton = UIButton(frame: CGRectMake(0, -50, self.frame.width, 50))
-        refreshButton!.addTarget(self, action: "refreshButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        refreshButton!.addTarget(self, action: #selector(self.refreshButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         refreshButton!.titleLabel!.font = UIFont(name: "Lato-Light", size: 15)
         refreshButton!.setTitle(NSLocalizedString("Refresh", comment: "Refresh"), forState: UIControlState.Normal)
         
@@ -102,11 +103,11 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     func updateContainer(){
         
         if BNAppSharedManager.instance.dataManager.sites_ordered.count == 0 {
-            NSLog("BIIN ----------------------------------------------------")
-            NSLog("BIIN - not sites in list, request data again")
-            NSLog("BIIN - sites:\(BNAppSharedManager.instance.dataManager.sites.count)")
-            NSLog("BIIN - elements_by_identifier:\(BNAppSharedManager.instance.dataManager.elements_by_identifier.count)")
-            NSLog("BIIN ----------------------------------------------------")
+            //NSLog("BIIN ----------------------------------------------------")
+            //NSLog("BIIN - not sites in list, request data again")
+            //NSLog("BIIN - sites:\(BNAppSharedManager.instance.dataManager.sites.count)")
+            //NSLog("BIIN - elements_by_identifier:\(BNAppSharedManager.instance.dataManager.elements_by_identifier.count)")
+            //NSLog("BIIN ----------------------------------------------------")
             self.refreshButtonAction(UIButton())
             
             
@@ -123,7 +124,6 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             height = SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight
             self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, height), father: self)
             self.scroll!.addChild(self.highlightContainer!)
-            
 
             ypos += height
 
@@ -134,8 +134,17 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             self.nearSitesContainer!.father = self
             self.nearSitesContainer!.addAllSites()
             self.scroll!.addChild(self.nearSitesContainer!)
-            
             ypos += height
+            
+           
+            self.favoriteSitesContainer = MainViewContainer_FavoriteSites(frame: CGRectMake(0, ypos, screenWidth, height))
+            self.favoriteSitesContainer!.delegate = (self.father! as! MainView)
+            self.favoriteSitesContainer!.father = self
+            self.favoriteSitesContainer!.addAllSites()
+            self.scroll!.addChild(self.favoriteSitesContainer!)
+            ypos += height
+            
+            
             
             /*
             self.bannerContainer = MainViewContainer_Banner(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.bannerContainer_Height), father: self)
@@ -156,7 +165,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
                     self.scroll!.addChild(elementContainer)
                     self.elementContainers!.append(elementContainer)
                     
-                    colorIndex++
+                    colorIndex += 1
                     if colorIndex  > 1 {
                         colorIndex = 0
                     }
@@ -218,9 +227,6 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     }
     
     override func refresh() {
-        
-        NSLog("BIIN - refresh()")
-        
         refresh_NearSitesContainer()
     }
 
@@ -230,21 +236,35 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         inSiteView!.updateForSite(site!)
         
         UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.inSiteView!.frame.origin.y += 60//( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + SharedUIManager.instance.categoriesHeaderHeight + 20 ))
+            self.inSiteView!.frame.origin.y += SharedUIManager.instance.inSiteView_Height //( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + SharedUIManager.instance.categoriesHeaderHeight + 20 ))
             
             
-            self.highlightContainer!.frame.origin.y += 60
-            self.nearSitesContainer!.frame.origin.y += 60
+            self.highlightContainer!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
+            self.nearSitesContainer!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
             for container in self.elementContainers! {
-                container.frame.origin.y += 60
+                container.frame.origin.y += SharedUIManager.instance.inSiteView_Height
             }
             
             //self.header!.frame.origin.y = (SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + SharedUIManager.instance.inSiteView_Height + 20))
         })
     }
     
+    func updateLikeButtons(){
+        self.nearSitesContainer!.updateLikeButtons()
+    }
+    
     func refresh_NearSitesContainer(){
         self.nearSitesContainer!.refresh()
+    }
+    
+    func refresh_favoritesSitesContaier(site:BNSite?) {
+        
+        if site!.userLiked {
+            self.favoriteSitesContainer!.addSite(site)
+        } else {
+            self.favoriteSitesContainer!.removeSite(site)
+        }
+//        self.favoriteSitesContainer!.refresh()
     }
     
     func refresh_elementContainer(identifier:String) {
@@ -259,19 +279,19 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     func hideInSiteView(){
         
         UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.inSiteView!.frame.origin.y -= 60//(SharedUIManager.instance.screenHeight - 20)
+            self.inSiteView!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height//(SharedUIManager.instance.screenHeight - 20)
             
-            self.highlightContainer!.frame.origin.y -= 60
-            self.nearSitesContainer!.frame.origin.y -= 60
+            self.highlightContainer!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
+            self.nearSitesContainer!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
             for container in self.elementContainers! {
-                container.frame.origin.y -= 60
+                container.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
             }
         })
     }
     
     func clean(){
         
-        NSLog("MainViewContainer clean()")
+        //NSLog("MainViewContainer clean()")
         
         if highlightContainer != nil {
             highlightContainer!.clean()

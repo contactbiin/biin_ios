@@ -59,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
         } else {
-            
             let lvc = SingupViewController()
             self.window!.rootViewController = lvc
             //appManager.networkManager.delegateVC = lvc
@@ -101,8 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupNotificationSettings()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleModifyListNotification), name: "modifyListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleDeleteListNotification), name: "deleteListNotification", object: nil)
         
         Fabric.with([Crashlytics.self])
         
@@ -203,7 +202,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         appManager.IS_APP_UP = true
-
         appManager.positionManager.start_BEACON_RANGING()
 
         //BNAppSharedManager.instance.show()
@@ -215,16 +213,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
 
+        //NSLog("BIIN - applicationDidBecomeActive")
+        
         appManager.IS_APP_UP = true
         
         if appManager.dataManager.bnUser != nil {
             appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
         }
         
-        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-            BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
+        if BNAppSharedManager.instance.isOpeningForLocalNotification {
+            if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
+                
+                BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
+            }
+            
+            BNAppSharedManager.instance.isOpeningForLocalNotification = false
         }
-        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -325,9 +329,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        if appManager.notificationManager.currentNotification != nil {
 //            appManager.mainViewController!.mainView!.showNotificationContext()
 //        }
+        BNAppSharedManager.instance.isOpeningForLocalNotification = true
+        //NSLog("BIIN - didReceiveLocalNotification")
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        
+        
+        //NSLog("BIIN - handleActionWithIdentifier")
         
         if identifier == "externalAction" {
             NSNotificationCenter.defaultCenter().postNotificationName("modifyListNotification", object: nil)

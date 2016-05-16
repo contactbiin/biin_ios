@@ -38,6 +38,7 @@ enum BNStateType {
     case BiinieCategoriesState
     case SiteState
     case AllSitesState
+    case AllFavoriteSites
     case ElementState
     case ElementFromSiteState
     case AllElementsState

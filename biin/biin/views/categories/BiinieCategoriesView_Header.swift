@@ -9,7 +9,7 @@ import UIKit
 class BiinieCategoriesView_Header: BNView {
 
     var showMenuBtn:BNUIButton?
-    var testBtn:UIButton?
+//    var testBtn:UIButton?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,26 +59,25 @@ class BiinieCategoriesView_Header: BNView {
             father!.updateUserControl(position)
         }
     }
-    
     //Instance Methods
     func addButtons(){
         showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 12, 60, 40), text: "", iconType: BNIconType.menuMedium)
-        showMenuBtn!.addTarget(father, action: "showMenuBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
+        showMenuBtn!.addTarget(father, action:#selector((father as! MainViewContainer).showMenuBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
         
-        testBtn = UIButton(frame: CGRectMake(200, 0, 60, 40))
-        testBtn!.backgroundColor = UIColor.darkGrayColor()
-        testBtn!.setTitle("test", forState: UIControlState.Normal)
-        testBtn!.addTarget(father, action: "testBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(testBtn!)
-        
-        testBtn!.enabled = false
-        testBtn!.alpha = 0
+//        testBtn = UIButton(frame: CGRectMake(200, 0, 60, 40))
+//        testBtn!.backgroundColor = UIColor.darkGrayColor()
+//        testBtn!.setTitle("test", forState: UIControlState.Normal)
+//        testBtn!.addTarget(father, action: Selector("testBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+//        self.addSubview(testBtn!)
+//        
+//        testBtn!.enabled = false
+//        testBtn!.alpha = 0
     }
     
     func clean(){
         showMenuBtn?.removeFromSuperview()
-        testBtn?.removeFromSuperview()
+//        testBtn?.removeFromSuperview()
     }
     
 }

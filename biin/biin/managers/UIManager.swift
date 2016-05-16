@@ -27,16 +27,17 @@ class UIManager {
     
     //MiniView
     //Sites MiniView sizes
-    var miniView_headerHeight:CGFloat = 45
+    var miniView_headerHeight:CGFloat = 50
 
     //In showcase
-    var miniView_headerHeight_showcase:CGFloat = 35
+    var miniView_headerHeight_showcase:CGFloat = 50
     var miniView_height_showcase:CGFloat = 0
     
     //Font sizes
-    var miniView_titleSize:CGFloat = 12
-    var miniView_subTittleSize:CGFloat = 10
-    var miniView_nutshellSize:CGFloat = 13
+    var miniView_titleSize:CGFloat = 13
+    var miniView_subTittleSize:CGFloat = 11
+    var miniView_nutshellSize:CGFloat = 11
+    var miniView_pricingSize:CGFloat = 12
     var miniView_height:CGFloat = 0
     var miniView_width:CGFloat = 0
     var miniView_columns:Int = 0
@@ -45,7 +46,7 @@ class UIManager {
     var siteMiniView_width:CGFloat = 0
     var siteMiniView_imageheight:CGFloat = 200
     var siteMiniView_headerHeight:CGFloat = 0
-    var siteMiniView_title:CGFloat = 20
+    var siteMiniView_title:CGFloat = 15
     var siteMiniView_subTitle:CGFloat = 13
     
     //Onboarding
@@ -61,7 +62,7 @@ class UIManager {
     var highlightView_priceSize:CGFloat = 13
     
     //Site Container
-    var sitesContainer_headerHeight:CGFloat = 50
+    var sitesContainer_headerHeight:CGFloat = 60
     var sitesContainer_Height:CGFloat = 0
     
     //Banner Container
@@ -71,20 +72,20 @@ class UIManager {
     var elementContainer_Height:CGFloat = 0
     
     //Sites View sizes
-    var inSiteView_Height:CGFloat = 60
-    var inSiteView_titleSize:CGFloat = 20
-    var inSiteView_subTittleSize:CGFloat = 13
-    var inSiteView_nutshellSize:CGFloat = 10
+    var inSiteView_Height:CGFloat = 80
+    var inSiteView_titleSize:CGFloat = 25
+    var inSiteView_subTittleSize:CGFloat = 15
+    var inSiteView_nutshellSize:CGFloat = 15
     
     
     var siteView_headerHeight:CGFloat = 70
     var siteView_bottomHeight:CGFloat = 30
-    var siteView_showcaseHeaderHeight:CGFloat = 50
+    var siteView_showcaseHeaderHeight:CGFloat = 60
     var siteView_showcase_titleSize:CGFloat = 12
     var siteView_showcase_subTittleSize:CGFloat = 12
     var siteView_titleSize:CGFloat = 18
-    var siteView_subTittleSize:CGFloat = 13
-    var siteView_nutshellSize:CGFloat = 13
+    var siteView_subTittleSize:CGFloat = 14
+    var siteView_nutshellSize:CGFloat = 14
     
     //Element view sizes
     var elementView_titleSize:CGFloat = 30
@@ -236,7 +237,7 @@ class UIManager {
         
         onboardingSlide_DescriptionSize = 16
         
-        siteMiniView_headerHeight = 55
+        siteMiniView_headerHeight = 65
     }
     
     func setIPhone5Variables(){
@@ -268,7 +269,7 @@ class UIManager {
         
         loadingView_logoSize = 5
         
-        siteMiniView_headerHeight = 55
+        siteMiniView_headerHeight = 65
     }
     
     func setIPhone6Variables() {
@@ -298,7 +299,7 @@ class UIManager {
         
         loadingView_logoSize = 5
         
-        siteMiniView_headerHeight = 60
+        siteMiniView_headerHeight = 65
     }
     
     func setIPhone6PlusVariables() {
@@ -329,7 +330,7 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 6
-        siteMiniView_headerHeight = 60
+        siteMiniView_headerHeight = 65
     }
     
     func setIPadVariables() {
@@ -358,7 +359,7 @@ class UIManager {
         onBoardingView_spacer = 40
         
         loadingView_logoSize = 6
-        siteMiniView_headerHeight = 60
+        siteMiniView_headerHeight = 65
     }
     
     

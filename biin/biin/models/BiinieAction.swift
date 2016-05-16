@@ -80,6 +80,8 @@ class BiinieAction:NSObject, NSCoding {
             self.did = .OPEN_APP
         case 22:
             self.did = .CLOSE_APP
+        case 23:
+            self.did = .BEACON_BATTERY
         default:
             break
         }

@@ -13,8 +13,7 @@ class BNRequest_ConnectivityCheck: BNRequest {
     
     convenience init(requestString:String, dataIdentifier:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
-
+//        self.identifier = get_request_identifier()
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.ConnectivityCheck
@@ -27,7 +26,7 @@ class BNRequest_ConnectivityCheck: BNRequest {
         //self.start = NSDate()
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         networkManager!.epsNetwork!.checkConnection(false, url:requestString, callback:{
             (error: NSError?) -> Void in

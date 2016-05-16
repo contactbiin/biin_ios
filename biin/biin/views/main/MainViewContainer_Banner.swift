@@ -129,7 +129,7 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
         if currentHighlight < hightlights!.count {
             let xpos:CGFloat = SharedUIManager.instance.screenWidth * CGFloat((currentHighlight))
             scroll!.setContentOffset(CGPoint(x: xpos, y: 0), animated: true)
-            currentHighlight++
+            currentHighlight += 1
         }
     }
     
@@ -189,7 +189,7 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
     }
     
     func startTimer(){
-        timer = NSTimer.scheduledTimerWithTimeInterval(7.5, target: self, selector: "change:", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(7.5, target: self, selector: #selector(self.change(_:)), userInfo: nil, repeats: true)
         timer!.fire()
     }
     

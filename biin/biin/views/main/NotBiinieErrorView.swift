@@ -65,14 +65,14 @@ class NotBiinieErrorView: BNView {
         text.sizeToFit()
         self.addSubview(text)
         
-        ypos = (screenHeight - 100)
-        let siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, 55))
-        siteUrl.setTitle(NSLocalizedString("NotBiinieErrorButton", comment: "NotBiinieErrorButton"), forState: UIControlState.Normal)
-        siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        siteUrl.backgroundColor = UIColor.darkGrayColor()
-        siteUrl.titleLabel!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_button)
-        siteUrl.addTarget(self, action: "tryAgainAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(siteUrl)
+//        ypos = (screenHeight - 100)
+        let tryAgainBtn =  UIButton(frame: CGRectMake(5, (screenHeight - 60), (screenWidth - 10), 55))
+        tryAgainBtn.setTitle(NSLocalizedString("NotBiinieErrorButton", comment: "NotBiinieErrorButton"), forState: UIControlState.Normal)
+        tryAgainBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        tryAgainBtn.backgroundColor = UIColor.darkGrayColor()
+        tryAgainBtn.titleLabel!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_button)
+        tryAgainBtn.addTarget(self, action: #selector(self.tryAgainAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(tryAgainBtn)
     }
     
     func tryAgainAction(sender:UILabel) {
@@ -105,7 +105,7 @@ class NotBiinieErrorView: BNView {
                 })
         } else {
             
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideView:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
         }
     }
     

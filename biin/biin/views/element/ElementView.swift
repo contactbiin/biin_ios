@@ -34,7 +34,7 @@ class ElementView: BNView, UIWebViewDelegate {
     var lineView:UIView?
     
     var textColor:UIColor?
-    var decorationColor:UIColor?
+    var bgColor:UIColor?
     var iconColor:UIColor?
     var animationView:BiinItAnimationView?
 
@@ -87,7 +87,7 @@ class ElementView: BNView, UIWebViewDelegate {
         self.addSubview(backBtn_Bg!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(backBtn!)
         
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
@@ -141,18 +141,18 @@ class ElementView: BNView, UIWebViewDelegate {
         let ypos:CGFloat = 5//screenWidth + 2
         
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn_Bg!.addSubview(collectItButton!)
+        collectItButton!.addTarget(self, action: #selector(self.collectIt(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        //backBtn_Bg!.addSubview(collectItButton!)
         
         //Like button
-        buttonSpace += 35
+        //buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
+        likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
 
         buttonSpace += 35
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake(buttonSpace,  ypos, 25, 25))
-        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        shareItButton!.addTarget(self, action: #selector(self.shareit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
         showSiteBtn = UIButton(frame: CGRectMake((screenWidth / 2), 0, (screenWidth / 2), 35))
@@ -160,13 +160,13 @@ class ElementView: BNView, UIWebViewDelegate {
         showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
         showSiteBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
-        showSiteBtn!.addTarget(self, action: "showSiteBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        showSiteBtn!.addTarget(self, action: #selector(self.showSiteBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(showSiteBtn!)
         
         callToActionBtn = UIButton(frame: CGRectMake(5,  (screenWidth + 30), (screenWidth - 10), 50))
         callToActionBtn!.backgroundColor = UIColor.bnVisitSiteColor()
         //callToActionBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        callToActionBtn!.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        callToActionBtn!.addTarget(self, action: #selector(self.openUrl(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         callToActionBtn!.layer.cornerRadius = 2
 //        callToActionBtn!.layer.shadowColor = UIColor.blackColor().CGColor
 //        callToActionBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -306,9 +306,23 @@ class ElementView: BNView, UIWebViewDelegate {
 //                iconColor = self.element!.showcase!.site!.organization!.primaryColor//UIColor.darkGrayColor()// self.element!.media[0].vibrantDarkColor
 //            }
             
-            textColor = self.element!.showcase!.site!.organization!.secondaryColor// self.element!.media[0].vibrantColor//UIColor.whiteColor()
-            iconColor = self.element!.showcase!.site!.organization!.primaryColor//self.element!.media[0].vibrantColor//UIColor.whiteColor()
-            decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
+ 
+            var white:CGFloat = 0.0
+            var alpha:CGFloat = 0.0
+            _ = self.element!.showcase!.site!.organization!.secondaryColor!.getWhite(&white, alpha: &alpha)
+            
+            
+            if white >= 0.95 {
+                //print("Is white")
+                textColor = self.element!.showcase!.site!.organization!.primaryColor
+                bgColor = self.element!.showcase!.site!.organization!.secondaryColor
+            } else {
+                textColor = self.element!.showcase!.site!.organization!.secondaryColor
+                bgColor = self.element!.showcase!.site!.organization!.primaryColor
+            }
+            
+            
+
             
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
@@ -327,7 +341,10 @@ class ElementView: BNView, UIWebViewDelegate {
             
             if self.element!.hasDiscount {
                 let percentageViewSize:CGFloat = 60
-                percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+                
+                percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 15, textColor: self.element!.showcase!.site!.organization!.secondaryColor!, color: self.element!.showcase!.site!.organization!.primaryColor!, textPosition: CGPoint(x: 10, y: -10))
+                
+//                percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
                 
                 scroll!.addSubview(percentageView!)
@@ -540,7 +557,7 @@ class ElementView: BNView, UIWebViewDelegate {
         lineView?.removeFromSuperview()
         
         textColor = nil
-        decorationColor = nil
+        bgColor = nil
         iconColor = nil
         animationView?.clean()
         animationView?.removeFromSuperview()
@@ -752,11 +769,29 @@ class ElementView: BNView, UIWebViewDelegate {
         }
         
         if self.element!.hasCallToAction {
+            
+            var white:CGFloat = 0.0
+            var alpha:CGFloat = 0.0
+            _ = self.element!.showcase!.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+            var textColorCA:UIColor?
+            var bgColorCA:UIColor?
+            
+            
+            if white >= 0.95 {
+                textColorCA = self.element!.showcase!.site!.organization!.primaryColor!
+                bgColorCA = self.element!.showcase!.site!.organization!.secondaryColor!
+            } else {
+                textColorCA = self.element!.showcase!.site!.organization!.secondaryColor!
+                bgColorCA = self.element!.showcase!.site!.organization!.primaryColor
+            }
+
+            
             ypos += 60
             callToActionBtn!.alpha = 1
-            callToActionBtn!.backgroundColor = self.element!.media[0].vibrantDarkColor
+            callToActionBtn!.backgroundColor = bgColorCA!
             callToActionTitle!.alpha = 1
             callToActionTitle!.text = self.element!.callToActionTitle!
+            callToActionTitle!.textColor = textColorCA!
             callToActionBtn!.enabled = true
         } else {
             callToActionBtn!.alpha = 0

@@ -46,7 +46,7 @@ class BNUIAlertView:UIView {
         isOn = true
         UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
                 self.header!.frame = CGRectMake(self.frame.origin.x, -60, self.frame.width, self.frame.height)
-                self.fade!.alpha = 0.3
+                self.fade!.alpha = 0.5
             }, completion: {(completed:Bool)-> Void in
         
         })
@@ -56,7 +56,7 @@ class BNUIAlertView:UIView {
         isOn = true
         UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
             self.header!.frame = CGRectMake(self.frame.origin.x, -60, self.frame.width, self.frame.height)
-            self.fade!.alpha = 0.3
+            self.fade!.alpha = 0.5
             }, completion: {(completed:Bool)-> Void in
 
                 self.isOn = false

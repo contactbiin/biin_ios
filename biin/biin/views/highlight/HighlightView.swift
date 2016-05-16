@@ -60,7 +60,7 @@ class HighlightView: BNView {
 //        }
         
 
-        var textColor = self.element!.showcase!.site!.organization!.secondaryColor
+        let textColor = self.element!.showcase!.site!.organization!.secondaryColor
         iconColor = self.element!.showcase!.site!.organization!.secondaryColor
         decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
         
@@ -68,7 +68,7 @@ class HighlightView: BNView {
         let imageSize:CGFloat = frame.width
         
         //Positioning image
-        image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.media[0].vibrantColor!)
+        image = BNUIImageView(frame: CGRectMake(0, ypos, imageSize, imageSize), color:self.element!.showcase!.site!.organization!.primaryColor!)
         self.addSubview(image!)
         
 
@@ -104,23 +104,26 @@ class HighlightView: BNView {
         
         ypos += title.frame.height
         let subTitle = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - 20), (SharedUIManager.instance.highlightView_subTitleSize + 4)))
-        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
+        subTitle.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.highlightView_subTitleSize)
         subTitle.textColor = textColor
-        subTitle.text = self.site!.title!
+        subTitle.text = "\(self.site!.title!) "
         containerView.addSubview(subTitle)
         
-        let subTitleLength = SharedUIManager.instance.getStringLength(self.site!.title!, fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_subTitleSize)
+        let subTitleLength = SharedUIManager.instance.getStringLength("\(self.site!.title!) ", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_subTitleSize)
         
         
         let location = UILabel(frame: CGRectMake((xpos + (subTitleLength)), ypos, (frame.width - (20 + subTitleLength)), (SharedUIManager.instance.highlightView_subTitleSize + 4)))
-        location.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.highlightView_subTitleSize)
+        location.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.highlightView_subTitleSize)
         location.textColor = textColor
-        location.text = " | \(self.site!.subTitle!)"
+        location.text = " \(self.site!.subTitle!)"
         containerView.addSubview(location)
         
         if self.element!.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            
+            percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text: "⁃\(self.element!.discount!)⁒", textSize: 15, textColor: textColor!, color: decorationColor!, textPosition: CGPoint(x: 10, y: -10))
+            
+//            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), 0, percentageViewSize, percentageViewSize), text:"⁃\(self.element!.discount!)⁒", textSize:15, textcolor:textColor?, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
 
             
             
@@ -130,12 +133,12 @@ class HighlightView: BNView {
         ypos += (subTitle.frame.height + 2)
         if self.element!.hasPrice && !self.element!.hasListPrice && !self.element!.hasFromPrice {
             
-            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("Price", comment: "Price"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.miniView_titleSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = NSLocalizedString("Price", comment: "Price")
             containerView.addSubview(self.textPrice1!)
             
@@ -162,17 +165,17 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice && self.element!.hasListPrice {
             
-            let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength("\(self.element!.currency!)\(self.element!.price!)", fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = "\(self.element!.currency!)\(self.element!.price!)"
             containerView.addSubview(self.textPrice1!)
             
-            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 7), (text1Length + 1), 0.5))
+            let lineView = UIView(frame: CGRectMake(xpos, (ypos + 7), (text1Length + 1), 1.5))
             lineView.backgroundColor = textColor
             containerView.addSubview(lineView)
             
@@ -190,13 +193,13 @@ class HighlightView: BNView {
             
         } else if self.element!.hasPrice &&  self.element!.hasFromPrice {
             
-            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Light", fontSize:SharedUIManager.instance.highlightView_priceSize)
+            let text1Length = SharedUIManager.instance.getStringLength(NSLocalizedString("From", comment: "From"), fontName: "Lato-Regular", fontSize:SharedUIManager.instance.highlightView_priceSize)
             
             //ypos += subTitle.frame.height
             self.textPrice1 = UILabel(frame:CGRectMake(xpos, ypos, text1Length, (SharedUIManager.instance.highlightView_priceSize + 2)))
             self.textPrice1!.textColor = textColor
             self.textPrice1!.textAlignment = NSTextAlignment.Left
-            self.textPrice1!.font = UIFont(name: "Lato-Light", size:SharedUIManager.instance.highlightView_priceSize)
+            self.textPrice1!.font = UIFont(name: "Lato-Regular", size:SharedUIManager.instance.highlightView_priceSize)
             self.textPrice1!.text = NSLocalizedString("From", comment: "From")
             containerView.addSubview(self.textPrice1!)
             
@@ -243,7 +246,7 @@ class HighlightView: BNView {
         collectItButton!.icon!.color = iconColor
         containerView.addSubview(collectItButton!)
         */
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()
@@ -319,9 +322,9 @@ class HighlightView: BNView {
         if let organization  = site!.organization {
             if organization.media.count > 0 {
                 BNAppSharedManager.instance.networkManager.requestImageData(self.site!.organization!.media[0].url!, image: siteAvatar)
-                siteAvatar!.cover!.backgroundColor = self.site!.organization!.media[0].vibrantColor!
+                siteAvatar!.cover!.backgroundColor = self.site!.organization!.primaryColor!
             } else {
-                siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
+                siteAvatar!.image = UIImage(contentsOfFile: "noImage.jpg")
                 siteAvatar!.showAfterDownload()
             }
         } else {

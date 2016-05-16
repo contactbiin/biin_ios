@@ -7,12 +7,11 @@ import Foundation
 import UIKit
 
 class SiteMiniView_Header:BNView {
-
-    //var buttonsView:SocialButtonsView?
     
-//    override init() {
-//        super.init()
-//    }
+    var likeItButton:BNUIButton_LikeIt?
+    weak var site:BNSite?
+    var title:UILabel?
+    var subTitle:UILabel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,42 +27,40 @@ class SiteMiniView_Header:BNView {
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?, showShareButton:Bool){
         self.init(frame: frame, father:father )
+        
+        self.site = site
         self.backgroundColor = site!.organization!.primaryColor
         let textColor = site!.organization!.secondaryColor
+        var ypos:CGFloat = 5
         
-        //var textColor:UIColor?
-//        if site!.useWhiteText {
-//            textColor = UIColor.whiteColor()
-//        } else {
-//            textColor = UIColor.bnGrayDark()
-//        }
-        
-        var ypos:CGFloat = 7
-        
-        let title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_title + 2)))
-        title.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteMiniView_title)
-        title.textColor = textColor
-        title.textAlignment = NSTextAlignment.Center
-        title.text = site!.title
-        self.addSubview(title)
+        self.title = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_title + 2)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteMiniView_title)
+        title!.textColor = textColor
+        title!.textAlignment = NSTextAlignment.Center
+        title!.text = site!.title
+        self.addSubview(title!)
         
         ypos += SharedUIManager.instance.siteMiniView_title + 2
         
-        let subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_subTitle + 2)))
-        subTitle.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteMiniView_subTitle)
-        subTitle.textColor = textColor
-        subTitle.text = site!.subTitle!
-        subTitle.textAlignment = NSTextAlignment.Center
-        self.addSubview(subTitle)
-    }
-    
-    override func transitionIn() {
-
-    }
-    
-    override func transitionOut( state:BNState? ) {
+        subTitle = UILabel(frame: CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_subTitle + 2)))
+        subTitle!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteMiniView_subTitle)
+        subTitle!.textColor = textColor
+        subTitle!.text = site!.subTitle!
+        subTitle!.textAlignment = NSTextAlignment.Center
+        self.addSubview(subTitle!)
+        ypos += SharedUIManager.instance.siteMiniView_title
+        
+        var xpos:CGFloat = ((frame.width / 2) - 12)
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(xpos, ypos, 25, 25))
+        likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(likeItButton!)
+        updateLikeItBtn()
         
     }
+    
+    override func transitionIn() { }
+    
+    override func transitionOut( state:BNState? ) { }
     
     override func setNextState(goto:BNGoto){
         //Start transition on root view controller
@@ -84,6 +81,51 @@ class SiteMiniView_Header:BNView {
         }else{
             father!.updateUserControl(position)
         }
+    }
+    
+    func likeit(sender:BNUIButton_BiinIt){
+        self.site!.userLiked = !self.site!.userLiked
+        
+        if self.site!.userLiked {
+            BNAppSharedManager.instance.dataManager.addFavoriteSite(self.site!.identifier!)
+//            animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:self.site!.identifier!)
+            SharedAnswersManager.instance.logLike_Site(self.site)
+            
+        } else {
+            BNAppSharedManager.instance.dataManager.removeFavoriteSite(self.site!.identifier!)
+//            animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:self.site!.identifier!)
+            SharedAnswersManager.instance.logUnLike_Site(self.site!)
+            
+        }
+        
+        BNAppSharedManager.instance.likeSite(self.site!)
+        
+        updateLikeItBtn()
+    }
+    
+    func updateLikeItBtn() {
+        likeItButton!.changedIcon(self.site!.userLiked)
+        likeItButton!.icon!.color = self.site!.organization!.secondaryColor
+        likeItButton!.setNeedsDisplay()
+        
+    }
+    
+    override func updateWidth(frame: CGRect) {
+        
+        self.frame = CGRectMake(frame.origin.x, self.frame.origin.y, frame.width, self.frame.height)
+        
+        var ypos:CGFloat = 5
+        self.title!.frame = CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_title + 2))
+        
+        ypos += SharedUIManager.instance.siteMiniView_title + 2
+
+        self.subTitle!.frame = CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_subTitle + 2))
+        
+        var xpos:CGFloat = ((frame.width / 2) - 12)
+        self.likeItButton!.frame.origin.x = xpos
+        
     }
     
     //Instance methods

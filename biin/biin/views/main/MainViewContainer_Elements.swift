@@ -35,28 +35,26 @@ class MainViewContainer_Elements:BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        let ypos:CGFloat = 16
+        let ypos:CGFloat = 21
 
         self.category = category
         
         var textColor:UIColor?
-        switch colorIndex {
-        case 0:
-            self.backgroundColor = UIColor.lightGrayColor()
+//        switch colorIndex {
+//        case 0:
+            self.backgroundColor = UIColor.darkGrayColor()
             category.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
-        case 1:
-            self.backgroundColor = UIColor.grayColor()
-            category.backgroundColor = UIColor.grayColor()
             textColor = UIColor.whiteColor()
-        default:
-            self.backgroundColor = UIColor.lightGrayColor()
-            category.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
-            break
-        }
-        
-        
+//        case 1:
+//            self.backgroundColor = UIColor.darkGrayColor()
+//            category.backgroundColor = UIColor.grayColor()
+//            textColor = UIColor.whiteColor()
+//        default:
+//            self.backgroundColor = UIColor.darkGrayColor()
+//            category.backgroundColor = UIColor.lightGrayColor()
+//            textColor = UIColor.whiteColor()
+//            break
+//        }
         
         moreElementsBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreElementsBtn!.icon!.color = textColor
@@ -64,20 +62,21 @@ class MainViewContainer_Elements:BNView {
 //        moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
 //        moreElementsBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
 //        moreElementsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
-        moreElementsBtn!.addTarget(self, action: "moreElementsBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        moreElementsBtn!.addTarget(self, action: #selector(self.moreElementsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreElementsBtn!)
         
-        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 75), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
+        title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 60), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
-        let titleText = category.name!
+        let titleText = NSLocalizedString(category.identifier!, comment: "category_identifier!").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
         title!.textColor = textColor
+        //title!.sizeToFit()
         
         self.addSubview(title!)
 
-        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height// + SharedUIManager.instance.miniView_headerHeight
+        let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height//+ SharedUIManager.instance.miniView_headerHeight
         
         scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
         self.addSubview(scroll!)
@@ -154,29 +153,47 @@ class MainViewContainer_Elements:BNView {
             elementView_width = SharedUIManager.instance.miniView_width
         }
         
+        
+        
+        for element_id  in category!.elements {
+            if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
+                if !isElementAdded(element_id) {
+                    let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                    elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+                    elements.append(elementView)
+                    elementPosition += 1
+                    
+                    if element.userViewed {
+                        elementsViewed += 1
+                    }
+                    
+                    elementView.requestImage()
+                }
+            }
+        }
+        
+        /*
         for (element_id, element) in category!.elements {
-
             if element._id != nil {
                 if !isElementAdded(element._id!) {
 
                     let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
                     elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
                     elements.append(elementView)
-                    elementPosition++
+                    elementPosition += 1
                     
                     if element.userViewed {
-                        elementsViewed++
+                        elementsViewed += 1
                     }
 
                     elementView.requestImage()
                 }
 
             } else {
-//                print("\(element_id)")
                 category!.elements.removeValueForKey(element_id)
             }
         }
-        
+        */
         self.scroll!.addMoreChildren(elements)
     }
     

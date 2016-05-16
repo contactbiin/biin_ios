@@ -1,11 +1,9 @@
 /* 
-    Localizable.strings
-    biin
-    Created by Esteban Padilla - English on 4/22/15.
-    Copyright (c) 2015 Esteban Padilla. All rights reserved.
- 
-    NSLocalizedString("Version", comment: "the version title")
- 
+Localizable.strings
+biin
+Created by Esteban Padilla - English on 4/22/15.
+Copyright (c) 2015 Esteban Padilla. All rights reserved.
+NSLocalizedString("Version", comment: "the version title")
 */
 
 /* General button and labelss */
@@ -44,6 +42,12 @@ Value = "VALUE";
 Calcel = "Cancel";
 More = "more";
 NearYou = "Places near you";
+FavoritePlaces = "Your favorites Places";
+AddFavoritePlaces = "Add some places to your favorites.";
+
+OtherPlaces1 = "Otros ";
+OtherPlaces2 = " cerca de vos";
+
 MoreFrom = "More from";
 Recomended = "Our picks";
 
@@ -57,7 +61,7 @@ NotFollowTxt = "We are sorry to see you go!";
 /* Menu buttons */
 Profile = "Profile";
 Home = "Home";
-Collections = "Collections";
+Collections = "My Favotires";
 Loyalty = "Loyalty";
 Notifications = "Notifications";
 InviteFriends = "Invite Friends";
@@ -222,17 +226,24 @@ SurveyTitle = "Your opinion matters";
 Optional = "Optional";
 BrandGreetings = "Thank you for stoping by today and come back soon!";
 SurveyQuestion_1 = "How likely would you recommend ";
-SurveyQuestion_2 = " based in your today's experience?";
+SurveyQuestion_2 = " to your family or friends?";
 SurveyQuestion_3 = "Leave your comments about what did you like or dislike so we can improve.";
 Thankyou = "Thank you";
 Download = "Download it at www.biin.io";
 
 
-likely = "likely";
-not_likely = "not_likely";
+likely = "Very Likely";
+not_likely = "Not likely";
 
 UBER = "Ride there with Uber";
 Schedule = "Schedule";
 
 npsBtn = "Help us to improve";
 npsBtn_completed = "We received your help!";
+
+PrivacyPolicy = "Privacy policies";
+TermOfUser = "Terms of service";
+
+Accept = "Accept";
+
+Waze = "Waze";

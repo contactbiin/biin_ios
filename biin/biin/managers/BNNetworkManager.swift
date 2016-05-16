@@ -85,7 +85,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             if !request.isRunning {
                 
             } else {
-                totalRequestRunnin++
+                totalRequestRunnin += 1
             }
         }
         
@@ -100,7 +100,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 
                 request.run()
                 
-                queueCounter++
+                queueCounter += 1
     
             } else {
 
@@ -109,9 +109,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
     
     func removeFromQueue(request:BNRequest){
-        queueCounter--
-        requestProcessed++
+        queueCounter -= 1
+        requestProcessed += 1
         
+//        print("--- Remove request: \(request.requestType)")
         request.clean()
         requestsQueue.removeValueForKey(request.identifier)
 
@@ -126,7 +127,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func addToQueue(request:BNRequest){
         self.requestsQueue[request.identifier] = request
         runQueue()
-        totalNumberOfRequest++
+        totalNumberOfRequest += 1
     }
     
     func isQueued(stringUrl:String) -> Bool {
@@ -140,9 +141,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
  
     func checkConnectivity() {
-        
-        //NSLog("BIIN - checkConnectivity()")
-        
+        //print("FLOW 2 - checkConnectivity()")
         let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
         
@@ -330,7 +329,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    
+    //NOT IN USE
     /**
     Request categories
     @param biinie:Biinie object.
@@ -491,8 +490,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
 
-    
-    
     func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
         
         let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForShowcase/\(showcase!.site!.identifier!)/\(showcase!.identifier!)/\(showcase!.batch)"
@@ -520,6 +517,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
+    func requestToS(viewController:SingupViewController){
+        let request = BNRequest_ToS(requestString: "https://dev-biin-backend.herokuapp.com/mobile/termsofservice", errorManager: self.errorManager!, networkManager: self, viewController:viewController)
+        addToQueue(request)
+    }
     
     func runRequest(){
         
@@ -564,6 +565,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             
             let request = BNRequest_Image(requestString: stringUrl, errorManager: self.errorManager!, networkManager: self, image:image)
             addToQueue(request)
+            
         } else {
             epsNetwork!.getImageInCache(stringUrl, image: image)
         }
@@ -571,7 +573,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
-        print("Request error: \(error?.code) request: \(request.requestString)")
+        //print("Request error: \(error?.code) request: \(request.requestString)")
         
         if error != nil {
             
@@ -842,6 +844,10 @@ extension NSDate {
         } else {
             return false
         }
+    }
+    
+    func alredyPassedADay() {
+        
     }
 
     func daysBetweenFromAndTo(toDate:NSDate) -> Int {

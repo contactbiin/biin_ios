@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct BNRequestData { static var requestCounter = 0 }
+struct BNRequestData { static var requestCounter:Int = 0 }
 
 enum BNRequestType
 {
@@ -31,23 +31,31 @@ enum BNRequestType
     case ConnectivityCheck
     
     case Site
+    case Sites
     case Showcase
     case Element
     case Image
     case Categories
     case Organization
     case Collections
+    case CollectionsForBiinie
     
     case ServerError
     case InitialData
     case ElementsForShowcase
     
     case SendSurvey
+    
+    case ElementsForCategory
 }
+
+
 
 class BNRequest:NSObject {
     
     var start:NSDate?
+    
+    static var requestCounter:Int = 0
     
     var isRunning = false
     var inCompleted = false
@@ -76,11 +84,12 @@ class BNRequest:NSObject {
     
     override init() {
         super.init()
+        identifier = get_request_identifier()
     }
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter +Int(1)
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = requestType
@@ -88,7 +97,7 @@ class BNRequest:NSObject {
     
     convenience init(requestString:String, dataIdentifier:String, requestType:BNRequestType, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter += 1
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = requestType
@@ -108,5 +117,15 @@ class BNRequest:NSObject {
         user = nil
         categories?.removeAll()
         categories = nil
+    }
+    
+    func get_request_identifier() -> Int {
+        struct Holder {
+            static var timesCalled = 0
+        }
+        
+        Holder.timesCalled += 1
+        
+        return Holder.timesCalled
     }
 }

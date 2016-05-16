@@ -22,7 +22,7 @@ class BNUIButton:UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addTarget(self, action: "showPressed:", forControlEvents: UIControlEvents.TouchDown)
+        self.addTarget(self, action: #selector(self.showPressed(_:)), forControlEvents: UIControlEvents.TouchDown)
         
     }
     

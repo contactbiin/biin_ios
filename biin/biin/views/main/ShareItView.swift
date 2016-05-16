@@ -68,7 +68,10 @@ class ShareItView:UIView {
         
         if element.hasDiscount {
             let percentageViewSize:CGFloat = 60
-            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(element.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
+            
+            percentageView = ElementMiniView_Precentage(frame: CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text: "⁃\(element.discount!)⁒", textSize: 15, textColor: textColor!, color: decorationColor!, textPosition: CGPoint(x: 10, y: -10))
+            
+//            percentageView = ElementMiniView_Precentage(frame:CGRectMake((frame.width - percentageViewSize), ypos, percentageViewSize, percentageViewSize), text:"⁃\(element.discount!)⁒", textSize:15, color:decorationColor!, textPosition:CGPoint(x: 10, y: -10))
             
             self.addSubview(percentageView!)
         }
@@ -224,7 +227,7 @@ class ShareItView:UIView {
 //        siteLocation!.frame.origin.y = ypos
         siteLocation!.callBtn!.alpha = 0
         siteLocation!.emailBtn!.alpha = 0
-        siteLocation!.closeBtn!.alpha = 0
+//        siteLocation!.closeBtn!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         
@@ -306,7 +309,7 @@ class ShareItView:UIView {
         //        siteLocation!.frame.origin.y = ypos
         siteLocation!.callBtn!.alpha = 0
         siteLocation!.emailBtn!.alpha = 0
-        siteLocation!.closeBtn!.alpha = 0
+//        siteLocation!.closeBtn!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         

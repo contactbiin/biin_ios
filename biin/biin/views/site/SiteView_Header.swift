@@ -39,7 +39,7 @@ class SiteView_Header:BNView {
         var ypos:CGFloat = 8
         
         title = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.whiteColor()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
@@ -53,7 +53,7 @@ class SiteView_Header:BNView {
         subTitle!.text = "Site subtitle here"
         viewContainer!.addSubview(subTitle!)
         
-        ypos += SharedUIManager.instance.siteView_subTittleSize + 2
+        ypos += SharedUIManager.instance.siteView_subTittleSize + 3
         nutshell = UILabel(frame: CGRectMake(xpos, ypos, (frame.width - xpos), (SharedUIManager.instance.siteView_nutshellSize + 3)))
         nutshell!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_nutshellSize)
         nutshell!.textColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
@@ -104,6 +104,11 @@ class SiteView_Header:BNView {
 //            textColor = UIColor.whiteColor()
 //        }
         
+        if siteAvatar != nil {
+            siteAvatar!.clean()
+        }
+        
+        
         let textColor = site!.organization!.secondaryColor
         viewContainer!.backgroundColor = site!.organization!.primaryColor
         //viewContainer!.backgroundColor = UIColor.darkGrayColor()
@@ -118,7 +123,7 @@ class SiteView_Header:BNView {
         
         if site!.organization?.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
-            siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
+            siteAvatar!.cover!.backgroundColor = site!.organization!.primaryColor///site!.organization!.media[0].vibrantColor!
         } else {
             siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
             siteAvatar!.showAfterDownload()

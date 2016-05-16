@@ -18,7 +18,7 @@ class BNRequest_Element: BNRequest {
     
     convenience init(requestString:String, dataIdentifier:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, element:BNElement){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.Element
@@ -32,7 +32,7 @@ class BNRequest_Element: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         //var response:BNResponse?
         
         networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
@@ -158,8 +158,11 @@ class BNRequest_Element: BNRequest {
                         */
                         let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                         
-                        for var j = 0; j < mediaArray?.count; j++ {
-                            let mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
+                        var i:Int = 0
+                        for _ in mediaArray! {
+//                        for i in (0..<mediaArray?.count) {
+//                        for var j = 0; j < mediaArray?.count; j++ {
+                            let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                             let url = BNParser.findString("url", dictionary: mediaData)!
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
                             let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
@@ -179,14 +182,17 @@ class BNRequest_Element: BNRequest {
                             
                             let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                             self.element!.media.append(media)
+                            i += 1
                         }
                         
                         let categories = BNParser.findNSArray("categories", dictionary: elementData)
                         
-                        for var j = 0; j < categories?.count; j++ {
-                            let categoryData = categories!.objectAtIndex(j) as! NSDictionary
+                        i = 0
+                        for _ in categories! {
+//                        for var j = 0; j < categories?.count; j++ {
+                            let categoryData = categories!.objectAtIndex(i) as! NSDictionary
                             let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                            BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element: self.element!)
+                            //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element: self.element!)
                         }
 
                         self.element!.commentedCount = BNParser.findInt("commentedCount", dictionary: elementData)!

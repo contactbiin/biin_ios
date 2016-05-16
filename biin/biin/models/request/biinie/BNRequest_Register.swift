@@ -17,7 +17,7 @@ class BNRequest_Register: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.Register
@@ -31,7 +31,7 @@ class BNRequest_Register: BNRequest {
         //print("BNRequest_Register - \(requestString)")
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
 
         var response:BNResponse?
 

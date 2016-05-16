@@ -33,7 +33,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var callBtn:UIButton?
     var npsBtn:UIButton?
     var commentBtn:BNUIButton_Contact?
-    var closeBtn:BNUIButton_Close?
+//    var closeBtn:BNUIButton_Close?
     
     var siteLocation:CLLocationCoordinate2D?
 //    var annotation:MKPointAnnotation?
@@ -44,6 +44,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        super.init()
 //    }
     var uber_button:RequestButton?
+    var waze_button:UIButton?
     weak var site:BNSite?
     
     override init(frame: CGRect) {
@@ -68,8 +69,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         //let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
         var ypos:CGFloat = 10
 
-        closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
-        closeBtn!.addTarget(father, action: "hideInformationView:", forControlEvents: UIControlEvents.TouchUpInside)
+//        closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
+//        closeBtn!.addTarget(father, action: Selector("hideInformationView:"), forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(closeBtn!)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
@@ -79,7 +80,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         let xpos:CGFloat = 10
         
         title = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_titleSize)
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
         title!.textColor = UIColor.bnGrayDark()
         title!.textAlignment = NSTextAlignment.Left
         title!.text = "site title here"
@@ -88,7 +89,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
         ypos += SharedUIManager.instance.siteView_titleSize + 2
         streetAddress1 = UILabel(frame: CGRectMake(xpos, ypos, screenWidth, (SharedUIManager.instance.siteView_nutshellSize + 3)))
-        streetAddress1!.font = UIFont(name: "Lato-Light", size: SharedUIManager.instance.siteView_nutshellSize)
+        streetAddress1!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.siteView_nutshellSize)
         streetAddress1!.text = "Address"
         streetAddress1!.textColor = UIColor.bnGrayDark()
         streetAddress1!.numberOfLines = 0
@@ -156,7 +157,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        emailBtn!.layer.shadowOpacity = 0.25
         
-        emailBtn!.addTarget(self, action: "sendMail:", forControlEvents: UIControlEvents.TouchUpInside)
+        emailBtn!.addTarget(self, action: #selector(self.sendMail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(emailBtn!)
         
         ypos += 55
@@ -171,7 +172,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        callBtn!.layer.shadowOpacity = 0.25
 
-        callBtn!.addTarget(self, action: "call:", forControlEvents: UIControlEvents.TouchUpInside)
+        callBtn!.addTarget(self, action: #selector(self.call(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(callBtn!)
         
         
@@ -182,9 +183,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         npsBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         npsBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
         npsBtn!.layer.cornerRadius = 2
-        npsBtn!.addTarget(self, action: "nps:", forControlEvents: UIControlEvents.TouchUpInside)
+        npsBtn!.addTarget(self, action: #selector(self.nps(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(npsBtn!)
-
+        
         uber_button = RequestButton()
         uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
         uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
@@ -197,6 +198,22 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        uber_button!.layer.shadowOpacity = 0.25
         self.addSubview(uber_button!)
         uber_button!.setNeedsDisplay()
+        
+        
+        ypos += 55
+        waze_button = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        waze_button!.setTitle(NSLocalizedString("Waze", comment: "Waze"), forState: UIControlState.Normal)
+        waze_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        waze_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        //callBtn!.backgroundColor = UIColor.bnVisitSiteColor()
+        
+        waze_button!.layer.cornerRadius = 2
+        //        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
+        //        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
+        //        callBtn!.layer.shadowOpacity = 0.25
+        
+        waze_button!.addTarget(self, action: #selector(self.wazeAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(waze_button!)
         
         ypos += 55
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
@@ -318,6 +335,23 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
 //        var hasPhone = false
 //        var hasEmail = false
+        
+        var white:CGFloat = 0.0
+        var alpha:CGFloat = 0.0
+        _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+        var textColor:UIColor?
+        var bgColor:UIColor?
+        
+        
+        if white >= 0.95 {
+            //print("Is white")
+            textColor = site!.organization!.primaryColor!
+            bgColor = site!.organization!.secondaryColor!
+        } else {
+            textColor = site!.organization!.secondaryColor!
+            bgColor = site!.organization!.primaryColor
+        }
+        
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
             phoneLbl!.frame.origin.y = ypos
@@ -327,14 +361,16 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //            hasPhone = true
             callBtn!.enabled = true
             callBtn!.alpha = 1
-            callBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
-            callBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
+            callBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
+            callBtn!.backgroundColor = bgColor!//site!.media[0].vibrantDarkColor
         }else {
             callBtn!.enabled = false
             callBtn!.alpha = 0
         }
  
-        if site!.email! != "" {
+ 
+        
+        if site!.email! != "" && MFMailComposeViewController.canSendMail() {
             site_email = site!.email!
             emailLbl!.frame.origin.y = ypos
             emailLbl!.text = "\(NSLocalizedString("Email", comment: "Email")): \(site!.email!)"
@@ -351,8 +387,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             
             emailBtn!.enabled = true
             emailBtn!.alpha = 1
-            emailBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
-            emailBtn!.backgroundColor = site!.organization!.primaryColor// site!.media[0].vibrantDarkColor
+            emailBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
+            emailBtn!.backgroundColor = bgColor!
         } else {
             emailBtn!.enabled = false
             emailBtn!.alpha = 0
@@ -366,6 +402,8 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         } else {
             //print("Site schedule not set:\(site!.identifier!)")
         }
+        
+        waze_button!.backgroundColor = bgColor!
         
         ypos += 15
 
@@ -407,6 +445,23 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     }
     
     func updateButtons() {
+        
+        
+        var white:CGFloat = 0.0
+        var alpha:CGFloat = 0.0
+        _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+        var textColor:UIColor?
+        var bgColor:UIColor?
+        
+        
+        if white >= 0.95 {
+            textColor = site!.organization!.primaryColor!
+            bgColor = site!.organization!.secondaryColor!
+        } else {
+            textColor = site!.organization!.secondaryColor!
+            bgColor = site!.organization!.primaryColor
+        }
+        
         var ypos:CGFloat = map!.frame.origin.y
         ypos += (map!.frame.height + 5)
         
@@ -418,7 +473,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             hasPhone = true
         }
         
-        if site!.email! != "" {
+        if site!.email! != "" && MFMailComposeViewController.canSendMail() {
 
             hasEmail = true
         }
@@ -435,6 +490,11 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             ypos += 5
         }
         
+        waze_button!.frame.origin.y = ypos
+        ypos += waze_button!.frame.height
+        ypos += 5
+        
+        
         let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
         let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
         uber_button!.setProductID(site!.identifier!)
@@ -443,16 +503,14 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.frame.origin.y = ypos
         ypos += uber_button!.frame.height
         
-        
-        
         if site!.organization!.hasNPS {
             ypos += 5
             if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site!.identifier) {
                 npsBtn!.alpha = 1
                 npsBtn!.enabled = true
                 npsBtn!.frame.origin.y = ypos
-                npsBtn!.backgroundColor = site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
-                npsBtn!.setTitleColor(site!.organization!.secondaryColor, forState: UIControlState.Normal)
+                npsBtn!.backgroundColor = bgColor!//site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
+                npsBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
                 ypos += npsBtn!.frame.height
                 npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
                 npsBtn!.layer.borderColor = UIColor.clearColor().CGColor
@@ -465,9 +523,9 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
                 ypos += npsBtn!.frame.height
                 npsBtn!.setTitle(NSLocalizedString("npsBtn_completed", comment: "npsBtn_completed"), forState: UIControlState.Normal)
                 npsBtn!.backgroundColor = UIColor.whiteColor()
-                npsBtn!.layer.borderColor = site!.organization!.primaryColor!.CGColor//site!.media[0].vibrantDarkColor?.CGColor
+                npsBtn!.layer.borderColor = bgColor!.CGColor//site!.media[0].vibrantDarkColor?.CGColor
                 npsBtn!.layer.borderWidth = 1
-                npsBtn!.setTitleColor(site!.organization!.primaryColor!, forState: UIControlState.Normal)
+                npsBtn!.setTitleColor(bgColor, forState: UIControlState.Normal)
                 
             }
         } else {
@@ -475,10 +533,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             npsBtn!.enabled = false
         }
         
-        ypos += 10
+//        ypos += 10
 
         
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 10))
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
         
 
     }
@@ -488,6 +546,24 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         if self.site_phoneNumber! != "" {
             let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
             UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    func wazeAction(sender:UIButton){
+        
+//        if self.site_phoneNumber! != "" {
+//            let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
+//            UIApplication.sharedApplication().openURL(url)
+//        }
+        
+        if UIApplication.sharedApplication().canOpenURL(NSURL(string:"waze://")!) {
+            // Waze is installed. Launch Waze and start navigation
+            let urlStr = "waze://?ll=\(site!.latitude!),\(site!.longitude!)&navigate=yes"//"waze://?ll=\(),\()&navigate=yes"
+            UIApplication.sharedApplication().openURL(NSURL(string: urlStr)!)
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
+
+        } else  {
+            UIApplication.sharedApplication().openURL(NSURL(string:"http://itunes.apple.com/us/app/id323229106")!)
         }
     }
     
@@ -527,7 +603,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         callBtn?.removeFromSuperview()
         commentBtn?.clean()
         commentBtn?.removeFromSuperview()
-        closeBtn?.removeFromSuperview()
+//        closeBtn?.removeFromSuperview()
         
         siteLocation = nil
     }

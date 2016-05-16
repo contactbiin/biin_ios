@@ -8,9 +8,6 @@ import UIKit
 
 class LoginView:UIView, UITextFieldDelegate {
     
-    
-    
-    
     var delegate:LoginView_Delegate?
     //var biinLogo:BNUIBiinView?
 //    var biinLogoImage:UIImageView?
@@ -68,7 +65,7 @@ class LoginView:UIView, UITextFieldDelegate {
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()
 //        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.biinOrange().CGColor
@@ -126,14 +123,14 @@ class LoginView:UIView, UITextFieldDelegate {
 //        continueBtn!.layer.shadowOpacity = 0.25
         continueBtn!.setTitle(NSLocalizedString("ContinueBtn", comment: "ContinueBtn"), forState: UIControlState.Normal)
         continueBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
-        continueBtn!.addTarget(self, action: "login:", forControlEvents: UIControlEvents.TouchUpInside)
+        continueBtn!.addTarget(self, action: #selector(self.login(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(continueBtn!)
 
         
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow), name: UIKeyboardDidShowNotification , object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidHide), name: UIKeyboardDidHideNotification, object: nil)
 
         //layerGradient()
     }

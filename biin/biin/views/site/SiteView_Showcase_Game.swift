@@ -80,7 +80,9 @@ class SiteView_Showcase_Game:BNView {
             var xpos:CGFloat = 10.0
             var ypos:CGFloat = 30.0
             
-            for (var i = 0; i < showcase.elements.count; i++ ){
+            var i:Int = 0
+            for _ in showcase.elements {
+//            for (var i = 0; i < showcase.elements.count; i++ ){
             
                 //weak var element = BNAppSharedManager.instance.dataManager.elements[showcase.elements[i]._id!]
                 
@@ -90,6 +92,7 @@ class SiteView_Showcase_Game:BNView {
                 
                 xpos += 10.0
                 ypos += 30.0
+                i += 1
             }
             /*
             for (var i = 0; i < showcase.elements.count; i++ ){
@@ -173,7 +176,7 @@ class SiteView_Showcase_Game:BNView {
             })
         }
         
-        NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateEndCircle:", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(self.animateEndCircle(_:)), userInfo: nil, repeats: false)
     }
     
     func animateEndCircle(sender:NSTimer){

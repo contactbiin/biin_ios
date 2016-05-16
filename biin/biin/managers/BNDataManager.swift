@@ -19,6 +19,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var isUserLoaded = false
     
     //var regions = Dictionary<String, BNRegion>()
+    var nearbySites = Array<String>()
+    var favoritesSites = Array<String>()
+    var favoritesElements = Array<String>()
+    
     var sites = Dictionary<String, BNSite>()
     var sites_ordered = Array<BNSite>()
     var organizations = Dictionary<String, BNOrganization>()
@@ -43,6 +47,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //var timer:NSTimer?
     
     var commercialUUID:NSUUID?
+    var privacyPolicy:String?
+    var termOfService:String?
     
     init(errorManager:BNErrorManager){
         
@@ -104,9 +110,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestBiinieInitialData(){
         
-        //NSLog("BIIN - requestBiinieInitialData()")
+        //print("FLOW 4 - requestBiinieInitialData()")
         if isUserLoaded {
+            
             delegateNM!.manager!(self, requestBiinieData: bnUser!)
+            
             if bnUser!.email! == "ep@estebanpadilla.com"
                 || bnUser!.email! == "demo@biin.io" {
                 BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD = true
@@ -116,7 +124,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestInitialData(){
         
-        //NSLog("BIIN - requestInitialData()")
+        //print("FLOW 6 - requestInitialData()")
         delegateNM!.manager!(self, initialdata: bnUser!)
         
         //Changes request flow.
@@ -171,7 +179,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func addElementToCategory(categoryIdentifier:String, element:BNElement){
         for category in self.bnUser!.categories {
             if category.identifier == categoryIdentifier {
-                category.elements[element.identifier!] = element
+                //category.elements[element.identifier!] = element
                 continue
             }
         }
@@ -180,7 +188,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func addElementToCategoryByIndetifier(categoryIdentifier:String, elementIdentifier:String){
         for category in self.bnUser!.categories {
             if category.identifier == categoryIdentifier {
-                category.elements[elementIdentifier] = elements_by_id[elementIdentifier]
+                //category.elements[elementIdentifier] = elements_by_id[elementIdentifier]
                 continue
             }
         }
@@ -205,14 +213,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     */
     func manager(manager: BNNetworkManager!, didReceivedConnectionStatus status: Bool) {
         
-        //NSLog("BIIN - didReceivedConnectionStatus \(status)")
+        //print("FLOW 3 - didReceivedConnectionStatus")
         if status && BNAppSharedManager.instance.IS_APP_UP {
-            //NSLog("BIIN - didReceivedConnectionStatus 1")
-
             requestBiinieInitialData()
         } else if status && BNAppSharedManager.instance.IS_APP_DOWN {
-            //NSLog("BIIN - didReceivedConnectionStatus 2")
-
             requestBiinieInitialData()
         }
     }
@@ -290,6 +294,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     
+    //NOT IN USE
     ///Received site and start proccesing depending on data store.
     ///- parameter Network: manager that handled the request.
     ///- parameter BNSite: received from web service in json format already parse in an site object.
@@ -353,22 +358,26 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     switch object.objectType {
                     case .ELEMENT:
                         if object.hasNotification {
-                            switch biin.biinType {
-                            case .EXTERNO:
+//                            switch biin.biinType {
+//                            case .EXTERNO:
                                 //if !isExternalBiinAdded {
                                     //isExternalBiinAdded = true
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                
+                                    let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                 //}
-                                break
-                            case .INTERNO:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-                                break
-                            case .PRODUCT:
-                                BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
-                                break
-                            default:
-                                break
-                            }
+//                                break
+//                            case .INTERNO:
+                                //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+//                                break
+//                            case .PRODUCT:
+                                //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+//                                break
+//                            default:
+//                                break
+//                            }
                         }
                         
                         let element = BNElement()
@@ -517,17 +526,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                     
                     var elements = Array<BNElement>()
                     
-                    for (_, element) in category.elements {
-                        if element.isHighlight {
-                            elements.append(element)
-                        }
-                    }
+//                    for (_, element) in category.elements {
+//                        if element.isHighlight {
+//                            elements.append(element)
+//                        }
+//                    }
                     
                     if elements.count > 0 {
                         elements = elements.sort{$0.showcase!.site!.biinieProximity < $1.showcase!.site!.biinieProximity}
                         
                         highlights.append(elements[0])
-                        categoryCounter++
+                        categoryCounter += 1
                         
                         if elements.count > 1 {
                             
@@ -615,6 +624,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie, isBiinieOnBD:Bool) {
         
+        
+        //print("FLOW 5 - didReceivedBiinieData")
         if isBiinieOnBD {
             if self.bnUser != nil {
                 self.bnUser = user
@@ -625,7 +636,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
         } else {
             bnUser!.clear()
-            BNAppSharedManager.instance.settings!.clear()
+            //BNAppSharedManager.instance.settings!.clear()
             errorManager.showNotBiinieError()
         }
         /*x
@@ -761,7 +772,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //if elementsBiined[_id] == nil {
             //elementsBiined[_id] = _id
             elements_by_id[_id]!.userCollected = true
-            elements_by_id[_id]!.collectCount++
+            elements_by_id[_id]!.collectCount += 1
             return elements_by_id[_id]!.collectCount
             //TODO: Post user just biined an element
         //}
@@ -792,6 +803,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             sites_ordered.append(site)
             site.organization = organizations[site.organizationIdentifier!]
+            
+            organizations[site.organizationIdentifier!]?.sites.append(site.identifier!)
+
             sites[site.identifier!] = site
             
             if sites[site.identifier!] == nil {
@@ -819,14 +833,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                                 case .EXTERNO:
 //                                    if !isExternalBiinAdded {
 //                                        isExternalBiinAdded = true
-                                        BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                        let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                        BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
 //                                    }
                                     break
                                 case .INTERNO:
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
+                                    //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                    //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                     break
                                 case .PRODUCT:
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: object.notification!, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
+                                    //let notificaitonText = "\(site.title!) - \(object.notification!)"
+                                    //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
                                     break
                                 default:
                                     break
@@ -863,6 +880,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             }
                             
                             break
+                        /*
                         case .SHOWCASE:
                             if showcases[object.identifier!] == nil {
                                 //Showcase does not exist, store it and request it's data.
@@ -874,6 +892,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                                 delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
                             }
                             break
+                        */
                         default:
                             break
                         }
@@ -916,11 +935,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
         
-        for var i = 0; i < showcase.elements.count; i++ {
+        
+        var i:Int = 0
+        for _ in showcase.elements {
+            
             if elements_by_id[showcase.elements[i]._id!] != nil {
                 showcase.elements[i] = elements_by_id[ showcase.elements[i]._id! ]!
             }
+            
+            i += 1
         }
+        
+//        for var i = 0; i < showcase.elements.count; i++ {
+//            if elements_by_id[showcase.elements[i]._id!] != nil {
+//                showcase.elements[i] = elements_by_id[ showcase.elements[i]._id! ]!
+//            }
+//        }
     }
 
     func receivedElement(element: BNElement) {
@@ -1003,7 +1033,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
             self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] = self.elements_by_id[element!._id!]
 
-            element!.collectCount++
+            element!.collectCount += 1
             elements_by_identifier[element!.identifier!]?.collectCount = element!.collectCount
             elements_by_identifier[element!.identifier!]?.userCollected = element!.userCollected
             
@@ -1080,6 +1110,29 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestSites(view:BNView?) {
         delegateNM!.requestSites!(view)
+    }
+    
+    func addFavoriteSite(identifier:String) {
+        var isAdded = false
+        for i in (0..<favoritesSites.count) {
+            if favoritesSites[i] == identifier {
+                isAdded = true
+            }
+        }
+        
+        if !isAdded {
+            favoritesSites.insert(identifier, atIndex: 0)
+//            favoritesSites.append(identifier)
+        }
+    }
+    
+    func removeFavoriteSite(identifier:String) {
+        for i in (0..<favoritesSites.count) {
+            if favoritesSites[i] == identifier {
+                favoritesSites.removeAtIndex(i)
+                break
+            }
+        }
     }
 }
 

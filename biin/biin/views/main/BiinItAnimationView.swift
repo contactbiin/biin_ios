@@ -46,7 +46,7 @@ class BiinItAnimationView:UIView {
                 label!.text = NSLocalizedString("Uncollected", comment: "Uncollected")
             }
             
-            NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCircle:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(self.animateCircle(_:)), userInfo: nil, repeats: false)
         }
     }
     
@@ -55,12 +55,12 @@ class BiinItAnimationView:UIView {
         if !isRunning {
             isRunning = true
             label!.text = text
-            NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "animateCircle:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(self.animateCircle(_:)), userInfo: nil, repeats: false)
         }
     }
     
     func animateOut(){
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "animateCircleOut:", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.animateCircleOut(_:)), userInfo: nil, repeats: false)
     }
     
     func animateCircle(sender:NSTimer){

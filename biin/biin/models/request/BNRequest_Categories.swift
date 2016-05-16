@@ -16,7 +16,7 @@ class BNRequest_Categories: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.Categories
@@ -30,7 +30,7 @@ class BNRequest_Categories: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url:self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -45,7 +45,9 @@ class BNRequest_Categories: BNRequest {
                     var categories = Array<BNCategory>()
                     let categoriesData = BNParser.findNSArray("categories", dictionary: dataData)
                     
-                    for var i = 0; i < categoriesData?.count; i++ {
+                    var i:Int = 0
+                    for _ in categoriesData! {
+//                    for var i = 0; i < categoriesData?.count; i++ {
                         
                         let categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
                         let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
@@ -57,8 +59,12 @@ class BNRequest_Categories: BNRequest {
                         if category.hasSites {
                             let sites = BNParser.findNSArray("sites", dictionary: categoryData)
                             
-                            for var j = 0; j < sites?.count; j++ {
-                                
+                            
+                            
+//                            for j in (0..<sites?.count) {
+//                            for var j = 0; j < sites?.count; j++ {
+                            var j:Int = 0
+                            for _ in sites! {
                                 let siteData = sites!.objectAtIndex(j) as! NSDictionary
                                 
                                 
@@ -69,6 +75,8 @@ class BNRequest_Categories: BNRequest {
                                     siteDetails.biinieProximity = BNParser.findFloat("biinieProximity", dictionary: siteData)
                                     category.sitesDetails.append(siteDetails)
                                 }
+                                
+                                j += 1
                             }
                         }
                         
@@ -77,6 +85,7 @@ class BNRequest_Categories: BNRequest {
                         }
                         
                         categories.append(category)
+                        i += 1
                     }
                     
                     /*

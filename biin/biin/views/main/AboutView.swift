@@ -44,7 +44,7 @@ class AboutView: BNView {
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
@@ -119,7 +119,7 @@ class AboutView: BNView {
         siteUrl.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         siteUrl.setTitleColor(UIColor.appTextColor(), forState: UIControlState.Selected)
         siteUrl.titleLabel!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        siteUrl.addTarget(self, action: "openUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        siteUrl.addTarget(self, action: #selector(self.openUrl(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(siteUrl)
     }
     
@@ -151,7 +151,7 @@ class AboutView: BNView {
                 })
         } else {
             
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideView:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
         }
     }
     

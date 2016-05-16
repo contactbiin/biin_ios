@@ -57,7 +57,7 @@ class AllElementsView: BNView {
         self.addSubview(title!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
@@ -68,7 +68,7 @@ class AllElementsView: BNView {
         line.backgroundColor = UIColor.darkGrayColor()
         
 //        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL_TWO_COLS, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
+        scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))), father: self, direction: BNScroll_Direction.VERTICAL, space: 1, extraSpace: 0, color: UIColor.darkGrayColor(), delegate: nil)
 //        scroll!.backgroundColor = UIColor.clearColor()
 //        scroll!.pagingEnabled = false
         self.addSubview(scroll!)
@@ -153,7 +153,7 @@ class AllElementsView: BNView {
         
         if !isSameCategory(category) {
 //            self.backgroundColor = category!.backgroundColor
-            self.scroll!.backgroundColor = category!.backgroundColor
+//            self.scroll!.backgroundColor = category!.backgroundColor
             SharedAnswersManager.instance.logContentView_Category(category)
             
             scroll!.clean()
@@ -196,9 +196,26 @@ class AllElementsView: BNView {
                 elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
             }
             
+            elementView_width = SharedUIManager.instance.screenWidth
+
+            
             var elements = Array<ElementMiniView>()
 
             
+            for element_id in category!.elements {
+                if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
+                    if !isElementAdded(element_id) {
+                        let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+                        //                scroll!.addSubview(elementView)
+                        elements.append(elementView)
+                    }
+                }
+            }
+            
+            /*
             for (element_id, element) in category!.elements {
                 
                 if element._id != nil {
@@ -224,10 +241,12 @@ class AllElementsView: BNView {
                         
                     }
                 } else {
-                    print("\(element_id)")
+                    //print("\(element_id)")
                     category!.elements.removeValueForKey(element_id)
                 }
             }
+            */
+            
             self.scroll!.addMoreChildren(elements)
 
 //            scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
@@ -246,6 +265,23 @@ class AllElementsView: BNView {
             
             var elements = Array<ElementMiniView>()
             
+            
+            for element_id in category!.elements {
+                if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
+                    if !isElementAdded(element_id) {
+                        
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+                        elements.append(elementView)
+                    }
+                }
+            }
+            
+            
+            /*
             for (element_id, element) in category!.elements {
                 
                 if element._id != nil {
@@ -260,11 +296,11 @@ class AllElementsView: BNView {
                         elements.append(elementView)
                     }
                 } else {
-                    print("\(element_id)")
+                    //print("\(element_id)")
                     category!.elements.removeValueForKey(element_id)
                 }
             }
-            
+            */
             self.scroll!.addMoreChildren(elements)
         }
     }

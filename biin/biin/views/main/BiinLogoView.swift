@@ -194,7 +194,7 @@ class BiinLogoView : UIButton {
         
         if let animationID: AnyObject = anim.valueForKey("animationID") {
             
-            print("\(animationID as! String)")
+            //print("\(animationID as! String)")
             
             if animationID as! String == "b_end" {
                 i1_animation()

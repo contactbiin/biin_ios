@@ -81,7 +81,7 @@ class EPUIScrollView: BNView, UIScrollViewDelegate{
             
             self.refreshControl = UIRefreshControl(frame: CGRectMake(0, 0, 0, 0))
             self.refreshControl!.backgroundColor = UIColor.clearColor()
-            self.refreshControl!.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+            self.refreshControl!.addTarget(self, action: #selector(self.refreshControlAction(_:)), forControlEvents: UIControlEvents.ValueChanged)
             self.refreshControl!.tintColor = UIColor.whiteColor()
             self.refreshControl!.tintColor = UIColor.whiteColor()
             self.scroll!.addSubview(self.refreshControl!)
@@ -119,8 +119,11 @@ class EPUIScrollView: BNView, UIScrollViewDelegate{
         
         positionToScroll = 0
         
-        for var i = 0; i < childrenToAdd.count; i++ {
+        var i:Int = 0
+        for _ in childrenToAdd {
+//        for var i = 0; i < childrenToAdd.count; i++ {
             self.addChild(childrenToAdd[i])
+            i += 1
         }
         
         self.setChildrenPosition()
@@ -155,24 +158,30 @@ class EPUIScrollView: BNView, UIScrollViewDelegate{
         switch self.direction! {
         case EPUIScrollView_Direction.HORIZONTAL:
             
-            for var i = (self.children.count - 1); i >= 0; i-- {
+            var i:Int = (self.children.count - 1)
+            for _ in self.children {
+//            for var i = (self.children.count - 1); i >= 0; i-- {
                 self.children[i].transform = CGAffineTransformMakeRotation(CGFloat(M_PI / -2))
                 self.children[i].frame.origin.y = childPosition
                 self.children[i].frame.origin.x = 0
                 self.childPosition += self.children[i].frame.height + space
                 self.scroll!.contentSize = CGSize(width: self.frame.height, height:(self.childPosition - self.space))
+                i -= 1
             }
             
             break
         case EPUIScrollView_Direction.VERTICAL:
             if self.refreshControl_Position! == .DOWN {
                 
-                for var i = (self.children.count - 1); i >= 0; i-- {
+                var i:Int = (self.children.count - 1)
+                for _ in children {
+//                for var i = (self.children.count - 1); i >= 0; i-- {
                     self.children[i].transform = CGAffineTransformMakeRotation(CGFloat(M_PI / 1))
                     self.children[i].frame.origin.y = childPosition
                     self.children[i].frame.origin.x = 0
                     self.childPosition += self.children[i].frame.height + space
                     self.scroll!.contentSize = CGSize(width: self.frame.width, height:(self.childPosition - self.space))
+                    i -= 1
                 }
                 
             } else {

@@ -158,7 +158,10 @@ class BNBiin:NSObject
                 var isAvailableToday = false
                 
                 let dayNumber = getDayOfWeek()
-                for var i = 0; i < self.objects!.count; i++ {
+                
+                var i:Int = 0
+                for _ in self.objects! {
+//                for var i = 0; i < self.objects!.count; i++ {
                     
                     if currentTime >= self.objects![i].startTime {
                         if currentTime <= self.objects![i].endTime {
@@ -214,6 +217,8 @@ class BNBiin:NSObject
                             }
                         }
                     }
+                    
+                    i += 1
                 }
             }
         }

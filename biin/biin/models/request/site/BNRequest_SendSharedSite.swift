@@ -17,7 +17,7 @@ class BNRequest_SendSharedSite: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite? ){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.ConnectivityCheck
@@ -30,7 +30,7 @@ class BNRequest_SendSharedSite: BNRequest {
         
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

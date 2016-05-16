@@ -17,7 +17,7 @@ class BNRequest_SendBiiniePoints: BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie, organization:BNOrganization, points:Int) {
         
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.SendBiiniePoints
@@ -34,7 +34,7 @@ class BNRequest_SendBiiniePoints: BNRequest {
 
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         var model = Dictionary<String, Dictionary <String, Int>>()
         

@@ -68,7 +68,7 @@ class SurveyView: BNView, UITextViewDelegate {
         self.addSubview(title!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
 //        backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
@@ -159,12 +159,15 @@ class SurveyView: BNView, UITextViewDelegate {
         continueBtn = UIButton(frame:CGRectMake(5, (screenHeight - 75), (screenWidth - 10), 50))
 //            BNUIButton_Loging(frame: CGRectMake(5, (screenHeight - 75), (screenWidth - 10), 50), color: UIColor.darkGrayColor(), text:NSLocalizedString("Continue", comment: "Continue").uppercaseString, textColor:UIColor.whiteColor())
         continueBtn!.setTitle(NSLocalizedString("Continue", comment: "Continue"), forState: UIControlState.Normal)
-        continueBtn!.addTarget(self, action: "continueBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        continueBtn!.addTarget(self, action: #selector(self.continueBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(continueBtn!)
         
         let buttonWidth:CGFloat = ((screenWidth - 38 ) / 10)
         var x:CGFloat = 10
-        for var i = 1; i <= 10; i++ {
+        var i:Int = 1
+        
+        while i < 11 {
+//        for var i = 1; i <= 10; i++ {
 
             let color = getButtonColor(CGFloat(i))
             let button = UIButton(frame: CGRectMake(x, 0, buttonWidth, buttonWidth))
@@ -175,10 +178,11 @@ class SurveyView: BNView, UITextViewDelegate {
             button.layer.borderWidth = 1.5
             button.layer.cornerRadius = buttonWidth / 2
             button.backgroundColor = UIColor.darkGrayColor()
-            button.addTarget(self, action: "surveyAction:", forControlEvents: UIControlEvents.TouchUpInside)
+            button.addTarget(self, action: #selector(self.surveyAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             buttons.append(button)
             self.addSubview(button)
             x += buttonWidth + 2
+            i += 1
         }
         
         not_likely = UILabel(frame: CGRectMake(10, 0, screenWidth, 20))
@@ -376,7 +380,8 @@ class SurveyView: BNView, UITextViewDelegate {
         organizationName!.frame.origin.y = (surveyQuestionLbl!.frame.origin.y - 70)
         siteAvatar!.frame.origin.y = (organizationName!.frame.origin.y - (siteAvatar!.frame.height))
         
-        for var i = 0; i < buttons.count; i++ {
+        for i in (0..<buttons.count){
+//        for var i = 0; i < buttons.count; i++ {
             //let color = getButtonColor(CGFloat(i))
             buttons[i].alpha = 1
             previousButton = nil
@@ -468,7 +473,7 @@ class SurveyView: BNView, UITextViewDelegate {
             
             BNAppSharedManager.instance.notificationManager.add_surveyedSite(site!.identifier)
             
-            NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "hide:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.hide(_:)), userInfo: nil, repeats: false)
             
             
         } else {
@@ -488,8 +493,8 @@ class SurveyView: BNView, UITextViewDelegate {
             textFieldView!.alpha = 1
             textFieldView!.frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + 10
 
-            
-            for var i = 0; i < buttons.count; i++ {
+            for i in (0..<buttons.count) {
+//            for var i = 0; i < buttons.count; i++ {
                 buttons[i].alpha = 0
             }
             

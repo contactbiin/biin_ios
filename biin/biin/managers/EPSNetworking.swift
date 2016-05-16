@@ -307,7 +307,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                 let url: NSURL = NSURL(string: urlString as String)!
                 
                 // Download an NSData representation of the image at the URL
-                let request: NSURLRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 10)
+                let request: NSURLRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 25)
 
             
             
@@ -380,23 +380,33 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
     }
 
     func sentImages(imageUrl:String){
-        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i++){
-            if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
+//        
+//        for i in 0..<ShareEPSNetworking.requestingImages.count {
+//
+//            if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
+//                if let cacheImage = ShareEPSNetworking.cacheImages[imageUrl] {
+//                    ShareEPSNetworking.requestingImages[i].image.image = cacheImage
+//                    ShareEPSNetworking.requestingImages[i].image.showAfterDownload()
+//                }
+//            }
+//        }
+        
+        for image in ShareEPSNetworking.requestingImages {
+            if image.imageUrl == imageUrl {
                 if let cacheImage = ShareEPSNetworking.cacheImages[imageUrl] {
-                    ShareEPSNetworking.requestingImages[i].image.image = cacheImage
-                    ShareEPSNetworking.requestingImages[i].image.showAfterDownload()
+                    image.image.image = cacheImage
+                    image.image.showAfterDownload()
+                    
                 }
             }
         }
         
-        for (var i = 0; i < ShareEPSNetworking.requestingImages.count; i++){
-            if ShareEPSNetworking.requestingImages[i].imageUrl == imageUrl {
-                ShareEPSNetworking.requestingImages.removeAtIndex(i)
+        
+        for j in (0..<ShareEPSNetworking.requestingImages.count).reverse() {
+            if ShareEPSNetworking.requestingImages[j].imageUrl == imageUrl {
+                ShareEPSNetworking.requestingImages.removeAtIndex(j)
             }
         }
-        
-
-        
         
         if ShareEPSNetworking.requestingImages.count == 0 {
             ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)

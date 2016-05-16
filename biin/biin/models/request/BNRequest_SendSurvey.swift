@@ -17,7 +17,7 @@ class BNRequest_SendSurvey: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite?, rating:Int, comment:String, user:Biinie? ){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.SendSurvey
@@ -43,7 +43,7 @@ class BNRequest_SendSurvey: BNRequest {
 */
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

@@ -16,7 +16,7 @@ class BNUIButton_LikeIt:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_LikeIt_Empty(color: UIColor.biinColor(), position: CGPointMake(4, 5))
+        icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))//BNIcon_LikeIt_Empty(color: UIColor.biinColor(), position: CGPointMake(4, 5))
     }
     
     func changedIcon(value:Bool) {

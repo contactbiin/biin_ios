@@ -20,7 +20,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var scroll:UIScrollView?
     var showcases:Array<SiteView_Showcase>?
-    
+    var otherSitesView:SiteView_OtherSites?
     //var nutshell:UILabel?
     
     var imagesScrollView:BNUIScrollView?
@@ -42,7 +42,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var locationViewHeigh:CGFloat = 280
     var panIndex = 0
-    var scrollSpaceForShowcases:CGFloat = 0
+//    var scrollSpaceForShowcases:CGFloat = 0
     
     var showcaseHeight:CGFloat = 0
     var decorationColor:UIColor?
@@ -115,7 +115,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(backBtn!)
         
         bottom = SiteView_Bottom(frame: CGRectMake(0, 0, screenWidth, 0), father:self)
@@ -144,19 +144,19 @@ class SiteView:BNView, UIScrollViewDelegate {
         //Like button
         //buttonSpace += 35
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        likeItButton!.addTarget(self, action: "likeit:", forControlEvents: UIControlEvents.TouchUpInside)
+        likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
         
         //Share button
         buttonSpace += 35
         shareItButton = BNUIButton_ShareIt(frame: CGRectMake( buttonSpace, ypos, 25, 25))
-        shareItButton!.addTarget(self, action: "shareit:", forControlEvents: UIControlEvents.TouchUpInside)
+        shareItButton!.addTarget(self, action: #selector(self.shareit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
         //Collect button
         buttonSpace += 35
         collectItButton = BNUIButton_CollectionIt(frame: CGRectMake((screenWidth - buttonSpace), (SharedUIManager.instance.siteView_headerHeight - 27), 25, 25))
-        collectItButton!.addTarget(self, action: "collectIt:", forControlEvents: UIControlEvents.TouchUpInside)
+        collectItButton!.addTarget(self, action: #selector(self.collectIt(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         //header!.addSubview(collectItButton!)
         
         ypos = 7
@@ -169,8 +169,8 @@ class SiteView:BNView, UIScrollViewDelegate {
 //        followButton!.layer.borderColor = UIColor.blackColor().CGColor
 //        followButton!.layer.borderWidth = 1
         followButton!.backgroundColor = UIColor.clearColor()
-        followButton!.addTarget(self, action: "followit:", forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn_Bg!.addSubview(followButton!)
+        followButton!.addTarget(self, action: #selector(self.followit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        //backBtn_Bg!.addSubview(followButton!)
         
         followButton!.frame.origin.x = (screenWidth - (followButton!.frame.width))
         
@@ -187,7 +187,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
 
         
-        let backGesture = UISwipeGestureRecognizer(target: self, action: "backGestureAction:")
+        let backGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.backGestureAction(_:)))
         backGesture.direction = UISwipeGestureRecognizerDirection.Right
         self.addGestureRecognizer(backGesture)
     }
@@ -285,7 +285,7 @@ class SiteView:BNView, UIScrollViewDelegate {
             animationView!.updateAnimationView(decorationColor, textColor: textColor)
             
             header!.updateForSite(site)
-            bottom!.updateForSite(site)
+            //bottom!.updateForSite(site)
             
             imagesScrollView!.updateImages(site!.media, isElement:false)
             updateShowcasesAndLocation(site)
@@ -424,11 +424,9 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         showcaseHeight = SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height_showcase + 1
 
-        //scroll!.addSubview(imagesScrollView!)
-
         var ypos:CGFloat = SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_headerHeight
-        scrollSpaceForShowcases = 0
-        //ypos += 2
+//        scrollSpaceForShowcases = 0
+        
         var colorIndex:Int = 0
         
         if site!.showcases != nil {
@@ -438,23 +436,45 @@ class SiteView:BNView, UIScrollViewDelegate {
                 showcases!.append(showcaseView)
                 ypos += showcaseHeight
                 //ypos += 2
-                colorIndex++
+                colorIndex += 1
                 if colorIndex  > 1 {
                     colorIndex = 0
                 }
             }
         }
-
         
         locationView!.updateForSite(site)
         locationView!.frame.origin.y = ypos
-        ypos += (locationView!.frame.height + 40)
+        ypos += (locationView!.frame.height)
         
-        scrollSpaceForShowcases = ypos
-        bottom!.frame.origin.y = ypos
-        ypos += bottom!.frame.height
+        //scrollSpaceForShowcases = ypos
+        //bottom!.frame.origin.y = ypos
+        //ypos += bottom!.frame.height
         //locationView!.frame.origin.y = ypos
         //ypos += locationViewHeigh //200 for location View
+        
+        
+        if otherSitesView != nil {
+            otherSitesView!.removeFromSuperview()
+            otherSitesView = nil
+        }
+        
+        if site!.organization!.sites.count > 1 {
+            if otherSitesView == nil {
+                let height:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
+                
+                //            for i in (0..<site!.organization!.sites.count) {
+                otherSitesView = SiteView_OtherSites(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, site:site, colorIndex:colorIndex )
+                scroll!.addSubview(otherSitesView!)
+                ypos += height
+                //ypos += 2
+                colorIndex += 1
+                if colorIndex  > 1 {
+                    colorIndex = 0
+                }
+            }
+        }
+        
         
         scroll!.contentSize = CGSizeMake(0, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
@@ -557,11 +577,13 @@ class SiteView:BNView, UIScrollViewDelegate {
         site!.userLiked = !site!.userLiked
         
         if self.site!.userLiked {
+            BNAppSharedManager.instance.dataManager.addFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:site!.identifier!)
             SharedAnswersManager.instance.logLike_Site(site)
 
         } else {
+            BNAppSharedManager.instance.dataManager.removeFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
             BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!)
             SharedAnswersManager.instance.logUnLike_Site(site)

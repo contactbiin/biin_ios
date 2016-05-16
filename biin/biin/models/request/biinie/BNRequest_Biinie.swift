@@ -17,7 +17,7 @@ class BNRequest_Biinie: BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie ) {
         
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.Biinie
@@ -31,7 +31,7 @@ class BNRequest_Biinie: BNRequest {
         //self.start = NSDate()
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -64,7 +64,10 @@ class BNRequest_Biinie: BNRequest {
                         let categoriesData = BNParser.findNSArray("categories", dictionary: biinieData)
                         
                         if categoriesData!.count > 0 {
-                            for var i = 0; i < categoriesData?.count; i++ {
+                            
+                            var i:Int = 0
+                            for _ in categoriesData! {
+//                            for var i = 0; i < categoriesData?.count; i++ {
                                 
                                 let categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
                                 let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
@@ -72,6 +75,7 @@ class BNRequest_Biinie: BNRequest {
                                 category.name = BNParser.findString("name", dictionary: categoryData)
                                 
                                 categories.append(category)
+                                i += 1
                             }
                         } else {
 

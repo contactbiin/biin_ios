@@ -12,8 +12,8 @@ Save = "Guardar";
 Start = "Iniciar";
 Loading = "Descargando contenido...";
 Finishing = "Actualizando...";
-EmailUs = "Escribínos";
-CallUs = "Llamános";
+EmailUs = "Escribinos";
+CallUs = "Llamanos";
 Phone = "Teléfono";
 Password = "Clave";
 Login = "Ya tienes cuenta? Iniciar sesión";
@@ -43,6 +43,12 @@ Value = "VALOR";
 Calcel = "Cancelar";
 More = "más";
 NearYou = "Lugares cercanos a vos";
+FavoritePlaces = "Tus lugares Favoritos";
+AddFavoritePlaces = "Agrega algunos lugares a tus favoritos";
+
+OtherPlaces1 = "Otros ";
+OtherPlaces2 = " cerca de vos";
+
 MoreFrom = "Más de";
 Recomended = "Recomendaciones";
 
@@ -55,7 +61,7 @@ NotFollowTxt = "Lamentamos tu partida!";
 /* Menu buttons */
 Profile = "Perfil";
 Home = "Inicio";
-Collections = "Guardado";
+Collections = "Mis Favoritos";
 Loyalty = "Puntos";
 Notifications = "Notificaciones";
 InviteFriends = "Invitar Amigos";
@@ -85,7 +91,7 @@ category12 = "Automotriz e Indutrial";
 category13 = "Joyería y Bisuteria";
 category14 = "En el Super";
 category15 = "Mascotas";
-category16 = "Electrodomesticos";
+category16 = "Electrodomésticos";
 category17 = "Muebles";
 category18 = "Servicios";
 /*category16 = "Ferias";
@@ -198,7 +204,7 @@ OnboardingTitle3 = "Beneficios!";
 OnboardingText3 = "Visitá tus lugares favoritos y aprovechá las mejores ofertas y novedades.";
 
 SiteBottomTitle = "Muchas gracias!";
-SiteBottomSubtitle = "Vuelve pronto";
+SiteBottomSubtitle = "Volvé pronto";
 
 BadEmail = "La clave o correo están mal.";
 RequestFailed = "La solicitud fallo!";
@@ -215,17 +221,24 @@ Now = "Ahora";
 SurveyTitle = "Su opinión es importante";
 Optional = "Opcional";
 BrandGreetings = "Muchas gracias por visitarnos el día de hoy, esperamos que regreses pronto.";
-SurveyQuestion_1 = "Que tan probable es que recomiendes a ";
-SurveyQuestion_2 = " basado en tu experiencia de hoy?";
+SurveyQuestion_1 = "Que tan probable es que recomendés a ";
+SurveyQuestion_2 = " con amigos o familia?";
 SurveyQuestion_3 = "Dejanos tu comentario para saber que te gustó o que podemos mejorar.";
 Thankyou = "Muchas gracias";
 Download = "Descarga en www.biin.io";
 
-likely = "muy probablemente";
-not_likely = "poco probable";
+likely = "Muy probable";
+not_likely = "Poco probable";
 
-UBER = "Llega allí con Uber";
+UBER = "Ir con Uber";
 Schedule = "Horario";
 
-npsBtn = "Ayúdanos a mejorar";
+npsBtn = "Ayudanos a mejorar";
 npsBtn_completed = "Hemos recibido tu ayuda!";
+
+PrivacyPolicy = "Politicas de privacidad";
+TermOfUser = "Condiciones de uso";
+
+Accept = "Acepto";
+
+Waze = "Waze";

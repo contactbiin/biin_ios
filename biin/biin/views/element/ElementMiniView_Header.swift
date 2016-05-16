@@ -39,12 +39,12 @@ class ElementMiniView_Header:BNView {
         
         containerView = UIView(frame: self.bounds)
         
-        if element!.showcase!.site!.media.count > 0 {
+//        if element!.showcase!.site!.media.count > 0 {
 
-            containerView!.backgroundColor =  element!.showcase!.site!.organization!.primaryColor//element!.media[0].vibrantColor
-        } else {
-            containerView!.backgroundColor = UIColor.darkGrayColor()
-        }
+            containerView!.backgroundColor =  element!.showcase!.site!.organization!.primaryColor!//element!.media[0].vibrantColor
+//        } else {
+//            containerView!.backgroundColor = UIColor.darkGrayColor()
+//        }
         
         self.addSubview(containerView!)
         

@@ -17,7 +17,7 @@ class BNRequest_SendUnCollectedSite: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager ){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.SendUnCollectedSite
@@ -29,7 +29,7 @@ class BNRequest_SendUnCollectedSite: BNRequest {
         
 
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

@@ -76,7 +76,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
@@ -285,11 +285,11 @@ class ProfileView: BNView, UITextFieldDelegate {
         self.addSubview(genderLbl!)
         
         femaleBtn = BNUIButton_Gender(frame: CGRectMake(((screenWidth / 2) + 20), (ypos + 5), 30, 30), iconType: BNIconType.femaleSmall)
-        femaleBtn!.addTarget(self, action: "femaleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        femaleBtn!.addTarget(self, action: #selector(self.femaleBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(femaleBtn!)
         
         maleBtn = BNUIButton_Gender(frame: CGRectMake(((screenWidth / 2) + 55), (ypos + 5), 30, 30), iconType: BNIconType.maleSmall)
-        maleBtn!.addTarget(self, action: "maleBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        maleBtn!.addTarget(self, action: #selector(self.maleBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(maleBtn!)
         
         if genderStr == "none" {
@@ -397,9 +397,9 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(nil, didFinishLaunchingWithOptions: nil)
 
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
+//        if (FBSDKAccessToken.currentAccessToken() != nil) {
             // User is already logged in, do work such as go to next view controller.
-        } else {
+//        } else {
         
             let loginView : FBSDKLoginButton = FBSDKLoginButton()
             self.addSubview(loginView)
@@ -412,7 +412,7 @@ class ProfileView: BNView, UITextFieldDelegate {
 //            loginView.layer.shadowOpacity = 0.25
             loginView.delegate = (self.father as! MainView).rootViewController!
             loginView
-        }
+//        }
         
         saveBtn = UIButton(frame: CGRectMake(5, (self.frame.height - 75), (screenWidth - 10), 50))
         saveBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 16)
@@ -423,20 +423,19 @@ class ProfileView: BNView, UITextFieldDelegate {
 //        saveBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        saveBtn!.layer.shadowOpacity = 0.25
         
-        saveBtn!.addTarget(self, action: "saveBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        saveBtn!.addTarget(self, action: #selector(self.saveBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(saveBtn!)
         
         //ypos += 200
         //scroll!.contentSize = CGSizeMake(screenWidth, ypos)
         //scroll!.userInteractionEnabled = false
         
-        
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
         
-        let tap = UITapGestureRecognizer(target: self, action: "tapped:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapped(_:)))
         self.addGestureRecognizer(tap)
     }
     
@@ -472,7 +471,7 @@ class ProfileView: BNView, UITextFieldDelegate {
                 self.fade!.alpha = 0.25
             })
             
-            NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideView:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
   
             
         }
@@ -601,7 +600,7 @@ class ProfileView: BNView, UITextFieldDelegate {
             let datePickerView  : UIDatePicker = UIDatePicker()
             datePickerView.datePickerMode = UIDatePickerMode.Date
             textField.inputView = datePickerView
-            datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+            datePickerView.addTarget(self, action: #selector(self.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
 
         }
         
@@ -701,7 +700,10 @@ class ProfileView: BNView, UITextFieldDelegate {
         lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.lastName!
         emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.email!
         usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.biinName!
-        birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        
+        if BNAppSharedManager.instance.dataManager.bnUser!.birthDate != nil {
+            birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        }
         
         if BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified! {
             emailVerifyTxt!.textField!.text = NSLocalizedString("Yes", comment: "yes")

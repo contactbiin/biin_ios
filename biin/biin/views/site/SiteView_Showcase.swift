@@ -78,7 +78,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         let screenWidth = SharedUIManager.instance.screenWidth
         //var screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 11//SharedUIManager.instance.miniView_height + 6
+        var ypos:CGFloat = 21//SharedUIManager.instance.miniView_height + 6
         //ypos += 18
         
         title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
@@ -103,7 +103,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
         subTitle!.textColor = UIColor.whiteColor()
         subTitle!.text = self.showcase!.subTitle!
-        self.addSubview(subTitle!)
+        ///self.addSubview(subTitle!)
         
         //TESTING NOTIFICATIONS
 //        addNotificationBtn = UIButton(frame: CGRectMake((frame.width - 30), 5, 20, 20))
@@ -225,10 +225,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
                     
                     elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
                     elements.append(elementView)
-                    elementPosition++
+                    elementPosition += 1
                     
                     if element.userViewed {
-                        elementsViewed++
+                        elementsViewed += 1
                     }
                     
                     //if elementPosition < 4 {
@@ -349,7 +349,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }// called when scroll view grinds to a halt
     
     func updatePointCounter() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:"updatePoints:", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:#selector(self.updatePoints(_:)), userInfo: nil, repeats: true)
     }
     
     func updatePoints(sender:NSTimer){
@@ -424,7 +424,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
     }
     
     override func request() {
-        self.showcase!.batch++
+        self.showcase!.batch += 1
         BNAppSharedManager.instance.dataManager.requestElementsForShowcase(self.showcase, view: self)
     }
     

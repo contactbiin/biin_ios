@@ -71,7 +71,7 @@ class InternetErrorView: BNView {
         siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         siteUrl.backgroundColor = UIColor.darkGrayColor()
         siteUrl.titleLabel!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.errorView_button)
-        siteUrl.addTarget(self, action: "tryAgainAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        siteUrl.addTarget(self, action: #selector(self.tryAgainAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(siteUrl)
     }
     
@@ -107,7 +107,7 @@ class InternetErrorView: BNView {
                 })
         } else {
             
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideView:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
         }
     }
     

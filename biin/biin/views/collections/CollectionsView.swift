@@ -40,7 +40,7 @@ class CollectionsView: BNView, ElementView_Delegate {
         self.addSubview(title!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
         //let headerWidth = screenWidth - 60
@@ -145,7 +145,7 @@ class CollectionsView: BNView, ElementView_Delegate {
                 self.fade!.alpha = 0.25
             })
             
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideView:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
         }
     }
     

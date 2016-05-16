@@ -63,10 +63,12 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             
             var scrollXPos:CGFloat = 0
             
-            for var i:Int = 0; i < self.media!.count; i++ {
+            var i:Int = 0
+            for _ in self.media! {
+//            for var i:Int = 0; i < self.media!.count; i++ {
 
                 if self.media!.count > 1 {
-                    let point = BNUIPointView(frame: CGRectMake((xpos), distance, 10, 10), categoryIdentifier:"", activeColor:media[0].vibrantColor!)
+                    let point = BNUIPointView(frame: CGRectMake((xpos), distance, 10, 10), categoryIdentifier:"", activeColor:self.media![0].vibrantColor!)
                     self.points!.append(point)
                     self.addSubview(point)
                     xpos += 20
@@ -88,6 +90,7 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
                 
                 scroll!.addSubview(image)
                 scrollXPos += SharedUIManager.instance.screenWidth
+                i += 1
             }
             
             if points!.count > 0 {
@@ -163,9 +166,13 @@ class BNUIScrollView:UIView, UIScrollViewDelegate {
             }
         }
         
-        for (var i = 0; i < images.count; i++) {
-            self.images[i].image.removeFromSuperview()
+        for image in images {
+            image.image.removeFromSuperview()
         }
+        
+//        for (var i = 0; i < images.count; i++) {
+//            self.images[i].image.removeFromSuperview()
+//        }
         
         self.images = []
         self.points = Array<BNUIPointView>()

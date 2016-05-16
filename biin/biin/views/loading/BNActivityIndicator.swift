@@ -7,6 +7,7 @@ import Foundation
 import UIKit
 
 class BNActivityIndicator: UIView {
+    
     var rectShape:CAShapeLayer?
     
     override init(frame: CGRect) {
@@ -16,7 +17,7 @@ class BNActivityIndicator: UIView {
         rectShape!.bounds = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         rectShape!.position = CGPoint(x:(frame.width / 2), y: (frame.height / 2))
         rectShape!.path = UIBezierPath(ovalInRect: rectShape!.bounds).CGPath
-        rectShape!.lineWidth = 1.0
+        rectShape!.lineWidth = 3.0
         rectShape!.lineCap = kCALineCapRound
         rectShape!.strokeColor = UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor
         rectShape!.fillColor = UIColor.clearColor().CGColor

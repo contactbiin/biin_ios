@@ -14,6 +14,7 @@ class BNIcon_Percentage:BNIcon {
     var textWidth:CGFloat = 0
     var textSize:CGFloat = 0
     var textPosition:CGPoint?
+    var textcolor:UIColor?
     
     override init() {
         super.init()
@@ -32,7 +33,7 @@ class BNIcon_Percentage:BNIcon {
         self.text = text
     }
     
-    convenience init(color:UIColor, position:CGPoint, text:String, size:CGFloat, textSize:CGFloat, textPosition:CGPoint){
+    convenience init(color:UIColor, position:CGPoint, text:String, textcolor:UIColor, size:CGFloat, textSize:CGFloat, textPosition:CGPoint){
         self.init()
         self.color = color
         self.position = position
@@ -41,6 +42,7 @@ class BNIcon_Percentage:BNIcon {
         self.textWidth = sqrt((size * size) + (size * size));
         self.textSize = textSize
         self.textPosition = textPosition
+        self.textcolor = textcolor
     }
     
     override func drawCanvas() {
@@ -67,7 +69,7 @@ class BNIcon_Percentage:BNIcon {
         let textStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = .Center
         
-        let textFontAttributes = [NSFontAttributeName: UIFont(name: "Lato-Regular", size: self.textSize)!, NSForegroundColorAttributeName: UIColor.whiteColor(), NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSFontAttributeName: UIFont(name: "Lato-Regular", size: self.textSize)!, NSForegroundColorAttributeName: self.textcolor!, NSParagraphStyleAttributeName: textStyle]
         
         let textTextHeight: CGFloat = textTextContent.boundingRectWithSize(CGSizeMake(textRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         CGContextSaveGState(context)

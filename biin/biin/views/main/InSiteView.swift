@@ -31,7 +31,7 @@ class InSiteView: BNView {
         self.layer.masksToBounds = true
         
         //self.site = site!
-        var ypos:CGFloat = 4
+        var ypos:CGFloat = 6
         
         viewContainer = UIView(frame: self.bounds)
         viewContainer!.backgroundColor = UIColor.redColor()
@@ -69,7 +69,7 @@ class InSiteView: BNView {
         viewContainer!.addSubview(nutshell!)
         
 
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()
@@ -109,15 +109,9 @@ class InSiteView: BNView {
     func updateForSite(site: BNSite?){
         
         self.site = site
-        var textColor:UIColor?
         
-        if site!.useWhiteText {
-            textColor = UIColor.whiteColor()
-        } else {
-            textColor = UIColor.bnGrayDark()
-        }
-        
-        viewContainer!.backgroundColor = site!.media[0].vibrantColor!
+        let textColor:UIColor = self.site!.organization!.secondaryColor!
+        viewContainer!.backgroundColor = site!.organization!.primaryColor!
         
         title!.text = site!.title!
         subTitle!.text = site!.subTitle!
@@ -126,6 +120,8 @@ class InSiteView: BNView {
         title!.textColor = textColor
         subTitle!.textColor = textColor
         nutshell!.textColor = textColor
+        
+        
         
         if site!.organization!.media.count > 0 {
             BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)

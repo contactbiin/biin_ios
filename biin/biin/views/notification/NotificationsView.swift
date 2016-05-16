@@ -38,7 +38,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         self.addSubview(title!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
         //let headerWidth = screenWidth - 60
@@ -130,7 +130,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
                 })
         } else {
             
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "hideView:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
         }
     }
     
@@ -204,7 +204,8 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
         
         var startPosition = 0
-        for var i = 0; i < notifications.count; i++ {
+        for i in (0..<notifications.count){
+//        for var i = 0; i < notifications.count; i++ {
             if notifications[i].notification!.identifier == identifier {
                 startPosition = i
                 notifications[i].removeFromSuperview()
@@ -216,7 +217,8 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         let height:CGFloat = 65
         var ypos:CGFloat = (height * CGFloat(startPosition)) + 5
         
-        for var i = startPosition; i < notifications.count; i++ {
+        for i in (startPosition..<notifications.count){
+//        for var i = startPosition; i < notifications.count; i++ {
             UIView.animateWithDuration(0.2, animations: {()->Void in
                 self.notifications[i].frame.origin.y = ypos
             })

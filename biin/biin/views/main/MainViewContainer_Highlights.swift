@@ -130,7 +130,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
                 highlight.requestImage()
                 xpos += (SharedUIManager.instance.screenWidth )
                 
-                let point = BNUIPointView(frame: CGRectMake(xpos_for_point, 35, 10, 10), activeColor: UIColor.whiteColor())
+                let point = BNUIPointView(frame: CGRectMake(xpos_for_point, 40, 10, 10), activeColor: UIColor.whiteColor())
                 points!.append(point)
                 self.addSubview(point)
                 xpos_for_point += 20
@@ -237,7 +237,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     func startTimer(){
         if timer == nil {
-            timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: "change:", userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: #selector(MainViewContainer_Highlights.change(_:)), userInfo: nil, repeats: true)
         }
     }
     

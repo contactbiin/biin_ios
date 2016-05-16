@@ -13,7 +13,7 @@ class BNRequest_Organization: BNRequest {
     
     convenience init(requestString:String, dataIdentifier:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, organization:BNOrganization ){
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
         self.requestType = BNRequestType.Organization
@@ -27,7 +27,7 @@ class BNRequest_Organization: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -53,7 +53,10 @@ class BNRequest_Organization: BNRequest {
                         
                         let mediaArray = BNParser.findNSArray("media", dictionary: organizationData!)
                         
-                        for var i = 0; i < mediaArray?.count; i++ {
+                        var i:Int = 0
+                        
+                        for _ in mediaArray! {
+//                        for var i = 0; i < mediaArray?.count; i++ {
                             let mediaData = mediaArray!.objectAtIndex(i) as! NSDictionary
                             let url = BNParser.findString("url", dictionary:mediaData)
                             let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
@@ -62,6 +65,7 @@ class BNRequest_Organization: BNRequest {
                             let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
                             let media = BNMedia(mediaType:type, url:url!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
                             self.organization!.media.append(media)
+                            i += 1
                         }
                         
                         self.organization!.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData!)

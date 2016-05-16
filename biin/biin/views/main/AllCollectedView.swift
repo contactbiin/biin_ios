@@ -21,6 +21,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     
     var fade:UIView?
     
+    var likedElementsBtn:UIButton?
+    var likedSitesBtn:UIButton?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
     }
@@ -54,7 +57,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         self.addSubview(title!)
         
         backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
-        backBtn!.addTarget(self, action: "backBtnAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
         backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
         backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
@@ -79,6 +82,17 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
+        
+        likedElementsBtn = UIButton(frame: CGRectMake(0, (screenHeight - 80), ((screenWidth / 2) - 2), 60))
+        likedElementsBtn!.setTitle("Products", forState: UIControlState.Normal)
+        likedElementsBtn!.backgroundColor = UIColor.redColor()
+        self.addSubview(likedElementsBtn!)
+        
+        likedSitesBtn = UIButton(frame: CGRectMake((screenWidth / 2), (screenHeight - 80), (screenWidth / 2), 60))
+        likedSitesBtn!.setTitle("Sites", forState: UIControlState.Normal)
+        likedSitesBtn!.backgroundColor = UIColor.blueColor()
+        self.addSubview(likedSitesBtn!)
+        
         self.addSubview(fade!)
     }
     
@@ -179,7 +193,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             elements!.append(elementView)
             
             xpos += elementView_width + spacer
-            colunmCounter++
+            colunmCounter += 1
             
             if colunmCounter == 2 {
                 colunmCounter = 0
@@ -228,16 +242,21 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         var elementView_width:CGFloat = 0
         
 
-        
-        for var i = 0; i < elements!.count; i++ {
+        var i:Int = 0
+        for _ in elements! {
+//        for var i = 0; i < elements!.count; i++ {
             if elements![i].element!._id! == view.element!._id {
                 elements!.removeAtIndex(i)
                 continue
             }
+            i += 1
         }
         
-        for var i = 0; i < elements!.count; i++ {
-                  
+        i = 0
+        
+        for _ in elements! {
+//        for var i = 0; i < elements!.count; i++ {
+            
             if showcase!.elements.count == 1 {
                 elementView_width = SharedUIManager.instance.screenWidth
             } else {
@@ -247,7 +266,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             elements![i].frame = CGRectMake(xpos, ypos, elementView_width, miniViewHeight)
             
             xpos += elementView_width + spacer
-            colunmCounter++
+            colunmCounter += 1
             
             if colunmCounter == 2 {
                 colunmCounter = 0

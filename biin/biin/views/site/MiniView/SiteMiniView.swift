@@ -64,11 +64,46 @@ class SiteMiniView: BNView {
         let decorationColor = site!.organization!.primaryColor
         self.backgroundColor = decorationColor
         
+        
         //Positioning image
-        let imageSize = frame.width
+        var ypos:CGFloat = 0
+        var xpos:CGFloat = 0
+        var imageSize:CGFloat = 0
+        
+        var headerHeight:CGFloat = 0
+        var headerHeightForImage:CGFloat = 0
+        
+//        if showlocation {
+            headerHeight = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
+            headerHeightForImage = SharedUIManager.instance.siteMiniView_headerHeight
+//        } else {
+//            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight_showcase
+//            headerHeightForImage = SharedUIManager.instance.miniView_headerHeight_showcase
+//        }
+        
+        
+        if frame.width == frame.height {
+            imageSize = (frame.width)
+            xpos = ((imageSize - frame.width) / 2) * -1
+            ypos = ((imageSize - frame.height) / 2) * -1
+            
+        } else if frame.width < (frame.height - headerHeightForImage) {
+            imageSize = (frame.height - headerHeightForImage)
+            xpos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
+            //ypos = ((imageSize - frame.height) / 2) * -1
+        } else {
+            imageSize = frame.width
+            ypos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
+        }
+        
+ 
+        
+        
+        
         //let xpos = ((imageSize - frame.width) / 2 ) * -1
-        image = BNUIImageView(frame: CGRectMake(0, 0, imageSize, imageSize), color:decorationColor!)
+        image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:decorationColor!)
         //image!.alpha = 0
+        image!.updatePosition(frame)
         self.addSubview(image!)
         
         header = SiteMiniView_Header(frame: CGRectMake(0, SharedUIManager.instance.siteMiniView_imageheight, frame.width, SharedUIManager.instance.siteMiniView_headerHeight), father: self, site: site, showShareButton:true)
@@ -86,7 +121,7 @@ class SiteMiniView: BNView {
 //        //self.addSubview(nutshell)
 //        nutshell.frame.origin.y = (frame.height - (nutshell.frame.height + 10))
         
-        let tap = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
         self.isFirstResponder()
@@ -122,6 +157,10 @@ class SiteMiniView: BNView {
             father!.updateUserControl(position)
         }
     }
+
+    func updateLikeButton(){
+        self.header!.updateLikeItBtn()
+    }
     
     func requestImage(){
         
@@ -154,12 +193,18 @@ class SiteMiniView: BNView {
         //sectionsViewDelegate!.showShowcaseFromBottom!(self, position:position, showcaseKey:view.showcaseKey)
         
     }
-    
+
     func clean() {
         
         site = nil
         image!.removeFromSuperview()
         header!.removeFromSuperview()
+    }
+    
+    override func updateWidth(frame: CGRect) {
+        self.frame = frame
+        self.header!.updateWidth(frame)
+        self.image!.updatePosition(frame)
     }
 }
 

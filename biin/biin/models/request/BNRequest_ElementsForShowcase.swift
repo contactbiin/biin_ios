@@ -19,7 +19,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, showcase:BNShowcase?, user:Biinie?, view:BNView?) {
         
         self.init()
-        self.identifier = BNRequestData.requestCounter++
+        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.ElementsForShowcase
@@ -35,7 +35,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps++
+        requestAttemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -61,7 +61,10 @@ class BNRequest_ElementsForShowcase: BNRequest {
 //                        
                         let elements = BNParser.findNSArray("elements", dictionary: elementsData)
                         
-                        for var i = 0; i < elements?.count; i++ {
+                        var i:Int = 0
+                        for _ in elements! {
+//                        for i in (0..<elements?.count){
+//                        for var i = 0; i < elements?.count; i++ {
                             
                             let elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
                             
@@ -127,10 +130,12 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             let mediaArray = BNParser.findNSArray("media", dictionary: elementData)
                             
                             if mediaArray!.count == 0 {
-                                print("element with not media:\(element.identifier)")
+                                //print("element with not media:\(element.identifier)")
                             }
                             
-                            for var j = 0; j < mediaArray?.count; j++ {
+                            var j:Int = 0
+                            for _ in mediaArray! {
+//                            for var j = 0; j < mediaArray?.count; j++ {
                                 let mediaData = mediaArray!.objectAtIndex(j) as! NSDictionary
                                 let url = BNParser.findString("url", dictionary: mediaData)!
                                 let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
@@ -149,14 +154,18 @@ class BNRequest_ElementsForShowcase: BNRequest {
                                 
                                 let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
                                 element.media.append(media)
+                                j += 1
                             }
                             
                             let categories = BNParser.findNSArray("categories", dictionary: elementData)
                             
-                            for var j = 0; j < categories?.count; j++ {
+                            j = 0
+                            for _ in categories! {
+//                            for var j = 0; j < categories?.count; j++ {
                                 let categoryData = categories!.objectAtIndex(j) as! NSDictionary
                                 let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                                BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+                                j += 1
                             }
                             
                             element.collectCount = BNParser.findInt("collectCount", dictionary: elementData)!
@@ -170,6 +179,8 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             
                             BNAppSharedManager.instance
                             BNAppSharedManager.instance.dataManager.receivedElement(element)
+                            
+                            i += 1
                         }
                         
                         BNAppSharedManager.instance.dataManager.receivedShowcase(self.showcase!)
