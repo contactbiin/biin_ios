@@ -26,7 +26,7 @@ class MainViewContainer_NearSites: BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        self.backgroundColor = UIColor.bnGrayDark()
+        self.backgroundColor = UIColor.bnSitesColor()
         
         moreSitesBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreSitesBtn!.icon!.color = UIColor.whiteColor()
@@ -102,6 +102,7 @@ class MainViewContainer_NearSites: BNView {
         
         for site in sitesArray {
             //if site.showInView {
+            if !isFavoriteSite(site.identifier!) {
                 if !isSiteAdded(site.identifier!) {
                     if !isOrganizationAdded(site.organization!.identifier!) {
                         let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
@@ -114,11 +115,36 @@ class MainViewContainer_NearSites: BNView {
                         xpos += siteView_width + 1
                     }
                 }
-            //}
+            }
         }
         
         self.scroll!.addMoreChildren(sites)
         
+    }
+    
+    func addSite(site:BNSite?) {
+        
+        let ypos:CGFloat = 1
+        var siteView_width:CGFloat = 0
+        
+        if BNAppSharedManager.instance.dataManager.favoritesSites.count == 1 {
+            siteView_width = SharedUIManager.instance.screenWidth
+        } else {
+            siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+        }
+        
+        let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
+        let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
+        
+        miniSiteView.isPositionedInFather = true
+        miniSiteView.isReadyToRemoveFromFather = false
+        miniSiteView.delegate = father?.father! as! MainView
+        
+        self.scroll?.addChildAtBegining(miniSiteView)
+    }
+    
+    func removeSite(site:BNSite?){
+        self.scroll!.removeChildByIdentifier(site!.identifier!)
     }
     
     override func refresh() {
@@ -144,6 +170,15 @@ class MainViewContainer_NearSites: BNView {
         }
         return false
     }
+    
+    func isFavoriteSite(identifier:String) -> Bool {
+        for siteIdentifier in BNAppSharedManager.instance.dataManager.favoritesSites {
+            if siteIdentifier == identifier {
+                return true
+            }
+        }
+        return false
+    }
 
     func updateLikeButtons(){
         for view in self.scroll!.children {
@@ -151,7 +186,7 @@ class MainViewContainer_NearSites: BNView {
         }
     }
     
-    func clean(){
+    override func clean(){
         
         scroll!.clean()
 

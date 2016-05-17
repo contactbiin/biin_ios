@@ -29,7 +29,7 @@ class MainViewContainer_FavoriteSites: BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        self.backgroundColor = UIColor.bnGrayDark()
+        self.backgroundColor = UIColor.bnSitesColor()
         
         moreSitesBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreSitesBtn!.icon!.color = UIColor.whiteColor()
@@ -127,7 +127,6 @@ class MainViewContainer_FavoriteSites: BNView {
         
         for i in (0..<favoritesSites.count) {
             if let site = BNAppSharedManager.instance.dataManager.sites[favoritesSites[i]] {
-                
                 if !isSiteAdded(site.identifier!) {
                     let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
                     let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
@@ -207,7 +206,7 @@ class MainViewContainer_FavoriteSites: BNView {
     }
     
     
-    func clean(){
+    override func clean(){
         
         scroll!.clean()
         

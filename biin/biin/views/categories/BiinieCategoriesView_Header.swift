@@ -75,7 +75,7 @@ class BiinieCategoriesView_Header: BNView {
 //        testBtn!.alpha = 0
     }
     
-    func clean(){
+    override func clean(){
         showMenuBtn?.removeFromSuperview()
 //        testBtn?.removeFromSuperview()
     }

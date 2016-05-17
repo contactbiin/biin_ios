@@ -11,7 +11,7 @@ class LoyaltiesView: BNView {
     var delegate:LoyaltiesView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var fade:UIView?
+//    var fade:UIView?
     
     var biinieAvatar:BNUIImageView?
     var biinieNameLbl:UILabel?
@@ -97,10 +97,10 @@ class LoyaltiesView: BNView {
         self.addSubview(scroll!)
         self.addSubview(line)
         
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
+//        self.addSubview(fade!)
     }
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){

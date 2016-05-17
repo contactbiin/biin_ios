@@ -316,7 +316,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
         }
     }
     
-    func clean(){
+    override func clean(){
         
         colunmXpos = 0
         childPosition = 0

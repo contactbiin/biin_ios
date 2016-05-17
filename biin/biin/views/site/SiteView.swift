@@ -27,7 +27,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var locationView:SiteView_Location?
     
-    var fade:UIView?
+//    var fade:UIView?
     //var informationView:SiteView_Information?
     
     //var elementView:ElementView?
@@ -191,6 +191,9 @@ class SiteView:BNView, UIScrollViewDelegate {
         let backGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.backGestureAction(_:)))
         backGesture.direction = UISwipeGestureRecognizerDirection.Right
         self.addGestureRecognizer(backGesture)
+        
+        addFade()
+
     }
     
     func backGestureAction(sender:UISwipeGestureRecognizer) {
@@ -383,17 +386,17 @@ class SiteView:BNView, UIScrollViewDelegate {
         })
     }
     
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
-    
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
+//    func showFade(){
+//        UIView.animateWithDuration(0.2, animations: {()-> Void in
+//            self.fade!.alpha = 0.5
+//        })
+//    }
+//    
+//    func hideFade(){
+//        UIView.animateWithDuration(0.5, animations: {()-> Void in
+//            self.fade!.alpha = 0
+//        })
+//    }
     
 //    func showElementView(element:BNElement){
 //
@@ -535,7 +538,7 @@ class SiteView:BNView, UIScrollViewDelegate {
         
     }// any offset changes
     
-    func clean(){
+    override func clean(){
 
         delegate = nil
         site = nil

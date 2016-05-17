@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/views/main/MainViewContainer_NearSites.swift"
-            timestampString = "485044442.651352"
+            timestampString = "485203266.042291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "updateLikeButtons()"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "biin/views/element/ElementView.swift"
-            timestampString = "485065006.341574"
+            timestampString = "485201482.979701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "763"
-            endingLineNumber = "763"
+            startingLineNumber = "766"
+            endingLineNumber = "766"
             landmarkName = "webViewDidFinishLoad(_:)"
             landmarkType = "5">
          </BreakpointContent>

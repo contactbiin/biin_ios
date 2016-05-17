@@ -241,7 +241,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         }
     }
     
-    func clean() {
+    override func clean() {
         
         if hightlights?.count > 0 {
             

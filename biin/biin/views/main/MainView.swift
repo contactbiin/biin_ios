@@ -92,13 +92,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func testButtonAction(sender:UIButton) {
         
 
-        BNAppSharedManager.instance.notificationManager.clear()
         
-        if let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"]
-        {
-            site_to_survey = site
-            showSurveyView()
-        }
+        
+//        BNAppSharedManager.instance.notificationManager.clear()
+//        
+//        if let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"]
+//        {
+//            site_to_survey = site
+//            showSurveyView()
+//        }
   
         /*
         if !isShowingInsiteView {
@@ -148,9 +150,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     override func setNextState(goto:BNGoto){
 
         delegate!.mainView!(self, hideMenuOnChange: false, index:0)
+//        state!.view!.showFade()
         
         switch (goto) {
         case .Previous:
+            state!.previous!.view!.hideFade()
             state!.next(state!.previous!)
             break
         case .Main:
@@ -163,14 +167,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             }
             break
         case .Site:
+            state!.view!.showFade()
             self.siteState!.previous = state
             state!.next(self.siteState)
             break
         case .BrotherSite:
+            state!.view!.showFade()
             self.brotherSiteState!.previous = state
             state!.next(self.brotherSiteState)
             break
         case .Profile:
+            state!.view!.showFade()
             self.profileState!.previous = state
             state!.next(self.profileState)
             SharedAnswersManager.instance.logContentView_Profile()
@@ -184,6 +191,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             
             break
         case .About:
+            state!.view!.showFade()
             self.aboutState!.previous = state
             state!.next(self.aboutState)
             SharedAnswersManager.instance.logContentView_About()
@@ -192,29 +200,35 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isShowingNotificationContext = false
             BNAppSharedManager.instance.notificationManager.currentNotification = nil
             
+            state!.view!.showFade()
             self.elementState!.previous = state
             state!.next(self.elementState)
             break
         case .ElementFromSite:
+            state!.view!.showFade()
             self.elementFromSiteState!.previous = state
             state!.next(self.elementFromSiteState)
             self.bringSubviewToFront(state!.view!)
             break
         case .AllSites:
+            state!.view!.showFade()
             self.allSitesState!.previous = state
             state!.next(self.allSitesState)
             SharedAnswersManager.instance.logContentView_AllSites()
             break
         case .AllFavoriteSites:
+            state!.view!.showFade()
             self.allFavoriteSitesState!.previous = state
             state!.next(self.allFavoriteSitesState)
 //            SharedAnswersManager.instance.logContentView_AllSites()
             break
         case .AllElements:
+            state!.view!.showFade()
             self.allElementsState!.previous = state
             state!.next(self.allElementsState)
             break
         case .Survey:
+            state!.view!.showFade()
             SharedAnswersManager.instance.logContentView_Survey(site_to_survey)
             state!.next(self.surveyState)
             self.bringSubviewToFront(state!.view!)
@@ -543,7 +557,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Previous)
     }
     
-    func clean(){
+    override func clean(){
 
         showMenuSwipe?.removeTarget(self, action: #selector(self.showMenu(_:)))
         showMenuSwipe = nil
@@ -551,6 +565,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (mainViewContainerState!.view as! MainViewContainer).clean()
         mainViewContainerState!.view!.removeFromSuperview()
         mainViewContainerState!.view = nil
+        
         
         (allSitesState!.view as! AllSitesView).clean()
         allSitesState!.view!.removeFromSuperview()

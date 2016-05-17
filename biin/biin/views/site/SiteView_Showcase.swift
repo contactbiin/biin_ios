@@ -419,7 +419,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
 */
     }
     
-    func clean(){
+    override func clean(){
         self.scroll!.clean()
     }
     

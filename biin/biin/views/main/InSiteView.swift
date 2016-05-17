@@ -137,7 +137,7 @@ class InSiteView: BNView {
         delegate!.showSiteViewOnContext!(self.site!)
     }
     
-    func clean() {
+    override func clean() {
         
         site = nil
         siteAvatar?.removeFromSuperview()

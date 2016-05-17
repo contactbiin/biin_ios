@@ -20,7 +20,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
 
     var scroll:BNScroll?
     
-    var fade:UIView?
+//    var fade:UIView?
     
     var refreshButton:UIButton?
     var isShowing_refreshButton = false
@@ -53,10 +53,10 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         self.addSubview(header!)
         
-        fade = UIView(frame: frame)
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
+//        fade = UIView(frame: frame)
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
+//        self.addSubview(fade!)
         
         refreshButton = UIButton(frame: CGRectMake(0, -50, self.frame.width, 50))
         refreshButton!.addTarget(self, action: #selector(self.refreshButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -69,6 +69,8 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         elementContainers = Array<MainViewContainer_Elements>()
         
         updateContainer()
+
+        addFade()
     }
     
     func refreshButtonAction(sender:UIButton) {
@@ -192,17 +194,17 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     override func transitionIn() {
         
-        UIView.animateWithDuration(0.5, animations: {()->Void in
-            self.fade!.alpha = 0
-        })
+//        UIView.animateWithDuration(0.5, animations: {()->Void in
+//            self.fade!.alpha = 0
+//        })
     }
     
     override func transitionOut( state:BNState? ) {
         
-        UIView.animateWithDuration(0.1, animations: {()->Void in
-            self.fade!.alpha = 0.5
-        })
-        
+//        UIView.animateWithDuration(0.1, animations: {()->Void in
+//            self.fade!.alpha = 0.5
+//        })
+//        
         state!.action()
     }
     
@@ -261,8 +263,10 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         
         if site!.userLiked {
             self.favoriteSitesContainer!.addSite(site)
+            self.nearSitesContainer!.removeSite(site)
         } else {
             self.favoriteSitesContainer!.removeSite(site)
+            self.nearSitesContainer!.addSite(site)
         }
 //        self.favoriteSitesContainer!.refresh()
     }
@@ -289,7 +293,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         })
     }
     
-    func clean(){
+    override func clean(){
         
         //NSLog("MainViewContainer clean()")
         

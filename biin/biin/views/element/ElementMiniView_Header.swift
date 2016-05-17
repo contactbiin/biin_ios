@@ -121,7 +121,7 @@ class ElementMiniView_Header:BNView {
         circleLabel!.animateCircleIn()
     }
     
-    func clean() {
+    override func clean() {
         buttonsView?.removeFromSuperview()
         circleLabel?.removeFromSuperview()
         containerView?.removeFromSuperview()

@@ -11,7 +11,7 @@ class CollectionsView: BNView, ElementView_Delegate {
     var delegate:CollectionsView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var fade:UIView?
+//    var fade:UIView?
     
     var biinieAvatar:BNUIImageView?
     var biinieNameLbl:UILabel?

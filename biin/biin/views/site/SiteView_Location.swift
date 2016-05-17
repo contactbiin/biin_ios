@@ -588,7 +588,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         (father!.father! as? MainView)?.rootViewController!.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func clean() {
+    override func clean() {
 
         siteAvatar?.removeFromSuperview()
         title?.removeFromSuperview()

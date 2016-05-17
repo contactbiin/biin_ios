@@ -381,7 +381,7 @@ class ElementMiniView: BNView {
 
     }
     
-    func clean(){
+    override func clean(){
         
         delegate = nil
         delegateAllCollectedView = nil

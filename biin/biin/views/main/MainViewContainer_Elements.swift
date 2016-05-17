@@ -42,8 +42,8 @@ class MainViewContainer_Elements:BNView {
         var textColor:UIColor?
 //        switch colorIndex {
 //        case 0:
-            self.backgroundColor = UIColor.darkGrayColor()
-            category.backgroundColor = UIColor.lightGrayColor()
+            self.backgroundColor = UIColor.bnCategoriesColor()
+            category.backgroundColor = UIColor.bnCategoriesColor()
             textColor = UIColor.whiteColor()
 //        case 1:
 //            self.backgroundColor = UIColor.darkGrayColor()
@@ -207,7 +207,7 @@ class MainViewContainer_Elements:BNView {
         delegate!.showAllElementsViewForCategory!(self.category)
     }
     
-    func clean() {
+    override func clean() {
         
         self.scroll!.clean()
         

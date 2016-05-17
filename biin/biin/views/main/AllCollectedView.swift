@@ -19,7 +19,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     var elements:Array<ElementMiniView>?
     var addedElementsIdentifiers:Dictionary<String, BNElement>?
     
-    var fade:UIView?
+//    var fade:UIView?
     
     var likedElementsBtn:UIButton?
     var likedSitesBtn:UIButton?
@@ -212,17 +212,17 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     }
     
     
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
-    
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
+//    override func showFade(){
+//        UIView.animateWithDuration(0.2, animations: {()-> Void in
+//            self.fade!.alpha = 0.5
+//        })
+//    }
+//    
+//    func hideFade(){
+//        UIView.animateWithDuration(0.5, animations: {()-> Void in
+//            self.fade!.alpha = 0
+//        })
+//    }
     
     override func refresh() {
         updateCollectedElements()
@@ -277,7 +277,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         }
     }
     
-    func clean(){
+    override func clean(){
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()

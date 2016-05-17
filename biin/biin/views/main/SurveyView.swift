@@ -16,7 +16,7 @@ class SurveyView: BNView, UITextViewDelegate {
 
     var spacer:CGFloat = 1
     
-    var fade:UIView?
+//    var fade:UIView?
     
     //Rating section
 //    var brandNameLbl:UILabel?
@@ -200,13 +200,13 @@ class SurveyView: BNView, UITextViewDelegate {
         self.addSubview(likely!)
         
         
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
+//        self.addSubview(fade!)
         
         self.alpha = 1
-        
+        addFade()
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification , object: nil)
 //        
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
@@ -505,32 +505,15 @@ class SurveyView: BNView, UITextViewDelegate {
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
-        //delegate!.hideElementView!(self.element!)
-//        delegate!.hideAllSitesView!()
         SharedAnswersManager.instance.logNotCompletedNPS(site)
         commentTxt!.resignFirstResponder()
         delegate!.hideSurveyView!()
     }
 
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
-    
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
-    
-    func clean() {
-        
+    override func clean() {
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()
-        fade?.removeFromSuperview()
-        
     }
     
     func show() {

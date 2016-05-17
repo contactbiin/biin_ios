@@ -22,7 +22,7 @@ class AllElementsView: BNView {
 //    var elements:Array<ElementMiniView>?
 //    var addedElementsIdentifiers:Dictionary<String, BNElement>?
     
-    var fade:UIView?
+//    var fade:UIView?
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
@@ -76,10 +76,12 @@ class AllElementsView: BNView {
         
 //        addedElementsIdentifiers = Dictionary<String, BNElement>()
         
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
+//        self.addSubview(fade!)
+        addFade()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -305,27 +307,27 @@ class AllElementsView: BNView {
         }
     }
     
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
+//    func showFade(){
+//        UIView.animateWithDuration(0.2, animations: {()-> Void in
+//            self.fade!.alpha = 0.5
+//        })
+//    }
+//    
+//    func hideFade(){
+//        UIView.animateWithDuration(0.5, animations: {()-> Void in
+//            self.fade!.alpha = 0
+//        })
+//    }
     
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
-    
-    func clean(){
+    override func clean(){
 
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()
 //        showcase = nil
         category = nil
-        fade?.removeFromSuperview()
-//        
+//        fade?.removeFromSuperview()
+//
 //        if elements != nil {
 //            for view in elements! {
 //                view.clean()

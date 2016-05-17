@@ -15,7 +15,7 @@ class AllSitesView: BNView {
     
     var spacer:CGFloat = 1    
 
-    var fade:UIView?
+//    var fade:UIView?
     
     var isShowingFavorites = false
     var siteCounter:Int = 0
@@ -71,6 +71,9 @@ class AllSitesView: BNView {
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
+        
+        addFade()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -253,19 +256,19 @@ class AllSitesView: BNView {
         return false
     }
     
-    func showFade(){
-//        UIView.animateWithDuration(0.2, animations: {()-> Void in
-//            self.fade!.alpha = 0.5
-//        })
-    }
+//    func showFade(){
+////        UIView.animateWithDuration(0.2, animations: {()-> Void in
+////            self.fade!.alpha = 0.5
+////        })
+//    }
+//    
+//    func hideFade(){
+////        UIView.animateWithDuration(0.5, animations: {()-> Void in
+////            self.fade!.alpha = 0
+////        })
+//    }
     
-    func hideFade(){
-//        UIView.animateWithDuration(0.5, animations: {()-> Void in
-//            self.fade!.alpha = 0
-//        })
-    }
-    
-    func clean() {
+    override func clean() {
         
         delegate = nil
         title?.removeFromSuperview()

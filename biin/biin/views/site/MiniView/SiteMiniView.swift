@@ -159,7 +159,7 @@ class SiteMiniView: BNView {
         }
     }
 
-    func clean() {
+    override func clean() {
         
         site = nil
         image!.removeFromSuperview()

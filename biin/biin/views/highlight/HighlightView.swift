@@ -427,7 +427,7 @@ class HighlightView: BNView {
         return image
     }
     
-    func clean(){
+    override func clean(){
         
         siteAvatar?.removeFromSuperview()
         siteAvatar?.image = nil

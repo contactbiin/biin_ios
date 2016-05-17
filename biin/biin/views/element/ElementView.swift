@@ -18,7 +18,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     var imagesScrollView:BNUIScrollView?
     
-    var fade:UIView?
+//    var fade:UIView?
     
     var shareItButton:BNUIButton_ShareIt?
     var likeItButton:BNUIButton_LikeIt?
@@ -181,6 +181,9 @@ class ElementView: BNView, UIWebViewDelegate {
         callToActionTitle!.font = UIFont(name: "Lato-Black", size: 16)
         callToActionTitle!.textAlignment =  NSTextAlignment.Center
         callToActionBtn!.addSubview(callToActionTitle!)
+        
+        addFade()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -512,7 +515,7 @@ class ElementView: BNView, UIWebViewDelegate {
         }
     }
 
-    func clean(){
+    override func clean(){
         
         delegate = nil
         element = nil
@@ -626,17 +629,17 @@ class ElementView: BNView, UIWebViewDelegate {
         delegate!.showSiteFromElement!(self.element!)
     }
     
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
-    
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
+//    func showFade(){
+//        UIView.animateWithDuration(0.2, animations: {()-> Void in
+//            self.fade!.alpha = 0.5
+//        })
+//    }
+//    
+//    func hideFade(){
+//        UIView.animateWithDuration(0.5, animations: {()-> Void in
+//            self.fade!.alpha = 0
+//        })
+//    }
     
     func getHtmlBody(element:BNElement?) ->String {
 
