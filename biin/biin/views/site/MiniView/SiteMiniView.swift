@@ -17,7 +17,7 @@ class SiteMiniView: BNView {
     var isPositionedInFather = false
     var isReadyToRemoveFromFather = true
     
-
+    var isBrotherSite = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -152,8 +152,11 @@ class SiteMiniView: BNView {
         SharedAnswersManager.instance.logContentView_Site(self.site)
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:self.site!.identifier!)
         
-        delegate!.showSiteView!(self)
-        
+        if isBrotherSite {
+            delegate!.showBrotherSiteView!(self)
+        } else {
+            delegate!.showSiteView!(self)
+        }
     }
 
     func clean() {
@@ -172,4 +175,5 @@ class SiteMiniView: BNView {
 
 @objc protocol SiteMiniView_Delegate:NSObjectProtocol {
     optional func showSiteView(view:SiteMiniView)
+    optional func showBrotherSiteView(view:SiteMiniView)
 }

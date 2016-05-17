@@ -1,16 +1,16 @@
-//  SiteState.swift
+//  BrotherSiteState.swift
 //  biin
-//  Created by Esteban Padilla on 1/30/15.
-//  Copyright (c) 2015 Esteban Padilla. All rights reserved.
+//  Created by Esteban Padilla on 5/16/16.
+//  Copyright © 2016 Esteban Padilla. All rights reserved.
 
 import Foundation
 import UIKit
 
-class SiteState:BNState {
+class BrotherSiteState:BNState {
     
     override init(context:BNView, view:BNView?){
         super.init(context:context, view: view)
-        self.stateType = BNStateType.SiteState
+        self.stateType = BNStateType.BrotherSiteState
     }
     
     override init(context: BNView, view: BNView, stateType: BNStateType) {

@@ -134,7 +134,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestDataOnWhenAppIsRunning(){
         BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
-        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)        
+        //delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
 

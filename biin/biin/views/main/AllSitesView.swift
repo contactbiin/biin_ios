@@ -90,11 +90,15 @@ class AllSitesView: BNView {
             UIView.animateWithDuration(0.3, animations: {()->Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
                 }, completion: {(completed:Bool)->Void in
-                    self.scroll!.scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                    self.scroll!.scroll!.setContentOffset(CGPointZero, animated: false)
             })
         }
     }
     
+//    override func transitionOutOnPrevious() {
+//        self.fade!.alpha = 0
+//    }
+//    
     override func setNextState(goto:BNGoto){
         //Start transition on root view controller
         father!.setNextState(goto)
@@ -250,15 +254,15 @@ class AllSitesView: BNView {
     }
     
     func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
+//        UIView.animateWithDuration(0.2, animations: {()-> Void in
+//            self.fade!.alpha = 0.5
+//        })
     }
     
     func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
+//        UIView.animateWithDuration(0.5, animations: {()-> Void in
+//            self.fade!.alpha = 0
+//        })
     }
     
     func clean() {

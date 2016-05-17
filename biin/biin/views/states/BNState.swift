@@ -11,6 +11,7 @@ class BNState {
     var context:BNView?
     var view:BNView?
     var stateType:BNStateType?
+    var previous:BNState?
     
     init(context:BNView, view:BNView?){
         self.context = context
@@ -31,12 +32,15 @@ class BNState {
 //        context!.state = state
 //        view!.transitionOut( context!.state )
     }
+    
+    func gotoPrevious() { }
 }
 
 enum BNStateType {
     case MainViewContainerState
     case BiinieCategoriesState
     case SiteState
+    case BrotherSiteState
     case AllSitesState
     case AllFavoriteSites
     case ElementState

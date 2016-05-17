@@ -174,6 +174,7 @@ class SiteView_OtherSites:BNView, UIScrollViewDelegate {
                 if let otherSite = BNAppSharedManager.instance.dataManager.sites[identifier] {
                     let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
                     let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteView_width, miniSiteHeight), father: self, site:otherSite )
+                    miniSiteView.isBrotherSite = true
                     miniSiteView.isPositionedInFather = true
                     miniSiteView.isReadyToRemoveFromFather = false
                     miniSiteView.delegate = father?.father! as! MainView

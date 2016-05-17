@@ -125,7 +125,8 @@
 		5B406C4B1B4F029C005807EA /* AboutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C4A1B4F029C005807EA /* AboutState.swift */; };
 		5B406C4D1B4F05C1005807EA /* BNIcon_InformationMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B406C4C1B4F05C1005807EA /* BNIcon_InformationMedium.swift */; };
 		5B40C7D71CE69E86002B4E15 /* MainViewContainer_FavoriteSites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40C7D61CE69E86002B4E15 /* MainViewContainer_FavoriteSites.swift */; };
-		5B40C7D91CE6B359002B4E15 /* AllFavoriteSitesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B40C7D81CE6B359002B4E15 /* AllFavoriteSitesState.swift */; };
+		5B4237E01CEA5D2900878B90 /* AllFavoriteSitesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4237DF1CEA5D2900878B90 /* AllFavoriteSitesState.swift */; };
+		5B4237E21CEA5D7400878B90 /* BrotherSiteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4237E11CEA5D7400878B90 /* BrotherSiteState.swift */; };
 		5B44C5C01A816FC700E5AC68 /* SiteView_Showcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B44C5BF1A816FC700E5AC68 /* SiteView_Showcase.swift */; };
 		5B4744861B386FB80079FC88 /* BNAppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4744851B386FB80079FC88 /* BNAppAction.swift */; };
 		5B4894E81ADD85C2006789E2 /* BNUIDetailView_From.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4894E71ADD85C2006789E2 /* BNUIDetailView_From.swift */; };
@@ -509,7 +510,8 @@
 		5B406C4A1B4F029C005807EA /* AboutState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutState.swift; sourceTree = "<group>"; };
 		5B406C4C1B4F05C1005807EA /* BNIcon_InformationMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_InformationMedium.swift; sourceTree = "<group>"; };
 		5B40C7D61CE69E86002B4E15 /* MainViewContainer_FavoriteSites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewContainer_FavoriteSites.swift; sourceTree = "<group>"; };
-		5B40C7D81CE6B359002B4E15 /* AllFavoriteSitesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllFavoriteSitesState.swift; sourceTree = "<group>"; };
+		5B4237DF1CEA5D2900878B90 /* AllFavoriteSitesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllFavoriteSitesState.swift; sourceTree = "<group>"; };
+		5B4237E11CEA5D7400878B90 /* BrotherSiteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrotherSiteState.swift; sourceTree = "<group>"; };
 		5B44C5BF1A816FC700E5AC68 /* SiteView_Showcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteView_Showcase.swift; sourceTree = "<group>"; };
 		5B4744851B386FB80079FC88 /* BNAppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BNAppAction.swift; path = biin/models/BNAppAction.swift; sourceTree = SOURCE_ROOT; };
 		5B4894E71ADD85C2006789E2 /* BNUIDetailView_From.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIDetailView_From.swift; sourceTree = "<group>"; };
@@ -971,7 +973,6 @@
 		5B3D75821A67052100CB0D1C = {
 			isa = PBXGroup;
 			children = (
-				5B40C7D81CE6B359002B4E15 /* AllFavoriteSitesState.swift */,
 				5BB2B4991AEAA46B002E3121 /* CoreBluetooth.framework */,
 				5BB2B4971AEAA45C002E3121 /* CoreLocation.framework */,
 				5B3D758D1A67052100CB0D1C /* biin */,
@@ -1361,8 +1362,10 @@
 		5BA0B7841A686A6700DBEB74 /* states */ = {
 			isa = PBXGroup;
 			children = (
+				5B4237DF1CEA5D2900878B90 /* AllFavoriteSitesState.swift */,
 				5BA0B7851A686A6700DBEB74 /* BNState.swift */,
 				5B9AD35B1A7C15A8001C9B5A /* SiteState.swift */,
+				5B4237E11CEA5D7400878B90 /* BrotherSiteState.swift */,
 				5B1655F21BC6CE17001ED8ED /* AllSitesState.swift */,
 				5B1655F61BC6D489001ED8ED /* AllElementsState.swift */,
 				5B1655FA1BC70AD9001ED8ED /* AllCollectedState.swift */,
@@ -1804,6 +1807,7 @@
 				5BB99B5F1A8B9ACC00BE57A6 /* BNIcon_KeyholeSmall.swift in Sources */,
 				5BE96EFE1A6D585100929236 /* BNUIImageView.swift in Sources */,
 				5B2908081A687C590000658A /* MenuView.swift in Sources */,
+				5B4237E21CEA5D7400878B90 /* BrotherSiteState.swift in Sources */,
 				5BA0B7931A686A6700DBEB74 /* SettingsState.swift in Sources */,
 				5B3D75F61A6816B300CB0D1C /* BNAchievement.swift in Sources */,
 				5BF966AD1AA78DAC00994BEA /* Biined_Not_Notified_State.swift in Sources */,
@@ -1992,6 +1996,7 @@
 				5B1655F71BC6D489001ED8ED /* AllElementsState.swift in Sources */,
 				5BEE97C01BAC53BB004C2B30 /* BNRequest_SendBiiniePoints.swift in Sources */,
 				5B760E591AAE5FB7003E017A /* BNIcon_RightArrowSmall.swift in Sources */,
+				5B4237E01CEA5D2900878B90 /* AllFavoriteSitesState.swift in Sources */,
 				5B60A4C61AA21B3E0025ACBA /* BNUIButton_Contact.swift in Sources */,
 				5BA46FAF1A840776006C685D /* BNUIPricesView.swift in Sources */,
 				5B3D75EF1A6816B300CB0D1C /* BNDataManager.swift in Sources */,
@@ -2017,7 +2022,6 @@
 				5B16A19A1BE7B077008AE4A1 /* ServerErrorView.swift in Sources */,
 				5B4FE9AE1C849A1D00DB4820 /* BNIcon_More.swift in Sources */,
 				5BA0B7941A686A6700DBEB74 /* ShowcaseState.swift in Sources */,
-				5B40C7D91CE6B359002B4E15 /* AllFavoriteSitesState.swift in Sources */,
 				5BA7B4701B5567A100AFD326 /* ErrorState.swift in Sources */,
 				5B5D77EA1A8E7762001C4A34 /* BNIcon_MusicMedium.swift in Sources */,
 				5BA0B7901A686A6700DBEB74 /* ProfileState.swift in Sources */,

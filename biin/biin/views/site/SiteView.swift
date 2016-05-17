@@ -51,6 +51,7 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var shareView:ShareItView?
     
+    var isShowingOtherSites = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -212,7 +213,15 @@ class SiteView:BNView, UIScrollViewDelegate {
     override func transitionOut( state:BNState? ) {
         state?.action()
         
-        if state!.stateType == BNStateType.MainViewContainerState || state!.stateType == BNStateType.AllSitesState || state!.stateType == BNStateType.ElementState || state!.stateType == BNStateType.SurveyState {
+        //scroll!.setContentOffset(CGPointZero, animated: false)
+        
+        if state!.stateType == BNStateType.MainViewContainerState ||
+            state!.stateType == BNStateType.AllSitesState ||
+            state!.stateType == BNStateType.AllFavoriteSites ||
+            state!.stateType == BNStateType.ElementState ||
+//            state!.stateType == BNStateType.SurveyState ||
+            state!.stateType == BNStateType.SiteState {
+//
             UIView.animateWithDuration(0.3, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
             })
@@ -243,6 +252,14 @@ class SiteView:BNView, UIScrollViewDelegate {
     //Instance Methods
     func backBtnAction(sender:UIButton) {
         delegate!.hideSiteView!(self)
+
+        /*
+        if isShowingOtherSites {
+            delegate!.hideSiteView!(self)
+        } else {
+            delegate!.hideBrotherSiteView!(self)
+        }
+        */
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!)
     }
     
@@ -459,22 +476,23 @@ class SiteView:BNView, UIScrollViewDelegate {
             otherSitesView = nil
         }
         
-        if site!.organization!.sites.count > 1 {
-            if otherSitesView == nil {
-                let height:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
-                
-                //            for i in (0..<site!.organization!.sites.count) {
-                otherSitesView = SiteView_OtherSites(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, site:site, colorIndex:colorIndex )
-                scroll!.addSubview(otherSitesView!)
-                ypos += height
-                //ypos += 2
-                colorIndex += 1
-                if colorIndex  > 1 {
-                    colorIndex = 0
+        if isShowingOtherSites {
+            if site!.organization!.sites.count > 1 {
+                if otherSitesView == nil {
+                    let height:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
+                    
+                    //            for i in (0..<site!.organization!.sites.count) {
+                    otherSitesView = SiteView_OtherSites(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, site:site, colorIndex:colorIndex )
+                    scroll!.addSubview(otherSitesView!)
+                    ypos += height
+                    //ypos += 2
+                    colorIndex += 1
+                    if colorIndex  > 1 {
+                        colorIndex = 0
+                    }
                 }
             }
         }
-        
         
         scroll!.contentSize = CGSizeMake(0, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
@@ -664,4 +682,5 @@ class SiteView:BNView, UIScrollViewDelegate {
 
 @objc protocol SiteView_Delegate:NSObjectProtocol {
     optional func hideSiteView(view:SiteView)
+    optional func hideBrotherSiteView(view:SiteView)
 }

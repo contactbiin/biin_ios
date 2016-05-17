@@ -28,6 +28,7 @@ class BNView:UIView {
     //Transitioning functions
     func transitionIn() { }
     func transitionOut( state:BNState? ) { }
+//    func transitionOutOnPrevious() { }
     func setNextState(goto:BNGoto){ }
     
     func adjustOnObjectContainerPan(y:CGFloat) { }
@@ -49,4 +50,6 @@ class BNView:UIView {
     
     func getToWork() { }
     func getToRest() { }
+    
+    
 }
