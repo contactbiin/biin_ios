@@ -136,6 +136,8 @@ class MainViewContainer_NearSites: BNView {
             title!.alpha = 1
             moreSitesBtn!.alpha = 1
             noMorePlacesLbl!.alpha = 0
+        } else {
+            moreSitesBtn!.alpha = 0
         }
         
         self.scroll!.addMoreChildren(sites)
@@ -147,6 +149,7 @@ class MainViewContainer_NearSites: BNView {
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
         noMorePlacesLbl!.alpha = 0
+        moreSitesBtn!.alpha = 1
         
         if self.scroll!.children.count == 0 {
             siteView_width = SharedUIManager.instance.screenWidth
@@ -169,7 +172,7 @@ class MainViewContainer_NearSites: BNView {
         
         if self.scroll!.children.count == 0 {
 //            title!.alpha = 0
-//            moreSitesBtn!.alpha = 0
+            moreSitesBtn!.alpha = 0
             noMorePlacesLbl!.alpha = 1
         } else if self.scroll!.children.count  == 3 {
             request()

@@ -134,7 +134,7 @@ class AllSitesView: BNView {
         siteCounter = 0
         isShowingFavorites = false
         
-        //scroll?.clean()
+        scroll?.clean()
         
         let titleText = NSLocalizedString("NearYou", comment: "NearYou").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -159,23 +159,25 @@ class AllSitesView: BNView {
         siteView_width = SharedUIManager.instance.screenWidth
         
         for site in sitesArray {
-            if !isSiteAdded(site.identifier!) {
-                
-                siteCounter += 1
-                let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
-                miniSiteView.isPositionedInFather = true
-                miniSiteView.isReadyToRemoveFromFather = false
-                miniSiteView.delegate = father! as! MainView
-                
-                sites.append(miniSiteView)
-                
-                xpos += siteView_width + 1
-                colunmCounter += 1
-                
-                if colunmCounter == 2 {
-                    colunmCounter = 0
-                    xpos = 0
-                    ypos += (miniSiteHeight + 1)
+            if !site.userLiked {
+                if !isSiteAdded(site.identifier!) {
+                    
+                    siteCounter += 1
+                    let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
+                    miniSiteView.isPositionedInFather = true
+                    miniSiteView.isReadyToRemoveFromFather = false
+                    miniSiteView.delegate = father! as! MainView
+                    
+                    sites.append(miniSiteView)
+                    
+                    xpos += siteView_width + 1
+                    colunmCounter += 1
+                    
+                    if colunmCounter == 2 {
+                        colunmCounter = 0
+                        xpos = 0
+                        ypos += (miniSiteHeight + 1)
+                    }
                 }
             }
         }
