@@ -13,6 +13,8 @@ class MainViewContainer_NearSites: BNView {
     var delegate:MainViewContainer_NearSites_Delegate?
     var title:UILabel?
     var moreSitesBtn:BNUIButton_More?
+    var noMorePlacesLbl:UILabel?
+
     var subTitle:UILabel?
     var scroll:BNScroll?
     
@@ -47,6 +49,17 @@ class MainViewContainer_NearSites: BNView {
         title!.attributedText = attributedString
         title!.textColor = UIColor.whiteColor()
         self.addSubview(title!)
+        
+        noMorePlacesLbl = UILabel(frame: CGRectMake(50, 175, (frame.width - 100), 30))
+        noMorePlacesLbl!.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
+        let titleText2 = NSLocalizedString("NoMorePlaces", comment: "NoMorePlaces").uppercaseString
+        let attributedString2 = NSMutableAttributedString(string:titleText2)
+        attributedString2.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText2.characters.count)))
+        noMorePlacesLbl!.textAlignment = NSTextAlignment.Center
+        noMorePlacesLbl!.numberOfLines = 2
+        noMorePlacesLbl!.attributedText = attributedString2
+        noMorePlacesLbl!.textColor = UIColor.whiteColor()
+        self.addSubview(noMorePlacesLbl!)
         
         let scrollHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
         
@@ -118,6 +131,13 @@ class MainViewContainer_NearSites: BNView {
             }
         }
         
+        
+        if sites.count > 0 {
+            title!.alpha = 1
+            moreSitesBtn!.alpha = 1
+            noMorePlacesLbl!.alpha = 0
+        }
+        
         self.scroll!.addMoreChildren(sites)
         
     }
@@ -126,8 +146,9 @@ class MainViewContainer_NearSites: BNView {
         
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
+        noMorePlacesLbl!.alpha = 0
         
-        if BNAppSharedManager.instance.dataManager.favoritesSites.count == 1 {
+        if self.scroll!.children.count == 0 {
             siteView_width = SharedUIManager.instance.screenWidth
         } else {
             siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
@@ -145,6 +166,14 @@ class MainViewContainer_NearSites: BNView {
     
     func removeSite(site:BNSite?){
         self.scroll!.removeChildByIdentifier(site!.identifier!)
+        
+        if self.scroll!.children.count == 0 {
+//            title!.alpha = 0
+//            moreSitesBtn!.alpha = 0
+            noMorePlacesLbl!.alpha = 1
+        } else if self.scroll!.children.count  == 3 {
+            request()
+        }
     }
     
     override func refresh() {

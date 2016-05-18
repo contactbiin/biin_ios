@@ -162,8 +162,8 @@ class MainViewContainer_FavoriteSites: BNView {
         
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
-        
-        if BNAppSharedManager.instance.dataManager.favoritesSites.count == 1 {
+                
+        if self.scroll!.children.count == 0 {
             siteView_width = SharedUIManager.instance.screenWidth
         } else {
             siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)

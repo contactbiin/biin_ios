@@ -44,7 +44,7 @@ More = "more";
 NearYou = "Places near you";
 FavoritePlaces = "Your favorites Places";
 AddFavoritePlaces = "Use the like button to add places to your favorites.";
-
+NoMorePlaces = "It seems there are no more places near by you.";
 OtherPlaces1 = "Otros ";
 OtherPlaces2 = " cerca de vos";
 

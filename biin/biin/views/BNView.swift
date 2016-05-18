@@ -69,7 +69,7 @@ class BNView:UIView {
     func showFade(){
         self.bringSubviewToFront(self.fade!)
         UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
+            self.fade!.alpha = 0.75
         })
     }
     

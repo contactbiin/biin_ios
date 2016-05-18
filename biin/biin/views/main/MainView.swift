@@ -336,11 +336,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if site_to_survey != nil {
             if site_to_survey!.organization!.hasNPS {
                 if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
-                
-                    (self.surveyState!.view as! SurveyView).updateSiteData(site_to_survey)
                     
+                    state!.view!.showFade()
+                    (self.surveyState!.view as! SurveyView).updateSiteData(site_to_survey)
+                    self.surveyState!.previous = state
                     state!.next(self.surveyState)
                     isReadyToShowSurvey = false
+                    self.bringSubviewToFront(state!.view!)
 
                 } else {
                     print("site: \(site_to_survey!.title!) is already survyed today")

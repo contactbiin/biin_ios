@@ -45,7 +45,7 @@ More = "más";
 NearYou = "Lugares cercanos a vos";
 FavoritePlaces = "Tus lugares Favoritos";
 AddFavoritePlaces = "Usá el botón de gustar para agregar lugares a tus favoritos";
-
+NoMorePlaces = "Parece que ya no hay más lugares cerca tuyo.";
 OtherPlaces1 = "Otros ";
 OtherPlaces2 = " cercanos a vos";
 
