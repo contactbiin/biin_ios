@@ -36,7 +36,6 @@ class BNRequest_ElementsForCategory: BNRequest {
         
         print("BNRequest_ElementsForCategory: \(self.requestString)")
 
-        
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
@@ -284,7 +283,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     }
                                     
                                     if let showcases = BNParser.findNSArray("showcases", dictionary: siteData) {
-                                        
+                                        /*
                                         site.showcases = Array<BNShowcase>()
                                         for i in (0..<showcases.count){
 //                                        for var i = 0; i < showcases.count; i++ {
@@ -315,6 +314,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                                 BNAppSharedManager.instance.dataManager.receivedShowcase(showcase)
                                             }
                                         }
+                                         */
                                     }
                                     
                                     if let biins = BNParser.findNSArray("biins", dictionary: siteData) {

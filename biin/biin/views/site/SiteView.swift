@@ -445,12 +445,12 @@ class SiteView:BNView, UIScrollViewDelegate {
         showcaseHeight = SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height_showcase + 1
 
         var ypos:CGFloat = SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_headerHeight
-//        scrollSpaceForShowcases = 0
         
         var colorIndex:Int = 0
         
-        if site!.showcases != nil {
-            for showcase in site!.showcases! {
+//        if site!.showcases != nil {
+            for showcase in site!.showcases {
+                /*
                 let showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site, colorIndex:colorIndex )
                 scroll!.addSubview(showcaseView)
                 showcases!.append(showcaseView)
@@ -460,8 +460,9 @@ class SiteView:BNView, UIScrollViewDelegate {
                 if colorIndex  > 1 {
                     colorIndex = 0
                 }
+                 */
             }
-        }
+//        }
         
         locationView!.updateForSite(site)
         locationView!.frame.origin.y = ypos

@@ -210,14 +210,16 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
             var elements = Array<ElementMiniView>()
 
             
-            for element in showcase!.elements {
+            for element_identifier in showcase!.elements {
 
-                if !isAddedToScroll(element._id!) {
-                
+                if !isAddedToScroll(element_identifier) {
+                    
+                    let element = BNAppSharedManager.instance.dataManager.elements_by_identifier[element_identifier]
+                    
                     let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
                         elementView.isElementMiniViewInSite = true
                     
-                    if element != showcase!.elements.last {
+                    if element_identifier != showcase!.elements.last {
                         xpos += elementView_width + spacer
                     } else  {
                         xpos += (elementView_width - 1)
@@ -227,7 +229,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
                     elements.append(elementView)
                     elementPosition += 1
                     
-                    if element.userViewed {
+                    if element!.userViewed {
                         elementsViewed += 1
                     }
                     

@@ -160,6 +160,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         self.showcase = nil
         showcase = BNShowcase()
 
+        /*
         for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
             for (_,element) in collection.elements {
                 if addedElementsIdentifiers![element._id!] == nil {
@@ -168,7 +169,8 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
                 }
             }
         }
-
+         */
+        
         var xpos:CGFloat = 0
         var ypos:CGFloat = 0
         var colunmCounter = 0
@@ -182,7 +184,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         }
     
-        for element in showcase!.elements {
+        for element_identifier in showcase!.elements {
+            
+            let element = BNAppSharedManager.instance.dataManager.elements_by_identifier[element_identifier]
             
             let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:false)
             

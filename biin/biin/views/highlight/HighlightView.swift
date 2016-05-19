@@ -59,7 +59,8 @@ class HighlightView: BNView {
 //            iconColor = self.element!.media[0].vibrantLightColor
 //        }
         
-
+        
+        
         let textColor = self.element!.showcase!.site!.organization!.secondaryColor
         iconColor = self.element!.showcase!.site!.organization!.secondaryColor
         decorationColor = self.element!.showcase!.site!.organization!.primaryColor//

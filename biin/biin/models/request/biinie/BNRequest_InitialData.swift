@@ -49,6 +49,10 @@ class BNRequest_InitialData: BNRequest {
                     
                     if BNParser.findBool("result", dictionary: data) {
                         
+                        if let showcasesData = BNParser.findNSArray("showcases", dictionary: initialData) {
+                            BNParser.parseShowcases(showcasesData)
+                        }
+                        
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
                             BNParser.parseOrganizations(organizationsData)
                         }

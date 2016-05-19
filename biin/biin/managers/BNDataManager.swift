@@ -30,7 +30,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var showcases = Dictionary<String, BNShowcase>()
     var elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
     var elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
-    var highlights = Array<BNElement>()//list of hightlight element
+    var highlights = Array<BNHighlight>()//list of hightlight element
     //var availableBiins = Array<String>()//list of biins detected
     //var elementsBiined = Dictionary<String, String>()
     
@@ -82,7 +82,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
         
         highlights.removeAll()
-        highlights = Array<BNElement>()
+        highlights = Array<BNHighlight>()
     }
     
     func loadBiinie() {
@@ -312,6 +312,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             commercialUUID = site.proximityUUID
         }
         
+        /*
         if site.showcases != nil {
             for showcase in site.showcases! {
                 
@@ -322,7 +323,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
         }
-        
+        */
         
         if site.organization == nil {
             if organizations[site.organizationIdentifier!] == nil {
@@ -418,14 +419,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///- parameter Network: manager that handled the request.
     ///- parameter BNShowcase: received from web service in json format already parse in an showcase object.
     func manager(manager:BNNetworkManager!, didReceivedShowcase showcase:BNShowcase) {
-
+        /*
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
         
         requestElements(showcase.elements)
+        */
     }
     
+    /*
     func checkAllShowcasesCompleted(){
+        
         for (_, showcase) in showcases {
             showcase.isShowcaseGameCompleted = true
             for element in showcase.elements {
@@ -436,6 +440,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
     }
+    */
     
     ///Received biined element list and start proccesing depending on data store.
     ///- parameter Network: manager that handled the request.
@@ -509,7 +514,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func addHighlights(){
-        
+        /*
         self.highlights = Array<BNElement>()
         
         var categoryCounter = 1
@@ -566,6 +571,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if element2 != nil {
             self.highlights.append(element2!)
         }
+        */
     }
     
     func isSiteAdded(identifier:String) -> Bool {
@@ -742,31 +748,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
     }
     
-    //TODO:Remove later
-    func createTemporalShowcases() {
-        
-        let iconSite = BNSite()
-        iconSite.identifier = "iCon"
-        iconSite.title =  "iCon"
-        iconSite.subTitle = "Multiplaza del Este"
-        iconSite.titleColor = UIColor.bnRed()
-        sites[iconSite.identifier!] = iconSite
-        
-        let iconShowcase = BNShowcase()
-        iconShowcase.identifier = "icon.identifier"
-//        iconShowcase.site = iconSite
-        showcases[iconShowcase.identifier!] = iconShowcase
-        
-        let iphone = BNElement()
-        iphone.position = 1
-        iphone.title = "iPhone"
-        iphone.subTitle = "None"
-        iconShowcase.elements.append(iphone)
-        
-        showcases["icon.identifier"] = iconShowcase
-        
-    }
-    
     //Store data methods
     func addElementBiined(_id:String) -> Int{
         //if elementsBiined[_id] == nil {
@@ -905,6 +886,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func receivedShowcase(showcase: BNShowcase) {
         
         showcase.isRequestPending = false
+        if showcases[showcase.identifier!] == nil {
+            showcases[showcase.identifier!] = showcase
+            
+        }
+        
+        /*
+        showcase.isRequestPending = false
         if showcases[showcase._id!] == nil {
             showcases[showcase._id!] = showcase
             
@@ -945,12 +933,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             i += 1
         }
-        
-//        for var i = 0; i < showcase.elements.count; i++ {
-//            if elements_by_id[showcase.elements[i]._id!] != nil {
-//                showcase.elements[i] = elements_by_id[ showcase.elements[i]._id! ]!
-//            }
-//        }
+ 
+         */
     }
 
     func receivedElement(element: BNElement) {
@@ -983,7 +967,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
     }
     
-    func receivedHightlight(highlights:Array<BNElement>) {
+    func receivedHightlight(highlights:Array<BNHighlight >) {
 
 
         self.highlights = highlights

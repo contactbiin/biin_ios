@@ -259,7 +259,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func isSameElement(element:BNElement?)->Bool {
         if self.element != nil {
-            if element!._id! == self.element!._id! {
+            if element!.identifier! == self.element!.identifier! {
                 return true
             }
         }

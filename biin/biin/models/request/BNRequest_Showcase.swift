@@ -66,7 +66,7 @@ class BNRequest_Showcase: BNRequest {
                             element.identifier = BNParser.findString("elementIdentifier", dictionary: elementData)
                             element.userViewed = BNParser.findBool("hasBeenSeen", dictionary: elementData)
                             element.showcase = self.showcase
-                            self.showcase!.elements.append(element)
+                            self.showcase!.elements.append(element.identifier!)
                             i += 1
                         }
                         

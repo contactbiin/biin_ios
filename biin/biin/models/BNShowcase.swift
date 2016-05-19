@@ -23,7 +23,7 @@ class BNShowcase:NSObject {
     var subTitle:String?
     
     //Elements
-    var elements:Array<BNElement> = Array<BNElement>()
+    var elements:Array<String> = Array<String>()
     var elements_quantity:Int = 0
     var batch:Int = 1
     

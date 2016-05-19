@@ -460,7 +460,7 @@ class BNParser {
                     }
                     
                     if let showcases = BNParser.findNSArray("showcases", dictionary: siteData) {
-                        
+                        /* 
                         site.showcases = Array<BNShowcase>()
                         
                         
@@ -493,6 +493,7 @@ class BNParser {
                                 BNAppSharedManager.instance.dataManager.receivedShowcase(showcase)
                             }
                         }
+                        */
                     }
                     
                     if let biins = BNParser.findNSArray("biins", dictionary: siteData) {
@@ -587,8 +588,8 @@ class BNParser {
                 for p in (0..<elements.count) {
                     let elementData = elements.objectAtIndex(p) as! NSDictionary
                     
-                    if let element_id = BNParser.findString("_id", dictionary: elementData) {
-                        category.elements.append(element_id)
+                    if let element_identifier = BNParser.findString("identifier", dictionary: elementData) {
+                        category.elements.append(element_identifier)
                     }
                 }
             }
@@ -601,14 +602,19 @@ class BNParser {
     
     class func parseHightlights(hightlightsData:NSArray) {
         
-        var highlights = Array<BNElement>()
+        var highlights = Array<BNHighlight>()
         
         for q in (0..<hightlightsData.count){
             
             let hightlightData = hightlightsData.objectAtIndex(q) as! NSDictionary
             
-            if let element_id = BNParser.findString("_id", dictionary: hightlightData) {
-                highlights.append(BNAppSharedManager.instance.dataManager.elements_by_id[element_id]!)
+            if let identifier = BNParser.findString("identifier", dictionary: hightlightData) {
+                if let showcaseIdentifier = BNParser.findString("showcaseIdentifier", dictionary: hightlightData) {
+                    if let siteIdentifier = BNParser.findString("siteIdentifier", dictionary: hightlightData) {
+                        let highlight = BNHighlight(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
+                        highlights.append(highlight)
+                    }
+                }
             }
         }
         
@@ -640,6 +646,26 @@ class BNParser {
                     let identifier = BNParser.findString("identifier", dictionary: elementData)
                     BNAppSharedManager.instance.dataManager.favoritesElements.append(identifier!)
                 }
+            }
+        }
+    }
+    
+    class func parseShowcases(showcasesData:NSArray){
+        for u in (0..<showcasesData.count) {
+            if let showcaseData = showcasesData.objectAtIndex(u) as? NSDictionary {
+                let showcase = BNShowcase()
+                showcase.identifier = BNParser.findString("identifier", dictionary: showcaseData)
+                showcase.title = BNParser.findString("name", dictionary: showcaseData)
+                if let elementsData = BNParser.findNSArray("elements", dictionary: showcaseData) {
+                    for v in (0..<elementsData.count) {
+                        if let elementData = elementsData.objectAtIndex(v) as? NSDictionary {
+                            if let elementIdentifier = BNParser.findString("identifier", dictionary: elementData) {
+                                showcase.elements.append(elementIdentifier)
+                            }
+                        }
+                    }
+                }
+                BNAppSharedManager.instance.dataManager.receivedShowcase(showcase)
             }
         }
     }

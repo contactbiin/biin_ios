@@ -175,7 +175,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
                             
                             element.showcase = self.showcase
-                            self.showcase!.elements.append(element)
+                            self.showcase!.elements.append(element.identifier!)
                             
                             BNAppSharedManager.instance
                             BNAppSharedManager.instance.dataManager.receivedElement(element)
