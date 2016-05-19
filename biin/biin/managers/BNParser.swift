@@ -269,7 +269,7 @@ class BNParser {
             
             let identifier = BNParser.findString("identifier", dictionary: elementData)
             
-            if BNAppSharedManager.instance.dataManager.elements_by_identifier[identifier!] == nil {
+            if BNAppSharedManager.instance.dataManager.elements[identifier!] == nil {
                 
                 
                 let element = BNElement()
@@ -460,15 +460,20 @@ class BNParser {
                     }
                     
                     if let showcases = BNParser.findNSArray("showcases", dictionary: siteData) {
-                        /* 
-                        site.showcases = Array<BNShowcase>()
+                        
+                        //site.showcases = Array<BNShowcase>()
                         
                         
                         for i in (0..<showcases.count) {
                             if let showcaseData = showcases.objectAtIndex(i) as? NSDictionary {
                                 
-                                let showcase = BNShowcase()
-                                showcase._id = BNParser.findString("_id", dictionary: showcaseData)
+//                                let showcase = BNShowcase()
+//                                showcase._id = BNParser.findString("_id", dictionary: showcaseData)
+                                
+                                if let showcase_identifier = BNParser.findString("identifier", dictionary: showcaseData) {
+                                    site.showcases.append(showcase_identifier)
+                                }
+                                /*
                                 showcase.identifier = BNParser.findString("identifier", dictionary: showcaseData)
                                 showcase.title = BNParser.findString("title", dictionary: showcaseData)
                                 showcase.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
@@ -491,9 +496,10 @@ class BNParser {
                                 showcase.site = site
                                 site.showcases!.append(showcase)
                                 BNAppSharedManager.instance.dataManager.receivedShowcase(showcase)
+                                 */
                             }
                         }
-                        */
+                        
                     }
                     
                     if let biins = BNParser.findNSArray("biins", dictionary: siteData) {
@@ -578,18 +584,24 @@ class BNParser {
     class func parseCategories(categoriesData:NSArray) {
         
         var categories = Array<BNCategory>()
+        
         for o in (0..<categoriesData.count) {
             
             let categoryData = categoriesData.objectAtIndex(o) as! NSDictionary
             let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
             
             if let elements = BNParser.findNSArray("elements", dictionary: categoryData) {
-                
                 for p in (0..<elements.count) {
+                    
                     let elementData = elements.objectAtIndex(p) as! NSDictionary
                     
-                    if let element_identifier = BNParser.findString("identifier", dictionary: elementData) {
-                        category.elements.append(element_identifier)
+                    if let identifier = BNParser.findString("identifier", dictionary: elementData) {
+                        if let showcaseIdentifier = BNParser.findString("showcaseIdentifier", dictionary: elementData) {
+                            if let siteIdentifier = BNParser.findString("siteIdentifier", dictionary: elementData) {
+                                let highlight = BNHighlight(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
+                                category.elements.append(highlight)
+                            }
+                        }
                     }
                 }
             }

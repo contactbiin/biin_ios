@@ -448,19 +448,24 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         var colorIndex:Int = 0
         
+            
+        
 //        if site!.showcases != nil {
-            for showcase in site!.showcases {
-                /*
-                let showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site, colorIndex:colorIndex )
-                scroll!.addSubview(showcaseView)
-                showcases!.append(showcaseView)
-                ypos += showcaseHeight
-                //ypos += 2
-                colorIndex += 1
-                if colorIndex  > 1 {
-                    colorIndex = 0
+            for showcase_identifier in site!.showcases {
+                
+                if let showcase = BNAppSharedManager.instance.dataManager.showcases[showcase_identifier] {
+                
+                    showcase.site = self.site
+                    let showcaseView = SiteView_Showcase(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, showcaseHeight), father: self, showcase:showcase, site:site, colorIndex:colorIndex )
+                    scroll!.addSubview(showcaseView)
+                    showcases!.append(showcaseView)
+                    ypos += showcaseHeight
+                    //ypos += 2
+                    colorIndex += 1
+                    if colorIndex  > 1 {
+                        colorIndex = 0
+                    }
                 }
-                 */
             }
 //        }
         

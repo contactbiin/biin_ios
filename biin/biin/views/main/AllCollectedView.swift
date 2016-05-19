@@ -186,7 +186,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     
         for element_identifier in showcase!.elements {
             
-            let element = BNAppSharedManager.instance.dataManager.elements_by_identifier[element_identifier]
+            let element = BNAppSharedManager.instance.dataManager.elements[element_identifier]
             
             let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:false)
             

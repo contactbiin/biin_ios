@@ -122,7 +122,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
             
             for highllight in BNAppSharedManager.instance.dataManager.highlights {
                 
-                let element = BNAppSharedManager.instance.dataManager.elements_by_identifier[highllight.identifier]
+                let element = BNAppSharedManager.instance.dataManager.elements[highllight.identifier]
                 element!.showcase = BNAppSharedManager.instance.dataManager.showcases[highllight.showcase]
                 element!.showcase!.site = BNAppSharedManager.instance.dataManager.sites[highllight.site]
                 

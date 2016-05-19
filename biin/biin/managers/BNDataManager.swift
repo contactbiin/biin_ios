@@ -29,7 +29,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
     var elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
-    var elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
+    var elements = Dictionary<String, BNElement>()//List of element with data, not by _id
     var highlights = Array<BNHighlight>()//list of hightlight element
     //var availableBiins = Array<String>()//list of biins detected
     //var elementsBiined = Dictionary<String, String>()
@@ -78,8 +78,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         elements_by_id.removeAll()
         elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
 
-        elements_by_identifier.removeAll()
-        elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
+        elements.removeAll()
+        elements = Dictionary<String, BNElement>()//List of element with data, not by _id
         
         highlights.removeAll()
         highlights = Array<BNHighlight>()
@@ -459,15 +459,15 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 elements_by_id[element._id!] = element
                 
                 //Check is element is has been requested by it's identifier
-                if elements_by_identifier[element.identifier!] == nil {
-                    elements_by_identifier[element.identifier!] = element
+                if elements[element.identifier!] == nil {
+                    elements[element.identifier!] = element
                     delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
                 } else {
 
-                    let value = elements_by_identifier[element.identifier!]!.isDownloadCompleted
+                    let value = elements[element.identifier!]!.isDownloadCompleted
                     
                     if value {
-                        manageElementRelationShips(elements_by_identifier[element.identifier!]!)
+                        manageElementRelationShips(elements[element.identifier!]!)
                     }else {
 
                     }
@@ -483,16 +483,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             elements_by_id[element._id!] = element
             
             //Check is element is has been requested by it's identifier
-            if elements_by_identifier[element.identifier!] == nil {
+            if elements[element.identifier!] == nil {
 
-                elements_by_identifier[element.identifier!] = element
+                elements[element.identifier!] = element
                 delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
             } else {
 
-                let value = elements_by_identifier[element.identifier!]!.isDownloadCompleted
+                let value = elements[element.identifier!]!.isDownloadCompleted
                 
                 if value {
-                    manageElementRelationShips(elements_by_identifier[element.identifier!]!)
+                    manageElementRelationShips(elements[element.identifier!]!)
                 }else {
                 }
             }
@@ -505,7 +505,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///- parameter BNElement: received from web service in json format already parse in an element object.
     func manager(manager: BNNetworkManager!, didReceivedElement element: BNElement) {
 
-        elements_by_identifier[element.identifier!] = element
+        elements[element.identifier!] = element
         manageElementRelationShips(element)
     }
     
@@ -681,9 +681,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
                     } else {
                         //print("element not store:\(_id)")
-                        if let element_by_identifier = elements_by_identifier[element.identifier!] {
+                        if let element = elements[element.identifier!] {
                             
-                            elements_by_id[_id] = element_by_identifier.clone()
+                            elements_by_id[_id] = element.clone()
                             elements_by_id[_id]!._id = _id
                             
                             if let showcase = showcases[element.showcase!._id!] {
@@ -843,7 +843,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             if elements_by_id[object._id!] == nil {
                                 
                                 //Checks if element received is already on elements_by_identifier list.
-                                if let element = elements_by_identifier[object.identifier!] {
+                                if let element = elements[object.identifier!] {
                                     //Checks if element received is reference on element and clone it self.
                                     
                                     
@@ -939,8 +939,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
     func receivedElement(element: BNElement) {
         //Check is element is has been requested by it's identifier
-        if elements_by_identifier[element.identifier!] == nil {
-            elements_by_identifier[element.identifier!] = element
+        if elements[element.identifier!] == nil {
+            elements[element.identifier!] = element
         }
     }
 
@@ -951,7 +951,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if elements_by_id[_id] == nil {
             
             //Checks if element received is already on elements_by_identifier list.
-            if let element = elements_by_identifier[identifier] {
+            if let element = elements[identifier] {
                 //Checks if element received is reference on element and clone it self.
                 
                 
@@ -969,10 +969,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func receivedHightlight(highlights:Array<BNHighlight >) {
 
-
         self.highlights = highlights
-
-
     }
     
     func receivedCategories(categories:Array<BNCategory>) {
@@ -980,32 +977,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
         
-//        for (_, site) in sites {
-//            site.showInView = false
-//        }
-        
         for category in categories {
-            
-            
             category.name = findCategoryNameByIdentifier(category.identifier!)
-            
-            
-//            for siteDetails in category.sitesDetails {
-//                //Check if site exist.
-//                if self.sites[siteDetails.identifier!] == nil {
-//                    
-//                    let site = BNSite()
-//                    site.identifier = siteDetails.identifier!
-//                    site.biinieProximity = siteDetails.biinieProximity!
-//                    //site.jsonUrl = siteDetails.json!
-//                    sites[siteDetails.identifier!] = site
-//                    //Site does not exist, store it and request it's data.
-//                    delegateNM!.manager!(self, requestSiteData: site, user:bnUser!)
-//                } else {
-//                    self.sites[siteDetails.identifier!]?.showInView = true
-//                }
-//            }
-            
             bnUser!.addCategory(category)
         }
     }
@@ -1018,8 +991,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] = self.elements_by_id[element!._id!]
 
             element!.collectCount += 1
-            elements_by_identifier[element!.identifier!]?.collectCount = element!.collectCount
-            elements_by_identifier[element!.identifier!]?.userCollected = element!.userCollected
+            elements[element!.identifier!]?.collectCount = element!.collectCount
+            elements[element!.identifier!]?.userCollected = element!.userCollected
             
             for (identifier, clone) in elements_by_id {
                 if element!.identifier! == identifier {
@@ -1035,7 +1008,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
         self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]!.elements.removeValueForKey(element!._id!)
         
-        elements_by_identifier[element!.identifier!]?.userCollected = element!.userCollected
+        elements[element!.identifier!]?.userCollected = element!.userCollected
         
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {
@@ -1048,7 +1021,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
     func applyLikeElement(element:BNElement?) {
         
-        elements_by_identifier[element!.identifier!]?.userLiked = element!.userLiked
+        elements[element!.identifier!]?.userLiked = element!.userLiked
         
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {
@@ -1059,7 +1032,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func applyShareElement(element:BNElement?) {
         
-        elements_by_identifier[element!.identifier!]?.userShared = element!.userShared
+        elements[element!.identifier!]?.userShared = element!.userShared
         
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {
@@ -1075,7 +1048,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //TODO: this action should have the _id and identifier sent
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:element!.identifier!)
         
-        elements_by_identifier[element!.identifier!]?.userViewed = element!.userViewed
+        elements[element!.identifier!]?.userViewed = element!.userViewed
         
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {

@@ -99,10 +99,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         
         ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
         
-        subTitle = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
-        subTitle!.textColor = UIColor.whiteColor()
-        subTitle!.text = self.showcase!.subTitle!
+//        subTitle = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
+//        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
+//        subTitle!.textColor = UIColor.whiteColor()
+        //subTitle!.text = self.showcase!.subTitle!
         ///self.addSubview(subTitle!)
         
         //TESTING NOTIFICATIONS
@@ -214,7 +214,8 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
 
                 if !isAddedToScroll(element_identifier) {
                     
-                    let element = BNAppSharedManager.instance.dataManager.elements_by_identifier[element_identifier]
+                    let element = BNAppSharedManager.instance.dataManager.elements[element_identifier]
+                    element!.showcase = self.showcase
                     
                     let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
                         elementView.isElementMiniViewInSite = true
