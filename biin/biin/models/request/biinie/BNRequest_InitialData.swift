@@ -71,6 +71,7 @@ class BNRequest_InitialData: BNRequest {
                             BNParser.parseCategories(categoriesData)
                         }
                         
+                        //ONLY ON INITIAL DATA
                         //Parse hightlights
                         if let hightlightsData = BNParser.findNSArray("highlights", dictionary: initialData) {
                             BNParser.parseHightlights(hightlightsData)

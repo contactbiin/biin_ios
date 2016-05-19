@@ -385,7 +385,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                 } else {
                     //if let element_by_identifier = BNAppSharedManager.instance.dataManager.elements_by_identifier[notification!.objectIdentifier!] {
                 
-                    for ( _, element) in BNAppSharedManager.instance.dataManager.elements_by_id {
+                    for ( _, element) in BNAppSharedManager.instance.dataManager.elements {
                         
                         if notification!.objectIdentifier == element.identifier! && element.showcase!.site!.identifier == notification!.siteIdentifier! {
                             

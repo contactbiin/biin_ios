@@ -205,14 +205,15 @@ class AllElementsView: BNView {
             for element_data  in category!.elements {
                 
                 if !isElementAdded(element_data.identifier) {
-                    if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_data.identifier] {
-                        if element.showcase == nil {
-                            element.showcase = BNAppSharedManager.instance.dataManager.showcases[element_data.showcase]
-                        }
+                    if let element = BNAppSharedManager.instance.dataManager.elements[element_data.identifier] {
                         
-                        if element.showcase!.site == nil {
-                            element.showcase!.site = BNAppSharedManager.instance.dataManager.sites[element_data.site]
-                        }
+                        
+                        element.showcase = BNAppSharedManager.instance.dataManager.showcases[element_data.showcase]
+                    
+                    
+                    
+                        element.showcase!.site = BNAppSharedManager.instance.dataManager.sites[element_data.site]
+                    
                         
                         let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
                         
@@ -280,14 +281,13 @@ class AllElementsView: BNView {
             for element_data  in category!.elements {
                 
                 if !isElementAdded(element_data.identifier) {
-                    if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_data.identifier] {
-                        if element.showcase == nil {
-                            element.showcase = BNAppSharedManager.instance.dataManager.showcases[element_data.showcase]
-                        }
+                    if let element = BNAppSharedManager.instance.dataManager.elements[element_data.identifier] {
                         
-                        if element.showcase!.site == nil {
-                            element.showcase!.site = BNAppSharedManager.instance.dataManager.sites[element_data.site]
-                        }
+                        element.showcase = BNAppSharedManager.instance.dataManager.showcases[element_data.showcase]
+                    
+                    
+                        element.showcase!.site = BNAppSharedManager.instance.dataManager.sites[element_data.site]
+                        
                         
                         let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
                         

@@ -214,29 +214,32 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
 
                 if !isAddedToScroll(element_identifier) {
                     
-                    let element = BNAppSharedManager.instance.dataManager.elements[element_identifier]
-                    element!.showcase = self.showcase
-                    
-                    let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
-                        elementView.isElementMiniViewInSite = true
-                    
-                    if element_identifier != showcase!.elements.last {
-                        xpos += elementView_width + spacer
-                    } else  {
-                        xpos += (elementView_width - 1)
+                    if let element = BNAppSharedManager.instance.dataManager.elements[element_identifier] {
+                        element.showcase = self.showcase
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
+                            elementView.isElementMiniViewInSite = true
+                        
+                        if element_identifier != showcase!.elements.last {
+                            xpos += elementView_width + spacer
+                        } else  {
+                            xpos += (elementView_width - 1)
+                        }
+                        
+                        elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
+                        elements.append(elementView)
+                        elementPosition += 1
+                        
+                        if element.userViewed {
+                            elementsViewed += 1
+                        }
+                        
+                        //if elementPosition < 4 {
+                            elementView.requestImage()
+                        //}
+                    } else {
+                        print("NO ELMENT IN elements list: \(element_identifier) and is on showcase: \(showcase!.identifier!)")
                     }
-                    
-                    elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
-                    elements.append(elementView)
-                    elementPosition += 1
-                    
-                    if element!.userViewed {
-                        elementsViewed += 1
-                    }
-                    
-                    //if elementPosition < 4 {
-                        elementView.requestImage()
-                    //}
                 }
             }
             

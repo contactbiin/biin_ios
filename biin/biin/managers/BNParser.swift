@@ -667,7 +667,7 @@ class BNParser {
             if let showcaseData = showcasesData.objectAtIndex(u) as? NSDictionary {
                 let showcase = BNShowcase()
                 showcase.identifier = BNParser.findString("identifier", dictionary: showcaseData)
-                showcase.title = BNParser.findString("name", dictionary: showcaseData)
+                showcase.title = BNParser.findString("title", dictionary: showcaseData)
                 if let elementsData = BNParser.findNSArray("elements", dictionary: showcaseData) {
                     for v in (0..<elementsData.count) {
                         if let elementData = elementsData.objectAtIndex(v) as? NSDictionary {
