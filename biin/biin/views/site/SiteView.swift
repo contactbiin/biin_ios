@@ -5,9 +5,9 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
-
-class SiteView:BNView, UIScrollViewDelegate {
+class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate {
  
     var delegate:SiteView_Delegate?
     weak var site:BNSite?
@@ -41,11 +41,9 @@ class SiteView:BNView, UIScrollViewDelegate {
     
     var buttonContainer:UIView?
     var isShowingLocation = false
-    var locationBtn:UIButton?
-    var phoneBtn:UIButton?
-    var emailBtn:UIButton?
-    var uberBtn:UIButton?
-    var wazeBtn:UIButton?
+    var locationBtn:BNUIButton_SiteLocation?
+    var phoneBtn:BNUIButton_SitePhone?
+    var emailBtn:BNUIButton_SiteEmail?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -119,17 +117,16 @@ class SiteView:BNView, UIScrollViewDelegate {
         backGesture.direction = UISwipeGestureRecognizerDirection.Right
         self.addGestureRecognizer(backGesture)
 
-        let buttonWidth:CGFloat = ((screenWidth - 2) / 3 )
+        let buttonWidth:CGFloat = 40
         
-        buttonContainer = UIView(frame: CGRectMake(0, 0, screenWidth, (30 + 2)))
-        buttonContainer!.backgroundColor = UIColor.whiteColor()
-        self.scroll!.addSubview(buttonContainer!)
+        buttonContainer = UIView(frame: CGRectMake(0, 0, 25, 35))
+        buttonContainer!.backgroundColor = UIColor.clearColor()
+        backBtn_Bg!.addSubview(buttonContainer!)
 
         var xpos:CGFloat = 0
         
         //Location button
-        locationBtn = UIButton(frame: CGRectMake(xpos, 1, buttonWidth, 30))
-        locationBtn!.setTitle("VER DIRECCION", forState: UIControlState.Normal)
+        locationBtn = BNUIButton_SiteLocation(frame: CGRectMake(xpos, 0, buttonWidth, 35))
         locationBtn!.setTitleColor(UIColor.bnUber(), forState: UIControlState.Normal)
         locationBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 8)
         locationBtn!.addTarget(self, action: #selector(self.locationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -137,21 +134,22 @@ class SiteView:BNView, UIScrollViewDelegate {
         
         //Phone
         xpos += (buttonWidth + 1)
-        phoneBtn = UIButton(frame: CGRectMake(xpos, 1, buttonWidth, 30))
-        phoneBtn!.setTitle("LLAMAR", forState: UIControlState.Normal)
+        phoneBtn = BNUIButton_SitePhone(frame: CGRectMake(xpos, 0, buttonWidth, 35))
         phoneBtn!.setTitleColor(UIColor.bnUber(), forState: UIControlState.Normal)
         phoneBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 8)
-        phoneBtn!.addTarget(self, action: #selector(self.locationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        phoneBtn!.addTarget(self, action: #selector(self.call(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         buttonContainer!.addSubview(phoneBtn!)
 
         //Email
         xpos += (buttonWidth + 1)
-        emailBtn = UIButton(frame: CGRectMake(xpos, 1, buttonWidth, 30))
-        emailBtn!.setTitle("ENVIAR CORREO", forState: UIControlState.Normal)
+        emailBtn = BNUIButton_SiteEmail(frame: CGRectMake(xpos, 0, buttonWidth, 35))
         emailBtn!.setTitleColor(UIColor.bnUber(), forState: UIControlState.Normal)
         emailBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 8)
-        emailBtn!.addTarget(self, action: #selector(self.locationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        emailBtn!.addTarget(self, action: #selector(self.sendMail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         buttonContainer!.addSubview(emailBtn!)
+        
+        let buttonContainerWidth:CGFloat = (xpos + buttonWidth)
+        buttonContainer!.frame = CGRectMake((screenWidth - buttonContainerWidth), 0, buttonContainerWidth, 35)
         
         addFade()
 
@@ -248,19 +246,16 @@ class SiteView:BNView, UIScrollViewDelegate {
             backBtn!.layer.backgroundColor = decorationColor!.CGColor
             backBtn!.setNeedsDisplay()
             
-            
             shareItButton!.icon!.color = UIColor.grayColor()
             shareItButton!.setNeedsDisplay()
 
             updateLikeItBtn()
             
-            buttonContainer!.backgroundColor = textColor
-            locationBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
-            locationBtn!.backgroundColor = decorationColor
-            emailBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
-            emailBtn!.backgroundColor = decorationColor
-            phoneBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
-            phoneBtn!.backgroundColor = decorationColor
+            if self.site!.email! != "" {
+                emailBtn!.enabled = true
+            } else {
+                emailBtn!.enabled = false
+            }
             
             if shareView != nil {
                 shareView!.clean()
@@ -270,9 +265,6 @@ class SiteView:BNView, UIScrollViewDelegate {
             
             shareView  = ShareItView(frame: CGRectMake(0, 0, 320, 450), site:self.site!)
             
-        } else {
-            
-            //locationView!.updateButtons()
         }
     }
     
@@ -319,9 +311,6 @@ class SiteView:BNView, UIScrollViewDelegate {
 
         var ypos:CGFloat = SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_headerHeight
         
-        buttonContainer!.frame.origin.y = ypos
-        ypos += buttonContainer!.frame.height
-        
         var colorIndex:Int = 0
         
 
@@ -343,8 +332,6 @@ class SiteView:BNView, UIScrollViewDelegate {
         }
         
         locationView!.updateForSite(site)
-        //locationView!.frame.origin.y = ypos
-        //ypos += (locationView!.frame.height)
         
         if otherSitesView != nil {
             otherSitesView!.removeFromSuperview()
@@ -486,6 +473,32 @@ class SiteView:BNView, UIScrollViewDelegate {
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_SITE, to:site!.identifier!)
         SharedAnswersManager.instance.logShare_Site(site)
     }
+    
+    func sendMail(sender: UIButton) {
+        
+        let picker = MFMailComposeViewController()
+        let toRecipents = [self.site!.email!]
+        picker.setToRecipients(toRecipents)
+        picker.mailComposeDelegate = self
+        picker.setSubject(NSLocalizedString("EmailMsj", comment: "EmailMsj"))
+        picker.setMessageBody("", isHTML: true)
+        
+        if MFMailComposeViewController.canSendMail() {
+            BNAppSharedManager.instance.mainViewController!.presentViewController(picker, animated: true, completion: nil)
+        }
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        (father! as? MainView)?.rootViewController!.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func call(sender:UIButton){    
+        if self.site!.phoneNumber! != "" {
+            let url:NSURL = NSURL(string:"tel://\(self.site!.phoneNumber!)")!
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
 }
 
 @objc protocol SiteView_Delegate:NSObjectProtocol {

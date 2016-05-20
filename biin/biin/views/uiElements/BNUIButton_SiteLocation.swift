@@ -10,14 +10,13 @@ import QuartzCore
 
 class BNUIButton_SiteLocation:BNUIButton {
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_SiteLocationButton(color: UIColor.biinColor(), position: CGPointMake(7, 5))
+        icon = BNIcon_SiteLocationButton(color: UIColor.grayColor(), position: CGPointMake(11, 8))
     }
     
 }

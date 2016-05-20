@@ -6,10 +6,9 @@
 import Foundation
 import UIKit
 import MapKit
-import MessageUI
 import UberRides
 
-class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDelegate {
+class SiteView_Location:BNView, MKMapViewDelegate {
 
     //var siteAvatarView:UIView?
     var siteAvatar:BNUIImageView?
@@ -29,8 +28,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var site_email:String?
     var site_phoneNumber:String?
     
-    var emailBtn:UIButton?
-    var callBtn:UIButton?
     var npsBtn:UIButton?
     var commentBtn:BNUIButton_Contact?
     var closeBtn:UIButton?
@@ -140,8 +137,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
         ypos += 155
         
-        
-        
         closeBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
         closeBtn!.addTarget(self, action: #selector(self.closeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         closeBtn!.setTitle("CLOSE", forState: UIControlState.Normal)
@@ -149,25 +144,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         closeBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 16)
         closeBtn!.layer.cornerRadius = 2
         self.addSubview(closeBtn!)
-        
-        
-        emailBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
-        emailBtn!.setTitle(NSLocalizedString("EmailUs", comment: "EmailUs"), forState: UIControlState.Normal)
-        emailBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        emailBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
-        emailBtn!.layer.cornerRadius = 2
-        emailBtn!.addTarget(self, action: #selector(self.sendMail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.addSubview(emailBtn!)
-        
-        ypos += 55
-        callBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
-        callBtn!.setTitle(NSLocalizedString("CallUs", comment: "CallUs"), forState: UIControlState.Normal)
-        callBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        callBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
-        callBtn!.layer.cornerRadius = 2
-        callBtn!.addTarget(self, action: #selector(self.call(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.addSubview(callBtn!)
-        
+    
         ypos += 55
         npsBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
         npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
@@ -181,20 +158,21 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
         uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
         uber_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        uber_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
-        uber_button!.backgroundColor = UIColor.darkGrayColor()
+        uber_button!.titleLabel!.font = UIFont(name: "Lato-Black", size: 16)
+        uber_button!.backgroundColor = UIColor.bnUber()
         uber_button!.layer.cornerRadius = 2
-//        self.addSubview(uber_button!)
+        self.addSubview(uber_button!)
         uber_button!.setNeedsDisplay()
         
         ypos += 55
         waze_button = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        waze_button!.backgroundColor = UIColor.bnWaze()
         waze_button!.setTitle(NSLocalizedString("Waze", comment: "Waze"), forState: UIControlState.Normal)
         waze_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        waze_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
+        waze_button!.titleLabel!.font = UIFont(name: "Lato-Black", size: 16)
         waze_button!.layer.cornerRadius = 2
         waze_button!.addTarget(self, action: #selector(self.wazeAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.addSubview(waze_button!)
+        self.addSubview(waze_button!)
         
         ypos += 55
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
@@ -339,40 +317,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
             phoneLbl!.text =  "\(NSLocalizedString("Phone", comment: "Phone")): \(site!.phoneNumber!)"
             phoneLbl!.sizeToFit()
             ypos += phoneLbl!.frame.height
-//            hasPhone = true
-            callBtn!.enabled = true
-            callBtn!.alpha = 1
-            callBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
-            callBtn!.backgroundColor = bgColor!//site!.media[0].vibrantDarkColor
-        }else {
-            callBtn!.enabled = false
-            callBtn!.alpha = 0
         }
  
  
-        
-        if site!.email! != "" && MFMailComposeViewController.canSendMail() {
+        if site!.email! != "" {
             site_email = site!.email!
             emailLbl!.frame.origin.y = ypos
             emailLbl!.text = "\(NSLocalizedString("Email", comment: "Email")): \(site!.email!)"
             emailLbl!.sizeToFit()
             ypos += emailLbl!.frame.height
-//            hasEmail = true
-            
-//            var value = NSLocalizedString("Email", comment: "Email")
-//            email!.text = "\(value): \(site!.email!)"
-//            email!.frame.origin.y = ypos
-//            email!.sizeToFit()
-//            ypos += email!.frame.height
-            
-            
-            emailBtn!.enabled = true
-            emailBtn!.alpha = 1
-            emailBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
-            emailBtn!.backgroundColor = bgColor!
-        } else {
-            emailBtn!.enabled = false
-            emailBtn!.alpha = 0
         }
         
         if site!.siteSchedule != "" && site!.siteSchedule != nil {
@@ -383,8 +336,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         } else {
             //print("Site schedule not set:\(site!.identifier!)")
         }
-        
-        waze_button!.backgroundColor = bgColor!
         
         ypos += 15
 
@@ -447,38 +398,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ypos += (map!.frame.height + 5)
         
         var hasPhone = false
-        var hasEmail = false
-        
-        closeBtn!.frame.origin.y = ypos
-        closeBtn!.backgroundColor = bgColor
-        
-        ypos += closeBtn!.frame.height
-        
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
-
-        
-        
-        if site!.phoneNumber! != "" {
-
-            hasPhone = true
-        }
-        
-        if site!.email! != "" && MFMailComposeViewController.canSendMail() {
-
-            hasEmail = true
-        }
-        
-        if hasPhone {
-            callBtn!.frame.origin.y = ypos
-            ypos += callBtn!.frame.height
-            ypos += 5
-        }
-        
-        if hasEmail {
-            emailBtn!.frame.origin.y = ypos
-            ypos += emailBtn!.frame.height
-            ypos += 5
-        }
         
         waze_button!.frame.origin.y = ypos
         ypos += waze_button!.frame.height
@@ -492,6 +411,13 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.setDropoffLocation(latitude: Double(site!.latitude!), longitude:Double(site!.longitude!), nickname: site!.title!)
         uber_button!.frame.origin.y = ypos
         ypos += uber_button!.frame.height
+        ypos += 5
+        
+        closeBtn!.frame.origin.y = ypos
+        closeBtn!.backgroundColor = bgColor
+        ypos += closeBtn!.frame.height
+        
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
         
         if site!.organization!.hasNPS {
             ypos += 5
@@ -531,14 +457,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 
     }
     
-    func call(sender:UIButton){
-        
-        if self.site_phoneNumber! != "" {
-            let url:NSURL = NSURL(string:"tel://\(self.site_phoneNumber!)")!
-            UIApplication.sharedApplication().openURL(url)
-        }
-    }
-    
     func wazeAction(sender:UIButton){
         
 //        if self.site_phoneNumber! != "" {
@@ -557,25 +475,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         }
     }
     
-    func sendMail(sender: UIButton) {
-        let picker = MFMailComposeViewController()
-        let toRecipents = [site_email!]
-        picker.setToRecipients(toRecipents)
-        picker.mailComposeDelegate = self
-        picker.setSubject(NSLocalizedString("EmailMsj", comment: "EmailMsj"))
-        picker.setMessageBody("", isHTML: true)
-        
-        (father!.father! as? MainView)?.rootViewController!.presentViewController(picker, animated: true, completion: nil)
-    }
-    
     func nps(sender:UIButton){
         (father!.father! as? MainView)?.site_to_survey = self.site
 //        (father!.father! as? MainView)?.setNextState(BNGoto.Survey)
         (father!.father! as? MainView)?.showSurveyViewOnRequest()
-    }
-    
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        (father!.father! as? MainView)?.rootViewController!.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func clean() {
@@ -589,8 +492,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         map?.removeFromSuperview()
         
-        emailBtn?.removeFromSuperview()
-        callBtn?.removeFromSuperview()
+//        callBtn?.removeFromSuperview()
         commentBtn?.clean()
         commentBtn?.removeFromSuperview()
 //        closeBtn?.removeFromSuperview()
