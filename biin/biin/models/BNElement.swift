@@ -145,6 +145,6 @@ class BNElement:NSObject {
     }
 }
 
-struct BNHighlight {
+struct BNElementRelationShip {
     var identifier = "", showcase = "", site = ""
 }

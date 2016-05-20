@@ -29,6 +29,14 @@ extension UIColor {
         return UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
     }
     
+    class func bnWaze() -> UIColor! {
+        return UIColor(red: 147/255, green: 196/255, blue: 211/255, alpha: 1)
+    }
+    
+    class func bnUber() -> UIColor! {
+        return UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
+    }
+    
     class func bnGrayLight() -> UIColor! {
         return UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
     }

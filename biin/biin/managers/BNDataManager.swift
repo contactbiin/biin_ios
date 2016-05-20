@@ -21,7 +21,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //var regions = Dictionary<String, BNRegion>()
     var nearbySites = Array<String>()
     var favoritesSites = Array<String>()
-    var favoritesElements = Array<String>()
+    var favoritesElements = Array<BNElementRelationShip>()
     
     var sites = Dictionary<String, BNSite>()
     var sites_ordered = Array<BNSite>()
@@ -30,7 +30,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var showcases = Dictionary<String, BNShowcase>()
 //    var elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
     var elements = Dictionary<String, BNElement>()//List of element with data, not by _id
-    var highlights = Array<BNHighlight>()//list of hightlight element
+    var highlights = Array<BNElementRelationShip>()//list of hightlight element
     //var availableBiins = Array<String>()//list of biins detected
     //var elementsBiined = Dictionary<String, String>()
     
@@ -63,6 +63,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func clean(){
         
+        favoritesSites.removeAll()
+        favoritesSites = Array<String>()
+        
+        favoritesElements.removeAll()
+        favoritesElements = Array<BNElementRelationShip>()
+        
         sites.removeAll()
         sites = Dictionary<String, BNSite>()
 
@@ -82,7 +88,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         elements = Dictionary<String, BNElement>()//List of element with data, not by _id
         
         highlights.removeAll()
-        highlights = Array<BNHighlight>()
+        highlights = Array<BNElementRelationShip>()
     }
     
     func loadBiinie() {
@@ -980,7 +986,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
  */
     }
     
-    func receivedHightlight(highlights:Array<BNHighlight >) {
+    func receivedHightlight(highlights:Array<BNElementRelationShip>) {
 
         self.highlights = highlights
     }

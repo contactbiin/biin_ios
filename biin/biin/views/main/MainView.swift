@@ -173,6 +173,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             break
         case .BrotherSite:
             state!.view!.showFade()
+            self.bringSubviewToFront(self.brotherSiteState!.view!)
             self.brotherSiteState!.previous = state
             state!.next(self.brotherSiteState)
             break

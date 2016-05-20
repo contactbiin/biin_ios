@@ -52,23 +52,26 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         self.init(frame: frame, father:father)
         
         
-        var textColor:UIColor?
-        switch colorIndex {
-        case 0:
-//             self.backgroundColor = site!.media[0].vibrantColor
-            self.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
+//        var textColor:UIColor?
+//        switch colorIndex {
+//        case 0:
+////             self.backgroundColor = site!.media[0].vibrantColor
+//            self.backgroundColor = UIColor.lightGrayColor()
+//            textColor = UIColor.bnGrayDark()
+////        case 1:
+////             self.backgroundColor = site!.media[0].vibrantLightColor
 //        case 1:
-//             self.backgroundColor = site!.media[0].vibrantLightColor
-        case 1:
-//             self.backgroundColor = site!.media[0].vibrantDarkColor
-            self.backgroundColor = UIColor.grayColor()
-            textColor = UIColor.whiteColor()
-        default:
-            self.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
-            break
-        }
+////             self.backgroundColor = site!.media[0].vibrantDarkColor
+//            self.backgroundColor = UIColor.grayColor()
+//            textColor = UIColor.whiteColor()
+//        default:
+//            self.backgroundColor = UIColor.lightGrayColor()
+//            textColor = UIColor.bnGrayDark()
+//            break
+//        }
+        
+        let textColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.bnGrayLight()
         
        //!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
         self.showcase = showcase//BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]

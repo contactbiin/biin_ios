@@ -70,7 +70,7 @@ class MenuView:UIView {
         collectionsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Collections", comment: "collections button title").uppercaseString, iconType: BNIconType.none)
         collectionsBtn!.addTarget(self, action: #selector(self.collectionsBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(collectionsBtn!)
-        collectionsBtn!.showDisable()
+        //collectionsBtn!.showDisable()
         
         //ypos += (distance + buttonHeight)
         loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Loyalty", comment: "loyalty button title").uppercaseString, iconType: BNIconType.none)

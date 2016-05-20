@@ -598,7 +598,7 @@ class BNParser {
                     if let identifier = BNParser.findString("identifier", dictionary: elementData) {
                         if let showcaseIdentifier = BNParser.findString("showcaseIdentifier", dictionary: elementData) {
                             if let siteIdentifier = BNParser.findString("siteIdentifier", dictionary: elementData) {
-                                let highlight = BNHighlight(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
+                                let highlight = BNElementRelationShip(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
                                 category.elements.append(highlight)
                             }
                         }
@@ -614,7 +614,7 @@ class BNParser {
     
     class func parseHightlights(hightlightsData:NSArray) {
         
-        var highlights = Array<BNHighlight>()
+        var highlights = Array<BNElementRelationShip>()
         
         for q in (0..<hightlightsData.count){
             
@@ -623,7 +623,7 @@ class BNParser {
             if let identifier = BNParser.findString("identifier", dictionary: hightlightData) {
                 if let showcaseIdentifier = BNParser.findString("showcaseIdentifier", dictionary: hightlightData) {
                     if let siteIdentifier = BNParser.findString("siteIdentifier", dictionary: hightlightData) {
-                        let highlight = BNHighlight(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
+                        let highlight = BNElementRelationShip(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
                         highlights.append(highlight)
                     }
                 }
@@ -655,8 +655,14 @@ class BNParser {
         if let elementsData = BNParser.findNSArray("elements", dictionary: favoritesData) {
             for t in (0..<elementsData.count) {
                 if let elementData = elementsData.objectAtIndex(t) as? NSDictionary {
-                    let identifier = BNParser.findString("identifier", dictionary: elementData)
-                    BNAppSharedManager.instance.dataManager.favoritesElements.append(identifier!)
+                    if let identifier = BNParser.findString("identifier", dictionary: elementData) {
+                        if let showcaseIdentifier = BNParser.findString("showcaseIdentifier", dictionary: elementData) {
+                            if let siteIdentifier = BNParser.findString("siteIdentifier", dictionary: elementData) {
+                                let elementReleationShip = BNElementRelationShip(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
+                                BNAppSharedManager.instance.dataManager.favoritesElements.append(elementReleationShip)
+                            }
+                        }
+                    }
                 }
             }
         }

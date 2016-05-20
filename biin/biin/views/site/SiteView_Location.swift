@@ -33,7 +33,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     var callBtn:UIButton?
     var npsBtn:UIButton?
     var commentBtn:BNUIButton_Contact?
-//    var closeBtn:BNUIButton_Close?
+    var closeBtn:UIButton?
     
     var siteLocation:CLLocationCoordinate2D?
 //    var annotation:MKPointAnnotation?
@@ -68,10 +68,6 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         
         //let headerWidth = screenWidth - (SharedUIManager.instance.siteView_headerHeight + 10 + 45)
         var ypos:CGFloat = 10
-
-//        closeBtn = BNUIButton_Close(frame: CGRectMake((SharedUIManager.instance.screenWidth - 35), 5, 30, 30), iconColor: UIColor.blackColor())
-//        closeBtn!.addTarget(father, action: Selector("hideInformationView:"), forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(closeBtn!)
         
         let siteAvatarSize = (SharedUIManager.instance.siteView_headerHeight)
         siteAvatar = BNUIImageView(frame: CGRectMake(5, 5, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
@@ -138,44 +134,39 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         ypos += 10
         map = MKMapView(frame:CGRectMake(5, ypos, (screenWidth - 10), 150))
         map!.userInteractionEnabled = false
-
         map!.delegate = self
         self.addSubview(map!)
         
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(0.0), longitude: CLLocationDegrees(0.0))
-    
         ypos += 155
+        
+        
+        
+        closeBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
+        closeBtn!.addTarget(self, action: #selector(self.closeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        closeBtn!.setTitle("CLOSE", forState: UIControlState.Normal)
+        closeBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        closeBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 16)
+        closeBtn!.layer.cornerRadius = 2
+        self.addSubview(closeBtn!)
+        
         
         emailBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
         emailBtn!.setTitle(NSLocalizedString("EmailUs", comment: "EmailUs"), forState: UIControlState.Normal)
         emailBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         emailBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
-        //emailBtn!.backgroundColor = UIColor.bnVisitSiteColor()
-        
         emailBtn!.layer.cornerRadius = 2
-//        emailBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-//        emailBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        emailBtn!.layer.shadowOpacity = 0.25
-        
         emailBtn!.addTarget(self, action: #selector(self.sendMail(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(emailBtn!)
+//        self.addSubview(emailBtn!)
         
         ypos += 55
         callBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
         callBtn!.setTitle(NSLocalizedString("CallUs", comment: "CallUs"), forState: UIControlState.Normal)
         callBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         callBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
-        //callBtn!.backgroundColor = UIColor.bnVisitSiteColor()
-
         callBtn!.layer.cornerRadius = 2
-//        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-//        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        callBtn!.layer.shadowOpacity = 0.25
-
         callBtn!.addTarget(self, action: #selector(self.call(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(callBtn!)
-        
-        
+//        self.addSubview(callBtn!)
         
         ypos += 55
         npsBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
@@ -184,7 +175,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         npsBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
         npsBtn!.layer.cornerRadius = 2
         npsBtn!.addTarget(self, action: #selector(self.nps(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(npsBtn!)
+//        self.addSubview(npsBtn!)
         
         uber_button = RequestButton()
         uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
@@ -193,27 +184,17 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         uber_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
         uber_button!.backgroundColor = UIColor.darkGrayColor()
         uber_button!.layer.cornerRadius = 2
-//        uber_button!.layer.shadowColor = UIColor.blackColor().CGColor
-//        uber_button!.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        uber_button!.layer.shadowOpacity = 0.25
-        self.addSubview(uber_button!)
+//        self.addSubview(uber_button!)
         uber_button!.setNeedsDisplay()
-        
         
         ypos += 55
         waze_button = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
         waze_button!.setTitle(NSLocalizedString("Waze", comment: "Waze"), forState: UIControlState.Normal)
         waze_button!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         waze_button!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
-        //callBtn!.backgroundColor = UIColor.bnVisitSiteColor()
-        
         waze_button!.layer.cornerRadius = 2
-        //        callBtn!.layer.shadowColor = UIColor.blackColor().CGColor
-        //        callBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
-        //        callBtn!.layer.shadowOpacity = 0.25
-        
         waze_button!.addTarget(self, action: #selector(self.wazeAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(waze_button!)
+//        self.addSubview(waze_button!)
         
         ypos += 55
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, ypos)
@@ -468,6 +449,15 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
         var hasPhone = false
         var hasEmail = false
         
+        closeBtn!.frame.origin.y = ypos
+        closeBtn!.backgroundColor = bgColor
+        
+        ypos += closeBtn!.frame.height
+        
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
+
+        
+        
         if site!.phoneNumber! != "" {
 
             hasPhone = true
@@ -536,7 +526,7 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
 //        ypos += 10
 
         
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
+//        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
         
 
     }
@@ -610,6 +600,10 @@ class SiteView_Location:BNView, MKMapViewDelegate, MFMailComposeViewControllerDe
     
     func show() {
         
+    }
+    
+    func closeBtnAction(sender:UIButton){
+        (self.father as? SiteView)?.locationBtnAction(sender)
     }
 }
 

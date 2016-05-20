@@ -79,9 +79,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         
         addedElementsIdentifiers = Dictionary<String, BNElement>()
         
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
         
         likedElementsBtn = UIButton(frame: CGRectMake(0, (screenHeight - 80), ((screenWidth / 2) - 2), 60))
         likedElementsBtn!.setTitle("Products", forState: UIControlState.Normal)
@@ -93,7 +93,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         likedSitesBtn!.backgroundColor = UIColor.blueColor()
         self.addSubview(likedSitesBtn!)
         
-        self.addSubview(fade!)
+        addFade()
+        updateCollectedElements()
+//        self.addSubview(fade!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -157,8 +159,8 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             addedElementsIdentifiers = Dictionary<String, BNElement>()
         }
     
-        self.showcase = nil
-        showcase = BNShowcase()
+        //self.showcase = nil
+        //showcase = BNShowcase()
 
         /*
         for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
@@ -178,31 +180,38 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         
         var elementView_width:CGFloat = 0
         
-        if showcase!.elements.count == 1 {
+        if BNAppSharedManager.instance.dataManager.favoritesElements.count == 1 {
             elementView_width = SharedUIManager.instance.screenWidth
         } else {
             elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         }
     
-        for element_identifier in showcase!.elements {
+        for elementRelationShip in BNAppSharedManager.instance.dataManager.favoritesElements {
             
-            let element = BNAppSharedManager.instance.dataManager.elements[element_identifier]
-            
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:false)
-            
-            elementView.requestImage()
-            elementView.delegate = father! as! MainView
-            elementView.delegateAllCollectedView = self
-            scroll!.addSubview(elementView)
-            elements!.append(elementView)
-            
-            xpos += elementView_width + spacer
-            colunmCounter += 1
-            
-            if colunmCounter == 2 {
-                colunmCounter = 0
-                xpos = 0
-                ypos += (miniViewHeight + 1)
+            if let element = BNAppSharedManager.instance.dataManager.elements[elementRelationShip.identifier] {
+                if let showcase = BNAppSharedManager.instance.dataManager.showcases[elementRelationShip.showcase] {
+                    if let site = BNAppSharedManager.instance.dataManager.sites[elementRelationShip.site] {
+                        element.showcase = showcase
+                        showcase.site = site
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:false)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+                        elementView.delegateAllCollectedView = self
+                        scroll!.addSubview(elementView)
+                        elements!.append(elementView)
+                        
+                        xpos += elementView_width + spacer
+                        colunmCounter += 1
+                        
+                        if colunmCounter == 2 {
+                            colunmCounter = 0
+                            xpos = 0
+                            ypos += (miniViewHeight + 1)
+                        }
+                    }
+                }
             }
         }
 

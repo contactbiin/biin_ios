@@ -420,7 +420,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                 if let identifier = BNParser.findString("identifier", dictionary: elementData) {
                                     if let showcaseIdentifier = BNParser.findString("showcaseIdentifier", dictionary: elementData) {
                                         if let siteIdentifier = BNParser.findString("siteIdentifier", dictionary: elementData) {
-                                            let highlight = BNHighlight(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
+                                            let highlight = BNElementRelationShip(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
                                             self.category!.elements.append(highlight)
                                         }
                                     }
