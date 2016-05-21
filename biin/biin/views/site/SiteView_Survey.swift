@@ -125,6 +125,8 @@ class SiteView_Survey: BNView, UITextViewDelegate {
         self.alpha = 1
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
 
     }
     
@@ -137,13 +139,30 @@ class SiteView_Survey: BNView, UITextViewDelegate {
         if !isKeyboardUp {
             isKeyboardUp = true
             
+            (self.father as! SiteView).enableScrolls(false)
+            
             UIView.animateWithDuration(0.25, animations: {() -> Void in
                 (self.father as! SiteView).scroll!.frame.origin.y -= self.keyboardHeight
-                (self.father as! SiteView).scroll!.scrollEnabled = false
                 self.surveyQuestionLbl!.alpha = 1
-            
             })
         }
+    }
+    
+    func keyboardWillHide(notification:NSNotification) {
+
+        
+        
+        if isKeyboardUp {
+            isKeyboardUp = false
+            
+            (self.father as! SiteView).enableScrolls(true)
+            
+            UIView.animateWithDuration(0.25, animations: {() -> Void in
+                (self.father as! SiteView).scroll!.frame.origin.y += self.keyboardHeight
+                self.surveyQuestionLbl!.alpha = 1
+            })
+        }
+        
     }
     
     func getButtonColor(n:CGFloat) -> UIColor {
@@ -367,16 +386,7 @@ class SiteView_Survey: BNView, UITextViewDelegate {
     
     func textViewShouldEndEditing(textView: UITextView) -> Bool {
         
-        if isKeyboardUp {
-            isKeyboardUp = false
 
-            UIView.animateWithDuration(0.25, animations: {() -> Void in
-                (self.father as! SiteView).scroll!.frame.origin.y += self.keyboardHeight
-                (self.father as! SiteView).scroll!.scrollEnabled = true
-                self.surveyQuestionLbl!.alpha = 1
-                
-            })
-        }
         
         return true
     }

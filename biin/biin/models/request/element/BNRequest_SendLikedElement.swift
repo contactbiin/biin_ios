@@ -37,6 +37,8 @@ class BNRequest_SendLikedElement: BNRequest {
         
         var modelContent = Dictionary<String, String>()
         modelContent["identifier"] = self.element!.identifier!
+        modelContent["showcaseIdentifier"] = self.element!.showcase!.identifier!
+        modelContent["siteIdentifier"] = self.element!.showcase!.site!.identifier!
         modelContent["type"] = "element"
         model["model"] = modelContent
         

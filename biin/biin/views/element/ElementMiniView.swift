@@ -298,7 +298,7 @@ class ElementMiniView: BNView {
         }
         
         if showRemoveBtn {
-            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 20), (headerHeight + 4), 15, 15), color:UIColor.blackColor())
+            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - (SharedUIManager.instance.miniView_headerHeight + 10)),  (headerHeight + 10), (SharedUIManager.instance.miniView_headerHeight - 20), (SharedUIManager.instance.miniView_headerHeight - 20)), color:UIColor.blackColor())
             removeItButton!.addTarget(self, action: #selector(self.unCollect(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(removeItButton!)
         }
@@ -354,6 +354,7 @@ class ElementMiniView: BNView {
     
     func unCollect(sender:BNUIButton_RemoveIt) {
         self.element!.userCollected = false
+        self.element!.userLiked = false
         BNAppSharedManager.instance.unCollectElement(self.element)
         SharedAnswersManager.instance.logUnCollect_Element(element)
     }

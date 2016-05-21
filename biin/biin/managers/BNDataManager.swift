@@ -1029,7 +1029,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func applyUnCollectedElement(element:BNElement?) {
 
-        self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]!.elements.removeValueForKey(element!._id!)
+//        self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]!.elements.removeValueForKey(element!._id!)
+        
+        removeFavoriteElement(element!.identifier!)
         
         elements[element!.identifier!]?.userCollected = element!.userCollected
         
@@ -1046,7 +1048,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 
     func applyLikeElement(element:BNElement?) {
         
+        removeFavoriteElement(element!.identifier!)
         elements[element!.identifier!]?.userLiked = element!.userLiked
+        
+        if element!.userLiked {
+            addFavoriteElement(element!.identifier!, showcaseIdentifier: element!.showcase!.identifier!, siteIdentifier: element!.showcase!.site!.identifier!)
+        } else {
+            removeFavoriteElement(element!.identifier!)
+        }
         /*
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {
@@ -1114,6 +1123,28 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         for i in (0..<favoritesSites.count) {
             if favoritesSites[i] == identifier {
                 favoritesSites.removeAtIndex(i)
+                break
+            }
+        }
+    }
+    
+    func addFavoriteElement(identifier:String, showcaseIdentifier:String, siteIdentifier:String) {
+        var isAdded = false
+        for i in (0..<favoritesElements.count) {
+            if favoritesElements[i].identifier == identifier {
+                isAdded = true
+            }
+        }
+        
+        if !isAdded {
+            favoritesElements.insert(BNElementRelationShip(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier), atIndex: 0)
+        }
+    }
+    
+    func removeFavoriteElement(identifier:String) {
+        for i in (0..<favoritesElements.count) {
+            if favoritesElements[i].identifier == identifier {
+                favoritesElements.removeAtIndex(i)
                 break
             }
         }

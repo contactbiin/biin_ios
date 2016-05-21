@@ -54,22 +54,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "biin/views/element/ElementView.swift"
-            timestampString = "485201482.979701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "766"
-            endingLineNumber = "766"
-            landmarkName = "webViewDidFinishLoad(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -121,29 +105,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "biin/views/main/AllCollectedView.swift"
-            timestampString = "485384353.764854"
+            filePath = "biin/managers/BNAppManager.swift"
+            timestampString = "485494890.971967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "updateCollectedElements()"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "unCollectElement(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "biin/views/main/AllCollectedView.swift"
-            timestampString = "485397847.639845"
+            filePath = "biin/managers/BNDataManager.swift"
+            timestampString = "485495833.67455"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "updateCollectedElements()"
+            startingLineNumber = "1134"
+            endingLineNumber = "1134"
+            landmarkName = "addFavoriteElement(_:showcaseIdentifier:siteIdentifier:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

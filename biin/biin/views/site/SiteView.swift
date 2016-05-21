@@ -46,6 +46,8 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     var phoneBtn:BNUIButton_SitePhone?
     var emailBtn:BNUIButton_SiteEmail?
     
+    var coverForSurveyView:UIView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -74,6 +76,10 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         scroll!.backgroundColor = UIColor.bnSitesColor()
         scroll!.delegate = self
         self.addSubview(scroll!)
+        
+        coverForSurveyView = UIView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
+        coverForSurveyView!.backgroundColor = UIColor.blackColor()
+        self.scroll!.addSubview(coverForSurveyView!)
         
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
@@ -214,6 +220,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
+        surverView?.commentTxt!.resignFirstResponder()
         delegate!.hideSiteView!(self)
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!)
     }
@@ -363,11 +370,16 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
             }
         }
         
+        coverForSurveyView!.alpha = 0
+        coverForSurveyView!.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, ypos)
+        self.scroll!.bringSubviewToFront(coverForSurveyView!)
+        
         if self.site!.organization!.hasNPS {
             surverView!.alpha = 1
             surverView!.frame.origin.y = ypos
             ypos += surverView!.frame.height
         } else {
+            
             surverView!.alpha = 0
         }
         
@@ -514,6 +526,23 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
             UIApplication.sharedApplication().openURL(url)
         }
     }
+    
+    func enableScrolls(value:Bool){
+        self.scroll!.scrollEnabled = value
+        
+        if value {
+            UIView.animateWithDuration(0.2, animations: {()-> Void in
+                self.coverForSurveyView!.alpha = 0
+            })
+        } else {
+            UIView.animateWithDuration(0.2, animations: {()-> Void in
+                self.coverForSurveyView!.alpha = 0.75
+            })
+        }
+        
+    }
+    
+    
     
 }
 

@@ -71,7 +71,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         line.backgroundColor = UIColor.darkGrayColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll!.backgroundColor = UIColor.lightGrayColor()
+        scroll!.backgroundColor = UIColor.bnCategoriesColor()
         scroll!.bounces = false
         scroll!.pagingEnabled = false
         self.addSubview(scroll!)
@@ -86,12 +86,12 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         likedElementsBtn = UIButton(frame: CGRectMake(0, (screenHeight - 80), ((screenWidth / 2) - 2), 60))
         likedElementsBtn!.setTitle("Products", forState: UIControlState.Normal)
         likedElementsBtn!.backgroundColor = UIColor.redColor()
-        self.addSubview(likedElementsBtn!)
+        //self.addSubview(likedElementsBtn!)
         
         likedSitesBtn = UIButton(frame: CGRectMake((screenWidth / 2), (screenHeight - 80), (screenWidth / 2), 60))
         likedSitesBtn!.setTitle("Sites", forState: UIControlState.Normal)
         likedSitesBtn!.backgroundColor = UIColor.blueColor()
-        self.addSubview(likedSitesBtn!)
+        //self.addSubview(likedSitesBtn!)
         
         addFade()
         updateCollectedElements()
@@ -178,14 +178,17 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         var colunmCounter = 0
         let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
         
-        var elementView_width:CGFloat = 0
+//        var elementView_width:CGFloat = 0
         
-        if BNAppSharedManager.instance.dataManager.favoritesElements.count == 1 {
-            elementView_width = SharedUIManager.instance.screenWidth
-        } else {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
-        }
-    
+//        if BNAppSharedManager.instance.dataManager.favoritesElements.count == 1 {
+//            elementView_width = SharedUIManager.instance.screenWidth
+//        } else {
+//            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+//        }
+
+        let elementView_width:CGFloat = SharedUIManager.instance.screenWidth
+
+        
         for elementRelationShip in BNAppSharedManager.instance.dataManager.favoritesElements {
             
             if let element = BNAppSharedManager.instance.dataManager.elements[elementRelationShip.identifier] {
@@ -202,23 +205,23 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
                         scroll!.addSubview(elementView)
                         elements!.append(elementView)
                         
-                        xpos += elementView_width + spacer
-                        colunmCounter += 1
+//                        xpos += elementView_width + spacer
+//                        colunmCounter += 1
                         
-                        if colunmCounter == 2 {
-                            colunmCounter = 0
-                            xpos = 0
+//                        if colunmCounter == 2 {
+//                            colunmCounter = 0
+//                            xpos = 0
                             ypos += (miniViewHeight + 1)
-                        }
+//                        }
                     }
                 }
             }
         }
 
         
-        if colunmCounter == 1 {
-            ypos += elements![0].frame.height
-        }
+//        if colunmCounter == 1 {
+//            ypos += elements![0].frame.height
+//        }
         
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)

@@ -825,6 +825,7 @@
 		5B2907841A687B400000658A /* control */ = {
 			isa = PBXGroup;
 			children = (
+				5BEE613E1A97EF2A00DE334E /* settings */,
 				5B2907851A687B400000658A /* ControlView.swift */,
 			);
 			path = control;
@@ -1237,7 +1238,6 @@
 				5BEF3B021B8634B200B10BEC /* development */,
 				5BEE613C1A97EF2A00DE334E /* inviteFriends */,
 				5BEE613D1A97EF2A00DE334E /* search */,
-				5BEE613E1A97EF2A00DE334E /* settings */,
 				5B285B4B1A8D3EF700A2356B /* userOnboarding */,
 				5B53395D1A85127D0049FB00 /* singup */,
 				5B2907B41A687C0C0000658A /* uiIcons */,
@@ -1444,7 +1444,8 @@
 			children = (
 				5BEE61431A97EF6100DE334E /* SettingsView.swift */,
 			);
-			path = settings;
+			name = settings;
+			path = ../settings;
 			sourceTree = "<group>";
 		};
 		5BEE979A1BAC53BB004C2B30 /* request */ = {
