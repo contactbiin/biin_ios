@@ -804,6 +804,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             organizations[site.organizationIdentifier!]?.sites.append(site.identifier!)
 
+            site.surveyCompleted = BNAppSharedManager.instance.notificationManager.is_site_surveyed(site.identifier!)
+            
             sites[site.identifier!] = site
             
             if sites[site.identifier!] == nil {

@@ -127,15 +127,17 @@ class MainViewContainer_FavoriteSites: BNView {
         
         for i in (0..<favoritesSites.count) {
             if let site = BNAppSharedManager.instance.dataManager.sites[favoritesSites[i]] {
-                if !isSiteAdded(site.identifier!) {
-                    let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
-                    let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
-                    miniSiteView.isPositionedInFather = true
-                    miniSiteView.isReadyToRemoveFromFather = false
-                    miniSiteView.delegate = father?.father! as! MainView
-                    sites.append(miniSiteView)
-                    
-                    //xpos += siteView_width + 1
+                if site.userLiked {
+                    if !isSiteAdded(site.identifier!) {
+                        let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
+                        let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
+                        miniSiteView.isPositionedInFather = true
+                        miniSiteView.isReadyToRemoveFromFather = false
+                        miniSiteView.delegate = father?.father! as! MainView
+                        sites.append(miniSiteView)
+                        
+                        //xpos += siteView_width + 1
+                    }
                 }
             }
         }

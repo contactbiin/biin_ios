@@ -28,18 +28,13 @@ class SiteView_Location:BNView, MKMapViewDelegate {
     var site_email:String?
     var site_phoneNumber:String?
     
-    var npsBtn:UIButton?
     var commentBtn:BNUIButton_Contact?
     var closeBtn:UIButton?
     
     var siteLocation:CLLocationCoordinate2D?
-//    var annotation:MKPointAnnotation?
     
     var yStop:CGFloat = 0
 
-//    override init() {
-//        super.init()
-//    }
     var uber_button:RequestButton?
     var waze_button:UIButton?
     weak var site:BNSite?
@@ -139,21 +134,13 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         
         closeBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
         closeBtn!.addTarget(self, action: #selector(self.closeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        closeBtn!.setTitle("CLOSE", forState: UIControlState.Normal)
+        closeBtn!.setTitle(NSLocalizedString("Close", comment: "Close"), forState: UIControlState.Normal)
         closeBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         closeBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 16)
         closeBtn!.layer.cornerRadius = 2
         self.addSubview(closeBtn!)
     
         ypos += 55
-        npsBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
-        npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
-        npsBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        npsBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 16)
-        npsBtn!.layer.cornerRadius = 2
-        npsBtn!.addTarget(self, action: #selector(self.nps(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.addSubview(npsBtn!)
-        
         uber_button = RequestButton()
         uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
         uber_button!.setTitle(NSLocalizedString("UBER", comment: "UBER"), forState: UIControlState.Normal)
@@ -291,26 +278,7 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         ubication!.text = "\(site!.country!), \(site!.state!), \(site!.zipCode!)"
         ubication!.sizeToFit()
         ypos += ubication!.frame.height
-        
-//        var hasPhone = false
-//        var hasEmail = false
-        
-        var white:CGFloat = 0.0
-        var alpha:CGFloat = 0.0
-        _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
-        var textColor:UIColor?
-        var bgColor:UIColor?
-        
-        
-        if white >= 0.95 {
-            //print("Is white")
-            textColor = site!.organization!.primaryColor!
-            bgColor = site!.organization!.secondaryColor!
-        } else {
-            textColor = site!.organization!.secondaryColor!
-            bgColor = site!.organization!.primaryColor
-        }
-        
+
         if site!.phoneNumber! != "" {
             site_phoneNumber = site!.phoneNumber!
             phoneLbl!.frame.origin.y = ypos
@@ -318,7 +286,6 @@ class SiteView_Location:BNView, MKMapViewDelegate {
             phoneLbl!.sizeToFit()
             ypos += phoneLbl!.frame.height
         }
- 
  
         if site!.email! != "" {
             site_email = site!.email!
@@ -338,20 +305,7 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         }
         
         ypos += 15
-
         yStop = ypos
-        //commentBtn!.icon!.color = site!.titleColor!
-        //commentBtn!.showDisable()
-       
-        //ypos += 25
-        //var total:CGFloat = (ypos - siteAvatarView!.frame.height) / 2
-        //siteAvatarView!.frame.origin.y = total
-        
-        //ypos += 10
-//        map!.removeFromSuperview()
-//        map = MKMapView(frame:CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, 160))
-//        map!.delegate = self
-//        self.addSubview(map!)
 
         map!.frame.origin.y = ypos
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
@@ -359,14 +313,9 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
 
-        
         let annotationsToRemove = map!.annotations
         map!.removeAnnotations( annotationsToRemove )
         
-//        (map!.annotations[0] as! MKPointAnnotation).coordinate = siteLocation!
-//        (map!.annotations[0] as! MKPointAnnotation).title = site!.title!
-//        (map!.annotations[0] as! MKPointAnnotation).subtitle = site!.streetAddress1!
-//        map!.selectAnnotation((map!.annotations[0] as! MKPointAnnotation), animated: true)
         let annotation = MKPointAnnotation()
         annotation.coordinate = siteLocation!
         annotation.title = site!.title!
@@ -419,42 +368,6 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
         
-        if site!.organization!.hasNPS {
-            ypos += 5
-            if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site!.identifier) {
-                npsBtn!.alpha = 1
-                npsBtn!.enabled = true
-                npsBtn!.frame.origin.y = ypos
-                npsBtn!.backgroundColor = bgColor!//site!.organization!.primaryColor//site!.media[0].vibrantDarkColor
-                npsBtn!.setTitleColor(textColor!, forState: UIControlState.Normal)
-                ypos += npsBtn!.frame.height
-                npsBtn!.setTitle(NSLocalizedString("npsBtn", comment: "npsBtn"), forState: UIControlState.Normal)
-                npsBtn!.layer.borderColor = UIColor.clearColor().CGColor
-                
-            } else {
-                npsBtn!.alpha = 1
-                npsBtn!.enabled = false
-                npsBtn!.frame.origin.y = ypos
-                //                npsBtn!.backgroundColor = site!.media[0].vibrantDarkColor
-                ypos += npsBtn!.frame.height
-                npsBtn!.setTitle(NSLocalizedString("npsBtn_completed", comment: "npsBtn_completed"), forState: UIControlState.Normal)
-                npsBtn!.backgroundColor = UIColor.whiteColor()
-                npsBtn!.layer.borderColor = bgColor!.CGColor//site!.media[0].vibrantDarkColor?.CGColor
-                npsBtn!.layer.borderWidth = 1
-                npsBtn!.setTitleColor(bgColor, forState: UIControlState.Normal)
-                
-            }
-        } else {
-            npsBtn!.alpha = 0
-            npsBtn!.enabled = false
-        }
-        
-//        ypos += 10
-
-        
-//        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.width, (ypos + 5))
-        
-
     }
     
     func wazeAction(sender:UIButton){
@@ -475,12 +388,6 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         }
     }
     
-    func nps(sender:UIButton){
-        (father!.father! as? MainView)?.site_to_survey = self.site
-//        (father!.father! as? MainView)?.setNextState(BNGoto.Survey)
-        (father!.father! as? MainView)?.showSurveyViewOnRequest()
-    }
-    
     override func clean() {
 
         siteAvatar?.removeFromSuperview()
@@ -492,10 +399,8 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         
         map?.removeFromSuperview()
         
-//        callBtn?.removeFromSuperview()
         commentBtn?.clean()
         commentBtn?.removeFromSuperview()
-//        closeBtn?.removeFromSuperview()
         
         siteLocation = nil
     }

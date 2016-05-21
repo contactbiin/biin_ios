@@ -72,7 +72,7 @@ class ElementView: BNView, UIWebViewDelegate {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        scroll = UIScrollView(frame: CGRectMake(0, 35, screenWidth, (screenHeight - (20 + 35))))
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false

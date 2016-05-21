@@ -20,6 +20,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     var showcases:Array<SiteView_Showcase>?
     var otherSitesView:SiteView_OtherSites?
     var locationView:SiteView_Location?
+    var surverView:SiteView_Survey?
     
     var likeItButton:BNUIButton_LikeIt?
     var shareItButton:BNUIButton_ShareIt?
@@ -56,21 +57,21 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.bnSitesColor()
 
         showcases = Array<SiteView_Showcase>()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        let scrollHeight:CGFloat = (screenHeight - (20 + 35))
+        let scrollHeight:CGFloat = (screenHeight - 20)
         //Add here any other heights for site view.
         
-        scroll = UIScrollView(frame: CGRectMake(0, 35, screenWidth, scrollHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
-        scroll!.backgroundColor = UIColor.whiteColor()
+        scroll!.backgroundColor = UIColor.bnSitesColor()
         scroll!.delegate = self
         self.addSubview(scroll!)
         
@@ -151,6 +152,8 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         let buttonContainerWidth:CGFloat = (xpos + buttonWidth)
         buttonContainer!.frame = CGRectMake((screenWidth - buttonContainerWidth), 0, buttonContainerWidth, 35)
         
+        surverView = SiteView_Survey(frame: CGRectMake(0, 0, screenWidth, 300), father: self)
+        self.scroll!.addSubview(surverView!)
         addFade()
 
     }
@@ -249,6 +252,10 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
             shareItButton!.icon!.color = UIColor.grayColor()
             shareItButton!.setNeedsDisplay()
 
+            if site!.organization!.hasNPS {
+                surverView!.updateSiteData(self.site)
+            }
+            
             updateLikeItBtn()
             
             if self.site!.email! != "" {
@@ -355,6 +362,15 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
                 }
             }
         }
+        
+        if self.site!.organization!.hasNPS {
+            surverView!.alpha = 1
+            surverView!.frame.origin.y = ypos
+            ypos += surverView!.frame.height
+        } else {
+            surverView!.alpha = 0
+        }
+        
         
         scroll!.contentSize = CGSizeMake(0, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)

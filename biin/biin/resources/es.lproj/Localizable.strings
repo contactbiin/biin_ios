@@ -224,8 +224,12 @@ BrandGreetings = "Muchas gracias por visitarnos el día de hoy, esperamos que re
 SurveyQuestion_1 = "Que tan probable es que recomendés a ";
 SurveyQuestion_2 = " con amigos o familia?";
 SurveyQuestion_3 = "Dejanos tu comentario para saber que te gustó o que podemos mejorar.";
+SurveyQuestion_4 = "Que tan probable es que nos recomendés con amigos o familia?";
+SurveyQuestion_5 = "Agredecemos mucho que hayas tomado el tiempo para llenar nuestra encuesta. Esperamos hacer cambios pronto con tus recomendaciones. Muchas Gracias";
 Thankyou = "Muchas gracias";
 Download = "Descarga en www.biin.io";
+Sent = "Enviado";
+Send = "Enviar";
 
 likely = "Muy probable";
 not_likely = "Poco probable";

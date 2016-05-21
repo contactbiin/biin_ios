@@ -228,9 +228,12 @@ BrandGreetings = "Thank you for stoping by today and come back soon!";
 SurveyQuestion_1 = "How likely would you recommend ";
 SurveyQuestion_2 = " to your family or friends?";
 SurveyQuestion_3 = "Leave your comments about what did you like or dislike so we can improve.";
+SurveyQuestion_4 = "How likely would you recommend us to your family or friends?";
+SurveyQuestion_5 = "Agredecemos mucho que hayas tomado el tiempo para llenar nuestra encuesta. Esperamos hacer cambios pronto con tus recomendaciones. Muchas gracias";
 Thankyou = "Thank you";
 Download = "Download it at www.biin.io";
-
+Sent = "Sent";
+Send = "Send";
 
 likely = "Very Likely";
 not_likely = "Not likely";
