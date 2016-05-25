@@ -267,116 +267,117 @@ class BNParser {
             
             let elementData = elementsData.objectAtIndex(c) as! NSDictionary
             
-            let identifier = BNParser.findString("identifier", dictionary: elementData)
+            if let identifier = BNParser.findString("identifier", dictionary: elementData) {
             
-            if BNAppSharedManager.instance.dataManager.elements[identifier!] == nil {
+                if BNAppSharedManager.instance.dataManager.elements[identifier] == nil {
                 
                 
-                let element = BNElement()
-                element.isDownloadCompleted = true
-                element.identifier = identifier//BNParser.findString("identifier", dictionary: elementData)
-                element.title = BNParser.findString("title", dictionary: elementData)
-                element.subTitle = BNParser.findString("subTitle", dictionary: elementData)
-                element.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
-                element.detailsHtml = BNParser.findString("detailsHtml", dictionary: elementData)
-                
-                element.hasCallToAction = BNParser.findBool("hasCallToAction", dictionary: elementData)
-                if element.hasCallToAction {
-                    element.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
-                    element.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
-                }
-                
-                element.isTaxIncludedInPrice = BNParser.findBool("isTaxIncludedInPrice", dictionary: elementData)
-                
-                element.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
-                if element.hasFromPrice {
-                    element.fromPrice = BNParser.findString("fromPrice", dictionary: elementData)
-                }
-                
-                element.hasListPrice = BNParser.findBool("hasListPrice", dictionary: elementData)
-                if element.hasListPrice {
-                    element.listPrice = BNParser.findString("listPrice", dictionary: elementData)
-                }
-                
-                element.hasDiscount = BNParser.findBool("hasDiscount", dictionary: elementData)
-                if element.hasDiscount {
-                    element.discount = BNParser.findString("discount", dictionary: elementData)
-                }
-                
-                element.hasPrice = BNParser.findBool("hasPrice", dictionary: elementData)
-                if element.hasPrice {
-                    element.price = BNParser.findString("price", dictionary: elementData)
-                }
-                
-                element.hasSaving = BNParser.findBool("hasSaving", dictionary: elementData)
-                if element.hasSaving {
-                    element.savings = BNParser.findString("savings", dictionary: elementData)
-                }
-                
-                element.hasTimming = BNParser.findBool("hasTimming", dictionary: elementData)
-                if element.hasTimming {
-                    element.initialDate = BNParser.findNSDate("initialDate", dictionary: elementData)
-                    element.expirationDate = BNParser.findNSDate("expirationDate", dictionary: elementData)
-                }
-                
-                element.hasQuantity = BNParser.findBool("hasQuantity", dictionary: elementData)
-                if element.hasQuantity {
-                    element.quantity = BNParser.findString("quantity", dictionary: elementData)
-                    element.reservedQuantity = BNParser.findString("reservedQuantity", dictionary: elementData)
-                    element.claimedQuantity = BNParser.findString("claimedQuantity", dictionary: elementData)
-                    element.actualQuantity = BNParser.findString("actualQuantity", dictionary: elementData)
-                }
-                
-                element.isHighlight = BNParser.findBool("isHighlight", dictionary: elementData)
-                
-                if let mediaArray = BNParser.findNSArray("media", dictionary: elementData){
+                    let element = BNElement()
+                    element.isDownloadCompleted = true
+                    element.identifier = identifier//BNParser.findString("identifier", dictionary: elementData)
+                    element.title = BNParser.findString("title", dictionary: elementData)
+                    element.subTitle = BNParser.findString("subTitle", dictionary: elementData)
+                    element.currency = BNParser.findCurrency("currencyType", dictionary: elementData)
+                    element.detailsHtml = BNParser.findString("detailsHtml", dictionary: elementData)
                     
-                    if mediaArray.count == 0 {
-                        //print("element with not media:\(element.identifier)")
+                    element.hasCallToAction = BNParser.findBool("hasCallToAction", dictionary: elementData)
+                    if element.hasCallToAction {
+                        element.callToActionURL = BNParser.findString("callToActionURL", dictionary: elementData)
+                        element.callToActionTitle = BNParser.findString("callToActionTitle", dictionary: elementData)
                     }
                     
+                    element.isTaxIncludedInPrice = BNParser.findBool("isTaxIncludedInPrice", dictionary: elementData)
                     
-                    for d in (0..<mediaArray.count) {
-                        //                                    for var j = 0; j < mediaArray?.count; j++ {
-                        let mediaData = mediaArray.objectAtIndex(d) as! NSDictionary
-                        let url = BNParser.findString("url", dictionary: mediaData)!
-                        let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
-                        let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
-                        let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
-                        let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                    element.hasFromPrice = BNParser.findBool("hasFromPrice", dictionary: elementData)
+                    if element.hasFromPrice {
+                        element.fromPrice = BNParser.findString("fromPrice", dictionary: elementData)
+                    }
+                    
+                    element.hasListPrice = BNParser.findBool("hasListPrice", dictionary: elementData)
+                    if element.hasListPrice {
+                        element.listPrice = BNParser.findString("listPrice", dictionary: elementData)
+                    }
+                    
+                    element.hasDiscount = BNParser.findBool("hasDiscount", dictionary: elementData)
+                    if element.hasDiscount {
+                        element.discount = BNParser.findString("discount", dictionary: elementData)
+                    }
+                    
+                    element.hasPrice = BNParser.findBool("hasPrice", dictionary: elementData)
+                    if element.hasPrice {
+                        element.price = BNParser.findString("price", dictionary: elementData)
+                    }
+                    
+                    element.hasSaving = BNParser.findBool("hasSaving", dictionary: elementData)
+                    if element.hasSaving {
+                        element.savings = BNParser.findString("savings", dictionary: elementData)
+                    }
+                    
+                    element.hasTimming = BNParser.findBool("hasTimming", dictionary: elementData)
+                    if element.hasTimming {
+                        element.initialDate = BNParser.findNSDate("initialDate", dictionary: elementData)
+                        element.expirationDate = BNParser.findNSDate("expirationDate", dictionary: elementData)
+                    }
+                    
+                    element.hasQuantity = BNParser.findBool("hasQuantity", dictionary: elementData)
+                    if element.hasQuantity {
+                        element.quantity = BNParser.findString("quantity", dictionary: elementData)
+                        element.reservedQuantity = BNParser.findString("reservedQuantity", dictionary: elementData)
+                        element.claimedQuantity = BNParser.findString("claimedQuantity", dictionary: elementData)
+                        element.actualQuantity = BNParser.findString("actualQuantity", dictionary: elementData)
+                    }
+                    
+                    element.isHighlight = BNParser.findBool("isHighlight", dictionary: elementData)
+                    
+                    if let mediaArray = BNParser.findNSArray("media", dictionary: elementData){
                         
-                        var white:CGFloat = 0.0
-                        var alpha:CGFloat = 0.0
-                        _ = vibrantColor.getWhite(&white, alpha: &alpha)
-                        
-                        if white <= 0.7 {
-                            element.useWhiteText = true
-                            
+                        if mediaArray.count == 0 {
+                            //print("element with not media:\(element.identifier)")
                         }
                         
-                        let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
-                        element.media.append(media)
+                        
+                        for d in (0..<mediaArray.count) {
+                            //                                    for var j = 0; j < mediaArray?.count; j++ {
+                            let mediaData = mediaArray.objectAtIndex(d) as! NSDictionary
+                            let url = BNParser.findString("url", dictionary: mediaData)!
+                            let type = BNParser.findMediaType("mediaType", dictionary: mediaData)
+                            let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)!
+                            let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)!
+                            let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)!
+                            
+                            var white:CGFloat = 0.0
+                            var alpha:CGFloat = 0.0
+                            _ = vibrantColor.getWhite(&white, alpha: &alpha)
+                            
+                            if white <= 0.7 {
+                                element.useWhiteText = true
+                                
+                            }
+                            
+                            let media = BNMedia(mediaType: type, url:url, vibrantColor: vibrantColor, vibrantDarkColor: vibrantDarkColor, vibrantLightColor:vibrantLightColor)
+                            element.media.append(media)
+                        }
                     }
-                }
-                
-                if let categories = BNParser.findNSArray("categories", dictionary: elementData){
                     
+//                    if let categories = BNParser.findNSArray("categories", dictionary: elementData){
+//                        
+//                        
+//                        for e in (0..<categories.count) {
+//                            //                                    for var j = 0; j < categories?.count; j++ {
+//                            let categoryData = categories.objectAtIndex(e) as! NSDictionary
+//                            let identifier = BNParser.findString("identifier", dictionary: categoryData)!
+//                            //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
+//                        }
+//                    }
                     
-                    for e in (0..<categories.count) {
-                        //                                    for var j = 0; j < categories?.count; j++ {
-                        let categoryData = categories.objectAtIndex(e) as! NSDictionary
-                        let identifier = BNParser.findString("identifier", dictionary: categoryData)!
-                        //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
-                    }
+                    element.collectCount = BNParser.findInt("collectCount", dictionary: elementData)!
+                    element.userCollected = BNParser.findBool("userCollected", dictionary: elementData)
+                    element.userLiked = BNParser.findBool("userLiked", dictionary: elementData)
+                    element.userShared = BNParser.findBool("userShared", dictionary: elementData)
+                    element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
+                    
+                    BNAppSharedManager.instance.dataManager.receivedElement(element)
                 }
-                
-                element.collectCount = BNParser.findInt("collectCount", dictionary: elementData)!
-                element.userCollected = BNParser.findBool("userCollected", dictionary: elementData)
-                element.userLiked = BNParser.findBool("userLiked", dictionary: elementData)
-                element.userShared = BNParser.findBool("userShared", dictionary: elementData)
-                element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
-                
-                BNAppSharedManager.instance.dataManager.receivedElement(element)
             }
         }
     }

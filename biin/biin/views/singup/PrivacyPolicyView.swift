@@ -11,6 +11,7 @@ class PrivacyPolicyView:UIView, UIWebViewDelegate {
     var delegate:PrivacyPolicyView_Delegate?
     
     var title:UILabel?
+    var warning:UILabel?
     var backBtn:BNUIButton_Back?
     var acceptBtn:UIButton?
     
@@ -32,11 +33,11 @@ class PrivacyPolicyView:UIView, UIWebViewDelegate {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        let line = UIView(frame: CGRectMake(0, 35, screenWidth, 1))
+        var line = UIView(frame: CGRectMake(0, 35, screenWidth, 1))
         line.backgroundColor = UIColor.appButtonColor_Disable()
         self.addSubview(line)
         
-        let ypos:CGFloat = 10
+        var ypos:CGFloat = 10
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
         let titleText = NSLocalizedString("PrivacyPolicy", comment: "PrivacyPolicy").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -67,31 +68,60 @@ class PrivacyPolicyView:UIView, UIWebViewDelegate {
         self.addSubview(loadingIndicator!)
         loadingIndicator!.start()
         
-        acceptBtn = UIButton(frame: CGRectMake(5, ypos, (frame.width - 10), 60))
+        line = UIView(frame: CGRectMake(0, (screenHeight - 85), screenWidth, 1))
+        line.backgroundColor = UIColor.biinOrange()
+        self.addSubview(line)
+        
+        warning = UILabel(frame: CGRectMake(6, (screenHeight - 83), screenWidth, 16))
+        warning!.text = NSLocalizedString("TermOfUserWarning", comment: "TermOfUserWarning")
+        warning!.font = UIFont(name:"Lato-Black", size:12)
+        warning!.textColor = UIColor.darkGrayColor()
+        warning!.textAlignment = NSTextAlignment.Left
+        warning!.alpha = 0
+        self.addSubview(warning!)
+        ypos += 20
+        
+        acceptBtn = UIButton(frame: CGRectMake(5, (screenHeight - 65), (frame.width - 10), 60))
         acceptBtn!.backgroundColor = UIColor.biinOrange()
         acceptBtn!.layer.cornerRadius = 2
         acceptBtn!.setTitle(NSLocalizedString("Accept", comment: "Accept"), forState: UIControlState.Normal)
-        acceptBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 20)
+        acceptBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
         acceptBtn!.addTarget(self, action: #selector(self.acceptBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.scroll!.addSubview(acceptBtn!)
+        self.addSubview(acceptBtn!)
         acceptBtn!.alpha = 0
+        
+        loadWebView()
+        
     }
     
     func loadWebView() {
         
-        loadingIndicator!.alpha = 0
-        loadingIndicator!.stop()
+        self.bringSubviewToFront(self.loadingIndicator!)
+        
         
         if webView != nil {
             webView!.removeFromSuperview()
             webView = nil
         }
         
-        webView = UIWebView(frame:CGRectMake(0, 0, SharedUIManager.instance.screenWidth, 100))
+        webView = UIWebView(frame:CGRectMake(0, 35, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - (35 + 90))))
         webView!.delegate = self
-        webView!.loadHTMLString(getHtmlBody(), baseURL: nil)
+        
+        let idioma = NSLocalizedString("Yes", comment: "Yes")
+        var url:NSURL?
+        
+        if idioma == "si" {
+            url = NSURL(string: "https://www.biin.io/es/termsofuse.html")
+        } else {
+            url = NSURL(string: "https://www.biin.io/en/termsofuse.html")
+        }
+    
+        let urlRequest = NSURLRequest(URL: url!)
+        webView!.loadRequest(urlRequest)
+        webView!.alpha = 1
+//        webView!.loadHTMLString("http://www.google.com", baseURL: NSURL(string:"http://www.google.com"))
         webView!.scrollView.userInteractionEnabled = true
-        self.scroll!.addSubview(webView!)
+        self.addSubview(webView!)
     }
     
     func getHtmlBody() ->String {
@@ -122,20 +152,25 @@ class PrivacyPolicyView:UIView, UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
+        loadingIndicator!.stop()
+        UIView.animateWithDuration(0.5, animations: {()->Void in
+            self.webView!.alpha = 1
+            self.warning!.alpha = 1
+            self.acceptBtn!.alpha = 1
+        })
         
-        webView.alpha = 1
-        var frame:CGRect = webView.frame
-        frame.size.height = 1
-        webView.frame = frame
-        let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
-        frame.size = fittingSize
-        webView.frame = frame
+//        var frame:CGRect = webView.frame
+//        frame.size.height = 1
+//        webView.frame = frame
+//        let fittingSize:CGSize = webView.sizeThatFits(CGSizeZero)
+//        frame.size = fittingSize
+//        webView.frame = frame
+//        
+//        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (fittingSize.height + 100))
+//        
         
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, (fittingSize.height + 100))
-        
-        acceptBtn!.alpha = 1
-        scroll!.bringSubviewToFront(acceptBtn!)
-        acceptBtn!.frame.origin.y = (scroll!.contentSize.height - 65)
+//        scroll!.bringSubviewToFront(acceptBtn!)
+//        acceptBtn!.frame.origin.y = (scroll!.contentSize.height - 65)
     }
 
     func backBtnAction(sender:BNUIButton_Loging){

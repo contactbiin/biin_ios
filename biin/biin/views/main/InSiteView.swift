@@ -67,8 +67,11 @@ class InSiteView: BNView {
         nutshell!.text = "Site subtitle here"
         //        self.addSubview(nutshell!)
         viewContainer!.addSubview(nutshell!)
-        
 
+        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.upSwipeAction(_:)))
+        upSwipe.direction = .Up
+        self.addGestureRecognizer(upSwipe)
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
@@ -137,6 +140,10 @@ class InSiteView: BNView {
         delegate!.showSiteViewOnContext!(self.site!)
     }
     
+    func upSwipeAction(sender:UISwipeGestureRecognizer){
+        delegate!.hideSiteViewOnContext!(self.site!)
+    }
+    
     override func clean() {
         
         site = nil
@@ -151,5 +158,6 @@ class InSiteView: BNView {
 
 @objc protocol InSiteView_Delegate:NSObjectProtocol {
     optional func showSiteViewOnContext(site:BNSite)
+    optional func hideSiteViewOnContext(site:BNSite)
 }
 

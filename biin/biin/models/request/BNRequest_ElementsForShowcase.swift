@@ -163,7 +163,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             for _ in categories! {
 //                            for var j = 0; j < categories?.count; j++ {
                                 let categoryData = categories!.objectAtIndex(j) as! NSDictionary
-                                let identifier = BNParser.findString("identifier", dictionary: categoryData)!
+                                _ = BNParser.findString("identifier", dictionary: categoryData)!
                                 //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
                                 j += 1
                             }

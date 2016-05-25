@@ -24,6 +24,8 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     var refreshButton:UIButton?
     var isShowing_refreshButton = false
+    var isShowing_inSiteView = false
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,6 +69,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         self.addSubview(refreshButton!)
         
         elementContainers = Array<MainViewContainer_Elements>()
+        
         
         updateContainer()
 
@@ -235,21 +238,43 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
     
     func showInSiteView(site:BNSite?){
         
-        inSiteView!.updateForSite(site!)
-        
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.inSiteView!.frame.origin.y += SharedUIManager.instance.inSiteView_Height //( SharedUIManager.instance.screenHeight - (SharedUIManager.instance.inSiteView_Height + SharedUIManager.instance.categoriesHeaderHeight + 20 ))
+        if !isShowing_inSiteView {
             
+            isShowing_inSiteView = true
             
-            self.highlightContainer!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
-            self.nearSitesContainer!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
-            for container in self.elementContainers! {
-                container.frame.origin.y += SharedUIManager.instance.inSiteView_Height
-            }
+            inSiteView!.updateForSite(site!)
             
-            //self.header!.frame.origin.y = (SharedUIManager.instance.screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + SharedUIManager.instance.inSiteView_Height + 20))
-        })
+            UIView.animateWithDuration(0.25, animations: {()-> Void in
+                self.inSiteView!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
+                self.highlightContainer!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
+                self.nearSitesContainer!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
+                self.favoriteSitesContainer!.frame.origin.y += SharedUIManager.instance.inSiteView_Height
+                for container in self.elementContainers! {
+                    container.frame.origin.y += SharedUIManager.instance.inSiteView_Height
+                }
+            })
+        }
     }
+    
+    func hideInSiteView(){
+        
+        if isShowing_inSiteView {
+            
+            isShowing_inSiteView = false
+            
+            UIView.animateWithDuration(0.25, animations: {()-> Void in
+                self.inSiteView!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
+                self.highlightContainer!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
+                self.nearSitesContainer!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
+                self.favoriteSitesContainer!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
+                
+                for container in self.elementContainers! {
+                    container.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
+                }
+            })
+        }
+    }
+    
     
     func updateLikeButtons(){
         self.nearSitesContainer!.updateLikeButtons()
@@ -280,19 +305,6 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         }
     }
 
-    func hideInSiteView(){
-        
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.inSiteView!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height//(SharedUIManager.instance.screenHeight - 20)
-            
-            self.highlightContainer!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
-            self.nearSitesContainer!.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
-            for container in self.elementContainers! {
-                container.frame.origin.y -= SharedUIManager.instance.inSiteView_Height
-            }
-        })
-    }
-    
     override func clean(){
         
         //NSLog("MainViewContainer clean()")

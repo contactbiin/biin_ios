@@ -77,7 +77,7 @@ class UserOnboardingView_Categories:UIView {
         startBtn!.backgroundColor = UIColor.biinOrange()
         startBtn!.layer.cornerRadius = 2
         startBtn!.setTitle(NSLocalizedString("Start", comment: "Start"), forState: UIControlState.Normal)
-        startBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        startBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
         startBtn!.addTarget(self, action: #selector(self.startBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(startBtn!)
         

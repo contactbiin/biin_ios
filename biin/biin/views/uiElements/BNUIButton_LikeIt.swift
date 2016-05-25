@@ -20,11 +20,12 @@ class BNUIButton_LikeIt:BNUIButton {
     }
     
     func changedIcon(value:Bool) {
+        let color = icon!.color
         icon = nil
         if value {
-            icon = BNIcon_LikeIt_Full(color: UIColor.blackColor(), position: CGPointMake(4, 5))
+            icon = BNIcon_LikeIt_Full(color: color!, position: CGPointMake(4, 5))
         } else {
-            icon = BNIcon_LikeIt_Empty(color: UIColor.blackColor(), position: CGPointMake(4, 5))
+            icon = BNIcon_LikeIt_Empty(color: color!, position: CGPointMake(4, 5))
         }
         setNeedsDisplay()
     }

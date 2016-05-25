@@ -173,9 +173,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         }
          */
         
-        var xpos:CGFloat = 0
+        let xpos:CGFloat = 0
         var ypos:CGFloat = 0
-        var colunmCounter = 0
+        _ = 0
         let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
         
 //        var elementView_width:CGFloat = 0

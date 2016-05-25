@@ -92,7 +92,7 @@ class SiteView_Bottom:BNView {
     
     //Instance methods
     func updateForSite(site: BNSite?){
-        var height:CGFloat = 100
+        let height:CGFloat = 100
         
         /*
         if site!.showcases == nil {

@@ -230,9 +230,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             break
         case .Survey:
             state!.view!.showFade()
-            SharedAnswersManager.instance.logContentView_Survey(site_to_survey)
+            self.surveyState!.previous = state
             state!.next(self.surveyState)
             self.bringSubviewToFront(state!.view!)
+            SharedAnswersManager.instance.logContentView_Survey(site_to_survey)
             break
         }
     }
@@ -536,6 +537,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func showSiteViewOnContext(site: BNSite) {
         (siteState!.view as! SiteView).updateSiteData(site)
         setNextState(BNGoto.Site)
+    }
+    
+    func hideSiteViewOnContext(site: BNSite) {
+        (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
     }
     
     func hideSiteView(view: SiteView) {

@@ -363,7 +363,6 @@
 		5BEF3B041B8634C300B10BEC /* DevelopmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF3B031B8634C300B10BEC /* DevelopmentView.swift */; };
 		5BEF3B061B864F8D00B10BEC /* BNSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF3B051B864F8D00B10BEC /* BNSettings.swift */; };
 		5BEFC0161CCBBC8600FD6D9C /* BNRequest_ToS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEFC0151CCBBC8600FD6D9C /* BNRequest_ToS.swift */; };
-		5BEFC0181CCBBE3300FD6D9C /* TermOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEFC0171CCBBE3300FD6D9C /* TermOfServiceView.swift */; };
 		5BEFC01A1CCBBE4B00FD6D9C /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEFC0191CCBBE4B00FD6D9C /* PrivacyPolicyView.swift */; };
 		5BF2B5AC1A852A0800598FB7 /* BNUIBiinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */; };
 		5BF60D6E1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF60D6D1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift */; };
@@ -755,7 +754,6 @@
 		5BEF3B031B8634C300B10BEC /* DevelopmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevelopmentView.swift; sourceTree = "<group>"; };
 		5BEF3B051B864F8D00B10BEC /* BNSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BNSettings.swift; path = "biin states/BNSettings.swift"; sourceTree = "<group>"; };
 		5BEFC0151CCBBC8600FD6D9C /* BNRequest_ToS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_ToS.swift; sourceTree = "<group>"; };
-		5BEFC0171CCBBE3300FD6D9C /* TermOfServiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermOfServiceView.swift; sourceTree = "<group>"; };
 		5BEFC0191CCBBE4B00FD6D9C /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		5BF2B5AB1A852A0800598FB7 /* BNUIBiinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIBiinView.swift; sourceTree = "<group>"; };
 		5BF60D6D1A8D4C9800D4BC33 /* UserOnboardingView_Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingView_Categories.swift; sourceTree = "<group>"; };
@@ -1212,7 +1210,6 @@
 			isa = PBXGroup;
 			children = (
 				5B53395E1A8512950049FB00 /* LoginView.swift */,
-				5BEFC0171CCBBE3300FD6D9C /* TermOfServiceView.swift */,
 				5BEFC0191CCBBE4B00FD6D9C /* PrivacyPolicyView.swift */,
 				5B5339601A8512A00049FB00 /* SignupView.swift */,
 			);
@@ -1986,7 +1983,6 @@
 				5BA7B47A1B55AC1D00AFD326 /* HardwareErrorView.swift in Sources */,
 				5BDB05581A697788006EBB1E /* BiinieCategoriesState.swift in Sources */,
 				5BF78A6A1A9BCDB200F9E7AD /* BNUITexfield.swift in Sources */,
-				5BEFC0181CCBBE3300FD6D9C /* TermOfServiceView.swift in Sources */,
 				5BA0B78F1A686A6700DBEB74 /* CollectionsState.swift in Sources */,
 				5B861FB71BA8740500930BD7 /* BNUIButton_LikeIt.swift in Sources */,
 				5BEAE5E91A71770500F884D9 /* BiinieCategoriesView_Icon.swift in Sources */,
@@ -2240,7 +2236,7 @@
 				INFOPLIST_FILE = biin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.biin.-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.biin.biin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "biin/Bridging-Header.h";
@@ -2262,7 +2258,7 @@
 				INFOPLIST_FILE = biin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.biin.-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.biin.biin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "biin/Bridging-Header.h";

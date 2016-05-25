@@ -154,7 +154,7 @@ class SignupView:UIView, UITextFieldDelegate {
 //        singupBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        singupBtn!.layer.shadowOpacity = 0.25
         singupBtn!.setTitle(NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), forState: UIControlState.Normal)
-        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
         singupBtn!.addTarget(self, action: #selector(self.singup(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         

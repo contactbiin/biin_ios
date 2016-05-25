@@ -20,7 +20,7 @@ class BNIcon_LikeIt_Big:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let strokeColor = UIColor(red: 0.173, green: 0.173, blue: 0.173, alpha: 1.000)
+        //let strokeColor = UIColor(red: 0.173, green: 0.173, blue: 0.173, alpha: 1.000)
         
         //// Bezier Drawing
         CGContextSaveGState(context)

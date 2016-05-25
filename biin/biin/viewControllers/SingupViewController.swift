@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class SingupViewController:UIViewController, UIPopoverPresentationControllerDelegate, LoginView_Delegate, SignupView_Delegate, PrivacyPolicyView_Delegate, TermOfServiceView_Delegate, BNNetworkManagerDelegate, FBSDKLoginButtonDelegate {
+class SingupViewController:UIViewController, UIPopoverPresentationControllerDelegate, LoginView_Delegate, SignupView_Delegate, PrivacyPolicyView_Delegate, BNNetworkManagerDelegate, FBSDKLoginButtonDelegate {
    
     var biinLogo:BNUIBiinView?
     var welcomeLbl:UILabel?
@@ -18,7 +18,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     var loginView:LoginView?
     
     var privacyPolicyView:PrivacyPolicyView?
-    var termOfServiceView:TermOfServiceView?
     
     var alert:BNUIAlertView?
     var isBiinieAlreadyInFacebook = false
@@ -29,7 +28,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         
         BNAppSharedManager.instance.networkManager.delegateVC = self
         BNAppSharedManager.instance.errorManager.currentViewController = self
-        BNAppSharedManager.instance.networkManager.requestToS(self)
+        //BNAppSharedManager.instance.networkManager.requestToS(self)
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         UIApplication.sharedApplication().statusBarHidden = true
@@ -95,6 +94,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
             facebookBtn!.readPermissions = ["public_profile", "email", "user_friends", "user_birthday"]
             facebookBtn!.layer.cornerRadius = 2
             facebookBtn!.delegate = self
+            facebookBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
             ypos += 65
         }
         
@@ -102,7 +102,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         singupBtn!.backgroundColor = UIColor.biinOrange()
         singupBtn!.layer.cornerRadius = 2
         singupBtn!.setTitle(NSLocalizedString("ImNewHere", comment: "ImNewHere"), forState: UIControlState.Normal)
-        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
         singupBtn!.addTarget(self, action: #selector(self.showSignUp(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(singupBtn!)
         
@@ -136,10 +136,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         privacyPolicyView!.delegate = self
         self.view.addSubview(privacyPolicyView!)
 
-        termOfServiceView = TermOfServiceView(frame:CGRectMake(screenWidth, 0, screenWidth, screenHeight))
-        termOfServiceView!.delegate = self
-        self.view.addSubview(termOfServiceView!)
-        
         ypos = (screenHeight - ypos ) / 2
         biinLogo!.frame.origin.y = ypos
         ypos += (biinLogo!.frame.height + 20)
@@ -190,7 +186,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     func loadToS_webViews(){
         privacyPolicyView!.loadWebView()
-        termOfServiceView!.loadWebView()
     }
     
     func hidePrivacyPolicyView() {
@@ -201,36 +196,30 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     func acceptPrivacyPolicy() {
-        UIView.animateWithDuration(0.3, animations: { ()-> Void in
-            
-            self.privacyPolicyView!.frame.origin.x = SharedUIManager.instance.screenWidth
-            self.fade!.alpha = 0.5
-            
-            }, completion: {(completed:Bool)->Void in
-                UIView.animateWithDuration(0.3, animations: {()->Void in
-                    self.termOfServiceView!.frame.origin.x = 0
-                    self.fade!.alpha = 0
-                })
-        })
-    }
-    
-    func hideTermOfServiceView() {
-        UIView.animateWithDuration(0.3, animations: {()->Void in
-            self.termOfServiceView!.frame.origin.x = SharedUIManager.instance.screenWidth
-            self.fade!.alpha = 0
-        })
-    }
-    
-    func acceptTermOfService() {
+//        UIView.animateWithDuration(0.3, animations: { ()-> Void in
+//            
+//            self.privacyPolicyView!.frame.origin.x = SharedUIManager.instance.screenWidth
+//            self.fade!.alpha = 0.5
+//            
+//            }, completion: {(completed:Bool)->Void in
+//                UIView.animateWithDuration(0.3, animations: {()->Void in
+//                    self.termOfServiceView!.frame.origin.x = 0
+//                    self.fade!.alpha = 0
+//                })
+//        })
+        
         if self.isSigningUpWithFacebook {
             self.showProgressView()
             BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
             SharedAnswersManager.instance.logSignUp("Facebook")
         } else {
-        
+            
             UIView.animateWithDuration(0.3, animations: { ()-> Void in
                 
-                self.termOfServiceView!.frame.origin.x = SharedUIManager.instance.screenWidth
+//                self.termOfServiceView!.frame.origin.x = SharedUIManager.instance.screenWidth
+                self.privacyPolicyView!.frame.origin.x = SharedUIManager.instance.screenWidth
+//                self.fade!.alpha = 0.5
+                
                 
                 }, completion: {(completed:Bool)->Void in
                     
@@ -240,7 +229,10 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                     })
             })
         }
+        
+        
     }
+    
     
     func showSignupView(view: UIView) {
         self.view.endEditing(true)
@@ -522,9 +514,6 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                         self.privacyPolicyView!.frame.origin.x = 0
                         self.fade!.alpha = 0.5
                     })
-                    
-//                    BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
-//                    SharedAnswersManager.instance.logSignUp("Facebook")
                 }
             }
         })

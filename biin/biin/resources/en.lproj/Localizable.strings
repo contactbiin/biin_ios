@@ -229,7 +229,7 @@ SurveyQuestion_1 = "How likely would you recommend ";
 SurveyQuestion_2 = " to your family or friends?";
 SurveyQuestion_3 = "Leave your comments about what did you like or dislike so we can improve.";
 SurveyQuestion_4 = "How likely would you recommend us to your family or friends?";
-SurveyQuestion_5 = "Agredecemos mucho que hayas tomado el tiempo para llenar nuestra encuesta. Esperamos hacer cambios pronto con tus recomendaciones. Muchas gracias";
+SurveyQuestion_5 = "We appreciate that you took the time to fill out our survey. We hope to make changes soon with you recommendations. Thank you.";
 Thankyou = "Thank you";
 Download = "Download it at www.biin.io";
 Sent = "Sent";
@@ -246,6 +246,7 @@ npsBtn_completed = "We received your help!";
 
 PrivacyPolicy = "Privacy policies";
 TermOfUser = "Terms of service";
+TermOfUserWarning = "** When you tap on the button you are accepting our Terms of Use.";
 
 Accept = "Accept";
 

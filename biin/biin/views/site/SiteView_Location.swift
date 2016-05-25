@@ -125,7 +125,7 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         
         ypos += 10
         map = MKMapView(frame:CGRectMake(5, ypos, (screenWidth - 10), 150))
-        map!.userInteractionEnabled = false
+//        map!.userInteractionEnabled = false
         map!.delegate = self
         self.addSubview(map!)
         
@@ -308,8 +308,65 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         yStop = ypos
 
         map!.frame.origin.y = ypos
+        
+        
+
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
-        let span = MKCoordinateSpanMake(0.03, 0.03)
+        
+        /*
+        let sourcePlacemark = MKPlacemark(coordinate: BNAppSharedManager.instance.positionManager.userCoordinates!, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: siteLocation!, addressDictionary: nil)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+
+        let sourceAnnotation = MKPointAnnotation()
+        sourceAnnotation.title = "Me"
+        
+        if let location = sourcePlacemark.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+        
+        let destinationAnnotation = MKPointAnnotation()
+        destinationAnnotation.title = site!.title!
+        
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+        
+        self.map!.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+        
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .Automobile
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        // 8.
+        directions.calculateDirectionsWithCompletionHandler {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                return
+            }
+            
+            let route = response.routes[0]
+            self.map!.addOverlay((route.polyline), level: MKOverlayLevel.AboveRoads)
+            
+            let rect = route.polyline.boundingMapRect
+            self.map!.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+        }
+        
+        */
+        
+        
+        let span = MKCoordinateSpanMake(0.01, 0.01)
         let region = MKCoordinateRegion(center: siteLocation!, span: span)
         map!.setRegion(region, animated: false)
 
@@ -331,22 +388,22 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         var white:CGFloat = 0.0
         var alpha:CGFloat = 0.0
         _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
-        var textColor:UIColor?
+//        var textColor:UIColor?
         var bgColor:UIColor?
         
         
         if white >= 0.95 {
-            textColor = site!.organization!.primaryColor!
+//            textColor = site!.organization!.primaryColor!
             bgColor = site!.organization!.secondaryColor!
         } else {
-            textColor = site!.organization!.secondaryColor!
+//            textColor = site!.organization!.secondaryColor!
             bgColor = site!.organization!.primaryColor
         }
         
         var ypos:CGFloat = map!.frame.origin.y
         ypos += (map!.frame.height + 5)
         
-        var hasPhone = false
+//        var hasPhone = false
         
         waze_button!.frame.origin.y = ypos
         ypos += waze_button!.frame.height

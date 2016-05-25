@@ -108,8 +108,9 @@ class SiteView_Map:BNView, MKMapViewDelegate {
         var white:CGFloat = 0.0
         var alpha:CGFloat = 0.0
         _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
-        var textColor:UIColor?
-        var bgColor:UIColor?
+        /*
+        let textColor:UIColor?
+        let bgColor:UIColor?
         
         
         if white >= 0.95 {
@@ -120,6 +121,7 @@ class SiteView_Map:BNView, MKMapViewDelegate {
             textColor = site!.organization!.secondaryColor!
             bgColor = site!.organization!.primaryColor
         }
+        */
         
         map!.frame.origin.y = ypos
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
@@ -139,7 +141,7 @@ class SiteView_Map:BNView, MKMapViewDelegate {
     
     func updateButtons() {
         
-        
+        /*
         var white:CGFloat = 0.0
         var alpha:CGFloat = 0.0
         _ = self.site!.organization!.primaryColor!.getWhite(&white, alpha: &alpha)
@@ -154,7 +156,7 @@ class SiteView_Map:BNView, MKMapViewDelegate {
             textColor = site!.organization!.secondaryColor!
             bgColor = site!.organization!.primaryColor
         }
-        
+        */
         var ypos:CGFloat = map!.frame.origin.y
         ypos += (map!.frame.height + 5)
         
