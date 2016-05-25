@@ -59,7 +59,8 @@ class HighlightView: BNView {
 //            iconColor = self.element!.media[0].vibrantLightColor
 //        }
         
-
+        
+        
         let textColor = self.element!.showcase!.site!.organization!.secondaryColor
         iconColor = self.element!.showcase!.site!.organization!.secondaryColor
         decorationColor = self.element!.showcase!.site!.organization!.primaryColor//
@@ -427,7 +428,7 @@ class HighlightView: BNView {
         return image
     }
     
-    func clean(){
+    override func clean(){
         
         siteAvatar?.removeFromSuperview()
         siteAvatar?.image = nil

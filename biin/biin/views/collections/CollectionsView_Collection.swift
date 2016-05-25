@@ -141,7 +141,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
         for (_, value) in collection!.elements {
             
             
-            if let element = BNAppSharedManager.instance.dataManager.elements_by_id[value._id!] {
+            if let element = BNAppSharedManager.instance.dataManager.elements[value._id!] {
 
                 //var itemView:CollectionView_ItemView?
                 var elementView:ElementMiniView?

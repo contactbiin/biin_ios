@@ -20,7 +20,7 @@ class BNIcon_LikeIt_Big:BNIcon {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let strokeColor = UIColor(red: 0.173, green: 0.173, blue: 0.173, alpha: 1.000)
+        //let strokeColor = UIColor(red: 0.173, green: 0.173, blue: 0.173, alpha: 1.000)
         
         //// Bezier Drawing
         CGContextSaveGState(context)
@@ -38,6 +38,10 @@ class BNIcon_LikeIt_Big:BNIcon {
         bezierPath.addCurveToPoint(CGPoint(x: 58.7, y: 0), controlPoint1: CGPoint(x: 80.5, y: 9.72), controlPoint2: CGPoint(x: 70.74, y: 0))
         bezierPath.addLineToPoint(CGPoint(x: 58.7, y: 0))
         bezierPath.closePath()
+        
+        color!.setFill()
+        bezierPath.fill()
+
         color!.setStroke()
         bezierPath.lineWidth = 3
         bezierPath.stroke()

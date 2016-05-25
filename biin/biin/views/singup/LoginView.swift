@@ -122,7 +122,7 @@ class LoginView:UIView, UITextFieldDelegate {
 //        continueBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        continueBtn!.layer.shadowOpacity = 0.25
         continueBtn!.setTitle(NSLocalizedString("ContinueBtn", comment: "ContinueBtn"), forState: UIControlState.Normal)
-        continueBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        continueBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
         continueBtn!.addTarget(self, action: #selector(self.login(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(continueBtn!)
 

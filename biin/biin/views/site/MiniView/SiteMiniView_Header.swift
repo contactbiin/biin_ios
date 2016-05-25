@@ -50,7 +50,7 @@ class SiteMiniView_Header:BNView {
         self.addSubview(subTitle!)
         ypos += SharedUIManager.instance.siteMiniView_title
         
-        var xpos:CGFloat = ((frame.width / 2) - 12)
+        let xpos:CGFloat = ((frame.width / 2) - 12)
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(xpos, ypos, 25, 25))
         likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(likeItButton!)
@@ -123,7 +123,7 @@ class SiteMiniView_Header:BNView {
 
         self.subTitle!.frame = CGRectMake(5, ypos, (frame.width - 10), (SharedUIManager.instance.siteMiniView_subTitle + 2))
         
-        var xpos:CGFloat = ((frame.width / 2) - 12)
+        let xpos:CGFloat = ((frame.width / 2) - 12)
         self.likeItButton!.frame.origin.x = xpos
         
     }

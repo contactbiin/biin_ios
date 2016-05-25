@@ -223,7 +223,7 @@ class EPUIScrollView: BNView, UIScrollViewDelegate{
         self.refreshControl!.endRefreshing()        
     }
     
-    func clean(){
+    override func clean(){
         
         if self.children.count > 0 {
             

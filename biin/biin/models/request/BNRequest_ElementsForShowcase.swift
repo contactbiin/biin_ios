@@ -163,7 +163,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             for _ in categories! {
 //                            for var j = 0; j < categories?.count; j++ {
                                 let categoryData = categories!.objectAtIndex(j) as! NSDictionary
-                                let identifier = BNParser.findString("identifier", dictionary: categoryData)!
+                                _ = BNParser.findString("identifier", dictionary: categoryData)!
                                 //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element:element)
                                 j += 1
                             }
@@ -175,7 +175,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             element.userViewed = BNParser.findBool("userViewed", dictionary: elementData)
                             
                             element.showcase = self.showcase
-                            self.showcase!.elements.append(element)
+                            self.showcase!.elements.append(element.identifier!)
                             
                             BNAppSharedManager.instance
                             BNAppSharedManager.instance.dataManager.receivedElement(element)

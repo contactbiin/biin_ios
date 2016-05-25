@@ -42,8 +42,8 @@ class MainViewContainer_Elements:BNView {
         var textColor:UIColor?
 //        switch colorIndex {
 //        case 0:
-            self.backgroundColor = UIColor.darkGrayColor()
-            category.backgroundColor = UIColor.lightGrayColor()
+            self.backgroundColor = UIColor.bnCategoriesColor()
+            category.backgroundColor = UIColor.bnCategoriesColor()
             textColor = UIColor.whiteColor()
 //        case 1:
 //            self.backgroundColor = UIColor.darkGrayColor()
@@ -126,9 +126,9 @@ class MainViewContainer_Elements:BNView {
         
     }
     
-    func isElementAdded(_id:String) -> Bool {
+    func isElementAdded(identifier:String) -> Bool {
         for view in scroll!.children {
-            if (view as! ElementMiniView).element!._id! == _id {
+            if (view as! ElementMiniView).element!.identifier! == identifier {
                 return true
             }
         }
@@ -153,11 +153,18 @@ class MainViewContainer_Elements:BNView {
             elementView_width = SharedUIManager.instance.miniView_width
         }
         
-        
-        
-        for element_id  in category!.elements {
-            if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
-                if !isElementAdded(element_id) {
+        for element_data  in category!.elements {
+            
+            if !isElementAdded(element_data.identifier) {
+                if let element = BNAppSharedManager.instance.dataManager.elements[element_data.identifier] {
+                    if element.showcase == nil {
+                        element.showcase = BNAppSharedManager.instance.dataManager.showcases[element_data.showcase]
+                    }
+                    
+                    if element.showcase!.site == nil {
+                        element.showcase!.site = BNAppSharedManager.instance.dataManager.sites[element_data.site]
+                    }
+                    
                     let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
                     elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
                     elements.append(elementView)
@@ -207,7 +214,7 @@ class MainViewContainer_Elements:BNView {
         delegate!.showAllElementsViewForCategory!(self.category)
     }
     
-    func clean() {
+    override func clean() {
         
         self.scroll!.clean()
         

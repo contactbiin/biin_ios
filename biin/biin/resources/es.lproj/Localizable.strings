@@ -44,10 +44,10 @@ Calcel = "Cancelar";
 More = "más";
 NearYou = "Lugares cercanos a vos";
 FavoritePlaces = "Tus lugares Favoritos";
-AddFavoritePlaces = "Agrega algunos lugares a tus favoritos";
-
+AddFavoritePlaces = "Usá el botón de gustar para agregar lugares a tus favoritos";
+NoMorePlaces = "Parece que ya no hay más lugares cerca tuyo.";
 OtherPlaces1 = "Otros ";
-OtherPlaces2 = " cerca de vos";
+OtherPlaces2 = " cercanos a vos";
 
 MoreFrom = "Más de";
 Recomended = "Recomendaciones";
@@ -224,8 +224,12 @@ BrandGreetings = "Muchas gracias por visitarnos el día de hoy, esperamos que re
 SurveyQuestion_1 = "Que tan probable es que recomendés a ";
 SurveyQuestion_2 = " con amigos o familia?";
 SurveyQuestion_3 = "Dejanos tu comentario para saber que te gustó o que podemos mejorar.";
+SurveyQuestion_4 = "Que tan probable es que nos recomendés con amigos o familia?";
+SurveyQuestion_5 = "Agredecemos mucho que hayas tomado el tiempo para llenar nuestra encuesta. Esperamos hacer cambios pronto con tus recomendaciones. Muchas Gracias";
 Thankyou = "Muchas gracias";
 Download = "Descarga en www.biin.io";
+Sent = "Enviado";
+Send = "Enviar";
 
 likely = "Muy probable";
 not_likely = "Poco probable";
@@ -238,6 +242,8 @@ npsBtn_completed = "Hemos recibido tu ayuda!";
 
 PrivacyPolicy = "Politicas de privacidad";
 TermOfUser = "Condiciones de uso";
+TermOfUserWarning = "** Al presionar el botón usted acepta las condiciones de uso.";
+
 
 Accept = "Acepto";
 

@@ -14,16 +14,10 @@ class SiteMiniView: BNView {
     var header:SiteMiniView_Header?
     var imageRequested = false
     
-    var collectionScrollPosition:Int = 0
-    
-//    override init() {
-//        super.init()
-//    }
-    
     var isPositionedInFather = false
     var isReadyToRemoveFromFather = true
     
-
+    var isBrotherSite = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,42 +33,24 @@ class SiteMiniView: BNView {
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
         self.init(frame: frame, father:father )
-        
-//        self.layer.borderColor = UIColor.appMainColor().CGColor
-//        self.layer.borderWidth = 1
-//        self.layer.cornerRadius = 5
+
         self.layer.masksToBounds = true
-        
-        //self.layer.shadowOffset = CGSizeMake(0, 0.5)
-        //self.layer.shadowRadius = 1
-        //self.layer.shadowOpacity = 0.25
         
         self.site = site
         
-//        if site!.media.count > 0 {
-//            if let color = site!.media[0].vibrantColor {
-//                self.backgroundColor = color
-//            } else {
-//                self.backgroundColor = UIColor.appMainColor()
-//            }
-//        } else {
-//            self.backgroundColor = UIColor.appMainColor()
-//        }
-
         let decorationColor = site!.organization!.primaryColor
         self.backgroundColor = decorationColor
-        
         
         //Positioning image
         var ypos:CGFloat = 0
         var xpos:CGFloat = 0
         var imageSize:CGFloat = 0
         
-        var headerHeight:CGFloat = 0
+//        var headerHeight:CGFloat = 0
         var headerHeightForImage:CGFloat = 0
         
 //        if showlocation {
-            headerHeight = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
+//            headerHeight = frame.height - SharedUIManager.instance.siteMiniView_headerHeight
             headerHeightForImage = SharedUIManager.instance.siteMiniView_headerHeight
 //        } else {
 //            headerHeight = frame.height - SharedUIManager.instance.miniView_headerHeight_showcase
@@ -96,13 +72,7 @@ class SiteMiniView: BNView {
             ypos = ((imageSize - (frame.height - headerHeightForImage)) / 2) * -1
         }
         
- 
-        
-        
-        
-        //let xpos = ((imageSize - frame.width) / 2 ) * -1
         image = BNUIImageView(frame: CGRectMake(xpos, ypos, imageSize, imageSize), color:decorationColor!)
-        //image!.alpha = 0
         image!.updatePosition(frame)
         self.addSubview(image!)
         
@@ -179,22 +149,17 @@ class SiteMiniView: BNView {
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
         
-        //let siteContainer = father as! BiinieCategoriesView_SitesContainer
-        //let position = father!.father!.convertRect(self.frame, fromView: siteContainer.scroll!)
-        delegate!.showSiteView!(self)
+        SharedAnswersManager.instance.logContentView_Site(self.site)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:self.site!.identifier!)
         
-        //Trigered transition to showcase view.
-        //var view = sender.view as SectionBotomView
-        
-        //Get the bottomView's position
-        //var position = father!.convertRect(view.frame, fromView: scroll!)
-        
-        //tappedIndex = getSectionBotomViewIndex(view)
-        //sectionsViewDelegate!.showShowcaseFromBottom!(self, position:position, showcaseKey:view.showcaseKey)
-        
+        if isBrotherSite {
+            delegate!.showBrotherSiteView!(self)
+        } else {
+            delegate!.showSiteView!(self)
+        }
     }
 
-    func clean() {
+    override func clean() {
         
         site = nil
         image!.removeFromSuperview()
@@ -210,4 +175,5 @@ class SiteMiniView: BNView {
 
 @objc protocol SiteMiniView_Delegate:NSObjectProtocol {
     optional func showSiteView(view:SiteMiniView)
+    optional func showBrotherSiteView(view:SiteMiniView)
 }

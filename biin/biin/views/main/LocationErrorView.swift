@@ -14,7 +14,7 @@ class LocationErrorView: BNView {
     var delegate:LocationErrorView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var fade:UIView?
+//    var fade:UIView?
     var warningLogo:BNUIWarningView?
     var errorViewController:ErrorViewController?
     

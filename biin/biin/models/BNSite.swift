@@ -58,6 +58,7 @@ class BNSite:NSObject, NSCoding {
     var userFollowed = false
     var userCollected = false
     var userLiked = false
+    var surveyCompleted = false
     
     var latitude:Float?
     var longitude:Float?
@@ -69,7 +70,7 @@ class BNSite:NSObject, NSCoding {
     var neighbors:Array<String>?
     
 //    var showcases:Array<String>?
-    var showcases:Array<BNShowcase>?
+    var showcases:Array<String> = Array<String>()
     
     var showInView = true
     

@@ -11,7 +11,7 @@ class AboutView: BNView {
     var delegate:AboutView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var fade:UIView?
+//    var fade:UIView?
     var biinLogo:BNUIBiinView?
 
     var visualEffectView:UIVisualEffectView?
@@ -121,6 +121,8 @@ class AboutView: BNView {
         siteUrl.titleLabel!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         siteUrl.addTarget(self, action: #selector(self.openUrl(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(siteUrl)
+        
+        addFade()
     }
     
     func openUrl(sender:UILabel) {
@@ -186,7 +188,7 @@ class AboutView: BNView {
         //delegate!.hideElementView!(elementMiniView)
     }
     
-    func clean() {
+    override func clean() {
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()

@@ -9,6 +9,7 @@ import UIKit
 class BNView:UIView {
     
     weak var father:BNView?
+    var fade:UIView?
     var state:BNState?
     var isAddedToScroll = false
     
@@ -25,9 +26,17 @@ class BNView:UIView {
         self.father = father
     }
     
+    func addFade() {
+        fade = UIView(frame:CGRectMake(0, 0, frame.width, frame.height))
+        fade!.backgroundColor = UIColor.blackColor()
+        fade!.alpha = 0
+        self.addSubview(fade!)
+    }
+    
     //Transitioning functions
     func transitionIn() { }
     func transitionOut( state:BNState? ) { }
+//    func transitionOutOnPrevious() { }
     func setNextState(goto:BNGoto){ }
     
     func adjustOnObjectContainerPan(y:CGFloat) { }
@@ -47,6 +56,28 @@ class BNView:UIView {
     func sendBtnAction() { }
     func removeBtnAction() { }
     
+    func clean() {
+        if fade != nil {
+            fade!.removeFromSuperview()
+            fade = nil
+        }
+    }
+    
     func getToWork() { }
     func getToRest() { }
+    
+    func showFade(){
+        self.bringSubviewToFront(self.fade!)
+        UIView.animateWithDuration(0.2, animations: {()-> Void in
+            self.fade!.alpha = 0.75
+        })
+    }
+    
+    func hideFade(){
+        self.bringSubviewToFront(self.fade!)
+        UIView.animateWithDuration(0.5, animations: {()-> Void in
+            self.fade!.alpha = 0
+        })
+    }
+    
 }

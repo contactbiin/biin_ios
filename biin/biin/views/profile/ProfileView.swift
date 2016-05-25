@@ -16,7 +16,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var fade:UIView?
+//    var fade:UIView?
 
     var biinieAvatar:BNUIImageView?
     var biinieNameLbl:UILabel?
@@ -649,7 +649,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         return false
     }// called when 'return' key pressed. return NO to ignore.
     
-    func clean() {
+    override func clean() {
         delegate = nil
         delegateFather = nil
         

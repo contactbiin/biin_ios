@@ -43,6 +43,10 @@ class BNRequest_Sites: BNRequest {
                     
                     if result {
                         
+                        if let showcasesData = BNParser.findNSArray("showcases", dictionary: initialData) {
+                            BNParser.parseShowcases(showcasesData)
+                        }
+                        
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
                             
                             BNParser.parseOrganizations(organizationsData)

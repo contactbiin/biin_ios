@@ -19,7 +19,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
     var elements:Array<ElementMiniView>?
     var addedElementsIdentifiers:Dictionary<String, BNElement>?
     
-    var fade:UIView?
+//    var fade:UIView?
     
     var likedElementsBtn:UIButton?
     var likedSitesBtn:UIButton?
@@ -71,7 +71,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         line.backgroundColor = UIColor.darkGrayColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll!.backgroundColor = UIColor.lightGrayColor()
+        scroll!.backgroundColor = UIColor.bnCategoriesColor()
         scroll!.bounces = false
         scroll!.pagingEnabled = false
         self.addSubview(scroll!)
@@ -79,21 +79,23 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         
         addedElementsIdentifiers = Dictionary<String, BNElement>()
         
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
         
         likedElementsBtn = UIButton(frame: CGRectMake(0, (screenHeight - 80), ((screenWidth / 2) - 2), 60))
         likedElementsBtn!.setTitle("Products", forState: UIControlState.Normal)
         likedElementsBtn!.backgroundColor = UIColor.redColor()
-        self.addSubview(likedElementsBtn!)
+        //self.addSubview(likedElementsBtn!)
         
         likedSitesBtn = UIButton(frame: CGRectMake((screenWidth / 2), (screenHeight - 80), (screenWidth / 2), 60))
         likedSitesBtn!.setTitle("Sites", forState: UIControlState.Normal)
         likedSitesBtn!.backgroundColor = UIColor.blueColor()
-        self.addSubview(likedSitesBtn!)
+        //self.addSubview(likedSitesBtn!)
         
-        self.addSubview(fade!)
+        addFade()
+        updateCollectedElements()
+//        self.addSubview(fade!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -157,9 +159,10 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             addedElementsIdentifiers = Dictionary<String, BNElement>()
         }
     
-        self.showcase = nil
-        showcase = BNShowcase()
+        //self.showcase = nil
+        //showcase = BNShowcase()
 
+        /*
         for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
             for (_,element) in collection.elements {
                 if addedElementsIdentifiers![element._id!] == nil {
@@ -168,61 +171,74 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
                 }
             }
         }
-
-        var xpos:CGFloat = 0
+         */
+        
+        let xpos:CGFloat = 0
         var ypos:CGFloat = 0
-        var colunmCounter = 0
+        _ = 0
         let miniViewHeight:CGFloat = SharedUIManager.instance.miniView_height
         
-        var elementView_width:CGFloat = 0
+//        var elementView_width:CGFloat = 0
         
-        if showcase!.elements.count == 1 {
-            elementView_width = SharedUIManager.instance.screenWidth
-        } else {
-            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
-        }
-    
-        for element in showcase!.elements {
+//        if BNAppSharedManager.instance.dataManager.favoritesElements.count == 1 {
+//            elementView_width = SharedUIManager.instance.screenWidth
+//        } else {
+//            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
+//        }
+
+        let elementView_width:CGFloat = SharedUIManager.instance.screenWidth
+
+        
+        for elementRelationShip in BNAppSharedManager.instance.dataManager.favoritesElements {
             
-            let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:false)
-            
-            elementView.requestImage()
-            elementView.delegate = father! as! MainView
-            elementView.delegateAllCollectedView = self
-            scroll!.addSubview(elementView)
-            elements!.append(elementView)
-            
-            xpos += elementView_width + spacer
-            colunmCounter += 1
-            
-            if colunmCounter == 2 {
-                colunmCounter = 0
-                xpos = 0
-                ypos += (miniViewHeight + 1)
+            if let element = BNAppSharedManager.instance.dataManager.elements[elementRelationShip.identifier] {
+                if let showcase = BNAppSharedManager.instance.dataManager.showcases[elementRelationShip.showcase] {
+                    if let site = BNAppSharedManager.instance.dataManager.sites[elementRelationShip.site] {
+                        element.showcase = showcase
+                        showcase.site = site
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:true, isNumberVisible:false, showlocation:false)
+                        
+                        elementView.requestImage()
+                        elementView.delegate = father! as! MainView
+                        elementView.delegateAllCollectedView = self
+                        scroll!.addSubview(elementView)
+                        elements!.append(elementView)
+                        
+//                        xpos += elementView_width + spacer
+//                        colunmCounter += 1
+                        
+//                        if colunmCounter == 2 {
+//                            colunmCounter = 0
+//                            xpos = 0
+                            ypos += (miniViewHeight + 1)
+//                        }
+                    }
+                }
             }
         }
 
         
-        if colunmCounter == 1 {
-            ypos += elements![0].frame.height
-        }
+//        if colunmCounter == 1 {
+//            ypos += elements![0].frame.height
+//        }
         
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
     }
     
     
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
-    
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
+//    override func showFade(){
+//        UIView.animateWithDuration(0.2, animations: {()-> Void in
+//            self.fade!.alpha = 0.5
+//        })
+//    }
+//    
+//    func hideFade(){
+//        UIView.animateWithDuration(0.5, animations: {()-> Void in
+//            self.fade!.alpha = 0
+//        })
+//    }
     
     override func refresh() {
         updateCollectedElements()
@@ -277,7 +293,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         }
     }
     
-    func clean(){
+    override func clean(){
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()

@@ -120,14 +120,18 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
 
             let highlightHeight:CGFloat = ((SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight)) - SharedUIManager.instance.sitesContainer_headerHeight
             
-            for element in BNAppSharedManager.instance.dataManager.highlights {
+            for highllight in BNAppSharedManager.instance.dataManager.highlights {
                 
-                let highlight = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, highlightHeight), father: self, element: element)
+                let element = BNAppSharedManager.instance.dataManager.elements[highllight.identifier]
+                element!.showcase = BNAppSharedManager.instance.dataManager.showcases[highllight.showcase]
+                element!.showcase!.site = BNAppSharedManager.instance.dataManager.sites[highllight.site]
                 
-                highlight.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
-                scroll!.addSubview(highlight)
-                hightlights!.append(highlight)
-                highlight.requestImage()
+                let highlightView = HighlightView(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, highlightHeight), father: self, element: element!)
+                
+                highlightView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
+                scroll!.addSubview(highlightView)
+                hightlights!.append(highlightView)
+                highlightView.requestImage()
                 xpos += (SharedUIManager.instance.screenWidth )
                 
                 let point = BNUIPointView(frame: CGRectMake(xpos_for_point, 40, 10, 10), activeColor: UIColor.whiteColor())
@@ -241,7 +245,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
         }
     }
     
-    func clean() {
+    override func clean() {
         
         if hightlights?.count > 0 {
             

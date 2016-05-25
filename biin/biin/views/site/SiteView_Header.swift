@@ -130,7 +130,7 @@ class SiteView_Header:BNView {
         }
     }
     
-    func clean(){
+    override func clean(){
         siteAvatar?.removeFromSuperview()
         title?.removeFromSuperview()
         subTitle?.removeFromSuperview()

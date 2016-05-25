@@ -92,18 +92,17 @@ class SiteView_Bottom:BNView {
     
     //Instance methods
     func updateForSite(site: BNSite?){
-        var height:CGFloat = 0
+        let height:CGFloat = 100
         
+        /*
         if site!.showcases == nil {
             height = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.screenWidth + 20 + 2)
         } else if site!.showcases!.count == 1 {
              height = 100
-//            height = SharedUIManager.instance.screenHeight - (SharedUIManager.instance.screenWidth + SharedUIManager.instance.siteView_showcaseHeaderHeight + SharedUIManager.instance.miniView_height + 20)
         } else {
             height = 100
         }
-        
-        //self.backgroundColor = site!.media[0].vibrantColor!
+        */
         
         self.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, height)
         //let points = NSLocalizedString("Points", comment: "Points")

@@ -22,7 +22,7 @@ class AllElementsView: BNView {
 //    var elements:Array<ElementMiniView>?
 //    var addedElementsIdentifiers:Dictionary<String, BNElement>?
     
-    var fade:UIView?
+//    var fade:UIView?
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
@@ -76,10 +76,12 @@ class AllElementsView: BNView {
         
 //        addedElementsIdentifiers = Dictionary<String, BNElement>()
         
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
+//        self.addSubview(fade!)
+        addFade()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -197,23 +199,34 @@ class AllElementsView: BNView {
             }
             
             elementView_width = SharedUIManager.instance.screenWidth
-
             
             var elements = Array<ElementMiniView>()
-
             
-            for element_id in category!.elements {
-                if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
-                    if !isElementAdded(element_id) {
+            for element_data  in category!.elements {
+                
+                if !isElementAdded(element_data.identifier) {
+                    if let element = BNAppSharedManager.instance.dataManager.elements[element_data.identifier] {
+                        
+                        
+                        element.showcase = BNAppSharedManager.instance.dataManager.showcases[element_data.showcase]
+                    
+                    
+                    
+                        element.showcase!.site = BNAppSharedManager.instance.dataManager.sites[element_data.site]
+                    
+                        
                         let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
                         
                         elementView.requestImage()
                         elementView.delegate = father! as! MainView
-                        //                scroll!.addSubview(elementView)
                         elements.append(elementView)
                     }
                 }
             }
+
+            
+            
+            
             
             /*
             for (element_id, element) in category!.elements {
@@ -265,10 +278,15 @@ class AllElementsView: BNView {
             
             var elements = Array<ElementMiniView>()
             
-            
-            for element_id in category!.elements {
-                if let element = BNAppSharedManager.instance.dataManager.elements_by_id[element_id] {
-                    if !isElementAdded(element_id) {
+            for element_data  in category!.elements {
+                
+                if !isElementAdded(element_data.identifier) {
+                    if let element = BNAppSharedManager.instance.dataManager.elements[element_data.identifier] {
+                        
+                        element.showcase = BNAppSharedManager.instance.dataManager.showcases[element_data.showcase]
+                    
+                    
+                        element.showcase!.site = BNAppSharedManager.instance.dataManager.sites[element_data.site]
                         
                         
                         let elementView = ElementMiniView(frame: CGRectMake(0, 0, elementView_width, miniViewHeight), father: self, element:element, elementPosition:0, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
@@ -279,6 +297,7 @@ class AllElementsView: BNView {
                     }
                 }
             }
+
             
             
             /*
@@ -305,27 +324,27 @@ class AllElementsView: BNView {
         }
     }
     
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
+//    func showFade(){
+//        UIView.animateWithDuration(0.2, animations: {()-> Void in
+//            self.fade!.alpha = 0.5
+//        })
+//    }
+//    
+//    func hideFade(){
+//        UIView.animateWithDuration(0.5, animations: {()-> Void in
+//            self.fade!.alpha = 0
+//        })
+//    }
     
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
-    
-    func clean(){
+    override func clean(){
 
         delegate = nil
         title?.removeFromSuperview()
         backBtn?.removeFromSuperview()
 //        showcase = nil
         category = nil
-        fade?.removeFromSuperview()
-//        
+//        fade?.removeFromSuperview()
+//
 //        if elements != nil {
 //            for view in elements! {
 //                view.clean()

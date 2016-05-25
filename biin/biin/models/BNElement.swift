@@ -8,7 +8,6 @@ import UIKit
 
 class BNElement:NSObject {
     
-
     //Nutshell
     var _id:String?
     var identifier:String?
@@ -144,4 +143,8 @@ class BNElement:NSObject {
 
         return clone
     }
+}
+
+struct BNElementRelationShip {
+    var identifier = "", showcase = "", site = ""
 }

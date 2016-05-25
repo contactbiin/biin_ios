@@ -126,8 +126,8 @@ class SignupView:UIView, UITextFieldDelegate {
         femaleBtn!.addTarget(self, action: #selector(self.femaleBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         genderTxt!.addSubview(femaleBtn!)
         genderStr = "none"
-        genderTxt!.backgroundColor = UIColor.bnGrayLight()
-        genderTxt!.point!.backgroundColor = UIColor.bnGrayLight()
+//        genderTxt!.backgroundColor = UIColor.bnGrayLight()
+//        genderTxt!.point!.backgroundColor = UIColor.bnGrayLight()
         
         maleBtn = BNUIButton_Gender(frame: CGRectMake(genderTxt!.frame.width - 38, 8, 30, 30), iconType: BNIconType.maleSmall)
         maleBtn!.addTarget(self, action: #selector(self.maleBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -136,8 +136,8 @@ class SignupView:UIView, UITextFieldDelegate {
         ypos += (1 + genderTxt!.frame.height)
         birthDateTxt = BNUITexfield_Center(frame: CGRectMake(5, ypos, (screenWidth - 10), 45), placeHolderText:NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate"))
         birthDateTxt!.textField!.delegate = self
-        birthDateTxt!.backgroundColor = UIColor.bnGrayLight()
-        birthDateTxt!.point!.backgroundColor = UIColor.bnGrayLight()
+//        birthDateTxt!.backgroundColor = UIColor.bnGrayLight()
+//        birthDateTxt!.point!.backgroundColor = UIColor.bnGrayLight()
         birthDateTxt!.textField!.autocapitalizationType = UITextAutocapitalizationType.None
         birthDateTxt!.textField!.keyboardType = UIKeyboardType.EmailAddress
         self.addSubview(birthDateTxt!)
@@ -154,7 +154,7 @@ class SignupView:UIView, UITextFieldDelegate {
 //        singupBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)
 //        singupBtn!.layer.shadowOpacity = 0.25
         singupBtn!.setTitle(NSLocalizedString("LetsGetStarted", comment: "LetsGetStarted"), forState: UIControlState.Normal)
-        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
         singupBtn!.addTarget(self, action: #selector(self.singup(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(singupBtn!)
         

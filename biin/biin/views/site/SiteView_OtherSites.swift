@@ -151,22 +151,20 @@ class SiteView_OtherSites:BNView, UIScrollViewDelegate {
     func addSiteViews(){
         
         
-        
+        scroll!.clean()
         
         
         var sites = Array<SiteMiniView>()
-        let sitesArray = BNAppSharedManager.instance.dataManager.sites_ordered
         
         var xpos:CGFloat = 0
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
         
-        if sitesArray.count == 1 {
+        if site!.organization!.sites.count == 2 {
             siteView_width = SharedUIManager.instance.screenWidth
         } else {
             siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
         }
-        
         
         for identifier in site!.organization!.sites  {
             //if site.showInView {
@@ -176,6 +174,7 @@ class SiteView_OtherSites:BNView, UIScrollViewDelegate {
                 if let otherSite = BNAppSharedManager.instance.dataManager.sites[identifier] {
                     let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
                     let miniSiteView = SiteMiniView(frame: CGRectMake(xpos, ypos, siteView_width, miniSiteHeight), father: self, site:otherSite )
+                    miniSiteView.isBrotherSite = true
                     miniSiteView.isPositionedInFather = true
                     miniSiteView.isReadyToRemoveFromFather = false
                     miniSiteView.delegate = father?.father! as! MainView
@@ -406,7 +405,7 @@ class SiteView_OtherSites:BNView, UIScrollViewDelegate {
          */
     }
     
-    func clean(){
+    override func clean(){
         self.scroll!.clean()
     }
     

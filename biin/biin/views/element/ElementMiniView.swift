@@ -17,7 +17,7 @@ class ElementMiniView: BNView {
     
     //var biinItButton:BNUIButton_BiinIt?
     //var shareItButton:BNUIButton_ShareIt?
-    var removeItButton:BNUIButton_RemoveIt?
+    var removeItButton:BNUIButton_LikeIt?
     //var stickerView:BNUIStickerView?
     //var discountView:BNUIDiscountView?
     //var priceView:BNUIPricesView?
@@ -298,7 +298,10 @@ class ElementMiniView: BNView {
         }
         
         if showRemoveBtn {
-            removeItButton = BNUIButton_RemoveIt(frame: CGRectMake((frame.width - 20), (headerHeight + 4), 15, 15), color:UIColor.blackColor())
+            removeItButton = BNUIButton_LikeIt(frame: CGRectMake((frame.width - 30), (headerHeight + 5), 25, 25))
+            removeItButton!.icon!.color = textColor
+            removeItButton!.changedIcon(true)
+            removeItButton!.setNeedsDisplay()
             removeItButton!.addTarget(self, action: #selector(self.unCollect(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(removeItButton!)
         }
@@ -354,6 +357,7 @@ class ElementMiniView: BNView {
     
     func unCollect(sender:BNUIButton_RemoveIt) {
         self.element!.userCollected = false
+        self.element!.userLiked = false
         BNAppSharedManager.instance.unCollectElement(self.element)
         SharedAnswersManager.instance.logUnCollect_Element(element)
     }
@@ -381,7 +385,7 @@ class ElementMiniView: BNView {
 
     }
     
-    func clean(){
+    override func clean(){
         
         delegate = nil
         delegateAllCollectedView = nil

@@ -15,7 +15,7 @@ class AllSitesView: BNView {
     
     var spacer:CGFloat = 1    
 
-    var fade:UIView?
+//    var fade:UIView?
     
     var isShowingFavorites = false
     var siteCounter:Int = 0
@@ -71,6 +71,9 @@ class AllSitesView: BNView {
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
+        
+        addFade()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -90,11 +93,15 @@ class AllSitesView: BNView {
             UIView.animateWithDuration(0.3, animations: {()->Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
                 }, completion: {(completed:Bool)->Void in
-                    self.scroll!.scroll!.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+                    self.scroll!.scroll!.setContentOffset(CGPointZero, animated: false)
             })
         }
     }
     
+//    override func transitionOutOnPrevious() {
+//        self.fade!.alpha = 0
+//    }
+//    
     override func setNextState(goto:BNGoto){
         //Start transition on root view controller
         father!.setNextState(goto)
@@ -127,7 +134,7 @@ class AllSitesView: BNView {
         siteCounter = 0
         isShowingFavorites = false
         
-        //scroll?.clean()
+        scroll?.clean()
         
         let titleText = NSLocalizedString("NearYou", comment: "NearYou").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
@@ -152,23 +159,25 @@ class AllSitesView: BNView {
         siteView_width = SharedUIManager.instance.screenWidth
         
         for site in sitesArray {
-            if !isSiteAdded(site.identifier!) {
-                
-                siteCounter += 1
-                let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
-                miniSiteView.isPositionedInFather = true
-                miniSiteView.isReadyToRemoveFromFather = false
-                miniSiteView.delegate = father! as! MainView
-                
-                sites.append(miniSiteView)
-                
-                xpos += siteView_width + 1
-                colunmCounter += 1
-                
-                if colunmCounter == 2 {
-                    colunmCounter = 0
-                    xpos = 0
-                    ypos += (miniSiteHeight + 1)
+            if !site.userLiked {
+                if !isSiteAdded(site.identifier!) {
+                    
+                    siteCounter += 1
+                    let miniSiteView = SiteMiniView(frame: CGRectMake(0, 0, siteView_width, miniSiteHeight), father: self, site:site)
+                    miniSiteView.isPositionedInFather = true
+                    miniSiteView.isReadyToRemoveFromFather = false
+                    miniSiteView.delegate = father! as! MainView
+                    
+                    sites.append(miniSiteView)
+                    
+                    xpos += siteView_width + 1
+                    colunmCounter += 1
+                    
+                    if colunmCounter == 2 {
+                        colunmCounter = 0
+                        xpos = 0
+                        ypos += (miniSiteHeight + 1)
+                    }
                 }
             }
         }
@@ -249,19 +258,19 @@ class AllSitesView: BNView {
         return false
     }
     
-    func showFade(){
-        UIView.animateWithDuration(0.2, animations: {()-> Void in
-            self.fade!.alpha = 0.5
-        })
-    }
+//    func showFade(){
+////        UIView.animateWithDuration(0.2, animations: {()-> Void in
+////            self.fade!.alpha = 0.5
+////        })
+//    }
+//    
+//    func hideFade(){
+////        UIView.animateWithDuration(0.5, animations: {()-> Void in
+////            self.fade!.alpha = 0
+////        })
+//    }
     
-    func hideFade(){
-        UIView.animateWithDuration(0.5, animations: {()-> Void in
-            self.fade!.alpha = 0
-        })
-    }
-    
-    func clean() {
+    override func clean() {
         
         delegate = nil
         title?.removeFromSuperview()

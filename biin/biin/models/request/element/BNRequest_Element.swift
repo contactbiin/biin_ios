@@ -191,7 +191,7 @@ class BNRequest_Element: BNRequest {
                         for _ in categories! {
 //                        for var j = 0; j < categories?.count; j++ {
                             let categoryData = categories!.objectAtIndex(i) as! NSDictionary
-                            let identifier = BNParser.findString("identifier", dictionary: categoryData)!
+                            _ = BNParser.findString("identifier", dictionary: categoryData)!
                             //BNAppSharedManager.instance.dataManager.addElementToCategory(identifier, element: self.element!)
                         }
 

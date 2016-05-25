@@ -180,6 +180,7 @@ class DevelopmentView:UIView {
         closeBtn!.addTarget(self, action: #selector(self.closeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(closeBtn!)
         ypos += 80
+
     }
     
     required init?(coder aDecoder: NSCoder) {

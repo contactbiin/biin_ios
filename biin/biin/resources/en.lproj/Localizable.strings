@@ -43,8 +43,8 @@ Calcel = "Cancel";
 More = "more";
 NearYou = "Places near you";
 FavoritePlaces = "Your favorites Places";
-AddFavoritePlaces = "Add some places to your favorites.";
-
+AddFavoritePlaces = "Use the like button to add places to your favorites.";
+NoMorePlaces = "It seems there are no more places near by you.";
 OtherPlaces1 = "Otros ";
 OtherPlaces2 = " cerca de vos";
 
@@ -228,9 +228,12 @@ BrandGreetings = "Thank you for stoping by today and come back soon!";
 SurveyQuestion_1 = "How likely would you recommend ";
 SurveyQuestion_2 = " to your family or friends?";
 SurveyQuestion_3 = "Leave your comments about what did you like or dislike so we can improve.";
+SurveyQuestion_4 = "How likely would you recommend us to your family or friends?";
+SurveyQuestion_5 = "We appreciate that you took the time to fill out our survey. We hope to make changes soon with you recommendations. Thank you.";
 Thankyou = "Thank you";
 Download = "Download it at www.biin.io";
-
+Sent = "Sent";
+Send = "Send";
 
 likely = "Very Likely";
 not_likely = "Not likely";
@@ -243,6 +246,7 @@ npsBtn_completed = "We received your help!";
 
 PrivacyPolicy = "Privacy policies";
 TermOfUser = "Terms of service";
+TermOfUserWarning = "** When you tap on the button you are accepting our Terms of Use.";
 
 Accept = "Accept";
 

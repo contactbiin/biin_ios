@@ -36,7 +36,6 @@ class BNRequest_ElementsForCategory: BNRequest {
         
         print("BNRequest_ElementsForCategory: \(self.requestString)")
 
-        
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
@@ -47,9 +46,14 @@ class BNRequest_ElementsForCategory: BNRequest {
                     
                     if BNParser.findBool("result", dictionary: data) {
                         
+                        if let showcasesData = BNParser.findNSArray("showcases", dictionary: initialData) {
+                            BNParser.parseShowcases(showcasesData)
+                        }
+                        
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
-                            
-                            
+                            BNParser.parseOrganizations(organizationsData)
+
+                            /*
                             for a in (0..<organizationsData.count) {
 //                            for var i = 0; i < organizationsData.count; i++ {
 
@@ -97,11 +101,16 @@ class BNRequest_ElementsForCategory: BNRequest {
                                 }
 
                             }
+                            
+                            */
                         }
                         
                         //Parse elements
                         if let elementsData = BNParser.findNSArray("elements", dictionary: initialData) {
                             
+                            BNParser.parseElements(elementsData)
+
+                            /*
                             for c in (0..<elementsData.count){
 //                            for var i = 0; i < elementsData.count; i++ {
                                 let elementData = elementsData.objectAtIndex(c) as! NSDictionary
@@ -211,11 +220,13 @@ class BNRequest_ElementsForCategory: BNRequest {
                                 
                                 BNAppSharedManager.instance.dataManager.receivedElement(element)
                             }
+                            
+                            */
                         }
                         
                         if let sitesData = BNParser.findNSArray("sites", dictionary: initialData) {
-                            
-                            
+                            BNParser.parseSites(sitesData)                           
+                            /*
                             for f in (0..<sitesData.count) {
 //                            for var i = 0; i < sitesData.count; i++ {
                                 if let siteData = sitesData.objectAtIndex(f) as? NSDictionary {
@@ -284,7 +295,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                     }
                                     
                                     if let showcases = BNParser.findNSArray("showcases", dictionary: siteData) {
-                                        
+                                        /*
                                         site.showcases = Array<BNShowcase>()
                                         for i in (0..<showcases.count){
 //                                        for var i = 0; i < showcases.count; i++ {
@@ -315,6 +326,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                                                 BNAppSharedManager.instance.dataManager.receivedShowcase(showcase)
                                             }
                                         }
+                                         */
                                     }
                                     
                                     if let biins = BNParser.findNSArray("biins", dictionary: siteData) {
@@ -395,43 +407,35 @@ class BNRequest_ElementsForCategory: BNRequest {
                                 }
 
                             }
+ */
                         }
                         
                         //Parse categories
-//                        var categories = Array<BNCategory>()
                         if let categoryData = BNParser.findNSArray("elementsForCategory", dictionary: initialData) {
                             
                             for o in (0..<categoryData.count) {
-//                            for var i = 0; i < categoryData.count; i++ {
                                 
                                 let elementData = categoryData.objectAtIndex(o) as! NSDictionary
-                                //let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
                                 
-                                //let elements = BNParser.findNSArray("elements", dictionary: categoryData)
+                                if let identifier = BNParser.findString("identifier", dictionary: elementData) {
+                                    if let showcaseIdentifier = BNParser.findString("showcaseIdentifier", dictionary: elementData) {
+                                        if let siteIdentifier = BNParser.findString("siteIdentifier", dictionary: elementData) {
+                                            let highlight = BNElementRelationShip(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier)
+                                            self.category!.elements.append(highlight)
+                                        }
+                                    }
+                                }
                                 
-                                //for var j = 0; j < elements?.count; j++ {
-                                    
-                                    //let elementData = elements!.objectAtIndex(j) as! NSDictionary
-                                    
+                                /*
                                 if let _id = BNParser.findString("_id", dictionary: elementData) {
                                     
-                                
                                     let showcase_id = BNParser.findString("showcase_id", dictionary: elementData)
                                     let identifier = BNParser.findString("identifier", dictionary: elementData)
-                                    
-//                                    print("element for category")
-//                                    print("id:\(_id)")
-//                                    print("identifier:\(identifier!)")
-//                                    print("showcase:\(showcase_id!)")
-                                    
                                     BNAppSharedManager.instance.dataManager.receivedElementOnCategory(_id, identifier: identifier!, showcase_id:showcase_id! )
-                                    
-                                    //self.category!.elements[_id] = BNAppSharedManager.instance.dataManager.elements_by_id[_id]
                                 }
+                                 */
 
                             }
-                            
-                            //BNAppSharedManager.instance.dataManager.receivedCategories(categories)
                         }
                     
                     

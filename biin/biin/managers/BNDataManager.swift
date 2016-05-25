@@ -21,16 +21,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //var regions = Dictionary<String, BNRegion>()
     var nearbySites = Array<String>()
     var favoritesSites = Array<String>()
-    var favoritesElements = Array<String>()
+    var favoritesElements = Array<BNElementRelationShip>()
     
     var sites = Dictionary<String, BNSite>()
     var sites_ordered = Array<BNSite>()
     var organizations = Dictionary<String, BNOrganization>()
     //var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
-    var elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
-    var elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
-    var highlights = Array<BNElement>()//list of hightlight element
+//    var elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
+    var elements = Dictionary<String, BNElement>()//List of element with data, not by _id
+    var highlights = Array<BNElementRelationShip>()//list of hightlight element
     //var availableBiins = Array<String>()//list of biins detected
     //var elementsBiined = Dictionary<String, String>()
     
@@ -63,6 +63,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func clean(){
         
+        favoritesSites.removeAll()
+        favoritesSites = Array<String>()
+        
+        favoritesElements.removeAll()
+        favoritesElements = Array<BNElementRelationShip>()
+        
         sites.removeAll()
         sites = Dictionary<String, BNSite>()
 
@@ -75,14 +81,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         showcases.removeAll()
         showcases = Dictionary<String, BNShowcase>()
         
-        elements_by_id.removeAll()
-        elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
+//        elements_by_id.removeAll()
+//        elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
 
-        elements_by_identifier.removeAll()
-        elements_by_identifier = Dictionary<String, BNElement>()//List of element with data, not by _id
+        elements.removeAll()
+        elements = Dictionary<String, BNElement>()//List of element with data, not by _id
         
         highlights.removeAll()
-        highlights = Array<BNElement>()
+        highlights = Array<BNElementRelationShip>()
     }
     
     func loadBiinie() {
@@ -134,7 +140,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestDataOnWhenAppIsRunning(){
         BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
-        delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)        
+        //delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
 
@@ -312,6 +318,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             commercialUUID = site.proximityUUID
         }
         
+        /*
         if site.showcases != nil {
             for showcase in site.showcases! {
                 
@@ -322,7 +329,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
         }
-        
+        */
         
         if site.organization == nil {
             if organizations[site.organizationIdentifier!] == nil {
@@ -418,14 +425,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///- parameter Network: manager that handled the request.
     ///- parameter BNShowcase: received from web service in json format already parse in an showcase object.
     func manager(manager:BNNetworkManager!, didReceivedShowcase showcase:BNShowcase) {
-
+        /*
         showcases[showcase.identifier!] = showcase
         showcases[showcase.identifier!]!.isRequestPending = false
         
         requestElements(showcase.elements)
+        */
     }
     
+    /*
     func checkAllShowcasesCompleted(){
+        
         for (_, showcase) in showcases {
             showcase.isShowcaseGameCompleted = true
             for element in showcase.elements {
@@ -436,6 +446,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
         }
     }
+    */
     
     ///Received biined element list and start proccesing depending on data store.
     ///- parameter Network: manager that handled the request.
@@ -446,6 +457,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func requestElements(elementList:Array<BNElement>){
         
+        /*
         for element in elementList {
             
             //Check if element exist.
@@ -454,44 +466,48 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 elements_by_id[element._id!] = element
                 
                 //Check is element is has been requested by it's identifier
-                if elements_by_identifier[element.identifier!] == nil {
-                    elements_by_identifier[element.identifier!] = element
+                if elements[element.identifier!] == nil {
+                    elements[element.identifier!] = element
                     delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
                 } else {
 
-                    let value = elements_by_identifier[element.identifier!]!.isDownloadCompleted
+                    let value = elements[element.identifier!]!.isDownloadCompleted
                     
                     if value {
-                        manageElementRelationShips(elements_by_identifier[element.identifier!]!)
+                        manageElementRelationShips(elements[element.identifier!]!)
                     }else {
 
                     }
                 }
             }
         }
+         */
     }
     
     func requestElement(element:BNElement){
+        
+        /*
         //Check if element exist.
         if elements_by_id[element._id!] == nil {
 
             elements_by_id[element._id!] = element
             
             //Check is element is has been requested by it's identifier
-            if elements_by_identifier[element.identifier!] == nil {
+            if elements[element.identifier!] == nil {
 
-                elements_by_identifier[element.identifier!] = element
+                elements[element.identifier!] = element
                 delegateNM!.manager!(self, requestElementDataForBNUser:element, user:bnUser!)
             } else {
 
-                let value = elements_by_identifier[element.identifier!]!.isDownloadCompleted
+                let value = elements[element.identifier!]!.isDownloadCompleted
                 
                 if value {
-                    manageElementRelationShips(elements_by_identifier[element.identifier!]!)
+                    manageElementRelationShips(elements[element.identifier!]!)
                 }else {
                 }
             }
         }
+         */
     }
     
     
@@ -500,7 +516,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///- parameter BNElement: received from web service in json format already parse in an element object.
     func manager(manager: BNNetworkManager!, didReceivedElement element: BNElement) {
 
-        elements_by_identifier[element.identifier!] = element
+        elements[element.identifier!] = element
         manageElementRelationShips(element)
     }
     
@@ -509,7 +525,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
     func addHighlights(){
-        
+        /*
         self.highlights = Array<BNElement>()
         
         var categoryCounter = 1
@@ -566,6 +582,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if element2 != nil {
             self.highlights.append(element2!)
         }
+        */
     }
     
     func isSiteAdded(identifier:String) -> Bool {
@@ -579,6 +596,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func manageElementRelationShips(element:BNElement){
         
+        /*
         //Checks if element received is reference on element and clone it self.
         for (key, value) in elements_by_id {
             if value.identifier! == element.identifier! {
@@ -590,6 +608,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
         }
+         */
     }
     
     
@@ -655,7 +674,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
         
 
-        
+        /*
         if collectionList.count > 0 {
             
             bnUser!.collections = Dictionary<String, BNCollection>()
@@ -675,9 +694,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
                     } else {
                         //print("element not store:\(_id)")
-                        if let element_by_identifier = elements_by_identifier[element.identifier!] {
+                        if let element = elements[element.identifier!] {
                             
-                            elements_by_id[_id] = element_by_identifier.clone()
+                            elements_by_id[_id] = element.clone()
                             elements_by_id[_id]!._id = _id
                             
                             if let showcase = showcases[element.showcase!._id!] {
@@ -712,6 +731,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             }
             
         }
+ */
     }
     
     func manager(manager:BNNetworkManager!, removeShowcaseRelationShips identifier:String) {
@@ -742,33 +762,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
     }
     
-    //TODO:Remove later
-    func createTemporalShowcases() {
-        
-        let iconSite = BNSite()
-        iconSite.identifier = "iCon"
-        iconSite.title =  "iCon"
-        iconSite.subTitle = "Multiplaza del Este"
-        iconSite.titleColor = UIColor.bnRed()
-        sites[iconSite.identifier!] = iconSite
-        
-        let iconShowcase = BNShowcase()
-        iconShowcase.identifier = "icon.identifier"
-//        iconShowcase.site = iconSite
-        showcases[iconShowcase.identifier!] = iconShowcase
-        
-        let iphone = BNElement()
-        iphone.position = 1
-        iphone.title = "iPhone"
-        iphone.subTitle = "None"
-        iconShowcase.elements.append(iphone)
-        
-        showcases["icon.identifier"] = iconShowcase
-        
-    }
-    
     //Store data methods
     func addElementBiined(_id:String) -> Int{
+        
+        /*
         //if elementsBiined[_id] == nil {
             //elementsBiined[_id] = _id
             elements_by_id[_id]!.userCollected = true
@@ -776,7 +773,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             return elements_by_id[_id]!.collectCount
             //TODO: Post user just biined an element
         //}
-        //return 0
+         */
+        return 0
     }
     
     func receivedOrganization(organization: BNOrganization) {
@@ -806,6 +804,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             organizations[site.organizationIdentifier!]?.sites.append(site.identifier!)
 
+            site.surveyCompleted = BNAppSharedManager.instance.notificationManager.is_site_surveyed(site.identifier!)
+            
             sites[site.identifier!] = site
             
             if sites[site.identifier!] == nil {
@@ -858,11 +858,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 //                            element.showcase = showcase
 //                            requestElement(element)
                             
+                            /*
                             //Check if element exist.
                             if elements_by_id[object._id!] == nil {
                                 
                                 //Checks if element received is already on elements_by_identifier list.
-                                if let element = elements_by_identifier[object.identifier!] {
+                                if let element = elements[object.identifier!] {
                                     //Checks if element received is reference on element and clone it self.
                                     
                                     
@@ -878,7 +879,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                                     //                }
                                 }
                             }
-                            
+                            */
                             break
                         /*
                         case .SHOWCASE:
@@ -904,6 +905,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func receivedShowcase(showcase: BNShowcase) {
         
+        showcase.isRequestPending = false
+        if showcases[showcase.identifier!] == nil {
+            showcases[showcase.identifier!] = showcase
+            
+        }
+        
+        /*
         showcase.isRequestPending = false
         if showcases[showcase._id!] == nil {
             showcases[showcase._id!] = showcase
@@ -945,29 +953,25 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             i += 1
         }
-        
-//        for var i = 0; i < showcase.elements.count; i++ {
-//            if elements_by_id[showcase.elements[i]._id!] != nil {
-//                showcase.elements[i] = elements_by_id[ showcase.elements[i]._id! ]!
-//            }
-//        }
+ 
+         */
     }
 
     func receivedElement(element: BNElement) {
         //Check is element is has been requested by it's identifier
-        if elements_by_identifier[element.identifier!] == nil {
-            elements_by_identifier[element.identifier!] = element
+        if elements[element.identifier!] == nil {
+            elements[element.identifier!] = element
         }
     }
 
     
     func receivedElementOnCategory(_id: String, identifier:String, showcase_id:String) {
-
+        /*
         //Check if element exist.
         if elements_by_id[_id] == nil {
             
             //Checks if element received is already on elements_by_identifier list.
-            if let element = elements_by_identifier[identifier] {
+            if let element = elements[identifier] {
                 //Checks if element received is reference on element and clone it self.
                 
                 
@@ -981,14 +985,12 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
 //                }
             }
         }
+ */
     }
     
-    func receivedHightlight(highlights:Array<BNElement>) {
-
+    func receivedHightlight(highlights:Array<BNElementRelationShip>) {
 
         self.highlights = highlights
-
-
     }
     
     func receivedCategories(categories:Array<BNCategory>) {
@@ -996,32 +998,8 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         bnUser!.categories.removeAll(keepCapacity: false)
         bnUser!.categories = Array<BNCategory>()
         
-//        for (_, site) in sites {
-//            site.showInView = false
-//        }
-        
         for category in categories {
-            
-            
             category.name = findCategoryNameByIdentifier(category.identifier!)
-            
-            
-//            for siteDetails in category.sitesDetails {
-//                //Check if site exist.
-//                if self.sites[siteDetails.identifier!] == nil {
-//                    
-//                    let site = BNSite()
-//                    site.identifier = siteDetails.identifier!
-//                    site.biinieProximity = siteDetails.biinieProximity!
-//                    //site.jsonUrl = siteDetails.json!
-//                    sites[siteDetails.identifier!] = site
-//                    //Site does not exist, store it and request it's data.
-//                    delegateNM!.manager!(self, requestSiteData: site, user:bnUser!)
-//                } else {
-//                    self.sites[siteDetails.identifier!]?.showInView = true
-//                }
-//            }
-            
             bnUser!.addCategory(category)
         }
     }
@@ -1029,13 +1007,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func applyCollectedElement(element:BNElement?) {
         
+        /*
         if self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] == nil {
         
             self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]?.elements[element!._id!] = self.elements_by_id[element!._id!]
 
             element!.collectCount += 1
-            elements_by_identifier[element!.identifier!]?.collectCount = element!.collectCount
-            elements_by_identifier[element!.identifier!]?.userCollected = element!.userCollected
+            elements[element!.identifier!]?.collectCount = element!.collectCount
+            elements[element!.identifier!]?.userCollected = element!.userCollected
             
             for (identifier, clone) in elements_by_id {
                 if element!.identifier! == identifier {
@@ -1044,44 +1023,57 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 }
             }
         }
+         */
     }
     
     
     func applyUnCollectedElement(element:BNElement?) {
 
-        self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]!.elements.removeValueForKey(element!._id!)
+//        self.bnUser!.collections![self.bnUser!.temporalCollectionIdentifier!]!.elements.removeValueForKey(element!._id!)
         
-        elements_by_identifier[element!.identifier!]?.userCollected = element!.userCollected
+        removeFavoriteElement(element!.identifier!)
         
+        elements[element!.identifier!]?.userCollected = element!.userCollected
+        
+        /*
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {
                 clone.userCollected = element!.userCollected
             }
         }
+         */
     
     }
 
 
     func applyLikeElement(element:BNElement?) {
         
-        elements_by_identifier[element!.identifier!]?.userLiked = element!.userLiked
+        removeFavoriteElement(element!.identifier!)
+        elements[element!.identifier!]?.userLiked = element!.userLiked
         
+        if element!.userLiked {
+            addFavoriteElement(element!.identifier!, showcaseIdentifier: element!.showcase!.identifier!, siteIdentifier: element!.showcase!.site!.identifier!)
+        } else {
+            removeFavoriteElement(element!.identifier!)
+        }
+        /*
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {
                 clone.userLiked = element!.userLiked
             }
         }
+         */
     }
     
     func applyShareElement(element:BNElement?) {
         
-        elements_by_identifier[element!.identifier!]?.userShared = element!.userShared
+        elements[element!.identifier!]?.userShared = element!.userShared
         
-        for (identifier, clone) in elements_by_id {
-            if element!.identifier! == identifier {
-                clone.userShared = element!.userShared
-            }
-        }
+//        for (identifier, clone) in elements_by_id {
+//            if element!.identifier! == identifier {
+//                clone.userShared = element!.userShared
+//            }
+//        }
     }
     
     func applyViewedElement(element:BNElement?) {
@@ -1091,13 +1083,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //TODO: this action should have the _id and identifier sent
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:element!.identifier!)
         
-        elements_by_identifier[element!.identifier!]?.userViewed = element!.userViewed
-        
+        elements[element!.identifier!]?.userViewed = element!.userViewed
+        /*
         for (identifier, clone) in elements_by_id {
             if element!.identifier! == identifier {
                 clone.userViewed = element!.userViewed
             }
         }
+         */
     }
     
     func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
@@ -1130,6 +1123,28 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         for i in (0..<favoritesSites.count) {
             if favoritesSites[i] == identifier {
                 favoritesSites.removeAtIndex(i)
+                break
+            }
+        }
+    }
+    
+    func addFavoriteElement(identifier:String, showcaseIdentifier:String, siteIdentifier:String) {
+        var isAdded = false
+        for i in (0..<favoritesElements.count) {
+            if favoritesElements[i].identifier == identifier {
+                isAdded = true
+            }
+        }
+        
+        if !isAdded {
+            favoritesElements.insert(BNElementRelationShip(identifier: identifier, showcase: showcaseIdentifier, site: siteIdentifier), atIndex: 0)
+        }
+    }
+    
+    func removeFavoriteElement(identifier:String) {
+        for i in (0..<favoritesElements.count) {
+            if favoritesElements[i].identifier == identifier {
+                favoritesElements.removeAtIndex(i)
                 break
             }
         }

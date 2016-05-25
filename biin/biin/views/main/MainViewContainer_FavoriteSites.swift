@@ -29,7 +29,7 @@ class MainViewContainer_FavoriteSites: BNView {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
-        self.backgroundColor = UIColor.bnGrayDark()
+        self.backgroundColor = UIColor.bnSitesColor()
         
         moreSitesBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreSitesBtn!.icon!.color = UIColor.whiteColor()
@@ -55,6 +55,7 @@ class MainViewContainer_FavoriteSites: BNView {
         let xpos:CGFloat = ((frame.width / 2) - 40)
         
         likeItButton = BNUIButton_LikeIt(frame: CGRectMake(xpos, ypos, 86, 86))
+        likeItButton!.addHeartBeatAnimation()
         self.addSubview(likeItButton!)
         
         ypos = ypos + 90
@@ -126,16 +127,17 @@ class MainViewContainer_FavoriteSites: BNView {
         
         for i in (0..<favoritesSites.count) {
             if let site = BNAppSharedManager.instance.dataManager.sites[favoritesSites[i]] {
-                
-                if !isSiteAdded(site.identifier!) {
-                    let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
-                    let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
-                    miniSiteView.isPositionedInFather = true
-                    miniSiteView.isReadyToRemoveFromFather = false
-                    miniSiteView.delegate = father?.father! as! MainView
-                    sites.append(miniSiteView)
-                    
-                    //xpos += siteView_width + 1
+                if site.userLiked {
+                    if !isSiteAdded(site.identifier!) {
+                        let miniSiteHeight:CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
+                        let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site:site)
+                        miniSiteView.isPositionedInFather = true
+                        miniSiteView.isReadyToRemoveFromFather = false
+                        miniSiteView.delegate = father?.father! as! MainView
+                        sites.append(miniSiteView)
+                        
+                        //xpos += siteView_width + 1
+                    }
                 }
             }
         }
@@ -162,8 +164,8 @@ class MainViewContainer_FavoriteSites: BNView {
         
         let ypos:CGFloat = 1
         var siteView_width:CGFloat = 0
-        
-        if BNAppSharedManager.instance.dataManager.favoritesSites.count == 1 {
+                
+        if self.scroll!.children.count == 0 {
             siteView_width = SharedUIManager.instance.screenWidth
         } else {
             siteView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
@@ -206,7 +208,7 @@ class MainViewContainer_FavoriteSites: BNView {
     }
     
     
-    func clean(){
+    override func clean(){
         
         scroll!.clean()
         

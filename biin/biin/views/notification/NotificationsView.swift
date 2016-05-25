@@ -11,7 +11,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     var delegate:NotificationsView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-    var fade:UIView?
+//    var fade:UIView?
     
     var biinieAvatar:BNUIImageView?
     var biinieNameLbl:UILabel?

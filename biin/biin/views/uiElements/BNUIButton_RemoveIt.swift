@@ -25,7 +25,7 @@ class BNUIButton_RemoveIt:BNUIButton {
     convenience init(frame:CGRect, color:UIColor?){
         self.init(frame:frame)
         //self.backgroundColor = color!
-        self.layer.cornerRadius = frame.width / 2
+//        self.layer.cornerRadius = frame.width / 2
         self.layer.masksToBounds = true
         self.layer.borderColor = color!.CGColor
         self.layer.borderWidth = 1

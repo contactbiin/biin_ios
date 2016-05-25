@@ -52,23 +52,26 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         self.init(frame: frame, father:father)
         
         
-        var textColor:UIColor?
-        switch colorIndex {
-        case 0:
-//             self.backgroundColor = site!.media[0].vibrantColor
-            self.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
+//        var textColor:UIColor?
+//        switch colorIndex {
+//        case 0:
+////             self.backgroundColor = site!.media[0].vibrantColor
+//            self.backgroundColor = UIColor.lightGrayColor()
+//            textColor = UIColor.bnGrayDark()
+////        case 1:
+////             self.backgroundColor = site!.media[0].vibrantLightColor
 //        case 1:
-//             self.backgroundColor = site!.media[0].vibrantLightColor
-        case 1:
-//             self.backgroundColor = site!.media[0].vibrantDarkColor
-            self.backgroundColor = UIColor.grayColor()
-            textColor = UIColor.whiteColor()
-        default:
-            self.backgroundColor = UIColor.lightGrayColor()
-            textColor = UIColor.bnGrayDark()
-            break
-        }
+////             self.backgroundColor = site!.media[0].vibrantDarkColor
+//            self.backgroundColor = UIColor.grayColor()
+//            textColor = UIColor.whiteColor()
+//        default:
+//            self.backgroundColor = UIColor.lightGrayColor()
+//            textColor = UIColor.bnGrayDark()
+//            break
+//        }
+        
+        let textColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.bnGrayLight()
         
        //!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
         self.showcase = showcase//BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
@@ -99,10 +102,10 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         
         ypos += SharedUIManager.instance.siteView_showcase_titleSize + 2
         
-        subTitle = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
-        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
-        subTitle!.textColor = UIColor.whiteColor()
-        subTitle!.text = self.showcase!.subTitle!
+//        subTitle = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_subTittleSize + 2)))
+//        subTitle!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_showcase_subTittleSize)
+//        subTitle!.textColor = UIColor.whiteColor()
+        //subTitle!.text = self.showcase!.subTitle!
         ///self.addSubview(subTitle!)
         
         //TESTING NOTIFICATIONS
@@ -210,30 +213,36 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
             var elements = Array<ElementMiniView>()
 
             
-            for element in showcase!.elements {
+            for element_identifier in showcase!.elements {
 
-                if !isAddedToScroll(element._id!) {
-                
-                    let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
-                        elementView.isElementMiniViewInSite = true
+                if !isAddedToScroll(element_identifier) {
                     
-                    if element != showcase!.elements.last {
-                        xpos += elementView_width + spacer
-                    } else  {
-                        xpos += (elementView_width - 1)
+                    if let element = BNAppSharedManager.instance.dataManager.elements[element_identifier] {
+                        element.showcase = self.showcase
+                        
+                        let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height_showcase), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:isLoyaltyEnabled, showlocation:false)
+                            elementView.isElementMiniViewInSite = true
+                        
+                        if element_identifier != showcase!.elements.last {
+                            xpos += elementView_width + spacer
+                        } else  {
+                            xpos += (elementView_width - 1)
+                        }
+                        
+                        elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
+                        elements.append(elementView)
+                        elementPosition += 1
+                        
+                        if element.userViewed {
+                            elementsViewed += 1
+                        }
+                        
+                        //if elementPosition < 4 {
+                            elementView.requestImage()
+                        //}
+                    } else {
+                        print("NO ELMENT IN elements list: \(element_identifier) and is on showcase: \(showcase!.identifier!)")
                     }
-                    
-                    elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
-                    elements.append(elementView)
-                    elementPosition += 1
-                    
-                    if element.userViewed {
-                        elementsViewed += 1
-                    }
-                    
-                    //if elementPosition < 4 {
-                        elementView.requestImage()
-                    //}
                 }
             }
             
@@ -419,7 +428,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
 */
     }
     
-    func clean(){
+    override func clean(){
         self.scroll!.clean()
     }
     

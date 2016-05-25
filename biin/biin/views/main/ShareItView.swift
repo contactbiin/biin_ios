@@ -224,10 +224,6 @@ class ShareItView:UIView {
         siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 5)), 0), father: nil)
         siteLocation!.updateForSite(site!)
         siteLocation!.map!.alpha = 0
-//        siteLocation!.frame.origin.y = ypos
-        siteLocation!.callBtn!.alpha = 0
-        siteLocation!.emailBtn!.alpha = 0
-//        siteLocation!.closeBtn!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         
@@ -306,10 +302,6 @@ class ShareItView:UIView {
         siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 5)), 0), father: nil)
         siteLocation!.updateForSite(site)
         siteLocation!.map!.alpha = 0
-        //        siteLocation!.frame.origin.y = ypos
-        siteLocation!.callBtn!.alpha = 0
-        siteLocation!.emailBtn!.alpha = 0
-//        siteLocation!.closeBtn!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()
         self.addSubview(siteLocation!)
         

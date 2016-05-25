@@ -119,7 +119,7 @@ class BNRequest_Site: BNRequest {
                         if let showcases = BNParser.findNSArray("showcases", dictionary: siteData) {
                         
                             if showcases.count > 0 {
-                                
+                                /*
                                 new_site.showcases = Array<BNShowcase>()
                                 
                                 for c in (0..<showcases.count){
@@ -131,6 +131,7 @@ class BNRequest_Site: BNRequest {
                                     showcase.site = new_site
                                     new_site.showcases!.append(showcase)
                                 }
+                                 */
                             }
                         }
                         

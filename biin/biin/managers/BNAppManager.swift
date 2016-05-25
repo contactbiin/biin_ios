@@ -139,9 +139,10 @@ class BNAppManager {
 
     func unCollectElement(element:BNElement?){
 
-        dataManager.applyUnCollectedElement(element)
-        networkManager.sendUnCollectedElement(dataManager.bnUser!, element: element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
-        mainViewController!.mainView!.updateAllCollectedView()
+//        dataManager.applyUnCollectedElement(element)
+//        networkManager.sendUnCollectedElement(dataManager.bnUser!, element: element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
+        likeElement(element)
+//        mainViewController!.mainView!.updateAllCollectedView()
     }
     
     func collectElement(element:BNElement?){
@@ -152,6 +153,8 @@ class BNAppManager {
     func likeElement(element:BNElement?){
         dataManager.applyLikeElement(element)
         networkManager.sendLikedElement(dataManager.bnUser!, element:element)
+        mainViewController!.mainView!.updateAllCollectedView()
+
     }
 
     func likeSite(site:BNSite?){

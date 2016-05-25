@@ -193,7 +193,7 @@ class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
         timer!.fire()
     }
     
-    func clean(){
+    override func clean(){
         if hightlights?.count > 0 {
             
             for view in scroll!.subviews {

@@ -12,21 +12,41 @@ import UIKit
 
 
 extension UIColor {
+
+    class func bnSitesColor() -> UIColor! {
+        return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
+    }
+    
+    class func bnCategoriesColor() -> UIColor! {
+        return UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
+    }
+    
+    class func appTextColor() -> UIColor {
+        return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
+    }
     
     class func bnWhite() -> UIColor! {
         return UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
     }
     
+    class func bnWaze() -> UIColor! {
+        return UIColor(red: 147/255, green: 196/255, blue: 211/255, alpha: 1)
+    }
+    
+    class func bnUber() -> UIColor! {
+        return UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
+    }
+    
     class func bnGrayLight() -> UIColor! {
-        return UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
+        return UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
+    }
+    
+    class func bnGrayDark() -> UIColor! {
+        return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
     }
     
     class func bnBlack() -> UIColor! {
         return UIColor(red: 35/255, green: 31/255, blue: 32/255, alpha: 1)
-    }
-
-    class func bnGrayDark() -> UIColor! {
-        return UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1)
     }
 
     class func bnBlueDark() -> UIColor! {
@@ -208,10 +228,6 @@ extension UIColor {
         return UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 1)
     }
     
-    class func appTextColor() -> UIColor {
-        return UIColor(red: 65/255, green: 65/255, blue: 65/255, alpha: 1)
-    }
-    
     class func appHeaderColor() -> UIColor {
         //return UIColor(red: 89/255, green: 89/255, blue: 89/255, alpha: 1)
         return UIColor.blackColor().colorWithAlphaComponent(0.65)
@@ -272,16 +288,5 @@ extension UIColor {
     class func bnGradientColor2() -> UIColor {
         return UIColor(red: 255/255, green: 240/255, blue: 240/255, alpha: 1)
     }
-    
-//    class func elementColor() -> UIColor! {
-//        
-//        if BNAppSharedManager.instance.elementColorIndex  >= (BNAppSharedManager.instance.elementColors.count - 1) {
-//            BNAppSharedManager.instance.elementColorIndex = -1
-//        }
-//        
-//        BNAppSharedManager.instance.elementColorIndex++
-//        
-//        return BNAppSharedManager.instance.elementColors[BNAppSharedManager.instance.elementColorIndex]
-//    }
 }
 
