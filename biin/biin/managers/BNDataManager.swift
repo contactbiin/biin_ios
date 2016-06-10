@@ -389,7 +389,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         
                         let element = BNElement()
                         element.identifier = object.identifier!
-                        element._id = object._id!
+                        //element._id = object._id!
                         let showcase = BNShowcase()
                         showcase.site = biin.site
                         element.showcase = showcase

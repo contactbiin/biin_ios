@@ -274,11 +274,11 @@ class SiteView_OtherSites:BNView, UIScrollViewDelegate {
     }
     
     func isAddedToScroll(_id:String) ->Bool {
-        for view in scroll!.children {
-            if (view as! ElementMiniView).element!._id == _id {
-                return true
-            }
-        }
+//        for view in scroll!.children {
+//            if (view as! ElementMiniView).element!._id == _id {
+//                return true
+//            }
+//        }
         return false
     }
     

@@ -227,6 +227,7 @@
 		5B8C5F001C7E1C0C0004733D /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8C5EFF1C7E1C0C0004733D /* Bolts.framework */; };
 		5B8C5F021C7E20650004733D /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8C5F011C7E20650004733D /* FBSDKMessengerShareKit.framework */; };
 		5B8CA3E11BB0B8D000A2F21B /* ElementMiniView_Precentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8CA3E01BB0B8D000A2F21B /* ElementMiniView_Precentage.swift */; };
+		5B8DA5011D089E07007E9742 /* BNNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8DA5001D089E07007E9742 /* BNNotice.swift */; };
 		5B93A1B31AD443E500038026 /* BiinItAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */; };
 		5B9508FE1C089AF30075659A /* MainViewContainer_NearSites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9508FD1C089AF30075659A /* MainViewContainer_NearSites.swift */; };
 		5B96EEC71C7F418900ABB9D6 /* BNRequest_Login_Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B96EEC61C7F418900ABB9D6 /* BNRequest_Login_Facebook.swift */; };
@@ -618,6 +619,7 @@
 		5B8C5EFF1C7E1C0C0004733D /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		5B8C5F011C7E20650004733D /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		5B8CA3E01BB0B8D000A2F21B /* ElementMiniView_Precentage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElementMiniView_Precentage.swift; sourceTree = "<group>"; };
+		5B8DA5001D089E07007E9742 /* BNNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNNotice.swift; sourceTree = "<group>"; };
 		5B93A1B21AD443E500038026 /* BiinItAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinItAnimationView.swift; sourceTree = "<group>"; };
 		5B9508FD1C089AF30075659A /* MainViewContainer_NearSites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewContainer_NearSites.swift; sourceTree = "<group>"; };
 		5B96EEC61C7F418900ABB9D6 /* BNRequest_Login_Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Login_Facebook.swift; sourceTree = "<group>"; };
@@ -1106,6 +1108,7 @@
 				5B3D75C71A6816B300CB0D1C /* BNLoyalty.swift */,
 				5B3D75C81A6816B300CB0D1C /* BNMedia.swift */,
 				5B3D75C91A6816B300CB0D1C /* BNNotification.swift */,
+				5B8DA5001D089E07007E9742 /* BNNotice.swift */,
 				5B6615C01B3326D700ECE508 /* BNLocalNotification.swift */,
 				5B3D75CA1A6816B300CB0D1C /* BNObject.swift */,
 				5B3D75CB1A6816B300CB0D1C /* BNRegion.swift */,
@@ -2065,6 +2068,7 @@
 				5B285B481A8D141900A2356B /* BNIcon_FemaleSmall.swift in Sources */,
 				5BEE97CF1BAC53BB004C2B30 /* BNRequest_SendLikedSite.swift in Sources */,
 				B2693FC21B18CFF800B8C87C /* BNBiinObject.swift in Sources */,
+				5B8DA5011D089E07007E9742 /* BNNotice.swift in Sources */,
 				5B285B461A8D136F00A2356B /* BNUIButton_Gender.swift in Sources */,
 				5B1F55021AE846E900130CFE /* BNIcon_MenuMedium.swift in Sources */,
 				5B3D760A1A6816B300CB0D1C /* Biinie.swift in Sources */,

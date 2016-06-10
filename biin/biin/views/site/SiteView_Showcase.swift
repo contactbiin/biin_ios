@@ -277,9 +277,9 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
         }
     }
     
-    func isAddedToScroll(_id:String) ->Bool {
+    func isAddedToScroll(identifier:String) ->Bool {
         for view in scroll!.children {
-            if (view as! ElementMiniView).element!._id == _id {
+            if (view as! ElementMiniView).element!.identifier! == identifier {
                 return true
             }
         }

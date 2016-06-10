@@ -9,7 +9,7 @@ import UIKit
 class BNElement:NSObject {
     
     //Nutshell
-    var _id:String?
+    //var _id:String?
     var identifier:String?
     var position:Int?
     var title:String?
@@ -92,7 +92,7 @@ class BNElement:NSObject {
     func clone()->BNElement {
         let clone = BNElement()
 
-        if let value = self._id { clone._id = value }
+        //if let value = self._id { clone._id = value }
         if let value = self.identifier { clone.identifier = value }
         if let value = self.position { clone.position = value }
         if let value = self.title { clone.title = value }

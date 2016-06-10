@@ -38,7 +38,7 @@ class BNRequest_SendCollectedElement: BNRequest {
         
         var modelContent = Dictionary<String, String>()
         modelContent["identifier"] = self.element!.identifier!
-        modelContent["_id"] = self.element!._id!
+        //modelContent["_id"] = self.element!._id!
         modelContent["type"] = "element" //"site"
         model["model"] = modelContent
         

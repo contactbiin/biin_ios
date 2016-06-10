@@ -91,12 +91,12 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                                             
                                             let element = BNElement()
                                             element.identifier = identifier
-                                            element._id = _id
+//                                            element._id = _id
                                             element.isRemovedFromShowcase = BNParser.findBool("isRemovedFromShowcase", dictionary: elementData)
                                             let showcase = BNShowcase()
                                             showcase._id = showcase_id
                                             element.showcase = showcase
-                                            collection.elements[element._id!] = element
+//                                            collection.elements[element._id!] = element
                                             //collection.items.append(element.identifier!)
                                         }
                                     }

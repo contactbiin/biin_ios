@@ -62,7 +62,7 @@ class BNRequest_Showcase: BNRequest {
                             
                             let elementData:NSDictionary = elements!.objectAtIndex(i) as! NSDictionary
                             let element = BNElement()
-                            element._id = BNParser.findString("_id", dictionary: elementData)
+//                            element._id = BNParser.findString("_id", dictionary: elementData)
                             element.identifier = BNParser.findString("elementIdentifier", dictionary: elementData)
                             element.userViewed = BNParser.findBool("hasBeenSeen", dictionary: elementData)
                             element.showcase = self.showcase

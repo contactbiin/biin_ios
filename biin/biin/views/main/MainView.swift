@@ -394,7 +394,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                             NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(notification!.object_id!)")
                             (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                             setNextState(BNGoto.Element)
-                            NSLog("BIIN - Show element view for element: \(element._id!)")
+//                            NSLog("BIIN - Show element view for element: \(element._id!)")
                             return
                         }
                     }

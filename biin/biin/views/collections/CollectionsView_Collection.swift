@@ -137,7 +137,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
         lastColumnRequested = 0
         isWorking = true
         elements = Array<ElementMiniView>()
-        
+        /*
         for (_, value) in collection!.elements {
             
             
@@ -179,7 +179,7 @@ class CollectionsView_Collection:BNView, UIScrollViewDelegate, ElementMiniView_D
 
             }
         }
-        
+        */
 //        if site!.loyalty!.isSubscribed {
 //            //Add game view
 //            gameView = Sor iteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())

@@ -65,8 +65,8 @@ class BNRequest_Collections: BNRequest {
                                     let elementData = elements!.objectAtIndex(j) as! NSDictionary
                                     let element = BNElement()
                                     element.identifier = BNParser.findString("identifier", dictionary: elementData)
-                                    element._id = BNParser.findString("_id", dictionary: elementData)
-                                    collection.elements[element.identifier!] = element
+//                                    element._id = BNParser.findString("_id", dictionary: elementData)
+//                                    collection.elements[element.identifier!] = element
                                     //collection.items.append(element.identifier!)
                                     j += 1
                                 }
