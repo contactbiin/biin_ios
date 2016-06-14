@@ -80,7 +80,7 @@ class BNRequest_CollectionsForBiinie: BNRequest {
                                             let elementData = elements.objectAtIndex(p) as! NSDictionary
                                             
                                             
-                                            let _id = BNParser.findString("_id", dictionary: elementData)
+                                            //let _id = BNParser.findString("_id", dictionary: elementData)
                                             let showcase_id = BNParser.findString("showcase_id", dictionary: elementData)
                                             let identifier = BNParser.findString("identifier", dictionary: elementData)
                                             

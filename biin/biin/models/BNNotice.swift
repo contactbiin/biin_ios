@@ -62,7 +62,10 @@ class BNNotice:NSObject, NSCoding {
         self.endTime = aDecoder.decodeFloatForKey("endTime")
         self.startTime = aDecoder.decodeFloatForKey("startTime")
         self.isUserNotified = aDecoder.decodeBoolForKey("isUserNotified")
+        self.major = aDecoder.decodeIntegerForKey("major")
+        self.minor = aDecoder.decodeIntegerForKey("minor")
         self.fireDate = aDecoder.decodeObjectForKey("fireDate") as? NSDate
+        
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
@@ -93,9 +96,15 @@ class BNNotice:NSObject, NSCoding {
         aCoder.encodeFloat(self.startTime, forKey: "startTime")
         aCoder.encodeFloat(self.endTime, forKey: "endTime")
         
+        aCoder.encodeInteger(self.major, forKey: "major")
+        aCoder.encodeInteger(self.minor, forKey: "minor")
+        
         if let fireDate = self.fireDate {
             aCoder.encodeObject(fireDate, forKey: "fireDate")
         }
+        
+        
+        print("test")
     }
     
     deinit {

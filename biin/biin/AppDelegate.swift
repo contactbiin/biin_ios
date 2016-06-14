@@ -191,6 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
+        
         //NSLog("BIIN - applicationDidEnterBackground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
 
         //BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])

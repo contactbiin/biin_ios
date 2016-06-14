@@ -43,6 +43,8 @@ class BNRequest_SendBiinieActions: BNRequest {
             action["did"]   = "\(value.did!.hashValue)"
             action["to"]    = value.to!
             model["model"]!["actions"]?.append(action)
+            
+            print("whom:\(self.user!.identifier!), at:\(value.at!.bnDateFormattForActions()), did:\(value.did!.hashValue), to:\(value.to!)")
         }
         
         //var httpError: NSError?
