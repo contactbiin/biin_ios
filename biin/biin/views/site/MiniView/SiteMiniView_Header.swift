@@ -89,13 +89,13 @@ class SiteMiniView_Header:BNView {
         if self.site!.userLiked {
             BNAppSharedManager.instance.dataManager.addFavoriteSite(self.site!.identifier!)
 //            animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:self.site!.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:self.site!.identifier!, by:self.site!.identifier!)
             SharedAnswersManager.instance.logLike_Site(self.site)
             
         } else {
             BNAppSharedManager.instance.dataManager.removeFavoriteSite(self.site!.identifier!)
 //            animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:self.site!.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:self.site!.identifier!, by:self.site!.identifier!)
             SharedAnswersManager.instance.logUnLike_Site(self.site!)
             
         }

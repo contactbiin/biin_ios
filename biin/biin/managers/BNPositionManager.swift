@@ -134,7 +134,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 
                 if device.batteryLevel <= 50 {
                     //print("Add battery waring action")
-                    BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BEACON_BATTERY, to: device.uniqueID!)
+                    BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BEACON_BATTERY, to: device.uniqueID!, by:"" )
                 }
             }
         }
@@ -1043,7 +1043,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                                 //print("User is inside: \(site.title!)")
                                 currentSite = site
                                 self.delegateView!.showInSiteView!(currentSite)
-                                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to:biin.identifier!)
+                                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to:biin.identifier!, by:site.identifier!)
                                 
                             } else {
                                 //print("User is outside or entering: \(site.title!)")

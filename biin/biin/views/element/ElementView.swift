@@ -248,7 +248,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func backBtnAction(sender:UIButton) {
         
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_ELEMENT_VIEW, to:self.element!.identifier!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_ELEMENT_VIEW, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
         
         if isElementViewFromSite {
             delegate!.hideElementViewFromSite!(self.element!)
@@ -558,7 +558,7 @@ class ElementView: BNView, UIWebViewDelegate {
     func shareit(sender:BNUIButton_ShareIt){
         //self.bringSubviewToFront(shareView!)
         BNAppSharedManager.instance.shareElement(self.element, shareView: self.shareView)
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_ELEMENT, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
         SharedAnswersManager.instance.logShare_Element(element)
     }
     
@@ -568,11 +568,11 @@ class ElementView: BNView, UIWebViewDelegate {
         
         if self.element!.userLiked {
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_ELEMENT, to:self.element!.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_ELEMENT, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
             SharedAnswersManager.instance.logLike_Element(element)
         } else {
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_ELEMENT, to:self.element!.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_ELEMENT, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
             SharedAnswersManager.instance.logUnLike_Element(element)
 
         }
@@ -597,10 +597,10 @@ class ElementView: BNView, UIWebViewDelegate {
         BNAppSharedManager.instance.collectElement(self.element)
         
         if self.element!.userCollected {
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
             SharedAnswersManager.instance.logCollect_Element(element)
         } else {
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
             SharedAnswersManager.instance.logUnCollect_Element(element)
 
         }

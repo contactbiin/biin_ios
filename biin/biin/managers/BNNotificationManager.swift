@@ -186,6 +186,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 for notice in localNotices {
 
                     if notice.identifier == site_notice {
+                        notice.siteIdentifier = site!.identifier!
                         siteNotices.append(notice)
                     }
                 }
@@ -330,7 +331,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 clear()
                 save()
                 
-                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotice!.identifier!)
+                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotice!.identifier!, by:currentNotice!.siteIdentifier)
                 
             } else {
                 //NSLog("BIIN - USER ALREADY NOTIFIED!")
@@ -771,7 +772,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 clear()
                 save()
                 
-                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!)
+                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!, by:currentNotification!.siteIdentifier!)
                 
             } else {
                 //NSLog("BIIN - USER ALREADY NOTIFIED!")

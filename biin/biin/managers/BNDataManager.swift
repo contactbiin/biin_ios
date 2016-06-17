@@ -100,7 +100,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             } else {
                 bnUser = user
                 isUserLoaded = true
-                bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
+                bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios", by:"")
             }
         } else {
             isUserLoaded = false
@@ -1035,7 +1035,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         element!.userViewed = true
         
         //TODO: this action should have the _id and identifier sent
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:element!.identifier!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:element!.identifier!, by:element!.showcase!.site!.identifier!)
         
         elements[element!.identifier!]?.userViewed = element!.userViewed
         /*

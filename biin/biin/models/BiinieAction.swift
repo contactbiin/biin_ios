@@ -14,23 +14,31 @@ class BiinieAction:NSObject, NSCoding {
     var at:NSDate?
     var did:BiinieActionType?
     var to:String?
-
+    var by:String?
+    
     override init() {
         super.init()
     }
     
-    convenience init(at:NSDate, did:BiinieActionType, to:String, actionCounter:Int) {
+    convenience init(at:NSDate, did:BiinieActionType, to:String, by:String, actionCounter:Int) {
         self.init()
         self.key = "key\(actionCounter)"
         self.at = at
         self.did = did
         self.to = to
+        self.by = by
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.key = aDecoder.decodeObjectForKey("key") as? String
         self.at  = aDecoder.decodeObjectForKey("at") as? NSDate
         self.to  = aDecoder.decodeObjectForKey("to") as? String
+        
+        if let by_store = aDecoder.decodeObjectForKey("by") as? String {
+            self.by = by_store
+        } else {
+            self.by = ""
+        }
         
         let value = aDecoder.decodeIntForKey("did")
         switch value {
@@ -103,6 +111,10 @@ class BiinieAction:NSObject, NSCoding {
         
         if let to = self.to {
             aCoder.encodeObject(to, forKey: "to")
+        }
+        
+        if let by = self.by {
+            aCoder.encodeObject(by, forKey: "by")
         }
     }
     

@@ -12,6 +12,9 @@ class BNNotice:NSObject, NSCoding {
     var name:String?
     var message:String?
 
+    //For reference
+    var siteIdentifier:String = ""
+    
     //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
     var onMonday = false
     var onTuesday = false

@@ -150,7 +150,7 @@ class SiteMiniView: BNView {
     func handleTap(sender:UITapGestureRecognizer) {
         
         SharedAnswersManager.instance.logContentView_Site(self.site)
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:self.site!.identifier!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:self.site!.identifier!, by: self.site!.identifier!)
         
         if isBrotherSite {
             delegate!.showBrotherSiteView!(self)
