@@ -651,7 +651,6 @@ class ElementView: BNView, UIWebViewDelegate {
         html += element!.detailsHtml!
         //html += "<br><br><br><br>"
         html += "</body></html>"
-        print(html)
         return html
     }
     

@@ -105,9 +105,6 @@ class BNNotice:NSObject, NSCoding {
         if let fireDate = self.fireDate {
             aCoder.encodeObject(fireDate, forKey: "fireDate")
         }
-        
-        
-        print("test")
     }
     
     deinit {

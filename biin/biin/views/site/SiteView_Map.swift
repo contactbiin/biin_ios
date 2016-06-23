@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import MapKit
 import MessageUI
-import UberRides
+//import UberRides
 
 class SiteView_Map:BNView, MKMapViewDelegate {
     

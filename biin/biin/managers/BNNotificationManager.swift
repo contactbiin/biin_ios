@@ -169,6 +169,25 @@ class BNNotificationManager:NSObject, NSCoding {
         save()
     }
     
+    func getNoticeByIdentifier(identifier:String) -> BNNotice? {
+        for notice in localNotices.enumerate() {
+            if notice.element.identifier! == identifier {
+                return notice.element
+            }
+        }
+        return nil
+    }
+    
+    func getLastNoticeOpened() -> BNNotice? {
+        for notice in localNotices.enumerate() {
+            if notice.element.identifier! == lastNotice_identifier {
+                return notice.element
+            }
+        }
+        return nil
+    }
+    
+    
     func clearLocalNotices(){
         localNotices.removeAll()
         save()
@@ -176,8 +195,12 @@ class BNNotificationManager:NSObject, NSCoding {
     
     func showNotice(major:Int) {
         
+        
         let site = BNAppSharedManager.instance.dataManager.findSiteByMajor(major)
         if site != nil {
+        
+            
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:site!.identifier!, by:site!.identifier!)
             
             didSendNotificationOnAppDown = true
             var siteNotices:Array<BNNotice> = Array<BNNotice>()
@@ -195,6 +218,8 @@ class BNNotificationManager:NSObject, NSCoding {
             if siteNotices.count > 0 {
                 assingCurrentNoticeByDate(siteNotices)
                 sendCurrentNotice()
+            } else {
+                print("not notice available for site:\(site!.title!)")
             }
         }
     }
@@ -296,7 +321,10 @@ class BNNotificationManager:NSObject, NSCoding {
                 localNotification.alertBody = currentNotice!.message!
                 localNotification.alertTitle = "Biin"
                 localNotification.soundName = "notification.wav"
-                
+                localNotification.userInfo = ["UUID": currentNotice!.identifier!,]
+                localNotification.category = "Biin"
+                localNotification.applicationIconBadgeNumber = 1
+                lastNotice_identifier = currentNotice!.identifier!
 //                switch self.currentNotice!.notificationType! {
 //                case .EXTERNAL:
 //                    //localNotification.alertAction = "externalAction"

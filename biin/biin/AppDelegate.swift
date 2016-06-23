@@ -125,7 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupNotificationSettings() {
         
         
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound]
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))  // types are UIUserNotificationType members
+        
+        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound, UIUserNotificationType.Badge]
         let notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
@@ -214,22 +216,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
 
-        //NSLog("BIIN - applicationDidBecomeActive")
-        
         appManager.IS_APP_UP = true
         
         if appManager.dataManager.bnUser != nil {
             appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
         }
         
-        if BNAppSharedManager.instance.isOpeningForLocalNotification {
-            if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-                
+        if BNAppSharedManager.instance.isOpeningForLocalNotification || BNAppSharedManager.instance.notificationManager.lastNotice_identifier != "" {
                 BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
-            }
-            
-            BNAppSharedManager.instance.isOpeningForLocalNotification = false
+                BNAppSharedManager.instance.isOpeningForLocalNotification = false
         }
+        
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -327,11 +326,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         // Do something serious in a real app.
-//        if appManager.notificationManager.currentNotification != nil {
-//            appManager.mainViewController!.mainView!.showNotificationContext()
-//        }
+
+        BNAppSharedManager.instance.notificationManager.lastNotice_identifier = (notification.userInfo!["UUID"] as? String)!
+        BNAppSharedManager.instance.notificationManager.save()
         BNAppSharedManager.instance.isOpeningForLocalNotification = true
-        //NSLog("BIIN - didReceiveLocalNotification")
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
