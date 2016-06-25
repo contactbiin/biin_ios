@@ -13,7 +13,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     //URL requests
     let connectibityUrl = "http://google.com/"
-
+    var versionUrl = ""
+    
     var errorManager:BNErrorManager?
     var delegateDM:BNNetworkManagerDelegate?
     var delegateVC:BNNetworkManagerDelegate?
@@ -38,18 +39,29 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         super.init()
         self.errorManager = errorManager
         epsNetwork = EPSNetworking()
+
     }
     
     func setRootURLForRequest(){
+        
+        var value = ""
         if BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE {
-            rootURL = "https://www.biin.io"
+            //rootURL = "https://www.biin.io"
+            value = "prod"
         } else if BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE {
-            rootURL = "https://demo-biin-backend.herokuapp.com"
+            //rootURL = "https://demo-biin-backend.herokuapp.com"
+            value = "demo"
         } else if BNAppSharedManager.instance.settings!.IS_QA_DATABASE {
-            rootURL = "https://qa-biin-backend.herokuapp.com"
+            //rootURL = "https://qa-biin-backend.herokuapp.com"
+            value = "qa"
         } else if BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE {
-            rootURL = "https://dev-biin-backend.herokuapp.com"
+            //rootURL = "https://dev-biin-backend.herokuapp.com"
+            value = "dev"
         }
+        
+        //self.versionUrl = "https://www.biin.io/checkversion/1.1.5/ios/prod"
+        self.versionUrl = "https://www.biin.io/checkversion/\(BNAppSharedManager.instance.version)/ios/\(value)"
+        print(versionUrl)
     }
     
     //Saving data
@@ -69,7 +81,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
 //            dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
             
-
+                
                 self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
 
                 // -- FINISHED SOMETHING AWESOME, WOO! --
@@ -141,10 +153,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
  
     func checkConnectivity() {
-        //print("FLOW 2 - checkConnectivity()")
         let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
         
+    }
+    
+    func checkVersion() {
+        let request = BNRequest_VersionCheck(requestString:versionUrl, errorManager: self.errorManager!, networkManager: self)
+        addToQueue(request)
     }
     
     func addTo_OLD_QUEUE(request:BNRequest) {
@@ -571,6 +587,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
     }
     
+    func showVersionError(request:BNRequest){
+        request.requestAttemps = 0
+        request.isRunning = false
+        self.errorManager!.showVersionError()
+    }
+    
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
         
         //print("Request error: \(error?.code) request: \(request.requestString)")
@@ -698,7 +720,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///- parameter BNNetworkManager.:
     ///- parameter Status: of the network check.
     optional func manager(manager:BNNetworkManager!, didReceivedConnectionStatus status:Bool)
-    
+    optional func manager(manager:BNNetworkManager!, didReceivedVersionStatus needsUpdate:Bool)
     ///Takes categories data requested and procces that data.
     ///
     ///- parameter BNNetworkManager.:

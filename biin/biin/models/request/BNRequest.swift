@@ -29,6 +29,7 @@ enum BNRequestType
     
     case CheckEmail_IsVerified
     case ConnectivityCheck
+    case VersionCheck
     
     case Site
     case Sites

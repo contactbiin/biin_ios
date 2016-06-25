@@ -85,9 +85,7 @@ class BNAppManager {
         
         if let dict = myDict {
             version = dict.objectForKey("CFBundleShortVersionString") as! String
-//            if IS_DEVELOPMENT_BUILD {
-//                version += " Development"
-//            }
+            version = "1.1.5"
         }
         
     }
@@ -134,7 +132,8 @@ class BNAppManager {
     
     func continueAfterIntialChecking(){
         //print("FLOW 1 - continueAfterIntialChecking")
-        networkManager.checkConnectivity()
+//        networkManager.checkConnectivity()
+        networkManager.checkVersion()
     }
 
     func unCollectElement(element:BNElement?){

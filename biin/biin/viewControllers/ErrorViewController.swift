@@ -9,6 +9,7 @@ import UIKit
 class ErrorViewController: UIViewController, UIPopoverPresentationControllerDelegate, BNNetworkManagerDelegate {
     
     var internetErrorView:InternetErrorView?
+    var versionErrorView:VersionErrorView?
     var serverErrorView:ServerErrorView?
     var bluetoothErrorView:BluetoothErrorView?
     var hardwareErrorView:HardwareErrorView?
@@ -35,6 +36,13 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
         internetErrorView!.errorViewController = self
         self.view.addSubview(internetErrorView!)
     }
+
+    func addVersion_ErrorView(){
+        versionErrorView = VersionErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
+        versionErrorView!.errorViewController = self
+        self.view.addSubview(versionErrorView!)
+    }
+
     
     func addServer_ErrorView(){
         serverErrorView = ServerErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)

@@ -227,6 +227,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         }
     }
     
+//    func manager(manager: BNNetworkManager!, didReceivedVersionStatus needsUpdate: Bool) {
+//        
+//        print("didReceivedVersionStatus")
+//        if !needsUpdate {
+//            requestBiinieInitialData()
+//        } else {
+//            print("didReceivedVersionStatus - show version window")
+//        }
+//    }
+    
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
 
         bnUser!.identifier = idetifier

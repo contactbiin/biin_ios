@@ -53,16 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
-        if BNAppSharedManager.instance.dataManager.isUserLoaded {
-            //NSLog("Stating LoadingViewController()")
-            let lvc = LoadingViewController()
-            self.window!.rootViewController = lvc
-            //appManager.networkManager.delegateVC = lvc
-        } else {
-            let lvc = SingupViewController()
-            self.window!.rootViewController = lvc
-            //appManager.networkManager.delegateVC = lvc
-        }
+        
+        let vc = VersionCheckViewController()
+        self.window!.rootViewController = vc
         
         // path to documents directory
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
@@ -217,10 +210,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
 
         appManager.IS_APP_UP = true
-        
-        if appManager.dataManager.bnUser != nil {
-            appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
-        }
         
         if BNAppSharedManager.instance.isOpeningForLocalNotification || BNAppSharedManager.instance.notificationManager.lastNotice_identifier != "" {
                 BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()

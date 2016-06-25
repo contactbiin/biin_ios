@@ -296,6 +296,7 @@
 		5BC0D8221B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D8211B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift */; };
 		5BC0D8241B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */; };
 		5BCCABAA1BEAC792006230CB /* SimulatorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCCABA91BEAC792006230CB /* SimulatorUtility.swift */; };
+		5BD1C1C01D1F15EE004DA5FA /* VersionCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1C1BF1D1F15EE004DA5FA /* VersionCheckViewController.swift */; };
 		5BD342781A8AA95300A8984E /* BNResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD342771A8AA95300A8984E /* BNResponse.swift */; };
 		5BD63B4C1AC1B23C004236A4 /* BiinieAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */; };
 		5BDB05561A6976C6006EBB1E /* BiinieCategoriesView_Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */; };
@@ -323,6 +324,8 @@
 		5BEA77991A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA77981A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift */; };
 		5BEA779B1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA779A1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift */; };
 		5BEA779D1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA779C1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift */; };
+		5BEAE0FB1D1EDC7100DE11C6 /* BNRequest_VersionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE0FA1D1EDC7100DE11C6 /* BNRequest_VersionCheck.swift */; };
+		5BEAE0FF1D1EF60100DE11C6 /* VersionErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE0FE1D1EF60100DE11C6 /* VersionErrorView.swift */; };
 		5BEAE5E91A71770500F884D9 /* BiinieCategoriesView_Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */; };
 		5BEAE5EB1A717ABC00F884D9 /* BNIcon_SmileMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEAE5EA1A717ABC00F884D9 /* BNIcon_SmileMedium.swift */; };
 		5BECEFE51AE5505500ECDE28 /* BNUIView_PriceX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BECEFE41AE5505500ECDE28 /* BNUIView_PriceX.swift */; };
@@ -688,6 +691,7 @@
 		5BC0D8211B0D09CC003B7F22 /* BNIcon_NoBiinAvailableSign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NoBiinAvailableSign.swift; sourceTree = "<group>"; };
 		5BC0D8231B0D0B05003B7F22 /* BNView_NoBiinAvailableSign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNView_NoBiinAvailableSign.swift; sourceTree = "<group>"; };
 		5BCCABA91BEAC792006230CB /* SimulatorUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorUtility.swift; sourceTree = "<group>"; };
+		5BD1C1BF1D1F15EE004DA5FA /* VersionCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCheckViewController.swift; sourceTree = "<group>"; };
 		5BD342771A8AA95300A8984E /* BNResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNResponse.swift; sourceTree = "<group>"; };
 		5BD63B4B1AC1B23C004236A4 /* BiinieAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieAction.swift; sourceTree = "<group>"; };
 		5BDB05551A6976C6006EBB1E /* BiinieCategoriesView_Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Header.swift; sourceTree = "<group>"; };
@@ -715,6 +719,8 @@
 		5BEA77981A97938900F6D1F5 /* BNIcon_NotificationsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NotificationsMedium.swift; sourceTree = "<group>"; };
 		5BEA779A1A9793A700F6D1F5 /* BNIcon_FriendsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_FriendsMedium.swift; sourceTree = "<group>"; };
 		5BEA779C1A9793B900F6D1F5 /* BNIcon_SettingsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SettingsMedium.swift; sourceTree = "<group>"; };
+		5BEAE0FA1D1EDC7100DE11C6 /* BNRequest_VersionCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_VersionCheck.swift; sourceTree = "<group>"; };
+		5BEAE0FE1D1EF60100DE11C6 /* VersionErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionErrorView.swift; sourceTree = "<group>"; };
 		5BEAE5E81A71770500F884D9 /* BiinieCategoriesView_Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieCategoriesView_Icon.swift; sourceTree = "<group>"; };
 		5BEAE5EA1A717ABC00F884D9 /* BNIcon_SmileMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_SmileMedium.swift; sourceTree = "<group>"; };
 		5BECEFE41AE5505500ECDE28 /* BNUIView_PriceX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_PriceX.swift; sourceTree = "<group>"; };
@@ -1201,6 +1207,7 @@
 			children = (
 				5B2907801A687A9E0000658A /* MainViewController.swift */,
 				5BA0B7971A686B4600DBEB74 /* LoadingViewController.swift */,
+				5BD1C1BF1D1F15EE004DA5FA /* VersionCheckViewController.swift */,
 				5BA7B4751B55A2F800AFD326 /* ErrorViewController.swift */,
 				5B5339641A85188C0049FB00 /* SingupViewController.swift */,
 				5B5339661A85189F0049FB00 /* UserOnboardingViewController.swift */,
@@ -1312,6 +1319,7 @@
 				5B1655F81BC70A68001ED8ED /* AllCollectedView.swift */,
 				5B2939DA1ADABF3F0023FEA5 /* ShareItView.swift */,
 				5B129FFE1B4C2C9D00F8083E /* InternetErrorView.swift */,
+				5BEAE0FE1D1EF60100DE11C6 /* VersionErrorView.swift */,
 				5B16A1991BE7B077008AE4A1 /* ServerErrorView.swift */,
 				5BA886EE1BE2E9B500491BB9 /* NotBiinieErrorView.swift */,
 				5BA7B4771B55ABDE00AFD326 /* BluetoothErrorView.swift */,
@@ -1456,6 +1464,7 @@
 				5BEE97A51BAC53BB004C2B30 /* BNRequest_Categories.swift */,
 				5BEE97A61BAC53BB004C2B30 /* BNRequest_Collections.swift */,
 				5BEE97A71BAC53BB004C2B30 /* BNRequest_ConnectivityCheck.swift */,
+				5BEAE0FA1D1EDC7100DE11C6 /* BNRequest_VersionCheck.swift */,
 				5BEE97A81BAC53BB004C2B30 /* BNRequest_Image.swift */,
 				5BEE97A91BAC53BB004C2B30 /* BNRequest_Organization.swift */,
 				5BEE97AA1BAC53BB004C2B30 /* BNRequest_Showcase.swift */,
@@ -1829,6 +1838,7 @@
 				5B2908081A687C590000658A /* MenuView.swift in Sources */,
 				5B4237E21CEA5D7400878B90 /* BrotherSiteState.swift in Sources */,
 				5BA0B7931A686A6700DBEB74 /* SettingsState.swift in Sources */,
+				5BEAE0FF1D1EF60100DE11C6 /* VersionErrorView.swift in Sources */,
 				5B3D75F61A6816B300CB0D1C /* BNAchievement.swift in Sources */,
 				5BF966AD1AA78DAC00994BEA /* Biined_Not_Notified_State.swift in Sources */,
 				5B7D26681BCBFD90003B0091 /* ElementFromSiteState.swift in Sources */,
@@ -1914,6 +1924,7 @@
 				5B3D75F41A6816B300CB0D1C /* EPSNetworking.swift in Sources */,
 				5BA46FAB1A83F90B006C685D /* BNUIStickerView.swift in Sources */,
 				5B129FFF1B4C2C9D00F8083E /* InternetErrorView.swift in Sources */,
+				5BD1C1C01D1F15EE004DA5FA /* VersionCheckViewController.swift in Sources */,
 				5B4894EA1ADD983F006789E2 /* BNUIDetailView_Discount.swift in Sources */,
 				5BEE61351A97E59300DE334E /* NotificationsView.swift in Sources */,
 				5BEE97DA1BAC5567004C2B30 /* BNRequest_SendLikedElement.swift in Sources */,
@@ -1979,6 +1990,7 @@
 				5B861FB51BA7973100930BD7 /* BNIcon_LikeIt_Full.swift in Sources */,
 				5BA5389D1A82AB4700E0015F /* BNIcon_CompletedGameIcon.swift in Sources */,
 				5B3D76031A6816B300CB0D1C /* BNObject.swift in Sources */,
+				5BEAE0FB1D1EDC7100DE11C6 /* BNRequest_VersionCheck.swift in Sources */,
 				5BEE61441A97EF6100DE334E /* SettingsView.swift in Sources */,
 				5BB5D1CF1A83DB3800C3FB43 /* BNUIDetailView_Price.swift in Sources */,
 				5BA0B78D1A686A6700DBEB74 /* BNState.swift in Sources */,
