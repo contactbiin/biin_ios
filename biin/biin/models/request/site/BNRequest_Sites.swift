@@ -62,6 +62,10 @@ class BNRequest_Sites: BNRequest {
                             
                             BNParser.parseSites(sitesData)
                         }
+                        
+                        if let noticesData = BNParser.findNSArray("notices", dictionary: initialData) {
+                            BNParser.parseNotices(noticesData)
+                        }
                     }
                     
                     /*

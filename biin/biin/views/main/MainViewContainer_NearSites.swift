@@ -204,12 +204,29 @@ class MainViewContainer_NearSites: BNView {
     }
     
     func isFavoriteSite(identifier:String) -> Bool {
+        
+        
+        if let site = BNAppSharedManager.instance.dataManager.sites[identifier] {
+            for (organizarionIdentifier, _) in BNAppSharedManager.instance.dataManager.organizations {
+                if site.organization!.identifier! == organizarionIdentifier {
+                    for siteIdentifier in BNAppSharedManager.instance.dataManager.favoritesSites {
+                        if siteIdentifier == identifier {
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+            
+        return false
+        /*
         for siteIdentifier in BNAppSharedManager.instance.dataManager.favoritesSites {
             if siteIdentifier == identifier {
                 return true
             }
         }
         return false
+         */
     }
 
     func updateLikeButtons(){

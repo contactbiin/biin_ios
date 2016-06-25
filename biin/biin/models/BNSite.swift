@@ -71,6 +71,7 @@ class BNSite:NSObject, NSCoding {
     
 //    var showcases:Array<String>?
     var showcases:Array<String> = Array<String>()
+    var notices:Array<String> = Array<String>()
     
     var showInView = true
     

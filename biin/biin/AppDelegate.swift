@@ -53,16 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
-        if BNAppSharedManager.instance.dataManager.isUserLoaded {
-            //NSLog("Stating LoadingViewController()")
-            let lvc = LoadingViewController()
-            self.window!.rootViewController = lvc
-            //appManager.networkManager.delegateVC = lvc
-        } else {
-            let lvc = SingupViewController()
-            self.window!.rootViewController = lvc
-            //appManager.networkManager.delegateVC = lvc
-        }
+        
+        let vc = VersionCheckViewController()
+        self.window!.rootViewController = vc
         
         // path to documents directory
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
@@ -125,7 +118,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupNotificationSettings() {
         
         
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound]
+//        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Badge | .Sound, categories: nil))  // types are UIUserNotificationType members
+        
+        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound, UIUserNotificationType.Badge]
         let notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
         
         UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
@@ -191,6 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
+        
         //NSLog("BIIN - applicationDidEnterBackground: sites:\(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
 
         //BNAppSharedManager.instance.positionManager.locationManager!.delegate!.locationManager!(BNAppSharedManager.instance.positionManager.locationManager!, didUpdateLocations:[])
@@ -213,22 +209,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
 
-        //NSLog("BIIN - applicationDidBecomeActive")
-        
         appManager.IS_APP_UP = true
         
-        if appManager.dataManager.bnUser != nil {
-            appManager.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        if BNAppSharedManager.instance.isOpeningForLocalNotification || BNAppSharedManager.instance.notificationManager.lastNotice_identifier != "" {
+                BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
+                BNAppSharedManager.instance.isOpeningForLocalNotification = false
         }
         
-        if BNAppSharedManager.instance.isOpeningForLocalNotification {
-            if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-                
-                BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
-            }
-            
-            BNAppSharedManager.instance.isOpeningForLocalNotification = false
-        }
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
@@ -236,7 +225,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
-        appManager.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.CLOSE_APP, to:"biin_ios")
+        appManager.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.CLOSE_APP, to:"biin_ios", by:"")
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
@@ -326,11 +315,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         // Do something serious in a real app.
-//        if appManager.notificationManager.currentNotification != nil {
-//            appManager.mainViewController!.mainView!.showNotificationContext()
-//        }
+
+        BNAppSharedManager.instance.notificationManager.lastNotice_identifier = (notification.userInfo!["UUID"] as? String)!
+        BNAppSharedManager.instance.notificationManager.save()
         BNAppSharedManager.instance.isOpeningForLocalNotification = true
-        //NSLog("BIIN - didReceiveLocalNotification")
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {

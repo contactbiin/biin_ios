@@ -71,7 +71,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                             let element = BNElement()
                             element.isDownloadCompleted = true
                             element.identifier = BNParser.findString("identifier", dictionary: elementData)
-                            element._id = BNParser.findString("_id", dictionary: elementData)
+//                            element._id = BNParser.findString("_id", dictionary: elementData)
                             //print("add element to showcase: \(element._id!)")
                             element.title = BNParser.findString("title", dictionary: elementData)
                             element.subTitle = BNParser.findString("subTitle", dictionary: elementData)

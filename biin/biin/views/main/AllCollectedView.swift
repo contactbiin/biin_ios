@@ -259,14 +259,14 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         
 
         var i:Int = 0
-        for _ in elements! {
-//        for var i = 0; i < elements!.count; i++ {
-            if elements![i].element!._id! == view.element!._id {
-                elements!.removeAtIndex(i)
-                continue
-            }
-            i += 1
-        }
+//        for _ in elements! {
+////        for var i = 0; i < elements!.count; i++ {
+//            if elements![i].element!._id! == view.element!._id {
+//                elements!.removeAtIndex(i)
+//                continue
+//            }
+//            i += 1
+//        }
         
         i = 0
         

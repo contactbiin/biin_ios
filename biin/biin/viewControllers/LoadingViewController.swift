@@ -33,6 +33,9 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 
         loadingView = LoadingView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         self.view.addSubview(loadingView!)
+        
+        BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -50,47 +53,13 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
 
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-        
-        
-        //print("FLOW 6")
-        //BNAppSharedManager.instance.dataManager.addHighlights()
-     
-        //NSLog("BIIN - didReceivedAllInitialData()")
-        //NSLog("BIIN - \(BNAppSharedManager.instance.dataManager.sites_ordered.count)")
-        //checkAppState()
-        
-        
-//        if BNAppSharedManager.instance.IS_DEVELOPMENT_BUILD {
-//            loadingView!.hideProgressView()
-//            let developmentView = DevelopmentView(frame:CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), viewController:self)
-//            self.view.addSubview(developmentView)
-//        } else  {
+
             loadingView!.hideProgressView()
             let vc = MainViewController()
             vc.initViewController(self.view.frame)
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             self.presentViewController(vc, animated: true, completion: nil)
-//        }
     }
-    
-//    func checkAppState(){
-//        switch  UIApplication.sharedApplication().applicationState {
-//        case .Active:
-//            NSLog("BIIN - didFinishLaunchingWithOptions - ACTIVE")
-//            BNAppSharedManager.instance.IS_APP_UP = true
-//            BNAppSharedManager.instance.IS_APP_DOWN = false
-//            break
-//        case .Background, .Inactive:
-//            NSLog("BIIN - didFinishLaunchingWithOptions - BACKGROUND")
-//            BNAppSharedManager.instance.IS_APP_UP = false
-//            BNAppSharedManager.instance.IS_APP_DOWN = true
-//            break
-//
-////        default:
-////            NSLog("BIIN - didFinishLaunchingWithOptions - DEFAULT")
-////            break
-//        }
-//    }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
         loadingView!.updateProgressView(value)

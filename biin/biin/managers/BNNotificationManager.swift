@@ -15,6 +15,10 @@ class BNNotificationManager:NSObject, NSCoding {
     var surveyed_Sites:[String] = [String]()
     var currentDay:NSDate?
     
+    var currentNotice:BNNotice?
+    var localNotices:[BNNotice] = [BNNotice]()
+    var lastNotice_identifier:String = ""
+    
     override init(){
         super.init()
     }
@@ -28,13 +32,21 @@ class BNNotificationManager:NSObject, NSCoding {
         super.init()
         self.localNotifications =  aDecoder.decodeObjectForKey("localNotifications") as! [BNLocalNotification]
         self.lastNotificationObjectId = aDecoder.decodeObjectForKey("lastNotificationObjectId") as! String
+        
         self.didSendNotificationOnAppDown = aDecoder.decodeBoolForKey("didSendNotificationOnAppDown")
+        
+        if let localNoticesSaved =  aDecoder.decodeObjectForKey("localNotices") as? [BNNotice]  {
+            self.localNotices =  localNoticesSaved
+        }
+        
+        if let lastNotice_identifierSaved = aDecoder.decodeObjectForKey("lastNotice_identifier") as? String{
+            self.lastNotice_identifier = lastNotice_identifierSaved
+        }
         
         if let saved_surveyed_Sites = aDecoder.decodeObjectForKey("surveyed_Sites") as? [String] {
             self.surveyed_Sites = saved_surveyed_Sites
         }
         
-//        self.surveyed_Sites = aDecoder.decodeObjectForKey("surveyed_Sites") as! [String]
         if let saved_currentDay = aDecoder.decodeObjectForKey("currentDay") as? NSDate {
             self.currentDay = saved_currentDay
         } else {
@@ -70,6 +82,10 @@ class BNNotificationManager:NSObject, NSCoding {
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(localNotifications, forKey: "localNotifications")
         aCoder.encodeObject(lastNotificationObjectId, forKey:"lastNotificationObjectId")
+        
+        aCoder.encodeObject(self.localNotices, forKey: "localNotices")
+        aCoder.encodeObject(self.lastNotice_identifier, forKey:"lastNotice_identifier")
+        
         aCoder.encodeBool(didSendNotificationOnAppDown, forKey: "didSendNotificationOnAppDown")
         aCoder.encodeObject(surveyed_Sites, forKey: "surveyed_Sites")
         aCoder.encodeObject(currentDay, forKey: "currentDay")
@@ -111,8 +127,264 @@ class BNNotificationManager:NSObject, NSCoding {
         save()
     }
     
-    ///identifier: object identifier on the biin.
-    ///
+    
+    
+    //NOTCES
+    func addNotices(notices:Array<BNNotice>){
+
+        var isNoticeStored = false
+        
+        
+        for notice in notices {
+            for localNotice in localNotices {
+                if localNotice.identifier! == notice.identifier! {
+                    isNoticeStored = true
+                    localNotice.startTime = notice.startTime
+                    localNotice.endTime = notice.endTime
+                    localNotice.onMonday = notice.onMonday
+                    localNotice.onTuesday = notice.onTuesday
+                    localNotice.onWednesday = notice.onWednesday
+                    localNotice.onThursday = notice.onThursday
+                    localNotice.onFriday = notice.onFriday
+                    localNotice.onSaturday = notice.onSaturday
+                    localNotice.onSunday = notice.onSunday
+                    if localNotice.fireDate == nil {
+                        localNotice.fireDate = NSDate(timeIntervalSince1970: 0)
+                    }
+                }
+            }
+            
+            if !isNoticeStored {
+                
+                if notice.fireDate == nil {
+                    notice.fireDate = NSDate(timeIntervalSince1970: 0)
+                }
+                
+                localNotices.append(notice)
+                
+            }    
+        }
+        
+
+        save()
+    }
+    
+    func getNoticeByIdentifier(identifier:String) -> BNNotice? {
+        for notice in localNotices.enumerate() {
+            if notice.element.identifier! == identifier {
+                return notice.element
+            }
+        }
+        return nil
+    }
+    
+    func getLastNoticeOpened() -> BNNotice? {
+        for notice in localNotices.enumerate() {
+            if notice.element.identifier! == lastNotice_identifier {
+                return notice.element
+            }
+        }
+        return nil
+    }
+    
+    
+    func clearLocalNotices(){
+        localNotices.removeAll()
+        save()
+    }
+    
+    func showNotice(major:Int) {
+        
+        
+        let site = BNAppSharedManager.instance.dataManager.findSiteByMajor(major)
+        if site != nil {
+        
+            
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:site!.identifier!, by:site!.identifier!)
+            
+            didSendNotificationOnAppDown = true
+            var siteNotices:Array<BNNotice> = Array<BNNotice>()
+            
+            for site_notice in site!.notices {
+                for notice in localNotices {
+
+                    if notice.identifier == site_notice {
+                        notice.siteIdentifier = site!.identifier!
+                        siteNotices.append(notice)
+                    }
+                }
+            }
+        
+            if siteNotices.count > 0 {
+                assingCurrentNoticeByDate(siteNotices)
+                sendCurrentNotice()
+            } else {
+                print("not notice available for site:\(site!.title!)")
+            }
+        }
+    }
+    
+    func assingCurrentNoticeByDate(siteNotices:Array<BNNotice>){
+        
+        var currentNoticeIndex = 0
+        var isCurrentObjectSet = false
+        
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Hour, .Minute], fromDate: date)
+        let hour = components.hour
+        let minutes = components.minute
+        let currentTime:Float = Float(hour) + (Float(minutes) * 0.01)
+        
+        var isAvailableToday = false
+        
+        let dayNumber = getDayOfWeek()
+        
+        for i in (0..<siteNotices.count) {
+
+            if currentTime >= siteNotices[i].startTime && currentTime <= siteNotices[i].endTime {
+                
+                switch dayNumber {
+                case 1://Sunday
+                    if siteNotices[i].onSunday {
+                        isAvailableToday = true
+                    }
+                    break
+                case 2://Monday
+                    if siteNotices[i].onMonday {
+                        isAvailableToday = true
+                    }
+                    break
+                case 3://Tuesday
+                    if siteNotices[i].onTuesday {
+                        isAvailableToday = true
+                    }
+                    break
+                case 4://Wednesday
+                    if siteNotices[i].onWednesday {
+                        isAvailableToday = true
+                    }
+                    break
+                case 5://Thurday
+                    if siteNotices[i].onThursday {
+                        isAvailableToday = true
+                    }
+                    break
+                case 6://Friday
+                    if siteNotices[i].onFriday {
+                        isAvailableToday = true
+                    }
+                    break
+                case 7://Saturday
+                    if siteNotices[i].onSaturday {
+                        isAvailableToday = true
+                    }
+                    break
+                default:
+                    isAvailableToday = false
+                    break
+                }
+                
+                if isAvailableToday {
+                    
+                    if isCurrentObjectSet {
+                        if currentNotice!.endTime > siteNotices[i].endTime {
+                            currentNoticeIndex = i
+                            currentNotice = siteNotices[currentNoticeIndex]
+                            isCurrentObjectSet = true
+                        }
+                    } else {
+                        currentNoticeIndex = i
+                        currentNotice = siteNotices[currentNoticeIndex]
+                        isCurrentObjectSet = true
+
+                    }
+                }
+            }
+        }
+//        if !isCurrentObjectSet {
+//            currentNoticeIndex = 0
+//            currentNotice = siteNotices[currentNoticeIndex]
+//        }
+    }
+
+    
+    func sendCurrentNotice(){
+        
+        if self.currentNotice != nil {
+            
+            let value = NSCalendar.currentCalendar().isDateInToday(self.currentNotice!.fireDate!)
+            if !value {
+                //            if days > 1 {
+                let time:NSTimeInterval = 1
+                let localNotification:UILocalNotification = UILocalNotification()
+                localNotification.alertBody = currentNotice!.message!
+                localNotification.alertTitle = "Biin"
+                localNotification.soundName = "notification.wav"
+                localNotification.userInfo = ["UUID": currentNotice!.identifier!,]
+                localNotification.category = "Biin"
+                localNotification.applicationIconBadgeNumber = 1
+                lastNotice_identifier = currentNotice!.identifier!
+//                switch self.currentNotice!.notificationType! {
+//                case .EXTERNAL:
+//                    //localNotification.alertAction = "externalAction"
+//                    time = 1
+//                    break
+//                case .INTERNAL:
+//                    //localNotification.alertAction = "internalAction"
+//                    time = 1
+//                    break
+//                case .PRODUCT:
+//                    //localNotification.alertAction = "productAction"
+//                    time = 1
+//                    break
+//                default:
+//                    break
+//                }
+//                
+                localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
+                UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                
+                currentNotice!.isUserNotified = true
+                currentNotice!.fireDate = NSDate(timeIntervalSinceNow: time)
+                
+                for notice in localNotices {
+                    if notice.identifier! == self.currentNotice!.identifier! {
+                        notice.isUserNotified = true
+                        notice.fireDate = NSDate(timeIntervalSinceNow: time)
+                        break
+                    }
+                }
+                
+                clear()
+                save()
+                
+                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotice!.identifier!, by:currentNotice!.siteIdentifier)
+                
+            } else {
+                //NSLog("BIIN - USER ALREADY NOTIFIED!")
+                //NSLog("BIIN - Current notification:\(currentNotification!.object_id!)")
+                //NSLog("BIIN - Start time:\(currentNotification!.startTime)")
+                //NSLog("BIIN - End time: \(currentNotification!.endTime)")
+            }
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func addLocalNotification(object:BNBiinObject, notificationText:String?, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String){
         
         var isNotificationSaved = false
@@ -528,7 +800,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 clear()
                 save()
                 
-                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!)
+                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!, by:currentNotification!.siteIdentifier!)
                 
             } else {
                 //NSLog("BIIN - USER ALREADY NOTIFIED!")

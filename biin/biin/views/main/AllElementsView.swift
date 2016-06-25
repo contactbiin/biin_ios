@@ -142,9 +142,9 @@ class AllElementsView: BNView {
         return false
     }
     
-    func isElementAdded(_id:String) -> Bool {
+    func isElementAdded(identifier:String) -> Bool {
         for view in scroll!.children {
-            if (view as! ElementMiniView).element!._id! == _id {
+            if (view as! ElementMiniView).element!.identifier! == identifier {
                 return true
             }
         }

@@ -152,6 +152,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         delegate!.mainView!(self, hideMenuOnChange: false, index:0)
 //        state!.view!.showFade()
         
+        if isShowingNotificationContext {
+            isShowingNotificationContext = false
+            BNAppSharedManager.instance.notificationManager.currentNotification = nil
+        }
+        
         switch (goto) {
         case .Previous:
             state!.previous!.view!.hideFade()
@@ -198,9 +203,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             SharedAnswersManager.instance.logContentView_About()
             break
         case .Element:
-            isShowingNotificationContext = false
-            BNAppSharedManager.instance.notificationManager.currentNotification = nil
-            
             state!.view!.showFade()
             self.elementState!.previous = state
             state!.next(self.elementState)
@@ -362,7 +364,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         }
     }
     
-    func showNotificationContext(){
+    func showNotificationContext() {
 
         NSLog("BIIN - showNotificationContext")
         
@@ -370,6 +372,38 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             
             isShowingNotificationContext = true
             
+            var isShowingElement = false
+            
+            if let notice = BNAppSharedManager.instance.notificationManager.getLastNoticeOpened() {
+
+                if notice.elementIdentifier != "" {
+                    
+                    if let element = BNAppSharedManager.instance.dataManager.elements[notice.elementIdentifier!] {
+
+                        isShowingElement = true
+                        (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
+                        setNextState(BNGoto.Element)
+                        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier)
+                        
+                    }
+                }
+            
+                if !isShowingElement {
+                    if let site = BNAppSharedManager.instance.dataManager.sites[notice.siteIdentifier] {
+                        (siteState!.view as! SiteView).updateSiteData(site)
+                        setNextState(BNGoto.Site)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+            
+            
+            /*
+            
+
             if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
                 
                 NSLog("BIIN - showNotificationContext 1")
@@ -394,7 +428,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                             NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(notification!.object_id!)")
                             (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                             setNextState(BNGoto.Element)
-                            NSLog("BIIN - Show element view for element: \(element._id!)")
+//                            NSLog("BIIN - Show element view for element: \(element._id!)")
                             return
                         }
                     }
@@ -445,11 +479,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     */
             }
             
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)
+            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!, by: "")
             BNAppSharedManager.instance.notificationManager.clearCurrentNotification()
-        }
-        
-    }
+             */
+//        }
+//        
+//    }
     
     //Show elementView from element containers or showcase.
     func showElementView(view: ElementMiniView, element: BNElement) {

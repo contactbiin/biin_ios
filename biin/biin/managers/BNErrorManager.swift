@@ -84,6 +84,18 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
         }
     }
     
+    func showVersionError(){
+        
+        if !self.isAlertOn {
+            isAlertOn = true
+            let vc = ErrorViewController()
+            vc.addVersion_ErrorView()
+            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            currentViewController!.presentViewController(vc, animated: true, completion: nil)
+            BNAppSharedManager.instance.errorManager.currentViewController = vc
+        }
+    }
+    
     func showServerError(){
         
         if !self.isAlertOn {

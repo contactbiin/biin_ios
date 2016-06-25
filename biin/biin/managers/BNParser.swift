@@ -418,6 +418,8 @@ class BNParser {
                     site.longitude = BNParser.findFloat("longitude", dictionary:siteData)
                     site.siteSchedule = BNParser.findString("siteSchedule", dictionary: siteData)
                     
+                    
+                    
                     //print("site:\(site.identifier!), name:\(site.title!), location:\(site.city!), major:\(site.major!)")
                     
                     
@@ -501,6 +503,12 @@ class BNParser {
                             }
                         }
                         
+                    }
+                    
+                    if let notices = BNParser.findNSArray("notices", dictionary: siteData) {
+                        for notice in (0..<notices.count) {
+                            site.notices.append((notices[notice] as! String))
+                        }
                     }
                     
                     if let biins = BNParser.findNSArray("biins", dictionary: siteData) {
@@ -686,6 +694,39 @@ class BNParser {
                 }
                 BNAppSharedManager.instance.dataManager.receivedShowcase(showcase)
             }
+        }
+    }
+    
+    class func parseNotices(noticesData:NSArray) {
+        if noticesData.count > 0 {
+            
+            var notices = Array<BNNotice>()
+            
+            for nd in (0..<noticesData.count) {
+                if let noticeData = noticesData.objectAtIndex(nd) as? NSDictionary {
+                    
+                    let identifier = BNParser.findString("identifier", dictionary: noticeData)
+                    let elementIdentifier = BNParser.findString("elementIdentifier", dictionary: noticeData)
+                    let name = BNParser.findString("name", dictionary: noticeData)
+                    let message = BNParser.findString("message", dictionary: noticeData)
+                
+                    let notice = BNNotice(identifier:identifier!, elementIdentifier: elementIdentifier!, name: name!, message: message!)
+                    notice.onMonday = BNParser.findBool("onMonday", dictionary: noticeData)
+                    notice.onTuesday = BNParser.findBool("onTuesday", dictionary: noticeData)
+                    notice.onWednesday = BNParser.findBool("onWednesday", dictionary: noticeData)
+                    notice.onThursday = BNParser.findBool("onThursday", dictionary: noticeData)
+                    notice.onFriday = BNParser.findBool("onFriday", dictionary: noticeData)
+                    notice.onSaturday = BNParser.findBool("onSaturday", dictionary: noticeData)
+                    notice.onSunday = BNParser.findBool("onSunday", dictionary: noticeData)
+                    
+                    notice.startTime = BNParser.findFloat("startTime", dictionary: noticeData)!
+                    notice.endTime = BNParser.findFloat("endTime", dictionary: noticeData)!
+                    
+                    notices.append(notice)
+                }
+            }
+            //Save or update notices.
+            BNAppSharedManager.instance.notificationManager.addNotices(notices)
         }
     }
 }

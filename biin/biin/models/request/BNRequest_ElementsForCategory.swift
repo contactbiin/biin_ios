@@ -50,6 +50,10 @@ class BNRequest_ElementsForCategory: BNRequest {
                             BNParser.parseShowcases(showcasesData)
                         }
                         
+                        if let noticesData = BNParser.findNSArray("notices", dictionary: initialData) {
+                            BNParser.parseNotices(noticesData)
+                        }
+                        
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
                             BNParser.parseOrganizations(organizationsData)
 

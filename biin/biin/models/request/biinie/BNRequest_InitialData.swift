@@ -77,14 +77,16 @@ class BNRequest_InitialData: BNRequest {
                             BNParser.parseHightlights(hightlightsData)
                         }
                         
-                        
                         if let nearbySitesData = BNParser.findNSArray("nearbySites", dictionary: initialData) {
                             BNParser.parseNearbySites(nearbySitesData)
                         }
                         
-                        
                         if let favoritesData = BNParser.findNSDictionary("favorites", dictionary: initialData) {
                             BNParser.parseFavorites(favoritesData)
+                        }
+                        
+                        if let noticesData = BNParser.findNSArray("notices", dictionary: initialData) {
+                            BNParser.parseNotices(noticesData)
                         }
                     }
                     

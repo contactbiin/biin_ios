@@ -100,7 +100,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             } else {
                 bnUser = user
                 isUserLoaded = true
-                bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios")
+                bnUser!.addAction(NSDate(), did:BiinieActionType.OPEN_APP, to:"biin_ios", by:"")
             }
         } else {
             isUserLoaded = false
@@ -226,6 +226,16 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             requestBiinieInitialData()
         }
     }
+    
+//    func manager(manager: BNNetworkManager!, didReceivedVersionStatus needsUpdate: Bool) {
+//        
+//        print("didReceivedVersionStatus")
+//        if !needsUpdate {
+//            requestBiinieInitialData()
+//        } else {
+//            print("didReceivedVersionStatus - show version window")
+//        }
+//    }
     
     func manager(manager: BNNetworkManager!, didReceivedUserIdentifier idetifier: String?) {
 
@@ -389,7 +399,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                         
                         let element = BNElement()
                         element.identifier = object.identifier!
-                        element._id = object._id!
+                        //element._id = object._id!
                         let showcase = BNShowcase()
                         showcase.site = biin.site
                         element.showcase = showcase
@@ -808,15 +818,15 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             
             sites[site.identifier!] = site
             
-            if sites[site.identifier!] == nil {
-                
-            }
+//            if sites[site.identifier!] == nil {
+//                
+//            }
             
             if commercialUUID == nil {
                 commercialUUID = site.proximityUUID
             }
      
-            
+          /*
             for biin in sites[site.identifier!]!.biins {
                 
                 if biin.objects != nil && biin.objects!.count > 0 {
@@ -831,75 +841,29 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                             if object.hasNotification {
                                 switch biin.biinType {
                                 case .EXTERNO:
-//                                    if !isExternalBiinAdded {
-//                                        isExternalBiinAdded = true
+
                                         let notificaitonText = "\(site.title!) - \(object.notification!)"
                                         BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-//                                    }
+
                                     break
                                 case .INTERNO:
-                                    //let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                    //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
                                     break
                                 case .PRODUCT:
-                                    //let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                    //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
                                     break
                                 default:
                                     break
                                 }
                             }
                             
-//                            let element = BNElement()
-//                            element.identifier = object.identifier!
-//                            element._id = object._id!//Use as a element _id
-//                            let showcase = BNShowcase()
-//                            showcase.site = biin.site
-//                            element.showcase = showcase
-//                            requestElement(element)
-                            
-                            /*
-                            //Check if element exist.
-                            if elements_by_id[object._id!] == nil {
-                                
-                                //Checks if element received is already on elements_by_identifier list.
-                                if let element = elements[object.identifier!] {
-                                    //Checks if element received is reference on element and clone it self.
-                                    
-                                    
-                                    //                for (element_identifier, element_by_identifier) in elements_by_identifier {
-                                    if object.identifier! == element.identifier! {
-                                        
-                                        elements_by_id[object._id!] = element.clone()
-                                        elements_by_id[object._id!]!._id = object._id
-                                        let showcase = BNShowcase()
-                                        showcase.site = biin.site
-                                        elements_by_id[object._id!]!.showcase = showcase
-                                    }
-                                    //                }
-                                }
-                            }
-                            */
+
                             break
-                        /*
-                        case .SHOWCASE:
-                            if showcases[object.identifier!] == nil {
-                                //Showcase does not exist, store it and request it's data.
-                                let showcase = BNShowcase()
-                                showcase.identifier = object.identifier!
-                                showcase.isDefault = object.isDefault
-                                showcases[object.identifier!] = showcase
-                                
-                                delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
-                            }
-                            break
-                        */
                         default:
                             break
                         }
                     }
                 }
             }
+        */
         }
     }
     
@@ -1081,7 +1045,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         element!.userViewed = true
         
         //TODO: this action should have the _id and identifier sent
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:element!.identifier!)
+        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:element!.identifier!, by:element!.showcase!.site!.identifier!)
         
         elements[element!.identifier!]?.userViewed = element!.userViewed
         /*
@@ -1148,6 +1112,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 break
             }
         }
+    }
+    
+    func findSiteByMajor(major:Int) -> BNSite? {
+        
+        for ( _, site) in self.sites {
+            if site.major! == major {
+                return site
+            }
+        }
+        
+        return nil
     }
 }
 

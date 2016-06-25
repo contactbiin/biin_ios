@@ -129,6 +129,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
 //            showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
 //            self.view!.addSubview(showDevelopmentBtn!)
         }
+        
+        if BNAppSharedManager.instance.dataManager.bnUser != nil {
+            BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        }
     }
     
     func showDevelopmentView() {

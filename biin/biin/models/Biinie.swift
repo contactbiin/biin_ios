@@ -169,7 +169,7 @@ class Biinie:NSObject, NSCoding {
         return nil
     }
     
-    func addAction(at:NSDate, did:BiinieActionType, to:String) {
+    func addAction(at:NSDate, did:BiinieActionType, to:String, by:String) {
         
         //NSLog("BIIN - addAction: \(at.bnDateFormatt()), did:\(did.hashValue), to:\(to)")
         
@@ -218,7 +218,7 @@ class Biinie:NSObject, NSCoding {
         //if true {
             
             self.actionCounter += 1
-            self.actions.append(BiinieAction(at:at, did:did, to:to, actionCounter:actionCounter))
+            self.actions.append(BiinieAction(at:at, did:did, to:to, by:by, actionCounter:actionCounter))
             save()
 //            NSLog("BIIN - add first action: \(at.bnDateFormatt()), did:\(did), to:\(to)")
             
