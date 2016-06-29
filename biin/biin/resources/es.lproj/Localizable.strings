@@ -176,6 +176,7 @@ InternetErrorButton = "Continuar";
 VersionErrorTitle = "Actualización disponible!";
 VersionErrorText = "Hay una nueva actualizacion disponible. Ve a la tienda y actualiza Biin.";
 VersionErrorButton = "Continuar";
+VersionChecking = "Revisando...";
 
 HardwareErrorTitle = "Oops!";
 HardwareErrorText = "Lo sentimos mucho pero este dispositivo no soporta Biin, porfavor cierra esta applicación.";

@@ -61,7 +61,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         //self.versionUrl = "https://www.biin.io/checkversion/1.1.5/ios/prod"
         self.versionUrl = "https://www.biin.io/checkversion/\(BNAppSharedManager.instance.version)/ios/\(value)"
-        print(versionUrl)
+        //print(versionUrl)
     }
     
     //Saving data

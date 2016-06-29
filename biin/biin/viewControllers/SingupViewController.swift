@@ -293,7 +293,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+                    //BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
                     let vc = LoadingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)
@@ -341,7 +341,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         if response!.code == 0 {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+                    //BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
                     let vc = LoadingViewController()
                     vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
                     self.presentViewController(vc, animated: true, completion: nil)

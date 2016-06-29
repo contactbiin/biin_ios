@@ -8,7 +8,7 @@ import UIKit
 
 class VersionCheckViewController: UIViewController, UIPopoverPresentationControllerDelegate, BNNetworkManagerDelegate {
     
-    var loadingView:LoadingView?
+    var versionCheckView:VersionCheckView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +27,11 @@ class VersionCheckViewController: UIViewController, UIPopoverPresentationControl
         self.setNeedsStatusBarAppearanceUpdate()
         
         
-//        let screenWidth = SharedUIManager.instance.screenWidth
-//        let screenHeight = SharedUIManager.instance.screenHeight
+        let screenWidth = SharedUIManager.instance.screenWidth
+        let screenHeight = SharedUIManager.instance.screenHeight
         
-//        loadingView = LoadingView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-//        self.view.addSubview(loadingView!)
+        versionCheckView = VersionCheckView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+        self.view.addSubview(versionCheckView!)
     }
     
     
@@ -40,7 +40,7 @@ class VersionCheckViewController: UIViewController, UIPopoverPresentationControl
         if BNAppSharedManager.instance.dataManager.isUserLoaded {
             let vc = LoadingViewController()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-            self.presentViewController(vc, animated: true, completion: nil)
+            self.presentViewController(vc, animated: false, completion: nil)
         } else {
             let vc = SingupViewController()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext

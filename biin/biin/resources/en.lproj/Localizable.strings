@@ -176,7 +176,7 @@ InternetErrorButton = "Continue";
 VersionErrorTitle = "New update available!";
 VersionErrorText = "A new update is available, please goto the store and update Biin";
 VersionErrorButton = "Continue";
-
+VersionChecking = "Checking...";
 
 HardwareErrorTitle = "Too bad!";
 HardwareErrorText = "We are sorry but your device does not support Biin due to harware requirements, please close this app.";
