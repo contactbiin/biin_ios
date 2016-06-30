@@ -635,7 +635,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 request.run()
                 
                 break
-            case .ConnectivityCheck:
+            case .ConnectivityCheck, .VersionCheck:
                 if request.requestAttemps >= 3 {
                     request.requestAttemps = 0
                     request.isRunning = false

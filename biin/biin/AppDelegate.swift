@@ -9,6 +9,9 @@ import UberRides
 import Fabric
 import Answers
 import Firebase
+import FirebaseInstanceID
+import FirebaseMessaging
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -87,7 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Setup notifications
         setupNotificationSettings()
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleModifyListNotification), name: "modifyListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleDeleteListNotification), name: "deleteListNotification", object: nil)
+
         //Initialize 3rd party frameworks
         Fabric.with([Answers.self])
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
@@ -95,10 +100,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Configuration.setSandboxEnabled(false)
         Configuration.setFallbackEnabled(true)
         
+        
+        // Register for remote notifications
+        
+        // [START register_for_notifications]
+        let settings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        // [END register_for_notifications]
+        
         FIRApp.configure()
+        
+        // Add observer for InstanceID token refresh callback.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification),
+                                                         name: kFIRInstanceIDTokenRefreshNotification, object: nil)
         
         return true
         
+    }
+    
+    
+    // [START refresh_token]
+    func tokenRefreshNotification(notification: NSNotification) {
+        
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token: \(refreshedToken)")
+        } else  {
+            print("not token available")
+        }
+        
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        connectToFcm()
+    }
+    // [END refresh_token]
+    
+    // [START connect_to_fcm]
+    func connectToFcm() {
+        FIRMessaging.messaging().connectWithCompletion { (error) in
+            if (error != nil) {
+                print("Unable to connect with FCM. \(error)")
+            } else {
+                print("Connected to FCM.")
+            }
+        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
@@ -116,6 +160,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
+        FIRMessaging.messaging().disconnect()
+        print("Disconnected from FCM.")
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -133,6 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
             BNAppSharedManager.instance.isOpeningForLocalNotification = false
         }
+        connectToFcm()
         
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
@@ -159,10 +206,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound, UIUserNotificationType.Badge]
 //        let notificationSettings: UIUserNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleModifyListNotification), name: "modifyListNotification", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleDeleteListNotification), name: "deleteListNotification", object: nil)
-
         
         let settings: UIUserNotificationSettings =
             UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
@@ -197,8 +240,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
         print("TOKEN 1: \(deviceToken)")
         
-        let token = FIRInstanceID.instanceID().token()!
-        print("TOKEN 2: \(token)")
+        if let token = FIRInstanceID.instanceID().token() {
+            print("TOKEN 2: \(token)")
+        } else {
+            print("not token")
+        }
+    
     }
     
     func handleModifyListNotification() {

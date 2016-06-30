@@ -11,4 +11,5 @@ pod 'FBSDKLoginKit'
 pod 'UberRides'
 pod 'KontaktSDK', '~> 1.0'
 pod 'Firebase'
+pod 'Firebase/Messaging’
 end
