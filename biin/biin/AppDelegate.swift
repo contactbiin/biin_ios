@@ -195,7 +195,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
         print("TOKEN 1: \(deviceToken)")
         
-        let token = FIRInstanceID.instanceID().token()
+        let token = FIRInstanceID.instanceID().token()!
         print("TOKEN 2: \(token)")
     }
     
