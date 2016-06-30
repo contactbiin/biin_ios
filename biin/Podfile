@@ -1,0 +1,14 @@
+platform :ios, '8.0'
+use_frameworks!
+
+target ‘biin’ do
+pod 'Fabric'
+pod 'Answers'
+pod 'Bolts'
+pod 'FBSDKCoreKit'
+pod 'FBSDKShareKit'
+pod 'FBSDKLoginKit'
+pod 'UberRides'
+pod 'KontaktSDK', '~> 1.0'
+pod 'Firebase'
+end
