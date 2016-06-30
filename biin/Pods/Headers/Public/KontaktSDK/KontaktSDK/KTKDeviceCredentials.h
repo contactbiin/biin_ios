@@ -1,1 +1,0 @@
-../../../../KontaktSDK/Cocoapods/iOS/KontaktSDK.framework/Headers/KTKDeviceCredentials.h
