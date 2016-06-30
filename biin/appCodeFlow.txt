@@ -1,5 +1,0 @@
-On this document you can check the flow for the code/
-
-File: BNAppManager
-1. Code Flow - Checks connectivity first.
-
