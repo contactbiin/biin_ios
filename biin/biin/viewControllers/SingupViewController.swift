@@ -91,7 +91,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
             facebookBtn = FBSDKLoginButton()
             self.view.addSubview(facebookBtn!)
             facebookBtn!.frame = CGRectMake(5, ypos, (screenWidth - 10), 60)
-            facebookBtn!.readPermissions = ["public_profile", "email", "user_friends", "user_birthday"]
+            facebookBtn!.readPermissions = ["public_profile",  "publish_actions", "email", "user_friends", "user_birthday"]
             facebookBtn!.layer.cornerRadius = 2
             facebookBtn!.delegate = self
             facebookBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
