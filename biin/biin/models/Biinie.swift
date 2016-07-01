@@ -18,6 +18,7 @@ class Biinie:NSObject, NSCoding {
     var password:String?
     var gender:String?
     var friends = Array<Biinie>()
+    var token:String?
 //    var imgUrl:String?
 
     var biins:Int?
@@ -83,6 +84,13 @@ class Biinie:NSObject, NSCoding {
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
+        
+//        if let token_stored = aDecoder.decodeObjectForKey("token") {
+        self.token = aDecoder.decodeObjectForKey("token")as? String
+//        } else {
+//            self.token = ""
+//        }
+        
         self.newNotificationCount = 0
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
@@ -133,6 +141,10 @@ class Biinie:NSObject, NSCoding {
         
         if let gender = self.gender {
             aCoder.encodeObject(gender, forKey: "gender")
+        }
+
+        if let token = self.token {
+            aCoder.encodeObject(token, forKey: "token")
         }
         
         aCoder.encodeObject(actions, forKey: "actions")
