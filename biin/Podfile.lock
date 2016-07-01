@@ -1,12 +1,12 @@
 PODS:
-  - Answers (1.2.1):
-    - Fabric (~> 1.6.3)
   - Bolts (1.7.0):
     - Bolts/AppLinks (= 1.7.0)
     - Bolts/Tasks (= 1.7.0)
   - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
+  - Crashlytics (3.7.2):
+    - Fabric (~> 1.6.3)
   - Fabric (1.6.7)
   - FBSDKCoreKit (4.13.1):
     - Bolts (~> 1.7)
@@ -48,8 +48,8 @@ PODS:
     - ObjectMapper (~> 1.0)
 
 DEPENDENCIES:
-  - Answers
   - Bolts
+  - Crashlytics
   - Fabric
   - FBSDKCoreKit
   - FBSDKLoginKit
@@ -60,8 +60,8 @@ DEPENDENCIES:
   - UberRides
 
 SPEC CHECKSUMS:
-  Answers: 57ee6bcc9bd3c6710862065c9251365a2a404920
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   FBSDKCoreKit: 2807fe0da2ddb49a1469da6d6ff597f99912980f
   FBSDKLoginKit: 6d350cb6a22d6956e9d078885de6ee8a0ebc51b4
@@ -78,6 +78,6 @@ SPEC CHECKSUMS:
   ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
   UberRides: 65641d60358a524842ffc64b92e664900172c6d7
 
-PODFILE CHECKSUM: 2346c58fd105a7114b0236c6c14ff17f0076c95d
+PODFILE CHECKSUM: f4b1527f3048586c458f534e6890108d70cf3be8
 
 COCOAPODS: 1.0.1

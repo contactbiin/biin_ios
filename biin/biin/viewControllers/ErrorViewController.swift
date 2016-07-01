@@ -99,6 +99,8 @@ class ErrorViewController: UIViewController, UIPopoverPresentationControllerDele
         
         internetErrorView?.removeFromSuperview()
         internetErrorView = nil
+        versionErrorView?.removeFromSuperview()
+        versionErrorView = nil
         serverErrorView?.removeFromSuperview()
         serverErrorView = nil
         bluetoothErrorView?.removeFromSuperview()

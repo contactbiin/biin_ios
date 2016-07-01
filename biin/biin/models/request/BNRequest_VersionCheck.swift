@@ -21,24 +21,10 @@ class BNRequest_VersionCheck: BNRequest {
     
     override func run() {
         
-        //self.start = NSDate()
-        
         isRunning = true
         requestAttemps += 1
         
-//        networkManager!.epsNetwork!.checkConnection(false, url:requestString, callback:{
-//            (error: NSError?) -> Void in
-//            
-//            if (error != nil) {
-//                self.networkManager!.handleFailedRequest(self, error: error )
-//            } else {
-//                self.inCompleted = true
-//                self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedVersionStatus: true)
-//                self.networkManager!.removeFromQueue(self)
-//            }
-//        })
-        
-        
+        //print("\(requestString)")
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
@@ -61,7 +47,7 @@ class BNRequest_VersionCheck: BNRequest {
                         self.networkManager!.showVersionError(self)
                     } else {
                         self.inCompleted = true
-                        self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedVersionStatus:needsUpdate)
+                        self.networkManager!.delegateVC?.manager!(self.networkManager!, didReceivedVersionStatus:needsUpdate)
                         self.networkManager!.removeFromQueue(self)
                     }
                     

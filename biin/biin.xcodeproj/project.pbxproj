@@ -363,6 +363,7 @@
 		5BA8D3FB1D2585F90064606E /* BNRequest_SendUnCollectedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA8D3B21D2585F90064606E /* BNRequest_SendUnCollectedSite.swift */; };
 		5BA8D3FC1D2585F90064606E /* BNRequest_Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA8D3B31D2585F90064606E /* BNRequest_Site.swift */; };
 		5BA8D3FD1D2585F90064606E /* BNRequest_Sites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA8D3B41D2585F90064606E /* BNRequest_Sites.swift */; };
+		5BC5891F1D26BD48008092C3 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5891E1D26BD48008092C3 /* Default-568h.png */; };
 		8137DE7BD43ED0000E8C195F /* Pods_biin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40431428C98D1445D377BC7F /* Pods_biin.framework */; };
 /* End PBXBuildFile section */
 
@@ -748,6 +749,7 @@
 		5BA8D3B21D2585F90064606E /* BNRequest_SendUnCollectedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendUnCollectedSite.swift; sourceTree = "<group>"; };
 		5BA8D3B31D2585F90064606E /* BNRequest_Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Site.swift; sourceTree = "<group>"; };
 		5BA8D3B41D2585F90064606E /* BNRequest_Sites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Sites.swift; sourceTree = "<group>"; };
+		5BC5891E1D26BD48008092C3 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h.png"; sourceTree = "<group>"; };
 		DBD0FB7720C53AC12BA9A4EA /* Pods-biin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-biin/Pods-biin.debug.xcconfig"; sourceTree = "<group>"; };
 		EEDA2D0B0D4C586A50B44BA8 /* Pods-biin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biin.release.xcconfig"; path = "Pods/Target Support Files/Pods-biin/Pods-biin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1317,6 +1319,7 @@
 		5B32D7951D24917A003900AC /* biin */ = {
 			isa = PBXGroup;
 			children = (
+				5BC5891E1D26BD48008092C3 /* Default-568h.png */,
 				5BA8D3641D2585F90064606E /* models */,
 				5B19A43A1D256585002834A9 /* managers */,
 				5B19A4971D256585002834A9 /* resources */,
@@ -1645,6 +1648,7 @@
 				5B19A63A1D256585002834A9 /* noImage.jpg in Resources */,
 				5B19A6281D256585002834A9 /* Lato-LightItalic.ttf in Resources */,
 				5B19A63E1D256585002834A9 /* pizza.jpg in Resources */,
+				5BC5891F1D26BD48008092C3 /* Default-568h.png in Resources */,
 				5B19A6361D256585002834A9 /* loading2.jpg in Resources */,
 				5B19A6341D256585002834A9 /* landing.jpg in Resources */,
 				5B19A63D1D256585002834A9 /* onbordingImage3.jpg in Resources */,
@@ -2186,11 +2190,14 @@
 			baseConfigurationReference = DBD0FB7720C53AC12BA9A4EA /* Pods-biin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = biin/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.biin.biin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2199,11 +2206,14 @@
 			baseConfigurationReference = EEDA2D0B0D4C586A50B44BA8 /* Pods-biin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = biin/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.biin.biin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

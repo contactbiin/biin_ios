@@ -78,7 +78,6 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         xpos += screenWidth
         
         scroll!.contentSize = CGSize(width: xpos, height: (screenHeight - 25))
-        
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -123,7 +122,13 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     
     func startOnBiin(view: UIView) {
 
+        let vc = LoadingViewController()
+        //                    BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+        self.presentViewController(vc, animated: true, completion: nil)
     }
+    
+    
     
     func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
         if response!.code == 0 {
@@ -145,7 +150,6 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
                 })
             }
         }
-
     }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {

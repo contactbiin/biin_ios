@@ -76,12 +76,21 @@ class InternetErrorView: BNView {
     }
     
     func tryAgainAction(sender:UILabel) {   
-//        delegate!.hideErrorView!(self)
-        BNAppSharedManager.instance.errorManager.isAlertOn = false
-        let vc = LoadingViewController()
-        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-        BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
-        BNAppSharedManager.instance.networkManager.resume()
+
+        
+        if BNAppSharedManager.instance.dataManager.isUserLoaded {
+            BNAppSharedManager.instance.errorManager.isAlertOn = false
+            let vc = LoadingViewController()
+            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
+            BNAppSharedManager.instance.networkManager.resume()
+        } else {
+            BNAppSharedManager.instance.errorManager.isAlertOn = false
+            let vc = VersionCheckViewController()
+            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: false, completion: nil)
+            BNAppSharedManager.instance.networkManager.resume()
+        }
 //        BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
     }
     

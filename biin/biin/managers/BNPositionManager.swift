@@ -87,13 +87,13 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
         Kontakt.setAPIKey("HIMVKoKndBpLfFsOqRXCrsizRqsJcGDU")
         devicesManager = KTKDevicesManager(delegate: self)
-        devicesManager!.startDevicesDiscoveryWithInterval(120.0)
-        
-        self.startLocationService()
     }
     
     func startLocationService()
     {
+        
+        devicesManager!.startDevicesDiscoveryWithInterval(120.0)
+
         monitoredBeaconRegions = Dictionary<Int, CLBeaconRegion>()
         
         if self.locationManager == nil {
@@ -129,8 +129,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         if devices!.count > 0 {
             for device in devices! {
                 
-                //print("Battery: \(device.uniqueID!)")
-                //print("Battery: \(device.batteryLevel)")
+                print("Battery: \(device.uniqueID!)")
+                print("Battery: \(device.batteryLevel)")
                 
                 if device.batteryLevel <= 50 {
                     //print("Add battery waring action")
@@ -148,16 +148,17 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
+            BNAppSharedManager.instance.continueAppInitialization()
     
             break
         case .Denied, .Restricted, .NotDetermined:
-            
+            BNAppSharedManager.instance.continueAppInitialization()
             break
         }
         
-        if BNAppSharedManager.instance.isWaitingForLocationServicesPermision {
-            BNAppSharedManager.instance.continueAppInitialization()
-        }
+//        if BNAppSharedManager.instance.isWaitingForLocationServicesPermision {
+//            BNAppSharedManager.instance.continueAppInitialization()
+//        }
     }
     
     func checkLocationServicesStatus()-> Bool{
@@ -166,10 +167,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
-            
             return true
         case .Denied, .Restricted, .NotDetermined:
-            
             return false
         }
     }
@@ -865,10 +864,10 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            print(" \(value)")
+            //print(" \(value)")
         }
         
-        print("\(self.myBeacons.count)")
+        //print("\(self.myBeacons.count)")
         
         self.myBeacons = self.myBeacons.sort{ $0.rssi > $1.rssi  }
         

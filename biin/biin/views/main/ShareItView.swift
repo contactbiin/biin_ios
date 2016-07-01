@@ -203,8 +203,8 @@ class ShareItView:UIView {
         
         
         
-        let siteAvatarSize:CGFloat = 50
-        siteAvatar = BNUIImageView(frame: CGRectMake(5, (ypos + 5), siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
+        var siteAvatarSize:CGFloat = 50
+        siteAvatar = BNUIImageView(frame: CGRectMake(5, (5), siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
         self.addSubview(siteAvatar!)
         
         if let organization = site!.organization {
@@ -220,8 +220,8 @@ class ShareItView:UIView {
             siteAvatar!.showAfterDownload()
         }
         
-        
-        siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 5)), 0), father: nil)
+        siteAvatarSize = 0
+        siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 20)), 0), father: nil)
         siteLocation!.updateForSite(site!)
         siteLocation!.map!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()
@@ -281,8 +281,8 @@ class ShareItView:UIView {
         
         
         
-        let siteAvatarSize:CGFloat = 50
-        siteAvatar = BNUIImageView(frame: CGRectMake(5, (ypos + 5), siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
+        var siteAvatarSize:CGFloat = 50
+        siteAvatar = BNUIImageView(frame: CGRectMake(5, (5), siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
         self.addSubview(siteAvatar!)
         
         if let organization = site.organization {
@@ -298,8 +298,8 @@ class ShareItView:UIView {
             siteAvatar!.showAfterDownload()
         }
         
-        
-        siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 5)), 0), father: nil)
+        siteAvatarSize = 0
+        siteLocation = SiteView_Location(frame: CGRectMake((siteAvatarSize + 5), ypos, (frame.width - (siteAvatarSize + 20)), 0), father: nil)
         siteLocation!.updateForSite(site)
         siteLocation!.map!.alpha = 0
         siteLocation!.backgroundColor = UIColor.clearColor()

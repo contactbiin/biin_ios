@@ -7,7 +7,7 @@ import UIKit
 import FBSDKCoreKit
 import UberRides
 import Fabric
-import Answers
+import Crashlytics
 import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
@@ -69,24 +69,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
             }
             
-        } else {
-            
-            let selectedImage = UIImage(named:"loading1.jpg")
-            let imageData = UIImagePNGRepresentation(selectedImage!)
-            
-            let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("loading1.jpg")
-            
-            if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
-                
-                if !imageData!.writeToFile(imagePath, atomically: false) {
-                } else {
-                    NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "loading1.jpg")
-                }
-                
-            } else {
-                
-            }
         }
+//        else
+//        {
+//            
+//            let selectedImage = UIImage(named:"loading1.jpg")
+//            let imageData = UIImagePNGRepresentation(selectedImage!)
+//            
+//            let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("loading1.jpg")
+//            
+//            if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
+//                
+//                if !imageData!.writeToFile(imagePath, atomically: false) {
+//                } else {
+//                    NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "loading1.jpg")
+//                }
+//                
+//            } else {
+//                
+//            }
+//        }
         
         //Setup notifications
         setupNotificationSettings()
@@ -96,12 +98,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotification), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
         
         //Initialize 3rd party frameworks
-        Fabric.with([Answers.self])
+        Fabric.with([Crashlytics.self])
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Configuration.setRegion(.Default)
         Configuration.setSandboxEnabled(false)
         Configuration.setFallbackEnabled(true)
-        FIRApp.configure()
+        
+        //FIRApp.configure()
+        
+        appManager.networkManager!.checkVersion()
         
         return true
         
@@ -210,10 +215,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TODO: Handle data of notification
         
         // Print message ID.
-        print("Message ID: \(userInfo["gcm.message_id"]!)")
+        //print("Message ID: \(userInfo["gcm.message_id"]!)")
         
         // Print full message.
-        print("%@", userInfo)
+        //print("%@", userInfo)
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
@@ -231,15 +236,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
-        print("TOKEN 1: \(deviceToken)")
         
-        if let token = FIRInstanceID.instanceID().token() {
-            print("TOKEN 2: \(token)")
+        if appManager.settings!.IS_PRODUCTION_DATABASE {
+            FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Prod)
         } else {
-            print("not token")
+            FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
         }
+        
+//        print("TOKEN 1: \(deviceToken)")
+//        
+//        if let token = FIRInstanceID.instanceID().token() {
+//            print("TOKEN 2: \(token)")
+//        } else {
+//            print("not token")
+//        }
     
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        if !appManager.dataManager!.isUserLoaded {
+            appManager.positionManager!.startLocationService()
+        }
     }
     
     func handleModifyListNotification() {

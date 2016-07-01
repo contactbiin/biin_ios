@@ -156,6 +156,8 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         
         singupBtn!.frame.origin.y = ypos
         
+        //BNAppSharedManager.instance.addPositionManager()
+        
         //self.view.layerGradient()
     }
     
@@ -449,7 +451,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                 // Process error
                 print("Error: \(error)")
             } else {
-                print("fetched user: \(result)")
+                //print("fetched user: \(result)")
                 let user = Biinie()
                 user.identifier = "none"
                 if let first_name = result.valueForKey("first_name") {

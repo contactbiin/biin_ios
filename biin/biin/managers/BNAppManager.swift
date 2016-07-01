@@ -18,11 +18,11 @@ class BNAppManager {
     
     var delegate:BNAppManager_Delegate?
     
-    var dataManager:BNDataManager
-    var positionManager:BNPositionManager
-    var networkManager:BNNetworkManager
-    var errorManager:BNErrorManager
-    var notificationManager:BNNotificationManager
+    var dataManager:BNDataManager!
+    var positionManager:BNPositionManager!
+    var networkManager:BNNetworkManager!
+    var errorManager:BNErrorManager!
+    var notificationManager:BNNotificationManager!
     
     var areNewNotificationsPendingToShow = false
     
@@ -34,7 +34,7 @@ class BNAppManager {
     var IS_APP_DOWN = false
     var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
     var IS_APP_REQUESTING_NEW_DATA = false
-    var isWaitingForLocationServicesPermision = false
+    var isWaitingForLocationServicesPermision = true
     var IS_BLUETOOTH_ENABLED = false
     var IS_MAINVIEW_ON = false
     var isOpeningForLocalNotification = false
@@ -62,7 +62,7 @@ class BNAppManager {
         positionManager = BNPositionManager(errorManager:errorManager)
         networkManager = BNNetworkManager(errorManager:errorManager)
         positionManager.delegateNM = networkManager
-        
+//
         // Try loading a saved version first
         if let savedNotificationManager = BNNotificationManager.loadSaved() {
             notificationManager = savedNotificationManager
@@ -71,7 +71,7 @@ class BNAppManager {
             notificationManager = BNNotificationManager()
             notificationManager.save()
         }
-        
+//
         networkManager.delegateDM = dataManager
         dataManager.delegateNM = networkManager
         dataManager.delegatePM = positionManager
@@ -86,12 +86,11 @@ class BNAppManager {
         if let dict = myDict {
             version = dict.objectForKey("CFBundleShortVersionString") as! String
             
-            print("-------------------------------------")
-            print("Comment this lines for build")
-            version = "1.1.5"
-            print("-------------------------------------")
+//            print("-------------------------------------")
+//            print("Comment this lines for build")
+//            version = "1.1.5"
+//            print("-------------------------------------")
         }
-        
     }
     
     /*
@@ -99,7 +98,7 @@ class BNAppManager {
         let nsize:CGFloat = CGFloat((size / 1000000))
     }
     */
-    
+
     func continueAppInitialization(){
         
         //NSLog("BIIN - continueAppInitialization()")
@@ -137,7 +136,7 @@ class BNAppManager {
     func continueAfterIntialChecking(){
         //print("FLOW 1 - continueAfterIntialChecking")
 //        networkManager.checkConnectivity()
-        networkManager.checkVersion()
+        //networkManager.checkVersion()
     }
 
     func unCollectElement(element:BNElement?){

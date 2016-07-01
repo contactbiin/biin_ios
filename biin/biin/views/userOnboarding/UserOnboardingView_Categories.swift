@@ -160,8 +160,9 @@ class UserOnboardingView_Categories:UIView {
 //    }
     
     func startBtnAction(sender:BNUIButton_Loging){
-        delegate!.showProgress!(self)
-        BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
+        delegate!.startOnBiin!(self)
+        //delegate!.showProgress!(self)
+        //BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
     }
 }
 

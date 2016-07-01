@@ -54,11 +54,11 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     //BNNetworkManagerDelegate Methods
     func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
 
-            loadingView!.hideProgressView()
-            let vc = MainViewController()
-            vc.initViewController(self.view.frame)
-            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-            self.presentViewController(vc, animated: true, completion: nil)
+        loadingView!.hideProgressView()
+        let vc = MainViewController()
+        vc.initViewController(self.view.frame)
+        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {

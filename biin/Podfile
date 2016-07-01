@@ -3,7 +3,7 @@ use_frameworks!
 
 target ‘biin’ do
 pod 'Fabric'
-pod 'Answers'
+pod 'Crashlytics'
 pod 'Bolts'
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
