@@ -501,6 +501,8 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                     }
                 }
                 
+                user.token = BNAppSharedManager.instance.dataManager.bnUser!.token
+                user.needsTokenUpdate = BNAppSharedManager.instance.dataManager.bnUser!.needsTokenUpdate
                 user.isEmailVerified = true
                 user.password = ""
 

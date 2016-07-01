@@ -286,6 +286,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
+    func sendBiinieToken(user:Biinie) {
+        //PUT /mobile/biinies/<identifierbiinie>/registerfornotifications
+        let request = BNRequest_SendBiinieToken(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/registerfornotifications", errorManager: self.errorManager!, networkManager: self, user: user)
+        addToQueue(request)
+        
+    }
+    
     /**
     Send biinie actions.
     @param user:Biinie data.

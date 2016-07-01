@@ -19,6 +19,7 @@ class Biinie:NSObject, NSCoding {
     var gender:String?
     var friends = Array<Biinie>()
     var token:String?
+    var needsTokenUpdate = false
 //    var imgUrl:String?
 
     var biins:Int?
@@ -58,6 +59,7 @@ class Biinie:NSObject, NSCoding {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
+        self.token = ""
     }
     
     convenience init(identifier:String, firstName:String, lastName:String, email:String, gender:String) {
@@ -85,11 +87,11 @@ class Biinie:NSObject, NSCoding {
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
         
-//        if let token_stored = aDecoder.decodeObjectForKey("token") {
-        self.token = aDecoder.decodeObjectForKey("token")as? String
-//        } else {
-//            self.token = ""
-//        }
+        if let token_stored = aDecoder.decodeObjectForKey("token") {
+            self.token = token_stored as? String
+        } else {
+            self.token = ""
+        }
         
         self.newNotificationCount = 0
         self.notificationIndex = 0

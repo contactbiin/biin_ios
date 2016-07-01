@@ -236,6 +236,10 @@ class SignupView:UIView, UITextFieldDelegate {
             newUser!.email = email
             newUser!.gender = genderStr
             newUser!.password = passwordTxt!.textField!.text
+            
+            newUser!.token = BNAppSharedManager.instance.dataManager.bnUser!.token
+            newUser!.needsTokenUpdate = BNAppSharedManager.instance.dataManager.bnUser!.needsTokenUpdate
+            
             BNAppSharedManager.instance.dataManager.bnUser = newUser
             
             BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.bnUser!)

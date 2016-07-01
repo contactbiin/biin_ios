@@ -657,7 +657,10 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //print("FLOW 5 - didReceivedBiinieData")
         if isBiinieOnBD {
             if self.bnUser != nil {
+                user.token = self.bnUser!.token
+                user.needsTokenUpdate = self.bnUser!.needsTokenUpdate
                 self.bnUser = user
+                
                 self.bnUser!.save()
             }
             
@@ -668,6 +671,15 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             //BNAppSharedManager.instance.settings!.clear()
             errorManager.showNotBiinieError()
         }
+        
+        
+        if self.bnUser!.needsTokenUpdate {
+            print("SEND TOKEN TO CMS")
+            BNAppSharedManager.instance.networkManager!.sendBiinieToken(self.bnUser!)
+        }
+        
+        print("bnUser token:\(bnUser!.token!)")
+        
         /*x
         //Add a temporal BNCollection
         bnUser!.collections = Dictionary<String, BNCollection>()

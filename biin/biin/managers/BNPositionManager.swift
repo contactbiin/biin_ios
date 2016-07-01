@@ -29,6 +29,8 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     var firstBeacon:CLBeacon?
     var firstBeaconUUID:String?
     
+    var refreshCalls = 0
+    
     var counter = 0
     var counterLimmit = 10
     
@@ -104,7 +106,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             self.locationManager!.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager!.requestAlwaysAuthorization()
             self.locationManager!.requestWhenInUseAuthorization()
-            self.locationManager!.startUpdatingLocation()
+            self.locationManager!.startMonitoringSignificantLocationChanges()
             
             if self.bluetoothManager == nil {
                 self.bluetoothManager = CBCentralManager(delegate: self, queue: nil, options: nil)
@@ -113,15 +115,15 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         }
     }
     
-    func getCurrentLocation(){
-        
-        if self.locationManager == nil {
-            startLocationService()
-        }
-        
-        locationFixAchieved = false
-        locationManager!.startUpdatingLocation()
-    }
+//    func getCurrentLocation(){
+//        
+//        if self.locationManager == nil {
+//            startLocationService()
+//        }
+//        
+//        locationFixAchieved = false
+//        locationManager!.startUpdatingLocation()
+//    }
     
     func devicesManager(manager: KTKDevicesManager, didDiscoverDevices devices: [KTKNearbyDevice]?) {
         if devices!.count > 0 {
@@ -146,7 +148,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         
         switch status {
         case .AuthorizedAlways, .AuthorizedWhenInUse:
-            BNAppSharedManager.instance.continueAppInitialization()
+            //BNAppSharedManager.instance.continueAppInitialization()
     
             break
         case .Denied, .Restricted, .NotDetermined:
@@ -176,13 +178,15 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
     //CLLocationManagerDelegate - Responding to Location Events
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
+        
+        print("didUpdateLocations")
         if (locationFixAchieved == false) {
             locationFixAchieved = true
             let locationArray = locations as NSArray
             let locationObj = locationArray.lastObject as? CLLocation
             userCoordinates = locationObj!.coordinate
-            locationManager!.stopUpdatingLocation()
-            self.locationManager!.startMonitoringSignificantLocationChanges()
+//            locationManager!.stopUpdatingLocation()
+//            self.locationManager!.startMonitoringSignificantLocationChanges()
         }
 
         
@@ -207,14 +211,18 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             BNAppSharedManager.instance.dataManager.requestInitialData()
         */
             if BNAppSharedManager.instance.mainViewController != nil {
-                BNAppSharedManager.instance.mainViewController!.show_refreshButton()
+                if refreshCalls < 5 {
+                    refreshCalls += 1
+                } else {
+                    refreshCalls += 1
+                    BNAppSharedManager.instance.mainViewController!.show_refreshButton()
+                }
             }
         }
 
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-
 
     }
     

@@ -115,13 +115,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // [START refresh_token]
     func tokenRefreshNotification(notification: NSNotification) {
-        
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
-            print("InstanceID token: \(refreshedToken)")
-        } else  {
-            print("not token available")
-        }
-        
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
     }
@@ -136,6 +129,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Connected to FCM.")
             }
         }
+        
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            
+            print("Current Token:\(refreshedToken)")
+            
+            if appManager.dataManager!.bnUser!.token! == "" {
+                appManager.dataManager!.bnUser!.token = refreshedToken
+                appManager.dataManager!.bnUser!.needsTokenUpdate = true
+                print("Token asignado: \(appManager.dataManager!.bnUser!.token!)")
+                
+            } else {
+                if appManager.dataManager!.bnUser!.token! != refreshedToken {
+                    appManager.dataManager!.bnUser!.token = refreshedToken
+                    appManager.dataManager!.bnUser!.needsTokenUpdate = true
+                    print("User NEW Token: \(appManager.dataManager!.bnUser!.token!)")
+                } else {
+                    print("User Token: \(appManager.dataManager!.bnUser!.token!)")
+                }
+            }
+        } else  {
+            print("not token available")
+        }
+
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
@@ -172,6 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
             BNAppSharedManager.instance.isOpeningForLocalNotification = false
         }
+        
         connectToFcm()
         
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
@@ -242,15 +259,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
         }
-        
-        print("TOKEN 1: \(deviceToken)")
-        
-        if let token = FIRInstanceID.instanceID().token() {
-            print("TOKEN 2: \(token)")
-        } else {
-            print("not token")
-        }
-    
     }
     
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
