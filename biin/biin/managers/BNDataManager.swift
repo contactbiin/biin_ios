@@ -674,11 +674,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         
         if self.bnUser!.needsTokenUpdate {
-            print("SEND TOKEN TO CMS")
+            //print("SEND TOKEN TO CMS")
             BNAppSharedManager.instance.networkManager!.sendBiinieToken(self.bnUser!)
         }
         
-        print("bnUser token:\(bnUser!.token!)")
+        //print("bnUser token:\(bnUser!.token!)")
         
         /*x
         //Add a temporal BNCollection

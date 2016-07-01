@@ -132,24 +132,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let refreshedToken = FIRInstanceID.instanceID().token() {
             
-            print("Current Token:\(refreshedToken)")
+            //print("Current Token:\(refreshedToken)")
             
             if appManager.dataManager!.bnUser!.token! == "" {
                 appManager.dataManager!.bnUser!.token = refreshedToken
                 appManager.dataManager!.bnUser!.needsTokenUpdate = true
-                print("Token asignado: \(appManager.dataManager!.bnUser!.token!)")
+                //print("Token asignado: \(appManager.dataManager!.bnUser!.token!)")
                 
             } else {
                 if appManager.dataManager!.bnUser!.token! != refreshedToken {
                     appManager.dataManager!.bnUser!.token = refreshedToken
                     appManager.dataManager!.bnUser!.needsTokenUpdate = true
-                    print("User NEW Token: \(appManager.dataManager!.bnUser!.token!)")
+                    //print("User NEW Token: \(appManager.dataManager!.bnUser!.token!)")
                 } else {
-                    print("User Token: \(appManager.dataManager!.bnUser!.token!)")
+                    //print("User Token: \(appManager.dataManager!.bnUser!.token!)")
                 }
             }
         } else  {
-            print("not token available")
+            //print("not token available")
         }
 
     }

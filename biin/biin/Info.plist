@@ -2,19 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>UILaunchImages</key>
-    <array>
-        <dict>
-            <key>UILaunchImageMinimumOSVersion</key>
-            <string>7.0</string>
-            <key>UILaunchImageName</key>
-            <string>Default-568h</string>
-            <key>UILaunchImageOrientation</key>
-            <string>Portrait</string>
-            <key>UILaunchImageSize</key>
-            <string>{320, 568}</string>
-        </dict>
-    </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -53,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -173,6 +160,19 @@
 	<array>
 		<string>fetch</string>
 		<string>remote-notification</string>
+	</array>
+	<key>UILaunchImages</key>
+	<array>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>7.0</string>
+			<key>UILaunchImageName</key>
+			<string>Default-568h</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>{320, 568}</string>
+		</dict>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
