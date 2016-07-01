@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Configuration.setSandboxEnabled(false)
         Configuration.setFallbackEnabled(true)
         
-        //FIRApp.configure()
+        FIRApp.configure()
         
         appManager.networkManager!.checkVersion()
         
@@ -243,13 +243,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Sandbox)
         }
         
-//        print("TOKEN 1: \(deviceToken)")
-//        
-//        if let token = FIRInstanceID.instanceID().token() {
-//            print("TOKEN 2: \(token)")
-//        } else {
-//            print("not token")
-//        }
+        print("TOKEN 1: \(deviceToken)")
+        
+        if let token = FIRInstanceID.instanceID().token() {
+            print("TOKEN 2: \(token)")
+        } else {
+            print("not token")
+        }
     
     }
     

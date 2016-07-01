@@ -84,34 +84,32 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         self.errorManager = errorManager
 
         super.init()
-
-        Kontakt.setAPIKey("HIMVKoKndBpLfFsOqRXCrsizRqsJcGDU")
-        devicesManager = KTKDevicesManager(delegate: self)
     }
     
-    func startLocationService()
-    {
-        
-        devicesManager!.startDevicesDiscoveryWithInterval(120.0)
-
-        monitoredBeaconRegions = Dictionary<Int, CLBeaconRegion>()
+    func startLocationService() {
         
         if self.locationManager == nil {
+            Kontakt.setAPIKey("HIMVKoKndBpLfFsOqRXCrsizRqsJcGDU")
+            devicesManager = KTKDevicesManager(delegate: self)
+            devicesManager!.startDevicesDiscoveryWithInterval(120.0)
+
+            monitoredBeaconRegions = Dictionary<Int, CLBeaconRegion>()
+            
             self.locationManager = CLLocationManager()
-        }
-        
-        self.locationManager!.delegate = self
-        self.locationManager!.pausesLocationUpdatesAutomatically = true
-        self.locationManager!.activityType = CLActivityType.OtherNavigation
-        self.locationManager!.distanceFilter = kCLLocationAccuracyNearestTenMeters
-        self.locationManager!.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager!.requestAlwaysAuthorization()
-        self.locationManager!.requestWhenInUseAuthorization()
-        self.locationManager!.startUpdatingLocation()
-        
-        if self.bluetoothManager == nil {
-            self.bluetoothManager = CBCentralManager(delegate: self, queue: nil, options: nil)
-            self.bluetoothManager!.delegate = self
+            
+            self.locationManager!.delegate = self
+            self.locationManager!.pausesLocationUpdatesAutomatically = true
+            self.locationManager!.activityType = CLActivityType.OtherNavigation
+            self.locationManager!.distanceFilter = kCLLocationAccuracyNearestTenMeters
+            self.locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager!.requestAlwaysAuthorization()
+            self.locationManager!.requestWhenInUseAuthorization()
+            self.locationManager!.startUpdatingLocation()
+            
+            if self.bluetoothManager == nil {
+                self.bluetoothManager = CBCentralManager(delegate: self, queue: nil, options: nil)
+                self.bluetoothManager!.delegate = self
+            }
         }
     }
     
@@ -1278,7 +1276,6 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         switch central.state {
             case .PoweredOn:
                 BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED = true
-                
                 break
             case .PoweredOff: break
             case .Resetting: break

@@ -37,7 +37,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         self.setNeedsStatusBarAppearanceUpdate()
         
         self.view.backgroundColor = UIColor.blackColor()
-        //self.view.layer.cornerRadius = 5
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
         
@@ -45,12 +44,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         
         BNAppSharedManager.instance.positionManager.delegateView = self
         
-        BNAppSharedManager.instance.dataManager.requestDataOnWhenAppIsRunning()
-        
-//        if BNAppSharedManager.instance.notificationManager.currentNotification != nil && BNAppSharedManager.instance.notificationManager.didSendNotificationOnAppDown {
-//            mainView!.showNotificationContext()
-//        }
-        
+        BNAppSharedManager.instance.positionManager!.startLocationService()
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

@@ -108,19 +108,22 @@ class BNAppManager {
         
                 isWaitingForLocationServicesPermision = false
                 
-                if positionManager.checkHardwareStatus() {
-                    
+//                if positionManager.checkHardwareStatus() {
+                
                     if positionManager.checkBluetoothServicesStatus() {
                         BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED = true
                         continueAfterIntialChecking()
                     } else {
-                        errorManager.showBluetoothError()
+                        
+                        if BNAppSharedManager.instance.dataManager.isUserLoaded {
+                            errorManager.showBluetoothError()
+                        }
                         //continueAfterIntialChecking()
                     }
                     
-                } else  {
-                    errorManager.showHardwareNotSupportedError()
-                }
+//                } else  {
+//                    errorManager.showHardwareNotSupportedError()
+//                }
                 
             } else {
                 if dataManager.isUserLoaded {
@@ -129,7 +132,7 @@ class BNAppManager {
                 }
             }
         } else {
-            continueAfterIntialChecking()
+            //continueAfterIntialChecking()
         }
     }
     
