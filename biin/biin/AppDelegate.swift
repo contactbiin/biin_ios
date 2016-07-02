@@ -191,7 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         connectToFcm()
         
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 7
     }
 
     func applicationWillTerminate(application: UIApplication) {
