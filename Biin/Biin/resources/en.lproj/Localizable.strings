@@ -1,0 +1,258 @@
+/* 
+Localizable.strings
+biin
+Created by Esteban Padilla - English on 4/22/15.
+Copyright (c) 2015 Esteban Padilla. All rights reserved.
+NSLocalizedString("Version", comment: "the version title")
+*/
+
+/* General button and labelss */
+Version = "Version";
+Close = "Close";
+Save = "Save";
+Start = "Start";
+Loading = "Downloading content...";
+Finishing = "Updating...";
+EmailUs = "Email us";
+CallUs = "Call us";
+Phone = "Phone";
+Password = "Password";
+Login = "Have an account? Log in";
+ImNewHere = "Sign up using email";
+SignUpMsj = "Sign up using your email address.";
+LetsGetStarted = "Let's get started!";
+DontForget = "* Don't forget to check your inbox and verify your email address later on.";
+HardwareError = "Your device does not support Biin due to harware requirements, please close this app.";
+PleaseWait = "Please wait a moment!";
+Yes = "yes";
+No = "no";
+DeleteUser = "Delete Current User";
+AddAction = "Add a Action";
+From = "FROM";
+Price = "PRICE";
+LimitedTime = "Limited Time";
+OriginalPrice = "ORIGINAL PRICE";
+Quantity = "QUANTITY";
+Reserve = "RESERVE";
+Claimed = "CLAIMED";
+Discount = "DISCOUNT";
+Savings = "SAVINGS";
+YouSave = "YOU SAVE";
+Value = "VALUE";
+Calcel = "Cancel";
+More = "more";
+NearYou = "Places near you";
+FavoritePlaces = "Your favorites Places";
+AddFavoritePlaces = "Use the like button to add places to your favorites.";
+NoMorePlaces = "It seems there are no more places near by you.";
+OtherPlaces1 = "Otros ";
+OtherPlaces2 = " cerca de vos";
+
+MoreFrom = "More from";
+Recomended = "Our picks";
+
+LikeTxt = "Thanks for liking us!";
+NotLikeTxt = "Thanks, see you later!";
+
+FollowTxt = "Thank you!";
+NotFollowTxt = "We are sorry to see you go!";
+
+
+/* Menu buttons */
+Profile = "Profile";
+Home = "Home";
+Collections = "My Favotires";
+Loyalty = "Loyalty";
+Notifications = "Notifications";
+InviteFriends = "Invite Friends";
+Settings = "Settings";
+Search = "Search";
+About = "About";
+SignUpTitle = "Sign up";
+LoginTitle = "Log in";
+LoginDesc = "Enter your email and password you previously use on biin.";
+ContinueBtn = "Continue";
+WelcomeDesc = "We are glad to see you here, if you are new, you can sign up with your email or login with Facebook.";
+StartDesc = "Excelent, now is time to discover and enjoy special rewards with Biin.";
+
+/* Categories */
+category1 = "Books, Audio and Movies";
+category2 = "Entertaiment";
+category3 = "Beuty and Health";
+category4 = "Woman clothing and shoes";
+category5 = "Kids clothing and shoes";
+category6 = "Man clothing and shoes";
+category7 = "Sports and Outdoors";
+category8 = "Home, Garden and Hardware";
+category9 = "Technology";
+category10 = "Toys and Hobies";
+category11 = "Food and Restaurants";
+category12 = "Cars and Industrial";
+category13 = "Jewelry";
+category14 = "In the super market";
+category15 = "Pets";
+category16 = "Appliances";
+category17 = "Furniture";
+category18 = "Services";
+/*category16 = "Events";
+category17 = "Brands";
+category18 = "Concerts";
+category19 = "GetAways";
+category20 = "Education";
+category21 =  "Museum and Tours";
+category22 = "Collectibles y Arts";
+category23 = "Finance";
+category24 = "Instuticional";
+category25 = "Health";
+ */
+
+/* Views */
+/* Profile View*/
+Name = "Name";
+Lastname = "Lastname";
+Username = "Username";
+Email = "Email";
+IsEmailVerified = "Is email verified?";
+Birthdate = "Birthdate";
+Gender = "I'm a ...";
+GenderMale = "I'm a male";
+GenderFemale = "I'm a female";
+GenderSelect = "Select a gender";
+WhatAreYouInterest = "What are you interested in?";
+CategoriesMsj = "*** We have selected the most popular categories for you!";
+EnterYourBirthDate = "Enter your birthDate";
+Optionales = "If you share with us your birth day and age we will improve the recomendations we show you.";
+
+/* Showcase - Game View*/
+JoinUs = "Join us!";
+StartToEnjoy = "And start to enjoy our benefits!";
+YouSeen = "You’ve seen";
+Done = "Done!";
+ThankYouStop = "Thank you for stoping by.";
+Follow = "FOLLOW";
+Following = "FOLLOWING";
+
+/* Login View*/
+Wellcome = "Welcome!";
+
+/* Email messaje*/
+EmailMsj = "Hello there!";
+
+/* Collection View Temporal */
+CollectionTitle = "Your biined stuff.";
+CollectionSubTitle = "This is a list of all your biined stuff.";
+
+Places = "Sites";
+HightLights = "HightLights";
+Biins = "Biins";
+Biined = "Biined!";
+NotBiins = "It seems there are not Biins around here!";
+Collected = "Saved on your collection.";
+Uncollected = "Removed from your collection.";
+
+/*Invite friends   hey check out the Salmon al Limo from Spoon  */
+InviteSubject = "Shoping and having fun with Biin";
+InviteBody = "The best offers and places in your hand. Download Biin at ";
+ShareBody1 = "Hi, I found this on Biin. ";
+ShareBody2 = "from ";
+ShareBody3 = "The best offers and places in your hand. Download Biin at ";
+
+/*Alert messages*/
+PleaseWait = "Please wait a moment!";
+
+/*Loyalty*/
+Points = "Points";
+Of = "of";
+
+/*About*/
+AboutTitle = "About Biin";
+AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6, iPhone6 Plus, iPhone6s and iPhone6s Plus.";
+
+/*Internet Error View*/
+InternetErrorTitle = "You're offline.";
+InternetErrorText = "Connect to the internet, then give it another shot.";
+InternetErrorButton = "Continue";
+
+VersionErrorTitle = "New update available!";
+VersionErrorText = "A new update is available, please goto the store and update Biin";
+VersionErrorButton = "Continue";
+VersionChecking = "Checking...";
+
+HardwareErrorTitle = "Too bad!";
+HardwareErrorText = "We are sorry but your device does not support Biin due to harware requirements, please close this app.";
+HardwareErrorButton = "Continue";
+
+
+//BluetoothErrorTitle = "Oops, Biin needs bluetooth!";
+//BluetoothErrorText = "Please turn on blutooth and enable Biin to use it.";
+//BluetoothErrorButton = "Go to settings.";
+
+BluetoothErrorText = "Biin uses a low energy bluetooth to give you a better experience on the places you visit.";
+BluetoothErrorTitle = "Biin works better with bluetooth enabled!";
+BluetoothErrorButton = "Continue";
+
+LocationErrorTitle = "Hey, Biin needs location services enabled!";
+LocationErrorText = "Please, turn on location services on your device and enable Biin to use them.";
+LocationErrorButton = "Go to settings.";
+
+NotBiinieErrorTitle = "Opps!";
+NotBiinieErrorText = "We are sorry but something is wrong with your account, please create a new one on Biin.";
+NotBiinieErrorButton = "Go to the start screen.";
+
+ServerErrorTitle = "Opps!";
+ServerErrorText = "Something went worng, please try again later on. Thank you";
+ServerErrorButton = "Try again";
+
+OnboardingTitle1 = "Discover!";
+OnboardingText1 = "The best deals and rewards just steps away from you.";
+
+OnboardingTitle2 = "Collect and share!";
+OnboardingText2 = "All the things you find in Biin with your friends.";
+
+OnboardingTitle3 = "Enjoy!";
+OnboardingText3 = "Visit your favorite stores and take advantage the best deals and rewards.";
+
+SiteBottomTitle = "Thank you!";
+SiteBottomSubtitle = "Please comeback soon.";
+
+BadEmail = "Bad email or password!";
+RequestFailed = "Request Failed!";
+NotInternet = "Internet is not available!";
+Cool = "Cool";
+
+Refresh = "REFRESH?";
+Refreshing = "REFRESHING...";
+
+Before = "Before";
+Now = "Now";
+
+/*Survey*/
+SurveyTitle = "Your opinion matters";
+Optional = "Optional";
+BrandGreetings = "Thank you for stoping by today and come back soon!";
+SurveyQuestion_1 = "How likely would you recommend ";
+SurveyQuestion_2 = " to your family or friends?";
+SurveyQuestion_3 = "Leave your comments about what did you like or dislike so we can improve.";
+SurveyQuestion_4 = "How likely would you recommend us to your family or friends?";
+SurveyQuestion_5 = "We appreciate that you took the time to fill out our survey. We hope to make changes soon with you recommendations. Thank you.";
+Thankyou = "Thank you";
+Download = "Download it at www.biin.io";
+Sent = "Sent";
+Send = "Send";
+
+likely = "Very Likely";
+not_likely = "Not likely";
+
+UBER = "Ride there with Uber";
+Schedule = "Schedule";
+
+npsBtn = "Help us to improve";
+npsBtn_completed = "We received your help!";
+
+PrivacyPolicy = "Privacy policies";
+TermOfUser = "Terms of service";
+TermOfUserWarning = "** When you tap on the button you are accepting our Terms of Use.";
+
+Accept = "Accept";
+
+Waze = "Waze";
