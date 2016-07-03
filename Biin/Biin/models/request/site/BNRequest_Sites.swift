@@ -75,7 +75,7 @@ class BNRequest_Sites: BNRequest {
                     */
                     
                     self.view!.requestCompleted()
-                    self.inCompleted = true
+                    self.isCompleted = true
                     self.networkManager!.removeFromQueue(self)
                     
                 } else  {

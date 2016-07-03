@@ -19,7 +19,7 @@ class BNRequest_Login_Facebook: BNRequest {
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.Login
+        self.requestType = BNRequestType.Login_Facebook
         self.errorManager = errorManager
         self.networkManager = networkManager
         
@@ -27,40 +27,36 @@ class BNRequest_Login_Facebook: BNRequest {
     
     override func run() {
         
-        //print("BNRequest_Login_Facebook - \(requestString)")
-        
         isRunning = true
         attemps += 1
-        
-        var response:BNResponse?
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url:requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                
-                self.networkManager!.handleFailedRequest(self, error: error)
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 
             } else {
                 
                 if let loginData = data["data"] as? NSDictionary {
                     
-                    let status = BNParser.findInt("status", dictionary: data)
                     let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
+                        
                         let identifier = BNParser.findString("identifier", dictionary: loginData)
-                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier:identifier)
+                        
+                        self.isCompleted = true
+                        self.networkManager!.requestManager!.processCompletedRequest(self)
+                        
                     } else {
-                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
+                        
+                        self.isCompleted = true
+                        self.requestError = BNRequestError.Login_Facebook_Failed
+                        self.networkManager!.requestManager!.processFailedRequest(self, error: nil)
                     }
-                    
-                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedFacebookLoginValidation: response)
-                    
-                    self.inCompleted = true
-                    self.networkManager!.removeFromQueue(self)
-                    
                 } else {
                     self.requestType = BNRequestType.ServerError
                     self.networkManager!.handleFailedRequest(self, error: error)

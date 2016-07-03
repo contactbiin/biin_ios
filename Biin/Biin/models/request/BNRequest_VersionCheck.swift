@@ -50,7 +50,7 @@ class BNRequest_VersionCheck: BNRequest {
                         self.requestError = BNRequestError.VersionCheck_NeedsUpdate
                         self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                     } else {
-                        self.inCompleted = true
+                        self.isCompleted = true
                         self.networkManager!.requestManager!.processCompletedRequest(self)
                         
                         //self.networkManager!.delegateVC?.manager!(self.networkManager!, didReceivedVersionStatus:needsUpdate)

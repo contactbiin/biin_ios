@@ -46,7 +46,7 @@ class BNRequest_Image: BNRequest {
                     //let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                     //print("BNRequest_Image [\(timeInterval)] - \(self.requestString)")
                     
-                    self.inCompleted = true
+                    self.isCompleted = true
                     self.networkManager!.removeFromQueue(self)
                 }
             })

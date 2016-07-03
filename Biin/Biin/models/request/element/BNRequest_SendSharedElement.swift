@@ -76,7 +76,7 @@ class BNRequest_SendSharedElement: BNRequest {
 //                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedUpdateConfirmation: response)
                 //}
                 
-                self.inCompleted = true
+                self.isCompleted = true
                 self.networkManager!.removeFromQueue(self)
             }
         })

@@ -270,7 +270,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     func hideProgressView(){
         if (alert?.isOn != nil) {
             alert!.hideWithCallback({() -> Void in
-                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:"Error on Facebook!")
+                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.FacebookError )
                 self.view.addSubview(self.alert!)
                 self.alert!.showAndHide()
                 self.loginView!.clean()
@@ -292,9 +292,9 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     }
     
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedLoginValidation response: BNResponse?) {
+    func didReceivedLoginValidation(isValidated: Bool) {
 
-        if response!.code == 0 {
+        if isValidated {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
                     //BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
@@ -307,7 +307,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials)
                     self.view.addSubview(self.alert!)
                     self.alert!.showAndHide()
                     self.loginView!.clean()
@@ -329,7 +329,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials)
                     self.view.addSubview(self.alert!)
                     self.alert!.showAndHide()
                     self.loginView!.clean()
@@ -340,9 +340,10 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedFacebookLoginValidation response: BNResponse?) {
+    func didReceivedFacebookLoginValidation(isValidated:Bool) {
+//    func manager(manager: BNNetworkManager!, didReceivedFacebookLoginValidation response: BNResponse?) {
         
-        if response!.code == 0 {
+        if isValidated {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
                     //BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
@@ -355,7 +356,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials )
                     self.view.addSubview(self.alert!)
                     self.alert!.showAndHide()
                     self.loginView!.clean()
@@ -367,7 +368,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
     
     func showProgressView(){
         if self.alert == nil {
-            alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
+            alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait )
         
             self.view.addSubview(alert!)
             alert!.show()

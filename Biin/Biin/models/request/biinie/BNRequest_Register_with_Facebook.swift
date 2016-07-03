@@ -60,7 +60,7 @@ class BNRequest_Register_with_Facebook: BNRequest {
                     self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)
                 }
                 
-                self.inCompleted = true
+                self.isCompleted = true
                 self.networkManager!.removeFromQueue(self)
             }
         })

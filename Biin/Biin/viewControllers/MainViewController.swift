@@ -309,7 +309,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials )
                     self.view.addSubview(self.alert!)
                     self.alert!.showAndHide()
                 })
@@ -329,7 +329,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     func hideProgressView(){
         if (alert?.isOn != nil) {
             alert!.hideWithCallback({() -> Void in
-                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:"Error on Facebook!")
+                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.FacebookError )
                 self.view.addSubview(self.alert!)
                 self.alert!.showAndHide()
             })
@@ -337,7 +337,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     }
         
     func showProgressView(){
-        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait )
         self.view.addSubview(alert!)
         alert!.show()
     }

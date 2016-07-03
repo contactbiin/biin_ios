@@ -131,7 +131,7 @@ class BNRequest_SendBiinie:BNRequest {
                 //let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                 //print("BNRequest_SendBiinie [\(timeInterval)] - \(self.requestString)")
                 
-                self.inCompleted = true
+                self.isCompleted = true
                 self.networkManager!.removeFromQueue(self)
             }
         })

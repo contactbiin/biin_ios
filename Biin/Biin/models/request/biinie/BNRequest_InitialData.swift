@@ -102,7 +102,7 @@ class BNRequest_InitialData: BNRequest {
                     //self.networkManager!.removeFromQueue(self)
                     
                     //new request management
-                    self.inCompleted = true
+                    self.isCompleted = true
                     self.networkManager!.requestManager!.processCompletedRequest(self)
                     
                 } else  {

@@ -69,22 +69,8 @@ class BNRequest_SendBiinieToken:BNRequest {
                 self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
-                /*
-                if let registerData = data["data"] as? NSDictionary {
-                    
-                    let status = BNParser.findInt("status", dictionary: registerData)
-                    let result = BNParser.findBool("result", dictionary: registerData)
-                    
-                    print("status: \(status)")
-                    print("result: \(result)")
-                }
-                */
-                
-                
-                
-                self.inCompleted = true
+                self.isCompleted = true
                 self.networkManager!.requestManager!.processCompletedRequest(self)
-                //self.networkManager!.removeFromQueue(self)
             }
         })
     }

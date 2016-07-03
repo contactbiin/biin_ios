@@ -452,7 +452,7 @@ class BNRequest_ElementsForCategory: BNRequest {
                     */
                     
                     self.view!.requestCompleted()
-                    self.inCompleted = true
+                    self.isCompleted = true
                     self.networkManager!.removeFromQueue(self)
                     
                 } else  {

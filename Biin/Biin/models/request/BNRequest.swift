@@ -15,6 +15,8 @@ enum BNRequestError
     case Biinie_Failed
     case Biinie_NotRegistered
     case SendBiinieToken_Failed
+    case Login_Failed
+    case Login_Facebook_Failed
     case DoNotShowError
     case Internet_Failed
     case Server
@@ -24,6 +26,7 @@ enum BNRequestType
 {
     case None
     case Login
+    case Login_Facebook
     case Register
     case Biinie
     case SendBiinie
@@ -60,7 +63,7 @@ class BNRequest:NSObject {
     static var requestCounter:Int = 0
     
     var isRunning = false
-    var inCompleted = false
+    var isCompleted = false
     var identifier:Int = 0
     var requestString:String = ""
     var dataIdentifier:String = ""//identifier for the object data is requested for.

@@ -29,8 +29,6 @@ class BNRequest_SendBiinieActions: BNRequest {
     
     override func run() {
         
-        //self.start = NSDate()
-        
         isRunning = true
         attemps += 1
         
@@ -44,20 +42,14 @@ class BNRequest_SendBiinieActions: BNRequest {
             action["to"]    = value.to!
             action["by"]    = value.by!
             model["model"]!["actions"]?.append(action)
-            
-            //print("whom:\(self.user!.identifier!), at:\(value.at!.bnDateFormattForActions()), did:\(value.did!.hashValue), to:\(value.to!)")
         }
         
-        //var httpError: NSError?
         var htttpBody:NSData?
         do {
             htttpBody = try NSJSONSerialization.dataWithJSONObject(model, options:[])
         } catch _ as NSError {
-            //httpError = error
             htttpBody = nil
         }
-        
-        //var response:BNResponse?
         
         self.networkManager!.epsNetwork!.put(self.identifier, url:requestString, htttpBody:htttpBody, callback: {
             
@@ -69,18 +61,9 @@ class BNRequest_SendBiinieActions: BNRequest {
                 self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 
             } else {
-
-                /*
-                let end = NSDate()
-                let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                print("BNRequest_SendBiinieActions [\(timeInterval)] - \(self.requestString)")
-                */
-                
-                self.inCompleted = true
+                self.isCompleted = true
                 self.networkManager!.requestManager!.processCompletedRequest(self)
-                
-//                self.inCompleted = true
-//                self.networkManager!.removeFromQueue(self)
+
             }
         })
 

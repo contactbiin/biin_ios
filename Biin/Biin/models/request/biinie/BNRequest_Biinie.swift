@@ -84,7 +84,7 @@ class BNRequest_Biinie: BNRequest {
                         
                         self.user!.categories = categories
                         */
-                        self.inCompleted = true
+                        self.isCompleted = true
                         self.networkManager!.requestManager!.processCompletedRequest(self)
 //                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:true)
                         

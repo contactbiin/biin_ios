@@ -102,7 +102,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func sendBiinieActions_Failed() { }
     
-    
     func sendBiinieToken_Completed() { }
     
     func sendBiinieToken_Failed() {
@@ -110,11 +109,21 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         BNAppSharedManager.instance.dataManager!.bnUser!.save()
     }
     
+    func login_Completed() {
+        self.delegateVC!.didReceivedLoginValidation!(true)
+    }
     
+    func login_Failed() {
+        self.delegateVC!.didReceivedLoginValidation!(false)
+    }
     
+    func login_Facebook_Completed() {
+        self.delegateVC!.didReceivedFacebookLoginValidation!(true)
+    }
     
-    
-    
+    func login_Facebook_Failed() {
+        self.delegateVC!.didReceivedFacebookLoginValidation!(false)
+    }
     
     func runQueue(){
         
@@ -488,12 +497,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             case .None:
                 break
             case .Login:
-                let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
-                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+                //let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
+//                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
             case .Register:
                 let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
-                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+//                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
             case .Biinie, .SendBiinie, .SendBiinieActions, .SendLikedElement, .SendSharedElement, .SendLikedSite, .SendSharedSite, .ElementsForShowcase:
                 
@@ -589,16 +598,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     optional func didReceivedAllInitialData()
     optional func didReceivedBiinieData(user:Biinie?)
     optional func biinieNotRegistered()
+    optional func didReceivedLoginValidation(isValidated:Bool)
+    optional func didReceivedFacebookLoginValidation(isValidated:Bool)
     
-    
-    
-    optional func manager(manager:BNNetworkManager!, didReceivedLoginValidation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)
     optional func manager(manager:BNNetworkManager!, didReceivedEmailVerification value:Bool)
     optional func manager(manager:BNNetworkManager!, didReceivedRegisterConfirmation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedUpdateConfirmation response:BNResponse?)
     optional func manager(manager:BNNetworkManager!, didReceivedCategoriesSavedConfirmation response:BNResponse?)
-    optional func manager(manager:BNNetworkManager!, didReceivedFacebookLoginValidation response:BNResponse?)
+    
     
     optional func manager(manager:BNNetworkManager!, didReceivedInitialData biins:Array<BNBiin>?)
     
