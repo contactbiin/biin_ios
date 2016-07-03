@@ -10,13 +10,27 @@ struct BNRequestData { static var requestCounter:Int = 0 }
 enum BNRequestError
 {
     case None
-    case InitialData_Failed
-    case VersionCheck_NeedsUpdate
-    case Biinie_Failed
-    case Biinie_NotRegistered
-    case SendBiinieToken_Failed
     case Login_Failed
     case Login_Facebook_Failed
+    case Register_Failed
+    case Register_Facebook_Failed
+    case Biinie_Failed
+    case SendBiinie_Failed
+    case SendBiinieActions //NOT IN USE
+    case SendBiinieToken_Failed
+    
+    
+    case InitialData_Failed
+    case VersionCheck_NeedsUpdate
+    
+    case ElementsForCategory_Failed
+    case ElementsForShowcase_Failed
+    
+    case Biinie_NotRegistered
+    
+    
+    
+    
     case DoNotShowError
     case Internet_Failed
     case Server
@@ -28,10 +42,16 @@ enum BNRequestType
     case Login
     case Login_Facebook
     case Register
+    case Register_Facebook
     case Biinie
     case SendBiinie
+    case SendBiinie_Update
     case SendBiinieActions
     case SendBiinieToken
+    
+    case InitialData
+    case VersionCheck
+    
     
     case SendLikedElement
     case SendSharedElement
@@ -39,17 +59,16 @@ enum BNRequestType
     case SendLikedSite
     case SendSharedSite
 
-    case VersionCheck
     
     case Sites
     case Image
     
     case SendSurvey
     case ServerError
-    case InitialData
-    case ElementsForShowcase
-    case ElementsForCategory
     
+    
+    case ElementsForCategory
+    case ElementsForShowcase
     
     
 }

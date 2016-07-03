@@ -125,6 +125,23 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.delegateVC!.didReceivedFacebookLoginValidation!(false)
     }
     
+    func register_Completed() {
+        self.delegateVC!.didReceivedRegisterConfirmation!(true)
+    }
+    
+    func register_Failed() {
+        self.delegateVC!.didReceivedRegisterConfirmation!(true)
+    }
+    
+    func sendBiinie_Update_Completed() {
+        self.delegateVC!.didReceivedUpdateConfirmation!(true)
+    }
+    
+    func sendBiinie_Failed() {
+        self.delegateVC!.didReceivedUpdateConfirmation!(false)
+    }
+    
+    
     func runQueue(){
         
         var totalRequestRunnin = 0
@@ -424,34 +441,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         addToQueue(request)
     }
-    
-    func runRequest(){
-        
-        for (_, value) in requests {
-            
-            switch value.requestType {
 
-            default:
-                break
-            }
-            
-            return
-        }
-        
-    }
-
-
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
     func removeImageRequest(stringUrl:String){
         for (_, request) in self.requests {
             if stringUrl == request.requestString {
@@ -501,7 +491,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 //                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
             case .Register:
-                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
+//                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
 //                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
             case .Biinie, .SendBiinie, .SendBiinieActions, .SendLikedElement, .SendSharedElement, .SendLikedSite, .SendSharedSite, .ElementsForShowcase:
@@ -600,11 +590,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     optional func biinieNotRegistered()
     optional func didReceivedLoginValidation(isValidated:Bool)
     optional func didReceivedFacebookLoginValidation(isValidated:Bool)
+    optional func didReceivedRegisterConfirmation(isRegistered:Bool)
+    optional func didReceivedUpdateConfirmation(updated:Bool)
+    
     
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)
+    
     optional func manager(manager:BNNetworkManager!, didReceivedEmailVerification value:Bool)
-    optional func manager(manager:BNNetworkManager!, didReceivedRegisterConfirmation response:BNResponse?)
-    optional func manager(manager:BNNetworkManager!, didReceivedUpdateConfirmation response:BNResponse?)
+    
     optional func manager(manager:BNNetworkManager!, didReceivedCategoriesSavedConfirmation response:BNResponse?)
     
     

@@ -43,17 +43,16 @@ class BNRequest_Login_Facebook: BNRequest {
                     
                     let result = BNParser.findBool("result", dictionary: data)
                     
+                    self.isCompleted = true
+                    
                     if result {
                         
                         let identifier = BNParser.findString("identifier", dictionary: loginData)
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier:identifier)
                         
-                        self.isCompleted = true
                         self.networkManager!.requestManager!.processCompletedRequest(self)
                         
                     } else {
-                        
-                        self.isCompleted = true
                         self.requestError = BNRequestError.Login_Facebook_Failed
                         self.networkManager!.requestManager!.processFailedRequest(self, error: nil)
                     }

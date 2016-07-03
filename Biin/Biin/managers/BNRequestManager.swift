@@ -36,6 +36,8 @@ class BNRequestManager: NSObject {
         case .SendBiinieToken: self.networkManager!.sendBiinieToken_Completed()
         case .Login: self.networkManager!.login_Completed()
         case .Login_Facebook: self.networkManager!.login_Facebook_Completed()
+        case .Register, .Register_Facebook, .SendBiinie: self.networkManager!.register_Completed()
+        case .SendBiinie_Update: self.networkManager!.sendBiinie_Update_Completed()
         default:
             break
         }
@@ -57,6 +59,7 @@ class BNRequestManager: NSObject {
         case .Biinie_Failed: break
         case .Biinie_NotRegistered: self.networkManager!.biinie_NotRegistered()
         case .SendBiinieToken_Failed: self.networkManager!.sendBiinieToken_Failed()
+        case .SendBiinie_Failed: self.networkManager!.sendBiinie_Failed()
         case .Login_Failed:
             self.networkManager!.login_Failed()
             request.clean()
@@ -64,6 +67,11 @@ class BNRequestManager: NSObject {
             break
         case .Login_Facebook_Failed:
             self.networkManager!.login_Facebook_Failed()
+            request.clean()
+            removeRequestFromQueue(request.identifier)
+            break
+        case .Register_Failed, .Register_Facebook_Failed:
+            self.networkManager!.register_Failed()
             request.clean()
             removeRequestFromQueue(request.identifier)
             break

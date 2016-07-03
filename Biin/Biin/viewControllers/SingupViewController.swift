@@ -316,8 +316,8 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         }
     }
     
-    func manager(manager: BNNetworkManager!, didReceivedRegisterConfirmation response: BNResponse?) {
-        if response!.code == 0 {
+    func didReceivedRegisterConfirmation(registered:Bool) {
+        if registered {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
                     let vc = UserOnboardingViewController()

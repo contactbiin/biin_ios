@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 
+//TODO: NOT IN USE
 class BNRequest_ElementsForShowcase: BNRequest {
 
     override init(){
@@ -32,16 +33,14 @@ class BNRequest_ElementsForShowcase: BNRequest {
     
     override func run() {
         
-        //self.start = NSDate()
-        
         isRunning = true
         attemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                
-                self.networkManager!.handleFailedRequest(self, error: error)
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
                 if let elementsData = data["data"] as? NSDictionary {
@@ -51,14 +50,6 @@ class BNRequest_ElementsForShowcase: BNRequest {
                     
                     if result {
                         
-                        //Parse showcase element list.
-//                        
-//                        self.showcase!.identifier = BNParser.findString("identifier", dictionary: showcaseData)
-//                        self.showcase!.lastUpdate = BNParser.findNSDate("lastUpdate", dictionary: showcaseData)
-//                        self.showcase!.title = BNParser.findString("title", dictionary: showcaseData)
-//                        self.showcase!.subTitle = BNParser.findString("subTitle", dictionary: showcaseData)
-//                        self.showcase!.elements_quantity = BNParser.findInt("elements_quantity", dictionary: showcaseData)!
-//                        
                         let elements = BNParser.findNSArray("elements", dictionary: elementsData)
                         
                         var i:Int = 0

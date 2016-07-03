@@ -33,35 +33,27 @@ class BNRequest_Register: BNRequest {
         isRunning = true
         attemps += 1
 
-        var response:BNResponse?
-
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                self.networkManager!.handleFailedRequest(self, error: error )
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
                 if let registerData = data["data"] as? NSDictionary {
-                    
-                    let status = BNParser.findInt("status", dictionary: data)
                     let result = BNParser.findBool("result", dictionary: data)
                     let identifier = BNParser.findString("identifier", dictionary: registerData)
+                    self.isCompleted = true
                     
                     if result {
-                        response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier: identifier)
+                        self.networkManager!.requestManager!.processCompletedRequest(self)
                         
                     } else {
-                        response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-
+                        self.networkManager!.requestManager!.processFailedRequest(self, error: nil)
                     }
-                    
-                    self.networkManager!.delegateVC!.manager!(self.networkManager!, didReceivedRegisterConfirmation: response)
                 }
-                
-                self.isCompleted = true
-                self.networkManager!.removeFromQueue(self)
             }
         })
     }

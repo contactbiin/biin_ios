@@ -298,12 +298,12 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         }
     }
     
-    func manager(manager: BNNetworkManager!, didReceivedUpdateConfirmation response: BNResponse?) {
-        
-        if response!.code == 0 {
+    
+    func didReceivedUpdateConfirmation(updated:Bool) {
+        if updated {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    BNAppSharedManager.instance.dataManager.requestInitialData()
+                    //BNAppSharedManager.instance.dataManager.requestInitialData()
                 })
             }
         } else {

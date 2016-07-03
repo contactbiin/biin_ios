@@ -27,8 +27,6 @@ class BNRequest_Image: BNRequest {
     
     override func run() {
         
-        //self.start = NSDate()
-        
         isRunning = true
         attemps += 1
         
@@ -37,21 +35,14 @@ class BNRequest_Image: BNRequest {
             self.networkManager!.epsNetwork!.getImage(requestString, image:self.image!, callback:{(error: NSError?) -> Void in
                 
                 if (error != nil)  {
-                    
-                    self.networkManager!.handleFailedRequest(self, error:error )
-                    
+                    if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                    self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 } else {
-
-                    //let end = NSDate()
-                    //let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                    //print("BNRequest_Image [\(timeInterval)] - \(self.requestString)")
-                    
                     self.isCompleted = true
-                    self.networkManager!.removeFromQueue(self)
+                    self.networkManager!.requestManager!.processCompletedRequest(self)
+                    
                 }
             })
         }
     }
-    
-    
 }
