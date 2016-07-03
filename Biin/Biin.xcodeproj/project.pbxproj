@@ -298,21 +298,12 @@
 		5BEC1EB51D287DCA00D7B931 /* BNRequest_ElementsForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D341D287DCA00D7B931 /* BNRequest_ElementsForCategory.swift */; };
 		5BEC1EB61D287DCA00D7B931 /* BNRequest_ElementsForShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D351D287DCA00D7B931 /* BNRequest_ElementsForShowcase.swift */; };
 		5BEC1EB71D287DCA00D7B931 /* BNRequest_Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D361D287DCA00D7B931 /* BNRequest_Image.swift */; };
-		5BEC1EB81D287DCA00D7B931 /* BNRequest_Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D371D287DCA00D7B931 /* BNRequest_Organization.swift */; };
 		5BEC1EB91D287DCA00D7B931 /* BNRequest_SendSurvey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D381D287DCA00D7B931 /* BNRequest_SendSurvey.swift */; };
-		5BEC1EBA1D287DCA00D7B931 /* BNRequest_Showcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D391D287DCA00D7B931 /* BNRequest_Showcase.swift */; };
 		5BEC1EBB1D287DCA00D7B931 /* BNRequest_VersionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D3A1D287DCA00D7B931 /* BNRequest_VersionCheck.swift */; };
-		5BEC1EBC1D287DCA00D7B931 /* BNRequest_Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D3C1D287DCA00D7B931 /* BNRequest_Element.swift */; };
-		5BEC1EBD1D287DCA00D7B931 /* BNRequest_SendCollectedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D3D1D287DCA00D7B931 /* BNRequest_SendCollectedElement.swift */; };
 		5BEC1EBE1D287DCA00D7B931 /* BNRequest_SendLikedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D3E1D287DCA00D7B931 /* BNRequest_SendLikedElement.swift */; };
 		5BEC1EBF1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D3F1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift */; };
-		5BEC1EC01D287DCA00D7B931 /* BNRequest_SendUnCollectedElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D401D287DCA00D7B931 /* BNRequest_SendUnCollectedElement.swift */; };
-		5BEC1EC11D287DCA00D7B931 /* BNRequest_SendCollectedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D421D287DCA00D7B931 /* BNRequest_SendCollectedSite.swift */; };
-		5BEC1EC21D287DCA00D7B931 /* BNRequest_SendFollowedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D431D287DCA00D7B931 /* BNRequest_SendFollowedSite.swift */; };
 		5BEC1EC31D287DCA00D7B931 /* BNRequest_SendLikedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D441D287DCA00D7B931 /* BNRequest_SendLikedSite.swift */; };
 		5BEC1EC41D287DCA00D7B931 /* BNRequest_SendSharedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D451D287DCA00D7B931 /* BNRequest_SendSharedSite.swift */; };
-		5BEC1EC51D287DCA00D7B931 /* BNRequest_SendUnCollectedSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D461D287DCA00D7B931 /* BNRequest_SendUnCollectedSite.swift */; };
-		5BEC1EC61D287DCA00D7B931 /* BNRequest_Site.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D471D287DCA00D7B931 /* BNRequest_Site.swift */; };
 		5BEC1EC71D287DCA00D7B931 /* BNRequest_Sites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D481D287DCA00D7B931 /* BNRequest_Sites.swift */; };
 		5BEC1EC81D287DCA00D7B931 /* notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1D4B1D287DCA00D7B931 /* notification.wav */; };
 		5BEC1EC91D287DCA00D7B931 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1D4C1D287DCA00D7B931 /* Localizable.strings */; };
@@ -657,21 +648,12 @@
 		5BEC1D341D287DCA00D7B931 /* BNRequest_ElementsForCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_ElementsForCategory.swift; sourceTree = "<group>"; };
 		5BEC1D351D287DCA00D7B931 /* BNRequest_ElementsForShowcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_ElementsForShowcase.swift; sourceTree = "<group>"; };
 		5BEC1D361D287DCA00D7B931 /* BNRequest_Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Image.swift; sourceTree = "<group>"; };
-		5BEC1D371D287DCA00D7B931 /* BNRequest_Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Organization.swift; sourceTree = "<group>"; };
 		5BEC1D381D287DCA00D7B931 /* BNRequest_SendSurvey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendSurvey.swift; sourceTree = "<group>"; };
-		5BEC1D391D287DCA00D7B931 /* BNRequest_Showcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Showcase.swift; sourceTree = "<group>"; };
 		5BEC1D3A1D287DCA00D7B931 /* BNRequest_VersionCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_VersionCheck.swift; sourceTree = "<group>"; };
-		5BEC1D3C1D287DCA00D7B931 /* BNRequest_Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Element.swift; sourceTree = "<group>"; };
-		5BEC1D3D1D287DCA00D7B931 /* BNRequest_SendCollectedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendCollectedElement.swift; sourceTree = "<group>"; };
 		5BEC1D3E1D287DCA00D7B931 /* BNRequest_SendLikedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLikedElement.swift; sourceTree = "<group>"; };
 		5BEC1D3F1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendSharedElement.swift; sourceTree = "<group>"; };
-		5BEC1D401D287DCA00D7B931 /* BNRequest_SendUnCollectedElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendUnCollectedElement.swift; sourceTree = "<group>"; };
-		5BEC1D421D287DCA00D7B931 /* BNRequest_SendCollectedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendCollectedSite.swift; sourceTree = "<group>"; };
-		5BEC1D431D287DCA00D7B931 /* BNRequest_SendFollowedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendFollowedSite.swift; sourceTree = "<group>"; };
 		5BEC1D441D287DCA00D7B931 /* BNRequest_SendLikedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLikedSite.swift; sourceTree = "<group>"; };
 		5BEC1D451D287DCA00D7B931 /* BNRequest_SendSharedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendSharedSite.swift; sourceTree = "<group>"; };
-		5BEC1D461D287DCA00D7B931 /* BNRequest_SendUnCollectedSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendUnCollectedSite.swift; sourceTree = "<group>"; };
-		5BEC1D471D287DCA00D7B931 /* BNRequest_Site.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Site.swift; sourceTree = "<group>"; };
 		5BEC1D481D287DCA00D7B931 /* BNRequest_Sites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Sites.swift; sourceTree = "<group>"; };
 		5BEC1D4B1D287DCA00D7B931 /* notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notification.wav; sourceTree = "<group>"; };
 		5BEC1D4D1D287DCA00D7B931 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1332,9 +1314,7 @@
 				5BEC1D341D287DCA00D7B931 /* BNRequest_ElementsForCategory.swift */,
 				5BEC1D351D287DCA00D7B931 /* BNRequest_ElementsForShowcase.swift */,
 				5BEC1D361D287DCA00D7B931 /* BNRequest_Image.swift */,
-				5BEC1D371D287DCA00D7B931 /* BNRequest_Organization.swift */,
 				5BEC1D381D287DCA00D7B931 /* BNRequest_SendSurvey.swift */,
-				5BEC1D391D287DCA00D7B931 /* BNRequest_Showcase.swift */,
 				5BEC1D3A1D287DCA00D7B931 /* BNRequest_VersionCheck.swift */,
 				5BEC1D3B1D287DCA00D7B931 /* element */,
 				5BEC1D411D287DCA00D7B931 /* site */,
@@ -1361,11 +1341,8 @@
 		5BEC1D3B1D287DCA00D7B931 /* element */ = {
 			isa = PBXGroup;
 			children = (
-				5BEC1D3C1D287DCA00D7B931 /* BNRequest_Element.swift */,
-				5BEC1D3D1D287DCA00D7B931 /* BNRequest_SendCollectedElement.swift */,
 				5BEC1D3E1D287DCA00D7B931 /* BNRequest_SendLikedElement.swift */,
 				5BEC1D3F1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift */,
-				5BEC1D401D287DCA00D7B931 /* BNRequest_SendUnCollectedElement.swift */,
 			);
 			path = element;
 			sourceTree = "<group>";
@@ -1373,12 +1350,8 @@
 		5BEC1D411D287DCA00D7B931 /* site */ = {
 			isa = PBXGroup;
 			children = (
-				5BEC1D421D287DCA00D7B931 /* BNRequest_SendCollectedSite.swift */,
-				5BEC1D431D287DCA00D7B931 /* BNRequest_SendFollowedSite.swift */,
 				5BEC1D441D287DCA00D7B931 /* BNRequest_SendLikedSite.swift */,
 				5BEC1D451D287DCA00D7B931 /* BNRequest_SendSharedSite.swift */,
-				5BEC1D461D287DCA00D7B931 /* BNRequest_SendUnCollectedSite.swift */,
-				5BEC1D471D287DCA00D7B931 /* BNRequest_Site.swift */,
 				5BEC1D481D287DCA00D7B931 /* BNRequest_Sites.swift */,
 			);
 			path = site;
@@ -1680,7 +1653,6 @@
 				5BD1F8E71D28A00F0067164F /* BNUIButton_Back.swift in Sources */,
 				5BEC1EA31D287DCA00D7B931 /* BNRequest_Biinie.swift in Sources */,
 				5BD1F95D1D28A00F0067164F /* BNIcon_SportMedium.swift in Sources */,
-				5BEC1EB81D287DCA00D7B931 /* BNRequest_Organization.swift in Sources */,
 				5BD1F9161D28A00F0067164F /* BNView_NoBiinAvailableSign.swift in Sources */,
 				5BD1F8961D28A00F0067164F /* HardwareErrorView.swift in Sources */,
 				5BD1F9471D28A00F0067164F /* BNIcon_NotificationsMedium.swift in Sources */,
@@ -1690,7 +1662,6 @@
 				5BD1F9681D28A5C80067164F /* BNRequestManager.swift in Sources */,
 				5BD1F8D21D28A00F0067164F /* ElementState.swift in Sources */,
 				5BD1F8A11D28A00F0067164F /* BNActivityIndicator.swift in Sources */,
-				5BEC1EBD1D287DCA00D7B931 /* BNRequest_SendCollectedElement.swift in Sources */,
 				5BEC1E971D287DCA00D7B931 /* BNMedia.swift in Sources */,
 				5BD1F92E1D28A00F0067164F /* BNIcon_FemaleSmall.swift in Sources */,
 				5BD1F8F91D28A00F0067164F /* BNUIButton_SiteEmail.swift in Sources */,
@@ -1713,14 +1684,12 @@
 				5BD1F8E21D28A00F0067164F /* BNUIAlertView_Header.swift in Sources */,
 				5BD1F8A01D28A00F0067164F /* InviteFriendsView.swift in Sources */,
 				5BD1F9151D28A00F0067164F /* BNUIWebView.swift in Sources */,
-				5BEC1EBC1D287DCA00D7B931 /* BNRequest_Element.swift in Sources */,
 				5BD1F8FB1D28A00F0067164F /* BNUIButton_SitePhone.swift in Sources */,
 				5BD1F8C11D28A00F0067164F /* SiteView_OtherSites.swift in Sources */,
 				5BEC1E991D287DCA00D7B931 /* BNNotification.swift in Sources */,
 				5BEC1E7B1D287DCA00D7B931 /* EPSNetworking.swift in Sources */,
 				5BEC1EAB1D287DCA00D7B931 /* BNRequest_SendBiinieActions.swift in Sources */,
 				5BEC1EA01D287DCA00D7B931 /* BNShowcase.swift in Sources */,
-				5BEC1EC61D287DCA00D7B931 /* BNRequest_Site.swift in Sources */,
 				5B2EA50C1D287CF3001952EC /* AppDelegate.swift in Sources */,
 				5BD1F8D41D28A00F0067164F /* LoyaltiesState.swift in Sources */,
 				5BD1F8D01D28A00F0067164F /* CollectionsState.swift in Sources */,
@@ -1734,7 +1703,6 @@
 				5BD1F9421D28A00F0067164F /* BNIcon_More.swift in Sources */,
 				5BD1F90A1D28A00F0067164F /* BNUINotificationView_RedCircle.swift in Sources */,
 				5BD1F9441D28A00F0067164F /* BNIcon_MusicMedium.swift in Sources */,
-				5BEC1EC01D287DCA00D7B931 /* BNRequest_SendUnCollectedElement.swift in Sources */,
 				5BD1F8A21D28A00F0067164F /* LoadingView.swift in Sources */,
 				5BD1F9121D28A00F0067164F /* BNUITexfield_Top.swift in Sources */,
 				5BD1F8EB1D28A00F0067164F /* BNUIButton_Category.swift in Sources */,
@@ -1808,7 +1776,6 @@
 				5BD1F8931D28A00F0067164F /* ElementView.swift in Sources */,
 				5BD1F8DE1D28A00F0067164F /* SurveyView.swift in Sources */,
 				5BD1F8E01D28A00F0067164F /* BNScroll.swift in Sources */,
-				5BEC1EC51D287DCA00D7B931 /* BNRequest_SendUnCollectedSite.swift in Sources */,
 				5BD1F9341D28A00F0067164F /* BNIcon_HomeMedium.swift in Sources */,
 				5BEC1E8C1D287DCA00D7B931 /* BNBiin.swift in Sources */,
 				5BEC1E9C1D287DCA00D7B931 /* BNRegion.swift in Sources */,
@@ -1866,7 +1833,6 @@
 				5BD1F8D51D28A00F0067164F /* MainViewContainerState.swift in Sources */,
 				5BD1F91F1D28A00F0067164F /* BNIcon_BurgerMedium.swift in Sources */,
 				5BD1F8CA1D28A00F0067164F /* AllFavoriteSitesState.swift in Sources */,
-				5BEC1EC11D287DCA00D7B931 /* BNRequest_SendCollectedSite.swift in Sources */,
 				5BD1F9001D28A00F0067164F /* BNUICompletedGameIconView.swift in Sources */,
 				5BD1F90C1D28A00F0067164F /* BNUIPricesView.swift in Sources */,
 				5BEC1EB01D287DCA00D7B931 /* BNRequest.swift in Sources */,
@@ -1961,7 +1927,6 @@
 				5BD1F8A31D28A00F0067164F /* VersionCheckView.swift in Sources */,
 				5BEC1EB61D287DCA00D7B931 /* BNRequest_ElementsForShowcase.swift in Sources */,
 				5BD1F9091D28A00F0067164F /* BNUIJoinGameIconView.swift in Sources */,
-				5BEC1EBA1D287DCA00D7B931 /* BNRequest_Showcase.swift in Sources */,
 				5BD1F9241D28A00F0067164F /* BNIcon_CollectIt.swift in Sources */,
 				5BD1F8E31D28A00F0067164F /* BNUIBiinMiniView.swift in Sources */,
 				5BD1F8C61D28A00F0067164F /* SocialButtonsView.swift in Sources */,
@@ -1975,7 +1940,6 @@
 				5BD1F8B51D28A00F0067164F /* LoginView.swift in Sources */,
 				5BD1F9071D28A00F0067164F /* BNUIIconView.swift in Sources */,
 				5BD1F88E1D28A00F0067164F /* DevelopmentView.swift in Sources */,
-				5BEC1EC21D287DCA00D7B931 /* BNRequest_SendFollowedSite.swift in Sources */,
 				5BD1F8BB1D28A00F0067164F /* SiteView.swift in Sources */,
 				5BD1F94B1D28A00F0067164F /* BNIcon_PhoneMedium.swift in Sources */,
 			);

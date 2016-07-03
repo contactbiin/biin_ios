@@ -354,68 +354,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) of BNDataManagerDelegate.
-    */
-    func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase, user:Biinie) {
-        
-        let request = BNRequest_Showcase(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", errorManager: self.errorManager!, networkManager: self, showcase: showcase, user: user)
-        addToQueue(request)
-    }
-    
-    /**
-    Conforms optional     optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
-    */
-    func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:Biinie) {
-        let request = BNRequest_Element(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, element: element)
-        addToQueue(request)
-    }
-    
-    
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
-    */
-    func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie) {
-        let request = BNRequest_Site(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, site: site)
-        self.addToQueue(request)
-    }
-    
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
-    */
-    func manager(manager: BNDataManager!, requestOrganizationData organization: BNOrganization, user: Biinie) {
-        
-        let request = BNRequest_Organization(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, organization: organization)
-        addToQueue(request)
-        
-    }
-    
-    /**
-    Social Element Methods
-    */
-    /*
-    func sendBiinedElement(user: Biinie, element: BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
-        addToQueue(request)
-    }
-    
-    func sendUnBiinedElement(user: Biinie, element:BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendUnBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(element.identifier!)", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    */
-    
-    func sendCollectedElement(user: Biinie, element: BNElement?, collectionIdentifier:String) {
-        
-        let request = BNRequest_SendCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
-        addToQueue(request)
-    }
-    
-    func sendUnCollectedElement(user: Biinie, element:BNElement?, collectionIdentifier:String) {
-        let request = BNRequest_SendUnCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/element/\(element!.identifier!)", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    
     func sendLikedElement(user:Biinie, element:BNElement?) {
 
         var like = "unlike"
@@ -433,32 +371,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    
-    /**
-    Social Site Methods
-    */
-    /*
-    func sendBiinedSite(user: Biinie, site: BNSite, collectionIdentifier:String) {
-        let request = BNRequest_SendBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
-        addToQueue(request)
-    }
-    
-    func sendUnBiinedSite(user: Biinie, site:BNSite, collectionIdentifier:String) {
-        let request = BNRequest_SendUnBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    */
-    
-    func sendCollectedSite(user: Biinie, site: BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
-        addToQueue(request)
-    }
-    
-    func sendUnCollectedSite(user: Biinie, site:BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendUnCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    
+
     func sendLikedSite(user: Biinie, site: BNSite?) {
 
         var like = "unlike"
@@ -467,18 +380,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
         
         let request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/\(like)", errorManager: self.errorManager!, networkManager: self, site:site)
-
-        addToQueue(request)
-    }
-    
-    func sendFollowedSite(user:Biinie, site:BNSite?) {
-        
-        var follow = "unfollow"
-        if site!.userFollowed {
-            follow = "follow"
-        }
-
-        let request = BNRequest_SendFollowedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/\(follow)", errorManager: self.errorManager!, networkManager: self, site: site)
 
         addToQueue(request)
     }
@@ -594,7 +495,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
                 self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
-            case .Biinie, .SendBiinie, .SendBiinieActions, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .Site, .Showcase, .Element, .Categories, .Organization, .ElementsForShowcase:
+            case .Biinie, .SendBiinie, .SendBiinieActions, .SendLikedElement, .SendSharedElement, .SendLikedSite, .SendSharedSite, .ElementsForShowcase:
                 
                 if request.attemps >= 3 {
                     request.attemps = 0

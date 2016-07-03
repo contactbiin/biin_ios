@@ -141,19 +141,6 @@ class BNAppManager {
 //        networkManager.checkConnectivity()
         //networkManager.checkVersion()
     }
-
-    func unCollectElement(element:BNElement?){
-
-//        dataManager.applyUnCollectedElement(element)
-//        networkManager.sendUnCollectedElement(dataManager.bnUser!, element: element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
-        likeElement(element)
-//        mainViewController!.mainView!.updateAllCollectedView()
-    }
-    
-    func collectElement(element:BNElement?){
-        dataManager.applyCollectedElement(element)
-        networkManager.sendCollectedElement(dataManager.bnUser!, element:element, collectionIdentifier: dataManager.bnUser!.temporalCollectionIdentifier!)
-    }
     
     func likeElement(element:BNElement?){
         dataManager.applyLikeElement(element)
@@ -167,10 +154,6 @@ class BNAppManager {
         mainViewController!.mainView!.refresh_favoritesSitesContaier(site)
     }
     
-    func followSite(site:BNSite? ){
-        networkManager.sendFollowedSite(dataManager.bnUser!, site:site)
-    }
-
     func shareSite(site:BNSite?, shareView:ShareItView?){
         site!.userShared = true
         networkManager.sendSharedSite(dataManager.bnUser!, site: site)

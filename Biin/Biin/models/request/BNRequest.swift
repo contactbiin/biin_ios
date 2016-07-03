@@ -30,33 +30,25 @@ enum BNRequestType
     case SendBiinieActions
     case SendBiinieToken
     
-    case SendCollectedElement
-    case SendUnCollectedElement
     case SendLikedElement
     case SendSharedElement
-    case SendCollectedSite
-    case SendUnCollectedSite
-    case SendFollowedSite
+    
     case SendLikedSite
     case SendSharedSite
 
     case VersionCheck
     
-    case Site
     case Sites
-    case Showcase
-    case Element
     case Image
-    case Categories
-    case Organization
-
+    
+    case SendSurvey
     case ServerError
     case InitialData
     case ElementsForShowcase
-    
-    case SendSurvey
-    
     case ElementsForCategory
+    
+    
+    
 }
 
 
