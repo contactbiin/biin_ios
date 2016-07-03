@@ -31,7 +31,7 @@ class BNRequest_Register_with_Facebook: BNRequest {
         //print("BNRequest_Register_with_Facebook - \(requestString)")
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         var response:BNResponse?
         

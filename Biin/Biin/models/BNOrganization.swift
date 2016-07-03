@@ -40,11 +40,6 @@ class BNOrganization:NSObject {
         self.identifier = identifier
     }
     
-    func addPoints(points:Int) {
-        self.loyalty!.points += points
-        BNAppSharedManager.instance.networkManager.sendBiiniePoints(BNAppSharedManager.instance.dataManager.bnUser!, organization: self, points:points)
-    }
-    
     deinit{
         
     }

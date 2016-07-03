@@ -30,7 +30,7 @@ class BNRequest_Image: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         if image != nil {
             

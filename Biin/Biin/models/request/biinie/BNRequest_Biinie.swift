@@ -31,12 +31,13 @@ class BNRequest_Biinie: BNRequest {
         //self.start = NSDate()
 
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                self.networkManager!.handleFailedRequest(self, error: error )
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
                 //var response:BNResponse?
@@ -60,14 +61,14 @@ class BNRequest_Biinie: BNRequest {
                         self.user!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
                         self.user!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
                         //var friends = BNParser.findNSArray("friends", dictionary: biinieData)
+                        
+                        /*
                         var categories = Array<BNCategory>()
                         let categoriesData = BNParser.findNSArray("categories", dictionary: biinieData)
                         
                         if categoriesData!.count > 0 {
-                            
                             var i:Int = 0
                             for _ in categoriesData! {
-//                            for var i = 0; i < categoriesData?.count; i++ {
                                 
                                 let categoryData = categoriesData!.objectAtIndex(i) as! NSDictionary
                                 let category = BNCategory(identifier: BNParser.findString("identifier", dictionary: categoryData)!)
@@ -82,11 +83,15 @@ class BNRequest_Biinie: BNRequest {
                         }
                         
                         self.user!.categories = categories
-                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:true)
+                        */
+                        self.inCompleted = true
+                        self.networkManager!.requestManager!.processCompletedRequest(self)
+//                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:true)
                         
                     } else {
-                        
-                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:false)
+                        self.requestError = BNRequestError.Biinie_NotRegistered
+                        self.networkManager!.requestManager!.processFailedRequest(self, error: error)
+                        //self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedBiinieData:self.user!, isBiinieOnBD:false)
                     }
                     
                     /*
@@ -95,13 +100,10 @@ class BNRequest_Biinie: BNRequest {
                     print("BNRequest_Biinie [\(timeInterval)] - \(self.requestString)")
                     */
                     
-                    self.inCompleted = true
-                    self.networkManager!.removeFromQueue(self)
                     
                 } else  {
-                    
-                    self.requestType = BNRequestType.ServerError
-                    self.networkManager!.handleFailedRequest(self, error: error )
+                    self.requestError = BNRequestError.Server
+                    self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 }
             }
         })

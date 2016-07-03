@@ -20,7 +20,7 @@ class BNRequest_SendSharedSite: BNRequest {
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
-        self.requestType = BNRequestType.ConnectivityCheck
+        self.requestType = BNRequestType.SendSharedSite
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.site = site
@@ -30,7 +30,7 @@ class BNRequest_SendSharedSite: BNRequest {
         
 
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

@@ -7,6 +7,19 @@ import Foundation
 
 struct BNRequestData { static var requestCounter:Int = 0 }
 
+enum BNRequestError
+{
+    case None
+    case InitialData_Failed
+    case VersionCheck_NeedsUpdate
+    case Biinie_Failed
+    case Biinie_NotRegistered
+    case SendBiinieToken_Failed
+    case DoNotShowError
+    case Internet_Failed
+    case Server
+}
+
 enum BNRequestType
 {
     case None
@@ -14,9 +27,9 @@ enum BNRequestType
     case Register
     case Biinie
     case SendBiinie
-    case SendBiiniePoints
     case SendBiinieActions
-    case SendBiinieCategories
+    case SendBiinieToken
+    
     case SendCollectedElement
     case SendUnCollectedElement
     case SendLikedElement
@@ -26,9 +39,7 @@ enum BNRequestType
     case SendFollowedSite
     case SendLikedSite
     case SendSharedSite
-    
-    case CheckEmail_IsVerified
-    case ConnectivityCheck
+
     case VersionCheck
     
     case Site
@@ -38,9 +49,7 @@ enum BNRequestType
     case Image
     case Categories
     case Organization
-    case Collections
-    case CollectionsForBiinie
-    
+
     case ServerError
     case InitialData
     case ElementsForShowcase
@@ -64,6 +73,7 @@ class BNRequest:NSObject {
     var requestString:String = ""
     var dataIdentifier:String = ""//identifier for the object data is requested for.
     var requestType:BNRequestType = BNRequestType.None
+    var requestError:BNRequestError = BNRequestError.None
     var rating:Int = 0
     var comment:String = ""
     
@@ -78,7 +88,8 @@ class BNRequest:NSObject {
     var points:Int = 0
     var categories:Dictionary<String, String>?
     
-    var requestAttemps:Int = 0
+    var attemps:Int = 0
+    var attempsLimit:Int = 5
     
     weak var errorManager:BNErrorManager?
     weak var networkManager:BNNetworkManager?
@@ -109,6 +120,12 @@ class BNRequest:NSObject {
     deinit { }
     
     func run() { }
+    
+    func reset() {
+        self.requestError = .None
+        self.isRunning = false
+        self.attemps = 0
+    }
     
     func clean() {
         showcase = nil

@@ -31,7 +31,7 @@ class BNRequest_Login: BNRequest {
         //print("BNRequest_Login - \(requestString)")
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         var response:BNResponse?
         

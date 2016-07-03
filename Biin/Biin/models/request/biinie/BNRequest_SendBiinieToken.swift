@@ -23,7 +23,7 @@ class BNRequest_SendBiinieToken:BNRequest {
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.SendBiinie
+        self.requestType = BNRequestType.SendBiinieToken
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.user  = user
@@ -34,7 +34,7 @@ class BNRequest_SendBiinieToken:BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         
         if self.user!.identifier == "none" {
@@ -65,7 +65,8 @@ class BNRequest_SendBiinieToken:BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                self.networkManager!.handleFailedRequest(self, error: error )
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.SendBiinieToken_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
                 /*
@@ -79,8 +80,11 @@ class BNRequest_SendBiinieToken:BNRequest {
                 }
                 */
                 
+                
+                
                 self.inCompleted = true
-                self.networkManager!.removeFromQueue(self)
+                self.networkManager!.requestManager!.processCompletedRequest(self)
+                //self.networkManager!.removeFromQueue(self)
             }
         })
     }

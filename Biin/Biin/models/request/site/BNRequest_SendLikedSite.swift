@@ -29,7 +29,7 @@ class BNRequest_SendLikedSite: BNRequest {
     override func run() {
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

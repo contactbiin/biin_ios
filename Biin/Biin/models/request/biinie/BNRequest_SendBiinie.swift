@@ -34,7 +34,7 @@ class BNRequest_SendBiinie:BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         
         if self.user!.identifier == "none" {

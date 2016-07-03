@@ -30,7 +30,7 @@ class BNRequest_SendFollowedSite: BNRequest {
         
 
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

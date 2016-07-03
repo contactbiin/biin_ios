@@ -75,8 +75,16 @@ class InternetErrorView: BNView {
         self.addSubview(siteUrl)
     }
     
-    func tryAgainAction(sender:UILabel) {   
-
+    func tryAgainAction(sender:UILabel) {
+        
+        UIView.animateWithDuration(0.5, animations: {()->Void in
+            self.frame.origin.x = self.frame.width
+            }, completion: {(completed:Bool)->Void in
+                BNAppSharedManager.instance.networkManager.resume()
+                self.removeFromSuperview()
+        })
+        
+        /*
         
         if BNAppSharedManager.instance.dataManager.isUserLoaded {
             BNAppSharedManager.instance.errorManager.isAlertOn = false
@@ -91,7 +99,8 @@ class InternetErrorView: BNView {
             BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: false, completion: nil)
             BNAppSharedManager.instance.networkManager.resume()
         }
-//        BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+        BNAppSharedManager.instance.dataManager.requestBiinieInitialData()
+         */
     }
     
     required init?(coder aDecoder: NSCoder) {

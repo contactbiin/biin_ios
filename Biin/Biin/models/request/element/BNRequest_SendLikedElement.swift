@@ -31,7 +31,7 @@ class BNRequest_SendLikedElement: BNRequest {
         //print("BNRequest_SendLikedElement - \(requestString)")
 
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         var model = Dictionary<String, Dictionary <String, String>>()
         

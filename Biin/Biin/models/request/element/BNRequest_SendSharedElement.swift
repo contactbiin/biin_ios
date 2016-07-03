@@ -31,7 +31,7 @@ class BNRequest_SendSharedElement: BNRequest {
         //print("BNRequest_SendSharedElement - \(requestString)")
 
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
       
         var model = Dictionary<String, Dictionary <String, String>>()
         

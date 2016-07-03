@@ -288,9 +288,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     }
     
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-
-    }
+    func didReceivedAllInitialData() { }
     
     func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
         if response!.code == 0 {

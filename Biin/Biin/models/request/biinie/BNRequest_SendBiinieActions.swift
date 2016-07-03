@@ -32,7 +32,7 @@ class BNRequest_SendBiinieActions: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         var model = ["model":["actions":Array<Dictionary<String, String>>()]] as Dictionary<String, Dictionary<String, Array<Dictionary <String, String>>>>
         
@@ -65,37 +65,22 @@ class BNRequest_SendBiinieActions: BNRequest {
             
             if (error != nil) {
 
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.DoNotShowError }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 
-                self.networkManager!.handleFailedRequest(self, error: error )
-                //response = BNResponse(code:10, type: BNResponse_Type.Suck)
             } else {
-                
-//                if let dataData = data["data"] as? NSDictionary {
-//                    
-//                    var status = BNParser.findInt("status", dictionary: data)
-//                    let result = BNParser.findBool("result", dictionary: data)
-//                    
-//                    if result {
-//                        //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
-//                        self.user!.deleteAllActions()
-//                    } else {
-//                        //response = BNResponse(code:status!, type: BNResponse_Type.Suck)
-//                    }
-//                    
-                
+
                 /*
                 let end = NSDate()
                 let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                 print("BNRequest_SendBiinieActions [\(timeInterval)] - \(self.requestString)")
                 */
                 
-                BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
-                BNAppSharedManager.instance.dataManager.bnUser!.save()
-                
-//                }
-                
                 self.inCompleted = true
-                self.networkManager!.removeFromQueue(self)
+                self.networkManager!.requestManager!.processCompletedRequest(self)
+                
+//                self.inCompleted = true
+//                self.networkManager!.removeFromQueue(self)
             }
         })
 
