@@ -20,6 +20,7 @@ class MenuView:UIView {
     var settingsBtn:BNUIButton_Menu?
     var searchBtn:BNUIButton_Menu?
     var aboutBtn:BNUIButton_Menu?
+    var giftsBtn:BNUIButton_Menu?
     
     var developmentBtn:BNUIButton_Menu?
     
@@ -57,7 +58,7 @@ class MenuView:UIView {
         */
         
         profileBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Profile", comment: "profile button title").uppercaseString, iconType: BNIconType.none)
-        profileBtn!.addTarget(self, action: #selector(self.profileBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        profileBtn!.addTarget(self, action: #selector(self.profileBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(profileBtn!)
         
 //        ypos += (distance + buttonHeight)
@@ -67,26 +68,30 @@ class MenuView:UIView {
 //        homeBtn!.showSelected()
 
         ypos += (distance + buttonHeight)
-        collectionsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Collections", comment: "collections button title").uppercaseString, iconType: BNIconType.none)
-        collectionsBtn!.addTarget(self, action: #selector(self.collectionsBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        collectionsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Collections", comment: "Collections").uppercaseString, iconType: BNIconType.none)
+        collectionsBtn!.addTarget(self, action: #selector(self.collectionsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(collectionsBtn!)
         //collectionsBtn!.showDisable()
         
         //ypos += (distance + buttonHeight)
-        loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Loyalty", comment: "loyalty button title").uppercaseString, iconType: BNIconType.none)
-        loyaltyBtn!.addTarget(self, action: #selector(self.loyaltyBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Loyalty", comment: "Loyalty").uppercaseString, iconType: BNIconType.none)
+        loyaltyBtn!.addTarget(self, action: #selector(self.loyaltyBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         //self.addSubview(loyaltyBtn!)
-
-//        ypos += distance
-//        notificationsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Notifications", comment: "notifications button title"), iconType: BNIconType.notificationMedium)
-//        notificationsBtn!.addTarget(self, action: "notificationsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
-//        self.addSubview(notificationsBtn!)
         
         ypos += (distance + buttonHeight)
-        inviteFriendsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("InviteFriends", comment: "invite friends button title").uppercaseString, iconType: BNIconType.none)
-        inviteFriendsBtn!.addTarget(self, action: #selector(self.inviteFriendsBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        inviteFriendsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("InviteFriends", comment: "InviteFriends").uppercaseString, iconType: BNIconType.none)
+        inviteFriendsBtn!.addTarget(self, action: #selector(self.inviteFriendsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(inviteFriendsBtn!)
-
+        
+        ypos += (distance + buttonHeight)
+        giftsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Gifts", comment: "Gifts").uppercaseString, iconType: BNIconType.none)
+        giftsBtn!.addTarget(self, action: #selector(self.giftsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(giftsBtn!)
+        
+        ypos += (distance + buttonHeight)
+        notificationsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Notifications", comment: "Notifications").uppercaseString, iconType: BNIconType.none)
+        notificationsBtn!.addTarget(self, action: #selector(self.notificationsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(notificationsBtn!)
 //        ypos += distance
 //        settingsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, 100, 60), text:NSLocalizedString("Settings", comment: "settings button title"), iconType: BNIconType.settingsMedium)
 //        settingsBtn!.addTarget(self, action: "settingsBtnActon:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -105,7 +110,7 @@ class MenuView:UIView {
         }
         
         aboutBtn = BNUIButton_Menu(frame: CGRectMake(40, (SharedUIManager.instance.screenHeight - 80), buttonWidth, buttonHeight), text:NSLocalizedString("About", comment: "About").uppercaseString, iconType: BNIconType.none)
-        aboutBtn!.addTarget(self, action: #selector(self.aboutBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        aboutBtn!.addTarget(self, action: #selector(self.aboutBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(aboutBtn!)
         
         
@@ -132,22 +137,22 @@ class MenuView:UIView {
         //searchBtn!.showDisable()
     }
     
-    func profileBtnActon(sender:BNUIButton) {
+    func profileBtnAction(sender:BNUIButton) {
         //disableButton(0)
         delegate!.menuView!(self, showProfile: true)
     }
     
-    func homeBtnActon(sender:BNUIButton) {
+    func homeBtnAction(sender:BNUIButton) {
         //disableButton(1)
         delegate!.menuView!(self, showHome: true)
     }
     
-    func collectionsBtnActon(sender:BNUIButton) {
+    func collectionsBtnAction(sender:BNUIButton) {
         //disableButton(2)
         delegate!.menuView!(self, showCollections: true)
     }
     
-    func loyaltyBtnActon(sender:BNUIButton) {
+    func loyaltyBtnAction(sender:BNUIButton) {
         //disableButton(3)
         delegate!.menuView!(self, showLoyalty: true)
     }
@@ -156,28 +161,32 @@ class MenuView:UIView {
         delegate!.menuView!(self, showDevelopmentView: true)
     }
     
-    func notificationsBtnActon(sender:BNUIButton) {
+    func notificationsBtnAction(sender:BNUIButton) {
         //disableButton(4)
         //delegate!.menuView!(self, showNotifications: true)
     }
     
-    func inviteFriendsBtnActon(sender:BNUIButton) {
+    func inviteFriendsBtnAction(sender:BNUIButton) {
         //disableButton(5)
         delegate!.menuView!(self, showInviteFriends: true)
     }
 
-    func settingsBtnActon(sender:BNUIButton) {
+    func settingsBtnAction(sender:BNUIButton) {
         //disableButton(6)
         //delegate!.menuView!(self, showSettings: true)
     }
     
-    func searchBtnActon(sender:BNUIButton) {
+    func searchBtnAction(sender:BNUIButton) {
         //disableButton(7)
         //delegate!.menuView!(self, showSearch: true)
     }
     
-    func aboutBtnActon(sender:BNUIButton ) {
+    func aboutBtnAction(sender:BNUIButton) {
         delegate!.menuView!(self, showAbout: true)
+    }
+    
+    func giftsBtnAction(sender:BNUIButton) {
+        //delegate!.menuView!(self, showAbout: true)
     }
 
     func disableButton(index:Int) {
@@ -205,5 +214,6 @@ class MenuView:UIView {
     optional func menuView(menuView:MenuView!, showSettings value:Bool)
     optional func menuView(menuView:MenuView!, showSearch value:Bool)
     optional func menuView(menuView:MenuView!, showAbout value:Bool)
+    optional func menuView(menuView:MenuView!, showGifts value:Bool)
     optional func menuView(menuView:MenuView!, showDevelopmentView value:Bool)
 }

@@ -1,4 +1,4 @@
-//  MainViewContainer.swift
+//  MainView_Container_All.swift
 //  biin
 //  Created by Esteban Padilla on 9/24/15.
 //  Copyright © 2015 Esteban Padilla. All rights reserved.
@@ -8,15 +8,15 @@ import UIKit
 import CoreLocation
 
 
-class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewDelegate_BiinsContainer {
+class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, MainView_Delegate_BiinsContainer {
     
     var header:BiinieCategoriesView_Header?
     var inSiteView:InSiteView?
-    var highlightContainer:MainViewContainer_Highlights?
-    var nearSitesContainer:MainViewContainer_NearSites?
-    var favoriteSitesContainer:MainViewContainer_FavoriteSites?
-    var bannerContainer:MainViewContainer_Banner?
-    var elementContainers:Array <MainViewContainer_Elements>?
+    var highlightContainer:MainView_Container_Highlights?
+    var nearSitesContainer:MainView_Container_NearSites?
+    var favoriteSitesContainer:MainView_Container_FavoriteSites?
+    var bannerContainer:MainView_Container_Banner?
+    var elementContainers:Array <MainView_Container_Elements>?
 
     var scroll:BNScroll?
     
@@ -68,7 +68,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
         refreshButton!.backgroundColor = UIColor.biinDarkColor()
         self.addSubview(refreshButton!)
         
-        elementContainers = Array<MainViewContainer_Elements>()
+        elementContainers = Array<MainView_Container_Elements>()
         
         
         updateContainer()
@@ -127,14 +127,14 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth + SharedUIManager.instance.sitesContainer_headerHeight
 
             height = SharedUIManager.instance.highlightContainer_Height + SharedUIManager.instance.highlightView_headerHeight
-            self.highlightContainer = MainViewContainer_Highlights(frame: CGRectMake(0, ypos, screenWidth, height), father: self)
+            self.highlightContainer = MainView_Container_Highlights(frame: CGRectMake(0, ypos, screenWidth, height), father: self)
             self.scroll!.addChild(self.highlightContainer!)
 
             ypos += height
 
             height = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
             
-            self.nearSitesContainer = MainViewContainer_NearSites(frame: CGRectMake(0, ypos, screenWidth, height))
+            self.nearSitesContainer = MainView_Container_NearSites(frame: CGRectMake(0, ypos, screenWidth, height))
             self.nearSitesContainer!.delegate = (self.father! as! MainView)
             self.nearSitesContainer!.father = self
             self.nearSitesContainer!.addAllSites()
@@ -142,7 +142,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
             ypos += height
             
            
-            self.favoriteSitesContainer = MainViewContainer_FavoriteSites(frame: CGRectMake(0, ypos, screenWidth, height))
+            self.favoriteSitesContainer = MainView_Container_FavoriteSites(frame: CGRectMake(0, ypos, screenWidth, height))
             self.favoriteSitesContainer!.delegate = (self.father! as! MainView)
             self.favoriteSitesContainer!.father = self
             self.favoriteSitesContainer!.addAllSites()
@@ -164,7 +164,7 @@ class MainViewContainer: BNView, MainViewDelegate_HighlightsContainer, MainViewD
                 
                 if isThereElementsInCategory(category) {
                     
-                    let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
+                    let elementContainer = MainView_Container_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
                     elementContainer.delegate = (self.father! as! MainView)
                     ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
                     self.scroll!.addChild(elementContainer)

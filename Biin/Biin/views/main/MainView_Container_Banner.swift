@@ -1,4 +1,4 @@
-//  MainViewContainer_Banner.swift
+//  MainView_Container_Banner.swift
 //  biin
 //  Created by Esteban Padilla on 9/24/15.
 //  Copyright © 2015 Esteban Padilla. All rights reserved.
@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Banner:BNView, UIScrollViewDelegate {
+class MainView_Container_Banner:BNView, UIScrollViewDelegate {
     
     var image:BNUIImageView?
     var scroll:UIScrollView?

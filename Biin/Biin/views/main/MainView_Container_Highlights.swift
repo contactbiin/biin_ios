@@ -1,4 +1,4 @@
-//  HighlightsContainer.swift
+//  MainView_Container_Highlights.swift
 //  biin
 //  Created by Esteban Padilla on 9/24/15.
 //  Copyright © 2015 Esteban Padilla. All rights reserved.
@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
+class MainView_Container_Highlights:BNView, UIScrollViewDelegate {
     
     var title:UILabel?
     var scroll:UIScrollView?
@@ -241,7 +241,7 @@ class MainViewContainer_Highlights:BNView, UIScrollViewDelegate {
     
     func startTimer(){
         if timer == nil {
-            timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: #selector(MainViewContainer_Highlights.change(_:)), userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(6.0, target: self, selector: #selector(MainView_Container_Highlights.change(_:)), userInfo: nil, repeats: true)
         }
     }
     

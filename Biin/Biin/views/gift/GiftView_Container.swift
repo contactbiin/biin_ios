@@ -1,14 +1,16 @@
-//  ElementsContainer.swift
-//  biin
-//  Created by Esteban Padilla on 9/24/15.
-//  Copyright © 2015 Esteban Padilla. All rights reserved.
+//  GiftView_Container.swift
+//  Biin
+//  Created by Esteban Padilla on 7/2/16.
+//  Copyright © 2016 Esteban Padilla. All rights reserved.
+
+import Foundation
 
 import Foundation
 import UIKit
 
-class MainViewContainer_Elements:BNView {
-
-    var delegate:MainViewContainer_Elements_Delegate?
+class GiftView_Container:BNView {
+    
+    var delegate:GiftView_Container_Delegate?
     var moreElementsBtn:BNUIButton_More?
     var title:UILabel?
     var subTitle:UILabel?
@@ -17,7 +19,7 @@ class MainViewContainer_Elements:BNView {
     
     var isWorking = true
     var spacer:CGFloat = 1
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -29,39 +31,39 @@ class MainViewContainer_Elements:BNView {
     override init(frame: CGRect, father:BNView? ) {
         super.init(frame: frame, father:father )
     }
-
+    
     convenience init(frame: CGRect, father:BNView?, category:BNCategory, colorIndex:Int) {
         self.init(frame: frame, father:father)
         
         let screenWidth = SharedUIManager.instance.screenWidth
         
         let ypos:CGFloat = 21
-
+        
         self.category = category
         
         var textColor:UIColor?
-//        switch colorIndex {
-//        case 0:
-            self.backgroundColor = UIColor.bnCategoriesColor()
-            category.backgroundColor = UIColor.bnCategoriesColor()
-            textColor = UIColor.whiteColor()
-//        case 1:
-//            self.backgroundColor = UIColor.darkGrayColor()
-//            category.backgroundColor = UIColor.grayColor()
-//            textColor = UIColor.whiteColor()
-//        default:
-//            self.backgroundColor = UIColor.darkGrayColor()
-//            category.backgroundColor = UIColor.lightGrayColor()
-//            textColor = UIColor.whiteColor()
-//            break
-//        }
+        //        switch colorIndex {
+        //        case 0:
+        self.backgroundColor = UIColor.bnCategoriesColor()
+        category.backgroundColor = UIColor.bnCategoriesColor()
+        textColor = UIColor.whiteColor()
+        //        case 1:
+        //            self.backgroundColor = UIColor.darkGrayColor()
+        //            category.backgroundColor = UIColor.grayColor()
+        //            textColor = UIColor.whiteColor()
+        //        default:
+        //            self.backgroundColor = UIColor.darkGrayColor()
+        //            category.backgroundColor = UIColor.lightGrayColor()
+        //            textColor = UIColor.whiteColor()
+        //            break
+        //        }
         
         moreElementsBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreElementsBtn!.icon!.color = textColor
-
-//        moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
-//        moreElementsBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
-//        moreElementsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
+        
+        //        moreElementsBtn!.setTitle(NSLocalizedString("More", comment: "More"), forState: UIControlState.Normal)
+        //        moreElementsBtn!.setTitleColor(textColor, forState: UIControlState.Normal)
+        //        moreElementsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 11)
         moreElementsBtn!.addTarget(self, action: #selector(self.moreElementsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(moreElementsBtn!)
         
@@ -75,7 +77,7 @@ class MainViewContainer_Elements:BNView {
         //title!.sizeToFit()
         
         self.addSubview(title!)
-
+        
         let scrollHeight:CGFloat = SharedUIManager.instance.miniView_height//+ SharedUIManager.instance.miniView_headerHeight
         
         scroll = BNScroll(frame: CGRectMake(0, (SharedUIManager.instance.sitesContainer_headerHeight - 1), screenWidth, scrollHeight), father:self, direction: BNScroll_Direction.HORIZONTAL, space: 1, extraSpace: 0, color: UIColor.clearColor(), delegate: nil)
@@ -137,7 +139,7 @@ class MainViewContainer_Elements:BNView {
     
     
     func addElementViews(){
-
+        
         var elementPosition:Int = 1
         let xpos:CGFloat = 0
         var elementsViewed = 0
@@ -180,27 +182,27 @@ class MainViewContainer_Elements:BNView {
         }
         
         /*
-        for (element_id, element) in category!.elements {
-            if element._id != nil {
-                if !isElementAdded(element._id!) {
-
-                    let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
-                    elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
-                    elements.append(elementView)
-                    elementPosition += 1
-                    
-                    if element.userViewed {
-                        elementsViewed += 1
-                    }
-
-                    elementView.requestImage()
-                }
-
-            } else {
-                category!.elements.removeValueForKey(element_id)
-            }
-        }
-        */
+         for (element_id, element) in category!.elements {
+         if element._id != nil {
+         if !isElementAdded(element._id!) {
+         
+         let elementView = ElementMiniView(frame: CGRectMake(xpos, spacer, elementView_width, SharedUIManager.instance.miniView_height), father: self, element:element, elementPosition:elementPosition, showRemoveBtn:false, isNumberVisible:false, showlocation:true)
+         elementView.delegate = BNAppSharedManager.instance.mainViewController!.mainView!//father?.father! as! MainView
+         elements.append(elementView)
+         elementPosition += 1
+         
+         if element.userViewed {
+         elementsViewed += 1
+         }
+         
+         elementView.requestImage()
+         }
+         
+         } else {
+         category!.elements.removeValueForKey(element_id)
+         }
+         }
+         */
         self.scroll!.addMoreChildren(elements)
     }
     
@@ -241,7 +243,7 @@ class MainViewContainer_Elements:BNView {
     }
 }
 
-@objc protocol MainViewContainer_Elements_Delegate:NSObjectProtocol {
+@objc protocol GiftView_Container_Delegate:NSObjectProtocol {
     ///Update categories icons on header
     optional func showAllElementsView()
     optional func showAllElementsViewForCategory(category:BNCategory?)
