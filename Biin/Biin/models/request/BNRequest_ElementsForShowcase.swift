@@ -188,7 +188,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
                 
                 self.view!.requestCompleted()
                 self.isCompleted = true
-                self.networkManager!.removeFromQueue(self)
+                self.networkManager!.requestManager!.processCompletedRequest(self)
             }
         })
     }

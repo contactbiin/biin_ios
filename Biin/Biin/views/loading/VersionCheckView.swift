@@ -16,6 +16,8 @@ class VersionCheckView:UIView {
     
     var biinLogoView:BiinLogoView?
     
+    var loadingIndicator:BNActivityIndicator?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -52,6 +54,13 @@ class VersionCheckView:UIView {
         loadingLbl!.numberOfLines = 0
         loadingLbl!.text = NSLocalizedString("VersionChecking", comment: "VersionChecking")
         self.addSubview(loadingLbl!)
+        
+        loadingIndicator = BNActivityIndicator(frame:CGRectMake(((frame.width / 2) - 15), (screenHeight - 50), 20, 20))
+        loadingIndicator!.rectShape!.strokeColor = UIColor.biinOrange().CGColor
+        loadingIndicator!.rectShape!.fillColor = UIColor.clearColor().CGColor
+        self.addSubview(loadingIndicator!)
+        loadingIndicator!.start()
+        
     }
     
     func toggle(sender: AnyObject!) {

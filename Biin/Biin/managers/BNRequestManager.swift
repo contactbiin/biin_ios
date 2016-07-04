@@ -94,7 +94,7 @@ class BNRequestManager: NSObject {
     }
     
     private func run(){
-        for (identifier, request) in queue {
+        for (_, request) in queue {
             if !request.isRunning {
                 request.run()
             }
@@ -111,4 +111,12 @@ class BNRequestManager: NSObject {
         self.stop()
     }
     
+    func isQueued(url:String) -> Bool {
+        for (_, request) in queue {
+            if request.requestString == url {
+                return true
+            }
+        }
+        return false
+    }
 }

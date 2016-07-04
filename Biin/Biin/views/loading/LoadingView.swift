@@ -20,6 +20,8 @@ class LoadingView:UIView {
     
     var biinLogoView:BiinLogoView?
     
+    var loadingIndicator:BNActivityIndicator?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -104,6 +106,9 @@ class LoadingView:UIView {
         progressView!.progressTintColor = UIColor.biinOrange()
         self.addSubview(progressView!)
         
+        
+        
+        
         loadingLbl = UILabel(frame: CGRect(x:0, y:(screenHeight - 25), width:frame.width, height:18))
         loadingLbl!.font = UIFont(name: "Lato-Light", size: 15)
         loadingLbl!.textColor = UIColor.blackColor()
@@ -111,6 +116,14 @@ class LoadingView:UIView {
         loadingLbl!.numberOfLines = 0
         loadingLbl!.text = NSLocalizedString("Loading", comment: "the Loading title")
         self.addSubview(loadingLbl!)
+        
+        
+        loadingIndicator = BNActivityIndicator(frame:CGRectMake(((frame.width / 2) - 15), (screenHeight - 50), 20, 20))
+        loadingIndicator!.rectShape!.strokeColor = UIColor.biinOrange().CGColor
+        loadingIndicator!.rectShape!.fillColor = UIColor.clearColor().CGColor
+        self.addSubview(loadingIndicator!)
+        loadingIndicator!.start()
+        
         
         //self.layerGradient()
     
