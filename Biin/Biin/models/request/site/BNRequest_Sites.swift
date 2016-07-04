@@ -15,7 +15,6 @@ class BNRequest_Sites: BNRequest {
     
     convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, view:BNView?){
         self.init()
-        //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.Sites
@@ -29,12 +28,13 @@ class BNRequest_Sites: BNRequest {
     override func run() {
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                self.networkManager!.handleFailedRequest(self, error: error )
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
                 if let initialData = data["data"] as? NSDictionary {
@@ -48,18 +48,15 @@ class BNRequest_Sites: BNRequest {
                         }
                         
                         if let organizationsData = BNParser.findNSArray("organizations", dictionary: initialData) {
-                            
                             BNParser.parseOrganizations(organizationsData)
                         }
                         
                         //Parse elements
                         if let elementsData = BNParser.findNSArray("elements", dictionary: initialData) {
-                            
                             BNParser.parseElements(elementsData)
                         }
                         
                         if let sitesData = BNParser.findNSArray("sites", dictionary: initialData) {
-                            
                             BNParser.parseSites(sitesData)
                         }
                         
@@ -68,20 +65,13 @@ class BNRequest_Sites: BNRequest {
                         }
                     }
                     
-                    /*
-                    let end = NSDate()
-                    let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                    print("BNRequest_Sites  \(timeInterval)  - \(self.requestString)")
-                    */
-                    
                     self.view!.requestCompleted()
-                    self.inCompleted = true
-                    self.networkManager!.removeFromQueue(self)
+                    self.isCompleted = true
+                    self.networkManager!.requestManager!.processCompletedRequest(self)
                     
                 } else  {
-                    
-                    self.requestType = BNRequestType.ServerError
-                    self.networkManager!.handleFailedRequest(self, error: error )
+                    self.requestError = BNRequestError.DoNotShowError
+                    self.networkManager!.requestManager!.processFailedRequest(self, error: nil)
                 }
             }
         })

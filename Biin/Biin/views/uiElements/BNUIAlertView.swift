@@ -11,11 +11,9 @@ class BNUIAlertView:UIView {
     
     var header:BNUIAlertView_Header?
     var isOn = false
+    var text:String = ""
+    var type:BNUIAlertView_Type = BNUIAlertView_Type.None
     var fade:UIView?
-    
-//    override init() {
-//        super.init()
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,15 +24,18 @@ class BNUIAlertView:UIView {
         self.backgroundColor = UIColor.clearColor()
     }
     
-    convenience init(frame: CGRect, type:BNUIAlertView_Type?, text:String?) {
+    convenience init(frame: CGRect, type:BNUIAlertView_Type) {
         self.init(frame:frame)
+        
+        self.type = type
+        addText()
         
         fade = UIView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
-        
-        self.header = BNUIAlertView_Header(frame: CGRectMake(0, -120, frame.width, 120), type:type, text:text, father: self)
+    
+        self.header = BNUIAlertView_Header(frame: CGRectMake(0, -120, frame.width, 120), type:type, text:self.text, father: self)
         self.addSubview(header!)
     }
     
@@ -94,11 +95,38 @@ class BNUIAlertView:UIView {
     func closeBtnAction(sender:BNUIButton_CloseAlert){
         hide()
     }
+    
+    func addText(){
+        switch self.type {
+        case .Cool:
+            self.text = NSLocalizedString("Cool", comment: "Cool")
+            break
+        case .Bad_credentials:
+            self.text = NSLocalizedString("BadEmail", comment: "BadEmail")
+            break
+        case .NotInternet:
+            self.text = NSLocalizedString("NotInternet", comment: "NotInternet")
+            break
+        case .Please_wait:
+            self.text = NSLocalizedString("PleaseWait", comment: "PleaseWait")
+            break
+        case .FacebookError:
+            self.text = "Error on Facebook!"
+            break
+        default:
+            self.text = NSLocalizedString("Cool", comment: "Cool")
+            break
+        }
+    }
+
 }
 
 enum BNUIAlertView_Type {
+    case None
     case Bad_credentials
     case Please_wait
     case Cool
     case Saved
+    case NotInternet
+    case FacebookError
 }

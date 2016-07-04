@@ -34,14 +34,16 @@ class BNRequest_InitialData: BNRequest {
         //self.start = NSDate()
         
         isRunning = true
-        requestAttemps += 1
+        attemps += 1
         
         //print("INITIAL REQUEST: \(self.requestString)")
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                self.networkManager!.handleFailedRequest(self, error: error )
+                //self.networkManager!.handleFailedRequest(self, error: error )
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
                 if let initialData = data["data"] as? NSDictionary {
@@ -95,14 +97,21 @@ class BNRequest_InitialData: BNRequest {
                     let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
                     print("BNRequest_InitialData  \(timeInterval)  - \(self.requestString)")
                     */
-
-                    self.inCompleted = true
-                    self.networkManager!.removeFromQueue(self)
+                    
+                    //self.inCompleted = true
+                    //self.networkManager!.removeFromQueue(self)
+                    
+                    //new request management
+                    self.isCompleted = true
+                    self.networkManager!.requestManager!.processCompletedRequest(self)
                     
                 } else  {
                     
-                    self.requestType = BNRequestType.ServerError
-                    self.networkManager!.handleFailedRequest(self, error: error )
+                    //self.requestType = BNRequestType.ServerError
+                    //self.networkManager!.handleFailedRequest(self, error: error )
+                    self.requestError = BNRequestError.Server
+                    self.networkManager!.requestManager!.processFailedRequest(self, error: error)
+                    
                 }
             }
         })

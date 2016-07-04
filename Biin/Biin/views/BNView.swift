@@ -12,6 +12,7 @@ class BNView:UIView {
     var fade:UIView?
     var state:BNState?
     var isAddedToScroll = false
+    var isAllDownloaded = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,6 +56,8 @@ class BNView:UIView {
     func commentBtnAction() { }
     func sendBtnAction() { }
     func removeBtnAction() { }
+    
+    
     
     func clean() {
         if fade != nil {

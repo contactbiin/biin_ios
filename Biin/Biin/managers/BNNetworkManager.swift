@@ -34,128 +34,115 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     var rootURL = ""
     
+    var requestManager:BNRequestManager?
+    
     init(errorManager:BNErrorManager) {
         //Initialize here any data or variables.
         super.init()
         self.errorManager = errorManager
         epsNetwork = EPSNetworking()
-
+        requestManager = BNRequestManager(networkManager: self, errorManager: errorManager)
     }
     
     func setRootURLForRequest(){
         
         var value = ""
         if BNAppSharedManager.instance.settings!.IS_PRODUCTION_DATABASE {
-            //rootURL = "https://www.biin.io"
             value = "prod"
         } else if BNAppSharedManager.instance.settings!.IS_DEMO_DATABASE {
-            //rootURL = "https://demo-biin-backend.herokuapp.com"
             value = "demo"
         } else if BNAppSharedManager.instance.settings!.IS_QA_DATABASE {
-            //rootURL = "https://qa-biin-backend.herokuapp.com"
             value = "qa"
         } else if BNAppSharedManager.instance.settings!.IS_DEVELOPMENT_DATABASE {
-            //rootURL = "https://dev-biin-backend.herokuapp.com"
             value = "dev"
         }
         
-        //self.versionUrl = "https://www.biin.io/checkversion/1.1.5/ios/prod"
         self.versionUrl = "https://www.biin.io/checkversion/\(BNAppSharedManager.instance.version)/ios/\(value)"
         //print(versionUrl)
     }
     
     //Saving data
-    func manager(manager: BNDataManager!, saveUserCategories user: Biinie) {
-        
+    func manager(manager: BNDataManager!, saveUserCategories user: Biinie) { }
+    
+    
+    //New request manager calls
+    func internet_Failed() {
+        self.errorManager!.showInternetError()
     }
     
-
-    
-    func runQueue(){
-        
-        var totalRequestRunnin = 0
-
-        if requestsQueue.count == 0 {
-            
-//            let delayInSeconds = 0.5;
-//            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)));
-//            dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            
-                
-                self.delegateVC!.manager!(self, didReceivedAllInitialData: true)
-
-                // -- FINISHED SOMETHING AWESOME, WOO! --
-            
-                if BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA {
-                    BNAppSharedManager.instance.mainViewController!.refresh()
-                    BNAppSharedManager.instance.IS_APP_REQUESTING_NEW_DATA = false
-                }
-//            }
-        }
-        
-        for (_, request) in requestsQueue {
-            if !request.isRunning {
-                
-            } else {
-                totalRequestRunnin += 1
-            }
-        }
-        
-        for (_, request) in requestsQueue {
-            
-            if queueCounter >= queueLimit {
-    
-                return
-            }
-            
-            if !request.isRunning {
-                
-                request.run()
-                
-                queueCounter += 1
-    
-            } else {
-
-            }
-        }
+    func initialData_Completed() {
+        self.delegateVC!.didReceivedAllInitialData!()
     }
     
-    func removeFromQueue(request:BNRequest){
-        queueCounter -= 1
-        requestProcessed += 1
-        
-//        print("--- Remove request: \(request.requestType)")
-        request.clean()
-        requestsQueue.removeValueForKey(request.identifier)
-
-        if queueCounter < 10 {
-            runQueue()
-        }
-        
-        let value:CGFloat = (CGFloat(requestProcessed) / CGFloat(totalNumberOfRequest))
-        delegateVC!.manager!(self, updateProgressView:Float(value))
+    func initialData_Failed(){ }
+    
+    func versionCheck_Completed() {
+        self.delegateVC!.didReceivedVersionStatus!()
+    }
+    
+    func versionCheck_Failed() {
+        self.errorManager!.showVersionError()
+    }
+    
+    func biinie_Completed(biinie:Biinie?) {
+        self.delegateDM!.didReceivedBiinieData!(biinie)
+    }
+    
+    func biinie_Failed() { }
+    
+    func biinie_NotRegistered() {
+        self.delegateDM!.biinieNotRegistered!()
+        self.errorManager!.showNotBiinieError()
+    }
+    
+    func sendBiinieActions_Completed(){
+        BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
+        BNAppSharedManager.instance.dataManager.bnUser!.save()
+    }
+    
+    func sendBiinieActions_Failed() { }
+    
+    func sendBiinieToken_Completed() { }
+    
+    func sendBiinieToken_Failed() {
+        BNAppSharedManager.instance.dataManager!.bnUser!.token! = ""
+        BNAppSharedManager.instance.dataManager!.bnUser!.save()
+    }
+    
+    func login_Completed() {
+        self.delegateVC!.didReceivedLoginValidation!(true)
+    }
+    
+    func login_Failed() {
+        self.delegateVC!.didReceivedLoginValidation!(false)
+    }
+    
+    func login_Facebook_Completed() {
+        self.delegateVC!.didReceivedFacebookLoginValidation!(true)
+    }
+    
+    func login_Facebook_Failed() {
+        self.delegateVC!.didReceivedFacebookLoginValidation!(false)
+    }
+    
+    func register_Completed() {
+        self.delegateVC!.didReceivedRegisterConfirmation!(true)
+    }
+    
+    func register_Failed() {
+        self.delegateVC!.didReceivedRegisterConfirmation!(true)
+    }
+    
+    func sendBiinie_Update_Completed() {
+        self.delegateVC!.didReceivedUpdateConfirmation!(true)
+    }
+    
+    func sendBiinie_Failed() {
+        self.delegateVC!.didReceivedUpdateConfirmation!(false)
     }
     
     func addToQueue(request:BNRequest){
-        self.requestsQueue[request.identifier] = request
-        runQueue()
-        totalNumberOfRequest += 1
-    }
-    
-    func isQueued(stringUrl:String) -> Bool {
-        
-        for (_, request) in self.requestsQueue {
-            if stringUrl == request.requestString {
-                return true
-            }
-        }
-        return false
-    }
- 
-    func checkConnectivity() {
-        let request = BNRequest_ConnectivityCheck(requestString: connectibityUrl, dataIdentifier: "", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-        
+        self.requestManager!.processRequest(request)
     }
     
     func checkVersion() {
@@ -194,19 +181,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
      @param password:Biinie password.
      */
     func login_Facebook(email:String){
-        
-        //        let address = "\(rootURL)/mobile/biinies/auth/\(email)/\(password)"
-        //        let escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        //        let urlpath = NSString(format: "\(escapedAddress!)")
-        
         let url : NSString = "\(rootURL)/mobile/biinies/auth/thirdparty/facebook/\(email)"
-        //        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        //        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
         let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let request = BNRequest_Login_Facebook(requestString:"\(urlStr)" , errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
-
     
     /**
     Enable biinie to register.
@@ -223,16 +202,11 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
         
         let url : NSString = "\(rootURL)/mobile/biinies/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)"
-//        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-//        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
-        
-//        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())
 
         let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let request = BNRequest_Register(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
-    
     
     /**
      Enable biinie to register using Facebook.
@@ -253,19 +227,10 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
         
         let url : NSString = "\(rootURL)/mobile/biinies/facebook/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)/\(user.facebook_id!)"
-        //        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        //        let stringURL : NSURL = NSURL(string: "\(urlStr)")!
-        
-        //        let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())
-        
+    
         let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters( NSCharacterSet.URLQueryAllowedCharacterSet())!
         let request = BNRequest_Register_with_Facebook(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
-        
-        
-        
-        
-        
     }
     
     /**
@@ -290,7 +255,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //PUT /mobile/biinies/<identifierbiinie>/registerfornotifications
         let request = BNRequest_SendBiinieToken(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/registerfornotifications", errorManager: self.errorManager!, networkManager: self, user: user)
         addToQueue(request)
-        
     }
     
     /**
@@ -303,141 +267,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             addToQueue(request)
         }
     }
-    
-    /**
-    Send biinie categories.
-    @param user:Biinie data.
-    @param categories:List of categories seleted by biinie.
-    */
-    func sendBiinieCategories(user:Biinie, categories:Dictionary<String, String>) {
-        let request = BNRequest_SendBiinieCategories(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/categories", errorManager: self.errorManager!, networkManager: self, categories: categories)
-        addToQueue(request)
-    }
-
-    /**
-    Send biinie earned points in organization.
-    @param user:Biinie data.
-    @param organization:Organization where biine win points.
-    @param points:Amount of points earned by biinied
-    */
-    func sendBiiniePoints(user:Biinie, organization:BNOrganization, points:Int) {
-        let request = BNRequest_SendBiiniePoints(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)/loyalty/points", errorManager: self.errorManager!, networkManager: self, user: user, organization: organization, points: points)
-        addToQueue(request)
-    }
-    
-    /**
-    Checks is user email has been verified.
-    @param identifier:Biinie identifier.
-    */
-    func manager(manager:BNDataManager!, checkIsEmailVerified identifier:String) {
-        let request = BNRequest_CheckEmail_IsVerified(requestString: "\(rootURL)/mobile/biinies/\(identifier)/isactivate", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    
-    
+        
     func manager(manager: BNDataManager!, initialdata user: Biinie) {
         
-//        
-//        if SimulatorUtility.isRunningSimulator {
-//            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
-//        } else
         if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
             BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.73854872449546, -83.99879993264159)
         }
         
         let s1 = "\(rootURL)/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
-        //let s1 = "https://dev-biin-backend.herokuapp.com/mobile/initialData"
         
         let request = BNRequest_InitialData(requestString:s1, errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    
-    //NOT IN USE
-    /**
-    Request categories
-    @param biinie:Biinie object.
-    */
-    func manager(manager:BNDataManager!, requestCategoriesData user:Biinie) {
         
-        if SimulatorUtility.isRunningSimulator {
-            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.9339660564594, -84.05398699629518)
-            
-        } else if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
-            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(0.0, 0.0)
-        }
-        
-        let request = BNRequest_Categories(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)/categories", errorManager: self.errorManager!, networkManager:self)
-        addToQueue(request)
-    }
-    
-    
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase) of BNDataManagerDelegate.
-    */
-    func manager(manager:BNDataManager!, requestShowcaseData showcase:BNShowcase, user:Biinie) {
-        
-        let request = BNRequest_Showcase(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/showcases/\(showcase.identifier!)/", errorManager: self.errorManager!, networkManager: self, showcase: showcase, user: user)
-        addToQueue(request)
-    }
-    
-    /**
-    Conforms optional     optional func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:BNUser) of BNDataManagerDelegate.
-    */
-    func manager(manager:BNDataManager!, requestElementDataForBNUser element:BNElement, user:Biinie) {
-        let request = BNRequest_Element(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/elements/\(element.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, element: element)
-        addToQueue(request)
-    }
-    
-    ///Conforms optional func manager(manager: BNDataManager!, requestBoardsForBNUser user: BNUser) of BNDataManagerDelegate.
-    func manager(manager: BNDataManager!, requestCollectionsForBNUser user: Biinie) {
-        ///mobile/biinies/ca8bca2e-db80-40e8-a017-7badd86d0ab8/requestCollection
-        let request = BNRequest_CollectionsForBiinie(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/requestCollection", errorManager: self.errorManager!, networkManager: self)
-        
-//        let request = BNRequest_Collections(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/requestCollection", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
-    */
-    func manager(manager:BNDataManager!, requestSiteData site:BNSite, user:Biinie) {
-        let request = BNRequest_Site(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/sites/\(site.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, site: site)
-        self.addToQueue(request)
-    }
-    
-    /**
-    Conforms optional func manager(manager:BNDataManager!, requestSiteData site:BNSite) of BNDataManagerDelegate.
-    */
-    func manager(manager: BNDataManager!, requestOrganizationData organization: BNOrganization, user: Biinie) {
-        
-        let request = BNRequest_Organization(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/organizations/\(organization.identifier!)", dataIdentifier: "", errorManager: self.errorManager!, networkManager: self, organization: organization)
-        addToQueue(request)
-        
-    }
-    
-    /**
-    Social Element Methods
-    */
-    /*
-    func sendBiinedElement(user: Biinie, element: BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
-        addToQueue(request)
-    }
-    
-    func sendUnBiinedElement(user: Biinie, element:BNElement, collectionIdentifier:String) {
-        let request = BNRequest_SendUnBiinedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/element/\(element.identifier!)", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    */
-    
-    func sendCollectedElement(user: Biinie, element: BNElement?, collectionIdentifier:String) {
-        
-        let request = BNRequest_SendCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, element:element)
-        addToQueue(request)
-    }
-    
-    func sendUnCollectedElement(user: Biinie, element:BNElement?, collectionIdentifier:String) {
-        let request = BNRequest_SendUnCollectedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/element/\(element!.identifier!)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
     
@@ -458,32 +298,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    
-    /**
-    Social Site Methods
-    */
-    /*
-    func sendBiinedSite(user: Biinie, site: BNSite, collectionIdentifier:String) {
-        let request = BNRequest_SendBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
-        addToQueue(request)
-    }
-    
-    func sendUnBiinedSite(user: Biinie, site:BNSite, collectionIdentifier:String) {
-        let request = BNRequest_SendUnBiinedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collections/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    */
-    
-    func sendCollectedSite(user: Biinie, site: BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)", errorManager: self.errorManager!, networkManager: self, site: site)
-        addToQueue(request)
-    }
-    
-    func sendUnCollectedSite(user: Biinie, site:BNSite, collectionIdentifier:String ) {
-        let request = BNRequest_SendUnCollectedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/collect/\(collectionIdentifier)/site/\(site.identifier!)", errorManager: self.errorManager!, networkManager: self)
-        addToQueue(request)
-    }
-    
     func sendLikedSite(user: Biinie, site: BNSite?) {
 
         var like = "unlike"
@@ -492,18 +306,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
         
         let request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/\(like)", errorManager: self.errorManager!, networkManager: self, site:site)
-
-        addToQueue(request)
-    }
-    
-    func sendFollowedSite(user:Biinie, site:BNSite?) {
-        
-        var follow = "unfollow"
-        if site!.userFollowed {
-            follow = "follow"
-        }
-
-        let request = BNRequest_SendFollowedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/\(follow)", errorManager: self.errorManager!, networkManager: self, site: site)
 
         addToQueue(request)
     }
@@ -517,7 +319,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForShowcase/\(showcase!.site!.identifier!)/\(showcase!.identifier!)/\(showcase!.batch)"
         
-        //let url = "https://dev-biin-backend.herokuapp.com/mobile/nextElementsInShowcaseTemp"
         let request = BNRequest_ElementsForShowcase(requestString: url, errorManager: self.errorManager!, networkManager: self, showcase: showcase, user:BNAppSharedManager.instance.dataManager.bnUser , view: view)
         addToQueue(request)
     }
@@ -539,39 +340,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
         addToQueue(request)
     }
-    
-    func requestToS(viewController:SingupViewController){
-        let request = BNRequest_ToS(requestString: "https://dev-biin-backend.herokuapp.com/mobile/termsofservice", errorManager: self.errorManager!, networkManager: self, viewController:viewController)
-        addToQueue(request)
-    }
-    
-    func runRequest(){
-        
-        for (_, value) in requests {
-            
-            switch value.requestType {
 
-            default:
-                break
-            }
-            
-            return
-        }
-        
-    }
-
-
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
     func removeImageRequest(stringUrl:String){
         for (_, request) in self.requests {
             if stringUrl == request.requestString {
@@ -581,23 +350,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         }
     }
     
-
     func requestImageData(stringUrl:String, image:BNUIImageView!) {
-        
-        if !isQueued(stringUrl) {
-            
+        if !self.requestManager!.isQueued(stringUrl) {
             let request = BNRequest_Image(requestString: stringUrl, errorManager: self.errorManager!, networkManager: self, image:image)
             addToQueue(request)
-            
         } else {
             epsNetwork!.getImageInCache(stringUrl, image: image)
         }
-    }
-    
-    func showVersionError(request:BNRequest){
-        request.requestAttemps = 0
-        request.isRunning = false
-        self.errorManager!.showVersionError()
     }
     
     func handleFailedRequest(request:BNRequest, error:NSError? ) {
@@ -607,7 +366,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         if error != nil {
             
             if error?.code == -1001 && request.requestType == .InitialData{
-                request.requestAttemps = 0
+                request.attemps = 0
                 request.isRunning = false
                 self.errorManager!.showServerError()
 
@@ -617,17 +376,17 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             case .None:
                 break
             case .Login:
-                let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
-                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+                //let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
+//                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
             case .Register:
-                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
-                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
+//                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
+//                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
                 break
-            case .Biinie, .SendBiinie, .SendBiiniePoints, .SendBiinieActions, .SendBiinieCategories, .SendCollectedElement, .SendUnCollectedElement, .SendLikedElement, .SendSharedElement, .SendCollectedSite, .SendUnCollectedSite, .SendFollowedSite, .SendLikedSite, .SendSharedSite, .CheckEmail_IsVerified, .Site, .Showcase, .Element, .Categories, .Organization, .Collections, .ElementsForShowcase:
+            case .Biinie, .SendBiinie, .SendBiinieActions, .SendLikedElement, .SendSharedElement, .SendLikedSite, .SendSharedSite, .ElementsForShowcase:
                 
-                if request.requestAttemps >= 3 {
-                    request.requestAttemps = 0
+                if request.attemps >= 3 {
+                    request.attemps = 0
                     request.isRunning = false
                     self.errorManager!.showInternetError()
                 } else {
@@ -642,9 +401,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 request.run()
                 
                 break
-            case .ConnectivityCheck, .VersionCheck:
-                if request.requestAttemps >= 3 {
-                    request.requestAttemps = 0
+            case .VersionCheck:
+                if request.attemps >= 3 {
+                    request.attemps = 0
                     request.isRunning = false
                     self.errorManager!.showInternetError()
                 } else {
@@ -653,8 +412,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
                 }
                 break
             case .ServerError:
-                if request.requestAttemps >= 3 {
-                    request.requestAttemps = 0
+                if request.attemps >= 3 {
+                    request.attemps = 0
                     request.isRunning = false
                     self.errorManager!.showServerError()
                 } else {
@@ -667,18 +426,15 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             }
         } else {
             //If error is nil
-            request.requestAttemps = 0
+            request.attemps = 0
             request.isRunning = false
             self.errorManager!.showInternetError()
         }
     }
     
     func resume(){
-        for (_, request) in requestsQueue {
-            if !request.isRunning {
-                request.run()
-            }
-        }
+        self.errorManager!.isAlertOn = false
+        self.requestManager!.resume()
     }
     
     //Request to remove a showcase when it data is corrupt or is not longer in server.
@@ -710,13 +466,22 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
 @objc protocol BNNetworkManagerDelegate:NSObjectProtocol {
     
 
-    optional func manager(manager:BNNetworkManager!, didReceivedLoginValidation response:BNResponse?)
+    optional func didReceivedVersionStatus()
+    optional func didReceivedAllInitialData()
+    optional func didReceivedBiinieData(user:Biinie?)
+    optional func biinieNotRegistered()
+    optional func didReceivedLoginValidation(isValidated:Bool)
+    optional func didReceivedFacebookLoginValidation(isValidated:Bool)
+    optional func didReceivedRegisterConfirmation(isRegistered:Bool)
+    optional func didReceivedUpdateConfirmation(updated:Bool)
+    
+    
     optional func manager(manager:BNNetworkManager!, didReceivedUserIdentifier idetifier:String?)
+    
     optional func manager(manager:BNNetworkManager!, didReceivedEmailVerification value:Bool)
-    optional func manager(manager:BNNetworkManager!, didReceivedRegisterConfirmation response:BNResponse?)
-    optional func manager(manager:BNNetworkManager!, didReceivedUpdateConfirmation response:BNResponse?)
+    
     optional func manager(manager:BNNetworkManager!, didReceivedCategoriesSavedConfirmation response:BNResponse?)
-    optional func manager(manager:BNNetworkManager!, didReceivedFacebookLoginValidation response:BNResponse?)
+    
     
     optional func manager(manager:BNNetworkManager!, didReceivedInitialData biins:Array<BNBiin>?)
     
@@ -727,7 +492,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///- parameter BNNetworkManager.:
     ///- parameter Status: of the network check.
     optional func manager(manager:BNNetworkManager!, didReceivedConnectionStatus status:Bool)
-    optional func manager(manager:BNNetworkManager!, didReceivedVersionStatus needsUpdate:Bool)
+//    optional func manager(manager:BNNetworkManager!, didReceivedVersionStatus)
+    
     ///Takes categories data requested and procces that data.
     ///
     ///- parameter BNNetworkManager.:
@@ -804,18 +570,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     ///- parameter String: notification requested.
     ///- parameter BNEelement: requesting the data.
     optional func manager(manager:BNNetworkManager!, didReceivedElementNotification notification:String, element:BNElement)
-    
-    
-    ///Notifies main menu view that all initial data is downloaded and is safe to enter the app.
-    ///
-    ///- parameter BNNetworkManager.:
-    ///- parameter Just: a flag.
-    optional func manager(manager:BNNetworkManager!, didReceivedAllInitialData value:Bool)
-    
-    
+
     optional func manager(manager:BNNetworkManager!, didReveivedBiinsOnRegion biins:Array<BNBiin>, identifier:String)
     
-    optional func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie, isBiinieOnBD:Bool)
     optional func manager(manager:BNNetworkManager!, removeShowcaseRelationShips identifier:String)
     optional func manager(manager:BNNetworkManager!, didReveivedSharedBiins biins:Array<BNBiin>, identifier:String )
     optional func refreshTable(manager:BNNetworkManager!)

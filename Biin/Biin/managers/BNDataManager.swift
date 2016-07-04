@@ -650,118 +650,27 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     }
     
 
-    
-    func manager(manager:BNNetworkManager!, didReceivedBiinieData user:Biinie, isBiinieOnBD:Bool) {
+    func didReceivedBiinieData(user: Biinie?) {
         
-        
-        //print("FLOW 5 - didReceivedBiinieData")
-        if isBiinieOnBD {
-            if self.bnUser != nil {
-                user.token = self.bnUser!.token
-                user.needsTokenUpdate = self.bnUser!.needsTokenUpdate
-                self.bnUser = user
-                
-                self.bnUser!.save()
-            }
-            
-            requestInitialData()
-            
-        } else {
-            bnUser!.clear()
-            //BNAppSharedManager.instance.settings!.clear()
-            errorManager.showNotBiinieError()
+        if self.bnUser != nil {
+            user!.token = self.bnUser!.token
+            user!.needsTokenUpdate = self.bnUser!.needsTokenUpdate
+            self.bnUser = user
+            self.bnUser!.save()
         }
         
+        requestInitialData()
         
         if self.bnUser!.needsTokenUpdate {
             //print("SEND TOKEN TO CMS")
             BNAppSharedManager.instance.networkManager!.sendBiinieToken(self.bnUser!)
         }
-        
-        //print("bnUser token:\(bnUser!.token!)")
-        
-        /*x
-        //Add a temporal BNCollection
-        bnUser!.collections = Dictionary<String, BNCollection>()
-        var collection = BNCollection()
-        collection.identifier = "temporalCollection01"
-        collection.name = "Biined element and sites."
-        collection.collectionDescription = "This is a list of all your biined element and sites."
-        bnUser!.collections![collection.identifier!] = collection
-        */
-        
-       // delegateNM!.manager!(self, requestCollectionsForBNUser: bnUser!)
     }
     
-    func manager(manager: BNNetworkManager!, didReceivedCollections collectionList: Array<BNCollection>) {
-        
-
-        /*
-        if collectionList.count > 0 {
-            
-            bnUser!.collections = Dictionary<String, BNCollection>()
-            
-            for collection in collectionList {
-            
-                
-                let new_collection = BNCollection()
-                new_collection.identifier = collection.identifier
-                new_collection.title = collection.title
-                new_collection.subTitle = collection.subTitle
-                bnUser!.temporalCollectionIdentifier = collection.identifier
-                
-                for (_id, element) in collection.elements {
-                    if let store_element = elements_by_id[_id] {
-                        new_collection.elements[_id] = store_element
-                        new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
-                    } else {
-                        //print("element not store:\(_id)")
-                        if let element = elements[element.identifier!] {
-                            
-                            elements_by_id[_id] = element.clone()
-                            elements_by_id[_id]!._id = _id
-                            
-                            if let showcase = showcases[element.showcase!._id!] {
-                                elements_by_id[_id]!.showcase = showcase
-                            }
-                            
-                            new_collection.elements[_id] = elements_by_id[_id]
-                            new_collection.elements[_id]?.isRemovedFromShowcase = element.isRemovedFromShowcase
-                        }
-                        
-                    }
-                }
-                
-                bnUser!.collections![collection.identifier!] = new_collection
-                BNAppSharedManager.instance.mainViewController!.enableCollectionBtnOnMenu()
-
-//                if bnUser!.collections![collection.identifier!] == nil {
-//                    bnUser!.collections![collection.identifier!] = collection
-//                    bnUser!.temporalCollectionIdentifier = collection.identifier!
-//                }
-//                
-//                
-                
-                //for (key, element) in collection.elements {
-                //    if elementsBiined[element._id!] == nil {
-                //        elementsBiined[element._id!] = element._id!
-                //    }
-                //}
-            
-                //TODO: Remove this call temporary
-                //requestElements(collection.elements.values.array)
-            }
-            
-        }
- */
+    func biinieNotRegistered() {
+        bnUser!.clear()
     }
-    
-    func manager(manager:BNNetworkManager!, removeShowcaseRelationShips identifier:String) {
-    
 
-    }
-    
-    
     //BNPositionManagerDelegate
 //    func manager(manager:BNPositionManager!, startEnterRegionProcessWithIdentifier identifier:String)
 //    {
@@ -1227,17 +1136,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///- parameter BNDataManager: that store all data.
     ///- parameter BNUser: requesting the element's data.
     optional func manager(manager:BNDataManager!, requestBiinedElementListForBNUser user:Biinie)
-    
-    
-    ///Request user boards.
-    ///
-    ///- parameter BNDataManager: that store all data.
-    ///- parameter BNUser: requesting the element's data.
-    optional func manager(manager:BNDataManager!, requestCollectionsForBNUser user:Biinie)
-
-    //optional func manager(manager:BNDataManager!, sendBiinedElement user:BNUser, element:BNElement, collection:BNCollection)
-    
-    //optional func manager(manager:BNDataManager!, deleteBiinedElement user:BNUser, element:BNElement, collection:BNCollection)
     
     ///Request user (biinie) data
     ///

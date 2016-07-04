@@ -374,30 +374,6 @@ class HighlightView: BNView {
         likeItButton!.icon!.color = self.iconColor!
     }
     
-    func collectIt(sender:BNUIButton_CollectionIt){
-        
-        self.element!.userCollected = !self.element!.userCollected
-        
-        updateCollectItBtn()
-        animationView!.animate(self.element!.userCollected)
-        
-        BNAppSharedManager.instance.collectElement(self.element)
-        
-        if self.element!.userCollected {
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!, by:"")
-        } else {
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!, by:"")
-        }
-        
-    }
-    
-    func updateCollectItBtn(){
-        
-        collectItButton!.changeToCollectIcon(self.element!.userCollected)
-        collectItButton!.icon!.color = self.iconColor!
-        collectItButton!.setNeedsDisplay()
-    }
-    
     func updateShareBtn() {
         shareItButton!.icon!.color = self.iconColor!
         shareItButton!.setNeedsDisplay()

@@ -356,9 +356,9 @@ class ElementMiniView: BNView {
     }
     
     func unCollect(sender:BNUIButton_RemoveIt) {
-        self.element!.userCollected = false
+        
         self.element!.userLiked = false
-        BNAppSharedManager.instance.unCollectElement(self.element)
+        BNAppSharedManager.instance.likeElement(self.element)
         SharedAnswersManager.instance.logUnCollect_Element(element)
     }
     

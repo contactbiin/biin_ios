@@ -78,19 +78,11 @@ class VersionCheckViewController: UIViewController, UIPopoverPresentationControl
     }
     
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedVersionStatus needsUpdate: Bool) {
+    func didReceivedVersionStatus() {
         continueAfterVersionCheck()
     }
     
-    
-    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-//        loadingView!.hideProgressView()
-//        let vc = MainViewController()
-//        vc.initViewController(self.view.frame)
-//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-//        self.presentViewController(vc, animated: true, completion: nil)
-        
-    }
+    func didReceivedAllInitialData() { }
     
     func manager(manager: BNNetworkManager!, updateProgressView value: Float) {
      

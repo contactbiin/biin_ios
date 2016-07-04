@@ -62,7 +62,7 @@ class BiinieCategoriesView_Header: BNView {
     //Instance Methods
     func addButtons(){
         showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 12, 60, 40), text: "", iconType: BNIconType.menuMedium)
-        showMenuBtn!.addTarget(father, action:#selector((father as! MainViewContainer).showMenuBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        showMenuBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showMenuBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
         
 //        testBtn = UIButton(frame: CGRectMake(200, 0, 60, 40))

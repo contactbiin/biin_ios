@@ -288,9 +288,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     }
     
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-
-    }
+    func didReceivedAllInitialData() { }
     
     func manager(manager: BNNetworkManager!, didReceivedCategoriesSavedConfirmation response: BNResponse?) {
         if response!.code == 0 {
@@ -300,18 +298,18 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         }
     }
     
-    func manager(manager: BNNetworkManager!, didReceivedUpdateConfirmation response: BNResponse?) {
-        
-        if response!.code == 0 {
+    
+    func didReceivedUpdateConfirmation(updated:Bool) {
+        if updated {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    BNAppSharedManager.instance.dataManager.requestInitialData()
+                    //BNAppSharedManager.instance.dataManager.requestInitialData()
                 })
             }
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials )
                     self.view.addSubview(self.alert!)
                     self.alert!.showAndHide()
                 })
@@ -331,7 +329,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     func hideProgressView(){
         if (alert?.isOn != nil) {
             alert!.hideWithCallback({() -> Void in
-                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:"Error on Facebook!")
+                self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.FacebookError )
                 self.view.addSubview(self.alert!)
                 self.alert!.showAndHide()
             })
@@ -339,7 +337,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     }
         
     func showProgressView(){
-        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait )
         self.view.addSubview(alert!)
         alert!.show()
     }

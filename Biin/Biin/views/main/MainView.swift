@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainViewContainer_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainViewContainer_NearSites_Delegate, SurveyView_Delegate, MainViewContainer_FavoriteSites_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -131,7 +131,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func show_refreshButton(){
-        (mainViewContainerState!.view as! MainViewContainer).show_refreshButton()
+        (mainViewContainerState!.view as! MainView_Container_All).show_refreshButton()
     }
     
     func showMenu(sender:UIScreenEdgePanGestureRecognizer) {
@@ -308,7 +308,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if !isShowingInsiteView {
             isShowingInsiteView = true
             site_to_survey = site
-            (mainViewContainerState!.view as! MainViewContainer).showInSiteView(site)
+            (mainViewContainerState!.view as! MainView_Container_All).showInSiteView(site)
         }
     }
     
@@ -316,7 +316,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         if isShowingInsiteView {
             isShowingInsiteView = false
-            (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
+            (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
             showSurveyView()
         }
     }
@@ -542,14 +542,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideAllFavoriteSitesView() {  }
     
     func refresh_favoritesSitesContaier(site:BNSite?){
-        (self.mainViewContainerState!.view as! MainViewContainer).updateLikeButtons()
+        (self.mainViewContainerState!.view as! MainView_Container_All).updateLikeButtons()
         (self.allFavoriteSitesState!.view as! AllSitesView).showAllFavoriteSite()
-        (self.mainViewContainerState!.view as! MainViewContainer).refresh_favoritesSitesContaier(site)
+        (self.mainViewContainerState!.view as! MainView_Container_All).refresh_favoritesSitesContaier(site)
     }
     
     //AllElementsView_Delegate  Methods
     func hideAllElementsView(category:BNCategory?) {
-        (self.mainViewContainerState!.view as! MainViewContainer).refresh_elementContainer(category!.identifier!)
+        (self.mainViewContainerState!.view as! MainView_Container_All).refresh_elementContainer(category!.identifier!)
         setNextState(BNGoto.Previous)
 //        isShowingAllElements = false
     }
@@ -577,7 +577,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func hideSiteViewOnContext(site: BNSite) {
-        (mainViewContainerState!.view as! MainViewContainer).hideInSiteView()
+        (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
     }
     
     func hideSiteView(view: SiteView) {
@@ -607,7 +607,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         showMenuSwipe?.removeTarget(self, action: #selector(self.showMenu(_:)))
         showMenuSwipe = nil
         
-        (mainViewContainerState!.view as! MainViewContainer).clean()
+        (mainViewContainerState!.view as! MainView_Container_All).clean()
         mainViewContainerState!.view!.removeFromSuperview()
         mainViewContainerState!.view = nil
         
@@ -657,7 +657,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func show(){
         
-        let mainViewContainer = MainViewContainer(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
+        let mainViewContainer = MainView_Container_All(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         self.addSubview(mainViewContainer)
         mainViewContainerState!.view = mainViewContainer
         state = mainViewContainerState!
@@ -747,11 +747,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     optional func mainView(mainView:MainView!, showMenu value:Bool)
 }
 
-@objc protocol MainViewDelegate_HighlightsContainer:NSObjectProtocol {
+@objc protocol MainView_Delegate_HighlightsContainer:NSObjectProtocol {
     optional func updateHighlightsContainer(view:MainView,  update:Bool)
 }
 
-@objc protocol MainViewDelegate_BiinsContainer:NSObjectProtocol {
+@objc protocol MainView_Delegate_BiinsContainer:NSObjectProtocol {
     optional func updateBiinsContainer(view:MainView,  update:Bool)
 }
 

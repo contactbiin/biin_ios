@@ -71,15 +71,13 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
     func showInternetError(){
 
         if !self.isAlertOn {
-            
             isAlertOn = true
-            
-            
-            let vc = ErrorViewController()
-            vc.addInternet_ErrorView()
-            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-            currentViewController!.presentViewController(vc, animated: true, completion: nil)
-            BNAppSharedManager.instance.errorManager.currentViewController = vc
+//            let vc = ErrorViewController()
+//            vc.addInternet_ErrorView()
+//            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+//            currentViewController!.presentViewController(vc, animated: true, completion: nil)
+            let internetErrorView = InternetErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
+            BNAppSharedManager.instance.errorManager.currentViewController!.view.addSubview(internetErrorView)
             
         }
     }
@@ -88,11 +86,18 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
         
         if !self.isAlertOn {
             isAlertOn = true
+            
+            /*
             let vc = ErrorViewController()
             vc.addVersion_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
             BNAppSharedManager.instance.errorManager.currentViewController = vc
+            */
+            
+            let versionErrorView = VersionErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
+            BNAppSharedManager.instance.errorManager.currentViewController!.view.addSubview(versionErrorView)
+            
         }
     }
     

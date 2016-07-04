@@ -22,15 +22,14 @@ class BNRequest_VersionCheck: BNRequest {
     override func run() {
         
         isRunning = true
-        requestAttemps += 1
-        
-        //print("\(requestString)")
+        attemps += 1
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                self.networkManager!.handleFailedRequest(self, error: error )
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 
                 let result = BNParser.findBool("result", dictionary: data)
@@ -44,15 +43,16 @@ class BNRequest_VersionCheck: BNRequest {
                     }
                     
                     if needsUpdate {
-                        self.networkManager!.showVersionError(self)
+                        self.requestError = BNRequestError.VersionCheck_NeedsUpdate
+                        self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                     } else {
-                        self.inCompleted = true
-                        self.networkManager!.delegateVC?.manager!(self.networkManager!, didReceivedVersionStatus:needsUpdate)
-                        self.networkManager!.removeFromQueue(self)
+                        self.isCompleted = true
+                        self.networkManager!.requestManager!.processCompletedRequest(self)
                     }
                     
-                }else {
-                    self.networkManager!.handleFailedRequest(self, error:nil)
+                } else {
+                    self.requestError = BNRequestError.Server
+                    self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 }
             }
         })

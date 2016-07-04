@@ -557,13 +557,13 @@ class ProfileView: BNView, UITextFieldDelegate {
             //singupBtn!.showDisable()
             */
             
-            if areCategoriesChanged {
-                //Save categories for user
-                areCategoriesChanged = false
-                BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
-                //(father as! MainView).refresh()
-                
-            }
+//            if areCategoriesChanged {
+//                //Save categories for user
+//                areCategoriesChanged = false
+//                BNAppSharedManager.instance.networkManager.sendBiinieCategories(BNAppSharedManager.instance.dataManager.bnUser!, categories: categoriesSelected)
+//                //(father as! MainView).refresh()
+//                
+//            }
             
             delegate!.showProgress!(self)
         }

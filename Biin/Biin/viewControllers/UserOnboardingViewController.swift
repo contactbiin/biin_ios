@@ -98,9 +98,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     }
     
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-        
-    }
+    func didReceivedAllInitialData() { }
     
     func showProgress(view: UIView) {
         if (alert?.isOn != nil) {
@@ -111,7 +109,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
     }
     
     func showProgressView(){
-        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait, text:NSLocalizedString("PleaseWait", comment: "PleaseWait"))
+        alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Please_wait )
         self.view.addSubview(alert!)
         alert!.show()
     }
@@ -144,7 +142,7 @@ class UserOnboardingViewController:UIViewController, UIPopoverPresentationContro
         } else {
             if (alert?.isOn != nil) {
                 alert!.hideWithCallback({() -> Void in
-                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials, text:response!.responseDescription!)
+                    self.alert = BNUIAlertView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), type: BNUIAlertView_Type.Bad_credentials )
                     self.view.addSubview(self.alert!)
                     self.alert!.showAndHide()
                 })

@@ -7,47 +7,70 @@ import Foundation
 
 struct BNRequestData { static var requestCounter:Int = 0 }
 
+enum BNRequestError
+{
+    case None
+    case Login_Failed
+    case Login_Facebook_Failed
+    case Register_Failed
+    case Register_Facebook_Failed
+    case Biinie_Failed
+    case SendBiinie_Failed
+    case SendBiinieActions //NOT IN USE
+    case SendBiinieToken_Failed
+    
+    
+    case InitialData_Failed
+    case VersionCheck_NeedsUpdate
+    
+    case ElementsForCategory_Failed
+    case ElementsForShowcase_Failed
+    
+    case Biinie_NotRegistered
+    
+    
+    
+    
+    case DoNotShowError
+    case Internet_Failed
+    case Server
+}
+
 enum BNRequestType
 {
     case None
     case Login
+    case Login_Facebook
     case Register
+    case Register_Facebook
     case Biinie
     case SendBiinie
-    case SendBiiniePoints
+    case SendBiinie_Update
     case SendBiinieActions
-    case SendBiinieCategories
-    case SendCollectedElement
-    case SendUnCollectedElement
-    case SendLikedElement
-    case SendSharedElement
-    case SendCollectedSite
-    case SendUnCollectedSite
-    case SendFollowedSite
-    case SendLikedSite
-    case SendSharedSite
+    case SendBiinieToken
     
-    case CheckEmail_IsVerified
-    case ConnectivityCheck
+    case InitialData
     case VersionCheck
     
-    case Site
-    case Sites
-    case Showcase
-    case Element
-    case Image
-    case Categories
-    case Organization
-    case Collections
-    case CollectionsForBiinie
     
-    case ServerError
-    case InitialData
-    case ElementsForShowcase
+    case SendLikedElement
+    case SendSharedElement
+    
+    case SendLikedSite
+    case SendSharedSite
+
+    
+    case Sites
+    case Image
     
     case SendSurvey
+    case ServerError
+    
     
     case ElementsForCategory
+    case ElementsForShowcase
+    
+    
 }
 
 
@@ -59,11 +82,12 @@ class BNRequest:NSObject {
     static var requestCounter:Int = 0
     
     var isRunning = false
-    var inCompleted = false
+    var isCompleted = false
     var identifier:Int = 0
     var requestString:String = ""
     var dataIdentifier:String = ""//identifier for the object data is requested for.
     var requestType:BNRequestType = BNRequestType.None
+    var requestError:BNRequestError = BNRequestError.None
     var rating:Int = 0
     var comment:String = ""
     
@@ -78,7 +102,8 @@ class BNRequest:NSObject {
     var points:Int = 0
     var categories:Dictionary<String, String>?
     
-    var requestAttemps:Int = 0
+    var attemps:Int = 0
+    var attempsLimit:Int = 5
     
     weak var errorManager:BNErrorManager?
     weak var networkManager:BNNetworkManager?
@@ -109,6 +134,12 @@ class BNRequest:NSObject {
     deinit { }
     
     func run() { }
+    
+    func reset() {
+        self.requestError = .None
+        self.isRunning = false
+        self.attemps = 0
+    }
     
     func clean() {
         showcase = nil

@@ -21,55 +21,25 @@ struct ShareEPSNetworking
 }
 
 
-class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate {
+class EPSNetworking:NSObject {
     
-    var urlDelegate:NSURLSessionDelegate?
     
     override init(){
         super.init()
     }
-    
     
     func shouldTrustProtectionSpace() ->Bool {
         
         return true
     }
     
-//    func getConnection(request: NSURLRequest, callback: (NSError?) -> Void) {
-//        
-//        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-//        
-//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-//            //            var queue = NSOperationQueue()
-//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler:{(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-//                
-//                if (error != nil) {
-//                    callback(error)
-//                    return
-//                } else {
-//                    callback(nil)
-//                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-//                    
-//                }
-//            })
-//        })
-//    }
-//
-//    
     
     func getWithConnection(identifier:Int, request: NSURLRequest, callback: (String, NSError?) -> Void) {
-
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 
-        
-//        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("\(identifier)")
-//        let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
-//        let task = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-//        }
-    
-
         let session = NSURLSession.sharedSession()
+        
         let task = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -88,6 +58,8 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
                     callback("", error)
                 }
             })
+            
+            
         }
         
         task.resume()
@@ -124,6 +96,7 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
         
         //var request = NSURLRequest(URL:NSURL(string:url)!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 25.0)
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+    
         //NSLog("BIIN - getJson 1")
                 
         if BNAppSharedManager.instance.settings!.IS_USING_CACHE {
@@ -412,17 +385,6 @@ class EPSNetworking:NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NS
             ShareEPSNetworking.cacheImages.removeAll(keepCapacity: false)
             ShareEPSNetworking.requestingImages.removeAll(keepCapacity: false)
         }
-    }
-    
-    
-    
-    
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-
-    }
-    
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        
     }
     
     func findImageInBiinChacheLocalFolder(urlString:String, image:BNUIImageView) -> UIImage? {

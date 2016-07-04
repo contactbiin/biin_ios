@@ -22,7 +22,6 @@ class ElementView: BNView, UIWebViewDelegate {
     
     var shareItButton:BNUIButton_ShareIt?
     var likeItButton:BNUIButton_LikeIt?
-    var collectItButton:BNUIButton_CollectionIt?
     var showSiteBtn:UIButton?
     
     var percentageView:ElementMiniView_Precentage?    
@@ -141,10 +140,6 @@ class ElementView: BNView, UIWebViewDelegate {
         
         var buttonSpace:CGFloat = 45
         let ypos:CGFloat = 5//screenWidth + 2
-        
-        collectItButton = BNUIButton_CollectionIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
-        collectItButton!.addTarget(self, action: #selector(self.collectIt(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        //backBtn_Bg!.addSubview(collectItButton!)
         
         //Like button
         //buttonSpace += 35
@@ -332,7 +327,6 @@ class ElementView: BNView, UIWebViewDelegate {
             
             updateBackBtn()
             updateLikeItBtn()
-            updateCollectItBtn()
             updateShareBtn()
                         
             ypos = SharedUIManager.instance.screenWidth
@@ -526,7 +520,6 @@ class ElementView: BNView, UIWebViewDelegate {
         
         shareItButton?.removeFromSuperview()
         likeItButton?.removeFromSuperview()
-        collectItButton?.removeFromSuperview()
         showSiteBtn?.removeFromSuperview()
         
         percentageView?.removeFromSuperview()
@@ -585,31 +578,6 @@ class ElementView: BNView, UIWebViewDelegate {
     func updateLikeItBtn() {
         likeItButton!.changedIcon(self.element!.userLiked)
         likeItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
-    }
-    
-    func collectIt(sender:BNUIButton_CollectionIt){
-        
-        self.element!.userCollected = !self.element!.userCollected
-
-        updateCollectItBtn()
-        animationView!.animate(self.element!.userCollected)
-        
-        BNAppSharedManager.instance.collectElement(self.element)
-        
-        if self.element!.userCollected {
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.COLLECTED_ELEMENT, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
-            SharedAnswersManager.instance.logCollect_Element(element)
-        } else {
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNCOLLECTED_ELEMENT, to:self.element!.identifier!, by:self.element!.showcase!.site!.identifier!)
-            SharedAnswersManager.instance.logUnCollect_Element(element)
-
-        }
-    }
-    
-    func updateCollectItBtn(){
-        collectItButton!.changeToCollectIcon(self.element!.userCollected)
-        collectItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
-        collectItButton!.setNeedsDisplay()
     }
     
     func updateShareBtn() {

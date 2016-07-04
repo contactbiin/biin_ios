@@ -52,8 +52,7 @@ class LoadingViewController: UIViewController, UIPopoverPresentationControllerDe
     }
 
     //BNNetworkManagerDelegate Methods
-    func manager(manager: BNNetworkManager!, didReceivedAllInitialData value: Bool) {
-
+    func didReceivedAllInitialData() { 
         loadingView!.hideProgressView()
         let vc = MainViewController()
         vc.initViewController(self.view.frame)
