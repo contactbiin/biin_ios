@@ -74,6 +74,8 @@ LoginDesc = "Enter your email and password you previously use on biin.";
 ContinueBtn = "Continue";
 WelcomeDesc = "We are glad to see you here, if you are new, you can sign up with your email or login with Facebook.";
 StartDesc = "Excelent, now is time to discover and enjoy special rewards with Biin.";
+TresureChest = "Tressure Chest";
+
 
 /* Categories */
 category1 = "Books, Audio and Movies";
@@ -166,7 +168,7 @@ Of = "of";
 
 /*About*/
 AboutTitle = "About Biin";
-AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby. Find the best deals and get rewards just by walking into the stores, sharing with friends or creating collections of your favorite stuff. This app is currently available only for iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6, iPhone6 Plus, iPhone6s and iPhone6s Plus.";
+AboutText = "Discover great places for shopping or dinner, browse the menu of your favorite restaurants or browse the latest products from the stores nearby.";
 
 /*Internet Error View*/
 InternetErrorTitle = "You're offline.";

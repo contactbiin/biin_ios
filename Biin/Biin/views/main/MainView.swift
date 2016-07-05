@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -22,16 +22,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var elementState:ElementState?
     var elementFromSiteState:ElementFromSiteState?
     var profileState:ProfileState?
-    var collectionsState:CollectionsState?    
-    var notificationsState:NotificationsState?
-    var loyaltiesState:LoyaltiesState?
+    var collectionsState:CollectionsState?
     var aboutState:AboutState?
     var allSitesState:AllSitesState?
     var allFavoriteSitesState:AllFavoriteSitesState?
     var allElementsState:AllElementsState?
     var allCollectedState:AllCollectedState?
     var surveyState:SurveyState?
-
+    var notificationsState:NotificationsState?
+    var giftsState:GiftsState?
+    
     var isShowingNotificationContext = false
     
     var isReadyToShowSurvey = false
@@ -77,6 +77,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         elementState = ElementState(context: self, view:nil)
         elementFromSiteState = ElementFromSiteState(context: self, view:nil)
         surveyState = SurveyState(context: self, view: nil)
+        notificationsState = NotificationsState(context: self, view: nil)
+        giftsState = GiftsState(context: self, view: nil)
         
         show()
 
@@ -237,6 +239,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             self.bringSubviewToFront(state!.view!)
             SharedAnswersManager.instance.logContentView_Survey(site_to_survey)
             break
+        case .Notifications:
+            state!.view!.showFade()
+            self.notificationsState!.previous = state
+            state!.next(self.notificationsState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .Gifts:
+            state!.view!.showFade()
+            self.giftsState!.previous = state
+            state!.next(self.giftsState)
+            self.bringSubviewToFront(state!.view!)
+            break
         }
     }
 
@@ -276,8 +290,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Main)
     }
     
-    func hideNotificationsView(view: NotificationsView) {
-        setNextState(BNGoto.Main)
+    func hideNotificationsView() {
+        setNextState(BNGoto.Previous)
     }
     
     func hideAboutView(view: AboutView) {
@@ -580,27 +594,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
     }
     
-    func hideSiteView(view: SiteView) {
-        setNextState(BNGoto.Previous)
-    }
+    func hideSiteView()             { setNextState(BNGoto.Previous) }
+    func hideBrotherSiteView()      { setNextState(BNGoto.Previous) }
+    func hideAllCollectedView()     { setNextState(BNGoto.Main) }
+    func hideSurveyView()           { setNextState(BNGoto.Previous) }
+    func hideGiftsView()            { setNextState(BNGoto.Previous) }
     
-    func hideBrotherSiteView(view: SiteView) {
-        setNextState(BNGoto.Previous)
-    }
-    
-    //AllCollectedView_Delegate Methods
-    func hideAllCollectedView() {
-        setNextState(BNGoto.Main)
-    }
     
     func updateAllCollectedView() {
         (allCollectedState!.view as? AllCollectedView)!.refresh()
     }
     
-    //SurveyView_Delegate Methods
-    func hideSurveyView() {
-        setNextState(BNGoto.Previous)
-    }
     
     override func clean(){
 
@@ -665,7 +669,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(self.showMenu(_:)))
         showMenuSwipe!.edges = UIRectEdge.Left
         mainViewContainer.scroll!.addGestureRecognizer(showMenuSwipe!)
-
         
         let allSitesView = AllSitesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
             SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: false)
@@ -725,6 +728,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         surveyState!.view = surveyView
         surveyView.delegate = self
         self.addSubview(surveyView)
+        
+        let notificationView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        notificationsState!.view = notificationView
+        notificationView.delegate = self
+        self.addSubview(notificationView)
+        
+        let giftsView = GiftsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        giftsState!.view = giftsView
+        giftsView.delegate = self
+        self.addSubview(giftsView)
     }
     
     func updateProfileView(){
@@ -769,4 +782,6 @@ enum BNGoto {
     case AllElements
     case Survey
     case Previous
+    case Notifications
+    case Gifts
 }

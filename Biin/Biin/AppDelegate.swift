@@ -101,8 +101,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Configuration.setRegion(.Default)
-        Configuration.setSandboxEnabled(false)
-        Configuration.setFallbackEnabled(true)
+        Configuration.setSandboxEnabled(true)
+        Configuration.setFallbackEnabled(false)
         
         FIRApp.configure()
         

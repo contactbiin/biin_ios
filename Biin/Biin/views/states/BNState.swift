@@ -18,19 +18,12 @@ class BNState {
         self.view = view
     }
     
-    init(context:BNView, view:BNView, stateType:BNStateType){
-        self.context = context
-        self.view = view
-        self.stateType = stateType
-    }
-    
     func action() {
-//        view!.transitionIn()
+
     }
     
     func next( state:BNState? ) {
-//        context!.state = state
-//        view!.transitionOut( context!.state )
+
     }
     
     func gotoPrevious() { }
@@ -51,10 +44,9 @@ enum BNStateType {
     case Notifications
     case SearchState
     case SettingsState
-    case BoardsState
-    case LoyaltiesState
     case AboutState
     case ErrorState
     case AllCollectedState
     case SurveyState
+    case GiftsState
 }

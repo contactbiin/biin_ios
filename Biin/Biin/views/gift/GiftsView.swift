@@ -1,4 +1,4 @@
-//  GiftView_Container_All.swift
+//  GiftsView.swift
 //  Biin
 //  Created by Esteban Padilla on 7/2/16.
 //  Copyright © 2016 Esteban Padilla. All rights reserved.
@@ -8,8 +8,12 @@ import UIKit
 import CoreLocation
 
 
-class GiftView_Container_All: BNView {
+class GiftsView: BNView {
+
+    var title:UILabel?
+    var backBtn:BNUIButton_Back?
     
+    var delegate:GiftsView_Delegate?
     var elementContainers:Array <MainView_Container_Elements>?
     var scroll:BNScroll?
     
@@ -31,9 +35,28 @@ class GiftView_Container_All: BNView {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
-        self.addSubview(scroll!)
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
+        let titleText = NSLocalizedString("TresureChest", comment: "TresureChest").uppercaseString
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        title!.textColor = UIColor.whiteColor()
+        title!.textAlignment = NSTextAlignment.Center
+        self.addSubview(title!)
+        
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
+        backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(backBtn!)
+        
+        ypos = SharedUIManager.instance.mainView_HeaderSize
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        line.backgroundColor = UIColor.lightGrayColor()
 
+        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
+        //self.addSubview(scroll!)
+        self.addSubview(line)
         
         elementContainers = Array<MainView_Container_Elements>()
         //updateContainer()
@@ -115,11 +138,24 @@ class GiftView_Container_All: BNView {
 
     override func transitionIn() {
         
+        UIView.animateWithDuration(0.25, animations: {()->Void in
+            self.frame.origin.x = 0
+        })
     }
     
     override func transitionOut( state:BNState? ) {
-
         state!.action()
+        
+        //        if state!.stateType == BNStateType.MainViewContainerState
+        //            || state!.stateType == BNStateType.SiteState {
+        
+        UIView.animateWithDuration(0.25, animations: {()-> Void in
+            self.frame.origin.x = SharedUIManager.instance.screenWidth
+        })
+        //        } else {
+        
+        //            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
+        //        }
     }
     
     override func setNextState(goto:BNGoto){
@@ -158,4 +194,14 @@ class GiftView_Container_All: BNView {
         scroll!.removeFromSuperview()
         fade!.removeFromSuperview()
     }
+    
+    func backBtnAction(sender:UIButton) {
+        delegate!.hideGiftsView!()
+        //delegate!.hideElementView!(elementMiniView)
+    }
+}
+
+
+@objc protocol GiftsView_Delegate:NSObjectProtocol {
+    optional func hideGiftsView()
 }

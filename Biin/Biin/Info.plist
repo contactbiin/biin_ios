@@ -189,18 +189,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UberCallbackURIs</key>
-	<array>
-		<dict>
-			<key>URIString</key>
-			<string>biinApp://uberSSO</string>
-			<key>UberCallbackURIType</key>
-			<string>General</string>
-		</dict>
-	</array>
+    <key>UberCallbackURIs</key>
+    <array>
+        <dict>
+            <key>UberCallbackURIType</key>
+            <string>General</string>
+            <key>URIString</key>
+            <string>callback://biin_callback_uri</string>
+        </dict>
+    </array>
 	<key>UberClientID</key>
 	<string>Kvswd-Zkg5J9xNnMHZIxUQ1nPiIc5Tid</string>
 	<key>UberDisplayName</key>
-	<string>biin</string>
+	<string>Biin</string>
 </dict>
 </plist>

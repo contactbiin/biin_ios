@@ -74,6 +74,7 @@ LoginDesc = "Inicia la sesión con tu correo y contraseña";
 ContinueBtn = "Continuar";
 WelcomeDesc = "Estamos felices que estés aqui, si es tu primera vez puedes crear una cuenta nueva o inicia sesión con Facebook.";
 StartDesc = "Excelente, ahora es tiempo de empezar a descubrir y beneficiarte con Biin.";
+TresureChest = "Baul de regalos";
 
 /* Categories */
 category1 = "Libros, Audio y peliculas";
@@ -166,7 +167,7 @@ Of = "de";
 
 /*About*/
 AboutTitle = "Información importante.";
-AboutText = "Biin es una aplicación que te ayuda a conectarte mejor con los comercios que más te gustan como restaurantes, tiendas, etc. En Biin puedes encontrar los productos y las ofertas de los locales en las cercanías, ademas de poder coleccionar y compartir con tus amigos obteniendo beneficios al hacerlo. Esta aplicación solo está disponible para iPhone4s, iPhone5, iPhone5s, iPhone5c, iPhone6, iPhone6 Plus, iPhone6s and iPhone6s Plus.";
+AboutText = "Biin es una aplicación que te ayuda a conectarte mejor con los comercios que más te gustan como restaurantes, tiendas, etc. En Biin puedes encontrar los productos y las ofertas de los locales en las cercanías, ademas de poder compartir con tus amigos.";
 
 /*Internet Error View*/
 InternetErrorTitle = "Problemas con internet!";

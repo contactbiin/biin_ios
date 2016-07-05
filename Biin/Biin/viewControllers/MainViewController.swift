@@ -246,7 +246,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     }
     
     func menuView(menuView: MenuView!, showNotifications value: Bool) {
-//        mainView!.setNextState(6)
+        mainView!.setNextState(BNGoto.Notifications)
     }
     
     func menuView(menuView: MenuView!, showInviteFriends value: Bool) {
@@ -267,6 +267,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     
     func menuView(menuView: MenuView!, showDevelopmentView value: Bool) {
         self.showDevelopmentView()
+    }
+    
+    func menuView(menuView: MenuView!, showGifts value: Bool) {
+        mainView!.setNextState(BNGoto.Gifts)
     }
     
     func showError(){

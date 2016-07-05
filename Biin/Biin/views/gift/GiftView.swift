@@ -1,5 +1,5 @@
 //
-//  GiftsView.swift
+//  GiftView.swift
 //  Biin
 //
 //  Created by Esteban Padilla on 7/2/16.

@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 import MapKit
-//import UberRides
+import UberRides
 
 class SiteView_Location:BNView, MKMapViewDelegate {
 
@@ -35,9 +35,11 @@ class SiteView_Location:BNView, MKMapViewDelegate {
     
     var yStop:CGFloat = 0
 
-//    var uber_button:RequestButton?
+    var uber_button:RideRequestButton?
     var waze_button:UIButton?
     weak var site:BNSite?
+    
+    var isInSiteView = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -150,6 +152,13 @@ class SiteView_Location:BNView, MKMapViewDelegate {
 //        uber_button!.layer.cornerRadius = 2
 //        self.addSubview(uber_button!)
 //        uber_button!.setNeedsDisplay()
+        
+        
+        ypos += 55        
+        uber_button = RideRequestButton()
+        uber_button!.frame = CGRectMake(5, ypos, (self.frame.width - 10), 50)
+        self.addSubview(uber_button!)
+        
         
         ypos += 55
         waze_button = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 50))
@@ -308,9 +317,7 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         yStop = ypos
 
         map!.frame.origin.y = ypos
-        
-        
-
+    
         siteLocation = CLLocationCoordinate2D(latitude: CLLocationDegrees(site!.latitude!), longitude: CLLocationDegrees(site!.longitude!))
         
         /*
@@ -379,7 +386,9 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         annotation.subtitle = site!.streetAddress1!
         map!.addAnnotation(annotation)
         
-        updateButtons()
+        if isInSiteView {
+            updateButtons()
+        }
     }
     
     func updateButtons() {
@@ -410,14 +419,39 @@ class SiteView_Location:BNView, MKMapViewDelegate {
         ypos += 5
         
         
-//        let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
-//        let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
+        let lat = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)
+        let long = Double(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)
 //        uber_button!.setProductID(site!.identifier!)
 //        uber_button!.setPickupLocation(latitude: lat, longitude:long, nickname:"\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)")
 //        uber_button!.setDropoffLocation(latitude: Double(site!.latitude!), longitude:Double(site!.longitude!), nickname: site!.title!)
 //        uber_button!.frame.origin.y = ypos
 //        ypos += uber_button!.frame.height
 //        ypos += 5
+        
+        
+        let ridesClient = RidesClient()
+        let pickupLocation = CLLocation(latitude: lat, longitude:long)
+        let dropoffLocation = CLLocation(latitude:  Double(site!.latitude!), longitude: Double(site!.longitude!))
+        //var builder = RideParametersBuilder().setDropoffLocation(dropoffLocation)
+        var builder = RideParametersBuilder().setPickupLocation(pickupLocation).setDropoffLocation(dropoffLocation)
+        
+        ridesClient.fetchUserProfile { (profile, response) in
+            print("\(profile)")
+        }
+        
+        ridesClient.fetchCheapestProduct(pickupLocation: pickupLocation, completion: {
+            product, response in
+            if let productID = product?.productID {
+                builder = builder.setProductID(productID)
+                self.uber_button!.rideParameters = builder.build()
+                self.uber_button!.loadRideInformation()
+            }
+        })
+            
+        uber_button!.layer.cornerRadius = 2
+        uber_button!.frame.origin.y = ypos
+        ypos += uber_button!.frame.height
+        ypos += 5
         
         closeBtn!.frame.origin.y = ypos
         closeBtn!.backgroundColor = bgColor

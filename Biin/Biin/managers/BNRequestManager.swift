@@ -28,6 +28,7 @@ class BNRequestManager: NSObject {
     }
     
     func processCompletedRequest(request:BNRequest) {
+        
         switch request.requestType {
         case .InitialData: self.networkManager!.initialData_Completed()
         case .VersionCheck: self.networkManager!.versionCheck_Completed()

@@ -21,44 +21,30 @@ class AboutView: BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.whiteColor()
+        
+        self.backgroundColor = UIColor.appBackground()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-//        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-//        visualEffectView!.frame = self.bounds
-//        self.addSubview(visualEffectView!)
-
-            
-        var ypos:CGFloat = 10
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
         let titleText = NSLocalizedString("About", comment: "About").uppercaseString
         var attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.font = UIFont(name:"Lato-Regular", size:13)
-        title!.textColor = UIColor.blackColor()
+        title!.textColor = UIColor.whiteColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
-//        backBtn!.layer.cornerRadius  = 17.5
-//        backBtn!.layer.borderWidth = 1
-//        backBtn!.layer.masksToBounds = true
         self.addSubview(backBtn!)
         
-        //let headerWidth = screenWidth - 60
-        //var xpos:CGFloat = (screenWidth - headerWidth) / 2
-    
-        ypos = 35
+        ypos = SharedUIManager.instance.mainView_HeaderSize
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.darkGrayColor()
+        line.backgroundColor = UIColor.lightGrayColor()
         
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
         scroll!.backgroundColor = UIColor.clearColor()
@@ -80,10 +66,8 @@ class AboutView: BNView {
         ypos += (biinLogo!.frame.height + 30)
         let aboutTitle = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_showcase_titleSize + 3)))
         aboutTitle.font = UIFont(name:"Lato-Regular", size:SharedUIManager.instance.siteView_showcase_titleSize)
-        aboutTitle.textColor = UIColor.appTextColor()
+        aboutTitle.textColor = UIColor.whiteColor()
         aboutTitle.textAlignment = NSTextAlignment.Center
-//        aboutTitle.text = NSLocalizedString("AboutTitle", comment: "AboutTitle").uppercaseString
-        
         let abouttitleText = NSLocalizedString("AboutTitle", comment: "AboutTitle").uppercaseString
         attributedString = NSMutableAttributedString(string:abouttitleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(5), range: NSRange(location: 0, length:(abouttitleText.characters.count)))
@@ -95,7 +79,7 @@ class AboutView: BNView {
         ypos += (aboutTitle.frame.height + 10)
         let aboutText = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         aboutText.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        aboutText.textColor = UIColor.appTextColor()
+        aboutText.textColor = UIColor.whiteColor()
         aboutText.textAlignment = NSTextAlignment.Center
         aboutText.text = NSLocalizedString("AboutText", comment: "AboutText")
         aboutText.numberOfLines = 0
@@ -106,7 +90,7 @@ class AboutView: BNView {
         ypos += (aboutText.frame.height + 10)
         let versionText = UILabel(frame: CGRectMake(40, ypos, (screenWidth - 80), (SharedUIManager.instance.siteView_subTittleSize + 3)))
         versionText.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
-        versionText.textColor = UIColor.appTextColor()
+        versionText.textColor = UIColor.whiteColor()
         versionText.text = "\(NSLocalizedString("Version", comment: "Version")) \(BNAppSharedManager.instance.version)"
         versionText.textAlignment = NSTextAlignment.Center
         versionText.numberOfLines = 0
@@ -116,13 +100,13 @@ class AboutView: BNView {
         ypos = (self.frame.height - 50)
         let siteUrl =  UIButton(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.siteView_subTittleSize))
         siteUrl.setTitle("www.biin.io", forState: UIControlState.Normal)
-        siteUrl.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
-        siteUrl.setTitleColor(UIColor.appTextColor(), forState: UIControlState.Selected)
+        siteUrl.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        siteUrl.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Selected)
         siteUrl.titleLabel!.font = UIFont(name:"Lato-Light", size:SharedUIManager.instance.siteView_subTittleSize)
         siteUrl.addTarget(self, action: #selector(self.openUrl(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(siteUrl)
         
-        addFade()
+        //addFade()
     }
     
     func openUrl(sender:UILabel) {
@@ -145,16 +129,16 @@ class AboutView: BNView {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.MainViewContainerState
-            || state!.stateType == BNStateType.SiteState {
-                
+//        if state!.stateType == BNStateType.MainViewContainerState
+//            || state!.stateType == BNStateType.SiteState {
+        
                 UIView.animateWithDuration(0.25, animations: {()-> Void in
                     self.frame.origin.x = SharedUIManager.instance.screenWidth
                 })
-        } else {
-            
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
-        }
+//        } else {
+        
+//            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
+//        }
     }
     
     func hideView(sender:NSTimer){

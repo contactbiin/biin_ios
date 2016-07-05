@@ -106,6 +106,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         locationView = SiteView_Location(frame: CGRectMake(5, screenHeight, (screenWidth - 10), (screenHeight / 2)), father: self)
         locationView!.layer.cornerRadius = 2
         self.addSubview(locationView!)
+        locationView!.isInSiteView = true
         
         var buttonSpace:CGFloat = 45
         let ypos:CGFloat = 5
@@ -166,7 +167,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     
     func backGestureAction(sender:UISwipeGestureRecognizer) {
 
-        delegate!.hideSiteView!(self)
+        delegate!.hideSiteView!()
     }
     
     
@@ -221,7 +222,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     //Instance Methods
     func backBtnAction(sender:UIButton) {
         surverView?.commentTxt!.resignFirstResponder()
-        delegate!.hideSiteView!(self)
+        delegate!.hideSiteView!()
         BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!, by:site!.identifier!)
     }
     
@@ -547,6 +548,6 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
 }
 
 @objc protocol SiteView_Delegate:NSObjectProtocol {
-    optional func hideSiteView(view:SiteView)
-    optional func hideBrotherSiteView(view:SiteView)
+    optional func hideSiteView()
+    optional func hideBrotherSiteView()
 }

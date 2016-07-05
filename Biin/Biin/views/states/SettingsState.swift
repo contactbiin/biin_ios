@@ -13,10 +13,6 @@ class SettingsState:BNState {
         self.stateType = BNStateType.SettingsState
     }
     
-    override init(context: BNView, view: BNView, stateType: BNStateType) {
-        super.init(context: context, view: view, stateType: stateType)
-    }
-    
     override func action() {
         view!.transitionIn()
     }
