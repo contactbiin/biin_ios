@@ -44,6 +44,8 @@ class Biinie:NSObject, NSCoding {
     
     var facebookAvatarUrl:String?
     
+    var gifts:[BNGift] = [BNGift]()
+    
     override init() {
         super.init()
         
@@ -91,6 +93,10 @@ class Biinie:NSObject, NSCoding {
             self.token = token_stored as? String
         } else {
             self.token = ""
+        }
+        
+        if let gifts_stored =  aDecoder.decodeObjectForKey("gifts") as? [BNGift]  {
+            self.gifts =  gifts_stored
         }
         
         self.newNotificationCount = 0
@@ -160,6 +166,8 @@ class Biinie:NSObject, NSCoding {
         }
         
         aCoder.encodeObject(storedElementsViewed, forKey: "storedElementsViewed")
+        
+        aCoder.encodeObject(self.gifts, forKey: "gifts")
 
     }
     

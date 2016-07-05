@@ -237,8 +237,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     Request all biinie data
     @param biinie:Biinie object.
     */
-    func manager(manager:BNDataManager!, requestBiinieData biinie:Biinie) {
-        let request = BNRequest_Biinie(requestString: "\(rootURL)/mobile/biinies/\(biinie.identifier!)", errorManager: self.errorManager!, networkManager: self, user: biinie)
+    func requestBiinieData(manager:BNDataManager?, biinie: Biinie?) {
+        let request = BNRequest_Biinie(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)", errorManager: self.errorManager!, networkManager: self, user: biinie)
         addToQueue(request)
     }
     
@@ -333,6 +333,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestSites/0"
         let request = BNRequest_Sites(requestString: url, errorManager: self.errorManager!, networkManager: self, view: view)
         addToQueue(request)
+    }
+    
+    func requestGiftsForBiinie(biinie:Biinie?) {
+        
+    }
+    
+    func requestGiftData(gift:BNGift){
+        
     }
     
     func sendSurvey(user: Biinie, site: BNSite?, rating:Int, comment:String) {

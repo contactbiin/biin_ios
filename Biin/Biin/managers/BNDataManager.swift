@@ -119,7 +119,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         //print("FLOW 4 - requestBiinieInitialData()")
         if isUserLoaded {
             
-            delegateNM!.manager!(self, requestBiinieData: bnUser!)
+            delegateNM!.requestBiinieData!(self, biinie: bnUser!)
             
             if bnUser!.email! == "ep@estebanpadilla.com"
                 || bnUser!.email! == "demo@biin.io" {
@@ -1141,7 +1141,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     ///
     ///- parameter BNDataManager: that store all data.
     ///- parameter BNUser: requesting the element's data.
-    optional func manager(manager:BNDataManager!, requestBiinieData biinie:Biinie)
+    optional func requestBiinieData(manager:BNDataManager?, biinie:Biinie?)
     
     
     

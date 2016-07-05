@@ -234,6 +234,7 @@
 		5BD1F9651D28A00F0067164F /* UserOnboardingView_Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8821D28A00F0067164F /* UserOnboardingView_Categories.swift */; };
 		5BD1F9661D28A00F0067164F /* UserOnboardingView_Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8831D28A00F0067164F /* UserOnboardingView_Slide.swift */; };
 		5BD1F9681D28A5C80067164F /* BNRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F9671D28A5C80067164F /* BNRequestManager.swift */; };
+		5BD8A5461D2C2D0300EAB15A /* BNGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD8A5451D2C2D0300EAB15A /* BNGift.swift */; };
 		5BEC1E731D287DCA00D7B931 /* AnswersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CEC1D287DCA00D7B931 /* AnswersManager.swift */; };
 		5BEC1E741D287DCA00D7B931 /* BNAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CED1D287DCA00D7B931 /* BNAppManager.swift */; };
 		5BEC1E751D287DCA00D7B931 /* BNDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CEE1D287DCA00D7B931 /* BNDataManager.swift */; };
@@ -581,6 +582,7 @@
 		5BD1F8821D28A00F0067164F /* UserOnboardingView_Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingView_Categories.swift; sourceTree = "<group>"; };
 		5BD1F8831D28A00F0067164F /* UserOnboardingView_Slide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingView_Slide.swift; sourceTree = "<group>"; };
 		5BD1F9671D28A5C80067164F /* BNRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequestManager.swift; sourceTree = "<group>"; };
+		5BD8A5451D2C2D0300EAB15A /* BNGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNGift.swift; sourceTree = "<group>"; };
 		5BEC1CEC1D287DCA00D7B931 /* AnswersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersManager.swift; sourceTree = "<group>"; };
 		5BEC1CED1D287DCA00D7B931 /* BNAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNAppManager.swift; sourceTree = "<group>"; };
 		5BEC1CEE1D287DCA00D7B931 /* BNDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNDataManager.swift; sourceTree = "<group>"; };
@@ -1246,6 +1248,7 @@
 				5BEC1D0F1D287DCA00D7B931 /* BNElement.swift */,
 				5BEC1D101D287DCA00D7B931 /* BNElementDetail.swift */,
 				5BEC1D111D287DCA00D7B931 /* BNError.swift */,
+				5BD8A5451D2C2D0300EAB15A /* BNGift.swift */,
 				5BEC1D121D287DCA00D7B931 /* BNLocalNotification.swift */,
 				5BEC1D131D287DCA00D7B931 /* BNLoyalty.swift */,
 				5BEC1D141D287DCA00D7B931 /* BNMedia.swift */,
@@ -1870,6 +1873,7 @@
 				5BD1F8C01D28A00F0067164F /* SiteView_MiniLocation.swift in Sources */,
 				5BD1F8E81D28A00F0067164F /* BNUIButton_Back_SignupView.swift in Sources */,
 				5BD1F92F1D28A00F0067164F /* BNIcon_FoodMedium.swift in Sources */,
+				5BD8A5461D2C2D0300EAB15A /* BNGift.swift in Sources */,
 				5BEC1E871D287DCA00D7B931 /* Biinie.swift in Sources */,
 				5BD1F9201D28A00F0067164F /* BNIcon_CarsMedium.swift in Sources */,
 				5BD1F92B1D28A00F0067164F /* BNIcon_EntertaimentMedium.swift in Sources */,

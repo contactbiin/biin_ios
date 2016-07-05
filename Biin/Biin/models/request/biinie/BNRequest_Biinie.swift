@@ -14,7 +14,7 @@ class BNRequest_Biinie: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie ) {
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie? ) {
         
         self.init()
         //self.identifier = BNRequestData.requestCounter++
