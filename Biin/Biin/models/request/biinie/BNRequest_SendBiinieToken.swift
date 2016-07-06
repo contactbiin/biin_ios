@@ -17,7 +17,7 @@ class BNRequest_SendBiinieToken:BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie) {
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, biinie:Biinie?) {
         
         self.init()
         //self.identifier = BNRequestData.requestCounter++
@@ -26,7 +26,7 @@ class BNRequest_SendBiinieToken:BNRequest {
         self.requestType = BNRequestType.SendBiinieToken
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.user  = user
+        self.biinie = biinie
     }
     
     override func run() {
@@ -37,7 +37,7 @@ class BNRequest_SendBiinieToken:BNRequest {
         attemps += 1
         
         
-        if self.user!.identifier == "none" {
+        if self.biinie!.identifier == "none" {
             isUpdate = false
         } else {
             isUpdate = true
@@ -46,7 +46,7 @@ class BNRequest_SendBiinieToken:BNRequest {
         var model = Dictionary<String, Dictionary <String, AnyObject>>()
         var modelContent = Dictionary<String, AnyObject>()
         modelContent["platform"] = "ios"
-        modelContent["tokenId"] = self.user!.token!
+        modelContent["tokenId"] = self.biinie!.token!
         model["model"] = modelContent
         
         //var httpError: NSError?

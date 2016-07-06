@@ -237,12 +237,12 @@ class SignupView:UIView, UITextFieldDelegate {
             newUser!.gender = genderStr
             newUser!.password = passwordTxt!.textField!.text
             
-            newUser!.token = BNAppSharedManager.instance.dataManager.bnUser!.token
-            newUser!.needsTokenUpdate = BNAppSharedManager.instance.dataManager.bnUser!.needsTokenUpdate
+            newUser!.token = BNAppSharedManager.instance.dataManager.biinie!.token
+            newUser!.needsTokenUpdate = BNAppSharedManager.instance.dataManager.biinie!.needsTokenUpdate
             
-            BNAppSharedManager.instance.dataManager.bnUser = newUser
+            BNAppSharedManager.instance.dataManager.biinie = newUser
             
-            BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.bnUser!)
+            BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.biinie!)
             delegate!.showProgress!(self)
             self.endEditing(true)
             SharedAnswersManager.instance.logSignUp("Email")

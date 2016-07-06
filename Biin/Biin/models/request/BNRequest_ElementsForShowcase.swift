@@ -17,7 +17,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, showcase:BNShowcase?, user:Biinie?, view:BNView?) {
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, showcase:BNShowcase?, biinie:Biinie?, view:BNView?) {
         
         self.init()
         //self.identifier = BNRequestData.requestCounter++
@@ -26,7 +26,7 @@ class BNRequest_ElementsForShowcase: BNRequest {
         self.requestType = BNRequestType.ElementsForShowcase
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.user  = user
+        self.biinie  = biinie
         self.showcase = showcase
         self.view = view
     }

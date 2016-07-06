@@ -15,7 +15,7 @@ class BNRequest_Register_with_Facebook: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?){
         self.init()
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString

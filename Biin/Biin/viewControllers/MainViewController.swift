@@ -125,8 +125,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
 //            self.view!.addSubview(showDevelopmentBtn!)
         }
         
-        if BNAppSharedManager.instance.dataManager.bnUser != nil {
-            BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.bnUser!)
+        if BNAppSharedManager.instance.dataManager.biinie != nil {
+            BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.biinie!)
         }
     }
     
@@ -583,29 +583,29 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
             } else {
                 //print("fetched user: \(result)")
                 if let first_name = result.valueForKey("first_name") {
-                    BNAppSharedManager.instance.dataManager.bnUser!.firstName = first_name as? String
+                    BNAppSharedManager.instance.dataManager.biinie!.firstName = first_name as? String
                 }
                 
                 if let last_name = result.valueForKey("last_name") {
-                    BNAppSharedManager.instance.dataManager.bnUser!.lastName = last_name as? String
+                    BNAppSharedManager.instance.dataManager.biinie!.lastName = last_name as? String
                 }
                 
                 if let userEmail = result.valueForKey("email") {
-                    BNAppSharedManager.instance.dataManager.bnUser!.email = userEmail as? String
-                    BNAppSharedManager.instance.dataManager.bnUser!.biinName = userEmail as? String 
+                    BNAppSharedManager.instance.dataManager.biinie!.email = userEmail as? String
+                    BNAppSharedManager.instance.dataManager.biinie!.biinName = userEmail as? String
                 }
                 
                 if let birthday = result.valueForKey("birthday") {
                     let bd = NSDate(dateStringMMddyyyy: (birthday as! String))
-                    BNAppSharedManager.instance.dataManager.bnUser!.birthDate = bd
+                    BNAppSharedManager.instance.dataManager.biinie!.birthDate = bd
                 }
                 
                 if let gender = result.valueForKey("gender") {
-                    BNAppSharedManager.instance.dataManager.bnUser!.gender = gender as? String
+                    BNAppSharedManager.instance.dataManager.biinie!.gender = gender as? String
                 }
                 
                 if let facebook_id = result.valueForKey("id") {
-                    BNAppSharedManager.instance.dataManager.bnUser!.facebook_id = facebook_id as? String
+                    BNAppSharedManager.instance.dataManager.biinie!.facebook_id = facebook_id as? String
                 }
                 
                 if let friends = result["friends"] as? NSDictionary {
@@ -614,7 +614,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
                             if let facebook_id = friend.valueForKey("id") {
                                 let biinie = Biinie()
                                 biinie.facebook_id = facebook_id as? String
-                                BNAppSharedManager.instance.dataManager.bnUser!.friends.append(biinie)
+                                BNAppSharedManager.instance.dataManager.biinie!.friends.append(biinie)
                             }
                         }
                     }
@@ -624,14 +624,14 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
                     if let data = picture["data"] as? NSDictionary {
                         
                         if let picture_url = data.valueForKey("url") as? String {
-                            BNAppSharedManager.instance.dataManager.bnUser!.facebookAvatarUrl = picture_url
+                            BNAppSharedManager.instance.dataManager.biinie!.facebookAvatarUrl = picture_url
                         }
                     }
                 }
                 
-                BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified = true
-                BNAppSharedManager.instance.dataManager.bnUser!.save()
-                BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+                BNAppSharedManager.instance.dataManager.biinie!.isEmailVerified = true
+                BNAppSharedManager.instance.dataManager.biinie!.save()
+                BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.biinie)
                 self.mainView!.updateProfileView()
             }
         })

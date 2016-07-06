@@ -32,7 +32,7 @@ class BNRequestManager: NSObject {
         switch request.requestType {
         case .InitialData: self.networkManager!.initialData_Completed()
         case .VersionCheck: self.networkManager!.versionCheck_Completed()
-        case .Biinie: self.networkManager!.biinie_Completed(request.user)
+        case .Biinie: self.networkManager!.biinie_Completed(request.biinie)
         case .SendBiinieActions: self.networkManager!.sendBiinieActions_Completed()
         case .SendBiinieToken: self.networkManager!.sendBiinieToken_Completed()
         case .Login: self.networkManager!.login_Completed()

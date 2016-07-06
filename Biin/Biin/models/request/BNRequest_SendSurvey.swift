@@ -15,7 +15,7 @@ class BNRequest_SendSurvey: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite?, rating:Int, comment:String, user:Biinie? ){
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, site:BNSite?, rating:Int, comment:String, biinie:Biinie? ){
         self.init()
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
@@ -23,7 +23,7 @@ class BNRequest_SendSurvey: BNRequest {
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.site = site
-        self.user = user
+        self.biinie = biinie
         self.rating = rating
         self.comment = comment
     }
@@ -37,7 +37,7 @@ class BNRequest_SendSurvey: BNRequest {
         
         var modelContent = Dictionary<String, String>()
         modelContent["siteId"] = self.site!.identifier!
-        modelContent["userId"] = self.user!.identifier!
+        modelContent["userId"] = self.biinie!.identifier!
         modelContent["rating"] = "\(self.rating)"
         modelContent["comment"] = self.comment
         model["model"] = modelContent

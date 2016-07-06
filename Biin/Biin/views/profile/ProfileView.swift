@@ -159,7 +159,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         nameTxt = BNUITexfield(frame: CGRectMake(((screenWidth / 2) + 10), (ypos + 8), (screenWidth / 2), labelHeight),placeHolderText:NSLocalizedString("Name", comment: "name"))
         nameTxt!.textField!.delegate = self
-        nameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.firstName!
+        nameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.firstName!
         nameTxt!.textField!.textColor = UIColor.appTextColor()
         self.addSubview(nameTxt!)
 
@@ -177,7 +177,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         lastNameTxt = BNUITexfield(frame: CGRectMake(((screenWidth / 2) + 10), (ypos + 8), (screenWidth / 2), labelHeight),placeHolderText:NSLocalizedString("Lastname", comment: "Lastname"))
         lastNameTxt!.textField!.delegate = self
-        lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.lastName!
+        lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.lastName!
         lastNameTxt!.textField!.textColor = UIColor.appTextColor()
         self.addSubview(lastNameTxt!)
         
@@ -195,7 +195,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         usernameTxt = BNUITexfield(frame: CGRectMake(((screenWidth / 2) + 10), (ypos + 8), (screenWidth / 2), labelHeight),placeHolderText:NSLocalizedString("Username", comment: "Username"))
         usernameTxt!.textField!.delegate = self
-        usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.biinName!
+        usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.biinName!
         usernameTxt!.textField!.textColor = UIColor.appTextColor()
         usernameTxt!.textField!.enabled = false
         self.addSubview(usernameTxt!)
@@ -214,7 +214,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         emailTxt = BNUITexfield(frame: CGRectMake(((screenWidth / 2) + 10), (ypos + 8), (screenWidth / 2), labelHeight),placeHolderText:NSLocalizedString("Email", comment: "Email"))
         emailTxt!.textField!.delegate = self
-        emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.email!
+        emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.email!
         emailTxt!.textField!.textColor = UIColor.appTextColor()
         self.addSubview(emailTxt!)
         
@@ -233,7 +233,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         emailVerifyTxt = BNUITexfield(frame: CGRectMake(((screenWidth / 2) + 10), (ypos + 8), (screenWidth / 2), labelHeight),placeHolderText:"")
         emailVerifyTxt!.textField!.delegate = self
         
-        if BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified! {
+        if BNAppSharedManager.instance.dataManager.biinie!.isEmailVerified! {
             emailVerifyTxt!.textField!.text = NSLocalizedString("Yes", comment: "yes")
         emailVerifyTxt!.textField!.textColor = UIColor.appTextColor()
         }else {
@@ -258,8 +258,8 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         birthDateTxt = BNUITexfield(frame: CGRectMake(((screenWidth / 2) + 10), (ypos + 8), (screenWidth / 2), labelHeight),placeHolderText:NSLocalizedString("EnterYourBirthDate", comment: "EnterYourBirthDate"))
         birthDateTxt!.textField!.delegate = self
-        if BNAppSharedManager.instance.dataManager.bnUser!.birthDate != nil {
-            birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        if BNAppSharedManager.instance.dataManager.biinie!.birthDate != nil {
+            birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.birthDate!.bnDisplayDateFormatt()
         }
         birthDateTxt!.textField!.textColor = UIColor.appTextColor()
         self.addSubview(birthDateTxt!)
@@ -271,7 +271,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         genderLbl = UILabel(frame: CGRectMake(0, (ypos + 13), ((screenWidth / 2) + 10), labelHeight))
         genderLbl!.font = UIFont(name: "Lato-Regular", size: fontSize)
-        genderStr = BNAppSharedManager.instance.dataManager.bnUser!.gender!
+        genderStr = BNAppSharedManager.instance.dataManager.biinie!.gender!
         
         if genderStr == "none" {
             genderLbl!.text = NSLocalizedString("GenderSelect", comment: "GenderSelect").uppercaseString
@@ -541,12 +541,12 @@ class ProfileView: BNView, UITextFieldDelegate {
         
         if ready {
             
-            BNAppSharedManager.instance.dataManager.bnUser!.firstName = nameTxt!.textField!.text!
-            BNAppSharedManager.instance.dataManager.bnUser!.lastName = lastNameTxt!.textField!.text!
-            BNAppSharedManager.instance.dataManager.bnUser!.email = emailTxt!.textField!.text!
-            BNAppSharedManager.instance.dataManager.bnUser!.gender = genderStr!
-            BNAppSharedManager.instance.dataManager.bnUser!.save()
-            BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+            BNAppSharedManager.instance.dataManager.biinie!.firstName = nameTxt!.textField!.text!
+            BNAppSharedManager.instance.dataManager.biinie!.lastName = lastNameTxt!.textField!.text!
+            BNAppSharedManager.instance.dataManager.biinie!.email = emailTxt!.textField!.text!
+            BNAppSharedManager.instance.dataManager.biinie!.gender = genderStr!
+            BNAppSharedManager.instance.dataManager.biinie!.save()
+            BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.biinie)
             
             /*
             var user = BNUser(identifier:emailTxt!.textField!.text, firstName: nameTxt!.textField!.text, lastName: lastNameTxt!.textField!.text, email: emailTxt!.textField!.text, gender:genderStr!)
@@ -609,7 +609,7 @@ class ProfileView: BNView, UITextFieldDelegate {
     
     func handleDatePicker(sender: UIDatePicker) {
         birthDateTxt!.textField!.text = sender.date.bnDisplayDateFormatt()
-        BNAppSharedManager.instance.dataManager.bnUser!.birthDate = sender.date
+        BNAppSharedManager.instance.dataManager.biinie!.birthDate = sender.date
         
         
     }
@@ -697,16 +697,16 @@ class ProfileView: BNView, UITextFieldDelegate {
     }
     
     func update(){
-        nameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.firstName!
-        lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.lastName!
-        emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.email!
-        usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.biinName!
+        nameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.firstName!
+        lastNameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.lastName!
+        emailTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.email!
+        usernameTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.biinName!
         
-        if BNAppSharedManager.instance.dataManager.bnUser!.birthDate != nil {
-            birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.bnUser!.birthDate!.bnDisplayDateFormatt()
+        if BNAppSharedManager.instance.dataManager.biinie!.birthDate != nil {
+            birthDateTxt!.textField!.text = BNAppSharedManager.instance.dataManager.biinie!.birthDate!.bnDisplayDateFormatt()
         }
         
-        if BNAppSharedManager.instance.dataManager.bnUser!.isEmailVerified! {
+        if BNAppSharedManager.instance.dataManager.biinie!.isEmailVerified! {
             emailVerifyTxt!.textField!.text = NSLocalizedString("Yes", comment: "yes")
             emailVerifyTxt!.textField!.textColor = UIColor.appTextColor()
         }else {
@@ -714,7 +714,7 @@ class ProfileView: BNView, UITextFieldDelegate {
             emailVerifyTxt!.textField!.textColor = UIColor.biinOrange()
         }
         
-        genderStr = BNAppSharedManager.instance.dataManager.bnUser!.gender!
+        genderStr = BNAppSharedManager.instance.dataManager.biinie!.gender!
         
         if genderStr == "none" {
             genderLbl!.text = NSLocalizedString("GenderSelect", comment: "GenderSelect").uppercaseString

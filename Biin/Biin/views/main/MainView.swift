@@ -392,7 +392,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                         isShowingElement = true
                         (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                         setNextState(BNGoto.Element)
-                        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier)
+                        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier)
                         
                     }
                 }

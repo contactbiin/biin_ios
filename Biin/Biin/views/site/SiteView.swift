@@ -223,7 +223,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     func backBtnAction(sender:UIButton) {
         surverView?.commentTxt!.resignFirstResponder()
         delegate!.hideSiteView!()
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!, by:site!.identifier!)
+        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!, by:site!.identifier!)
     }
     
     func isSameSite(site:BNSite?)->Bool {
@@ -474,13 +474,13 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         if self.site!.userLiked {
             BNAppSharedManager.instance.dataManager.addFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:site!.identifier!, by:site!.identifier!)
+            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:site!.identifier!, by:site!.identifier!)
             SharedAnswersManager.instance.logLike_Site(site)
 
         } else {
             BNAppSharedManager.instance.dataManager.removeFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!, by:site!.identifier!)
+            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!, by:site!.identifier!)
             SharedAnswersManager.instance.logUnLike_Site(site)
 
         }
@@ -499,7 +499,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareSite(self.site, shareView: shareView)
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_SITE, to:site!.identifier!, by: site!.identifier!)
+        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.SHARE_SITE, to:site!.identifier!, by: site!.identifier!)
         SharedAnswersManager.instance.logShare_Site(site)
     }
     

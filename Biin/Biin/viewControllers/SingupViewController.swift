@@ -214,7 +214,7 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
         
         if self.isSigningUpWithFacebook {
             self.showProgressView()
-            BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.bnUser!)
+            BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.biinie!)
             SharedAnswersManager.instance.logSignUp("Facebook")
         } else {
             
@@ -500,12 +500,12 @@ class SingupViewController:UIViewController, UIPopoverPresentationControllerDele
                     }
                 }
                 
-                user.token = BNAppSharedManager.instance.dataManager.bnUser!.token
-                user.needsTokenUpdate = BNAppSharedManager.instance.dataManager.bnUser!.needsTokenUpdate
+                user.token = BNAppSharedManager.instance.dataManager.biinie!.token
+                user.needsTokenUpdate = BNAppSharedManager.instance.dataManager.biinie!.needsTokenUpdate
                 user.isEmailVerified = true
                 user.password = ""
 
-                BNAppSharedManager.instance.dataManager.bnUser = user
+                BNAppSharedManager.instance.dataManager.biinie = user
 
                 
                 if self.isBiinieAlreadyInFacebook {

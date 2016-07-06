@@ -160,7 +160,7 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
             //let biinie = BNAppSharedManager.instance.dataManager.bnUser
             
             var colorIndex:Int = 0
-            for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
+            for category in BNAppSharedManager.instance.dataManager.biinie!.categories {
                 
                 if isThereElementsInCategory(category) {
                     

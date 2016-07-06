@@ -61,10 +61,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         //print(versionUrl)
     }
     
-    //Saving data
-    func manager(manager: BNDataManager!, saveUserCategories user: Biinie) { }
-    
-    
     //New request manager calls
     func internet_Failed() {
         self.errorManager!.showInternetError()
@@ -96,8 +92,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
     
     func sendBiinieActions_Completed(){
-        BNAppSharedManager.instance.dataManager.bnUser!.actions.removeAll(keepCapacity: false)
-        BNAppSharedManager.instance.dataManager.bnUser!.save()
+        BNAppSharedManager.instance.dataManager.biinie!.actions.removeAll(keepCapacity: false)
+        BNAppSharedManager.instance.dataManager.biinie!.save()
     }
     
     func sendBiinieActions_Failed() { }
@@ -105,8 +101,8 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func sendBiinieToken_Completed() { }
     
     func sendBiinieToken_Failed() {
-        BNAppSharedManager.instance.dataManager!.bnUser!.token! = ""
-        BNAppSharedManager.instance.dataManager!.bnUser!.save()
+        BNAppSharedManager.instance.dataManager!.biinie!.token! = ""
+        BNAppSharedManager.instance.dataManager!.biinie!.save()
     }
     
     func login_Completed() {
@@ -238,7 +234,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     @param biinie:Biinie object.
     */
     func requestBiinieData(manager:BNDataManager?, biinie: Biinie?) {
-        let request = BNRequest_Biinie(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)", errorManager: self.errorManager!, networkManager: self, user: biinie)
+        let request = BNRequest_Biinie(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)", errorManager: self.errorManager!, networkManager: self, biinie: biinie)
         addToQueue(request)
     }
     
@@ -246,14 +242,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     Send biinie data.
     @param user:Biinie data.
     */
-    func sendBiinie(user:Biinie) {
-        let request = BNRequest_SendBiinie(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)", errorManager:self.errorManager!, networkManager:self, user:user)
+    func sendBiinie(biinie:Biinie?) {
+        let request = BNRequest_SendBiinie(requestString:"\(rootURL)/mobile/biinies/\(biinie!.identifier!)", errorManager:self.errorManager, networkManager:self, biinie:biinie)
         addToQueue(request)
     }
     
-    func sendBiinieToken(user:Biinie) {
+    func sendBiinieToken(biinie:Biinie?) {
         //PUT /mobile/biinies/<identifierbiinie>/registerfornotifications
-        let request = BNRequest_SendBiinieToken(requestString:"\(rootURL)/mobile/biinies/\(user.identifier!)/registerfornotifications", errorManager: self.errorManager!, networkManager: self, user: user)
+        let request = BNRequest_SendBiinieToken(requestString:"\(rootURL)/mobile/biinies/\(biinie!.identifier!)/registerfornotifications", errorManager: self.errorManager!, networkManager: self, biinie: biinie)
         addToQueue(request)
     }
     
@@ -261,76 +257,76 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     Send biinie actions.
     @param user:Biinie data.
     */
-    func sendBiinieActions(user:Biinie) {
-        if user.actions.count > 0 {
-            let request = BNRequest_SendBiinieActions(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/history", errorManager: self.errorManager!, networkManager: self, user: user)
+    func sendBiinieActions(biinie:Biinie?) {
+        if biinie!.actions.count > 0 {
+            let request = BNRequest_SendBiinieActions(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/history", errorManager: self.errorManager, networkManager: self, biinie: biinie)
             addToQueue(request)
         }
     }
         
-    func manager(manager: BNDataManager!, initialdata user: Biinie) {
+    func manager(manager: BNDataManager!, initialdata biinie: Biinie?) {
         
         if BNAppSharedManager.instance.positionManager.userCoordinates == nil {
             BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.73854872449546, -83.99879993264159)
         }
         
-        let s1 = "\(rootURL)/mobile/initialData/\(user.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
+        let s1 = "\(rootURL)/mobile/initialData/\(biinie!.identifier!)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.latitude)/\(BNAppSharedManager.instance.positionManager.userCoordinates!.longitude)"
         
         let request = BNRequest_InitialData(requestString:s1, errorManager: self.errorManager!, networkManager: self)
         
         addToQueue(request)
     }
     
-    func sendLikedElement(user:Biinie, element:BNElement?) {
+    func sendLikedElement(biinie:Biinie?, element:BNElement?) {
 
         var like = "unlike"
         if element!.userLiked {
             like = "like"
         }
         
-        let request = BNRequest_SendLikedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/\(like)", errorManager: self.errorManager!, networkManager: self, element: element)
+        let request = BNRequest_SendLikedElement(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/\(like)", errorManager: self.errorManager, networkManager: self, element: element)
         
         addToQueue(request)
     }
     
-    func sendSharedElement(user: Biinie, element: BNElement?) {
-        let request = BNRequest_SendSharedElement(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/share", errorManager: self.errorManager!, networkManager: self, element: element)
+    func sendSharedElement(biinie: Biinie?, element: BNElement?) {
+        let request = BNRequest_SendSharedElement(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/share", errorManager: self.errorManager!, networkManager: self, element: element)
         addToQueue(request)
     }
     
-    func sendLikedSite(user: Biinie, site: BNSite?) {
+    func sendLikedSite(biinie: Biinie?, site: BNSite?) {
 
         var like = "unlike"
         if site!.userLiked {
             like = "like"
         }
         
-        let request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/\(like)", errorManager: self.errorManager!, networkManager: self, site:site)
+        let request = BNRequest_SendLikedSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/\(like)", errorManager: self.errorManager!, networkManager: self, site:site)
 
         addToQueue(request)
     }
     
-    func sendSharedSite(user:Biinie, site:BNSite? ) {
-        let request = BNRequest_SendSharedSite(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)/share", errorManager: self.errorManager!, networkManager: self, site: site)
+    func sendSharedSite(biinie:Biinie?, site:BNSite? ) {
+        let request = BNRequest_SendSharedSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/share", errorManager: self.errorManager!, networkManager: self, site: site)
         addToQueue(request)
     }
 
     func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {
         
-        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForShowcase/\(showcase!.site!.identifier!)/\(showcase!.identifier!)/\(showcase!.batch)"
+        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.biinie!.identifier!)/requestElementsForShowcase/\(showcase!.site!.identifier!)/\(showcase!.identifier!)/\(showcase!.batch)"
         
-        let request = BNRequest_ElementsForShowcase(requestString: url, errorManager: self.errorManager!, networkManager: self, showcase: showcase, user:BNAppSharedManager.instance.dataManager.bnUser , view: view)
+        let request = BNRequest_ElementsForShowcase(requestString: url, errorManager: self.errorManager!, networkManager: self, showcase: showcase, biinie:BNAppSharedManager.instance.dataManager.biinie , view: view)
         addToQueue(request)
     }
     
     func requestElementsForCategory(category:BNCategory?, view:BNView?){
-        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestElementsForCategory/\(category!.identifier!)/0"
+        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.biinie!.identifier!)/requestElementsForCategory/\(category!.identifier!)/0"
         let request = BNRequest_ElementsForCategory(requestString: url, errorManager: self.errorManager!, networkManager: self, category:category, view:view)
         addToQueue(request)
     }
     
     func requestSites(view: BNView?) {
-        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.bnUser!.identifier!)/requestSites/0"
+        let url = "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.biinie!.identifier!)/requestSites/0"
         let request = BNRequest_Sites(requestString: url, errorManager: self.errorManager!, networkManager: self, view: view)
         addToQueue(request)
     }
@@ -339,12 +335,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         
     }
     
-    func requestGiftData(gift:BNGift){
+    func requestGiftData(gift:BNGift?){
         
     }
     
-    func sendSurvey(user: Biinie, site: BNSite?, rating:Int, comment:String) {
-        let request = BNRequest_SendSurvey(requestString: "\(rootURL)/mobile/rating/site", errorManager: self.errorManager!, networkManager: self, site: site, rating: rating, comment: comment, user: user)
+    func sendSurvey(biinie: Biinie?, site: BNSite?, rating:Int, comment:String) {
+        let request = BNRequest_SendSurvey(requestString: "\(rootURL)/mobile/rating/site", errorManager: self.errorManager!, networkManager: self, site: site, rating: rating, comment: comment, biinie: biinie)
         
         addToQueue(request)
     }
@@ -364,79 +360,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             addToQueue(request)
         } else {
             epsNetwork!.getImageInCache(stringUrl, image: image)
-        }
-    }
-    
-    func handleFailedRequest(request:BNRequest, error:NSError? ) {
-        
-        //print("Request error: \(error?.code) request: \(request.requestString)")
-        
-        if error != nil {
-            
-            if error?.code == -1001 && request.requestType == .InitialData{
-                request.attemps = 0
-                request.isRunning = false
-                self.errorManager!.showServerError()
-
-            }
-            
-            switch request.requestType {
-            case .None:
-                break
-            case .Login:
-                //let response:BNResponse = BNResponse(code:9, type: BNResponse_Type.RequestFailed)
-//                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
-                break
-            case .Register:
-//                let response:BNResponse = BNResponse(code:10, type: BNResponse_Type.Suck)
-//                self.delegateVC!.manager!(self, didReceivedLoginValidation: response)
-                break
-            case .Biinie, .SendBiinie, .SendBiinieActions, .SendLikedElement, .SendSharedElement, .SendLikedSite, .SendSharedSite, .ElementsForShowcase:
-                
-                if request.attemps >= 3 {
-                    request.attemps = 0
-                    request.isRunning = false
-                    self.errorManager!.showInternetError()
-                } else {
-                    request.isRunning = false
-                    request.run()
-                }
-                
-                break
-            case .Image:
-                
-                request.isRunning = false
-                request.run()
-                
-                break
-            case .VersionCheck:
-                if request.attemps >= 3 {
-                    request.attemps = 0
-                    request.isRunning = false
-                    self.errorManager!.showInternetError()
-                } else {
-                    request.isRunning = false
-                    request.run()
-                }
-                break
-            case .ServerError:
-                if request.attemps >= 3 {
-                    request.attemps = 0
-                    request.isRunning = false
-                    self.errorManager!.showServerError()
-                } else {
-                    request.isRunning = false
-                    request.run()
-                }
-                break
-            default:
-                break
-            }
-        } else {
-            //If error is nil
-            request.attemps = 0
-            request.isRunning = false
-            self.errorManager!.showInternetError()
         }
     }
     

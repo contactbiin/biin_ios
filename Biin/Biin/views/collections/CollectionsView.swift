@@ -193,7 +193,7 @@ class CollectionsView: BNView, ElementView_Delegate {
         let height:CGFloat = SharedUIManager.instance.elementView_headerHeight + SharedUIManager.instance.miniView_height + 15
         var ypos:CGFloat = 0
         
-        for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
+        for (_, collection) in BNAppSharedManager.instance.dataManager.biinie!.collections! {
             
             let collectionView = CollectionsView_Collection(frame: CGRectMake(0, ypos, SharedUIManager.instance.screenWidth, height), father: self, collection: collection)
             

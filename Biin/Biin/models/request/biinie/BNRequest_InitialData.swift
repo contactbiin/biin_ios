@@ -17,7 +17,7 @@ class BNRequest_InitialData: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?){
         
         self.init()
         //self.identifier = BNRequestData.requestCounter++
@@ -26,7 +26,6 @@ class BNRequest_InitialData: BNRequest {
         self.requestType = BNRequestType.InitialData
         self.errorManager = errorManager
         self.networkManager = networkManager
-
     }
     
     override func run() {
@@ -41,7 +40,6 @@ class BNRequest_InitialData: BNRequest {
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             if (error != nil) {
-                //self.networkManager!.handleFailedRequest(self, error: error )
                 if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
                 self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
@@ -74,7 +72,6 @@ class BNRequest_InitialData: BNRequest {
                         }
                         
                         //ONLY ON INITIAL DATA
-                        //Parse hightlights
                         if let hightlightsData = BNParser.findNSArray("highlights", dictionary: initialData) {
                             BNParser.parseHightlights(hightlightsData)
                         }
@@ -91,27 +88,14 @@ class BNRequest_InitialData: BNRequest {
                             BNParser.parseNotices(noticesData)
                         }
                     }
-                    
-                    /*
-                    let end = NSDate()
-                    let timeInterval: Double = end.timeIntervalSinceDate(self.start!)
-                    print("BNRequest_InitialData  \(timeInterval)  - \(self.requestString)")
-                    */
-                    
-                    //self.inCompleted = true
-                    //self.networkManager!.removeFromQueue(self)
-                    
+                
                     //new request management
                     self.isCompleted = true
                     self.networkManager!.requestManager!.processCompletedRequest(self)
                     
                 } else  {
-                    
-                    //self.requestType = BNRequestType.ServerError
-                    //self.networkManager!.handleFailedRequest(self, error: error )
                     self.requestError = BNRequestError.Server
                     self.networkManager!.requestManager!.processFailedRequest(self, error: error)
-                    
                 }
             }
         })

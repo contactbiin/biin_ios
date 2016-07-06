@@ -15,7 +15,7 @@ class BNRequest_Register: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?){
         self.init()
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString

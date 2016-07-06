@@ -134,15 +134,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             //print("Current Token:\(refreshedToken)")
             
-            if appManager.dataManager!.bnUser!.token! == "" {
-                appManager.dataManager!.bnUser!.token = refreshedToken
-                appManager.dataManager!.bnUser!.needsTokenUpdate = true
+            if appManager.dataManager!.biinie!.token! == "" {
+                appManager.dataManager!.biinie!.token = refreshedToken
+                appManager.dataManager!.biinie!.needsTokenUpdate = true
                 //print("Token asignado: \(appManager.dataManager!.bnUser!.token!)")
                 
             } else {
-                if appManager.dataManager!.bnUser!.token! != refreshedToken {
-                    appManager.dataManager!.bnUser!.token = refreshedToken
-                    appManager.dataManager!.bnUser!.needsTokenUpdate = true
+                if appManager.dataManager!.biinie!.token! != refreshedToken {
+                    appManager.dataManager!.biinie!.token = refreshedToken
+                    appManager.dataManager!.biinie!.needsTokenUpdate = true
                     //print("User NEW Token: \(appManager.dataManager!.bnUser!.token!)")
                 } else {
                     //print("User Token: \(appManager.dataManager!.bnUser!.token!)")
@@ -198,7 +198,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
-        appManager.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.CLOSE_APP, to:"biin_ios", by:"")
+        appManager.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.CLOSE_APP, to:"biin_ios", by:"")
 
     }
 

@@ -17,7 +17,7 @@ class BNRequest_SendBiinie:BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie) {
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, biinie:Biinie?) {
         
         self.init()
         self.requestString = requestString
@@ -25,7 +25,7 @@ class BNRequest_SendBiinie:BNRequest {
         self.requestType = BNRequestType.SendBiinie
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.user  = user
+        self.biinie  = biinie
     }
     
     override func run() {
@@ -33,7 +33,7 @@ class BNRequest_SendBiinie:BNRequest {
         isRunning = true
         attemps += 1
         
-        if self.user!.identifier == "none" {
+        if self.biinie!.identifier == "none" {
             isUpdate = false
             self.requestType = BNRequestType.SendBiinie
         } else {
@@ -43,34 +43,34 @@ class BNRequest_SendBiinie:BNRequest {
         
         var model = Dictionary<String, Dictionary <String, AnyObject>>()
         var modelContent = Dictionary<String, AnyObject>()
-        modelContent["firstName"] = self.user!.firstName!
-        modelContent["lastName"] = self.user!.lastName!
-        modelContent["email"] = self.user!.email!
-        modelContent["password"] = self.user!.password!
-        modelContent["gender"] = self.user!.gender!
-        modelContent["facebook_id"] = self.user!.facebook_id!
+        modelContent["firstName"] = self.biinie!.firstName!
+        modelContent["lastName"] = self.biinie!.lastName!
+        modelContent["email"] = self.biinie!.email!
+        modelContent["password"] = self.biinie!.password!
+        modelContent["gender"] = self.biinie!.gender!
+        modelContent["facebook_id"] = self.biinie!.facebook_id!
 
         
-        if self.user!.facebookAvatarUrl == "" {
+        if self.biinie!.facebookAvatarUrl == "" {
             modelContent["facebookAvatarUrl"] = "none"
         } else {
-            modelContent["facebookAvatarUrl"] = self.user!.facebookAvatarUrl!
+            modelContent["facebookAvatarUrl"] = self.biinie!.facebookAvatarUrl!
         }
             
-        if self.user!.isEmailVerified! {
+        if self.biinie!.isEmailVerified! {
             modelContent["isEmailVerified"] = "1"
         } else {
             modelContent["isEmailVerified"] = "0"
         }
         
-        if self.user!.birthDate != nil {
-            modelContent["birthDate"] = self.user!.birthDate!.bnDateFormatt()
+        if self.biinie!.birthDate != nil {
+            modelContent["birthDate"] = self.biinie!.birthDate!.bnDateFormatt()
         }
         
-        if self.user!.friends.count > 0 {
+        if self.biinie!.friends.count > 0 {
             var friends = Array<String>()
             
-            for biinie in self.user!.friends {
+            for biinie in self.biinie!.friends {
                 friends.append(biinie.facebook_id!)
             }
             

@@ -14,7 +14,7 @@ class BNRequest_Biinie: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie? ) {
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, biinie:Biinie? ) {
         
         self.init()
         //self.identifier = BNRequestData.requestCounter++
@@ -23,7 +23,7 @@ class BNRequest_Biinie: BNRequest {
         self.requestType = BNRequestType.Biinie
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.user = user
+        self.biinie = biinie
     }
     
     override func run() {
@@ -50,16 +50,16 @@ class BNRequest_Biinie: BNRequest {
                     if result {
                         //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         
-                        self.user!.identifier = BNParser.findString("identifier", dictionary:biinieData)
-                        self.user!.biinName = BNParser.findString("biinName", dictionary: biinieData)
-                        self.user!.firstName = BNParser.findString("firstName", dictionary: biinieData)
-                        self.user!.lastName = BNParser.findString("lastName", dictionary: biinieData)
-                        self.user!.email = BNParser.findString("email", dictionary: biinieData)
+                        self.biinie!.identifier = BNParser.findString("identifier", dictionary:biinieData)
+                        self.biinie!.biinName = BNParser.findString("biinName", dictionary: biinieData)
+                        self.biinie!.firstName = BNParser.findString("firstName", dictionary: biinieData)
+                        self.biinie!.lastName = BNParser.findString("lastName", dictionary: biinieData)
+                        self.biinie!.email = BNParser.findString("email", dictionary: biinieData)
 //                        self.user!.imgUrl = BNParser.findString("imgUrl", dictionary: biinieData)
-                        self.user!.gender = BNParser.findString("gender", dictionary: biinieData)
-                        self.user!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
-                        self.user!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
-                        self.user!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
+                        self.biinie!.gender = BNParser.findString("gender", dictionary: biinieData)
+                        self.biinie!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
+                        self.biinie!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
+                        self.biinie!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
                         //var friends = BNParser.findNSArray("friends", dictionary: biinieData)
                         
                         /*
