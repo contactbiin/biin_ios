@@ -146,7 +146,6 @@ class BNAppManager {
         dataManager.applyLikeElement(element)
         networkManager.sendLikedElement(dataManager.biinie, element:element)
         mainViewController!.mainView!.updateAllCollectedView()
-
     }
 
     func likeSite(site:BNSite?){

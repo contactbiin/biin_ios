@@ -89,13 +89,7 @@ class BNSite:NSObject, NSCoding {
     deinit{
         
     }
-    
-    func setBiinsStates(){
-        for biin in biins {
-            biin.setBiinState()
-        }
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
 
     }

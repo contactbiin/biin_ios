@@ -246,15 +246,6 @@
 		5BEC1E7B1D287DCA00D7B931 /* EPSNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CF41D287DCA00D7B931 /* EPSNetworking.swift */; };
 		5BEC1E7C1D287DCA00D7B931 /* SimulatorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CF51D287DCA00D7B931 /* SimulatorUtility.swift */; };
 		5BEC1E7D1D287DCA00D7B931 /* UIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CF61D287DCA00D7B931 /* UIManager.swift */; };
-		5BEC1E7E1D287DCA00D7B931 /* Biin_Not_Notified_IN_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CFA1D287DCA00D7B931 /* Biin_Not_Notified_IN_State.swift */; };
-		5BEC1E7F1D287DCA00D7B931 /* Biin_Not_Notified_NEAR_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CFB1D287DCA00D7B931 /* Biin_Not_Notified_NEAR_State.swift */; };
-		5BEC1E801D287DCA00D7B931 /* Biin_Not_Notified_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CFC1D287DCA00D7B931 /* Biin_Not_Notified_State.swift */; };
-		5BEC1E811D287DCA00D7B931 /* Biin_Notified_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CFD1D287DCA00D7B931 /* Biin_Notified_State.swift */; };
-		5BEC1E821D287DCA00D7B931 /* Biin_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CFE1D287DCA00D7B931 /* Biin_State.swift */; };
-		5BEC1E831D287DCA00D7B931 /* Biined_Not_Notified_IN_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D001D287DCA00D7B931 /* Biined_Not_Notified_IN_State.swift */; };
-		5BEC1E841D287DCA00D7B931 /* Biined_Not_Notified_NEAR_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D011D287DCA00D7B931 /* Biined_Not_Notified_NEAR_State.swift */; };
-		5BEC1E851D287DCA00D7B931 /* Biined_Not_Notified_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D021D287DCA00D7B931 /* Biined_Not_Notified_State.swift */; };
-		5BEC1E861D287DCA00D7B931 /* Biined_Notified_State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D031D287DCA00D7B931 /* Biined_Notified_State.swift */; };
 		5BEC1E871D287DCA00D7B931 /* Biinie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D041D287DCA00D7B931 /* Biinie.swift */; };
 		5BEC1E881D287DCA00D7B931 /* BiinieAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D051D287DCA00D7B931 /* BiinieAction.swift */; };
 		5BEC1E891D287DCA00D7B931 /* BNAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D061D287DCA00D7B931 /* BNAchievement.swift */; };
@@ -594,15 +585,6 @@
 		5BEC1CF41D287DCA00D7B931 /* EPSNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPSNetworking.swift; sourceTree = "<group>"; };
 		5BEC1CF51D287DCA00D7B931 /* SimulatorUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorUtility.swift; sourceTree = "<group>"; };
 		5BEC1CF61D287DCA00D7B931 /* UIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIManager.swift; sourceTree = "<group>"; };
-		5BEC1CFA1D287DCA00D7B931 /* Biin_Not_Notified_IN_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biin_Not_Notified_IN_State.swift; sourceTree = "<group>"; };
-		5BEC1CFB1D287DCA00D7B931 /* Biin_Not_Notified_NEAR_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biin_Not_Notified_NEAR_State.swift; sourceTree = "<group>"; };
-		5BEC1CFC1D287DCA00D7B931 /* Biin_Not_Notified_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biin_Not_Notified_State.swift; sourceTree = "<group>"; };
-		5BEC1CFD1D287DCA00D7B931 /* Biin_Notified_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biin_Notified_State.swift; sourceTree = "<group>"; };
-		5BEC1CFE1D287DCA00D7B931 /* Biin_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biin_State.swift; sourceTree = "<group>"; };
-		5BEC1D001D287DCA00D7B931 /* Biined_Not_Notified_IN_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biined_Not_Notified_IN_State.swift; sourceTree = "<group>"; };
-		5BEC1D011D287DCA00D7B931 /* Biined_Not_Notified_NEAR_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biined_Not_Notified_NEAR_State.swift; sourceTree = "<group>"; };
-		5BEC1D021D287DCA00D7B931 /* Biined_Not_Notified_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biined_Not_Notified_State.swift; sourceTree = "<group>"; };
-		5BEC1D031D287DCA00D7B931 /* Biined_Notified_State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biined_Notified_State.swift; sourceTree = "<group>"; };
 		5BEC1D041D287DCA00D7B931 /* Biinie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Biinie.swift; sourceTree = "<group>"; };
 		5BEC1D051D287DCA00D7B931 /* BiinieAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinieAction.swift; sourceTree = "<group>"; };
 		5BEC1D061D287DCA00D7B931 /* BNAchievement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNAchievement.swift; sourceTree = "<group>"; };
@@ -1233,7 +1215,6 @@
 		5BEC1CF71D287DCA00D7B931 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				5BEC1CF81D287DCA00D7B931 /* biin states */,
 				5BEC1D041D287DCA00D7B931 /* Biinie.swift */,
 				5BEC1D051D287DCA00D7B931 /* BiinieAction.swift */,
 				5BEC1D061D287DCA00D7B931 /* BNAchievement.swift */,
@@ -1266,38 +1247,6 @@
 				5BEC1D201D287DCA00D7B931 /* request */,
 			);
 			path = models;
-			sourceTree = "<group>";
-		};
-		5BEC1CF81D287DCA00D7B931 /* biin states */ = {
-			isa = PBXGroup;
-			children = (
-				5BEC1CF91D287DCA00D7B931 /* Biin */,
-				5BEC1CFE1D287DCA00D7B931 /* Biin_State.swift */,
-				5BEC1CFF1D287DCA00D7B931 /* Biined */,
-			);
-			path = "biin states";
-			sourceTree = "<group>";
-		};
-		5BEC1CF91D287DCA00D7B931 /* Biin */ = {
-			isa = PBXGroup;
-			children = (
-				5BEC1CFA1D287DCA00D7B931 /* Biin_Not_Notified_IN_State.swift */,
-				5BEC1CFB1D287DCA00D7B931 /* Biin_Not_Notified_NEAR_State.swift */,
-				5BEC1CFC1D287DCA00D7B931 /* Biin_Not_Notified_State.swift */,
-				5BEC1CFD1D287DCA00D7B931 /* Biin_Notified_State.swift */,
-			);
-			path = Biin;
-			sourceTree = "<group>";
-		};
-		5BEC1CFF1D287DCA00D7B931 /* Biined */ = {
-			isa = PBXGroup;
-			children = (
-				5BEC1D001D287DCA00D7B931 /* Biined_Not_Notified_IN_State.swift */,
-				5BEC1D011D287DCA00D7B931 /* Biined_Not_Notified_NEAR_State.swift */,
-				5BEC1D021D287DCA00D7B931 /* Biined_Not_Notified_State.swift */,
-				5BEC1D031D287DCA00D7B931 /* Biined_Notified_State.swift */,
-			);
-			path = Biined;
 			sourceTree = "<group>";
 		};
 		5BEC1D201D287DCA00D7B931 /* request */ = {
@@ -1674,7 +1623,6 @@
 				5BEC1EB51D287DCA00D7B931 /* BNRequest_ElementsForCategory.swift in Sources */,
 				5BEC1E7C1D287DCA00D7B931 /* SimulatorUtility.swift in Sources */,
 				5BD1F8D71D28A00F0067164F /* ProfileState.swift in Sources */,
-				5BEC1E7E1D287DCA00D7B931 /* Biin_Not_Notified_IN_State.swift in Sources */,
 				5BD1F9561D28A00F0067164F /* BNIcon_ShoeMedium.swift in Sources */,
 				5BD1F8E21D28A00F0067164F /* BNUIAlertView_Header.swift in Sources */,
 				5BD1F8A01D28A00F0067164F /* InviteFriendsView.swift in Sources */,
@@ -1688,7 +1636,6 @@
 				5B2EA50C1D287CF3001952EC /* AppDelegate.swift in Sources */,
 				5BD1F8D01D28A00F0067164F /* CollectionsState.swift in Sources */,
 				5BD1F8F01D28A00F0067164F /* BNUIButton_Gender.swift in Sources */,
-				5BEC1E801D287DCA00D7B931 /* Biin_Not_Notified_State.swift in Sources */,
 				5BD1F8B31D28A00F0067164F /* SettingsView.swift in Sources */,
 				5BD1F8E41D28A00F0067164F /* BNUIBiinView.swift in Sources */,
 				5BEC1E9B1D287DCA00D7B931 /* BNOrganization.swift in Sources */,
@@ -1719,7 +1666,6 @@
 				5BD1F93C1D28A00F0067164F /* BNIcon_LikeIt_Empty.swift in Sources */,
 				5BD1F8A81D28A00F0067164F /* MainView_Container_All.swift in Sources */,
 				5BD1F93B1D28A00F0067164F /* BNIcon_LikeIt_Big.swift in Sources */,
-				5BEC1E831D287DCA00D7B931 /* Biined_Not_Notified_IN_State.swift in Sources */,
 				5BD1F90B1D28A00F0067164F /* BNUIPointView.swift in Sources */,
 				5BD1F90D1D28A00F0067164F /* BNUIScrollView.swift in Sources */,
 				5BD1F8B81D28A00F0067164F /* AllSitesView.swift in Sources */,
@@ -1746,7 +1692,6 @@
 				5BD1F9591D28A00F0067164F /* BNIcon_SiteLocationButton.swift in Sources */,
 				5BD1F95A1D28A00F0067164F /* BNIcon_SitePhoneButton.swift in Sources */,
 				5BEC1EBE1D287DCA00D7B931 /* BNRequest_SendLikedElement.swift in Sources */,
-				5BEC1E811D287DCA00D7B931 /* Biin_Notified_State.swift in Sources */,
 				5BEC1E8A1D287DCA00D7B931 /* BNAppAction.swift in Sources */,
 				5BD1F9511D28A00F0067164F /* BNIcon_RightArrowSmall.swift in Sources */,
 				5BD1F95E1D28A00F0067164F /* BNIcon_TechnologyMedium.swift in Sources */,
@@ -1807,7 +1752,6 @@
 				5BD1F8851D28A00F0067164F /* BiinItAnimationView.swift in Sources */,
 				5BD1F8A51D28A00F0067164F /* LoyaltiesMiniView.swift in Sources */,
 				5BD1F9301D28A00F0067164F /* BNIcon_FriendsMedium.swift in Sources */,
-				5BEC1E861D287DCA00D7B931 /* Biined_Notified_State.swift in Sources */,
 				5BD1F9621D28A00F0067164F /* BNIcon_Warning.swift in Sources */,
 				5BEC1EAA1D287DCA00D7B931 /* BNRequest_SendBiinie.swift in Sources */,
 				5BD1F8981D28A00F0067164F /* LocationErrorView.swift in Sources */,
@@ -1886,7 +1830,6 @@
 				5BEC1EEE1D287DCA00D7B931 /* LoadingViewController.swift in Sources */,
 				5BD1F9181D28A00F0067164F /* BNIcon.swift in Sources */,
 				5BD1F9481D28A00F0067164F /* BNIcon_OutdoorsMedium.swift in Sources */,
-				5BEC1E821D287DCA00D7B931 /* Biin_State.swift in Sources */,
 				5BD1F89E1D28A00F0067164F /* GiftsView.swift in Sources */,
 				5BD1F8E91D28A00F0067164F /* BNUIButton_BiinIt.swift in Sources */,
 				5BEC1E751D287DCA00D7B931 /* BNDataManager.swift in Sources */,
@@ -1897,14 +1840,12 @@
 				5BD1F9231D28A00F0067164F /* BNIcon_CollectionsMedium.swift in Sources */,
 				5BD1F88B1D28A00F0067164F /* CollectionsView.swift in Sources */,
 				5BD1F8D81D28A00F0067164F /* SearchState.swift in Sources */,
-				5BEC1E7F1D287DCA00D7B931 /* Biin_Not_Notified_NEAR_State.swift in Sources */,
 				5BD1F9101D28A00F0067164F /* BNUITexfield_Bottom.swift in Sources */,
 				5BD1F8921D28A00F0067164F /* ElementMiniView_Precentage.swift in Sources */,
 				5BD1F9081D28A00F0067164F /* BNUIImageView.swift in Sources */,
 				5BEC1EA11D287DCA00D7B931 /* BNSite.swift in Sources */,
 				5BD1F92D1D28A00F0067164F /* BNIcon_FashionSmall.swift in Sources */,
 				5BD1F8B01D28A00F0067164F /* NotificationsView_Notification.swift in Sources */,
-				5BEC1E851D287DCA00D7B931 /* Biined_Not_Notified_State.swift in Sources */,
 				5BD1F8EE1D28A00F0067164F /* BNUIButton_CollectionIt.swift in Sources */,
 				5BEC1E9D1D287DCA00D7B931 /* BNResponse.swift in Sources */,
 				5BD1F9031D28A00F0067164F /* BNUIDetailView_Price.swift in Sources */,
@@ -1925,7 +1866,6 @@
 				5BD1F9651D28A00F0067164F /* UserOnboardingView_Categories.swift in Sources */,
 				5BD1F8C31D28A00F0067164F /* SiteView_Showcase_Game.swift in Sources */,
 				5BD1F8A71D28A00F0067164F /* MainView.swift in Sources */,
-				5BEC1E841D287DCA00D7B931 /* Biined_Not_Notified_NEAR_State.swift in Sources */,
 				5BD1F8CD1D28A00F0067164F /* BNState.swift in Sources */,
 				5BD1F8C71D28A00F0067164F /* AboutState.swift in Sources */,
 				5BD1F8911D28A00F0067164F /* ElementMiniView_Header.swift in Sources */,

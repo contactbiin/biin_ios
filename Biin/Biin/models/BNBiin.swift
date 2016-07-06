@@ -37,7 +37,6 @@ class BNBiin:NSObject
     var objects:Array<BNBiinObject>?
     var currentObjectIndex:Int = 0
     
-    var state:Biin_State?
     var proximity = BNBiinProximityType.NA
     var children:Array<Int>?
     
@@ -61,69 +60,7 @@ class BNBiin:NSObject
         return objects![currentObjectIndex]
     }
     
-    func setBiinState(){
-        
-        if self.objects != nil {
-            if self.objects!.count > 0 {
-                assingCurrectObject()
-                if self.objects![currentObjectIndex].isCollected {
-                    //Biined
-                    if self.objects![currentObjectIndex].isUserNotified {
-                        //User notified
-                        state = Biined_Notified_State(biin: self)
-                    } else {
-                        //User not notified
-                        state = Biined_Not_Notified_State(biin: self)
-                    }
-                } else {
-                    //Biin (not biined)
-                    if self.objects![currentObjectIndex].isUserNotified {
-                        //User notified
-                        state = Biin_Notified_State(biin: self)
-                    } else {
-                        //User not notified
-                        state = Biin_Not_Notified_State(biin: self)
-                    }
-                }
-            }
-        }
-        
-        
-        /*
-        //TODO: set biin state depending on showcase.
-        //1. Check if showcases is not empty
-        if let showcasesList = showcases {
-            
-            //2. Set current showcase
-            if showcases!.count > 0 {
-                //a. There are many showcases in biin
-                assingCurrectShowcase()
-            } else {
-                //b. There is only one showcase in biin
-                currentShowcaseIndex = 0
-            }
-            
-            if didUserBiinedSomethingInShowcase() {
-                if showcases![currentShowcaseIndex].isUserNotified {
-                    //State id 2
-                    self.state = Biined_Not_Notified_State(biin: self)
-                }else {
-                    //State id 1
-                    self.state = Biined_Notified_State(biin: self)
-                }
-            } else {
-                if showcases![currentShowcaseIndex].isUserNotified {
-                    //State id 4
-                    self.state = Biin_Notified_State(biin: self)
-                }else {
-                    //State id 3
-                    self.state = Biin_Not_Notified_State(biin: self)
-                }
-            }
-        }
-        */
-    }
-    
+
     func assingCurrectShowcase(){
         //TODO: get the correct showcase depending on the time
         currentShowcaseIndex = 0
@@ -269,7 +206,7 @@ class BNBiin:NSObject
     }
     
     func context(){
-        state!.action()
+    
     }
     
     func updateBiinType(){

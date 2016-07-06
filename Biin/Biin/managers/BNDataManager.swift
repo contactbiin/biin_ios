@@ -327,20 +327,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         if commercialUUID == nil {
             commercialUUID = site.proximityUUID
         }
-        
-        /*
-        if site.showcases != nil {
-            for showcase in site.showcases! {
-                
-                if showcases[showcase.identifier!] == nil {
-                    //Showcase does not exist, store it and request it's data.
-                    showcases[showcase.identifier!] = showcase
-                    delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:bnUser!)
-                }
-            }
-        }
-        */
-        
+
         if site.organization == nil {
             if organizations[site.organizationIdentifier!] == nil {
                 //1. Add organization
@@ -348,80 +335,9 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
                 organizations[site.organizationIdentifier!] = BNOrganization(identifier: site.organizationIdentifier!)
                 delegateNM!.manager!(self, requestOrganizationData:organizations[site.organizationIdentifier!]!, user: self.biinie)
                 site.organization = organizations[site.organizationIdentifier!]
-                
-                //HACK, add site's media to organization until it can be download.
-                //                    if site.media.count > 0 {
-                //                        organizations[biin.organizationIdentifier!]?.media = site.media
-                //                        organizations[biin.organizationIdentifier!]?.title = site.title!
-                //                        organizations[biin.organizationIdentifier!]?.subTitle = site.subTitle!
-                //                    }
-                
             } else  {
                 //2. set site organization
                 site.organization = organizations[site.organizationIdentifier!]
-            }
-        }
-        
-        for biin in sites[site.identifier!]!.biins {
-            
-            
-            if biin.objects != nil && biin.objects!.count > 0 {
-                
-                //Set biin state.
-                biin.setBiinState()
-                
-                for object in biin.objects! {
-                    
-                    switch object.objectType {
-                    case .ELEMENT:
-                        if object.hasNotification {
-//                            switch biin.biinType {
-//                            case .EXTERNO:
-                                //if !isExternalBiinAdded {
-                                    //isExternalBiinAdded = true
-                                
-                                    let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                    BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText:notificaitonText, notificationType: BNLocalNotificationType.EXTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-                                //}
-//                                break
-//                            case .INTERNO:
-                                //let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.INTERNAL, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier: object.identifier!)
-//                                break
-//                            case .PRODUCT:
-                                //let notificaitonText = "\(site.title!) - \(object.notification!)"
-                                //BNAppSharedManager.instance.notificationManager.addLocalNotification(object, notificationText: notificaitonText, notificationType: BNLocalNotificationType.PRODUCT, siteIdentifier: site.identifier!, biinIdentifier: biin.identifier!, elementIdentifier:object.identifier!)
-//                                break
-//                            default:
-//                                break
-//                            }
-                        }
-                        
-                        let element = BNElement()
-                        element.identifier = object.identifier!
-                        //element._id = object._id!
-                        let showcase = BNShowcase()
-                        showcase.site = biin.site
-                        element.showcase = showcase
-                        //element.siteIdentifier = site.identifier
-                        requestElement(element)
-                        
-                        break
-                    case .SHOWCASE:
-                        if showcases[object.identifier!] == nil {
-                            //Showcase does not exist, store it and request it's data.
-                            let showcase = BNShowcase()
-                            showcase.identifier = object.identifier!
-                            showcase.isDefault = object.isDefault
-                            showcases[object.identifier!] = showcase
-                            
-                            delegateNM!.manager!(self, requestShowcaseData:showcases[showcase.identifier!]!, user:biinie)
-                        }
-                        break
-                    default:
-                        break
-                    }
-                }
             }
         }
     }
