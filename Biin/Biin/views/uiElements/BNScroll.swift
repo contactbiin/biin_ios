@@ -29,6 +29,8 @@ class BNScroll: BNView, UIScrollViewDelegate {
     var loadingIndicator:UIActivityIndicatorView?
     var loadingIndicatorView:UIView?
     
+    var leftSpace:CGFloat = 0
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -198,7 +200,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
                 if !children[i].isAddedToScroll {
                     self.children[i].isAddedToScroll = true
                     self.children[i].frame.origin.y = childPosition
-                    self.children[i].frame.origin.x = 0
+                    self.children[i].frame.origin.x = leftSpace
                 }
                 
                 self.childPosition += self.children[i].frame.height + space

@@ -154,6 +154,10 @@ class UIManager {
     var mainView_TitleSize:CGFloat = 18
     var mainView_HeaderSize:CGFloat = 80
     
+    
+    var giftView_height:CGFloat = 150
+    var giftView_imageSize:CGFloat = 60
+    
     func setDeviceVariables(){
         
         switch screenWidth {

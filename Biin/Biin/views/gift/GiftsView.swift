@@ -54,88 +54,30 @@ class GiftsView: BNView {
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.lightGrayColor()
 
-        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
-        //self.addSubview(scroll!)
-        self.addSubview(line)
+        self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)), father: self, direction: BNScroll_Direction.VERTICAL, space: 5, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
+        self.addSubview(scroll!)
+//        self.addSubview(line)
+        
         
         elementContainers = Array<MainView_Container_Elements>()
-        //updateContainer()
+        updateGifts()
         
     }
     
-    func refreshButtonAction(sender:UIButton) {
+    func updateGifts(){
         
-        //NSLog("BIIN - refreshButtonAction")
+        self.scroll!.leftSpace = 5
         
-        let vc = LoadingViewController()
-        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-        BNAppSharedManager.instance.mainViewController!.presentViewController(vc, animated: true, completion: nil)
-        
-        if SimulatorUtility.isRunningSimulator {
-            BNAppSharedManager.instance.positionManager.userCoordinates = CLLocationCoordinate2DMake(9.923165731693336, -84.03725208107909)
-        }
-        
-        BNAppSharedManager.instance.dataManager.clean()
-        BNAppSharedManager.instance.dataManager.requestInitialData()
-    }
-    
-    func updateContainer(){
-        /*
-        if BNAppSharedManager.instance.dataManager.sites_ordered.count == 0 {
-            //NSLog("BIIN ----------------------------------------------------")
-            //NSLog("BIIN - not sites in list, request data again")
-            //NSLog("BIIN - sites:\(BNAppSharedManager.instance.dataManager.sites.count)")
-            //NSLog("BIIN - elements_by_identifier:\(BNAppSharedManager.instance.dataManager.elements_by_identifier.count)")
-            //NSLog("BIIN ----------------------------------------------------")
-            self.refreshButtonAction(UIButton())
-            
-            
-        } else {
-            
-            let screenWidth = SharedUIManager.instance.screenWidth
-            //let screenHeight = SharedUIManager.instance.screenHeight
-            var ypos:CGFloat = 0
-            let spacer:CGFloat = 0
-            var height:CGFloat = 0
-            
-            SharedUIManager.instance.highlightContainer_Height = SharedUIManager.instance.screenWidth + SharedUIManager.instance.sitesContainer_headerHeight
-            
-            
-            
-            ypos += height
-            
-            height = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.sitesContainer_headerHeight + SharedUIManager.instance.siteMiniView_headerHeight// + 1
-            
-            
-            
-            var colorIndex:Int = 0
-            for category in BNAppSharedManager.instance.dataManager.bnUser!.categories {
-                
-                if isThereElementsInCategory(category) {
-                    
-                    let elementContainer = MainViewContainer_Elements(frame: CGRectMake(0, ypos, screenWidth, SharedUIManager.instance.elementContainer_Height), father: self, category:category, colorIndex:colorIndex)
-                    elementContainer.delegate = (self.father! as! MainView)
-                    ypos += (SharedUIManager.instance.elementContainer_Height + spacer)
-                    self.scroll!.addChild(elementContainer)
-                    self.elementContainers!.append(elementContainer)
-                    
-                    colorIndex += 1
-                    if colorIndex  > 1 {
-                        colorIndex = 0
-                    }
-                }
-                
+        if let biinie = BNAppSharedManager.instance.dataManager.biinie {
+            for gift in biinie.gifts {
+                let giftView = GiftView(frame: CGRectMake(0, 0, (SharedUIManager.instance.screenWidth - 10), SharedUIManager.instance.giftView_height) , father: self, gift: gift)
+                scroll!.addChild(giftView)
             }
-            
-            ypos += SharedUIManager.instance.categoriesHeaderHeight
-            self.scroll!.setChildrenPosition()
-            
         }
         
-        */
+        self.scroll!.setChildrenPosition()
     }
     
-
     override func transitionIn() {
         
         UIView.animateWithDuration(0.25, animations: {()->Void in

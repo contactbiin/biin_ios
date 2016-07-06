@@ -575,11 +575,22 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             self.biinie!.save()
         }
         
+        //addSomeTemporalGifts()
+        
         requestInitialData()
         
         if self.biinie!.needsTokenUpdate {
             //print("SEND TOKEN TO CMS")
             BNAppSharedManager.instance.networkManager!.sendBiinieToken(self.biinie)
+        }
+    }
+    
+    //TODO: Add some temporal gift
+    func addSomeTemporalGifts(){
+    
+        for index in 1...5 {
+            print("\(index) times 5 is \(index * 5)")
+            biinie?.gifts.append(BNGift(identifier: "\(index)", elementIdentifier: "\(index)", name: "Gift:\(index)", message: "Message for gift index: \(index)"))
         }
     }
     

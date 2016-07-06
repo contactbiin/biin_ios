@@ -8,6 +8,8 @@ class BNGift:NSObject, NSCoding {
     
     var identifier:String?
     var elementIdentifier:String?
+    var imageUrl:String?
+    
     var name:String?
     var message:String?
     
@@ -72,7 +74,6 @@ class BNGift:NSObject, NSCoding {
         
         aCoder.encodeObject(sites, forKey: "sites")
 
-        
         if let receivedDate = self.receivedDate {
             aCoder.encodeObject(receivedDate, forKey: "receivedDate")
         }
