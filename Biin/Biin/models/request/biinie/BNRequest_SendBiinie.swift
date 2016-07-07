@@ -102,12 +102,12 @@ class BNRequest_SendBiinie:BNRequest {
 
                     if result {
                         
-                        self.isCompleted = true
-                        self.networkManager!.requestManager?.processCompletedRequest(self)
-                        
                         if !self.isUpdate {
                             self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier: identifier)
                         }
+                        
+                        self.isCompleted = true
+                        self.networkManager!.requestManager?.processCompletedRequest(self)
                         
                     } else {
                         self.networkManager!.requestManager!.processFailedRequest(self, error: nil)

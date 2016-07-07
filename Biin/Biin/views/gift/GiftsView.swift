@@ -51,17 +51,11 @@ class GiftsView: BNView {
         self.addSubview(backBtn!)
         
         ypos = SharedUIManager.instance.mainView_HeaderSize
-        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.lightGrayColor()
-
-        self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)), father: self, direction: BNScroll_Direction.VERTICAL, space: 5, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
+        self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 5, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
-//        self.addSubview(line)
-        
         
         elementContainers = Array<MainView_Container_Elements>()
         updateGifts()
-        
     }
     
     func updateGifts(){

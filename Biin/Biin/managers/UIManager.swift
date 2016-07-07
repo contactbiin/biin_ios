@@ -153,10 +153,11 @@ class UIManager {
     
     var mainView_TitleSize:CGFloat = 18
     var mainView_HeaderSize:CGFloat = 80
+    var mainView_StatusBarHeight:CGFloat = 25
     
-    
-    var giftView_height:CGFloat = 150
-    var giftView_imageSize:CGFloat = 60
+    var giftView_height:CGFloat = 180
+    var giftView_imageSize:CGFloat = 110
+    var giftView_bottomHeight:CGFloat = 60
     
     func setDeviceVariables(){
         

@@ -21,12 +21,12 @@ class BNUIButton_Close:BNUIButton {
     convenience init(frame:CGRect, iconColor:UIColor){
         self.init(frame: frame)
         
-        self.layer.borderColor = iconColor.CGColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = self.frame.width / 2
-        self.layer.masksToBounds = true
+//        self.layer.borderColor = iconColor.CGColor
+//        self.layer.borderWidth = 1
+//        self.layer.cornerRadius = self.frame.width / 2
+//        self.layer.masksToBounds = true
         
-        icon = BNIcon_CloseSmall(color:iconColor, position: CGPoint(x: 1, y: 1))
+        icon = BNIcon_CloseSmall(color:iconColor, position: CGPoint(x: 5, y: 5))
     }
 }
 

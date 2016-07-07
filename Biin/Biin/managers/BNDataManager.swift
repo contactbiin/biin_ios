@@ -588,9 +588,15 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     //TODO: Add some temporal gift
     func addSomeTemporalGifts(){
     
+        var text = "Title for gift"
+        
         for index in 1...5 {
             print("\(index) times 5 is \(index * 5)")
-            biinie?.gifts.append(BNGift(identifier: "\(index)", elementIdentifier: "\(index)", name: "Gift:\(index)", message: "Message for gift index: \(index)"))
+            
+            text += "Title for gift"
+            let gift = BNGift(identifier: "\(index)", elementIdentifier: "\(index)", name: text, message:text, imageUrl: "")
+            biinie?.gifts.append(gift)
+            
         }
     }
     

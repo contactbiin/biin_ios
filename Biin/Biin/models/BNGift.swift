@@ -25,17 +25,20 @@ class BNGift:NSObject, NSCoding {
         super.init()
     }
     
-    convenience init( identifier:String, elementIdentifier:String, name:String, message:String) {
+    convenience init( identifier:String, elementIdentifier:String, name:String, message:String, imageUrl:String) {
         self.init()
         self.identifier = identifier
         self.elementIdentifier = elementIdentifier
         self.name = name
         self.message = message
+        self.imageUrl = imageUrl
+        self.receivedDate = NSDate()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.elementIdentifier  = aDecoder.decodeObjectForKey("elementIdentifier") as? String
+        self.imageUrl  = aDecoder.decodeObjectForKey("imageUrl") as? String
         self.name  = aDecoder.decodeObjectForKey("name") as? String
         self.message  = aDecoder.decodeObjectForKey("message") as? String
         
@@ -52,12 +55,17 @@ class BNGift:NSObject, NSCoding {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
+        
         if let identifier = self.identifier {
             aCoder.encodeObject(identifier, forKey: "identifier")
         }
         
         if let elementIdentifier = self.elementIdentifier {
             aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
+        }
+        
+        if let imageUrl = self.imageUrl {
+            aCoder.encodeObject(imageUrl, forKey: "imageUrl")
         }
         
         if let name = self.name {
