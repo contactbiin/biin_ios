@@ -4,9 +4,8 @@
 //  Copyright © 2016 Esteban Padilla. All rights reserved.
 import Foundation
 
-class BNGift:NSObject {
+class BNGift:BNObject {
     
-    var identifier:String?
     var elementIdentifier:String?
     var organizationIdentifier:String?
     

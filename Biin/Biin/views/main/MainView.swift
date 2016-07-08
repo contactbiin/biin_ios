@@ -484,12 +484,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //SiteMiniView_Delegate Methods
     func showSiteView(view: SiteMiniView) {
-        (siteState!.view as! SiteView).updateSiteData(view.site!)
+        (siteState!.view as! SiteView).updateSiteData((view.model as! BNSite))
         setNextState(BNGoto.Site)
     }
     
     func showBrotherSiteView(view: SiteMiniView) {
-        (brotherSiteState!.view as! SiteView).updateSiteData(view.site!)
+        (brotherSiteState!.view as! SiteView).updateSiteData((view.model as! BNSite))
         setNextState(BNGoto.BrotherSite)
     }
     

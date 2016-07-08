@@ -6,20 +6,12 @@
 import Foundation
 import UIKit
 
-class BNObject {
+class BNObject: NSObject {
     
-    var title1:String?
-    var title2:String?
-    var objectDescription:String?
-    var imageUrl:String?
-    var objectImage:UIImageView?
+    var identifier:String?
     
-    init(title1:String, title2:String, objectDescription:String, imageName:String) {
-        self.title1 = title1
-        self.title2 = title2
-        self.objectDescription = objectDescription
-        self.imageUrl = imageName
-//        self.objectImage = UIImageView(image: UIImage(named:imageName))
+    override init() {
+        super.init()
     }
     
     deinit {

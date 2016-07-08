@@ -6,12 +6,11 @@
 import Foundation
 import UIKit
 
-class BNSite:NSObject, NSCoding {
+class BNSite:BNObject, NSCoding {
     
     //TODO: jsonUrl only for testing, remove later
     var jsonUrl:String?
     
-    var identifier:String?
     var organizationIdentifier:String?
     weak var organization:BNOrganization?
     var proximityUUID:NSUUID?

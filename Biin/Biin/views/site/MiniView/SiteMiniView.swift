@@ -9,7 +9,7 @@ import UIKit
 class SiteMiniView: BNView {
     
     var delegate:SiteMiniView_Delegate?
-    var site:BNSite?
+//    var site:BNSite?
     var image:BNUIImageView?
     var header:SiteMiniView_Header?
     var imageRequested = false
@@ -36,7 +36,7 @@ class SiteMiniView: BNView {
 
         self.layer.masksToBounds = true
         
-        self.site = site
+        self.model = site
         
         let decorationColor = site!.organization!.primaryColor
         self.backgroundColor = decorationColor
@@ -138,8 +138,8 @@ class SiteMiniView: BNView {
 
         imageRequested = true
         
-        if site!.media.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData(site!.media[0].url!, image: image)
+        if (self.model as! BNSite).media.count > 0 {
+            BNAppSharedManager.instance.networkManager.requestImageData((self.model as! BNSite).media[0].url!, image: image)
         } else {
             image!.image =  UIImage(named: "noImage.jpg")
             image!.showAfterDownload()
@@ -149,8 +149,8 @@ class SiteMiniView: BNView {
     /* Gesture hadlers */
     func handleTap(sender:UITapGestureRecognizer) {
         
-        SharedAnswersManager.instance.logContentView_Site(self.site)
-        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:self.site!.identifier!, by: self.site!.identifier!)
+        SharedAnswersManager.instance.logContentView_Site((self.model as! BNSite))
+        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_SITE_VIEW, to:model!.identifier!, by:model!.identifier!)
         
         if isBrotherSite {
             delegate!.showBrotherSiteView!(self)
@@ -161,7 +161,7 @@ class SiteMiniView: BNView {
 
     override func clean() {
         
-        site = nil
+        model = nil
         image!.removeFromSuperview()
         header!.removeFromSuperview()
     }

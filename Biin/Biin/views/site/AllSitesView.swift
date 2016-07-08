@@ -251,7 +251,7 @@ class AllSitesView: BNView {
     
     func isSiteAdded(identifier:String) -> Bool {
         for view in scroll!.children {
-            if (view as! SiteMiniView).site!.identifier! == identifier {
+            if view.model!.identifier! == identifier {
                 return true
             }
         }

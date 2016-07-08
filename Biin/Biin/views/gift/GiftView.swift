@@ -10,7 +10,7 @@ import UIKit
 class GiftView: BNView {
     
     var delegate:GiftView_Delegate?
-    var gift:BNGift?
+//    var gift:BNGift?
     var image:BNUIImageView?
     var imageRequested = false
 
@@ -52,26 +52,24 @@ class GiftView: BNView {
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
         
-        self.gift = gift
+        self.model = gift
         
         removeItButton = BNUIButton_Close(frame: CGRectMake((frame.width - 27), 5, 22, 22), iconColor: UIColor.bnGrayLight())
         removeItButton!.icon!.color = UIColor.bnGrayLight()
         removeItButton!.addTarget(self, action: #selector(self.removeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(removeItButton!)
         
-        
-        
-        
-        if self.gift!.media!.count > 0 {
+        if (model as! BNGift).media!.count > 0 {
             image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.giftView_imageSize, SharedUIManager.instance.giftView_imageSize), color:UIColor.bnGrayLight())
             self.addSubview(image!)
             requestImage()
         }
+        
         ypos = 5
         xpos = (SharedUIManager.instance.giftView_imageSize + 10)
         width = (frame.width - (xpos + 27))
         titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
-        titleLbl!.text = gift!.name!
+        titleLbl!.text = (model as! BNGift).name!
         titleLbl!.textColor = UIColor.biinColor()
         titleLbl!.font = UIFont(name: "Lato-Black", size: 24)
         titleLbl!.textAlignment = NSTextAlignment.Left
@@ -86,7 +84,7 @@ class GiftView: BNView {
         ypos = viewHeight
         width = (frame.width - (xpos + 5))
         messageLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height: height))
-        messageLbl!.text = gift?.message!
+        messageLbl!.text = (model as! BNGift).message!
         messageLbl!.textColor = UIColor.bnGrayDark()
         messageLbl!.font = UIFont(name: "Lato-Light", size: 14)
         messageLbl!.textAlignment = NSTextAlignment.Left
@@ -99,7 +97,7 @@ class GiftView: BNView {
         
         ypos = viewHeight
         receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
-        receivedLbl!.text = gift!.receivedDate!.bnDisplayDateFormatt_by_Day().uppercaseString
+        receivedLbl!.text = (model as! BNGift).receivedDate!.bnDisplayDateFormatt_by_Day().uppercaseString
         receivedLbl!.textColor = UIColor.bnGrayDark()
         receivedLbl!.font = UIFont(name: "Lato-Regular", size: 10)
         receivedLbl!.textAlignment = NSTextAlignment.Left
@@ -171,8 +169,8 @@ class GiftView: BNView {
         
         imageRequested = true
         
-        if gift!.media!.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData(gift!.media![0].url!, image: image)
+        if (model as! BNGift).media!.count > 0 {
+            BNAppSharedManager.instance.networkManager.requestImageData((model as! BNGift).media![0].url!, image: image)
         } else {
             image!.image =  UIImage(named: "noImage.jpg")
             image!.showAfterDownload()
@@ -184,20 +182,36 @@ class GiftView: BNView {
     }
     
     override func clean(){
-        delegate = nil
-        gift = nil
-        image?.removeFromSuperview()
-        removeItButton?.removeFromSuperview()
         
+        delegate = nil
+        model = nil
+        image?.removeFromSuperview()
+        image = nil
+        removeItButton?.removeFromSuperview()
+        removeItButton = nil
+        titleLbl!.removeFromSuperview()
+        titleLbl = nil
+        messageLbl!.removeFromSuperview()
+        messageLbl = nil
+        receivedLbl!.removeFromSuperview()
+        receivedLbl = nil
+        actionBtn!.removeFromSuperview()
+        actionBtn = nil
+        shareBtn!.removeFromSuperview()
+        shareBtn = nil
+        expiredTitleLbl!.removeFromSuperview()
+        expiredTitleLbl = nil
+        expiredDateLbl!.removeFromSuperview()
+        expiredDateLbl = nil
     }
 
     func removeBtnAction(sender:UIButton){
-
+        self.delegate!.resizeScrollOnRemoved!(self)
     }
 }
 
 @objc protocol GiftView_Delegate:NSObjectProtocol {
 //    optional func showElementView( view:ElementMiniView, element:BNElement )
 //    optional func showElementViewFromSite( view:ElementMiniView, element:BNElement )
-//    optional func resizeScrollOnRemoved(view:ElementMiniView )
+    optional func resizeScrollOnRemoved(view:GiftView)
 }

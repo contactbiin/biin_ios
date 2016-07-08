@@ -8,7 +8,7 @@ import UIKit
 import CoreLocation
 
 
-class GiftsView: BNView {
+class GiftsView: BNView, GiftView_Delegate {
 
     var title:UILabel?
     var backBtn:BNUIButton_Back?
@@ -65,6 +65,7 @@ class GiftsView: BNView {
         if let biinie = BNAppSharedManager.instance.dataManager.biinie {
             for gift in biinie.gifts {
                 let giftView = GiftView(frame: CGRectMake(0, 0, (SharedUIManager.instance.screenWidth - 10), SharedUIManager.instance.giftView_height) , father: self, gift: gift)
+                giftView.delegate = self
                 scroll!.addChild(giftView)
             }
         }
@@ -134,6 +135,10 @@ class GiftsView: BNView {
     func backBtnAction(sender:UIButton) {
         delegate!.hideGiftsView!()
         //delegate!.hideElementView!(elementMiniView)
+    }
+    
+    func resizeScrollOnRemoved(view: GiftView) {
+        self.scroll!.removeChildByIdentifier(view.model!.identifier!)
     }
 }
 
