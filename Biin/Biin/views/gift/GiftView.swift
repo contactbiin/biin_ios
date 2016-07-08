@@ -19,6 +19,7 @@ class GiftView: BNView {
     var messageLbl:UILabel?
     var receivedLbl:UILabel?
     
+    var sitesBtn:UIButton?
     var actionBtn:UIButton?
     var shareBtn:UIButton?
     
@@ -70,7 +71,7 @@ class GiftView: BNView {
         width = (frame.width - (xpos + 27))
         titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
         titleLbl!.text = (model as! BNGift).name!
-        titleLbl!.textColor = UIColor.biinColor()
+        titleLbl!.textColor = UIColor.bnRed()
         titleLbl!.font = UIFont(name: "Lato-Black", size: 24)
         titleLbl!.textAlignment = NSTextAlignment.Left
         titleLbl!.numberOfLines = 0
@@ -102,10 +103,16 @@ class GiftView: BNView {
         receivedLbl!.font = UIFont(name: "Lato-Regular", size: 10)
         receivedLbl!.textAlignment = NSTextAlignment.Left
         receivedLbl!.numberOfLines = 0
-        
         receivedLbl!.sizeToFit()
         self.addSubview(receivedLbl!)
         
+        let text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("GiftShowSites", comment: "GiftShowSites"), fontName: "Lato-Light", fontSize:10)
+        xpos = (frame.width - (text_Length + 5))
+        sitesBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width:text_Length, height: 10))
+        sitesBtn!.setTitleColor(UIColor.bnGrayDark(), forState: UIControlState.Normal)
+        sitesBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 10)
+        sitesBtn!.setTitle(NSLocalizedString("GiftShowSites", comment: "GiftShowSites"), forState: UIControlState.Normal)
+        self.addSubview(sitesBtn!)
         
         viewHeight += receivedLbl!.frame.height
         viewHeight += 5
@@ -116,6 +123,7 @@ class GiftView: BNView {
             ypos = (SharedUIManager.instance.giftView_imageSize + 10)
         }
 
+        sitesBtn!.frame.origin.y = (ypos - (sitesBtn!.frame.height + 3))
         receivedLbl!.frame.origin.y = (ypos - (receivedLbl!.frame.height + 3))
 
         let line = UIView(frame: CGRect(x: 5, y: ypos, width: (frame.width - 10), height: 1))
@@ -127,11 +135,39 @@ class GiftView: BNView {
             self.frame = CGRect(x: 0, y: 0, width: frame.width, height: viewHeight)
         }
         
-
+        if (model as! BNGift).hasExpirationDate {
+            width = (frame.width * 0.35)
+            xpos = 0
+            ypos += 15
+            expiredTitleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height:14))
+            expiredTitleLbl!.text = "EXPIRES"
+            expiredTitleLbl!.textColor = UIColor.bnGrayDark()
+            expiredTitleLbl!.font = UIFont(name: "Lato-Light", size: 10)
+            expiredTitleLbl!.textAlignment = NSTextAlignment.Center
+            self.addSubview(expiredTitleLbl!)
+            
+            expiredDateLbl = UILabel(frame: CGRect(x: xpos, y: (ypos + 15), width:width, height:14))
+            expiredDateLbl!.text = (model as! BNGift).expirationDate!.bnDisplayDateFormatt()
+            expiredDateLbl!.textColor = UIColor.bnGrayDark()
+            expiredDateLbl!.font = UIFont(name: "Lato-Black", size: 14)
+            expiredDateLbl!.textAlignment = NSTextAlignment.Center
+            self.addSubview(expiredDateLbl!)
+            
+            ypos = line.frame.origin.y
+            xpos = width
+            width = (frame.width * 0.45)
+        } else {
+            xpos = 0
+            width = (frame.width * 0.8)
+        }
         
-        
-        
-        
+        actionBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight))
+        actionBtn!.titleLabel!.numberOfLines = 0
+        actionBtn!.titleLabel!.textAlignment = NSTextAlignment.Center
+        actionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 16)
+        actionBtn!.setTitleColor(UIColor.bnGrayDark(), forState: UIControlState.Normal)
+        updateActionBtnStatus()
+        self.addSubview(actionBtn!)
     }
     
     override func transitionIn() {
@@ -207,6 +243,31 @@ class GiftView: BNView {
 
     func removeBtnAction(sender:UIButton){
         self.delegate!.resizeScrollOnRemoved!(self)
+    }
+    
+    func updateActionBtnStatus(){
+        switch (model as! BNGift).status! {
+        case .APPROVED:
+            actionBtn!.enabled = true
+            actionBtn!.setTitle(NSLocalizedString("APPROVED", comment: "APPROVED"), forState: UIControlState.Normal)
+        case .CLAIMED:
+            actionBtn!.enabled = false
+            actionBtn!.setTitle(NSLocalizedString("CLAIMED", comment: "CLAIMED"), forState: UIControlState.Normal)
+        case .SENT:
+            actionBtn!.enabled = false
+            actionBtn!.setTitle(NSLocalizedString("SENT", comment: "SENT"), forState: UIControlState.Normal)
+        case .DELIVERED:
+            actionBtn!.enabled = false
+            actionBtn!.setTitle(NSLocalizedString("DELIVERED", comment: "DELIVERED"), forState: UIControlState.Normal)
+        default:
+            actionBtn!.enabled = false
+            actionBtn!.setTitle(NSLocalizedString("SENT", comment: "SENT"), forState: UIControlState.Normal)
+        }
+    }
+    
+    func updateToClaimNow(){
+        actionBtn!.setTitle(NSLocalizedString("READY_TO_CLAIM", comment: "READY_TO_CLAIM"), forState: UIControlState.Normal)
+        actionBtn!.enabled = true
     }
 }
 

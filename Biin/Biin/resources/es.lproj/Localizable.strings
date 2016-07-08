@@ -256,3 +256,9 @@ Accept = "Acepto";
 Waze = "Waze";
 
 Gifts = "Regalos";
+GiftShowSites = "Ver locales participantes";
+APPROVED = "Retire en la tienda.";
+CLAIMED = "Esperando aprovación";
+SENT = "Visita locales participantes y solicita este regalo!";
+DELIVERED = "Disfruta tu regalo";
+READY_TO_CLAIM = "Reclama ahora";
