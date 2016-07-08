@@ -62,6 +62,55 @@ class BNRequest_Biinie: BNRequest {
                         self.biinie!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
                         //var friends = BNParser.findNSArray("friends", dictionary: biinieData)
                         
+                        
+                        let giftsData = BNParser.findNSArray("gifts", dictionary: biinieData)
+                        
+                        if giftsData?.count > 0 {
+                            
+                            self.biinie!.gifts = Array<BNGift>()
+                            
+                            for i in (0..<giftsData!.count) {
+                                let gift = BNGift()
+                                
+                                let giftData = giftsData!.objectAtIndex(i) as! NSDictionary
+                                gift.identifier = BNParser.findString("identifier", dictionary: giftData)
+                                gift.elementIdentifier = BNParser.findString("productIdentifier", dictionary: giftData)
+                                gift.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: giftData)
+                                gift.name = BNParser.findString("name", dictionary: giftData)
+                                gift.message = BNParser.findString("message", dictionary: giftData)
+                                gift.status = BNParser.findBNGiftStatue("status", dictionary: giftData)
+                                gift.receivedDate = BNParser.findNSDateWithBiinFormat("receivedDate", dictionary: giftData)
+                                gift.hasExpirationDate = BNParser.findBool("hasExpirationDate", dictionary: giftData)
+                                
+                                if gift.hasExpirationDate {
+                                    gift.expirationDate = BNParser.findNSDateWithBiinFormat("expirationDate", dictionary: giftData)
+                                }
+                                
+                                if let sitesData = BNParser.findNSArray("sites", dictionary: giftData) {
+                                    if sitesData.count > 0 {
+                                        for j in (0..<sitesData.count) {
+                                            gift.sites!.append(sitesData.objectAtIndex(j) as! String)
+                                        }
+                                    }
+                                }
+                                
+                                if let mediaArray = BNParser.findNSArray("media", dictionary: giftData) {
+                                    for b in (0..<mediaArray.count) {
+                                        let mediaData = mediaArray.objectAtIndex(b) as! NSDictionary
+                                        let url = BNParser.findString("url", dictionary:mediaData)
+                                        let type = BNMediaType.Image
+                                        let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
+                                        let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
+                                        let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
+                                        let media = BNMedia(mediaType:type, url:url!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
+                                        gift.media!.append(media)
+                                    }
+                                }
+                                
+                                self.biinie!.gifts.append(gift)
+                            }
+                        }
+                        
                         /*
                         var categories = Array<BNCategory>()
                         let categoriesData = BNParser.findNSArray("categories", dictionary: biinieData)

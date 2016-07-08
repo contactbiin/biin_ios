@@ -59,10 +59,14 @@ class GiftView: BNView {
         removeItButton!.addTarget(self, action: #selector(self.removeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(removeItButton!)
         
-        image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.giftView_imageSize, SharedUIManager.instance.giftView_imageSize), color:UIColor.bnGrayLight())
-        self.addSubview(image!)
-        requestImage()
         
+        
+        
+        if self.gift!.media!.count > 0 {
+            image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.giftView_imageSize, SharedUIManager.instance.giftView_imageSize), color:UIColor.bnGrayLight())
+            self.addSubview(image!)
+            requestImage()
+        }
         ypos = 5
         xpos = (SharedUIManager.instance.giftView_imageSize + 10)
         width = (frame.width - (xpos + 27))
@@ -95,11 +99,12 @@ class GiftView: BNView {
         
         ypos = viewHeight
         receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
-        receivedLbl!.text = gift!.receivedDate!.bnDisplayDateFormatt().uppercaseString
+        receivedLbl!.text = gift!.receivedDate!.bnDisplayDateFormatt_by_Day().uppercaseString
         receivedLbl!.textColor = UIColor.bnGrayDark()
         receivedLbl!.font = UIFont(name: "Lato-Regular", size: 10)
         receivedLbl!.textAlignment = NSTextAlignment.Left
         receivedLbl!.numberOfLines = 0
+        
         receivedLbl!.sizeToFit()
         self.addSubview(receivedLbl!)
         
@@ -113,7 +118,7 @@ class GiftView: BNView {
             ypos = (SharedUIManager.instance.giftView_imageSize + 10)
         }
 
-        receivedLbl!.frame.origin.y = (ypos - (receivedLbl!.frame.height + 2))
+        receivedLbl!.frame.origin.y = (ypos - (receivedLbl!.frame.height + 3))
 
         let line = UIView(frame: CGRect(x: 5, y: ypos, width: (frame.width - 10), height: 1))
         line.backgroundColor = UIColor.bnGrayLight()
@@ -125,6 +130,7 @@ class GiftView: BNView {
         }
         
 
+        
         
         
         
@@ -161,13 +167,12 @@ class GiftView: BNView {
     
     func requestImage(){
         
-        
         if imageRequested { return }
         
         imageRequested = true
         
-        if gift!.imageUrl != "" {
-            BNAppSharedManager.instance.networkManager.requestImageData(gift!.imageUrl!, image: image)
+        if gift!.media!.count > 0 {
+            BNAppSharedManager.instance.networkManager.requestImageData(gift!.media![0].url!, image: image)
         } else {
             image!.image =  UIImage(named: "noImage.jpg")
             image!.showAfterDownload()

@@ -95,10 +95,6 @@ class Biinie:NSObject, NSCoding {
             self.token = ""
         }
         
-        if let gifts_stored =  aDecoder.decodeObjectForKey("gifts") as? [BNGift]  {
-            self.gifts =  gifts_stored
-        }
-        
         self.newNotificationCount = 0
         self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
@@ -166,9 +162,6 @@ class Biinie:NSObject, NSCoding {
         }
         
         aCoder.encodeObject(storedElementsViewed, forKey: "storedElementsViewed")
-        
-        aCoder.encodeObject(self.gifts, forKey: "gifts")
-
     }
     
     deinit { }

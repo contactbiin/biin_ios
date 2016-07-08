@@ -527,6 +527,14 @@ extension NSDate {
         self.init(timeInterval:0, sinceDate:d!)
     }
     
+    convenience init(dateString_yyyyMMddZ:String) {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        let d = formatter.dateFromString(dateString_yyyyMMddZ)
+        self.init(timeInterval:0, sinceDate:d!)
+    }
+    
     func bnDateFormatt()->String{
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -545,6 +553,12 @@ extension NSDate {
     func bnDisplayDateFormatt()->String{
         let formatter = NSDateFormatter()
         formatter.dateFormat = "dd MMM yyyy"
+        return formatter.stringFromDate(self)
+    }
+    
+    func bnDisplayDateFormatt_by_Day()->String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "EEEE, MMM d"
         return formatter.stringFromDate(self)
     }
     
