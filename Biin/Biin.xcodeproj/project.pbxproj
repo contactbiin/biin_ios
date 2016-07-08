@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5B2EA50C1D287CF3001952EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2EA50B1D287CF3001952EC /* AppDelegate.swift */; };
 		5B2EA51E1D287D1F001952EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2EA51D1D287D1F001952EC /* Images.xcassets */; };
+		5B7ACDD61D2F6485005465B8 /* BNBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */; };
 		5BC48A311D2B0D7C00F191CE /* GiftsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC48A301D2B0D7C00F191CE /* GiftsState.swift */; };
 		5BD1F8841D28A00F0067164F /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7851D28A00E0067164F /* AboutView.swift */; };
 		5BD1F8851D28A00F0067164F /* BiinItAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7871D28A00E0067164F /* BiinItAnimationView.swift */; };
@@ -349,6 +350,7 @@
 		5B2EA5171D287CF3001952EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B2EA51D1D287D1F001952EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5B5C5CDA1D2DDB94009E6A44 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNBadgeView.swift; sourceTree = "<group>"; };
 		5BC48A301D2B0D7C00F191CE /* GiftsState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsState.swift; sourceTree = "<group>"; };
 		5BD1F7851D28A00E0067164F /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		5BD1F7871D28A00E0067164F /* BiinItAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinItAnimationView.swift; sourceTree = "<group>"; };
@@ -1098,6 +1100,7 @@
 				5BD1F8301D28A00F0067164F /* BNUIWebView.swift */,
 				5BD1F8311D28A00F0067164F /* BNView_NoBiinAvailableSign.swift */,
 				5BD1F8321D28A00F0067164F /* EPUIScrollView.swift */,
+				5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */,
 			);
 			path = uiElements;
 			sourceTree = "<group>";
@@ -1788,6 +1791,7 @@
 				5BD1F9351D28A00F0067164F /* BNIcon_InformationMedium.swift in Sources */,
 				5BEC1EF01D287DCA00D7B931 /* SingupViewController.swift in Sources */,
 				5BD1F88A1D28A00F0067164F /* AllCollectedView.swift in Sources */,
+				5B7ACDD61D2F6485005465B8 /* BNBadgeView.swift in Sources */,
 				5BD1F8DC1D28A00F0067164F /* SiteState.swift in Sources */,
 				5BEC1EBF1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift in Sources */,
 				5BD1F8B71D28A00F0067164F /* SignupView.swift in Sources */,

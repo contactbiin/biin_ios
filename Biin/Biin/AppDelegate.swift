@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
         
+        print("\(launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey])")
+        
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
         //Sets first view controller

@@ -1,11 +1,12 @@
-//: Playground - noun: a place where people can play
+//  BNBadgeView.swift
+//  Biin
+//  Created by Esteban Padilla on 7/7/16.
+//  Copyright © 2016 Esteban Padilla. All rights reserved.
 
+import Foundation
 import UIKit
 
-var str = "Hello, playground"
-
-
-class BNBadge: UIView {
+class BNBadgeView:UIView {
     
     var text:UILabel?
     var size:CGFloat = 0
@@ -22,7 +23,7 @@ class BNBadge: UIView {
         self.size = size
         self.layer.cornerRadius = (size / 2)
         self.backgroundColor = UIColor.redColor()
-    
+        
         text = UILabel(frame: CGRect(x: 0, y: 0, width:size, height:size))
         text!.font = UIFont(name: "HelveticaNeue", size: 16)
         text!.textAlignment = NSTextAlignment.Center
@@ -31,7 +32,7 @@ class BNBadge: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     func update(value:Int) {
@@ -53,6 +54,3 @@ class BNBadge: UIView {
         self.text!.frame.origin.x = ((self.frame.width - self.text!.frame.width) / 2)
     }
 }
-
-var badge = BNBadge(position: CGPoint(x: 0, y:0) , size: 20)
-badge.update(442)
