@@ -250,7 +250,6 @@ PrivacyPolicy = "Politicas de privacidad";
 TermOfUser = "Condiciones de uso";
 TermOfUserWarning = "** Al presionar el botón usted acepta las condiciones de uso.";
 
-
 Accept = "Acepto";
 
 Waze = "Waze";
