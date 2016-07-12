@@ -29,6 +29,8 @@ class BNScroll: BNView, UIScrollViewDelegate {
     var loadingIndicator:UIActivityIndicatorView?
     var loadingIndicatorView:UIView?
     
+    var leftSpace:CGFloat = 0
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -126,7 +128,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
             
             for i in (0..<children.count) {
 
-                if (self.children[i] as! SiteMiniView).site!.identifier! == identifier {
+                if self.children[i].model!.identifier! == identifier {
                     self.children[i].removeFromSuperview()
                     self.children.removeAtIndex(i)
                     break
@@ -154,6 +156,35 @@ class BNScroll: BNView, UIScrollViewDelegate {
             
             break
         case .VERTICAL:
+            
+            for i in (0..<children.count) {
+                
+                if self.children[i].model!.identifier! == identifier {
+                    self.children[i].removeFromSuperview()
+                    self.children.removeAtIndex(i)
+                    break
+                }
+            }
+            
+//            if children.count == 1 {
+//                print("solo uno")
+//                let viewWidth:CGFloat = SharedUIManager.instance.screenWidth
+//                self.children[0].updateWidth(CGRectMake(0, 0, viewWidth, self.children[0].frame.height))
+//                self.children[0].frame.origin.x = self.childPosition
+//            } else {
+            
+            var ypos:CGFloat = 0
+                for i in (0..<children.count) {
+                    
+                    UIView.animateWithDuration(0.2, animations: {()-> Void in
+                        self.children[i].frame.origin.y = ypos
+                        ypos += self.children[i].frame.height
+                    })
+                }
+//            }
+            
+            self.scroll!.contentSize = CGSize(width:self.frame.width, height:ypos)
+            
             break
         case .VERTICAL_TWO_COLS:
             break
@@ -198,7 +229,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
                 if !children[i].isAddedToScroll {
                     self.children[i].isAddedToScroll = true
                     self.children[i].frame.origin.y = childPosition
-                    self.children[i].frame.origin.x = 0
+                    self.children[i].frame.origin.x = leftSpace
                 }
                 
                 self.childPosition += self.children[i].frame.height + space

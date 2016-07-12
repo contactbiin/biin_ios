@@ -14,7 +14,7 @@ class BNRequest_Login_Facebook: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?){
         self.init()
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
@@ -58,8 +58,7 @@ class BNRequest_Login_Facebook: BNRequest {
                     }
                 } else {
                     self.requestType = BNRequestType.ServerError
-                    self.networkManager!.handleFailedRequest(self, error: error)
-                    
+                    self.networkManager!.requestManager!.processFailedRequest(self, error: nil)
                 }
             }
         })

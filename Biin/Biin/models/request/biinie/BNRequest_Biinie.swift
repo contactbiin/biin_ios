@@ -14,7 +14,7 @@ class BNRequest_Biinie: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie ) {
+    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, biinie:Biinie? ) {
         
         self.init()
         //self.identifier = BNRequestData.requestCounter++
@@ -23,7 +23,7 @@ class BNRequest_Biinie: BNRequest {
         self.requestType = BNRequestType.Biinie
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.user = user
+        self.biinie = biinie
     }
     
     override func run() {
@@ -50,17 +50,68 @@ class BNRequest_Biinie: BNRequest {
                     if result {
                         //response = BNResponse(code:status!, type: BNResponse_Type.Cool)
                         
-                        self.user!.identifier = BNParser.findString("identifier", dictionary:biinieData)
-                        self.user!.biinName = BNParser.findString("biinName", dictionary: biinieData)
-                        self.user!.firstName = BNParser.findString("firstName", dictionary: biinieData)
-                        self.user!.lastName = BNParser.findString("lastName", dictionary: biinieData)
-                        self.user!.email = BNParser.findString("email", dictionary: biinieData)
+                        self.biinie!.identifier = BNParser.findString("identifier", dictionary:biinieData)
+                        self.biinie!.biinName = BNParser.findString("biinName", dictionary: biinieData)
+                        self.biinie!.firstName = BNParser.findString("firstName", dictionary: biinieData)
+                        self.biinie!.lastName = BNParser.findString("lastName", dictionary: biinieData)
+                        self.biinie!.email = BNParser.findString("email", dictionary: biinieData)
 //                        self.user!.imgUrl = BNParser.findString("imgUrl", dictionary: biinieData)
-                        self.user!.gender = BNParser.findString("gender", dictionary: biinieData)
-                        self.user!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
-                        self.user!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
-                        self.user!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
+                        self.biinie!.gender = BNParser.findString("gender", dictionary: biinieData)
+                        self.biinie!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
+                        self.biinie!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
+                        self.biinie!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
                         //var friends = BNParser.findNSArray("friends", dictionary: biinieData)
+                        
+                        
+                        let giftsData = BNParser.findNSArray("gifts", dictionary: biinieData)
+                        
+                        if giftsData?.count > 0 {
+                            
+                            self.biinie!.gifts = Array<BNGift>()
+                            
+                            for i in (0..<giftsData!.count) {
+                                let gift = BNGift()
+                                
+                                let giftData = giftsData!.objectAtIndex(i) as! NSDictionary
+                                gift.identifier = BNParser.findString("identifier", dictionary: giftData)
+                                gift.elementIdentifier = BNParser.findString("productIdentifier", dictionary: giftData)
+                                gift.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: giftData)
+                                gift.name = BNParser.findString("name", dictionary: giftData)
+                                gift.message = BNParser.findString("message", dictionary: giftData)
+                                gift.status = BNParser.findBNGiftStatue("status", dictionary: giftData)
+                                gift.receivedDate = BNParser.findNSDateWithBiinFormat("receivedDate", dictionary: giftData)
+                                gift.hasExpirationDate = BNParser.findBool("hasExpirationDate", dictionary: giftData)
+                                gift.primaryColor = BNParser.findUIColor("primaryColor", dictionary: giftData)
+                                gift.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary: giftData)
+                                
+                                if gift.hasExpirationDate {
+                                    gift.expirationDate = BNParser.findNSDateWithBiinFormat("expirationDate", dictionary: giftData)
+                                }
+                                
+                                if let sitesData = BNParser.findNSArray("sites", dictionary: giftData) {
+                                    if sitesData.count > 0 {
+                                        for j in (0..<sitesData.count) {
+                                            gift.sites!.append(sitesData.objectAtIndex(j) as! String)
+                                        }
+                                    }
+                                }
+                                
+                                if let mediaArray = BNParser.findNSArray("media", dictionary: giftData) {
+                                    for b in (0..<mediaArray.count) {
+                                        let mediaData = mediaArray.objectAtIndex(b) as! NSDictionary
+                                        let url = BNParser.findString("url", dictionary:mediaData)
+                                        let type = BNMediaType.Image
+                                        let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
+                                        let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
+                                        let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
+                                        let media = BNMedia(mediaType:type, url:url!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
+                                        gift.media!.append(media)
+                                    }
+                                }
+                                
+                                self.biinie!.gifts.append(gift)
+                            }
+                        }
                         
                         /*
                         var categories = Array<BNCategory>()

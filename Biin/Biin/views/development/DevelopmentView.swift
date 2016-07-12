@@ -248,7 +248,7 @@ class DevelopmentView:UIView {
     
     
     func clearUserBtnAction(sender:UIButton){
-        BNAppSharedManager.instance.dataManager.bnUser!.clear()
+        BNAppSharedManager.instance.dataManager.biinie!.clear()
         BNAppSharedManager.instance.settings!.clear()
     }
     

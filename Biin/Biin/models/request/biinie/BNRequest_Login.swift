@@ -14,7 +14,7 @@ class BNRequest_Login: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager){
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?){
         self.init()
         self.requestString = requestString
         self.dataIdentifier = ""
@@ -56,8 +56,7 @@ class BNRequest_Login: BNRequest {
                     }
                 } else {
                     self.requestType = BNRequestType.ServerError
-                    self.networkManager!.handleFailedRequest(self, error: error)
-
+                    self.networkManager!.requestManager!.processFailedRequest(self, error: nil)
                 }
             }
         })

@@ -462,7 +462,7 @@ class SurveyView: BNView, UITextViewDelegate {
                 comment = self.commentTxt!.text
             }
             
-            BNAppSharedManager.instance.networkManager.sendSurvey(BNAppSharedManager.instance.dataManager.bnUser! , site: self.site, rating: self.rating, comment:comment)
+            BNAppSharedManager.instance.networkManager.sendSurvey(BNAppSharedManager.instance.dataManager.biinie , site: self.site, rating: self.rating, comment:comment)
 
             surveyQuestionLbl!.frame = CGRectMake(30, surveyQuestionLbl!.frame.origin.y, (SharedUIManager.instance.screenWidth - 60), 20)
             surveyQuestionLbl!.text = NSLocalizedString("Thankyou", comment: "Thankyou")

@@ -134,7 +134,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                 
                 if device.batteryLevel <= 50 {
                     //print("Add battery waring action")
-                    BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did: BiinieActionType.BEACON_BATTERY, to: device.uniqueID!, by:"" )
+                    BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did: BiinieActionType.BEACON_BATTERY, to: device.uniqueID!, by:"" )
                 }
             }
         }
@@ -791,7 +791,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
             if currentNoticeMajor != 0 {
                 if let site = BNAppSharedManager.instance.dataManager.findSiteByMajor(self.currentNoticeMajor) {
                     //print("Exit region: \(region.identifier), \(self.currentNoticeMajor), \(site.identifier!)")
-                    BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:site.identifier!, by:site.identifier!)
+                    BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.EXIT_BIIN_REGION, to:site.identifier!, by:site.identifier!)
                     self.currentNoticeMajor = 0
                 }
             }
@@ -1022,7 +1022,7 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
                                 //print("User is inside: \(site.title!)")
                                 currentSite = site
                                 self.delegateView!.showInSiteView!(currentSite)
-                                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to:biin.identifier!, by:site.identifier!)
+                                BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to:biin.identifier!, by:site.identifier!)
                                 
                             } else {
                                 //print("User is outside or entering: \(site.title!)")

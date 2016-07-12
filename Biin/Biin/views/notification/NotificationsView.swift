@@ -17,91 +17,40 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     var biinieNameLbl:UILabel?
     var biinieUserNameLbl:UILabel?
     
-    var scroll:UIScrollView?
+    var scroll:BNScroll?
     
     var notifications = Array<NotificationsView_Notification>()
 
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = UIColor.appBackground()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 12
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.appTextColor()
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
+        let titleText = NSLocalizedString("Notifications", comment: "Notifications").uppercaseString
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        title!.textColor = UIColor.whiteColor()
         title!.textAlignment = NSTextAlignment.Center
-        title!.text = NSLocalizedString("Notifications", comment: "title")
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
-        //let headerWidth = screenWidth - 60
-        //var xpos:CGFloat = (screenWidth - headerWidth) / 2
-        
-        /*
-        var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
-        biinieAvatarView.layer.cornerRadius = 35
-        biinieAvatarView.layer.borderColor = UIColor.appBackground().CGColor
-        biinieAvatarView.layer.borderWidth = 6
-        biinieAvatarView.layer.masksToBounds = true
-        self.addSubview(biinieAvatarView)
-        
-        if BNAppSharedManager.instance.dataManager.bnUser!.imgUrl != "" {
-        biinieAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
-        //biinieAvatar!.alpha = 0
-        biinieAvatar!.layer.cornerRadius = 30
-        biinieAvatar!.layer.masksToBounds = true
-        biinieAvatarView.addSubview(biinieAvatar!)
-        BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: biinieAvatar)
-        } else  {
-        var initials = UILabel(frame: CGRectMake(0, 25, 90, 40))
-        initials.font = UIFont(name: "Lato-Light", size: 38)
-        initials.textColor = UIColor.appMainColor()
-        initials.textAlignment = NSTextAlignment.Center
-        initials.text = "\(first(BNAppSharedManager.instance.dataManager.bnUser!.firstName!)!)\(first(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)!)"
-        biinieAvatarView.addSubview(initials)
-        biinieAvatarView.backgroundColor = UIColor.biinColor()
-        }
-
-        
-        
-        //        biinieNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 30), (headerWidth - 95), 20))
-        biinieNameLbl = UILabel(frame: CGRectMake(6, 25, (screenWidth - 20), 20))
-        biinieNameLbl!.font = UIFont(name: "Lato-Regular", size: 22)
-        biinieNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)"
-        biinieNameLbl!.textColor = UIColor.biinColor()
-        biinieNameLbl!.textAlignment = NSTextAlignment.Center
-        self.addSubview(biinieNameLbl!)
-        
-        //biinieUserNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 50), (headerWidth - 95), 14))
-        biinieUserNameLbl = UILabel(frame: CGRectMake(6, 45, (screenWidth - 20), 14))
-        biinieUserNameLbl!.font = UIFont(name: "Lato-Light", size: 12)
-        biinieUserNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.biinName!)"
-        biinieUserNameLbl!.textColor = UIColor.appTextColor()
-        biinieUserNameLbl!.textAlignment = NSTextAlignment.Center
-        self.addSubview(biinieUserNameLbl!)
-        */
-        
-        ypos = SharedUIManager.instance.siteView_headerHeight
+        ypos = SharedUIManager.instance.mainView_HeaderSize
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.appButtonColor()
+        line.backgroundColor = UIColor.lightGrayColor()
         
-        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
-        scroll!.backgroundColor = UIColor.appBackground()
-        self.addSubview(scroll!)
+        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
+        //self.addSubview(scroll!)
         self.addSubview(line)
-
-        
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
     }
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
@@ -122,16 +71,9 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.MainViewContainerState
-            || state!.stateType == BNStateType.SiteState {
-                
-                UIView.animateWithDuration(0.25, animations: {()-> Void in
-                    self.frame.origin.x = SharedUIManager.instance.screenWidth
-                })
-        } else {
-            
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
-        }
+        UIView.animateWithDuration(0.25, animations: {()-> Void in
+            self.frame.origin.x = SharedUIManager.instance.screenWidth
+        })
     }
     
     func hideView(sender:NSTimer){
@@ -161,7 +103,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     
     //Instance Methods
     func backBtnAction(sender:UIButton) {
-        delegate!.hideNotificationsView!(self)
+        delegate!.hideNotificationsView!()
         //delegate!.hideElementView!(elementMiniView)
     }
     
@@ -227,7 +169,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
         }
         
         ypos += 5
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+//        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
 
     }
     
@@ -276,5 +218,5 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
 }
 
 @objc protocol NotificationsView_Delegate:NSObjectProtocol {
-    optional func hideNotificationsView(view:NotificationsView)
+    optional func hideNotificationsView()
 }

@@ -18,36 +18,30 @@ class BNIcon_CloseSmall:BNIcon {
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-
-        //// Group
+        
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-
-        //// back Drawing
-        let backPath = UIBezierPath(ovalInRect: CGRectMake(0, 0, 28, 28))
-        UIColor.appMainColor().setFill()
-        backPath.fill()
         
-        //// line2 Drawing
-        let line2Path = UIBezierPath()
-        line2Path.moveToPoint(CGPointMake(8.01, 19.79))
-        line2Path.addLineToPoint(CGPointMake(19.31, 8.5))
-        line2Path.lineCapStyle = CGLineCap.Round;
+        let bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPoint(x: -0, y: 12))
+        bezier2Path.addLineToPoint(CGPoint(x: 12, y: 0))
+        self.color!.setStroke()
+        bezier2Path.lineWidth = 5
+        bezier2Path.stroke()
         
-        color!.setStroke()
-        line2Path.lineWidth = 1
-        line2Path.stroke()
+        CGContextRestoreGState(context)
         
-        //// line1 Drawing
-        let line1Path = UIBezierPath()
-        line1Path.moveToPoint(CGPointMake(19.31, 19.79))
-        line1Path.addLineToPoint(CGPointMake(8.01, 8.5))
-        line1Path.lineCapStyle = CGLineCap.Round;
+        //// Bezier Drawing
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, position.x, position.y)
         
-        color!.setStroke()
-        line1Path.lineWidth = 1
-        line1Path.stroke()
-       
+        let bezierPath = UIBezierPath()
+        bezierPath.moveToPoint(CGPoint(x: 12, y: 12))
+        bezierPath.addLineToPoint(CGPoint(x: -0, y: 0))
+        self.color!.setStroke()
+        bezierPath.lineWidth = 5
+        bezierPath.stroke()
+        
         CGContextRestoreGState(context)
     }
 }

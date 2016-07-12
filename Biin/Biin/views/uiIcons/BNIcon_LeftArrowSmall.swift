@@ -16,34 +16,26 @@ class BNIcon_LeftArrowSmall:BNIcon {
     }
     
     override func drawCanvas() {
-
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
-        //// Color Declarations
-//        let color = UIColor(red: 0.573, green: 0.580, blue: 0.592, alpha: 1.000)
         
         //// Group 2
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
-        
-        
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
-        bezier2Path.moveToPoint(CGPointMake(6.02, 11.6))
-        bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
-        bezier2Path.addLineToPoint(CGPointMake(0, 5.8))
-        bezier2Path.addLineToPoint(CGPointMake(6.02, 0))
+        bezier2Path.moveToPoint(CGPoint(x: 13.02, y: 23.6))
+        bezier2Path.addLineToPoint(CGPoint(x: 0, y: 11.8))
+        bezier2Path.addLineToPoint(CGPoint(x: 0, y: 11.8))
+        bezier2Path.addLineToPoint(CGPoint(x: 13.02, y: 0))
         bezier2Path.lineCapStyle = .Round;
         
         bezier2Path.lineJoinStyle = .Round;
         
-        color!.setStroke()
-        bezier2Path.lineWidth = 2
+        self.color!.setStroke()
+        bezier2Path.lineWidth = 3
         bezier2Path.stroke()
-        
-        
         
         CGContextRestoreGState(context)
     }

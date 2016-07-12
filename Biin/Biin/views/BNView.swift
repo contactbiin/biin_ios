@@ -13,6 +13,7 @@ class BNView:UIView {
     var state:BNState?
     var isAddedToScroll = false
     var isAllDownloaded = false
+    weak var model:BNObject?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

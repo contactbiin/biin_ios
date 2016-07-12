@@ -321,7 +321,7 @@ class SiteView_Survey: BNView, UITextViewDelegate {
             
             self.site!.surveyCompleted = true
             SharedAnswersManager.instance.logCompletedNPS(self.site)
-            BNAppSharedManager.instance.networkManager.sendSurvey(BNAppSharedManager.instance.dataManager.bnUser! , site: self.site, rating: self.rating, comment:comment)
+            BNAppSharedManager.instance.networkManager.sendSurvey(BNAppSharedManager.instance.dataManager.biinie , site: self.site, rating: self.rating, comment:comment)
             BNAppSharedManager.instance.notificationManager.add_surveyedSite(site!.identifier)
             NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.hide(_:)), userInfo: nil, repeats: false)
             

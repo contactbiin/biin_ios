@@ -1,11 +1,11 @@
-//  BNRequest_SendLikedElement.swift
+//  BNRequest_SendRefusedGift.swift
 //  biin
 //  Created by Alison Padilla on 9/7/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 
-class BNRequest_SendLikedElement: BNRequest {
+class BNRequest_SendRefusedGift: BNRequest {
     
     override init(){
         super.init()
@@ -15,14 +15,14 @@ class BNRequest_SendLikedElement: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, element:BNElement? ){
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, gift:BNGift? ){
         self.init()
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
-        self.requestType = BNRequestType.SendLikedElement
+        self.requestType = BNRequestType.SendRefusedGift
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.element = element
+        self.gift = gift
     }
     
     override func run() {
@@ -33,10 +33,7 @@ class BNRequest_SendLikedElement: BNRequest {
         var model = Dictionary<String, Dictionary <String, String>>()
         
         var modelContent = Dictionary<String, String>()
-        modelContent["identifier"] = self.element!.identifier!
-        modelContent["showcaseIdentifier"] = self.element!.showcase!.identifier!
-        modelContent["siteIdentifier"] = self.element!.showcase!.site!.identifier!
-        modelContent["type"] = "element"
+        modelContent["giftIdentifier"] = self.gift!.identifier!
         model["model"] = modelContent
         
         var htttpBody:NSData?
@@ -46,7 +43,7 @@ class BNRequest_SendLikedElement: BNRequest {
             htttpBody = nil
         }
         
-        self.networkManager!.epsNetwork!.put(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
+        self.networkManager!.epsNetwork!.post(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
             
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             

@@ -106,6 +106,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         locationView = SiteView_Location(frame: CGRectMake(5, screenHeight, (screenWidth - 10), (screenHeight / 2)), father: self)
         locationView!.layer.cornerRadius = 2
         self.addSubview(locationView!)
+        locationView!.isInSiteView = true
         
         var buttonSpace:CGFloat = 45
         let ypos:CGFloat = 5
@@ -166,7 +167,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     
     func backGestureAction(sender:UISwipeGestureRecognizer) {
 
-        delegate!.hideSiteView!(self)
+        delegate!.hideSiteView!()
     }
     
     
@@ -221,8 +222,8 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     //Instance Methods
     func backBtnAction(sender:UIButton) {
         surverView?.commentTxt!.resignFirstResponder()
-        delegate!.hideSiteView!(self)
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!, by:site!.identifier!)
+        delegate!.hideSiteView!()
+        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.EXIT_SITE_VIEW, to:site!.identifier!, by:site!.identifier!)
     }
     
     func isSameSite(site:BNSite?)->Bool {
@@ -473,13 +474,13 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         if self.site!.userLiked {
             BNAppSharedManager.instance.dataManager.addFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("LikeTxt", comment: "LikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:site!.identifier!, by:site!.identifier!)
+            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.LIKE_SITE, to:site!.identifier!, by:site!.identifier!)
             SharedAnswersManager.instance.logLike_Site(site)
 
         } else {
             BNAppSharedManager.instance.dataManager.removeFavoriteSite(site!.identifier!)
             animationView!.animateWithText(NSLocalizedString("NotLikeTxt", comment: "NotLikeTxt"))
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!, by:site!.identifier!)
+            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.UNLIKE_SITE, to:site!.identifier!, by:site!.identifier!)
             SharedAnswersManager.instance.logUnLike_Site(site)
 
         }
@@ -498,7 +499,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     
     func shareit(sender:BNUIButton_ShareIt){
         BNAppSharedManager.instance.shareSite(self.site, shareView: shareView)
-        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.SHARE_SITE, to:site!.identifier!, by: site!.identifier!)
+        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.SHARE_SITE, to:site!.identifier!, by: site!.identifier!)
         SharedAnswersManager.instance.logShare_Site(site)
     }
     
@@ -547,6 +548,6 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
 }
 
 @objc protocol SiteView_Delegate:NSObjectProtocol {
-    optional func hideSiteView(view:SiteView)
-    optional func hideBrotherSiteView(view:SiteView)
+    optional func hideSiteView()
+    optional func hideBrotherSiteView()
 }

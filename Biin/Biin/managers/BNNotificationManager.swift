@@ -200,7 +200,7 @@ class BNNotificationManager:NSObject, NSCoding {
         if site != nil {
         
             
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:site!.identifier!, by:site!.identifier!)
+            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:site!.identifier!, by:site!.identifier!)
             
             didSendNotificationOnAppDown = true
             var siteNotices:Array<BNNotice> = Array<BNNotice>()
@@ -359,7 +359,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 clear()
                 save()
                 
-                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotice!.identifier!, by:currentNotice!.siteIdentifier)
+                BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotice!.identifier!, by:currentNotice!.siteIdentifier)
                 
             } else {
                 //NSLog("BIIN - USER ALREADY NOTIFIED!")
@@ -800,7 +800,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 clear()
                 save()
                 
-                BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!, by:currentNotification!.siteIdentifier!)
+                BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotification!.object_id!, by:currentNotification!.siteIdentifier!)
                 
             } else {
                 //NSLog("BIIN - USER ALREADY NOTIFIED!")

@@ -1,4 +1,4 @@
-//  BiinieCategoriesView_Header.swift
+//  MainView_Container_OptionsBar.swift
 //  biin
 //  Created by Esteban Padilla on 1/16/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
@@ -6,9 +6,11 @@
 import Foundation
 import UIKit
 
-class BiinieCategoriesView_Header: BNView {
+class MainView_Container_OptionsBar: BNView {
 
     var showMenuBtn:BNUIButton?
+    var showGiftsBtn:BNUIButton?
+    var showGiftsBtnBadge:BNBadgeView?
 //    var testBtn:UIButton?
     
     override init(frame: CGRect) {
@@ -22,7 +24,7 @@ class BiinieCategoriesView_Header: BNView {
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.layer.masksToBounds = true
+//        self.layer.masksToBounds = true
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
@@ -61,9 +63,22 @@ class BiinieCategoriesView_Header: BNView {
     }
     //Instance Methods
     func addButtons(){
-        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(10, 12, 60, 40), text: "", iconType: BNIconType.menuMedium)
+        
+        var xpos:CGFloat = 10
+        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(xpos, 12, 60, 40), text: "", iconType: BNIconType.menuMedium)
         showMenuBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showMenuBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
+
+        xpos += 65
+        showGiftsBtn = BNUIButton_Menu(frame: CGRectMake(xpos, 12, 60, 40), text: "", iconType: BNIconType.notificationMedium)
+        showGiftsBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showGiftsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(showGiftsBtn!)
+        
+        showGiftsBtnBadge = BNBadgeView(position: CGPoint(x:10, y: 0), size: 20)
+        showGiftsBtn!.addSubview(showGiftsBtnBadge!)
+        showGiftsBtnBadge!.update(7)
+        showGiftsBtnBadge!.frame.origin.y = -15
+        
         
 //        testBtn = UIButton(frame: CGRectMake(200, 0, 60, 40))
 //        testBtn!.backgroundColor = UIColor.darkGrayColor()
@@ -82,6 +97,6 @@ class BiinieCategoriesView_Header: BNView {
     
 }
 
-@objc protocol BiinieCategoriesView_Header_Delegate:NSObjectProtocol {
-    optional func updateCategoryStatus(view:BiinieCategoriesView_Header,  position:CGFloat)
+@objc protocol MainView_Container_OptionsBar_Delegate:NSObjectProtocol {
+    optional func updateCategoryStatus(view:MainView_Container_OptionsBar,  position:CGFloat)
 }

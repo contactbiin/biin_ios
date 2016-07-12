@@ -15,7 +15,7 @@ class BNRequest_SendBiinieActions: BNRequest {
         
     }
     
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, user:Biinie) {
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, biinie:Biinie?) {
         
         self.init()
         //self.identifier = BNRequestData.requestCounter++
@@ -24,7 +24,7 @@ class BNRequest_SendBiinieActions: BNRequest {
         self.requestType = BNRequestType.SendBiinieActions
         self.errorManager = errorManager
         self.networkManager = networkManager
-        self.user  = user
+        self.biinie  = biinie
     }
     
     override func run() {
@@ -34,9 +34,9 @@ class BNRequest_SendBiinieActions: BNRequest {
         
         var model = ["model":["actions":Array<Dictionary<String, String>>()]] as Dictionary<String, Dictionary<String, Array<Dictionary <String, String>>>>
         
-        for value in self.user!.actions {
+        for value in self.biinie!.actions {
             var action = Dictionary <String, String>()
-            action["whom"]  = self.user!.identifier!
+            action["whom"]  = self.biinie!.identifier!
             action["at"]    = value.at!.bnDateFormattForActions()
             action["did"]   = "\(value.did!.hashValue)"
             action["to"]    = value.to!

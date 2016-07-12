@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -22,16 +22,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var elementState:ElementState?
     var elementFromSiteState:ElementFromSiteState?
     var profileState:ProfileState?
-    var collectionsState:CollectionsState?    
-    var notificationsState:NotificationsState?
-    var loyaltiesState:LoyaltiesState?
+    var collectionsState:CollectionsState?
     var aboutState:AboutState?
     var allSitesState:AllSitesState?
     var allFavoriteSitesState:AllFavoriteSitesState?
     var allElementsState:AllElementsState?
     var allCollectedState:AllCollectedState?
     var surveyState:SurveyState?
-
+    var notificationsState:NotificationsState?
+    var giftsState:GiftsState?
+    
     var isShowingNotificationContext = false
     
     var isReadyToShowSurvey = false
@@ -55,11 +55,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         self.init(frame: frame, father: father)
         self.rootViewController = rootViewController
-        
         self.backgroundColor = UIColor.appBackground()
-//        self.layer.borderColor = UIColor.clearColor().CGColor
-//        self.layer.borderWidth = 1
-//        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
     }
     
@@ -77,6 +73,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         elementState = ElementState(context: self, view:nil)
         elementFromSiteState = ElementFromSiteState(context: self, view:nil)
         surveyState = SurveyState(context: self, view: nil)
+        notificationsState = NotificationsState(context: self, view: nil)
+        giftsState = GiftsState(context: self, view: nil)
         
         show()
 
@@ -237,6 +235,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             self.bringSubviewToFront(state!.view!)
             SharedAnswersManager.instance.logContentView_Survey(site_to_survey)
             break
+        case .Notifications:
+            state!.view!.showFade()
+            self.notificationsState!.previous = state
+            state!.next(self.notificationsState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .Gifts:
+            state!.view!.showFade()
+            self.giftsState!.previous = state
+            state!.next(self.giftsState)
+            self.bringSubviewToFront(state!.view!)
+            break
         }
     }
 
@@ -276,8 +286,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Main)
     }
     
-    func hideNotificationsView(view: NotificationsView) {
-        setNextState(BNGoto.Main)
+    func hideNotificationsView() {
+        setNextState(BNGoto.Previous)
     }
     
     func hideAboutView(view: AboutView) {
@@ -357,7 +367,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         }
     }
 
-    
     func showSurveyOnTimer(sender:NSTimer){
         if site_to_survey != nil {
             updateSurveyView(site_to_survey)
@@ -383,7 +392,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                         isShowingElement = true
                         (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                         setNextState(BNGoto.Element)
-                        BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier)
+                        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier)
                         
                     }
                 }
@@ -400,93 +409,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             }
         }
     }
-    
-            
-            
-            /*
-            
-
-            if BNAppSharedManager.instance.notificationManager.currentNotification != nil {
-                
-                NSLog("BIIN - showNotificationContext 1")
-                let notification = BNAppSharedManager.instance.notificationManager.currentNotification
-                
-                NSLog("BIIN - showNotificationContext 2")
-                //show()
-                if let site = BNAppSharedManager.instance.dataManager.sites[notification!.objectIdentifier!] {
-                    
-                    NSLog("BIIN - showNotificationContext 3")
-                    NSLog("BIIN - GOTO TO SITE VIEW on external notification")
-                    (siteState!.view as! SiteView).updateSiteData(site)
-                    setNextState(BNGoto.Site)
-                    
-                } else {
-                    //if let element_by_identifier = BNAppSharedManager.instance.dataManager.elements_by_identifier[notification!.objectIdentifier!] {
-                
-                    for ( _, element) in BNAppSharedManager.instance.dataManager.elements {
-                        
-                        if notification!.objectIdentifier == element.identifier! && element.showcase!.site!.identifier == notification!.siteIdentifier! {
-                            
-                            NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(notification!.object_id!)")
-                            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
-                            setNextState(BNGoto.Element)
-//                            NSLog("BIIN - Show element view for element: \(element._id!)")
-                            return
-                        }
-                    }
-                }
-
-                NSLog("BIIN - showNotificationContext FIN")
-                /*
-                switch BNAppSharedManager.instance.notificationManager.currentNotification!.notificationType! {
-                case .PRODUCT:
-    //                NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!)")
-    //                if let element = BNAppSharedManager.instance.dataManager.elements[BNAppSharedManager.instance.notificationManager.currentNotification!.objectIdentifier!] {
-    //                    //(siteState!.view as! SiteView).updateSiteData(site)
-    //                    //setNextState(2)
-    //                    NSLog("BIIN - Show element view for element: \(element._id!)")
-    //                    //let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
-    //                    //(self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
-    //                }
-                    break
-                case .INTERNAL:
-    //                NSLog("BIIN - GOTO TO SITE VIEW on Internal notification")
-                    if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.elementIdentifier!] {
-                        (siteState!.view as! SiteView).updateSiteData(site)
-                        setNextState(BNGoto.Site)
-                    }
-                    break
-                case .EXTERNAL:
-                    NSLog("BIIN - GOTO TO SITE VIEW on external notification")
-                    //show()
-                    if let site = BNAppSharedManager.instance.dataManager.sites[BNAppSharedManager.instance.notificationManager.currentNotification!.elementIdentifier!] {
-                        (siteState!.view as! SiteView).updateSiteData(site)
-                        setNextState(BNGoto.Site)
-                    } else if let element = BNAppSharedManager.instance.dataManager.elements_by_id[BNAppSharedManager.instance.notificationManager.currentNotification!.elementIdentifier!] {
-                        
-                        NSLog("BIIN - GOTO TO ELEMENT VIEW on product notification: \(BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!)")
-                        
-                        (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
-                        //(siteState!.view as! SiteView).updateSiteData(site)
-                        
-                        setNextState(BNGoto.Element)
-                        NSLog("BIIN - Show element view for element: \(element._id!)")
-    //                    let elementView = ElementMiniView(frame:CGRectMake(0, 0, 0, 0) , father: self, element: element, elementPosition: 0, showRemoveBtn: false, isNumberVisible: false)
-                        //(self.biinieCategoriesState!.view as? BiinieCategoriesView)?.showElementView(element)
-                    }
-                    break
-                default:
-                    break
-                }
-    */
-            }
-            
-            BNAppSharedManager.instance.dataManager.bnUser!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:BNAppSharedManager.instance.notificationManager.currentNotification!.object_id!, by: "")
-            BNAppSharedManager.instance.notificationManager.clearCurrentNotification()
-             */
-//        }
-//        
-//    }
     
     //Show elementView from element containers or showcase.
     func showElementView(view: ElementMiniView, element: BNElement) {
@@ -562,12 +484,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //SiteMiniView_Delegate Methods
     func showSiteView(view: SiteMiniView) {
-        (siteState!.view as! SiteView).updateSiteData(view.site!)
+        (siteState!.view as! SiteView).updateSiteData((view.model as! BNSite))
         setNextState(BNGoto.Site)
     }
     
     func showBrotherSiteView(view: SiteMiniView) {
-        (brotherSiteState!.view as! SiteView).updateSiteData(view.site!)
+        (brotherSiteState!.view as! SiteView).updateSiteData((view.model as! BNSite))
         setNextState(BNGoto.BrotherSite)
     }
     
@@ -580,27 +502,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
     }
     
-    func hideSiteView(view: SiteView) {
-        setNextState(BNGoto.Previous)
-    }
+    func hideSiteView()             { setNextState(BNGoto.Previous) }
+    func hideBrotherSiteView()      { setNextState(BNGoto.Previous) }
+    func hideAllCollectedView()     { setNextState(BNGoto.Main) }
+    func hideSurveyView()           { setNextState(BNGoto.Previous) }
+    func hideGiftsView()            { setNextState(BNGoto.Previous) }
     
-    func hideBrotherSiteView(view: SiteView) {
-        setNextState(BNGoto.Previous)
-    }
-    
-    //AllCollectedView_Delegate Methods
-    func hideAllCollectedView() {
-        setNextState(BNGoto.Main)
-    }
     
     func updateAllCollectedView() {
         (allCollectedState!.view as? AllCollectedView)!.refresh()
     }
     
-    //SurveyView_Delegate Methods
-    func hideSurveyView() {
-        setNextState(BNGoto.Previous)
-    }
     
     override func clean(){
 
@@ -610,7 +522,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (mainViewContainerState!.view as! MainView_Container_All).clean()
         mainViewContainerState!.view!.removeFromSuperview()
         mainViewContainerState!.view = nil
-        
         
         (allSitesState!.view as! AllSitesView).clean()
         allSitesState!.view!.removeFromSuperview()
@@ -665,7 +576,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         showMenuSwipe = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(self.showMenu(_:)))
         showMenuSwipe!.edges = UIRectEdge.Left
         mainViewContainer.scroll!.addGestureRecognizer(showMenuSwipe!)
-
         
         let allSitesView = AllSitesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0,
             SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self, showBiinItBtn: false)
@@ -725,6 +635,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         surveyState!.view = surveyView
         surveyView.delegate = self
         self.addSubview(surveyView)
+        
+        let notificationView = NotificationsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        notificationsState!.view = notificationView
+        notificationView.delegate = self
+        self.addSubview(notificationView)
+        
+        let giftsView = GiftsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        giftsState!.view = giftsView
+        giftsView.delegate = self
+        self.addSubview(giftsView)
     }
     
     func updateProfileView(){
@@ -769,4 +689,6 @@ enum BNGoto {
     case AllElements
     case Survey
     case Previous
+    case Notifications
+    case Gifts
 }

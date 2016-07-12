@@ -28,16 +28,19 @@ class BNRequestManager: NSObject {
     }
     
     func processCompletedRequest(request:BNRequest) {
+        
         switch request.requestType {
         case .InitialData: self.networkManager!.initialData_Completed()
         case .VersionCheck: self.networkManager!.versionCheck_Completed()
-        case .Biinie: self.networkManager!.biinie_Completed(request.user)
+        case .Biinie: self.networkManager!.biinie_Completed(request.biinie)
         case .SendBiinieActions: self.networkManager!.sendBiinieActions_Completed()
         case .SendBiinieToken: self.networkManager!.sendBiinieToken_Completed()
         case .Login: self.networkManager!.login_Completed()
         case .Login_Facebook: self.networkManager!.login_Facebook_Completed()
         case .Register, .Register_Facebook, .SendBiinie: self.networkManager!.register_Completed()
         case .SendBiinie_Update: self.networkManager!.sendBiinie_Update_Completed()
+        case .SendClaimedGift: self.networkManager!.sendClaimedGift_Completed()
+        case .SendRefusedGift: self.networkManager!.sendRefusedGift_Completed()
         default:
             break
         }
@@ -79,6 +82,10 @@ class BNRequestManager: NSObject {
             request.reset()
             self.networkManager!.internet_Failed()
         break
+        case .SendClaimedGift_Failed:
+            break
+        case .SendRefusedGift_Failed:
+            break
         case .DoNotShowError:
             request.clean()
             removeRequestFromQueue(request.identifier)

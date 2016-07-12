@@ -63,6 +63,17 @@ class BNParser {
         }
     }
     
+    class func findNSDateWithBiinFormat(name:String, dictionary:NSDictionary) ->NSDate? {
+        let value = dictionary[name] as? String
+        
+        if value != "none" {
+            let date:NSDate? = NSDate(dateString_yyyyMMddZ: value!)
+            return date
+        } else  {
+            return nil
+        }
+    }
+    
     class func findBNBiinType(name:String, dictionary:NSDictionary) -> BNBiinType {
         let value:Int = self.findInt(name, dictionary: dictionary)!
         switch value {
@@ -137,6 +148,20 @@ class BNParser {
             return BNMediaType.Video
         } else {
             return BNMediaType.Image
+        }
+    }
+    
+    class func findBNGiftStatue(name:String, dictionary:NSDictionary) -> BNGiftStatus {
+        let value = self.findString(name, dictionary: dictionary)
+        
+        switch value! {
+        case "SENT": return BNGiftStatus.SENT
+        case "REFUSED": return .REFUSED
+        case "SHARED": return .SHARED
+        case "CLAIMED": return .CLAIMED
+        case "APPROVED": return .APPROVED
+        case "DELIVERED": return .DELIVERED
+        default: return BNGiftStatus.NONE
         }
     }
     

@@ -163,11 +163,10 @@ class MenuView:UIView {
     
     func notificationsBtnAction(sender:BNUIButton) {
         //disableButton(4)
-        //delegate!.menuView!(self, showNotifications: true)
+        delegate!.menuView!(self, showNotifications: true)
     }
     
     func inviteFriendsBtnAction(sender:BNUIButton) {
-        //disableButton(5)
         delegate!.menuView!(self, showInviteFriends: true)
     }
 
@@ -186,9 +185,10 @@ class MenuView:UIView {
     }
     
     func giftsBtnAction(sender:BNUIButton) {
-        //delegate!.menuView!(self, showAbout: true)
+        delegate!.menuView!(self, showGifts: true)
     }
-
+    
+    
     func disableButton(index:Int) {
 //        for var i = 0; i < buttons.count; i++ {
 //            if i == index {

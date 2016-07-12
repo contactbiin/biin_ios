@@ -151,6 +151,14 @@ class UIManager {
     var detailView_quoteSize:CGFloat = 15
     var detailView_priceList:CGFloat = 13
     
+    var mainView_TitleSize:CGFloat = 18
+    var mainView_HeaderSize:CGFloat = 80
+    var mainView_StatusBarHeight:CGFloat = 25
+    
+    var giftView_height:CGFloat = 210
+    var giftView_imageSize:CGFloat = 140
+    var giftView_bottomHeight:CGFloat = 55
+    
     func setDeviceVariables(){
         
         switch screenWidth {

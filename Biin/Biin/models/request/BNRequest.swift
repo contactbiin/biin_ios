@@ -28,7 +28,8 @@ enum BNRequestError
     
     case Biinie_NotRegistered
     
-    
+    case SendClaimedGift_Failed
+    case SendRefusedGift_Failed
     
     
     case DoNotShowError
@@ -70,6 +71,8 @@ enum BNRequestType
     case ElementsForCategory
     case ElementsForShowcase
     
+    case SendClaimedGift
+    case SendRefusedGift
     
 }
 
@@ -95,7 +98,8 @@ class BNRequest:NSObject {
     weak var element:BNElement?
     weak var organization:BNOrganization?
     weak var site:BNSite?
-    weak var user:Biinie?
+    weak var biinie:Biinie?
+    weak var gift:BNGift?
     weak var image:BNUIImageView?
     weak var view:BNView?
     
@@ -146,9 +150,11 @@ class BNRequest:NSObject {
         element = nil
         organization = nil
         site = nil
-        user = nil
+        biinie = nil
         categories?.removeAll()
         categories = nil
+        errorManager = nil
+        networkManager = nil
     }
     
     func get_request_identifier() -> Int {

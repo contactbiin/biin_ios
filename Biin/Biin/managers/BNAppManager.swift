@@ -144,33 +144,32 @@ class BNAppManager {
     
     func likeElement(element:BNElement?){
         dataManager.applyLikeElement(element)
-        networkManager.sendLikedElement(dataManager.bnUser!, element:element)
+        networkManager.sendLikedElement(dataManager.biinie, element:element)
         mainViewController!.mainView!.updateAllCollectedView()
-
     }
 
     func likeSite(site:BNSite?){
-        networkManager.sendLikedSite(dataManager.bnUser!, site:site)
+        networkManager.sendLikedSite(dataManager.biinie, site:site)
         mainViewController!.mainView!.refresh_favoritesSitesContaier(site)
     }
     
     func shareSite(site:BNSite?, shareView:ShareItView?){
         site!.userShared = true
-        networkManager.sendSharedSite(dataManager.bnUser!, site: site)
+        networkManager.sendSharedSite(dataManager.biinie, site: site)
         mainViewController?.shareSite(site, shareView:shareView)
     }
     
     func shareElement(element:BNElement?, shareView:ShareItView?){
         element!.userShared = true
-        networkManager.sendSharedElement(dataManager.bnUser!, element:element)
+        networkManager.sendSharedElement(dataManager.biinie, element:element)
         mainViewController?.shareElement(element, shareView:shareView)
         dataManager.applyShareElement(element)
     }
     
     func processNotification(notification:BNNotification){
         areNewNotificationsPendingToShow = true
-        dataManager.bnUser!.newNotificationCount! += 1
-        dataManager.bnUser!.notificationIndex! = notification.identifier
+        dataManager.biinie!.newNotificationCount! += 1
+        dataManager.biinie!.notificationIndex! = notification.identifier
 
         //Notify main view to show circle
         delegate!.manager!(showNotifications: true)
