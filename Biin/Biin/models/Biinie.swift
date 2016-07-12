@@ -44,6 +44,8 @@ class Biinie:NSObject, NSCoding {
     
     var facebookAvatarUrl:String?
     
+    var newGiftCounter:Int = 0
+    var gifts_store:[String] = [String]()
     var gifts:[BNGift] = [BNGift]()
     
     override init() {
@@ -88,6 +90,10 @@ class Biinie:NSObject, NSCoding {
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
+        
+        if let gifts_old_store = aDecoder.decodeObjectForKey("gifts_store") {
+            self.gifts_store = gifts_old_store as! [String]
+        }
         
         if let token_stored = aDecoder.decodeObjectForKey("token") {
             self.token = token_stored as? String
@@ -150,6 +156,8 @@ class Biinie:NSObject, NSCoding {
         if let token = self.token {
             aCoder.encodeObject(token, forKey: "token")
         }
+        
+        aCoder.encodeObject(gifts_store, forKey: "gifts_store")
         
         aCoder.encodeObject(actions, forKey: "actions")
         
@@ -256,5 +264,21 @@ class Biinie:NSObject, NSCoding {
     
     func addCategory(category:BNCategory) {
         self.categories.append(category)
+    }
+    
+    func removeGift(identifier:String) {
+        for i in (0..<gifts.count) {
+            if gifts[i].identifier! == identifier {
+                gifts.removeAtIndex(i)
+            }
+        }
+        
+        for j in (0..<gifts_store.count) {
+            if gifts_store[j] == identifier {
+                gifts_store.removeAtIndex(j)
+            }
+        }
+        
+        save()
     }
 }

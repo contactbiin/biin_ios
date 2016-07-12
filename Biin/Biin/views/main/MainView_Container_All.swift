@@ -10,7 +10,7 @@ import CoreLocation
 
 class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, MainView_Delegate_BiinsContainer {
     
-    var header:BiinieCategoriesView_Header?
+    var header:MainView_Container_OptionsBar?
     var inSiteView:InSiteView?
     var highlightContainer:MainView_Container_Highlights?
     var nearSitesContainer:MainView_Container_NearSites?
@@ -52,7 +52,7 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
         
-        header = BiinieCategoriesView_Header(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
+        header = MainView_Container_OptionsBar(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
         self.addSubview(header!)
         
 //        fade = UIView(frame: frame)
@@ -193,6 +193,10 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
     
     func showMenuBtnActon(sender:BNUIButton) {
         (father as! MainView).showMenu(UIScreenEdgePanGestureRecognizer())
+    }
+    
+    func showGiftsBtnAction(sender:BNUIButton) {
+        (father as! MainView).setNextState(BNGoto.Gifts)
     }
     
     override func transitionIn() {

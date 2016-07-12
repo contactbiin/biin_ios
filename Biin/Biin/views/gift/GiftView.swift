@@ -60,7 +60,7 @@ class GiftView: BNView {
         _ = gift!.primaryColor!.getWhite(&white, alpha: &alpha)
         
         if white >= 0.95 {
-            //print("Is white")
+            print("Is white - \(gift!.name!)")
             decorationColor = gift!.primaryColor
         } else {
             decorationColor = gift!.secondaryColor
