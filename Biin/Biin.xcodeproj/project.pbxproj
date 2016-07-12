@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5B2EA50C1D287CF3001952EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2EA50B1D287CF3001952EC /* AppDelegate.swift */; };
 		5B2EA51E1D287D1F001952EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2EA51D1D287D1F001952EC /* Images.xcassets */; };
+		5B3FF41C1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41A1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift */; };
+		5B3FF41D1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41B1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift */; };
+		5B3FF41F1D3414F9007DF426 /* BNUIButton_Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */; };
 		5B7ACDD61D2F6485005465B8 /* BNBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */; };
 		5BC48A311D2B0D7C00F191CE /* GiftsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC48A301D2B0D7C00F191CE /* GiftsState.swift */; };
 		5BD1F8841D28A00F0067164F /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7851D28A00E0067164F /* AboutView.swift */; };
@@ -349,6 +352,9 @@
 		5B2EA50B1D287CF3001952EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B2EA5171D287CF3001952EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B2EA51D1D287D1F001952EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5B3FF41A1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendClaimedGift.swift; sourceTree = "<group>"; };
+		5B3FF41B1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendRefusedGift.swift; sourceTree = "<group>"; };
+		5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Gift.swift; sourceTree = "<group>"; };
 		5B5C5CDA1D2DDB94009E6A44 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNBadgeView.swift; sourceTree = "<group>"; };
 		5BC48A301D2B0D7C00F191CE /* GiftsState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsState.swift; sourceTree = "<group>"; };
@@ -734,6 +740,15 @@
 			path = Biin;
 			sourceTree = "<group>";
 		};
+		5B3FF4191D33EDE8007DF426 /* gift */ = {
+			isa = PBXGroup;
+			children = (
+				5B3FF41A1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift */,
+				5B3FF41B1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift */,
+			);
+			path = gift;
+			sourceTree = "<group>";
+		};
 		5BD1F7831D28A00E0067164F /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,6 +1089,7 @@
 				5BD1F8161D28A00F0067164F /* BNUIButton_SitePhone.swift */,
 				5BD1F8171D28A00F0067164F /* BNUIButton_Social.swift */,
 				5BD1F8181D28A00F0067164F /* BNUIButton_WithLabel.swift */,
+				5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */,
 				5BD1F8191D28A00F0067164F /* BNUICircle.swift */,
 				5BD1F81A1D28A00F0067164F /* BNUICircleLabel.swift */,
 				5BD1F81B1D28A00F0067164F /* BNUICompletedGameIconView.swift */,
@@ -1257,6 +1273,7 @@
 		5BEC1D201D287DCA00D7B931 /* request */ = {
 			isa = PBXGroup;
 			children = (
+				5B3FF4191D33EDE8007DF426 /* gift */,
 				5BEC1D211D287DCA00D7B931 /* biinie */,
 				5BEC1D2F1D287DCA00D7B931 /* BNRequest.swift */,
 				5BEC1D341D287DCA00D7B931 /* BNRequest_ElementsForCategory.swift */,
@@ -1670,6 +1687,7 @@
 				5BD1F93D1D28A00F0067164F /* BNIcon_LikeIt_Full.swift in Sources */,
 				5BD1F93C1D28A00F0067164F /* BNIcon_LikeIt_Empty.swift in Sources */,
 				5BD1F8A81D28A00F0067164F /* MainView_Container_All.swift in Sources */,
+				5B3FF41D1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift in Sources */,
 				5BD1F93B1D28A00F0067164F /* BNIcon_LikeIt_Big.swift in Sources */,
 				5BD1F90B1D28A00F0067164F /* BNUIPointView.swift in Sources */,
 				5BD1F90D1D28A00F0067164F /* BNUIScrollView.swift in Sources */,
@@ -1685,6 +1703,7 @@
 				5BD1F8C41D28A00F0067164F /* SiteView_Showcase_Join.swift in Sources */,
 				5BD1F9251D28A00F0067164F /* BNIcon_CommentMedium.swift in Sources */,
 				5BD1F9131D28A00F0067164F /* BNUIView_PriceX.swift in Sources */,
+				5B3FF41F1D3414F9007DF426 /* BNUIButton_Gift.swift in Sources */,
 				5BEC1E881D287DCA00D7B931 /* BiinieAction.swift in Sources */,
 				5BD1F8BE1D28A00F0067164F /* SiteView_Location.swift in Sources */,
 				5BD1F94D1D28A00F0067164F /* BNIcon_Pricing.swift in Sources */,
@@ -1722,6 +1741,7 @@
 				5BD1F8E01D28A00F0067164F /* BNScroll.swift in Sources */,
 				5BD1F9341D28A00F0067164F /* BNIcon_HomeMedium.swift in Sources */,
 				5BEC1E8C1D287DCA00D7B931 /* BNBiin.swift in Sources */,
+				5B3FF41C1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift in Sources */,
 				5BEC1E9C1D287DCA00D7B931 /* BNRegion.swift in Sources */,
 				5BD1F8861D28A00F0067164F /* InSiteView.swift in Sources */,
 				5BD1F8D61D28A00F0067164F /* NotificationsState.swift in Sources */,

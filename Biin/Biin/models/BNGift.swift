@@ -3,6 +3,7 @@
 //  Created by Esteban Padilla on 7/5/16.
 //  Copyright © 2016 Esteban Padilla. All rights reserved.
 import Foundation
+import UIKit
 
 class BNGift:BNObject {
     
@@ -20,6 +21,9 @@ class BNGift:BNObject {
     
     var status:BNGiftStatus?
     var media:Array<BNMedia>?
+    
+    var primaryColor:UIColor?
+    var secondaryColor:UIColor?
     
     override init() {
         super.init()

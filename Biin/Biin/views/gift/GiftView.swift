@@ -20,7 +20,7 @@ class GiftView: BNView {
     var receivedLbl:UILabel?
     
     var sitesBtn:UIButton?
-    var actionBtn:UIButton?
+    var actionBtn:BNUIButton_Gift?
     var shareBtn:UIButton?
     
     var expiredTitleLbl:UILabel?
@@ -50,10 +50,21 @@ class GiftView: BNView {
         var viewHeight:CGFloat = 0
         
         self.backgroundColor = UIColor.whiteColor()
-        self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
         
         self.model = gift
+        var decorationColor:UIColor?
+        
+        var white:CGFloat = 0.0
+        var alpha:CGFloat = 0.0
+        _ = gift!.primaryColor!.getWhite(&white, alpha: &alpha)
+        
+        if white >= 0.95 {
+            //print("Is white")
+            decorationColor = gift!.primaryColor
+        } else {
+            decorationColor = gift!.secondaryColor
+        }
         
         removeItButton = BNUIButton_Close(frame: CGRectMake((frame.width - 27), 5, 22, 22), iconColor: UIColor.bnGrayLight())
         removeItButton!.icon!.color = UIColor.bnGrayLight()
@@ -63,22 +74,35 @@ class GiftView: BNView {
         if (model as! BNGift).media!.count > 0 {
             image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.giftView_imageSize, SharedUIManager.instance.giftView_imageSize), color:UIColor.bnGrayLight())
             self.addSubview(image!)
+            image!.layer.cornerRadius = 3
+            image!.layer.masksToBounds = true
             requestImage()
         }
         
-        ypos = 5
         xpos = (SharedUIManager.instance.giftView_imageSize + 10)
+        ypos = 5
+        receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: frame.width, height: height))
+        receivedLbl!.text = (model as! BNGift).receivedDate!.bnDisplayDateFormatt_by_Day().uppercaseString
+        receivedLbl!.textColor = UIColor.bnGray()
+        receivedLbl!.font = UIFont(name: "Lato-Regular", size: 10)
+        receivedLbl!.textAlignment = NSTextAlignment.Left
+        receivedLbl!.numberOfLines = 0
+        receivedLbl!.sizeToFit()
+        self.addSubview(receivedLbl!)
+        ypos += (receivedLbl!.frame.height)
+        viewHeight += receivedLbl!.frame.height
+        
         width = (frame.width - (xpos + 27))
         titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
         titleLbl!.text = (model as! BNGift).name!
-        titleLbl!.textColor = UIColor.bnRed()
-        titleLbl!.font = UIFont(name: "Lato-Black", size: 24)
+        titleLbl!.textColor = decorationColor
+        titleLbl!.font = UIFont(name: "Lato-Black", size: 25)
         titleLbl!.textAlignment = NSTextAlignment.Left
         titleLbl!.numberOfLines = 0
         titleLbl!.sizeToFit()
         self.addSubview(titleLbl!)
         
-        viewHeight += 10
+        viewHeight += 5
         viewHeight += titleLbl!.frame.height
         
         
@@ -87,7 +111,7 @@ class GiftView: BNView {
         messageLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height: height))
         messageLbl!.text = (model as! BNGift).message!
         messageLbl!.textColor = UIColor.bnGrayDark()
-        messageLbl!.font = UIFont(name: "Lato-Light", size: 14)
+        messageLbl!.font = UIFont(name: "Lato-Regular", size: 15)
         messageLbl!.textAlignment = NSTextAlignment.Left
         messageLbl!.numberOfLines = 0
         messageLbl!.sizeToFit()
@@ -97,24 +121,6 @@ class GiftView: BNView {
         viewHeight += messageLbl!.frame.height
         
         ypos = viewHeight
-        receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
-        receivedLbl!.text = (model as! BNGift).receivedDate!.bnDisplayDateFormatt_by_Day().uppercaseString
-        receivedLbl!.textColor = UIColor.bnGrayDark()
-        receivedLbl!.font = UIFont(name: "Lato-Regular", size: 10)
-        receivedLbl!.textAlignment = NSTextAlignment.Left
-        receivedLbl!.numberOfLines = 0
-        receivedLbl!.sizeToFit()
-        self.addSubview(receivedLbl!)
-        
-        let text_Length = SharedUIManager.instance.getStringLength(NSLocalizedString("GiftShowSites", comment: "GiftShowSites"), fontName: "Lato-Light", fontSize:10)
-        xpos = (frame.width - (text_Length + 5))
-        sitesBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width:text_Length, height: 10))
-        sitesBtn!.setTitleColor(UIColor.bnGrayDark(), forState: UIControlState.Normal)
-        sitesBtn!.titleLabel!.font = UIFont(name: "Lato-Light", size: 10)
-        sitesBtn!.setTitle(NSLocalizedString("GiftShowSites", comment: "GiftShowSites"), forState: UIControlState.Normal)
-        self.addSubview(sitesBtn!)
-        
-        viewHeight += receivedLbl!.frame.height
         viewHeight += 5
         
         if viewHeight >= (SharedUIManager.instance.giftView_imageSize + 10) {
@@ -123,50 +129,38 @@ class GiftView: BNView {
             ypos = (SharedUIManager.instance.giftView_imageSize + 10)
         }
 
-        sitesBtn!.frame.origin.y = (ypos - (sitesBtn!.frame.height + 3))
-        receivedLbl!.frame.origin.y = (ypos - (receivedLbl!.frame.height + 3))
-
-        let line = UIView(frame: CGRect(x: 5, y: ypos, width: (frame.width - 10), height: 1))
-        line.backgroundColor = UIColor.bnGrayLight()
-        self.addSubview(line)
         
         if viewHeight >= (SharedUIManager.instance.giftView_imageSize + 10) {
             viewHeight += SharedUIManager.instance.giftView_bottomHeight
             self.frame = CGRect(x: 0, y: 0, width: frame.width, height: viewHeight)
         }
         
-        if (model as! BNGift).hasExpirationDate {
-            width = (frame.width * 0.35)
-            xpos = 0
-            ypos += 15
-            expiredTitleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height:14))
-            expiredTitleLbl!.text = "EXPIRES"
-            expiredTitleLbl!.textColor = UIColor.bnGrayDark()
-            expiredTitleLbl!.font = UIFont(name: "Lato-Light", size: 10)
-            expiredTitleLbl!.textAlignment = NSTextAlignment.Center
-            self.addSubview(expiredTitleLbl!)
-            
-            expiredDateLbl = UILabel(frame: CGRect(x: xpos, y: (ypos + 15), width:width, height:14))
-            expiredDateLbl!.text = (model as! BNGift).expirationDate!.bnDisplayDateFormatt()
-            expiredDateLbl!.textColor = UIColor.bnGrayDark()
-            expiredDateLbl!.font = UIFont(name: "Lato-Black", size: 14)
-            expiredDateLbl!.textAlignment = NSTextAlignment.Center
-            self.addSubview(expiredDateLbl!)
-            
-            ypos = line.frame.origin.y
-            xpos = width
-            width = (frame.width * 0.45)
-        } else {
-            xpos = 0
-            width = (frame.width * 0.8)
-        }
+        xpos = 5
+        sitesBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width:SharedUIManager.instance.giftView_imageSize, height: 25))
+        sitesBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
+        sitesBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 10)
+        sitesBtn!.titleLabel!.numberOfLines = 0
+        sitesBtn!.setTitle(NSLocalizedString("GiftShowSites", comment: "GiftShowSites"), forState: UIControlState.Normal)
+        sitesBtn!.backgroundColor = UIColor.whiteColor()
+        sitesBtn!.layer.cornerRadius = 3
+        sitesBtn!.layer.borderColor = decorationColor!.CGColor
+        sitesBtn!.layer.borderWidth = 0.5
+        self.addSubview(sitesBtn!)
         
-        actionBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight))
-        actionBtn!.titleLabel!.numberOfLines = 0
-        actionBtn!.titleLabel!.textAlignment = NSTextAlignment.Center
-        actionBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 16)
-        actionBtn!.setTitleColor(UIColor.bnGrayDark(), forState: UIControlState.Normal)
-        updateActionBtnStatus()
+        shareBtn = UIButton(frame: CGRect(x: xpos, y: (ypos + 30), width:SharedUIManager.instance.giftView_imageSize, height: 25))
+        shareBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
+        shareBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 10)
+        shareBtn!.titleLabel!.numberOfLines = 0
+        shareBtn!.setTitle("Enviar a amigo", forState: UIControlState.Normal)
+        shareBtn!.backgroundColor = UIColor.whiteColor()
+        shareBtn!.layer.cornerRadius = 3
+        shareBtn!.layer.borderColor = decorationColor!.CGColor
+        shareBtn!.layer.borderWidth = 0.5
+        self.addSubview(shareBtn!)
+        
+        xpos += (SharedUIManager.instance.giftView_imageSize + 5)
+        width = (frame.width - (xpos + 5))
+        actionBtn = BNUIButton_Gift(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight), hasExpiration:(model as! BNGift).hasExpirationDate, color: decorationColor)
         self.addSubview(actionBtn!)
     }
     

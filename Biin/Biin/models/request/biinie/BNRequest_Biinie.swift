@@ -81,6 +81,8 @@ class BNRequest_Biinie: BNRequest {
                                 gift.status = BNParser.findBNGiftStatue("status", dictionary: giftData)
                                 gift.receivedDate = BNParser.findNSDateWithBiinFormat("receivedDate", dictionary: giftData)
                                 gift.hasExpirationDate = BNParser.findBool("hasExpirationDate", dictionary: giftData)
+                                gift.primaryColor = BNParser.findUIColor("primaryColor", dictionary: giftData)
+                                gift.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary: giftData)
                                 
                                 if gift.hasExpirationDate {
                                     gift.expirationDate = BNParser.findNSDateWithBiinFormat("expirationDate", dictionary: giftData)

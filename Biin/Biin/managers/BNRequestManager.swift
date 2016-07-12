@@ -39,6 +39,8 @@ class BNRequestManager: NSObject {
         case .Login_Facebook: self.networkManager!.login_Facebook_Completed()
         case .Register, .Register_Facebook, .SendBiinie: self.networkManager!.register_Completed()
         case .SendBiinie_Update: self.networkManager!.sendBiinie_Update_Completed()
+        case .SendClaimedGift: self.networkManager!.sendClaimedGift_Completed()
+        case .SendRefusedGift: self.networkManager!.sendRefusedGift_Completed()
         default:
             break
         }
@@ -80,6 +82,10 @@ class BNRequestManager: NSObject {
             request.reset()
             self.networkManager!.internet_Failed()
         break
+        case .SendClaimedGift_Failed:
+            break
+        case .SendRefusedGift_Failed:
+            break
         case .DoNotShowError:
             request.clean()
             removeRequestFromQueue(request.identifier)

@@ -150,6 +150,22 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         self.requests[request.identifier] = request
     }
     
+    func sendClaimedGift_Completed(){
+        
+    }
+    
+    func sendClaimedGift_Failed(){
+        
+    }
+    
+    func sendRefusedGift_Completed() {
+        
+    }
+    
+    
+    func sendRefusedGift_Failed() {
+        
+    }
     
     /**
     Enable biinie to login.
@@ -331,14 +347,6 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    func requestGiftsForBiinie(biinie:Biinie?) {
-        
-    }
-    
-    func requestGiftData(gift:BNGift?){
-        
-    }
-    
     func sendSurvey(biinie: Biinie?, site: BNSite?, rating:Int, comment:String) {
         let request = BNRequest_SendSurvey(requestString: "\(rootURL)/mobile/rating/site", errorManager: self.errorManager!, networkManager: self, site: site, rating: rating, comment: comment, biinie: biinie)
         
@@ -361,6 +369,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         } else {
             epsNetwork!.getImageInCache(stringUrl, image: image)
         }
+    }
+    
+    func sendClaimedGift(gift:BNGift?) {
+        let request = BNRequest_SendClaimedGift(requestString: "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.biinie!.identifier!)/gifts/claim", errorManager: self.errorManager!, networkManager: self, gift: gift)
+        addToQueue(request)
+    }
+    
+    func sendRefusedGift(gift:BNGift?){
+        let request = BNRequest_SendRefusedGift(requestString: "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.biinie!.identifier!)/gifts/refuse", errorManager: self.errorManager!, networkManager: self, gift: gift)
+        addToQueue(request)
     }
     
     func resume(){

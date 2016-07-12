@@ -42,7 +42,7 @@ class GiftsView: BNView, GiftView_Delegate {
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.textColor = UIColor.whiteColor()
+        title!.textColor = UIColor.appTitleColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
@@ -51,7 +51,7 @@ class GiftsView: BNView, GiftView_Delegate {
         self.addSubview(backBtn!)
         
         ypos = SharedUIManager.instance.mainView_HeaderSize
-        self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 5, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
+        self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
         
         elementContainers = Array<MainView_Container_Elements>()
@@ -60,11 +60,11 @@ class GiftsView: BNView, GiftView_Delegate {
     
     func updateGifts(){
         
-        self.scroll!.leftSpace = 5
+        self.scroll!.leftSpace = 0
         
         if let biinie = BNAppSharedManager.instance.dataManager.biinie {
             for gift in biinie.gifts {
-                let giftView = GiftView(frame: CGRectMake(0, 0, (SharedUIManager.instance.screenWidth - 10), SharedUIManager.instance.giftView_height) , father: self, gift: gift)
+                let giftView = GiftView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.giftView_height) , father: self, gift: gift)
                 giftView.delegate = self
                 scroll!.addChild(giftView)
             }
@@ -139,6 +139,21 @@ class GiftsView: BNView, GiftView_Delegate {
     
     func resizeScrollOnRemoved(view: GiftView) {
         self.scroll!.removeChildByIdentifier(view.model!.identifier!)
+    }
+    
+    func updateGifts(siteIdentifier:String?){
+        for giftView in self.scroll!.children {
+            if let gift = (giftView as! GiftView).model {
+                for site in (gift as! BNGift).sites! {
+                    if site == siteIdentifier {
+                        //Send local notification
+                        (giftView as! GiftView).updateToClaimNow()
+                    } else {
+                        (giftView as! GiftView).updateActionBtnStatus()
+                    }
+                }
+            }
+        }
     }
 }
 
