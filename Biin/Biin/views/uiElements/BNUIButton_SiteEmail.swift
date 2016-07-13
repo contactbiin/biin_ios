@@ -16,6 +16,6 @@ class BNUIButton_SiteEmail:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_SiteEmailButton(color: UIColor.bnGrayLight(), position: CGPointMake(7, 9))
+        icon = BNIcon_SiteEmailButton(color: UIColor.grayColor(), position: CGPointMake(7, 9))
     }
 }

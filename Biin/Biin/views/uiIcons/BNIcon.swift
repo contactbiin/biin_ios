@@ -37,7 +37,6 @@ enum BNIconType {
     case leftArrowSmall//done
     case leftArrowMedium
     case leftArrowLarge
-    case loyaltyMedium
     case maleSmall
     case menuMedium
     case notification
