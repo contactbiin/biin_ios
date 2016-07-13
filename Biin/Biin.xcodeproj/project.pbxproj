@@ -14,6 +14,8 @@
 		5B3FF41F1D3414F9007DF426 /* BNUIButton_Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */; };
 		5B6250471D35AAC900368796 /* MainView_Container_OptionsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6250461D35AAC900368796 /* MainView_Container_OptionsBar.swift */; };
 		5B7ACDD61D2F6485005465B8 /* BNBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */; };
+		5BAFF9961D36AB450033A66D /* BNIcon_Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAFF9951D36AB450033A66D /* BNIcon_Gift.swift */; };
+		5BAFF9981D36B4CE0033A66D /* BNUIButton_OptionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAFF9971D36B4CE0033A66D /* BNUIButton_OptionBar.swift */; };
 		5BC48A311D2B0D7C00F191CE /* GiftsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC48A301D2B0D7C00F191CE /* GiftsState.swift */; };
 		5BD1F8841D28A00F0067164F /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7851D28A00E0067164F /* AboutView.swift */; };
 		5BD1F8851D28A00F0067164F /* BiinItAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7871D28A00E0067164F /* BiinItAnimationView.swift */; };
@@ -198,14 +200,13 @@
 		5BD1F93D1D28A00F0067164F /* BNIcon_LikeIt_Full.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8591D28A00F0067164F /* BNIcon_LikeIt_Full.swift */; };
 		5BD1F93E1D28A00F0067164F /* BNIcon_LoyaltiesMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F85A1D28A00F0067164F /* BNIcon_LoyaltiesMedium.swift */; };
 		5BD1F93F1D28A00F0067164F /* BNIcon_MaleSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F85B1D28A00F0067164F /* BNIcon_MaleSmall.swift */; };
-		5BD1F9401D28A00F0067164F /* BNIcon_MenuMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F85C1D28A00F0067164F /* BNIcon_MenuMedium.swift */; };
+		5BD1F9401D28A00F0067164F /* BNIcon_Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F85C1D28A00F0067164F /* BNIcon_Menu.swift */; };
 		5BD1F9411D28A00F0067164F /* BNIcon_MiniBiin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F85D1D28A00F0067164F /* BNIcon_MiniBiin.swift */; };
 		5BD1F9421D28A00F0067164F /* BNIcon_More.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F85E1D28A00F0067164F /* BNIcon_More.swift */; };
 		5BD1F9431D28A00F0067164F /* BNIcon_MoviesMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F85F1D28A00F0067164F /* BNIcon_MoviesMedium.swift */; };
 		5BD1F9441D28A00F0067164F /* BNIcon_MusicMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8601D28A00F0067164F /* BNIcon_MusicMedium.swift */; };
 		5BD1F9451D28A00F0067164F /* BNIcon_NoBiinAvailableSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8611D28A00F0067164F /* BNIcon_NoBiinAvailableSign.swift */; };
 		5BD1F9461D28A00F0067164F /* BNIcon_NotificationMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8621D28A00F0067164F /* BNIcon_NotificationMedium.swift */; };
-		5BD1F9471D28A00F0067164F /* BNIcon_NotificationsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8631D28A00F0067164F /* BNIcon_NotificationsMedium.swift */; };
 		5BD1F9481D28A00F0067164F /* BNIcon_OutdoorsMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8641D28A00F0067164F /* BNIcon_OutdoorsMedium.swift */; };
 		5BD1F9491D28A00F0067164F /* BNIcon_Percentage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8651D28A00F0067164F /* BNIcon_Percentage.swift */; };
 		5BD1F94A1D28A00F0067164F /* BNIcon_PersonalCareMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8661D28A00F0067164F /* BNIcon_PersonalCareMedium.swift */; };
@@ -358,6 +359,8 @@
 		5B5C5CDA1D2DDB94009E6A44 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		5B6250461D35AAC900368796 /* MainView_Container_OptionsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView_Container_OptionsBar.swift; sourceTree = "<group>"; };
 		5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNBadgeView.swift; sourceTree = "<group>"; };
+		5BAFF9951D36AB450033A66D /* BNIcon_Gift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Gift.swift; sourceTree = "<group>"; };
+		5BAFF9971D36B4CE0033A66D /* BNUIButton_OptionBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_OptionBar.swift; sourceTree = "<group>"; };
 		5BC48A301D2B0D7C00F191CE /* GiftsState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsState.swift; sourceTree = "<group>"; };
 		5BD1F7851D28A00E0067164F /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		5BD1F7871D28A00E0067164F /* BiinItAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinItAnimationView.swift; sourceTree = "<group>"; };
@@ -542,14 +545,13 @@
 		5BD1F8591D28A00F0067164F /* BNIcon_LikeIt_Full.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LikeIt_Full.swift; sourceTree = "<group>"; };
 		5BD1F85A1D28A00F0067164F /* BNIcon_LoyaltiesMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LoyaltiesMedium.swift; sourceTree = "<group>"; };
 		5BD1F85B1D28A00F0067164F /* BNIcon_MaleSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MaleSmall.swift; sourceTree = "<group>"; };
-		5BD1F85C1D28A00F0067164F /* BNIcon_MenuMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MenuMedium.swift; sourceTree = "<group>"; };
+		5BD1F85C1D28A00F0067164F /* BNIcon_Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Menu.swift; sourceTree = "<group>"; };
 		5BD1F85D1D28A00F0067164F /* BNIcon_MiniBiin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MiniBiin.swift; sourceTree = "<group>"; };
 		5BD1F85E1D28A00F0067164F /* BNIcon_More.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_More.swift; sourceTree = "<group>"; };
 		5BD1F85F1D28A00F0067164F /* BNIcon_MoviesMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MoviesMedium.swift; sourceTree = "<group>"; };
 		5BD1F8601D28A00F0067164F /* BNIcon_MusicMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_MusicMedium.swift; sourceTree = "<group>"; };
 		5BD1F8611D28A00F0067164F /* BNIcon_NoBiinAvailableSign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NoBiinAvailableSign.swift; sourceTree = "<group>"; };
 		5BD1F8621D28A00F0067164F /* BNIcon_NotificationMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NotificationMedium.swift; sourceTree = "<group>"; };
-		5BD1F8631D28A00F0067164F /* BNIcon_NotificationsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_NotificationsMedium.swift; sourceTree = "<group>"; };
 		5BD1F8641D28A00F0067164F /* BNIcon_OutdoorsMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_OutdoorsMedium.swift; sourceTree = "<group>"; };
 		5BD1F8651D28A00F0067164F /* BNIcon_Percentage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Percentage.swift; sourceTree = "<group>"; };
 		5BD1F8661D28A00F0067164F /* BNIcon_PersonalCareMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_PersonalCareMedium.swift; sourceTree = "<group>"; };
@@ -1080,6 +1082,7 @@
 				5BD1F80D1D28A00F0067164F /* BNUIButton_LikeIt.swift */,
 				5BD1F80E1D28A00F0067164F /* BNUIButton_Loging.swift */,
 				5BD1F80F1D28A00F0067164F /* BNUIButton_Menu.swift */,
+				5BAFF9971D36B4CE0033A66D /* BNUIButton_OptionBar.swift */,
 				5BD1F8101D28A00F0067164F /* BNUIButton_More.swift */,
 				5BD1F8111D28A00F0067164F /* BNUIButton_NotificationGo.swift */,
 				5BD1F8121D28A00F0067164F /* BNUIButton_RemoveIt.swift */,
@@ -1164,14 +1167,14 @@
 				5BD1F8591D28A00F0067164F /* BNIcon_LikeIt_Full.swift */,
 				5BD1F85A1D28A00F0067164F /* BNIcon_LoyaltiesMedium.swift */,
 				5BD1F85B1D28A00F0067164F /* BNIcon_MaleSmall.swift */,
-				5BD1F85C1D28A00F0067164F /* BNIcon_MenuMedium.swift */,
+				5BD1F85C1D28A00F0067164F /* BNIcon_Menu.swift */,
+				5BAFF9951D36AB450033A66D /* BNIcon_Gift.swift */,
 				5BD1F85D1D28A00F0067164F /* BNIcon_MiniBiin.swift */,
 				5BD1F85E1D28A00F0067164F /* BNIcon_More.swift */,
 				5BD1F85F1D28A00F0067164F /* BNIcon_MoviesMedium.swift */,
 				5BD1F8601D28A00F0067164F /* BNIcon_MusicMedium.swift */,
 				5BD1F8611D28A00F0067164F /* BNIcon_NoBiinAvailableSign.swift */,
 				5BD1F8621D28A00F0067164F /* BNIcon_NotificationMedium.swift */,
-				5BD1F8631D28A00F0067164F /* BNIcon_NotificationsMedium.swift */,
 				5BD1F8641D28A00F0067164F /* BNIcon_OutdoorsMedium.swift */,
 				5BD1F8651D28A00F0067164F /* BNIcon_Percentage.swift */,
 				5BD1F8661D28A00F0067164F /* BNIcon_PersonalCareMedium.swift */,
@@ -1620,7 +1623,6 @@
 				5BD1F95D1D28A00F0067164F /* BNIcon_SportMedium.swift in Sources */,
 				5BD1F9161D28A00F0067164F /* BNView_NoBiinAvailableSign.swift in Sources */,
 				5BD1F8961D28A00F0067164F /* HardwareErrorView.swift in Sources */,
-				5BD1F9471D28A00F0067164F /* BNIcon_NotificationsMedium.swift in Sources */,
 				5BD1F9291D28A00F0067164F /* BNIcon_EmailMedium.swift in Sources */,
 				5BD1F8FE1D28A00F0067164F /* BNUICircle.swift in Sources */,
 				5BEC1EED1D287DCA00D7B931 /* ErrorViewController.swift in Sources */,
@@ -1662,6 +1664,7 @@
 				5BD1F8E41D28A00F0067164F /* BNUIBiinView.swift in Sources */,
 				5BEC1E9B1D287DCA00D7B931 /* BNOrganization.swift in Sources */,
 				5BD1F9461D28A00F0067164F /* BNIcon_NotificationMedium.swift in Sources */,
+				5BAFF9981D36B4CE0033A66D /* BNUIButton_OptionBar.swift in Sources */,
 				5BD1F8C21D28A00F0067164F /* SiteView_Showcase.swift in Sources */,
 				5BD1F9421D28A00F0067164F /* BNIcon_More.swift in Sources */,
 				5BD1F90A1D28A00F0067164F /* BNUINotificationView_RedCircle.swift in Sources */,
@@ -1671,6 +1674,7 @@
 				5BD1F8EB1D28A00F0067164F /* BNUIButton_Category.swift in Sources */,
 				5BEC1E8E1D287DCA00D7B931 /* BNCategory.swift in Sources */,
 				5BEC1E891D287DCA00D7B931 /* BNAchievement.swift in Sources */,
+				5BAFF9961D36AB450033A66D /* BNIcon_Gift.swift in Sources */,
 				5BD1F8FC1D28A00F0067164F /* BNUIButton_Social.swift in Sources */,
 				5BD1F9111D28A00F0067164F /* BNUITexfield_Center.swift in Sources */,
 				5BD1F94E1D28A00F0067164F /* BNIcon_PricingBig.swift in Sources */,
@@ -1720,7 +1724,7 @@
 				5BD1F9511D28A00F0067164F /* BNIcon_RightArrowSmall.swift in Sources */,
 				5BD1F95E1D28A00F0067164F /* BNIcon_TechnologyMedium.swift in Sources */,
 				5BD1F9141D28A00F0067164F /* BNUIWarningView.swift in Sources */,
-				5BD1F9401D28A00F0067164F /* BNIcon_MenuMedium.swift in Sources */,
+				5BD1F9401D28A00F0067164F /* BNIcon_Menu.swift in Sources */,
 				5BD1F8F51D28A00F0067164F /* BNUIButton_More.swift in Sources */,
 				5BD1F94A1D28A00F0067164F /* BNIcon_PersonalCareMedium.swift in Sources */,
 				5BD1F8891D28A00F0067164F /* BiinieCategoriesView_Icon.swift in Sources */,

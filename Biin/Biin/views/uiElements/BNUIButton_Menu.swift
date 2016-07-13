@@ -43,6 +43,15 @@ class BNUIButton_Menu:BNUIButton {
     
     override func createIcon(){
         switch iconType {
+        case .menuMedium:
+            icon = BNIcon_Menu(color: UIColor.bnGrayLight(), position: CGPointMake(2, 4))
+            break
+        case .gift:
+            icon = BNIcon_Gift(color: UIColor.bnGrayLight(), position: CGPointMake(2, 2))
+            break
+        case .notification:
+            icon = BNIcon_Notification(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
+            break
         case .profileMedium:
             icon = BNIcon_ProfileMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 7))
             break
@@ -54,12 +63,6 @@ class BNUIButton_Menu:BNUIButton {
             break
         case .loyaltyMedium:
             icon = BNIcon_LoyaltiesMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 7))
-            break
-        case .notificationMedium:
-            icon = BNIcon_NotificationMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 8))
-            break
-        case .menuMedium:
-            icon = BNIcon_MenuMedium(color: UIColor.blackColor(), position: CGPointMake(2, 4))
             break
         case .friendsMedium:
             icon = BNIcon_FriendsMedium(color: UIColor.appButtonColor(), position: CGPointMake(35, 7))

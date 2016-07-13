@@ -51,9 +51,7 @@ enum BNIconType {
     case loyaltyMedium
     case maleSmall
     case menuMedium
-    case notificationSmall
-    case notificationMedium
-    case notificationLarge
+    case notification
     case phoneMedium
     case profileMedium//Done
     case shareItButton
@@ -68,5 +66,6 @@ enum BNIconType {
     case smileMedium //done
     case smileLarge
     case x_small
+    case gift
 
 }

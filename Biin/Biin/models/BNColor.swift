@@ -292,5 +292,9 @@ extension UIColor {
     class func bnGradientColor2() -> UIColor {
         return UIColor(red: 255/255, green: 240/255, blue: 240/255, alpha: 1)
     }
+    
+    class func bnOptionBarIconColor() -> UIColor! {
+        return UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+    }
 }
 

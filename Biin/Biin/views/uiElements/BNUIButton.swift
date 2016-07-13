@@ -43,9 +43,6 @@ class BNUIButton:UIButton {
     
     func createIcon(){
         switch iconType {
-        case .notificationMedium:
-            icon = BNIcon_NotificationMedium(color: UIColor.appIconColor(), position: CGPointMake(8, 8))
-            break
         case .searchMedium:
             icon = BNIcon_SearchMedium(color: UIColor.appIconColor(), position: CGPointMake(9, 8))
             break

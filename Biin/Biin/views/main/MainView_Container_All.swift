@@ -52,7 +52,7 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
         
-        header = MainView_Container_OptionsBar(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
+        header = MainView_Container_OptionsBar(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.mainView_OptionsBarHeight + 20)), screenWidth, SharedUIManager.instance.mainView_OptionsBarHeight), father: self)
         self.addSubview(header!)
         
 //        fade = UIView(frame: frame)
