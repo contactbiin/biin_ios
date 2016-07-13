@@ -55,12 +55,6 @@ class BNUIButton_Menu:BNUIButton {
         case .profileMedium:
             icon = BNIcon_ProfileMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 7))
             break
-        case .homeMedium:
-            icon = BNIcon_HomeMedium(color: UIColor.appButtonColor(), position: CGPointMake(35, 7))
-            break
-        case .collectionMedium:
-            icon = BNIcon_CollectionsMedium(color: UIColor.appButtonColor(), position: CGPointMake(35, 6))
-            break
         case .loyaltyMedium:
             icon = BNIcon_LoyaltiesMedium(color: UIColor.appButtonColor(), position: CGPointMake(37, 7))
             break

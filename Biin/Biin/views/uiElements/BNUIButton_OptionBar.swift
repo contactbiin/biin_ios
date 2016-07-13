@@ -28,7 +28,7 @@ class BNUIButton_OptionBar:BNUIButton {
         
         label = UILabel(frame: CGRectMake((-10), (frame.height - 2), (frame.width + 20), 10))
         label!.text = text
-        label!.textColor = UIColor.whiteColor()
+        label!.textColor = UIColor.bnOptionBarIconColor()
         label!.font = UIFont(name: "Lato-Black", size: 8)
         label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)

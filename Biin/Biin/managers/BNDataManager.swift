@@ -578,7 +578,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         if self.biinie != nil {
             
-            biinie!.gifts_store.removeAll()
+            //biinie!.gifts_store.removeAll()
             
             for gift in user!.gifts {
                 if !isGiftStored(gift.identifier!) {

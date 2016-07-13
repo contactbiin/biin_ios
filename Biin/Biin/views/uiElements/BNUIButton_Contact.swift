@@ -53,9 +53,6 @@ class BNUIButton_Contact:BNUIButton {
         case .emailMedium:
             icon = BNIcon_EmailMedium(color: UIColor.appMainColor(), position: CGPointMake(((frame.width / 2) - 50), 14))
             break
-        case .commentMedium:
-            icon = BNIcon_CommentMedium(color: UIColor.appMainColor(), position: CGPointMake(((frame.width / 2) - 50), 12))
-            break
         default:
             break
         }

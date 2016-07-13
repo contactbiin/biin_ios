@@ -7,8 +7,7 @@ import Foundation
 import UIKit
 
 class ElementMiniView_Header:BNView {
-    
-    var buttonsView:SocialButtonsView?
+
     var circleLabel:BNUICircleLabel?
     var containerView:UIView?
     var elementPosition:Int?
@@ -53,9 +52,7 @@ class ElementMiniView_Header:BNView {
         
         let ypos:CGFloat = 5
         var xpos:CGFloat = 5
-        buttonsView = SocialButtonsView(frame: CGRectMake(0, ypos, frame.width, 15), father: self, element: element)
-        //self.addSubview(buttonsView!)
-        
+
         if showCircle {
             circleLabel = BNUICircleLabel(frame: CGRectMake(xpos, ypos, 25, 25), color:element!.media[0].vibrantColor!, text: "\(elementPosition)", textSize: 14, isFilled: false)
             self.addSubview(circleLabel!)
@@ -122,7 +119,6 @@ class ElementMiniView_Header:BNView {
     }
     
     override func clean() {
-        buttonsView?.removeFromSuperview()
         circleLabel?.removeFromSuperview()
         containerView?.removeFromSuperview()
     }
