@@ -67,8 +67,8 @@ class MainView_Container_OptionsBar: BNView {
     //Instance Methods
     func addButtons(){
         
-        var xpos:CGFloat = 15
-        let ypos:CGFloat = 7
+        var xpos:CGFloat = 20
+        let ypos:CGFloat = 12
         showMenuBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: "Menu", iconType: BNIconType.menuMedium)
         showMenuBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showMenuBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
@@ -85,12 +85,12 @@ class MainView_Container_OptionsBar: BNView {
         
         xpos += 75
         showNotificationsBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: "Notifications", iconType: BNIconType.notification)
-        showNotificationsBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showGiftsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        showNotificationsBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showNotificationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showNotificationsBtn!)
         
         showNotificationsBtn_Badge = BNBadgeView(position: CGPoint(x:15, y: -2), size: 20)
         showNotificationsBtn!.addSubview(showNotificationsBtn_Badge!)
-        showNotificationsBtn_Badge!.update(0)
+        showNotificationsBtn_Badge!.update(5)
     }
     
     override func clean(){

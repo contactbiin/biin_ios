@@ -6,9 +6,9 @@
 import Foundation
 import UIKit
 
-class NotificationsView_Notification: BNView {
+class NotificationView: BNView {
     
-    var delegate:NotificationsView_Notification_Delegate?
+    var delegate:NotificationView_Delegate?
     
     var notificationAvatarView:UIView?
     var notificationAvatar:BNUIImageView?
@@ -18,10 +18,6 @@ class NotificationsView_Notification: BNView {
     var removeBtn:BNUIButton_RemoveIt?
     
     weak var notification:BNNotification?
-    
-//    override init() {
-//        super.init()
-//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,6 +98,6 @@ class NotificationsView_Notification: BNView {
     }
 }
 
-@objc protocol NotificationsView_Notification_Delegate:NSObjectProtocol {
+@objc protocol NotificationView_Delegate:NSObjectProtocol {
     optional func resizeScrollOnRemoved(identifier:Int)
 }

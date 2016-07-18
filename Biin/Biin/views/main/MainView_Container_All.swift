@@ -199,6 +199,10 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
         (father as! MainView).setNextState(BNGoto.Gifts)
     }
     
+    func showNotificationBtnAction(sender:BNUIButton) {
+        (father as! MainView).setNextState(BNGoto.Notifications)
+    }
+    
     override func transitionIn() {
         
 //        UIView.animateWithDuration(0.5, animations: {()->Void in

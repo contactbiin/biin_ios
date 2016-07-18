@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class NotificationsView: BNView, NotificationsView_Notification_Delegate {
+class NotificationsView: BNView, NotificationView_Delegate {
     
     var delegate:NotificationsView_Delegate?
     var title:UILabel?
@@ -19,7 +19,7 @@ class NotificationsView: BNView, NotificationsView_Notification_Delegate {
     
     var scroll:BNScroll?
     
-    var notifications = Array<NotificationsView_Notification>()
+    var notifications = Array<NotificationView>()
 
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
