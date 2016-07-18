@@ -3,6 +3,8 @@
 //  Created by Esteban Padilla on 6/8/16.
 //  Copyright © 2016 Esteban Padilla. All rights reserved.
 
+// This class is only to store information about the notices trigger by the ibeacons.
+
 import Foundation
 
 class BNNotice:NSObject, NSCoding {

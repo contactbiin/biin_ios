@@ -29,7 +29,7 @@ class BNUIButton_Gift:BNUIButton {
         self.layer.cornerRadius  = 3
         self.layer.masksToBounds = true
         
-        let height:CGFloat = 10
+        let height:CGFloat = 12
         var ypos:CGFloat = ((frame.height - height) / 2)
         
         if hasExpiration {

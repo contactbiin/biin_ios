@@ -159,6 +159,11 @@ class UIManager {
     var giftView_height:CGFloat = 210
     var giftView_imageSize:CGFloat = 140
     var giftView_bottomHeight:CGFloat = 55
+
+    var notificationView_height:CGFloat = 90
+    var notificationView_imageSize:CGFloat = 80
+    var notificationView_TitleSize:CGFloat = 18
+    var notificationView_TextSize:CGFloat = 13
     
     func setDeviceVariables(){
         

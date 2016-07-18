@@ -296,5 +296,13 @@ extension UIColor {
     class func bnOptionBarIconColor() -> UIColor! {
         return UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
     }
+    
+    class func bnShareGiftColor() -> UIColor! {
+        return UIColor(red: 106/255, green: 106/255, blue: 106/255, alpha: 1)
+    }
+    
+    class func bnGiftStoresColor() -> UIColor! {
+        return UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
+    }
 }
 

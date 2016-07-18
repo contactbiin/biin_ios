@@ -11,6 +11,7 @@ class BNNotificationManager:NSObject, NSCoding {
     var currentNotification:BNLocalNotification?
     var localNotifications:[BNLocalNotification] = [BNLocalNotification]()
     var lastNotificationObjectId:String = ""
+    
     var didSendNotificationOnAppDown = false
     var surveyed_Sites:[String] = [String]()
     var currentDay:NSDate?

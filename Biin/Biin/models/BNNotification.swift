@@ -3,6 +3,7 @@
 //  Created by Esteban Padilla on 11/27/14.
 //  Copyright (c) 2014 Biin. All rights reserved.
 
+//  Use this class to store information about the notification received on the app.
 import Foundation
 
 struct BNNotificationData
@@ -15,23 +16,21 @@ class BNNotification:NSObject {
     var identifier:Int = 1
     var title:String?
     var text:String?
-    weak var biin:BNBiin?
     var notificationType:BNNotificationType?
-    var time:NSDate?
+    var receivedDate:NSDate?
     var isViewed = false
     
     override init(){
         super.init()
     }
     
-    convenience init(title:String, text:String, biin:BNBiin, notificationType:BNNotificationType, time:NSDate){
+    convenience init(title:String, text:String, notificationType:BNNotificationType, receivedDate:NSDate){
         self.init()
         //self.identifier = BNNotificationData.notificationCounter += 1
         self.title = title
         self.text = text
-        self.biin = biin
         self.notificationType = notificationType
-        self.time = time
+        self.receivedDate = receivedDate
         //let timestamp = NSDateFormatter.localizedStringFromDate(time, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
     }
     
@@ -41,6 +40,7 @@ class BNNotification:NSObject {
 }
 
 enum BNNotificationType {
+    case NONE
     case STIMULUS
     case ENGAGE
     case CONVERT

@@ -166,14 +166,14 @@ class BNAppManager {
         dataManager.applyShareElement(element)
     }
     
-    func processNotification(notification:BNNotification){
-        areNewNotificationsPendingToShow = true
-        dataManager.biinie!.newNotificationCount! += 1
-        dataManager.biinie!.notificationIndex! = notification.identifier
-
-        //Notify main view to show circle
-        delegate!.manager!(showNotifications: true)
-    }
+//    func processNotification(notification:BNNotification){
+//        areNewNotificationsPendingToShow = true
+//        dataManager.biinie!.newNotificationCount! += 1
+//        dataManager.biinie!.notificationIndex! = notification.identifier
+//
+//        //Notify main view to show circle
+//        delegate!.manager!(showNotifications: true)
+//    }
     
     func runningInBackground()->Bool {
         let state = UIApplication.sharedApplication().applicationState

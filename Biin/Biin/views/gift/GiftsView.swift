@@ -17,6 +17,8 @@ class GiftsView: BNView, GiftView_Delegate {
     var elementContainers:Array <MainView_Container_Elements>?
     var scroll:BNScroll?
     
+    weak var lastViewOpen:GiftView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -134,7 +136,9 @@ class GiftsView: BNView, GiftView_Delegate {
     
     func backBtnAction(sender:UIButton) {
         delegate!.hideGiftsView!()
-        //delegate!.hideElementView!(elementMiniView)
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
     }
     
     func resizeScrollOnRemoved(view: GiftView) {
@@ -154,6 +158,19 @@ class GiftsView: BNView, GiftView_Delegate {
                 }
             }
         }
+    }
+    
+    func hideOtherViewsOpen(view: GiftView) {
+        
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
+        
+        lastViewOpen = view
+    }
+    
+    func removeFromOtherViewsOpen(view: GiftView) {
+        lastViewOpen = nil
     }
 }
 

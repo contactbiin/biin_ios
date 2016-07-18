@@ -19,8 +19,9 @@ class NotificationsView: BNView, NotificationView_Delegate {
     
     var scroll:BNScroll?
     
-    var notifications = Array<NotificationView>()
-
+//    var notifications = Array<NotificationView>()
+    weak var lastViewOpen:NotificationView?
+    
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
@@ -43,14 +44,12 @@ class NotificationsView: BNView, NotificationView_Delegate {
         backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
-        
+
         ypos = SharedUIManager.instance.mainView_HeaderSize
-        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.lightGrayColor()
+        self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
+        self.addSubview(scroll!)
         
-        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
-        //self.addSubview(scroll!)
-        self.addSubview(line)
+        addNotifications()
     }
     
     convenience init(frame:CGRect, father:BNView?, site:BNSite?){
@@ -104,47 +103,52 @@ class NotificationsView: BNView, NotificationView_Delegate {
     //Instance Methods
     func backBtnAction(sender:UIButton) {
         delegate!.hideNotificationsView!()
-        //delegate!.hideElementView!(elementMiniView)
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
     }
     
     func addNotifications(){
-        /*
-        if notifications.count > 0 {
-            for value in notifications {
-                value.removeFromSuperview()
-            }
-            
-            notifications.removeAll(keepCapacity: false)
-        }
+        
+//        if notifications.count > 0 {
+//            for value in notifications {
+//                value.removeFromSuperview()
+//            }
+//            
+//            notifications.removeAll(keepCapacity: false)
+//        }
 
-        var ypos:CGFloat = 5
-        var height:CGFloat = 60
+        //var ypos:CGFloat = 5
+        //let height:CGFloat = 60
         
-        BNAppSharedManager.instance.notificationManager.notifications = sorted(BNAppSharedManager.instance.notificationManager.notifications){ $0.identifier > $1.identifier }
+        //BNAppSharedManager.instance.notificationManager.notifications = sorted(BNAppSharedManager.instance.notificationManager.notifications){ $0.identifier > $1.identifier }
         
-        
-        for value in BNAppSharedManager.instance.notificationManager.notifications {
+        for i in (0..<6) {
+        //for value in BNAppSharedManager.instance.notificationManager.notifications {
             
             //if notifications[key] == nil {
-                var notification = NotificationsView_Notification(frame: CGRectMake(5, ypos, (SharedUIManager.instance.screenWidth - 10), height), father: self, notification: value)
-                notification.delegate = self
-                self.scroll!.addSubview(notification)
-                self.notifications.append(notification)
-                
-                ypos += height
-                ypos += 5
+                print("\(i)")
+                let notification = BNNotification(title: "Retira tu alfajor gratis", text: "La proxima vez que nos visites, solicita un alfajor gratis en cualquiera de nuestras sucursales participantes. Reclamalo en la tienda.", notificationType: BNNotificationType.NONE, receivedDate: NSDate())
+            
+                let notificationView = NotificationView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.notificationView_height), father: self, notification:notification )
+                notificationView.delegate = self
+                self.scroll!.addChild(notificationView)
+//                self.notifications.append(notificationView)
+            
+//                ypos += height
+//                ypos += 5
             //}
         }
+        self.scroll!.setChildrenPosition()
+//        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-*/
     }
     
     
     func resizeScrollOnRemoved(identifier: Int) {
         
         //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
-        
+        /*
         var startPosition = 0
         for i in (0..<notifications.count){
 //        for var i = 0; i < notifications.count; i++ {
@@ -170,7 +174,7 @@ class NotificationsView: BNView, NotificationView_Delegate {
         
         ypos += 5
 //        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-
+*/
     }
     
     
@@ -214,7 +218,18 @@ class NotificationsView: BNView, NotificationView_Delegate {
         
     //}
 
+    func hideOtherViewsOpen(view: NotificationView) {
+        
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
+        
+        lastViewOpen = view
+    }
     
+    func removeFromOtherViewsOpen(view: NotificationView) {
+        lastViewOpen = nil
+    }
 }
 
 @objc protocol NotificationsView_Delegate:NSObjectProtocol {
