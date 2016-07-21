@@ -282,6 +282,7 @@ class GiftView: BNView {
     }
 
     func removeBtnAction(sender:UIButton){
+        BNAppSharedManager.instance.networkManager.sendRefusedGift((self.model as! BNGift))
         self.delegate!.resizeScrollOnRemoved!(self)
     }
     
