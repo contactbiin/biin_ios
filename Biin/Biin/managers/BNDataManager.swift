@@ -565,29 +565,30 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         BNAppSharedManager.instance.settings!.clear()
     }
     
-    func isGiftStored(identifier:String) ->Bool{
-        for gift in biinie!.gifts_store {
-            if gift == identifier {
-                return true
-            }
-        }
-        return false
-    }
+//    func isGiftStored(identifier:String) ->Bool{
+//        for gift in biinie!.gifts_store {
+//            if gift == identifier {
+//                return true
+//            }
+//        }
+//        return false
+//    }
 
     func didReceivedBiinieData(user: Biinie?) {
         
         if self.biinie != nil {
             
             //TODO: Temporal hack to show notifications.
-            biinie!.gifts_store.removeAll()
+            //biinie!.gifts_store.removeAll()
             
-            for gift in user!.gifts {
-                if !isGiftStored(gift.identifier!) {
-                    user!.newGiftCounter += 1
-                    user!.gifts_store.append(gift.identifier!)
-                }
-            }
+//            for gift in user!.gifts {
+//                if !isGiftStored(gift.identifier!) {
+//                    //user!.newGiftCounter += 1
+//                    user!.gifts_store.append(gift.identifier!)
+//                }
+//            }
             
+            user!.notifications = self.biinie!.notifications
             user!.token = self.biinie!.token
             user!.needsTokenUpdate = self.biinie!.needsTokenUpdate
             self.biinie = user

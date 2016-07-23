@@ -239,21 +239,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Print full message.
         //print("%@", userInfo)
         
-        
-        for object in userInfo {
-            print("object: \(object)")
-        }
-        
         if let data = userInfo["data"] {
-            print("data: \(data)")
             
             var jsonData = BNAppSharedManager.instance.networkManager!.epsNetwork!.parseJson(data as! String)
             
-            print("\(jsonData)")
-
             if (jsonData["gift"] as? NSDictionary) != nil {
                 if let giftData = jsonData["gift"] as? NSDictionary {
-                    print("giftData: \(giftData)")
                     if BNParser.parseGift(giftData, biinie: appManager.dataManager.biinie) {
                         if appManager.IS_MAINVIEW_ON {
                             appManager.mainViewController!.updateGiftsView()
@@ -263,22 +254,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        // display the userInfo
-        if let notification = userInfo["aps"] as? NSDictionary,
-            let alert = notification["alert"] as? NSDictionary {
-            //let alertCtrl = UIAlertController(title: "Time Entry", message: alert as String, preferredStyle: UIAlertControllerStyle.Alert)
-            //alertCtrl.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            // Find the presented VC...
-            //var presentedVC = self.window?.rootViewController
+        //Parse notification data if needed.
+        if let notification = userInfo["aps"] as? NSDictionary {
             
-//            while (presentedVC!.presentedViewController != nil)  {
-//                presentedVC = presentedVC!.presentedViewController
-//            }
-            
-//            presentedVC!.presentViewController(alertCtrl, animated: true, completion: nil)
-            
-            // call the completion handler
-//             -- pass in NoData, since no new data was fetched from the server.
+            if let alert = notification["alert"] as? NSDictionary {
+                
+                BNParser.parseNotification(alert, biinie: appManager.dataManager.biinie)
+                if appManager.IS_MAINVIEW_ON {
+                    appManager.mainViewController!.updateNotificationsView()
+                }
+            }
             completionHandler(UIBackgroundFetchResult.NoData)
         }
     }

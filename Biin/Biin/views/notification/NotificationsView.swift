@@ -126,29 +126,20 @@ class NotificationsView: BNView, NotificationView_Delegate {
         
         //BNAppSharedManager.instance.notificationManager.notifications = sorted(BNAppSharedManager.instance.notificationManager.notifications){ $0.identifier > $1.identifier }
         
-        for i in (0..<6) {
-        //for value in BNAppSharedManager.instance.notificationManager.notifications {
+        for value in BNAppSharedManager.instance.dataManager.biinie!.notifications {
             
-            //if notifications[key] == nil {
-                print("\(i)")
-                let notification = BNNotification(title: "Retira tu alfajor gratis", text: "La proxima vez que nos visites, solicita un alfajor gratis en cualquiera de nuestras sucursales participantes. Reclamalo en la tienda.", notificationType: BNNotificationType.NONE, receivedDate: NSDate())
-            
-                let notificationView = NotificationView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.notificationView_height), father: self, notification:notification )
+                let notificationView = NotificationView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.notificationView_height), father: self, notification:value )
                 notificationView.delegate = self
                 self.scroll!.addChild(notificationView)
-//                self.notifications.append(notificationView)
-            
-//                ypos += height
-//                ypos += 5
-            //}
+
         }
         self.scroll!.setChildrenPosition()
-//        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
+
         
     }
     
     
-    func resizeScrollOnRemoved(identifier: Int) {
+    func resizeScrollOnRemoved(identifier: String) {
         
         //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
         /*

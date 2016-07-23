@@ -90,7 +90,8 @@ class MainView_Container_OptionsBar: BNView {
         
         showNotificationsBtn_Badge = BNBadgeView(position: CGPoint(x:15, y: -2), size: 20)
         showNotificationsBtn!.addSubview(showNotificationsBtn_Badge!)
-        showNotificationsBtn_Badge!.update(5)
+        showNotificationsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newNotificationCount)
+
     }
     
     override func clean(){
@@ -107,7 +108,7 @@ class MainView_Container_OptionsBar: BNView {
     }
     
     func updateNotificationCounter() {
-        showNotificationsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newGiftCounter)
+        showNotificationsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newNotificationCount)
     }
 }
 

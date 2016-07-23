@@ -13,7 +13,7 @@ struct BNNotificationData
 
 class BNNotification:NSObject, NSCoding {
 
-    var identifier:Int = 1
+    var identifier:String?
     var title:String?
     var text:String?
     var notificationType:BNNotificationType?
@@ -26,7 +26,7 @@ class BNNotification:NSObject, NSCoding {
     
     convenience init(title:String, text:String, notificationType:BNNotificationType, receivedDate:NSDate){
         self.init()
-        //self.identifier = BNNotificationData.notificationCounter += 1
+        self.identifier = NSUUID().UUIDString
         self.title = title
         self.text = text
         self.notificationType = notificationType
@@ -40,12 +40,12 @@ class BNNotification:NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
 
-        self.identifier = aDecoder.decodeIntForKey("identifier").hashValue
+        self.identifier = aDecoder.decodeObjectForKey("identifier") as? String
         self.title = aDecoder.decodeObjectForKey("title") as? String
         self.text = aDecoder.decodeObjectForKey("text") as? String
         
-        let value = aDecoder.decodeIntForKey("notificationType").hashValue
-        
+        let value = aDecoder.decodeIntegerForKey("notificationType")
+     
         switch value {
         case 0:
             self.notificationType = BNNotificationType.NONE
@@ -66,11 +66,14 @@ class BNNotification:NSObject, NSCoding {
         }
         
         self.receivedDate = aDecoder.decodeObjectForKey("receivedDate") as? NSDate
+        self.isViewed = aDecoder.decodeBoolForKey("isViewed")
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         
-        aCoder.encodeObject(identifier, forKey: "identifier")
+        if let identifier = self.identifier {
+            aCoder.encodeObject(identifier, forKey: "identifier")
+        }
         
         if let title = self.title {
             aCoder.encodeObject(title, forKey: "title")
@@ -81,23 +84,23 @@ class BNNotification:NSObject, NSCoding {
         }
         
         if let notificationType = self.notificationType {
-            aCoder.encodeObject(notificationType.hashValue, forKey: "notificationType")
+            aCoder.encodeInteger(notificationType.hashValue, forKey: "notificationType")
         }
         
         if let receivedDate = self.receivedDate {
             aCoder.encodeObject(receivedDate, forKey: "receivedDate")
         }
         
-        aCoder.encodeObject(isViewed, forKey: "isViewed")
+        aCoder.encodeBool(isViewed, forKey: "isViewed")
     }
     
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey:"\(self.identifier)")
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.identifier!)
     }
     
     func clear() {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("\(self.identifier)")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(self.identifier!)
     }
     
     class func loadSaved(key:String) -> BNNotification? {

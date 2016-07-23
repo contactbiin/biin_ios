@@ -42,10 +42,10 @@ class Biinie:NSObject, NSCoding {
     var facebookAvatarUrl:String?
     
     var newGiftCounter:Int = 0
-    var gifts_store:[String] = [String]()
+//    var gifts_store:[String] = [String]()
     var gifts:[BNGift] = [BNGift]()
     
-    var newNotificationCount:Int?
+    var newNotificationCount:Int = 0
     var notifications_store:[String] = [String]()
     var notifications:[BNNotification] = [BNNotification]()
 
@@ -92,16 +92,22 @@ class Biinie:NSObject, NSCoding {
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
         
-        if let gifts_old_store = aDecoder.decodeObjectForKey("gifts_store") {
-            self.gifts_store = gifts_old_store as! [String]
-        }
-        
+//        if let gifts_old_store = aDecoder.decodeObjectForKey("gifts_store") {
+//            self.gifts_store = gifts_old_store as! [String]
+//        }
+//        
         if let notifications_old_store = aDecoder.decodeObjectForKey("notifications_store") {
             self.notifications_store = notifications_old_store as! [String]
         }
         
-        if let notifications_old = aDecoder.decodeObjectForKey("notifications_store") {
+        if let notifications_old = aDecoder.decodeObjectForKey("notifications") {
             self.notifications = notifications_old as! [BNNotification]
+        }
+        
+        for notification in notifications {
+            if !notification.isViewed {
+                newNotificationCount += 1
+            }
         }
         
         if let token_stored = aDecoder.decodeObjectForKey("token") {
@@ -110,7 +116,6 @@ class Biinie:NSObject, NSCoding {
             self.token = ""
         }
         
-        self.newNotificationCount = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         self.temporalCollectionIdentifier = "collection1"
         self.password = ""
@@ -165,7 +170,7 @@ class Biinie:NSObject, NSCoding {
             aCoder.encodeObject(token, forKey: "token")
         }
         
-        aCoder.encodeObject(gifts_store, forKey: "gifts_store")
+//        aCoder.encodeObject(gifts_store, forKey: "gifts_store")
         
         aCoder.encodeObject(notifications_store, forKey: "notifications_store")
         aCoder.encodeObject(notifications, forKey: "notifications")
@@ -284,11 +289,11 @@ class Biinie:NSObject, NSCoding {
             }
         }
         
-        for j in (0..<gifts_store.count) {
-            if gifts_store[j] == identifier {
-                gifts_store.removeAtIndex(j)
-            }
-        }
+//        for j in (0..<gifts_store.count) {
+//            if gifts_store[j] == identifier {
+//                gifts_store.removeAtIndex(j)
+//            }
+//        }
         
         save()
     }
@@ -306,5 +311,12 @@ class Biinie:NSObject, NSCoding {
         self.gifts = self.gifts.sort({$0.receivedDate?.timeIntervalSince1970 < $1.receivedDate?.timeIntervalSince1970})
         
         return true
+    }
+    
+    func addNotification(notification:BNNotification) {
+        self.newNotificationCount += 1
+        self.notifications.append(notification)
+        self.notifications = self.notifications.sort({$0.receivedDate?.timeIntervalSince1970 < $1.receivedDate?.timeIntervalSince1970})
+        save()
     }
 }

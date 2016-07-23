@@ -808,4 +808,11 @@ class BNParser {
             parseGift(giftData, biinie: biinie)
         }
     }
+    
+    class func parseNotification(notificationData:NSDictionary, biinie:Biinie?) {
+        let body = BNParser.findString("body", dictionary: notificationData)
+        let title = BNParser.findString("title", dictionary: notificationData)
+        let notification = BNNotification(title: title!, text: body!, notificationType: BNNotificationType.GIFT, receivedDate: NSDate())
+        biinie!.addNotification(notification)
+    }
 }

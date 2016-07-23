@@ -215,7 +215,7 @@ class NotificationView: BNView {
     }
     
     func removeBtnAction(sender:UIButton){
-        self.delegate!.resizeScrollOnRemoved!(self.notification!.identifier)
+        self.delegate!.resizeScrollOnRemoved!(self.notification!.identifier!)
     }
     
     func showAsRead(){
@@ -226,7 +226,7 @@ class NotificationView: BNView {
 }
 
 @objc protocol NotificationView_Delegate:NSObjectProtocol {
-    optional func resizeScrollOnRemoved(identifier:Int)
+    optional func resizeScrollOnRemoved(identifier:String)
     optional func hideOtherViewsOpen(view:NotificationView)
     optional func removeFromOtherViewsOpen(view:NotificationView)
 }

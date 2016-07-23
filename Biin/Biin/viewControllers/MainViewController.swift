@@ -325,6 +325,10 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         mainView!.updateGiftsView()
     }
     
+    func updateNotificationsView(){
+        mainView!.updateNotificationsView()
+    }
+    
     //ProfileView_Delegate
     func showProgress(view: UIView) {
         if (alert?.isOn != nil) {
