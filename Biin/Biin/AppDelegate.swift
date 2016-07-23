@@ -139,15 +139,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if appManager.dataManager!.biinie!.token! == "" {
                 appManager.dataManager!.biinie!.token = refreshedToken
                 appManager.dataManager!.biinie!.needsTokenUpdate = true
-                //print("Token asignado: \(appManager.dataManager!.bnUser!.token!)")
+                print("Token asignado: \(appManager.dataManager!.biinie!.token!)")
                 
             } else {
                 if appManager.dataManager!.biinie!.token! != refreshedToken {
                     appManager.dataManager!.biinie!.token = refreshedToken
                     appManager.dataManager!.biinie!.needsTokenUpdate = true
-                    //print("User NEW Token: \(appManager.dataManager!.bnUser!.token!)")
+                    print("User NEW Token: \(appManager.dataManager!.biinie!.token!)")
                 } else {
-                    //print("User Token: \(appManager.dataManager!.bnUser!.token!)")
+                    print("User Token: \(appManager.dataManager!.biinie!.token!)")
                 }
             }
         } else  {
@@ -238,6 +238,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Print full message.
         //print("%@", userInfo)
+        
+        
+        for object in userInfo {
+            print("object: \(object)")
+        }
+        
+        if let data = userInfo["data"] {
+            print("data: \(data)")
+            
+            var jsonData = BNAppSharedManager.instance.networkManager!.epsNetwork!.parseJson(data as! String)
+            
+            print("\(jsonData)")
+
+            if (jsonData["gift"] as? NSDictionary) != nil {
+                if let giftData = jsonData["gift"] as? NSDictionary {
+                    print("giftData: \(giftData)")
+                    if BNParser.parseGift(giftData, biinie: appManager.dataManager.biinie) {
+                        if appManager.IS_MAINVIEW_ON {
+                            appManager.mainViewController!.updateGiftsView()
+                        }
+                    }
+                }
+            }
+        }
+        
+        // display the userInfo
+        if let notification = userInfo["aps"] as? NSDictionary,
+            let alert = notification["alert"] as? NSDictionary {
+            //let alertCtrl = UIAlertController(title: "Time Entry", message: alert as String, preferredStyle: UIAlertControllerStyle.Alert)
+            //alertCtrl.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            // Find the presented VC...
+            //var presentedVC = self.window?.rootViewController
+            
+//            while (presentedVC!.presentedViewController != nil)  {
+//                presentedVC = presentedVC!.presentedViewController
+//            }
+            
+//            presentedVC!.presentViewController(alertCtrl, animated: true, completion: nil)
+            
+            // call the completion handler
+//             -- pass in NoData, since no new data was fetched from the server.
+            completionHandler(UIBackgroundFetchResult.NoData)
+        }
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {

@@ -650,6 +650,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func updateProfileView(){
         (profileState!.view as! ProfileView).update()
     }
+    
+    func updateGiftsView() {
+        (giftsState!.view as! GiftsView).updateGifts()
+        (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateGiftCounter()
+    }
+    
+    func updateNotificationsView(){
+        (notificationsState!.view as! NotificationsView).addNotifications()
+        (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateNotificationCounter()
+    }
 }
 
 

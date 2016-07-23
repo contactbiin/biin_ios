@@ -754,4 +754,58 @@ class BNParser {
             BNAppSharedManager.instance.notificationManager.addNotices(notices)
         }
     }
+    
+    class func parseGift(giftData:NSDictionary, biinie:Biinie?) -> Bool {
+        
+        let gift = BNGift()
+        
+        gift.identifier = BNParser.findString("identifier", dictionary: giftData)
+        gift.elementIdentifier = BNParser.findString("productIdentifier", dictionary: giftData)
+        gift.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: giftData)
+        gift.name = BNParser.findString("name", dictionary: giftData)
+        gift.message = BNParser.findString("message", dictionary: giftData)
+        gift.status = BNParser.findBNGiftStatue("status", dictionary: giftData)
+        gift.receivedDate = BNParser.findNSDateWithBiinFormat("receivedDate", dictionary: giftData)
+        gift.hasExpirationDate = BNParser.findBool("hasExpirationDate", dictionary: giftData)
+        gift.primaryColor = BNParser.findUIColor("primaryColor", dictionary: giftData)
+        gift.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary: giftData)
+        
+        if gift.hasExpirationDate {
+            gift.expirationDate = BNParser.findNSDateWithBiinFormat("expirationDate", dictionary: giftData)
+        }
+        
+        if let sitesData = BNParser.findNSArray("sites", dictionary: giftData) {
+            if sitesData.count > 0 {
+                for j in (0..<sitesData.count) {
+                    gift.sites!.append(sitesData.objectAtIndex(j) as! String)
+                }
+            }
+        }
+        
+        if let mediaArray = BNParser.findNSArray("media", dictionary: giftData) {
+            for b in (0..<mediaArray.count) {
+                let mediaData = mediaArray.objectAtIndex(b) as! NSDictionary
+                let url = BNParser.findString("url", dictionary:mediaData)
+                let type = BNMediaType.Image
+                let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
+                let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
+                let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
+                let media = BNMedia(mediaType:type, url:url!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
+                gift.media!.append(media)
+            }
+        }
+        
+        return biinie!.addGift(gift)
+    }
+    
+    class func parseGifts(giftsData:NSArray?, biinie:Biinie?){
+        
+        biinie!.gifts = Array<BNGift>()
+        
+        for i in (0..<giftsData!.count) {
+
+            let giftData = giftsData!.objectAtIndex(i) as! NSDictionary
+            parseGift(giftData, biinie: biinie)
+        }
+    }
 }

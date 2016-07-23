@@ -102,12 +102,12 @@ class MainView_Container_OptionsBar: BNView {
         showNotificationsBtn = nil
     }
     
-    func updateGiftCounter(value:Int) {
-        showGiftsBtn_Badge!.update(value)
+    func updateGiftCounter() {
+        showGiftsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newGiftCounter)
     }
     
-    func updateNotificationCounter(value:Int) {
-        showNotificationsBtn_Badge!.update(value)
+    func updateNotificationCounter() {
+        showNotificationsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newGiftCounter)
     }
 }
 

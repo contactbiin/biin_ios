@@ -14,7 +14,7 @@ class GiftsView: BNView, GiftView_Delegate {
     var backBtn:BNUIButton_Back?
     
     var delegate:GiftsView_Delegate?
-    var elementContainers:Array <MainView_Container_Elements>?
+    //var elementContainers:Array <MainView_Container_Elements>?
     var scroll:BNScroll?
     
     weak var lastViewOpen:GiftView?
@@ -56,12 +56,13 @@ class GiftsView: BNView, GiftView_Delegate {
         self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
         
-        elementContainers = Array<MainView_Container_Elements>()
+        //elementContainers = Array<MainView_Container_Elements>()
         updateGifts()
     }
     
     func updateGifts(){
         
+        self.scroll!.clean()
         self.scroll!.leftSpace = 0
         
         if let biinie = BNAppSharedManager.instance.dataManager.biinie {
@@ -119,17 +120,7 @@ class GiftsView: BNView, GiftView_Delegate {
     override func refresh() { }
 
     override func clean(){
-        if elementContainers?.count > 0 {
-            
-            for elementContainer in elementContainers! {
-                elementContainer.clean()
-                elementContainer.removeFromSuperview()
-            }
-            
-            elementContainers!.removeAll(keepCapacity: false)
-        }
-        
-        elementContainers = nil
+
         scroll!.removeFromSuperview()
         fade!.removeFromSuperview()
     }

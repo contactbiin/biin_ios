@@ -34,9 +34,6 @@ class Biinie:NSObject, NSCoding {
     
     var isEmailVerified:Bool?
     
-    var newNotificationCount:Int?
-    var notificationIndex:Int?
-    
     var isInStore = false
     var actionCounter:Int = 0
     var storedElementsViewed:[String] = [String]()
@@ -48,11 +45,15 @@ class Biinie:NSObject, NSCoding {
     var gifts_store:[String] = [String]()
     var gifts:[BNGift] = [BNGift]()
     
+    var newNotificationCount:Int?
+    var notifications_store:[String] = [String]()
+    var notifications:[BNNotification] = [BNNotification]()
+
+    
     override init() {
         super.init()
         
         self.newNotificationCount = 0
-        self.notificationIndex = 0
         facebookAvatarUrl = ""
         facebook_id = ""
     }
@@ -95,6 +96,14 @@ class Biinie:NSObject, NSCoding {
             self.gifts_store = gifts_old_store as! [String]
         }
         
+        if let notifications_old_store = aDecoder.decodeObjectForKey("notifications_store") {
+            self.notifications_store = notifications_old_store as! [String]
+        }
+        
+        if let notifications_old = aDecoder.decodeObjectForKey("notifications_store") {
+            self.notifications = notifications_old as! [BNNotification]
+        }
+        
         if let token_stored = aDecoder.decodeObjectForKey("token") {
             self.token = token_stored as? String
         } else {
@@ -102,7 +111,6 @@ class Biinie:NSObject, NSCoding {
         }
         
         self.newNotificationCount = 0
-        self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         self.temporalCollectionIdentifier = "collection1"
         self.password = ""
@@ -158,6 +166,9 @@ class Biinie:NSObject, NSCoding {
         }
         
         aCoder.encodeObject(gifts_store, forKey: "gifts_store")
+        
+        aCoder.encodeObject(notifications_store, forKey: "notifications_store")
+        aCoder.encodeObject(notifications, forKey: "notifications")
         
         aCoder.encodeObject(actions, forKey: "actions")
         
@@ -280,5 +291,20 @@ class Biinie:NSObject, NSCoding {
         }
         
         save()
+    }
+    
+    func addGift(newGift:BNGift?) -> Bool {
+        
+        for gift in gifts {
+            if gift.identifier! == newGift!.identifier! {
+                return false
+            }
+        }
+        
+        self.newGiftCounter += 1
+        self.gifts.append(newGift!)
+        self.gifts = self.gifts.sort({$0.receivedDate?.timeIntervalSince1970 < $1.receivedDate?.timeIntervalSince1970})
+        
+        return true
     }
 }

@@ -99,5 +99,117 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biin/models/request/biinie/BNRequest_Register_with_Facebook.swift"
+            timestampString = "490896830.542117"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "run()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biin/models/request/biinie/BNRequest_SendBiinie.swift"
+            timestampString = "490897529.36798"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "run()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Biin.BNRequest_SendBiinie.(run () -&gt; ()).(closure #1)"
+                  moduleName = "Biin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Esteban/Development/biin_ios/Biin/Biin/models/request/biinie/BNRequest_SendBiinie.swift"
+                  timestampString = "490923069.331324"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "788">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Biin.BNRequest_SendBiinie.(run () -&gt; ()).(closure #1)"
+                  moduleName = "Biin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Esteban/Development/biin_ios/Biin/Biin/models/request/biinie/BNRequest_SendBiinie.swift"
+                  timestampString = "490923069.331467"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "1032">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biin/models/request/biinie/BNRequest_SendBiinie.swift"
+            timestampString = "490897230.308557"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "run()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Biin.BNRequest_SendBiinie.run () -&gt; ()"
+                  moduleName = "Biin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Esteban/Development/biin_ios/Biin/Biin/models/request/biinie/BNRequest_SendBiinie.swift"
+                  timestampString = "490923069.3323"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "8776">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Biin.BNRequest_SendBiinie.(run () -&gt; ()).(closure #1)"
+                  moduleName = "Biin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Esteban/Development/biin_ios/Biin/Biin/models/request/biinie/BNRequest_SendBiinie.swift"
+                  timestampString = "490923069.332575"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

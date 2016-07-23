@@ -170,6 +170,7 @@ class GiftView: BNView {
         xpos = 5
         width = (frame.width - (xpos + 5))
         actionBtn = BNUIButton_Gift(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight), hasExpiration:(model as! BNGift).hasExpirationDate, color: decorationColor)
+        actionBtn!.addTarget(self, action: #selector(self.actionBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         background!.addSubview(actionBtn!)
         
         showSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.showRemoveBtn(_:)))
@@ -309,6 +310,10 @@ class GiftView: BNView {
     func updateToClaimNow(){
         actionBtn!.setTitle(NSLocalizedString("READY_TO_CLAIM", comment: "READY_TO_CLAIM"), forState: UIControlState.Normal)
         actionBtn!.enabled = true
+    }
+    
+    func actionBtnAction(sender:UIButton) {
+        BNAppSharedManager.instance.networkManager!.sendClaimedGift((model as! BNGift))
     }
 }
 

@@ -110,6 +110,9 @@ class NotificationsView: BNView, NotificationView_Delegate {
     
     func addNotifications(){
         
+        self.scroll!.clean()
+
+        
 //        if notifications.count > 0 {
 //            for value in notifications {
 //                value.removeFromSuperview()
