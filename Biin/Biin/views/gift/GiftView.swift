@@ -169,9 +169,10 @@ class GiftView: BNView {
         
         xpos = 5
         width = (frame.width - (xpos + 5))
-        actionBtn = BNUIButton_Gift(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight), hasExpiration:(model as! BNGift).hasExpirationDate, color: decorationColor)
+        actionBtn = BNUIButton_Gift(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight), gift:(model as! BNGift), color: decorationColor)
         actionBtn!.addTarget(self, action: #selector(self.actionBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         background!.addSubview(actionBtn!)
+        updateActionBtnStatus()
         
         showSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.showRemoveBtn(_:)))
         showSwipe!.direction = UISwipeGestureRecognizerDirection.Left
@@ -291,29 +292,31 @@ class GiftView: BNView {
         switch (model as! BNGift).status! {
         case .APPROVED:
             actionBtn!.enabled = true
-            actionBtn!.setTitle(NSLocalizedString("APPROVED", comment: "APPROVED"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("APPROVED", comment: "APPROVED")
         case .CLAIMED:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("CLAIMED", comment: "CLAIMED"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("CLAIMED", comment: "CLAIMED")
         case .SENT:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("SENT", comment: "SENT"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("SENT", comment: "SENT")
         case .DELIVERED:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("DELIVERED", comment: "DELIVERED"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("DELIVERED", comment: "DELIVERED")
         default:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("SENT", comment: "SENT"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("SENT", comment: "SENT")
         }
     }
     
     func updateToClaimNow(){
-        actionBtn!.setTitle(NSLocalizedString("READY_TO_CLAIM", comment: "READY_TO_CLAIM"), forState: UIControlState.Normal)
+        actionBtn!.titleLbl!.text = NSLocalizedString("READY_TO_CLAIM", comment: "READY_TO_CLAIM")
         actionBtn!.enabled = true
     }
     
     func actionBtnAction(sender:UIButton) {
         BNAppSharedManager.instance.networkManager!.sendClaimedGift((model as! BNGift))
+        (model as! BNGift).status = BNGiftStatus.CLAIMED
+        updateActionBtnStatus()
     }
 }
 

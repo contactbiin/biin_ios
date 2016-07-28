@@ -19,7 +19,7 @@ class NotificationView: BNView {
     var messageLbl:UILabel?
     var receivedLbl:UILabel?
 
-    weak var notification:BNNotification?
+    //weak var notification:BNNotification?
     
     var background:UIView?
     var showSwipe:UISwipeGestureRecognizer?
@@ -41,7 +41,8 @@ class NotificationView: BNView {
         
         self.init(frame: frame, father:father )
         
-        self.notification = notification
+//        self.notification = notification
+        self.model = notification
         
         var xpos:CGFloat = 5
         var ypos:CGFloat = 5
@@ -97,7 +98,7 @@ class NotificationView: BNView {
         
         width = (frame.width - (xpos + 5))
         titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
-        titleLbl!.text = "Disfruta un alfajor gratis"
+        titleLbl!.text = notification!.title!
         titleLbl!.textColor = decorationColor
         titleLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.notificationView_TitleSize)
         titleLbl!.textAlignment = NSTextAlignment.Left
@@ -108,7 +109,7 @@ class NotificationView: BNView {
         ypos += (titleLbl!.frame.height)
         width = (frame.width - (xpos + 5))
         messageLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height: height))
-        messageLbl!.text = "La proxima vez que nos visites, solicita un alfajor gratis en cualquiera de nuestras sucursales participantes. Reclamalo en la tienda, solicita un alfajor gratis en cualquiera de nuestras sucursales participantes. Reclamalo en la tienda."
+        messageLbl!.text = notification!.text!
         messageLbl!.textColor = UIColor.bnGrayDark()
         messageLbl!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.notificationView_TextSize)
         messageLbl!.textAlignment = NSTextAlignment.Left
@@ -215,7 +216,7 @@ class NotificationView: BNView {
     }
     
     func removeBtnAction(sender:UIButton){
-        self.delegate!.resizeScrollOnRemoved!(self.notification!.identifier!)
+        self.delegate!.resizeScrollOnRemoved!(self.model!.identifier!)
     }
     
     func showAsRead(){

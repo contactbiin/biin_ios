@@ -266,3 +266,4 @@ CLAIMED = "Waiting to be aproved";
 SENT = "Visit our store and request this gift!";
 DELIVERED = "Enjoy";
 READY_TO_CLAIM = "Clain now";
+GiftsExpires = "Expires:";

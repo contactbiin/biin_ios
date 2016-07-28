@@ -193,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         connectToFcm()
         
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 7
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -225,7 +225,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BNAppSharedManager.instance.notificationManager.lastNotice_identifier = (notification.userInfo!["UUID"] as? String)!
         BNAppSharedManager.instance.notificationManager.save()
         BNAppSharedManager.instance.isOpeningForLocalNotification = true
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+
     }
+    
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                      fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
@@ -237,7 +240,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //print("Message ID: \(userInfo["gcm.message_id"]!)")
         
         // Print full message.
-        //print("%@", userInfo)
+        print("%@", userInfo)
+        
+        var isGiftNotification = false
         
         if let data = userInfo["data"] {
             
@@ -246,6 +251,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if (jsonData["gift"] as? NSDictionary) != nil {
                 if let giftData = jsonData["gift"] as? NSDictionary {
                     if BNParser.parseGift(giftData, biinie: appManager.dataManager.biinie) {
+                        isGiftNotification = true
                         if appManager.IS_MAINVIEW_ON {
                             appManager.mainViewController!.updateGiftsView()
                         }
@@ -254,18 +260,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        
         //Parse notification data if needed.
-        if let notification = userInfo["aps"] as? NSDictionary {
-            
-            if let alert = notification["alert"] as? NSDictionary {
+        if !isGiftNotification {
+            if let notification = userInfo["aps"] as? NSDictionary {
                 
-                BNParser.parseNotification(alert, biinie: appManager.dataManager.biinie)
-                if appManager.IS_MAINVIEW_ON {
-                    appManager.mainViewController!.updateNotificationsView()
+                if let alert = notification["alert"] as? NSDictionary {
+                    
+                    BNParser.parseNotification(alert, biinie: appManager.dataManager.biinie)
+                    if appManager.IS_MAINVIEW_ON {
+                        appManager.mainViewController!.updateNotificationsView()
+                    }
                 }
             }
-            completionHandler(UIBackgroundFetchResult.NoData)
         }
+        
+        completionHandler(UIBackgroundFetchResult.NoData)
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {

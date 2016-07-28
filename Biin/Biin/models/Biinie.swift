@@ -6,10 +6,9 @@
 import Foundation
 import UIKit
 
-class Biinie:NSObject, NSCoding {
+class Biinie:BNObject {
     
     var facebook_id:String?
-    var identifier:String?
     var biinName:String?
     var firstName:String?
     var lastName:String?
@@ -76,7 +75,9 @@ class Biinie:NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-//        
+        
+        super.init(coder: aDecoder)
+//
 //        if let facebook_id_stored = aDecoder.decodeObjectForKey("facebook_id") {
 //            self.facebook_id = facebook_id_stored as? String
 //        }
@@ -126,7 +127,9 @@ class Biinie:NSObject, NSCoding {
         }
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    override func encodeWithCoder(aCoder: NSCoder) {
+        
+        
         
         if let facebook_id = self.facebook_id {
             aCoder.encodeObject(facebook_id, forKey: "facebook_id")
@@ -288,6 +291,7 @@ class Biinie:NSObject, NSCoding {
         for i in (0..<gifts.count) {
             if gifts[i].identifier! == identifier {
                 gifts.removeAtIndex(i)
+                break
             }
         }
         
@@ -310,7 +314,7 @@ class Biinie:NSObject, NSCoding {
         
         self.newGiftCounter += 1
         self.gifts.append(newGift!)
-        self.gifts = self.gifts.sort({$0.receivedDate?.timeIntervalSince1970 < $1.receivedDate?.timeIntervalSince1970})
+        self.gifts = self.gifts.sort({$0.receivedDate?.timeIntervalSince1970 > $1.receivedDate?.timeIntervalSince1970})
         
         return true
     }
@@ -318,7 +322,17 @@ class Biinie:NSObject, NSCoding {
     func addNotification(notification:BNNotification) {
         self.newNotificationCount += 1
         self.notifications.append(notification)
-        self.notifications = self.notifications.sort({$0.receivedDate?.timeIntervalSince1970 < $1.receivedDate?.timeIntervalSince1970})
+        self.notifications = self.notifications.sort({$0.receivedDate?.timeIntervalSince1970 > $1.receivedDate?.timeIntervalSince1970})
+        save()
+    }
+    
+    func removeNotification(identifier:String) {
+        for i in (0..<notifications.count) {
+            if notifications[i].identifier! == identifier {
+                notifications.removeAtIndex(i)
+                break
+            }
+        }
         save()
     }
 }

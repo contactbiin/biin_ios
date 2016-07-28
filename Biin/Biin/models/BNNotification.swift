@@ -11,9 +11,8 @@ struct BNNotificationData
     static var notificationCounter = 1
 }
 
-class BNNotification:NSObject, NSCoding {
+class BNNotification:BNObject {
 
-    var identifier:String?
     var title:String?
     var text:String?
     var notificationType:BNNotificationType?
@@ -39,7 +38,9 @@ class BNNotification:NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-
+        
+        super.init(coder: aDecoder)
+        
         self.identifier = aDecoder.decodeObjectForKey("identifier") as? String
         self.title = aDecoder.decodeObjectForKey("title") as? String
         self.text = aDecoder.decodeObjectForKey("text") as? String
@@ -69,7 +70,7 @@ class BNNotification:NSObject, NSCoding {
         self.isViewed = aDecoder.decodeBoolForKey("isViewed")
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    override func encodeWithCoder(aCoder: NSCoder) {
         
         if let identifier = self.identifier {
             aCoder.encodeObject(identifier, forKey: "identifier")

@@ -141,6 +141,9 @@ class NotificationsView: BNView, NotificationView_Delegate {
     
     func resizeScrollOnRemoved(identifier: String) {
         
+        self.scroll!.removeChildByIdentifier(identifier)
+        BNAppSharedManager.instance.dataManager.biinie!.removeNotification(identifier)
+        
         //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
         /*
         var startPosition = 0

@@ -143,9 +143,11 @@ class GiftsView: BNView, GiftView_Delegate {
                     if site == siteIdentifier {
                         //Send local notification
                         (giftView as! GiftView).updateToClaimNow()
-                    } else {
-                        (giftView as! GiftView).updateActionBtnStatus()
+                        break
                     }
+                    //else {
+                      //  (giftView as! GiftView).updateActionBtnStatus()
+                    //}
                 }
             }
         }
