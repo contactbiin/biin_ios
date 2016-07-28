@@ -294,14 +294,11 @@ class Biinie:BNObject {
                 break
             }
         }
-        
-//        for j in (0..<gifts_store.count) {
-//            if gifts_store[j] == identifier {
-//                gifts_store.removeAtIndex(j)
-//            }
-//        }
-        
         save()
+    }
+    
+    func viewedAllGifts(){
+        newGiftCounter = 0
     }
     
     func addGift(newGift:BNGift?) -> Bool {
@@ -312,7 +309,10 @@ class Biinie:BNObject {
             }
         }
         
-        self.newGiftCounter += 1
+        if newGift?.status == BNGiftStatus.SENT {
+            self.newGiftCounter += 1
+        }
+        
         self.gifts.append(newGift!)
         self.gifts = self.gifts.sort({$0.receivedDate?.timeIntervalSince1970 > $1.receivedDate?.timeIntervalSince1970})
         
@@ -327,11 +327,22 @@ class Biinie:BNObject {
     }
     
     func removeNotification(identifier:String) {
+        
+        newNotificationCount = 0
+        
         for i in (0..<notifications.count) {
             if notifications[i].identifier! == identifier {
                 notifications.removeAtIndex(i)
                 break
             }
+        }
+        save()
+    }
+    
+    func viewedAllNotifications(){
+        newNotificationCount = 0
+        for notification in notifications {
+            notification.isViewed = true
         }
         save()
     }

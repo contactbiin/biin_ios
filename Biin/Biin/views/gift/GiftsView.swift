@@ -126,10 +126,16 @@ class GiftsView: BNView, GiftView_Delegate {
     }
     
     func backBtnAction(sender:UIButton) {
+        
         delegate!.hideGiftsView!()
+        
         if lastViewOpen != nil {
             lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
         }
+        
+        BNAppSharedManager.instance.dataManager.biinie!.viewedAllGifts()
+        BNAppSharedManager.instance.updateGiftCounter()
+
     }
     
     func resizeScrollOnRemoved(view: GiftView) {

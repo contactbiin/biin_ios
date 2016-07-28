@@ -106,6 +106,9 @@ class NotificationsView: BNView, NotificationView_Delegate {
         if lastViewOpen != nil {
             lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
         }
+        
+        BNAppSharedManager.instance.dataManager.biinie!.viewedAllNotifications()
+        BNAppSharedManager.instance.updateNotificationCounter()
     }
     
     func addNotifications(){
@@ -142,7 +145,7 @@ class NotificationsView: BNView, NotificationView_Delegate {
     func resizeScrollOnRemoved(identifier: String) {
         
         self.scroll!.removeChildByIdentifier(identifier)
-        BNAppSharedManager.instance.dataManager.biinie!.removeNotification(identifier)
+
         
         //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
         /*

@@ -256,7 +256,7 @@ Waze = "Waze";
 
 Gifts = "Regalos";
 GiftShowSites = "Ver locales participantes";
-APPROVED = "Solicita en la tienda.";
+//APPROVED = "Solicita en la tienda.";
 CLAIMED = "Esperando aprovación";
 SENT = "Visita locales participantes y solicita este regalo!";
 DELIVERED = "Disfruta tu regalo";

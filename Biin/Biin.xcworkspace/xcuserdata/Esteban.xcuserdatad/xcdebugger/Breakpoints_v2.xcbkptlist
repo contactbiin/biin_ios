@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Biin/views/notification/NotificationsView.swift"
-            timestampString = "490937284.233327"
+            timestampString = "491427735.809163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "addNotifications()"
             landmarkType = "5">
          </BreakpointContent>
@@ -134,16 +134,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Biin/AppDelegate.swift"
-            timestampString = "491411872.329943"
+            filePath = "Biin/managers/BNDataManager.swift"
+            timestampString = "491420801.407176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "application(_:handleActionWithIdentifier:forLocalNotification:completionHandler:)"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
+            landmarkName = "receivedSite(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -153,45 +153,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Biin/views/gift/GiftView.swift"
-            timestampString = "491415761.67177"
+            filePath = "Biin/managers/BNNotificationManager.swift"
+            timestampString = "491420933.847122"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
-            landmarkName = "updateActionBtnStatus()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Biin/views/gift/GiftsView.swift"
-            timestampString = "491417168.223466"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "updateGifts(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Biin/views/gift/GiftsView.swift"
-            timestampString = "491416908.551428"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "updateGifts(_:)"
+            startingLineNumber = "832"
+            endingLineNumber = "832"
+            landmarkName = "is_site_surveyed(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

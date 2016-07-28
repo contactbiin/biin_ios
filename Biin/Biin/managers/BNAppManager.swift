@@ -199,6 +199,15 @@ class BNAppManager {
             //mainViewController?.mainView?.showNotificationContext()
         }
     }
+    
+    //UI Mehtods
+    func updateGiftCounter(){
+        mainViewController!.updateGiftCounter()
+    }
+    
+    func updateNotificationCounter(){
+        mainViewController!.updateNotificationCounter()
+    }
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {

@@ -261,9 +261,9 @@ Waze = "Waze";
 
 Gifts = "Gifts";
 GiftShowSites = "Show participant stores";
-APPROVED = "Pickup at the store";
+//APPROVED = "Pickup at the store";
 CLAIMED = "Waiting to be aproved";
 SENT = "Visit our store and request this gift!";
-DELIVERED = "Enjoy";
+DELIVERED = "Enjoy this gift!";
 READY_TO_CLAIM = "Clain now";
 GiftsExpires = "Expires:";

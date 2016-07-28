@@ -178,7 +178,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
                     
                     UIView.animateWithDuration(0.2, animations: {()-> Void in
                         self.children[i].frame.origin.y = ypos
-                        ypos += self.children[i].frame.height
+                        ypos += (self.children[i].frame.height + self.space)
                     })
                 }
 //            }
