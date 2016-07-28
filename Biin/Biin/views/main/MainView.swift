@@ -319,6 +319,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isShowingInsiteView = true
             site_to_survey = site
             (mainViewContainerState!.view as! MainView_Container_All).showInSiteView(site)
+            //TODO: Enable all gift on site to be request.
+            (giftsState!.view as! GiftsView).updateGifts(site!.identifier!)
+            //TODO: Enable QR reader buttons on loyalty cards.
+            
         }
     }
     

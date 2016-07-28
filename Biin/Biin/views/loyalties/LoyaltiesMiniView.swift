@@ -13,7 +13,6 @@ class LoyaltiesMiniView: BNView {
     
     var title:UILabel?
     var subtitle:UILabel?
-    var points:UILabel?
     
     weak var organization:BNOrganization?
     
@@ -78,14 +77,7 @@ class LoyaltiesMiniView: BNView {
 //        self.addSubview(subtitle!)
 //        
 //        
-//        ypos += subtitle!.frame.height
-        points = UILabel(frame: CGRectMake(xpos, ypos, (screenWidth - 90), 14))
-        let pointsText = NSLocalizedString("Points", comment: "Points")
-        points!.text = "\(pointsText): \(self.organization!.loyalty!.points)"
-        points!.textColor = UIColor.appTextColor()
-        points!.font = UIFont(name: "Lato-Light", size: 12)
-        points!.textAlignment = NSTextAlignment.Left
-        self.addSubview(points!)
+
    
     }
    

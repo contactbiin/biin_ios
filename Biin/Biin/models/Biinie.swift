@@ -49,6 +49,8 @@ class Biinie:NSObject, NSCoding {
     var notifications_store:[String] = [String]()
     var notifications:[BNNotification] = [BNNotification]()
 
+    //LOYALTIES
+    var loyalties = Dictionary<String, BNLoyalty>()
     
     override init() {
         super.init()

@@ -268,18 +268,18 @@ class BNParser {
                         }
                     }
                     
-                    organization.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData)
-                    
-                    if organization.isLoyaltyEnabled {
-                        let loyalty = BNLoyalty()
-                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: organizationData)
-                        loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
-                        loyalty.points = BNParser.findInt("points", dictionary:loyaltyData!)!
-                        loyalty.subscriptionDate = BNParser.findNSDate("subscriptionDate", dictionary:loyaltyData!)
-                        loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
-                        organization.loyalty = loyalty
-                    }
-                    
+//                    organization.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData)
+//                    
+//                    if organization.isLoyaltyEnabled {
+//                        let loyalty = BNLoyalty()
+//                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: organizationData)
+//                        loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
+//                        loyalty.points = BNParser.findInt("points", dictionary:loyaltyData!)!
+//                        loyalty.subscriptionDate = BNParser.findNSDate("subscriptionDate", dictionary:loyaltyData!)
+//                        loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
+//                        organization.loyalty = loyalty
+//                    }
+//                    
                     BNAppSharedManager.instance.dataManager.receivedOrganization(organization)
                 }
             }

@@ -7,12 +7,10 @@ import Foundation
 
 class BNLoyalty:NSObject {
     
+    var organizationIdentifier:String?
     var isSubscribed:Bool = false
     var subscriptionDate:NSDate?
-    var points:Int = 0
-    var level:Int = 0
-    var achievements:Array<BNAchievement>?
-    var badges:Array<BNBadge>?
+    var loyaltyCard:BNLoyaltyCard?
     
     override init() {
         super.init()

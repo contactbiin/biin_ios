@@ -65,9 +65,9 @@ class GiftView: BNView {
         
         if white >= 0.95 {
             print("Is white - \(gift!.name!)")
-            decorationColor = gift!.primaryColor
-        } else {
             decorationColor = gift!.secondaryColor
+        } else {
+            decorationColor = gift!.primaryColor
         }
         
         deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
