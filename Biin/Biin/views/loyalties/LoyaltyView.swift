@@ -21,6 +21,7 @@ class LoyaltyView: BNView {
     var subTitleLbl:UILabel?
     var textLbl:UILabel?
 
+    var foreground:UIView?
     var background:UIView?
     var showSwipe:UISwipeGestureRecognizer?
     var hideSwipe:UISwipeGestureRecognizer?
@@ -135,6 +136,13 @@ class LoyaltyView: BNView {
             star_xpos += 17
         }
         
+        
+        foreground = UIView(frame: frame)
+        foreground!.backgroundColor = UIColor.blackColor()
+        foreground!.alpha = 0
+        foreground!.resignFirstResponder()
+        self.addSubview(foreground!)
+        
         showSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.showRemoveBtn(_:)))
         showSwipe!.direction = UISwipeGestureRecognizerDirection.Left
         background!.addGestureRecognizer(showSwipe!)
@@ -147,12 +155,13 @@ class LoyaltyView: BNView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         self.addGestureRecognizer(tap)
         
+        
     }
     
     func handleTap(sender:UITapGestureRecognizer) {
-        self.background!.backgroundColor = UIColor.bnGrayLight()
+        self.foreground!.alpha = 0.1
         UIView.animateWithDuration(0.1, animations: {()-> Void in
-            self.background!.backgroundColor = UIColor.whiteColor()
+            self.foreground!.alpha = 0
         })
     }
     
