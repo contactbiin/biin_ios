@@ -5,8 +5,6 @@
 
 import Foundation
 import UIKit
-import CoreLocation
-
 
 class GiftsView: BNView, GiftView_Delegate {
 

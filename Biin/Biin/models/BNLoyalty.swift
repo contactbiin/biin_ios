@@ -5,7 +5,7 @@
 
 import Foundation
 
-class BNLoyalty:NSObject {
+class BNLoyalty:BNObject {
     
     var organizationIdentifier:String?
     var isSubscribed:Bool = false
@@ -15,4 +15,8 @@ class BNLoyalty:NSObject {
     override init() {
         super.init()
     }    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

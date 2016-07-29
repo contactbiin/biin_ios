@@ -165,33 +165,21 @@ class BNScroll: BNView, UIScrollViewDelegate {
                     break
                 }
             }
-            
-//            if children.count == 1 {
-//                print("solo uno")
-//                let viewWidth:CGFloat = SharedUIManager.instance.screenWidth
-//                self.children[0].updateWidth(CGRectMake(0, 0, viewWidth, self.children[0].frame.height))
-//                self.children[0].frame.origin.x = self.childPosition
-//            } else {
-            
+
             var ypos:CGFloat = 0
-                for i in (0..<children.count) {
-                    
-                    UIView.animateWithDuration(0.2, animations: {()-> Void in
-                        self.children[i].frame.origin.y = ypos
-                        ypos += (self.children[i].frame.height + self.space)
-                    })
-                }
-//            }
-            
+            for i in (0..<children.count) {
+                UIView.animateWithDuration(0.2, animations: {()-> Void in
+                    self.children[i].frame.origin.y = ypos
+                    ypos += (self.children[i].frame.height + self.space)
+                })
+            }
+
             self.scroll!.contentSize = CGSize(width:self.frame.width, height:ypos)
             
             break
         case .VERTICAL_TWO_COLS:
             break
         }
-        
-//        children.insert(view, atIndex: 0)
-//        scroll!.addSubview(view)
     }
     
     func addChild(view:BNView) {
@@ -207,8 +195,7 @@ class BNScroll: BNView, UIScrollViewDelegate {
         case .HORIZONTAL:
             
             for i in (0..<children.count) {
-//            for var i = 0; i < children.count; i++ {
-                
+
                 if !children[i].isAddedToScroll {
                     self.children[i].isAddedToScroll = true
                     self.children[i].frame.origin.y = 0
@@ -224,7 +211,6 @@ class BNScroll: BNView, UIScrollViewDelegate {
         case .VERTICAL:
             
             for i in (0..<children.count){
-//            for var i = 0; i < children.count; i++ {
                 
                 if !children[i].isAddedToScroll {
                     self.children[i].isAddedToScroll = true
@@ -243,25 +229,19 @@ class BNScroll: BNView, UIScrollViewDelegate {
             colunmCounter = 0
             colunmXpos = 0
             for i in (0..<children.count){
-//            for var i = 0; i < children.count; i++ {
                 
-                //if !children[i].isAddedToScroll {
-                    
-                    self.children[i].isAddedToScroll = true
-                    self.children[i].frame.origin.y = childPosition
-                    self.children[i].frame.origin.x = colunmXpos
-                    
-                    colunmXpos += self.children[i].frame.width + space
-                    colunmCounter += 1
-                    
-                    if colunmCounter == 2 {
-                        colunmCounter = 0
-                        colunmXpos = 0
-                        childPosition += (children[i].frame.height + space)
-                    }
-                //}
+                self.children[i].isAddedToScroll = true
+                self.children[i].frame.origin.y = childPosition
+                self.children[i].frame.origin.x = colunmXpos
                 
-                //sself.childPosition += self.children[i].frame.width + space
+                colunmXpos += self.children[i].frame.width + space
+                colunmCounter += 1
+                
+                if colunmCounter == 2 {
+                    colunmCounter = 0
+                    colunmXpos = 0
+                    childPosition += (children[i].frame.height + space)
+                }
             }
             
             if colunmCounter == 1 {

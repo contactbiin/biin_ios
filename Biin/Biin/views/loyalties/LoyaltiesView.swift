@@ -6,109 +6,72 @@
 import Foundation
 import UIKit
 
-class LoyaltiesView: BNView {
+class LoyaltiesView: BNView, LoyaltyView_Delegate {
     
-    var delegate:LoyaltiesView_Delegate?
     var title:UILabel?
     var backBtn:BNUIButton_Back?
-//    var fade:UIView?
     
-    var biinieAvatar:BNUIImageView?
-    var biinieNameLbl:UILabel?
-    var biinieUserNameLbl:UILabel?
+    var delegate:LoyaltiesView_Delegate?
+    //var elementContainers:Array <MainView_Container_Elements>?
+    var scroll:BNScroll?
     
-    var scroll:UIScrollView?
+    weak var lastViewOpen:LoyaltyView?
     
-    var loyalties = Array<LoyaltiesMiniView>()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     override init(frame: CGRect, father:BNView?) {
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.appMainColor()
+        //NSLog("MainViewContainer init()")
+        
+        self.backgroundColor = UIColor.appBackground()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 12
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.siteView_titleSize + 3)))
-        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.siteView_titleSize)
-        title!.textColor = UIColor.appTextColor()
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
+        let titleText = NSLocalizedString("TresureChest", comment: "TresureChest").uppercaseString
+        let attributedString = NSMutableAttributedString(string:titleText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
+        title!.attributedText = attributedString
+        title!.textColor = UIColor.appTitleColor()
         title!.textAlignment = NSTextAlignment.Center
-        title!.text = NSLocalizedString("Loyalty", comment: "Loyalty")
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 10, 50, 50))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(backBtn!)
         
-        //let headerWidth = screenWidth - 60
-        //var xpos:CGFloat = (screenWidth - headerWidth) / 2
+        ypos = SharedUIManager.instance.mainView_HeaderSize
+        self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
+        self.addSubview(scroll!)
         
-        /*
-        var biinieAvatarView = UIView(frame: CGRectMake(xpos, ypos, 92, 92))
-        biinieAvatarView.layer.cornerRadius = 35
-        biinieAvatarView.layer.borderColor = UIColor.appBackground().CGColor
-        biinieAvatarView.layer.borderWidth = 6
-        biinieAvatarView.layer.masksToBounds = true
-        self.addSubview(biinieAvatarView)
+        //elementContainers = Array<MainView_Container_Elements>()
+        updateLoyalties()
+    }
+    
+    func updateLoyalties(){
         
-        if BNAppSharedManager.instance.dataManager.bnUser!.imgUrl != "" {
-        biinieAvatar = BNUIImageView(frame: CGRectMake(1, 1, 90, 90))
-        //biinieAvatar!.alpha = 0
-        biinieAvatar!.layer.cornerRadius = 30
-        biinieAvatar!.layer.masksToBounds = true
-        biinieAvatarView.addSubview(biinieAvatar!)
-        BNAppSharedManager.instance.networkManager.requestImageData(BNAppSharedManager.instance.dataManager.bnUser!.imgUrl!, image: biinieAvatar)
-        } else  {
-        var initials = UILabel(frame: CGRectMake(0, 25, 90, 40))
-        initials.font = UIFont(name: "Lato-Light", size: 38)
-        initials.textColor = UIColor.appMainColor()
-        initials.textAlignment = NSTextAlignment.Center
-        initials.text = "\(first(BNAppSharedManager.instance.dataManager.bnUser!.firstName!)!)\(first(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)!)"
-        biinieAvatarView.addSubview(initials)
-        biinieAvatarView.backgroundColor = UIColor.biinColor()
+        self.scroll!.clean()
+        self.scroll!.leftSpace = 0
+        
+        if let biinie = BNAppSharedManager.instance.dataManager.biinie {
+            for (_, value) in biinie.loyalties {
+                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.giftView_height) , father: self, loyalty:value)
+                loyaltyView.delegate = self
+                scroll!.addChild(loyaltyView)
+            }
         }
         
-        
-        
-        //        biinieNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 30), (headerWidth - 95), 20))
-        biinieNameLbl = UILabel(frame: CGRectMake(6, 25, (screenWidth - 20), 20))
-        biinieNameLbl!.font = UIFont(name: "Lato-Regular", size: 22)
-        biinieNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.firstName!) \(BNAppSharedManager.instance.dataManager.bnUser!.lastName!)"
-        biinieNameLbl!.textColor = UIColor.biinColor()
-        biinieNameLbl!.textAlignment = NSTextAlignment.Center
-        self.addSubview(biinieNameLbl!)
-        
-        //biinieUserNameLbl = UILabel(frame: CGRectMake((xpos + 100), (ypos + 50), (headerWidth - 95), 14))
-        biinieUserNameLbl = UILabel(frame: CGRectMake(6, 45, (screenWidth - 20), 14))
-        biinieUserNameLbl!.font = UIFont(name: "Lato-Light", size: 12)
-        biinieUserNameLbl!.text = "\(BNAppSharedManager.instance.dataManager.bnUser!.biinName!)"
-        biinieUserNameLbl!.textColor = UIColor.appTextColor()
-        biinieUserNameLbl!.textAlignment = NSTextAlignment.Center
-        self.addSubview(biinieUserNameLbl!)
-        */
-        
-        ypos = SharedUIManager.instance.siteView_headerHeight
-        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.appButtonColor()
-        
-        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
-        scroll!.backgroundColor = UIColor.appBackground()
-        self.addSubview(scroll!)
-        self.addSubview(line)
-        
-//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-//        fade!.backgroundColor = UIColor.blackColor()
-//        fade!.alpha = 0
-//        self.addSubview(fade!)
-    }
-    
-    convenience init(frame:CGRect, father:BNView?, site:BNSite?){
-        self.init(frame: frame, father:father )
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.scroll!.setChildrenPosition()
     }
     
     override func transitionIn() {
@@ -121,30 +84,24 @@ class LoyaltiesView: BNView {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.MainViewContainerState
-            || state!.stateType == BNStateType.SiteState {
-                
-                UIView.animateWithDuration(0.25, animations: {()-> Void in
-                    self.frame.origin.x = SharedUIManager.instance.screenWidth
-                })
-        } else {
-            
-            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
-        }
-    }
-    
-    func hideView(sender:NSTimer){
-        self.frame.origin.x = SharedUIManager.instance.screenWidth
+        //        if state!.stateType == BNStateType.MainViewContainerState
+        //            || state!.stateType == BNStateType.SiteState {
+        
+        UIView.animateWithDuration(0.25, animations: {()-> Void in
+            self.frame.origin.x = SharedUIManager.instance.screenWidth
+        })
+        //        } else {
+        
+        //            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
+        //        }
     }
     
     override func setNextState(goto:BNGoto){
-        //Start transition on root view controller
         father!.setNextState(goto)
     }
     
     override func showUserControl(value:Bool, son:BNView, point:CGPoint){
         if father == nil {
-            
         }else{
             father!.showUserControl(value, son:son, point:point)
         }
@@ -158,45 +115,63 @@ class LoyaltiesView: BNView {
         }
     }
     
-    //Instance Methods
+    override func refresh() { }
+    
+    override func clean(){
+        
+        scroll!.removeFromSuperview()
+        fade!.removeFromSuperview()
+    }
+    
     func backBtnAction(sender:UIButton) {
-        delegate!.hideLoyaltiesView!(self)
-        //delegate!.hideElementView!(elementMiniView)
+        
+        delegate!.hideLoyaltiesView!()
+        
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
+        
+        BNAppSharedManager.instance.dataManager.biinie!.viewedAllGifts()
+        BNAppSharedManager.instance.updateGiftCounter()
+        
     }
     
-    func updateLoyaltiesMiniViews(){
-        
-        if loyalties.count > 0 {
-            for value in loyalties {
-                value.removeFromSuperview()
+    func resizeScrollOnRemoved(view: LoyaltyView) {
+        self.scroll!.removeChildByIdentifier(view.model!.identifier!)
+    }
+    
+    func updateGifts(siteIdentifier:String?){
+        for giftView in self.scroll!.children {
+            if let gift = (giftView as! GiftView).model {
+                for site in (gift as! BNGift).sites! {
+                    if site == siteIdentifier {
+                        //Send local notification
+                        (giftView as! GiftView).updateToClaimNow()
+                        break
+                    }
+                    //else {
+                    //  (giftView as! GiftView).updateActionBtnStatus()
+                    //}
+                }
             }
-            
-            loyalties.removeAll(keepCapacity: false)
         }
-        
-        var ypos:CGFloat = 5
-        let height:CGFloat = 100
-        
-        for (_, organization) in BNAppSharedManager.instance.dataManager.organizations {
-
-            let loyaltiesMiniView = LoyaltiesMiniView(frame: CGRectMake(5, ypos, (SharedUIManager.instance.screenWidth - 10), height), father: self, organization: organization)
-            self.scroll!.addSubview(loyaltiesMiniView)
-            self.loyalties.append(loyaltiesMiniView)
-            
-            ypos += height
-            ypos += 5
-            //}
-        }
-        
-        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
     }
     
-
+    func hideOtherViewsOpen(view: LoyaltyView) {
+        
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
+        
+        lastViewOpen = view
+    }
     
-    
+    func removeFromOtherViewsOpen(view: LoyaltyView) {
+        lastViewOpen = nil
+    }
 }
+
 
 @objc protocol LoyaltiesView_Delegate:NSObjectProtocol {
-    optional func hideLoyaltiesView(view:LoyaltiesView)
+    optional func hideLoyaltiesView()
 }
-

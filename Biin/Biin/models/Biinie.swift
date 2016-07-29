@@ -41,7 +41,6 @@ class Biinie:BNObject {
     var facebookAvatarUrl:String?
     
     var newGiftCounter:Int = 0
-//    var gifts_store:[String] = [String]()
     var gifts:[BNGift] = [BNGift]()
     
     var newNotificationCount:Int = 0

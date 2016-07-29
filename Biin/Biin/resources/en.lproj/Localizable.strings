@@ -267,3 +267,5 @@ SENT = "Visit our store and request this gift!";
 DELIVERED = "Enjoy this gift!";
 READY_TO_CLAIM = "Clain now";
 GiftsExpires = "Expires:";
+
+LoyaltyWallet = "LoyaltyWallet";

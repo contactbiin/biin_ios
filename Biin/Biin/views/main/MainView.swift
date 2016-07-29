@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltiesView_Delegate, LoyaltyCardView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -31,6 +31,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var surveyState:SurveyState?
     var notificationsState:NotificationsState?
     var giftsState:GiftsState?
+    var loyaltiesState:LoyaltiesState?
+    var loyaltyCardState:LoyaltyCardState?
     
     var isShowingNotificationContext = false
     
@@ -75,6 +77,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         surveyState = SurveyState(context: self, view: nil)
         notificationsState = NotificationsState(context: self, view: nil)
         giftsState = GiftsState(context: self, view: nil)
+        loyaltiesState = LoyaltiesState(context: self, view: nil)
+        loyaltyCardState = LoyaltyCardState(context: self, view: nil)
         
         show()
 
@@ -245,6 +249,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.view!.showFade()
             self.giftsState!.previous = state
             state!.next(self.giftsState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .Loyalties:
+            state!.view!.showFade()
+            self.loyaltiesState!.previous = state
+            state!.next(self.loyaltiesState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .Loyalty:
+            state!.view?.showFade()
+            self.loyaltyCardState!.previous = state
+            state!.next(self.loyaltyCardState)
             self.bringSubviewToFront(state!.view!)
             break
         }
@@ -510,8 +526,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideBrotherSiteView()      { setNextState(BNGoto.Previous) }
     func hideAllCollectedView()     { setNextState(BNGoto.Main) }
     func hideSurveyView()           { setNextState(BNGoto.Previous) }
-    func hideGiftsView()            { setNextState(BNGoto.Previous) }
-    
     
     func updateAllCollectedView() {
         (allCollectedState!.view as? AllCollectedView)!.refresh()
@@ -649,12 +663,20 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         giftsState!.view = giftsView
         giftsView.delegate = self
         self.addSubview(giftsView)
+        
+        let loyaltiesView = LoyaltiesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        loyaltiesState!.view = loyaltiesView
+        loyaltiesView.delegate = self
+        self.addSubview(loyaltiesView)
+        
     }
     
     func updateProfileView(){
         (profileState!.view as! ProfileView).update()
     }
     
+    
+    //GIFTS
     func updateGiftsView() {
         (giftsState!.view as! GiftsView).updateGifts()
         updateGiftCounter()
@@ -664,6 +686,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateGiftCounter()
     }
     
+    func hideGiftsView() {
+        setNextState(BNGoto.Previous)
+    }
+    
+    //NOTIFICATION
     func updateNotificationsView(){
         (notificationsState!.view as! NotificationsView).addNotifications()
         (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateNotificationCounter()
@@ -672,6 +699,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func updateNotificationCounter(){
         (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateNotificationCounter()
     }
+    
+    //LOYALTIES
+    func hideLoyaltiesView() {
+
+    }
+    
+    
+    //LOYALTY CARD
 }
 
 
@@ -713,4 +748,6 @@ enum BNGoto {
     case Previous
     case Notifications
     case Gifts
+    case Loyalties
+    case Loyalty
 }

@@ -13,6 +13,9 @@
 		5B3FF41D1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41B1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift */; };
 		5B3FF41F1D3414F9007DF426 /* BNUIButton_Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */; };
 		5B49C7621D4955970063EE91 /* BNLoyaltyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49C7611D4955970063EE91 /* BNLoyaltyCard.swift */; };
+		5B49C7641D4AA86B0063EE91 /* LoyaltyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49C7631D4AA86B0063EE91 /* LoyaltyCardView.swift */; };
+		5B49C7661D4AB01E0063EE91 /* LoyaltiesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49C7651D4AB01E0063EE91 /* LoyaltiesState.swift */; };
+		5B49C7681D4AB02A0063EE91 /* LoyaltyCardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B49C7671D4AB02A0063EE91 /* LoyaltyCardState.swift */; };
 		5B6250471D35AAC900368796 /* MainView_Container_OptionsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6250461D35AAC900368796 /* MainView_Container_OptionsBar.swift */; };
 		5B7ACDD61D2F6485005465B8 /* BNBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */; };
 		5BAFF9961D36AB450033A66D /* BNIcon_Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAFF9951D36AB450033A66D /* BNIcon_Gift.swift */; };
@@ -47,7 +50,6 @@
 		5BD1F89A1D28A00F0067164F /* ServerErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7A21D28A00E0067164F /* ServerErrorView.swift */; };
 		5BD1F89B1D28A00F0067164F /* VersionErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7A31D28A00E0067164F /* VersionErrorView.swift */; };
 		5BD1F89C1D28A00F0067164F /* GiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7A51D28A00E0067164F /* GiftView.swift */; };
-		5BD1F89D1D28A00F0067164F /* GiftView_Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7A61D28A00E0067164F /* GiftView_Container.swift */; };
 		5BD1F89E1D28A00F0067164F /* GiftsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7A71D28A00E0067164F /* GiftsView.swift */; };
 		5BD1F89F1D28A00F0067164F /* HighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7A91D28A00E0067164F /* HighlightView.swift */; };
 		5BD1F8A01D28A00F0067164F /* InviteFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7AB1D28A00E0067164F /* InviteFriendsView.swift */; };
@@ -55,7 +57,7 @@
 		5BD1F8A21D28A00F0067164F /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7AE1D28A00E0067164F /* LoadingView.swift */; };
 		5BD1F8A31D28A00F0067164F /* VersionCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7AF1D28A00E0067164F /* VersionCheckView.swift */; };
 		5BD1F8A41D28A00F0067164F /* BiinLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B11D28A00E0067164F /* BiinLogoView.swift */; };
-		5BD1F8A51D28A00F0067164F /* LoyaltiesMiniView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B31D28A00E0067164F /* LoyaltiesMiniView.swift */; };
+		5BD1F8A51D28A00F0067164F /* LoyaltyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B31D28A00E0067164F /* LoyaltyView.swift */; };
 		5BD1F8A61D28A00F0067164F /* LoyaltiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B41D28A00E0067164F /* LoyaltiesView.swift */; };
 		5BD1F8A71D28A00F0067164F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B61D28A00E0067164F /* MainView.swift */; };
 		5BD1F8A81D28A00F0067164F /* MainView_Container_All.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B71D28A00E0067164F /* MainView_Container_All.swift */; };
@@ -309,6 +311,9 @@
 		5B3FF41B1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendRefusedGift.swift; sourceTree = "<group>"; };
 		5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Gift.swift; sourceTree = "<group>"; };
 		5B49C7611D4955970063EE91 /* BNLoyaltyCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNLoyaltyCard.swift; sourceTree = "<group>"; };
+		5B49C7631D4AA86B0063EE91 /* LoyaltyCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltyCardView.swift; sourceTree = "<group>"; };
+		5B49C7651D4AB01E0063EE91 /* LoyaltiesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltiesState.swift; sourceTree = "<group>"; };
+		5B49C7671D4AB02A0063EE91 /* LoyaltyCardState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltyCardState.swift; sourceTree = "<group>"; };
 		5B5C5CDA1D2DDB94009E6A44 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		5B6250461D35AAC900368796 /* MainView_Container_OptionsBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView_Container_OptionsBar.swift; sourceTree = "<group>"; };
 		5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNBadgeView.swift; sourceTree = "<group>"; };
@@ -344,7 +349,6 @@
 		5BD1F7A21D28A00E0067164F /* ServerErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerErrorView.swift; sourceTree = "<group>"; };
 		5BD1F7A31D28A00E0067164F /* VersionErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionErrorView.swift; sourceTree = "<group>"; };
 		5BD1F7A51D28A00E0067164F /* GiftView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftView.swift; sourceTree = "<group>"; };
-		5BD1F7A61D28A00E0067164F /* GiftView_Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftView_Container.swift; sourceTree = "<group>"; };
 		5BD1F7A71D28A00E0067164F /* GiftsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftsView.swift; sourceTree = "<group>"; };
 		5BD1F7A91D28A00E0067164F /* HighlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightView.swift; sourceTree = "<group>"; };
 		5BD1F7AB1D28A00E0067164F /* InviteFriendsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsView.swift; sourceTree = "<group>"; };
@@ -352,7 +356,7 @@
 		5BD1F7AE1D28A00E0067164F /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		5BD1F7AF1D28A00E0067164F /* VersionCheckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCheckView.swift; sourceTree = "<group>"; };
 		5BD1F7B11D28A00E0067164F /* BiinLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinLogoView.swift; sourceTree = "<group>"; };
-		5BD1F7B31D28A00E0067164F /* LoyaltiesMiniView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltiesMiniView.swift; sourceTree = "<group>"; };
+		5BD1F7B31D28A00E0067164F /* LoyaltyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltyView.swift; sourceTree = "<group>"; };
 		5BD1F7B41D28A00E0067164F /* LoyaltiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltiesView.swift; sourceTree = "<group>"; };
 		5BD1F7B61D28A00E0067164F /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		5BD1F7B71D28A00E0067164F /* MainView_Container_All.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView_Container_All.swift; sourceTree = "<group>"; };
@@ -764,7 +768,6 @@
 			isa = PBXGroup;
 			children = (
 				5BD1F7A51D28A00E0067164F /* GiftView.swift */,
-				5BD1F7A61D28A00E0067164F /* GiftView_Container.swift */,
 				5BD1F7A71D28A00E0067164F /* GiftsView.swift */,
 			);
 			path = gift;
@@ -807,8 +810,9 @@
 		5BD1F7B21D28A00E0067164F /* loyalties */ = {
 			isa = PBXGroup;
 			children = (
-				5BD1F7B31D28A00E0067164F /* LoyaltiesMiniView.swift */,
+				5BD1F7B31D28A00E0067164F /* LoyaltyView.swift */,
 				5BD1F7B41D28A00E0067164F /* LoyaltiesView.swift */,
+				5B49C7631D4AA86B0063EE91 /* LoyaltyCardView.swift */,
 			);
 			path = loyalties;
 			sourceTree = "<group>";
@@ -934,6 +938,8 @@
 				5BD1F7EE1D28A00F0067164F /* MainViewContainerState.swift */,
 				5BD1F7EF1D28A00F0067164F /* NotificationsState.swift */,
 				5BC48A301D2B0D7C00F191CE /* GiftsState.swift */,
+				5B49C7651D4AB01E0063EE91 /* LoyaltiesState.swift */,
+				5B49C7671D4AB02A0063EE91 /* LoyaltyCardState.swift */,
 				5BD1F7F01D28A00F0067164F /* ProfileState.swift */,
 				5BD1F7F11D28A00F0067164F /* SearchState.swift */,
 				5BD1F7F31D28A00F0067164F /* SettingsState.swift */,
@@ -1495,6 +1501,7 @@
 				5BD1F8E21D28A00F0067164F /* BNUIAlertView_Header.swift in Sources */,
 				5BD1F8A01D28A00F0067164F /* InviteFriendsView.swift in Sources */,
 				5BD1F9151D28A00F0067164F /* BNUIWebView.swift in Sources */,
+				5B49C7661D4AB01E0063EE91 /* LoyaltiesState.swift in Sources */,
 				5BD1F8FB1D28A00F0067164F /* BNUIButton_SitePhone.swift in Sources */,
 				5BD1F8C11D28A00F0067164F /* SiteView_OtherSites.swift in Sources */,
 				5BEC1E991D287DCA00D7B931 /* BNNotification.swift in Sources */,
@@ -1513,6 +1520,7 @@
 				5BD1F9421D28A00F0067164F /* BNIcon_More.swift in Sources */,
 				5BCF6FE31D3D8B040033CCEA /* BNIcon_GiftStores.swift in Sources */,
 				5BD1F8A21D28A00F0067164F /* LoadingView.swift in Sources */,
+				5B49C7681D4AB02A0063EE91 /* LoyaltyCardState.swift in Sources */,
 				5BD1F9121D28A00F0067164F /* BNUITexfield_Top.swift in Sources */,
 				5BEC1E8E1D287DCA00D7B931 /* BNCategory.swift in Sources */,
 				5BAFF9961D36AB450033A66D /* BNIcon_Gift.swift in Sources */,
@@ -1589,7 +1597,6 @@
 				5BD1F94F1D28A00F0067164F /* BNIcon_ProfileMedium.swift in Sources */,
 				5BD1F8BA1D28A00F0067164F /* SiteMiniView_Header.swift in Sources */,
 				5BD1F91E1D28A00F0067164F /* BNIcon_Bluetooth.swift in Sources */,
-				5BD1F89D1D28A00F0067164F /* GiftView_Container.swift in Sources */,
 				5BEC1E961D287DCA00D7B931 /* BNLoyalty.swift in Sources */,
 				5BD1F8C81D28A00F0067164F /* AllCollectedState.swift in Sources */,
 				5BD1F9501D28A00F0067164F /* BNIcon_RedX.swift in Sources */,
@@ -1605,7 +1612,7 @@
 				5BD1F8951D28A00F0067164F /* BluetoothErrorView.swift in Sources */,
 				5BEC1E771D287DCA00D7B931 /* BNNetworkManager.swift in Sources */,
 				5BD1F8851D28A00F0067164F /* BiinItAnimationView.swift in Sources */,
-				5BD1F8A51D28A00F0067164F /* LoyaltiesMiniView.swift in Sources */,
+				5BD1F8A51D28A00F0067164F /* LoyaltyView.swift in Sources */,
 				5BD1F9301D28A00F0067164F /* BNIcon_FriendsMedium.swift in Sources */,
 				5BD1F9621D28A00F0067164F /* BNIcon_Warning.swift in Sources */,
 				5BEC1EAA1D287DCA00D7B931 /* BNRequest_SendBiinie.swift in Sources */,
@@ -1664,6 +1671,7 @@
 				5BEC1E871D287DCA00D7B931 /* Biinie.swift in Sources */,
 				5BD1F93A1D28A00F0067164F /* BNIcon_LeftArrowSmall.swift in Sources */,
 				5BEC1E911D287DCA00D7B931 /* BNCoordinates.swift in Sources */,
+				5B49C7641D4AA86B0063EE91 /* LoyaltyCardView.swift in Sources */,
 				5BD1F8B11D28A00F0067164F /* ProfileView.swift in Sources */,
 				5BEC1EB91D287DCA00D7B931 /* BNRequest_SendSurvey.swift in Sources */,
 				5BD1F8901D28A00F0067164F /* ElementMiniView.swift in Sources */,
