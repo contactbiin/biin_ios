@@ -49,6 +49,6 @@ enum BNStateType {
     case AllCollectedState
     case SurveyState
     case GiftsState
-    case LoyaltiesState
+    case LoyaltyWallet
     case LoyaltyCardState
 }

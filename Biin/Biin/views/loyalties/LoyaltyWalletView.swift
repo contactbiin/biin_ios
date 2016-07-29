@@ -1,4 +1,4 @@
-//  LoyaltiesView.swift
+//  LoyaltyWalletView.swift
 //  biin
 //  Created by Esteban Padilla on 2/20/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
@@ -6,12 +6,12 @@
 import Foundation
 import UIKit
 
-class LoyaltiesView: BNView, LoyaltyView_Delegate {
+class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     
     var title:UILabel?
     var backBtn:BNUIButton_Back?
     
-    var delegate:LoyaltiesView_Delegate?
+    var delegate:LoyaltyWalletView_Delegate?
     //var elementContainers:Array <MainView_Container_Elements>?
     var scroll:BNScroll?
     
@@ -38,7 +38,7 @@ class LoyaltiesView: BNView, LoyaltyView_Delegate {
         var ypos:CGFloat = 27
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
         title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
-        let titleText = NSLocalizedString("TresureChest", comment: "TresureChest").uppercaseString
+        let titleText = NSLocalizedString("LoyaltyWallet", comment: "LoyaltyWallet").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
@@ -125,36 +125,15 @@ class LoyaltiesView: BNView, LoyaltyView_Delegate {
     
     func backBtnAction(sender:UIButton) {
         
-        delegate!.hideLoyaltiesView!()
+        delegate!.hideLoyaltyWalletView!()
         
         if lastViewOpen != nil {
             lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
         }
-        
-        BNAppSharedManager.instance.dataManager.biinie!.viewedAllGifts()
-        BNAppSharedManager.instance.updateGiftCounter()
-        
     }
     
     func resizeScrollOnRemoved(view: LoyaltyView) {
         self.scroll!.removeChildByIdentifier(view.model!.identifier!)
-    }
-    
-    func updateGifts(siteIdentifier:String?){
-        for giftView in self.scroll!.children {
-            if let gift = (giftView as! GiftView).model {
-                for site in (gift as! BNGift).sites! {
-                    if site == siteIdentifier {
-                        //Send local notification
-                        (giftView as! GiftView).updateToClaimNow()
-                        break
-                    }
-                    //else {
-                    //  (giftView as! GiftView).updateActionBtnStatus()
-                    //}
-                }
-            }
-        }
     }
     
     func hideOtherViewsOpen(view: LoyaltyView) {
@@ -172,6 +151,6 @@ class LoyaltiesView: BNView, LoyaltyView_Delegate {
 }
 
 
-@objc protocol LoyaltiesView_Delegate:NSObjectProtocol {
-    optional func hideLoyaltiesView()
+@objc protocol LoyaltyWalletView_Delegate:NSObjectProtocol {
+    optional func hideLoyaltyWalletView()
 }

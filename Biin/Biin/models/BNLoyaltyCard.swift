@@ -4,11 +4,18 @@
 //  Copyright © 2016 Esteban Padilla. All rights reserved.
 
 import Foundation
-import UIKit
 
 class BNLoyaltyCard:NSObject {
     
-    var title:UILabel?
+    var title:String?
+    var text1:String?
+    var text2:String?
+    var conditions:String?
+    
+    var elementIdentifier:String?
+    
+    var startDate:NSDate?
+    var endDate:NSDate?
     var slots:Array<BNLoyaltyCard_Slot> = Array<BNLoyaltyCard_Slot>()
     
     override init() {

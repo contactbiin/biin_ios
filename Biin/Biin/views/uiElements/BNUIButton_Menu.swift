@@ -31,12 +31,12 @@ class BNUIButton_Menu:BNUIButton {
         self.iconType = iconType
         createIcon()
         
-        label = UILabel(frame: CGRectMake(0, ((frame.height + 10) / 2), frame.width, 13))
+        label = UILabel(frame: CGRectMake(0, ((frame.height + 10) / 2), frame.width, 12))
         let attributedString = NSMutableAttributedString(string:text)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(text.characters.count)))
         label!.attributedText = attributedString
         label!.textColor = UIColor.whiteColor()
-        label!.font = UIFont(name: "Lato-Light", size: 13)
+        label!.font = UIFont(name: "Lato-Light", size: 12)
         label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)
     }

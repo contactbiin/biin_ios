@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltiesView_Delegate, LoyaltyCardView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -31,7 +31,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var surveyState:SurveyState?
     var notificationsState:NotificationsState?
     var giftsState:GiftsState?
-    var loyaltiesState:LoyaltiesState?
+    var loyaltyWalletState:LoyaltyWalletState?
     var loyaltyCardState:LoyaltyCardState?
     
     var isShowingNotificationContext = false
@@ -77,7 +77,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         surveyState = SurveyState(context: self, view: nil)
         notificationsState = NotificationsState(context: self, view: nil)
         giftsState = GiftsState(context: self, view: nil)
-        loyaltiesState = LoyaltiesState(context: self, view: nil)
+        loyaltyWalletState = LoyaltyWalletState(context: self, view: nil)
         loyaltyCardState = LoyaltyCardState(context: self, view: nil)
         
         show()
@@ -251,13 +251,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.next(self.giftsState)
             self.bringSubviewToFront(state!.view!)
             break
-        case .Loyalties:
+        case .LoyaltyWallet:
             state!.view!.showFade()
-            self.loyaltiesState!.previous = state
-            state!.next(self.loyaltiesState)
+            self.loyaltyWalletState!.previous = state
+            state!.next(self.loyaltyWalletState)
             self.bringSubviewToFront(state!.view!)
             break
-        case .Loyalty:
+        case .LoyaltyCard:
             state!.view?.showFade()
             self.loyaltyCardState!.previous = state
             state!.next(self.loyaltyCardState)
@@ -664,10 +664,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         giftsView.delegate = self
         self.addSubview(giftsView)
         
-        let loyaltiesView = LoyaltiesView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
-        loyaltiesState!.view = loyaltiesView
-        loyaltiesView.delegate = self
-        self.addSubview(loyaltiesView)
+        let loyaltyWalletView = LoyaltyWalletView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        loyaltyWalletState!.view = loyaltyWalletView
+        loyaltyWalletView.delegate = self
+        self.addSubview(loyaltyWalletView)
         
     }
     
@@ -701,10 +701,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     //LOYALTIES
-    func hideLoyaltiesView() {
-
+    func hideLoyaltyWalletView() {
+        setNextState(BNGoto.Previous)
     }
-    
     
     //LOYALTY CARD
 }
@@ -748,6 +747,6 @@ enum BNGoto {
     case Previous
     case Notifications
     case Gifts
-    case Loyalties
-    case Loyalty
+    case LoyaltyWallet
+    case LoyaltyCard
 }

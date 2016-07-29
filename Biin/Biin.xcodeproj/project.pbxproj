@@ -58,7 +58,7 @@
 		5BD1F8A31D28A00F0067164F /* VersionCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7AF1D28A00E0067164F /* VersionCheckView.swift */; };
 		5BD1F8A41D28A00F0067164F /* BiinLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B11D28A00E0067164F /* BiinLogoView.swift */; };
 		5BD1F8A51D28A00F0067164F /* LoyaltyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B31D28A00E0067164F /* LoyaltyView.swift */; };
-		5BD1F8A61D28A00F0067164F /* LoyaltiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B41D28A00E0067164F /* LoyaltiesView.swift */; };
+		5BD1F8A61D28A00F0067164F /* LoyaltyWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B41D28A00E0067164F /* LoyaltyWalletView.swift */; };
 		5BD1F8A71D28A00F0067164F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B61D28A00E0067164F /* MainView.swift */; };
 		5BD1F8A81D28A00F0067164F /* MainView_Container_All.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B71D28A00E0067164F /* MainView_Container_All.swift */; };
 		5BD1F8A91D28A00F0067164F /* MainView_Container_Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F7B81D28A00E0067164F /* MainView_Container_Banner.swift */; };
@@ -357,7 +357,7 @@
 		5BD1F7AF1D28A00E0067164F /* VersionCheckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCheckView.swift; sourceTree = "<group>"; };
 		5BD1F7B11D28A00E0067164F /* BiinLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiinLogoView.swift; sourceTree = "<group>"; };
 		5BD1F7B31D28A00E0067164F /* LoyaltyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltyView.swift; sourceTree = "<group>"; };
-		5BD1F7B41D28A00E0067164F /* LoyaltiesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltiesView.swift; sourceTree = "<group>"; };
+		5BD1F7B41D28A00E0067164F /* LoyaltyWalletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltyWalletView.swift; sourceTree = "<group>"; };
 		5BD1F7B61D28A00E0067164F /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		5BD1F7B71D28A00E0067164F /* MainView_Container_All.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView_Container_All.swift; sourceTree = "<group>"; };
 		5BD1F7B81D28A00E0067164F /* MainView_Container_Banner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView_Container_Banner.swift; sourceTree = "<group>"; };
@@ -811,7 +811,7 @@
 			isa = PBXGroup;
 			children = (
 				5BD1F7B31D28A00E0067164F /* LoyaltyView.swift */,
-				5BD1F7B41D28A00E0067164F /* LoyaltiesView.swift */,
+				5BD1F7B41D28A00E0067164F /* LoyaltyWalletView.swift */,
 				5B49C7631D4AA86B0063EE91 /* LoyaltyCardView.swift */,
 			);
 			path = loyalties;
@@ -1590,7 +1590,7 @@
 				5BEC1EBB1D287DCA00D7B931 /* BNRequest_VersionCheck.swift in Sources */,
 				5BD1F8EF1D28A00F0067164F /* BNUIButton_Contact.swift in Sources */,
 				5BCF6FDB1D3D72800033CCEA /* BNUIButton_Delete.swift in Sources */,
-				5BD1F8A61D28A00F0067164F /* LoyaltiesView.swift in Sources */,
+				5BD1F8A61D28A00F0067164F /* LoyaltyWalletView.swift in Sources */,
 				5BD1F90F1D28A00F0067164F /* BNUITexfield.swift in Sources */,
 				5BEC1EA91D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift in Sources */,
 				5BD1F91D1D28A00F0067164F /* BNIcon_BiinSmall.swift in Sources */,

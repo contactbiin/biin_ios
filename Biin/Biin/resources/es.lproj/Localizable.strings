@@ -62,7 +62,7 @@ NotFollowTxt = "Lamentamos tu partida!";
 Profile = "Perfil";
 Home = "Inicio";
 Collections = "Mis Favoritos";
-Loyalty = "Puntos";
+LoyaltyWallet = "Mis Tarjetas";
 Notifications = "Notificaciones";
 InviteFriends = "Invitar Amigos";
 Settings = "Ajustes";
@@ -263,4 +263,7 @@ DELIVERED = "Disfruta tu regalo";
 READY_TO_CLAIM = "Reclama ahora";
 GiftsExpires = "Expira:";
 
-LoyaltyWallet = "Mis Tarjetas";
+SeeGift = "Ver regalo";
+ReadQRCode = "Leer Codigo";
+SeeConditions = "Ver condiciones";
+

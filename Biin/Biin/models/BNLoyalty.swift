@@ -5,11 +5,10 @@
 
 import Foundation
 
+
 class BNLoyalty:BNObject {
     
     var organizationIdentifier:String?
-    var isSubscribed:Bool = false
-    var subscriptionDate:NSDate?
     var loyaltyCard:BNLoyaltyCard?
     
     override init() {

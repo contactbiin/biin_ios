@@ -19,10 +19,6 @@ class LoyaltyView: BNView {
     var messageLbl:UILabel?
     var receivedLbl:UILabel?
     
-    var giftStoresBtn:BNUIButton_GiftStores?
-    var actionBtn:BNUIButton_Gift?
-    var shareGiftBtn:BNUIButton_ShareGift?
-    
     var expiredTitleLbl:UILabel?
     var expiredDateLbl:UILabel?
     
@@ -56,38 +52,27 @@ class LoyaltyView: BNView {
         self.backgroundColor = UIColor.whiteColor()
         self.layer.masksToBounds = true
         
+        let organization = BNAppSharedManager.instance.dataManager.organizations[(model as! BNLoyalty).organizationIdentifier!]
         self.model = loyalty
         var decorationColor:UIColor?
-        decorationColor = UIColor.redColor()
         
-        /*
         var white:CGFloat = 0.0
         var alpha:CGFloat = 0.0
-        _ = gift!.primaryColor!.getWhite(&white, alpha: &alpha)
+        _ =  organization!.primaryColor!.getWhite(&white, alpha: &alpha)
         
         if white >= 0.95 {
-            print("Is white - \(gift!.name!)")
-            decorationColor = gift!.secondaryColor
+            decorationColor = organization!.secondaryColor
         } else {
-            decorationColor = gift!.primaryColor
+            decorationColor = organization!.primaryColor
         }
-        */
         
-        deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
+        
+        deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: frame.height), iconColor: UIColor.whiteColor())
         deleteItButton!.backgroundColor = UIColor.redColor()
         deleteItButton!.addTarget(self, action: #selector(self.removeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(deleteItButton!)
         
         ypos += deleteItButton!.frame.height
-        
-        shareGiftBtn = BNUIButton_ShareGift(frame:CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
-        shareGiftBtn!.backgroundColor = UIColor.bnShareGiftColor()
-        self.addSubview(shareGiftBtn!)
-        
-        ypos += shareGiftBtn!.frame.height
-        giftStoresBtn = BNUIButton_GiftStores(frame:CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
-        giftStoresBtn!.backgroundColor = UIColor.bnGiftStoresColor()
-        self.addSubview(giftStoresBtn!)
         
         ypos = 5
         
@@ -106,7 +91,7 @@ class LoyaltyView: BNView {
         xpos = (SharedUIManager.instance.giftView_imageSize + 10)
         ypos = 5
         receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: frame.width, height: height))
-        receivedLbl!.text = (model as! BNGift).receivedDate!.bnDisplayDateFormatt_by_Day().uppercaseString
+        receivedLbl!.text = (model as! BNLoyalty).loyaltyCard!.startDate!.bnDisplayDateFormatt_by_Day().uppercaseString
         receivedLbl!.textColor = UIColor.bnGray()
         receivedLbl!.font = UIFont(name: "Lato-Regular", size: 10)
         receivedLbl!.textAlignment = NSTextAlignment.Left
@@ -118,7 +103,7 @@ class LoyaltyView: BNView {
         
         width = (frame.width - (xpos + 27))
         titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
-        titleLbl!.text = (model as! BNGift).name!
+        titleLbl!.text = (model as! BNLoyalty).loyaltyCard!.title!
         titleLbl!.textColor = decorationColor
         titleLbl!.font = UIFont(name: "Lato-Black", size: 25)
         titleLbl!.textAlignment = NSTextAlignment.Left
@@ -151,31 +136,6 @@ class LoyaltyView: BNView {
         } else {
             ypos = (SharedUIManager.instance.giftView_imageSize + 10)
         }
-        
-        var buttonHeight:CGFloat = 0
-        if viewHeight >= (SharedUIManager.instance.giftView_imageSize + 10) {
-            viewHeight += SharedUIManager.instance.giftView_bottomHeight
-            
-            self.frame = CGRect(x: 0, y: 0, width: frame.width, height: viewHeight)
-            buttonHeight = self.frame.height / 3
-            deleteItButton!.frame = CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: 0, width: SharedUIManager.instance.notificationView_height, height: buttonHeight)
-            shareGiftBtn!.frame = CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: (deleteItButton!.frame.height), width: SharedUIManager.instance.notificationView_height, height: buttonHeight)
-            giftStoresBtn!.frame = CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: (deleteItButton!.frame.height + shareGiftBtn!.frame.height), width: SharedUIManager.instance.notificationView_height, height: buttonHeight)
-        }
-        
-        buttonHeight = self.frame.height / 3
-        deleteItButton!.icon!.position = CGPoint(x: ((SharedUIManager.instance.notificationView_height / 2) - 7), y: ((buttonHeight / 2) - 7))
-        
-        shareGiftBtn!.icon!.position = CGPoint(x: ((SharedUIManager.instance.notificationView_height / 2) - 12), y: ((buttonHeight / 2) - 12))
-        
-        giftStoresBtn!.icon!.position = CGPoint(x: ((SharedUIManager.instance.notificationView_height / 2) - 12), y: ((buttonHeight / 2) - 12))
-        
-        xpos = 5
-        width = (frame.width - (xpos + 5))
-        actionBtn = BNUIButton_Gift(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight), gift:(model as! BNGift), color: decorationColor)
-        actionBtn!.addTarget(self, action: #selector(self.actionBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        background!.addSubview(actionBtn!)
-        updateActionBtnStatus()
         
         showSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.showRemoveBtn(_:)))
         showSwipe!.direction = UISwipeGestureRecognizerDirection.Left
@@ -263,7 +223,6 @@ class LoyaltyView: BNView {
     }
     
     override func clean(){
-        
         delegate = nil
         model = nil
         image?.removeFromSuperview()
@@ -276,10 +235,6 @@ class LoyaltyView: BNView {
         messageLbl = nil
         receivedLbl!.removeFromSuperview()
         receivedLbl = nil
-        actionBtn!.removeFromSuperview()
-        actionBtn = nil
-        shareGiftBtn!.removeFromSuperview()
-        shareGiftBtn = nil
         expiredTitleLbl!.removeFromSuperview()
         expiredTitleLbl = nil
         expiredDateLbl!.removeFromSuperview()
@@ -290,37 +245,6 @@ class LoyaltyView: BNView {
         BNAppSharedManager.instance.updateGiftCounter()
         BNAppSharedManager.instance.networkManager.sendRefusedGift((self.model as! BNGift))
         self.delegate!.resizeScrollOnRemoved!(self)
-    }
-    
-    func updateActionBtnStatus(){
-        switch (model as! BNGift).status! {
-        case .APPROVED:
-            actionBtn!.enabled = true
-            actionBtn!.titleLbl!.text = NSLocalizedString("APPROVED", comment: "APPROVED")
-        case .CLAIMED:
-            actionBtn!.enabled = false
-            actionBtn!.titleLbl!.text = NSLocalizedString("CLAIMED", comment: "CLAIMED")
-        case .SENT:
-            actionBtn!.enabled = false
-            actionBtn!.titleLbl!.text = NSLocalizedString("SENT", comment: "SENT")
-        case .DELIVERED:
-            actionBtn!.enabled = false
-            actionBtn!.titleLbl!.text = NSLocalizedString("DELIVERED", comment: "DELIVERED")
-        default:
-            actionBtn!.enabled = false
-            actionBtn!.titleLbl!.text = NSLocalizedString("SENT", comment: "SENT")
-        }
-    }
-    
-    func updateToClaimNow(){
-        actionBtn!.titleLbl!.text = NSLocalizedString("READY_TO_CLAIM", comment: "READY_TO_CLAIM")
-        actionBtn!.enabled = true
-    }
-    
-    func actionBtnAction(sender:UIButton) {
-        BNAppSharedManager.instance.networkManager!.sendClaimedGift((model as! BNGift))
-        (model as! BNGift).status = BNGiftStatus.CLAIMED
-        updateActionBtnStatus()
     }
 }
 
