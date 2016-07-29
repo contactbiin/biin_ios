@@ -65,7 +65,7 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
         
         if let biinie = BNAppSharedManager.instance.dataManager.biinie {
             for (_, value) in biinie.loyalties {
-                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.giftView_height) , father: self, loyalty:value)
+                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:value)
                 loyaltyView.delegate = self
                 scroll!.addChild(loyaltyView)
             }

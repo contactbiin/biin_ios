@@ -298,6 +298,10 @@
 		5BEC1EF21D287DCA00D7B931 /* VersionCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D7B1D287DCA00D7B931 /* VersionCheckViewController.swift */; };
 		5BEC1FD51D287DD400D7B931 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1FD31D287DD400D7B931 /* Default-568h.png */; };
 		5BEC1FD61D287DD400D7B931 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1FD41D287DD400D7B931 /* GoogleService-Info.plist */; };
+		5BF5DDD71D4BECD00033BA45 /* BNUIView_StarSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */; };
+		5BF5DDD91D4BECFA0033BA45 /* BNUIView_Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */; };
+		5BF5DDDB1D4BED3F0033BA45 /* BNIcon_StarSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDDA1D4BED3F0033BA45 /* BNIcon_StarSmall.swift */; };
+		5BF5DDDD1D4BED450033BA45 /* BNIcon_Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDDC1D4BED450033BA45 /* BNIcon_Star.swift */; };
 		9EE0DF3EE9B832CB337379F7 /* Pods_Biin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C5827ADE30EF68CF2461053 /* Pods_Biin.framework */; };
 /* End PBXBuildFile section */
 
@@ -598,6 +602,10 @@
 		5BEC1D7B1D287DCA00D7B931 /* VersionCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCheckViewController.swift; sourceTree = "<group>"; };
 		5BEC1FD31D287DD400D7B931 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h.png"; sourceTree = "<group>"; };
 		5BEC1FD41D287DD400D7B931 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_StarSmall.swift; sourceTree = "<group>"; };
+		5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_Star.swift; sourceTree = "<group>"; };
+		5BF5DDDA1D4BED3F0033BA45 /* BNIcon_StarSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_StarSmall.swift; sourceTree = "<group>"; };
+		5BF5DDDC1D4BED450033BA45 /* BNIcon_Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_Star.swift; sourceTree = "<group>"; };
 		9891FFD1B155EF844FAD46C9 /* Pods-Biin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biin.release.xcconfig"; path = "Pods/Target Support Files/Pods-Biin/Pods-Biin.release.xcconfig"; sourceTree = "<group>"; };
 		BE272A15E3324D4088023E53 /* Pods-Biin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Biin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Biin/Pods-Biin.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1004,6 +1012,8 @@
 				5BD1F82C1D28A00F0067164F /* BNUITexfield_Center.swift */,
 				5BD1F82D1D28A00F0067164F /* BNUITexfield_Top.swift */,
 				5BD1F82E1D28A00F0067164F /* BNUIView_PriceX.swift */,
+				5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */,
+				5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */,
 				5BD1F82F1D28A00F0067164F /* BNUIWarningView.swift */,
 				5BD1F8301D28A00F0067164F /* BNUIWebView.swift */,
 				5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */,
@@ -1054,6 +1064,8 @@
 				5BD1F86F1D28A00F0067164F /* BNIcon_SettingsMedium.swift */,
 				5BD1F8701D28A00F0067164F /* BNIcon_ShareItButton.swift */,
 				5BD1F8711D28A00F0067164F /* BNIcon_ShareSmall.swift */,
+				5BF5DDDA1D4BED3F0033BA45 /* BNIcon_StarSmall.swift */,
+				5BF5DDDC1D4BED450033BA45 /* BNIcon_Star.swift */,
 				5BD1F8741D28A00F0067164F /* BNIcon_SiteEmailButton.swift */,
 				5BD1F8751D28A00F0067164F /* BNIcon_SiteLocationButton.swift */,
 				5BD1F8761D28A00F0067164F /* BNIcon_SitePhoneButton.swift */,
@@ -1586,6 +1598,7 @@
 				5BD1F8D61D28A00F0067164F /* NotificationsState.swift in Sources */,
 				5BD1F8F11D28A00F0067164F /* BNUIButton_Information.swift in Sources */,
 				5BD1F8A91D28A00F0067164F /* MainView_Container_Banner.swift in Sources */,
+				5BF5DDDD1D4BED450033BA45 /* BNIcon_Star.swift in Sources */,
 				5BCF6FDF1D3D779D0033CCEA /* BNUIButton_ShareGift.swift in Sources */,
 				5BEC1EBB1D287DCA00D7B931 /* BNRequest_VersionCheck.swift in Sources */,
 				5BD1F8EF1D28A00F0067164F /* BNUIButton_Contact.swift in Sources */,
@@ -1595,6 +1608,7 @@
 				5BEC1EA91D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift in Sources */,
 				5BD1F91D1D28A00F0067164F /* BNIcon_BiinSmall.swift in Sources */,
 				5BD1F94F1D28A00F0067164F /* BNIcon_ProfileMedium.swift in Sources */,
+				5BF5DDDB1D4BED3F0033BA45 /* BNIcon_StarSmall.swift in Sources */,
 				5BD1F8BA1D28A00F0067164F /* SiteMiniView_Header.swift in Sources */,
 				5BD1F91E1D28A00F0067164F /* BNIcon_Bluetooth.swift in Sources */,
 				5BEC1E961D287DCA00D7B931 /* BNLoyalty.swift in Sources */,
@@ -1680,6 +1694,7 @@
 				5BD1F89E1D28A00F0067164F /* GiftsView.swift in Sources */,
 				5BD1F8E91D28A00F0067164F /* BNUIButton_BiinIt.swift in Sources */,
 				5BEC1E751D287DCA00D7B931 /* BNDataManager.swift in Sources */,
+				5BF5DDD91D4BECFA0033BA45 /* BNUIView_Star.swift in Sources */,
 				5BD1F9211D28A00F0067164F /* BNIcon_CloseSmall.swift in Sources */,
 				5BEC1EC41D287DCA00D7B931 /* BNRequest_SendSharedSite.swift in Sources */,
 				5BD1F8AF1D28A00F0067164F /* NotificationsView.swift in Sources */,
@@ -1689,6 +1704,7 @@
 				5BD1F9101D28A00F0067164F /* BNUITexfield_Bottom.swift in Sources */,
 				5BD1F8921D28A00F0067164F /* ElementMiniView_Precentage.swift in Sources */,
 				5BD1F9081D28A00F0067164F /* BNUIImageView.swift in Sources */,
+				5BF5DDD71D4BECD00033BA45 /* BNUIView_StarSmall.swift in Sources */,
 				5BEC1EA11D287DCA00D7B931 /* BNSite.swift in Sources */,
 				5BD1F8B01D28A00F0067164F /* NotificationView.swift in Sources */,
 				5BEC1E9D1D287DCA00D7B931 /* BNResponse.swift in Sources */,

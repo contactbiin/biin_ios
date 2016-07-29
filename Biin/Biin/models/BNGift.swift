@@ -42,7 +42,6 @@ enum BNGiftStatus {
     case REFUSED
     case SHARED
     case CLAIMED
-    case APPROVED
     case DELIVERED
 }
 

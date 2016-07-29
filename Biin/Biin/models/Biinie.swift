@@ -318,6 +318,15 @@ class Biinie:BNObject {
         return true
     }
     
+    func proccessGiftDelivered(identifier:String!) {
+        for gift in gifts {
+            if gift.identifier! == identifier! {
+                gift.status = BNGiftStatus.DELIVERED
+                break
+            }
+        }
+    }
+    
     func addNotification(notification:BNNotification) {
         self.newNotificationCount += 1
         self.notifications.append(notification)

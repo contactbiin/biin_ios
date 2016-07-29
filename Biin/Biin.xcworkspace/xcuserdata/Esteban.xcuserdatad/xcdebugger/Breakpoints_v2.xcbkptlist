@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Biin/managers/BNDataManager.swift"
-            timestampString = "491420801.407176"
+            timestampString = "491516703.872523"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
+            startingLineNumber = "702"
+            endingLineNumber = "702"
             landmarkName = "receivedSite(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -160,6 +160,22 @@
             startingLineNumber = "832"
             endingLineNumber = "832"
             landmarkName = "is_site_surveyed(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biin/views/loyalties/LoyaltyView.swift"
+            timestampString = "491520267.180549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "showRemoveBtn(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

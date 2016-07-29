@@ -690,6 +690,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Previous)
     }
     
+    func proccessGiftDelivered(identifier:String?) {
+        (giftsState!.view as! GiftsView).proccessGiftDelivered(identifier)
+
+    }
+    
     //NOTIFICATION
     func updateNotificationsView(){
         (notificationsState!.view as! NotificationsView).addNotifications()

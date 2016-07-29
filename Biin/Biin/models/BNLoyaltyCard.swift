@@ -8,12 +8,12 @@ import Foundation
 class BNLoyaltyCard:NSObject {
     
     var title:String?
-    var text1:String?
-    var text2:String?
-    var conditions:String?
+    var rule:String?
+    var goal:String?
     
     var elementIdentifier:String?
     
+    var isEnabled = false
     var startDate:NSDate?
     var endDate:NSDate?
     var slots:Array<BNLoyaltyCard_Slot> = Array<BNLoyaltyCard_Slot>()

@@ -646,6 +646,34 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func receivedOrganization(organization: BNOrganization) {
         organizations[organization.identifier!] = organization
+        
+        //TODO: TEMPORAL, crear algunas loyaltyes
+        
+        
+        let loyalty = BNLoyalty()
+        loyalty.identifier = organization.identifier!
+        loyalty.organizationIdentifier = organization.identifier!
+        loyalty.loyaltyCard = BNLoyaltyCard()
+        loyalty.loyaltyCard!.title = "Tarjeta de cliente frecuente"
+        loyalty.loyaltyCard!.goal = "Obten un regalo gratis al completar 10 estrellitas"
+        loyalty.loyaltyCard!.rule = "Por la compra de 3750 o más recibe una estrella."
+        loyalty.loyaltyCard!.elementIdentifier = "8bf8a6cc-8542-4d89-b2b8-848d7cb4d02e"
+        loyalty.loyaltyCard!.startDate = NSDate()
+        loyalty.loyaltyCard!.endDate = NSDate()
+        
+        var i = 0
+        while i < 10 {
+            i += 1
+            var slot = BNLoyaltyCard_Slot()
+            if i < 5 {
+                slot.isFilled = true
+            } else {
+                slot.isFilled  = false
+            }
+            loyalty.loyaltyCard!.slots.append(slot)
+        }
+        
+        biinie!.loyalties[organization.identifier!] = loyalty
     }
     
     func isSiteStored(identifier:String) -> Bool{

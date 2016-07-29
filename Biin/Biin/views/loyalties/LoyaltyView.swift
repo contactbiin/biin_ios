@@ -13,15 +13,14 @@ class LoyaltyView: BNView {
     //    var gift:BNGift?
     var image:BNUIImageView?
     var imageRequested = false
+    var imageUrl:String = ""
     
     var deleteItButton:BNUIButton_Delete?
-    var titleLbl:UILabel?
-    var messageLbl:UILabel?
     var receivedLbl:UILabel?
-    
-    var expiredTitleLbl:UILabel?
-    var expiredDateLbl:UILabel?
-    
+    var titleLbl:UILabel?
+    var subTitleLbl:UILabel?
+    var textLbl:UILabel?
+
     var background:UIView?
     var showSwipe:UISwipeGestureRecognizer?
     var hideSwipe:UISwipeGestureRecognizer?
@@ -42,32 +41,29 @@ class LoyaltyView: BNView {
         
         self.init(frame: frame, father:father )
         
-        
+        self.model = loyalty
         var xpos:CGFloat = 5
         var ypos:CGFloat = 0
         var width:CGFloat = 1
-        let height:CGFloat = 1
-        var viewHeight:CGFloat = 0
         
         self.backgroundColor = UIColor.whiteColor()
         self.layer.masksToBounds = true
         
         let organization = BNAppSharedManager.instance.dataManager.organizations[(model as! BNLoyalty).organizationIdentifier!]
-        self.model = loyalty
         var decorationColor:UIColor?
         
         var white:CGFloat = 0.0
         var alpha:CGFloat = 0.0
         _ =  organization!.primaryColor!.getWhite(&white, alpha: &alpha)
         
-        if white >= 0.95 {
+        if white >= 0.9 {
             decorationColor = organization!.secondaryColor
         } else {
             decorationColor = organization!.primaryColor
         }
         
         
-        deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: frame.height), iconColor: UIColor.whiteColor())
+        deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width:100, height: frame.height), iconColor: UIColor.whiteColor())
         deleteItButton!.backgroundColor = UIColor.redColor()
         deleteItButton!.addTarget(self, action: #selector(self.removeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(deleteItButton!)
@@ -80,61 +76,63 @@ class LoyaltyView: BNView {
         background!.backgroundColor = UIColor.whiteColor()
         self.addSubview(background!)
         
-        if (model as! BNGift).media!.count > 0 {
-            image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.giftView_imageSize, SharedUIManager.instance.giftView_imageSize), color:UIColor.bnGrayLight())
+        if organization!.media.count > 0 {
+            self.imageUrl = organization!.media[0].url!
+            image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.loyaltyWalletView_imageSize, SharedUIManager.instance.loyaltyWalletView_imageSize), color:UIColor.bnGrayLight())
             background!.addSubview(image!)
             image!.layer.cornerRadius = 3
             image!.layer.masksToBounds = true
             requestImage()
         }
         
-        xpos = (SharedUIManager.instance.giftView_imageSize + 10)
+        xpos = (SharedUIManager.instance.loyaltyWalletView_imageSize + 10)
         ypos = 5
-        receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: frame.width, height: height))
+        receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: frame.width, height: 8))
         receivedLbl!.text = (model as! BNLoyalty).loyaltyCard!.startDate!.bnDisplayDateFormatt_by_Day().uppercaseString
         receivedLbl!.textColor = UIColor.bnGray()
-        receivedLbl!.font = UIFont(name: "Lato-Regular", size: 10)
+        receivedLbl!.font = UIFont(name: "Lato-Regular", size: 8)
         receivedLbl!.textAlignment = NSTextAlignment.Left
-        receivedLbl!.numberOfLines = 0
-        receivedLbl!.sizeToFit()
         background!.addSubview(receivedLbl!)
-        ypos += (receivedLbl!.frame.height)
-        viewHeight += receivedLbl!.frame.height
+        ypos += (receivedLbl!.frame.height + 2)
         
-        width = (frame.width - (xpos + 27))
-        titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height: height))
-        titleLbl!.text = (model as! BNLoyalty).loyaltyCard!.title!
-        titleLbl!.textColor = decorationColor
-        titleLbl!.font = UIFont(name: "Lato-Black", size: 25)
-        titleLbl!.textAlignment = NSTextAlignment.Left
-        titleLbl!.numberOfLines = 0
-        titleLbl!.sizeToFit()
-        background!.addSubview(titleLbl!)
-        
-        viewHeight += 5
-        viewHeight += titleLbl!.frame.height
-        
-        ypos = viewHeight
         width = (frame.width - (xpos + 5))
-        messageLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height: height))
-        messageLbl!.text = (model as! BNGift).message!
-        messageLbl!.textColor = UIColor.bnGrayDark()
-        messageLbl!.font = UIFont(name: "Lato-Regular", size: 15)
-        messageLbl!.textAlignment = NSTextAlignment.Left
-        messageLbl!.numberOfLines = 0
-        messageLbl!.sizeToFit()
-        background!.addSubview(messageLbl!)
         
-        viewHeight += 5
-        viewHeight += messageLbl!.frame.height
+        titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_TitleSize))
+        titleLbl!.text = organization!.name!
+        titleLbl!.textColor = decorationColor
+        titleLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_TitleSize)
+        titleLbl!.textAlignment = NSTextAlignment.Left
+        background!.addSubview(titleLbl!)
+        ypos += (titleLbl!.frame.height + 2)
         
-        ypos = viewHeight
-        viewHeight += 5
         
-        if viewHeight >= (SharedUIManager.instance.giftView_imageSize + 10) {
-            ypos = viewHeight
-        } else {
-            ypos = (SharedUIManager.instance.giftView_imageSize + 10)
+        subTitleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
+        subTitleLbl!.text = (model as! BNLoyalty).loyaltyCard!.title!
+        subTitleLbl!.textColor = UIColor.appTextColor()
+        subTitleLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
+        subTitleLbl!.textAlignment = NSTextAlignment.Left
+        background!.addSubview(subTitleLbl!)
+        ypos += (subTitleLbl!.frame.height + 2)
+        
+        textLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height: SharedUIManager.instance.loyaltyWalletView_TextSize))
+        textLbl!.text = (model as! BNLoyalty).loyaltyCard!.rule!
+        textLbl!.textColor = UIColor.bnGrayDark()
+        textLbl!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.loyaltyWalletView_TextSize)
+        textLbl!.textAlignment = NSTextAlignment.Left
+        background!.addSubview(textLbl!)
+        
+        ypos += (textLbl!.frame.height + 10)
+        
+        var star_xpos:CGFloat = xpos
+        for slot in loyalty!.loyaltyCard!.slots {
+            
+            if !slot.isFilled! {
+                decorationColor = UIColor.bnGrayLight()
+            }
+            
+            let star = BNUIView_StarSmall(frame:CGRect(x:star_xpos, y: ypos, width:16, height: 16), color: decorationColor!)
+            background!.addSubview(star)
+            star_xpos += 17
         }
         
         showSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.showRemoveBtn(_:)))
@@ -146,8 +144,17 @@ class LoyaltyView: BNView {
         hideSwipe!.enabled = false
         background!.addGestureRecognizer(hideSwipe!)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.addGestureRecognizer(tap)
+        
     }
     
+    func handleTap(sender:UITapGestureRecognizer) {
+        self.background!.backgroundColor = UIColor.bnGrayLight()
+        UIView.animateWithDuration(0.1, animations: {()-> Void in
+            self.background!.backgroundColor = UIColor.whiteColor()
+        })
+    }
     
     func showRemoveBtn(sender:UISwipeGestureRecognizer) {
         
@@ -210,8 +217,8 @@ class LoyaltyView: BNView {
         
         imageRequested = true
         
-        if (model as! BNGift).media!.count > 0 {
-            BNAppSharedManager.instance.networkManager.requestImageData((model as! BNGift).media![0].url!, image: image)
+        if imageUrl != "" {
+            BNAppSharedManager.instance.networkManager.requestImageData(imageUrl, image: image)
         } else {
             image!.image =  UIImage(named: "noImage.jpg")
             image!.showAfterDownload()
@@ -231,19 +238,17 @@ class LoyaltyView: BNView {
         deleteItButton = nil
         titleLbl!.removeFromSuperview()
         titleLbl = nil
-        messageLbl!.removeFromSuperview()
-        messageLbl = nil
+        subTitleLbl!.removeFromSuperview()
+        subTitleLbl = nil
+        textLbl!.removeFromSuperview()
+        textLbl = nil
         receivedLbl!.removeFromSuperview()
         receivedLbl = nil
-        expiredTitleLbl!.removeFromSuperview()
-        expiredTitleLbl = nil
-        expiredDateLbl!.removeFromSuperview()
-        expiredDateLbl = nil
     }
     
     func removeBtnAction(sender:UIButton){
-        BNAppSharedManager.instance.updateGiftCounter()
-        BNAppSharedManager.instance.networkManager.sendRefusedGift((self.model as! BNGift))
+//        BNAppSharedManager.instance.updateGiftCounter()
+//        BNAppSharedManager.instance.networkManager.sendRefusedGift((self.model as! BNGift))
         self.delegate!.resizeScrollOnRemoved!(self)
     }
 }

@@ -291,9 +291,6 @@ class GiftView: BNView {
     
     func updateActionBtnStatus(){
         switch (model as! BNGift).status! {
-        case .APPROVED:
-            actionBtn!.enabled = true
-            actionBtn!.titleLbl!.text = NSLocalizedString("APPROVED", comment: "APPROVED")
         case .CLAIMED:
             actionBtn!.enabled = false
             actionBtn!.titleLbl!.text = NSLocalizedString("CLAIMED", comment: "CLAIMED")

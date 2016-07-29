@@ -74,6 +74,15 @@ class GiftsView: BNView, GiftView_Delegate {
         self.scroll!.setChildrenPosition()
     }
     
+    func proccessGiftDelivered(identifier:String?) {
+        for giftView in self.scroll!.children {
+            if (giftView.model as! BNGift).identifier! == identifier! {
+                (giftView as! GiftView).updateActionBtnStatus()
+                break
+            }
+        }
+    }
+    
     override func transitionIn() {
         
         UIView.animateWithDuration(0.25, animations: {()->Void in

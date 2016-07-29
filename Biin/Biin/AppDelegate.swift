@@ -261,6 +261,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }
                     }
                 }
+            } else if type == "giftdelivered" {
+                let giftIdentifier = jsonData["giftIdentifier"] as? String
+                BNAppSharedManager.instance.proccessGiftDelivered(giftIdentifier)
             }
         }
         

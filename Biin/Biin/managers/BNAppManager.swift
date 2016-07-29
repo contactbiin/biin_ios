@@ -208,6 +208,14 @@ class BNAppManager {
     func updateNotificationCounter(){
         mainViewController!.updateNotificationCounter()
     }
+    
+    func proccessGiftDelivered(identifier:String?) {
+        dataManager.biinie!.proccessGiftDelivered(identifier)
+        
+        if IS_MAINVIEW_ON {
+            mainViewController!.mainView!.proccessGiftDelivered(identifier)
+        }
+    }
 }
 
 @objc protocol BNAppManager_Delegate:NSObjectProtocol {

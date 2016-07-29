@@ -22,7 +22,7 @@ extension UIColor {
     }
     
     class func appTextColor() -> UIColor {
-        return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
+        return UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
     }
     
     class func bnWhite() -> UIColor! {

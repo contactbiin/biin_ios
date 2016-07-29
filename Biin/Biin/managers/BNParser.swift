@@ -159,7 +159,6 @@ class BNParser {
         case "REFUSED": return .REFUSED
         case "SHARED": return .SHARED
         case "CLAIMED": return .CLAIMED
-        case "APPROVED": return .APPROVED
         case "DELIVERED": return .DELIVERED
         default: return BNGiftStatus.NONE
         }
