@@ -248,12 +248,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             var jsonData = BNAppSharedManager.instance.networkManager!.epsNetwork!.parseJson(data as! String)
             
-            if (jsonData["gift"] as? NSDictionary) != nil {
-                if let giftData = jsonData["gift"] as? NSDictionary {
-                    if BNParser.parseGift(giftData, biinie: appManager.dataManager.biinie) {
-                        isGiftNotification = true
-                        if appManager.IS_MAINVIEW_ON {
-                            appManager.mainViewController!.updateGiftsView()
+            let type = jsonData["type"] as? String
+            
+            if type == "gift" || type == "giftassigned" {
+                if (jsonData["gift"] as? NSDictionary) != nil {
+                    if let giftData = jsonData["gift"] as? NSDictionary {
+                        if BNParser.parseGift(giftData, biinie: appManager.dataManager.biinie) {
+                            isGiftNotification = true
+                            if appManager.IS_MAINVIEW_ON {
+                                appManager.mainViewController!.updateGiftsView()
+                            }
                         }
                     }
                 }
