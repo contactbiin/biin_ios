@@ -154,10 +154,26 @@ class UIManager {
     var mainView_TitleSize:CGFloat = 18
     var mainView_HeaderSize:CGFloat = 80
     var mainView_StatusBarHeight:CGFloat = 25
+    var mainView_OptionsBarHeight:CGFloat = 60
     
     var giftView_height:CGFloat = 210
     var giftView_imageSize:CGFloat = 140
     var giftView_bottomHeight:CGFloat = 55
+
+    var notificationView_height:CGFloat = 90
+    var notificationView_imageSize:CGFloat = 80
+    var notificationView_TitleSize:CGFloat = 18
+    var notificationView_TextSize:CGFloat = 13
+    
+    var loyaltyWalletView_height:CGFloat = 110
+    var loyaltyWalletView_imageSize:CGFloat = 100
+    var loyaltyWalletView_TitleSize:CGFloat = 20
+    var loyaltyWalletView_SubTitleSize:CGFloat = 15
+    var loyaltyWalletView_TextSize:CGFloat = 12
+    
+    var loyaltyCardView_SlotWidth:CGFloat = 70
+    var loyaltyCardView_StarPosition:CGPoint = CGPoint(x: 16.5, y: 16.5)
+    var loyaltyCardView_LastSpace:CGFloat = 25
     
     func setDeviceVariables(){
         
@@ -246,6 +262,10 @@ class UIManager {
         onboardingSlide_DescriptionSize = 16
         
         siteMiniView_headerHeight = 65
+        
+        loyaltyCardView_SlotWidth = 60
+        loyaltyCardView_StarPosition = CGPoint(x: 11.5, y: 11.5)
+        loyaltyCardView_LastSpace = 5
     }
     
     func setIPhone5Variables(){
@@ -278,6 +298,10 @@ class UIManager {
         loadingView_logoSize = 5
         
         siteMiniView_headerHeight = 65
+        
+        loyaltyCardView_SlotWidth = 60
+        loyaltyCardView_StarPosition = CGPoint(x: 11.5, y: 11.5)
+        loyaltyCardView_LastSpace = 5
     }
     
     func setIPhone6Variables() {
@@ -308,6 +332,7 @@ class UIManager {
         loadingView_logoSize = 5
         
         siteMiniView_headerHeight = 65
+        loyaltyCardView_LastSpace = 5
     }
     
     func setIPhone6PlusVariables() {

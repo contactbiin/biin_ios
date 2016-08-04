@@ -22,7 +22,6 @@ class HighlightView: BNView {
     
     var likeItButton:BNUIButton_LikeIt?
     var shareItButton:BNUIButton_ShareIt?
-    var collectItButton:BNUIButton_CollectionIt?
     var decorationColor:UIColor?
     var iconColor:UIColor?
     var animationView:BiinItAnimationView?
@@ -421,7 +420,6 @@ class HighlightView: BNView {
         
         likeItButton?.removeFromSuperview()
         shareItButton?.removeFromSuperview()
-        collectItButton?.removeFromSuperview()
         decorationColor = nil
         iconColor = nil
         animationView?.removeFromSuperview()

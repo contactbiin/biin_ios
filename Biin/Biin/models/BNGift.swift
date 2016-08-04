@@ -30,6 +30,10 @@ class BNGift:BNObject {
         sites = Array<String>()
         media = Array<BNMedia>()
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 enum BNGiftStatus {
@@ -38,7 +42,6 @@ enum BNGiftStatus {
     case REFUSED
     case SHARED
     case CLAIMED
-    case APPROVED
     case DELIVERED
 }
 

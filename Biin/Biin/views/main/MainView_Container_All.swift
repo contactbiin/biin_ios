@@ -10,7 +10,7 @@ import CoreLocation
 
 class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, MainView_Delegate_BiinsContainer {
     
-    var header:MainView_Container_OptionsBar?
+    var optionsBar:MainView_Container_OptionsBar?
     var inSiteView:InSiteView?
     var highlightContainer:MainView_Container_Highlights?
     var nearSitesContainer:MainView_Container_NearSites?
@@ -52,8 +52,8 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
         inSiteView!.delegate = BNAppSharedManager.instance.mainViewController!.mainView!
         self.addSubview(inSiteView!)
         
-        header = MainView_Container_OptionsBar(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.categoriesHeaderHeight + 20)), screenWidth, SharedUIManager.instance.categoriesHeaderHeight), father: self)
-        self.addSubview(header!)
+        optionsBar = MainView_Container_OptionsBar(frame: CGRectMake(0, (screenHeight - (SharedUIManager.instance.mainView_OptionsBarHeight + 20)), screenWidth, SharedUIManager.instance.mainView_OptionsBarHeight), father: self)
+        self.addSubview(optionsBar!)
         
 //        fade = UIView(frame: frame)
 //        fade!.backgroundColor = UIColor.blackColor()
@@ -199,6 +199,10 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
         (father as! MainView).setNextState(BNGoto.Gifts)
     }
     
+    func showNotificationBtnAction(sender:BNUIButton) {
+        (father as! MainView).setNextState(BNGoto.Notifications)
+    }
+    
     override func transitionIn() {
         
 //        UIView.animateWithDuration(0.5, animations: {()->Void in
@@ -333,9 +337,9 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
             inSiteView!.removeFromSuperview()
         }
         
-        if header != nil {
-            header!.clean()
-            header!.removeFromSuperview()
+        if optionsBar != nil {
+            optionsBar!.clean()
+            optionsBar!.removeFromSuperview()
         }
         
         if elementContainers?.count > 0 {

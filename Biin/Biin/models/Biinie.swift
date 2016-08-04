@@ -6,10 +6,9 @@
 import Foundation
 import UIKit
 
-class Biinie:NSObject, NSCoding {
+class Biinie:BNObject {
     
     var facebook_id:String?
-    var identifier:String?
     var biinName:String?
     var firstName:String?
     var lastName:String?
@@ -34,9 +33,6 @@ class Biinie:NSObject, NSCoding {
     
     var isEmailVerified:Bool?
     
-    var newNotificationCount:Int?
-    var notificationIndex:Int?
-    
     var isInStore = false
     var actionCounter:Int = 0
     var storedElementsViewed:[String] = [String]()
@@ -45,14 +41,19 @@ class Biinie:NSObject, NSCoding {
     var facebookAvatarUrl:String?
     
     var newGiftCounter:Int = 0
-    var gifts_store:[String] = [String]()
     var gifts:[BNGift] = [BNGift]()
+    
+    var newNotificationCount:Int = 0
+    var notifications_store:[String] = [String]()
+    var notifications:[BNNotification] = [BNNotification]()
+
+    //LOYALTIES
+    var loyalties = Dictionary<String, BNLoyalty>()
     
     override init() {
         super.init()
         
         self.newNotificationCount = 0
-        self.notificationIndex = 0
         facebookAvatarUrl = ""
         facebook_id = ""
     }
@@ -73,7 +74,9 @@ class Biinie:NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-//        
+        
+        super.init(coder: aDecoder)
+//
 //        if let facebook_id_stored = aDecoder.decodeObjectForKey("facebook_id") {
 //            self.facebook_id = facebook_id_stored as? String
 //        }
@@ -91,8 +94,22 @@ class Biinie:NSObject, NSCoding {
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
         
-        if let gifts_old_store = aDecoder.decodeObjectForKey("gifts_store") {
-            self.gifts_store = gifts_old_store as! [String]
+//        if let gifts_old_store = aDecoder.decodeObjectForKey("gifts_store") {
+//            self.gifts_store = gifts_old_store as! [String]
+//        }
+//        
+        if let notifications_old_store = aDecoder.decodeObjectForKey("notifications_store") {
+            self.notifications_store = notifications_old_store as! [String]
+        }
+        
+        if let notifications_old = aDecoder.decodeObjectForKey("notifications") {
+            self.notifications = notifications_old as! [BNNotification]
+        }
+        
+        for notification in notifications {
+            if !notification.isViewed {
+                newNotificationCount += 1
+            }
         }
         
         if let token_stored = aDecoder.decodeObjectForKey("token") {
@@ -101,8 +118,6 @@ class Biinie:NSObject, NSCoding {
             self.token = ""
         }
         
-        self.newNotificationCount = 0
-        self.notificationIndex = 0
         self.storedElementsViewed = aDecoder.decodeObjectForKey("storedElementsViewed") as! [String]
         self.temporalCollectionIdentifier = "collection1"
         self.password = ""
@@ -111,7 +126,9 @@ class Biinie:NSObject, NSCoding {
         }
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    override func encodeWithCoder(aCoder: NSCoder) {
+        
+        
         
         if let facebook_id = self.facebook_id {
             aCoder.encodeObject(facebook_id, forKey: "facebook_id")
@@ -157,7 +174,10 @@ class Biinie:NSObject, NSCoding {
             aCoder.encodeObject(token, forKey: "token")
         }
         
-        aCoder.encodeObject(gifts_store, forKey: "gifts_store")
+//        aCoder.encodeObject(gifts_store, forKey: "gifts_store")
+        
+        aCoder.encodeObject(notifications_store, forKey: "notifications_store")
+        aCoder.encodeObject(notifications, forKey: "notifications")
         
         aCoder.encodeObject(actions, forKey: "actions")
         
@@ -270,15 +290,68 @@ class Biinie:NSObject, NSCoding {
         for i in (0..<gifts.count) {
             if gifts[i].identifier! == identifier {
                 gifts.removeAtIndex(i)
+                break
+            }
+        }
+        save()
+    }
+    
+    func viewedAllGifts(){
+        newGiftCounter = 0
+    }
+    
+    func addGift(newGift:BNGift?) -> Bool {
+        
+        for gift in gifts {
+            if gift.identifier! == newGift!.identifier! {
+                return false
             }
         }
         
-        for j in (0..<gifts_store.count) {
-            if gifts_store[j] == identifier {
-                gifts_store.removeAtIndex(j)
-            }
+        if newGift?.status == BNGiftStatus.SENT {
+            self.newGiftCounter += 1
         }
         
+        self.gifts.append(newGift!)
+        self.gifts = self.gifts.sort({$0.receivedDate?.timeIntervalSince1970 > $1.receivedDate?.timeIntervalSince1970})
+        
+        return true
+    }
+    
+    func proccessGiftDelivered(identifier:String!) {
+        for gift in gifts {
+            if gift.identifier! == identifier! {
+                gift.status = BNGiftStatus.DELIVERED
+                break
+            }
+        }
+    }
+    
+    func addNotification(notification:BNNotification) {
+        self.newNotificationCount += 1
+        self.notifications.append(notification)
+        self.notifications = self.notifications.sort({$0.receivedDate?.timeIntervalSince1970 > $1.receivedDate?.timeIntervalSince1970})
+        save()
+    }
+    
+    func removeNotification(identifier:String) {
+        
+        newNotificationCount = 0
+        
+        for i in (0..<notifications.count) {
+            if notifications[i].identifier! == identifier {
+                notifications.removeAtIndex(i)
+                break
+            }
+        }
+        save()
+    }
+    
+    func viewedAllNotifications(){
+        newNotificationCount = 0
+        for notification in notifications {
+            notification.isViewed = true
+        }
         save()
     }
 }

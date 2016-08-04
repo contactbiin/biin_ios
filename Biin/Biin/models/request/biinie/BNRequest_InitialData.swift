@@ -35,7 +35,7 @@ class BNRequest_InitialData: BNRequest {
         isRunning = true
         attemps += 1
         
-        //print("INITIAL REQUEST: \(self.requestString)")
+        print("INITIAL REQUEST: \(self.requestString)")
         
         self.networkManager!.epsNetwork!.getJson(self.identifier, url: self.requestString, callback:{
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in

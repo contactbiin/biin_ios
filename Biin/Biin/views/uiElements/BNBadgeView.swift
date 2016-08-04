@@ -37,6 +37,13 @@ class BNBadgeView:UIView {
     
     func update(value:Int) {
         
+        if value == 0 {
+            self.alpha = 0
+            return
+        } else {
+            self.alpha = 1
+        }
+        
         self.value = value
         
         if value >= 1000 {

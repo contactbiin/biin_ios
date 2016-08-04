@@ -18,7 +18,6 @@ class ElementMiniView: BNView {
     //var biinItButton:BNUIButton_BiinIt?
     //var shareItButton:BNUIButton_ShareIt?
     var removeItButton:BNUIButton_LikeIt?
-    //var stickerView:BNUIStickerView?
     //var discountView:BNUIDiscountView?
     //var priceView:BNUIPricesView?
     

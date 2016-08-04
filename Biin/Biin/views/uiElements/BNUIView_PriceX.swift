@@ -5,6 +5,7 @@
 
 import Foundation
 import UIKit
+
 class BNUIView_PriceX:UIView {
 
     var icon:BNIcon?

@@ -159,7 +159,6 @@ class BNParser {
         case "REFUSED": return .REFUSED
         case "SHARED": return .SHARED
         case "CLAIMED": return .CLAIMED
-        case "APPROVED": return .APPROVED
         case "DELIVERED": return .DELIVERED
         default: return BNGiftStatus.NONE
         }
@@ -268,18 +267,18 @@ class BNParser {
                         }
                     }
                     
-                    organization.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData)
-                    
-                    if organization.isLoyaltyEnabled {
-                        let loyalty = BNLoyalty()
-                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: organizationData)
-                        loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
-                        loyalty.points = BNParser.findInt("points", dictionary:loyaltyData!)!
-                        loyalty.subscriptionDate = BNParser.findNSDate("subscriptionDate", dictionary:loyaltyData!)
-                        loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
-                        organization.loyalty = loyalty
-                    }
-                    
+//                    organization.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData)
+//                    
+//                    if organization.isLoyaltyEnabled {
+//                        let loyalty = BNLoyalty()
+//                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: organizationData)
+//                        loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
+//                        loyalty.points = BNParser.findInt("points", dictionary:loyaltyData!)!
+//                        loyalty.subscriptionDate = BNParser.findNSDate("subscriptionDate", dictionary:loyaltyData!)
+//                        loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
+//                        organization.loyalty = loyalty
+//                    }
+//                    
                     BNAppSharedManager.instance.dataManager.receivedOrganization(organization)
                 }
             }
@@ -753,5 +752,66 @@ class BNParser {
             //Save or update notices.
             BNAppSharedManager.instance.notificationManager.addNotices(notices)
         }
+    }
+    
+    class func parseGift(giftData:NSDictionary, biinie:Biinie?) -> Bool {
+        
+        let gift = BNGift()
+        
+        gift.identifier = BNParser.findString("identifier", dictionary: giftData)
+        gift.elementIdentifier = BNParser.findString("productIdentifier", dictionary: giftData)
+        gift.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: giftData)
+        gift.name = BNParser.findString("name", dictionary: giftData)
+        gift.message = BNParser.findString("message", dictionary: giftData)
+        gift.status = BNParser.findBNGiftStatue("status", dictionary: giftData)
+        gift.receivedDate = BNParser.findNSDateWithBiinFormat("receivedDate", dictionary: giftData)
+        gift.hasExpirationDate = BNParser.findBool("hasExpirationDate", dictionary: giftData)
+        gift.primaryColor = BNParser.findUIColor("primaryColor", dictionary: giftData)
+        gift.secondaryColor = BNParser.findUIColor("secondaryColor", dictionary: giftData)
+        
+        if gift.hasExpirationDate {
+            gift.expirationDate = BNParser.findNSDateWithBiinFormat("expirationDate", dictionary: giftData)
+        }
+        
+        if let sitesData = BNParser.findNSArray("sites", dictionary: giftData) {
+            if sitesData.count > 0 {
+                for j in (0..<sitesData.count) {
+                    gift.sites!.append(sitesData.objectAtIndex(j) as! String)
+                }
+            }
+        }
+        
+        if let mediaArray = BNParser.findNSArray("media", dictionary: giftData) {
+            for b in (0..<mediaArray.count) {
+                let mediaData = mediaArray.objectAtIndex(b) as! NSDictionary
+                let url = BNParser.findString("url", dictionary:mediaData)
+                let type = BNMediaType.Image
+                let vibrantColor = BNParser.findUIColor("vibrantColor", dictionary: mediaData)
+                let vibrantDarkColor = BNParser.findUIColor("vibrantDarkColor", dictionary: mediaData)
+                let vibrantLightColor = BNParser.findUIColor("vibrantLightColor", dictionary: mediaData)
+                let media = BNMedia(mediaType:type, url:url!, vibrantColor: vibrantColor!, vibrantDarkColor: vibrantDarkColor!, vibrantLightColor: vibrantLightColor!)
+                gift.media!.append(media)
+            }
+        }
+        
+        return biinie!.addGift(gift)
+    }
+    
+    class func parseGifts(giftsData:NSArray?, biinie:Biinie?){
+        
+        biinie!.gifts = Array<BNGift>()
+        
+        for i in (0..<giftsData!.count) {
+
+            let giftData = giftsData!.objectAtIndex(i) as! NSDictionary
+            parseGift(giftData, biinie: biinie)
+        }
+    }
+    
+    class func parseNotification(notificationData:NSDictionary, biinie:Biinie?) {
+        let body = BNParser.findString("body", dictionary: notificationData)
+        let title = BNParser.findString("title", dictionary: notificationData)
+        let notification = BNNotification(title: title!, text: body!, notificationType: BNNotificationType.GIFT, receivedDate: NSDate())
+        biinie!.addNotification(notification)
     }
 }

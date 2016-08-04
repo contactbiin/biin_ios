@@ -14,17 +14,21 @@ class GiftView: BNView {
     var image:BNUIImageView?
     var imageRequested = false
 
-    var removeItButton:BNUIButton_Close?
+    var deleteItButton:BNUIButton_Delete?
     var titleLbl:UILabel?
     var messageLbl:UILabel?
     var receivedLbl:UILabel?
     
-    var sitesBtn:UIButton?
+    var giftStoresBtn:BNUIButton_GiftStores?
     var actionBtn:BNUIButton_Gift?
-    var shareBtn:UIButton?
+    var shareGiftBtn:BNUIButton_ShareGift?
     
     var expiredTitleLbl:UILabel?
     var expiredDateLbl:UILabel?
+    
+    var background:UIView?
+    var showSwipe:UISwipeGestureRecognizer?
+    var hideSwipe:UISwipeGestureRecognizer?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +48,7 @@ class GiftView: BNView {
         
         
         var xpos:CGFloat = 5
-        var ypos:CGFloat = 5
+        var ypos:CGFloat = 0
         var width:CGFloat = 1
         let height:CGFloat = 1
         var viewHeight:CGFloat = 0
@@ -61,19 +65,36 @@ class GiftView: BNView {
         
         if white >= 0.95 {
             print("Is white - \(gift!.name!)")
-            decorationColor = gift!.primaryColor
-        } else {
             decorationColor = gift!.secondaryColor
+        } else {
+            decorationColor = gift!.primaryColor
         }
         
-        removeItButton = BNUIButton_Close(frame: CGRectMake((frame.width - 27), 5, 22, 22), iconColor: UIColor.bnGrayLight())
-        removeItButton!.icon!.color = UIColor.bnGrayLight()
-        removeItButton!.addTarget(self, action: #selector(self.removeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(removeItButton!)
+        deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
+        deleteItButton!.backgroundColor = UIColor.redColor()
+        deleteItButton!.addTarget(self, action: #selector(self.removeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(deleteItButton!)
+        
+        ypos += deleteItButton!.frame.height
+        
+        shareGiftBtn = BNUIButton_ShareGift(frame:CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
+        shareGiftBtn!.backgroundColor = UIColor.bnShareGiftColor()
+        self.addSubview(shareGiftBtn!)
+
+        ypos += shareGiftBtn!.frame.height
+        giftStoresBtn = BNUIButton_GiftStores(frame:CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
+        giftStoresBtn!.backgroundColor = UIColor.bnGiftStoresColor()
+        self.addSubview(giftStoresBtn!)
+        
+        ypos = 5
+        
+        background = UIView(frame: frame)
+        background!.backgroundColor = UIColor.whiteColor()
+        self.addSubview(background!)
         
         if (model as! BNGift).media!.count > 0 {
             image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.giftView_imageSize, SharedUIManager.instance.giftView_imageSize), color:UIColor.bnGrayLight())
-            self.addSubview(image!)
+            background!.addSubview(image!)
             image!.layer.cornerRadius = 3
             image!.layer.masksToBounds = true
             requestImage()
@@ -88,7 +109,7 @@ class GiftView: BNView {
         receivedLbl!.textAlignment = NSTextAlignment.Left
         receivedLbl!.numberOfLines = 0
         receivedLbl!.sizeToFit()
-        self.addSubview(receivedLbl!)
+        background!.addSubview(receivedLbl!)
         ypos += (receivedLbl!.frame.height)
         viewHeight += receivedLbl!.frame.height
         
@@ -100,11 +121,10 @@ class GiftView: BNView {
         titleLbl!.textAlignment = NSTextAlignment.Left
         titleLbl!.numberOfLines = 0
         titleLbl!.sizeToFit()
-        self.addSubview(titleLbl!)
+        background!.addSubview(titleLbl!)
         
         viewHeight += 5
         viewHeight += titleLbl!.frame.height
-        
         
         ypos = viewHeight
         width = (frame.width - (xpos + 5))
@@ -115,7 +135,7 @@ class GiftView: BNView {
         messageLbl!.textAlignment = NSTextAlignment.Left
         messageLbl!.numberOfLines = 0
         messageLbl!.sizeToFit()
-        self.addSubview(messageLbl!)
+        background!.addSubview(messageLbl!)
         
         viewHeight += 5
         viewHeight += messageLbl!.frame.height
@@ -129,40 +149,68 @@ class GiftView: BNView {
             ypos = (SharedUIManager.instance.giftView_imageSize + 10)
         }
 
-        
+        var buttonHeight:CGFloat = 0
         if viewHeight >= (SharedUIManager.instance.giftView_imageSize + 10) {
             viewHeight += SharedUIManager.instance.giftView_bottomHeight
+            
             self.frame = CGRect(x: 0, y: 0, width: frame.width, height: viewHeight)
+            buttonHeight = self.frame.height / 3
+            deleteItButton!.frame = CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: 0, width: SharedUIManager.instance.notificationView_height, height: buttonHeight)
+            shareGiftBtn!.frame = CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: (deleteItButton!.frame.height), width: SharedUIManager.instance.notificationView_height, height: buttonHeight)
+            giftStoresBtn!.frame = CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: (deleteItButton!.frame.height + shareGiftBtn!.frame.height), width: SharedUIManager.instance.notificationView_height, height: buttonHeight)
         }
         
+        buttonHeight = self.frame.height / 3
+        deleteItButton!.icon!.position = CGPoint(x: ((SharedUIManager.instance.notificationView_height / 2) - 7), y: ((buttonHeight / 2) - 7))
+
+        shareGiftBtn!.icon!.position = CGPoint(x: ((SharedUIManager.instance.notificationView_height / 2) - 12), y: ((buttonHeight / 2) - 12))
+        
+        giftStoresBtn!.icon!.position = CGPoint(x: ((SharedUIManager.instance.notificationView_height / 2) - 12), y: ((buttonHeight / 2) - 12))
+        
         xpos = 5
-        sitesBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width:SharedUIManager.instance.giftView_imageSize, height: 25))
-        sitesBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
-        sitesBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 10)
-        sitesBtn!.titleLabel!.numberOfLines = 0
-        sitesBtn!.setTitle(NSLocalizedString("GiftShowSites", comment: "GiftShowSites"), forState: UIControlState.Normal)
-        sitesBtn!.backgroundColor = UIColor.whiteColor()
-        sitesBtn!.layer.cornerRadius = 3
-        sitesBtn!.layer.borderColor = decorationColor!.CGColor
-        sitesBtn!.layer.borderWidth = 0.5
-        self.addSubview(sitesBtn!)
-        
-        shareBtn = UIButton(frame: CGRect(x: xpos, y: (ypos + 30), width:SharedUIManager.instance.giftView_imageSize, height: 25))
-        shareBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
-        shareBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 10)
-        shareBtn!.titleLabel!.numberOfLines = 0
-        shareBtn!.setTitle("Enviar a amigo", forState: UIControlState.Normal)
-        shareBtn!.backgroundColor = UIColor.whiteColor()
-        shareBtn!.layer.cornerRadius = 3
-        shareBtn!.layer.borderColor = decorationColor!.CGColor
-        shareBtn!.layer.borderWidth = 0.5
-        self.addSubview(shareBtn!)
-        
-        xpos += (SharedUIManager.instance.giftView_imageSize + 5)
         width = (frame.width - (xpos + 5))
-        actionBtn = BNUIButton_Gift(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight), hasExpiration:(model as! BNGift).hasExpirationDate, color: decorationColor)
-        self.addSubview(actionBtn!)
+        actionBtn = BNUIButton_Gift(frame: CGRect(x: xpos, y: ypos, width: width, height: SharedUIManager.instance.giftView_bottomHeight), gift:(model as! BNGift), color: decorationColor)
+        actionBtn!.addTarget(self, action: #selector(self.actionBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        background!.addSubview(actionBtn!)
+        updateActionBtnStatus()
+        
+        showSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.showRemoveBtn(_:)))
+        showSwipe!.direction = UISwipeGestureRecognizerDirection.Left
+        background!.addGestureRecognizer(showSwipe!)
+        
+        hideSwipe = UISwipeGestureRecognizer(target: self, action: #selector(self.hideRemoveBtn(_:)))
+        hideSwipe!.direction = UISwipeGestureRecognizerDirection.Right
+        hideSwipe!.enabled = false
+        background!.addGestureRecognizer(hideSwipe!)
+        
     }
+    
+    
+    func showRemoveBtn(sender:UISwipeGestureRecognizer) {
+        
+        delegate!.hideOtherViewsOpen!(self)
+        sender.enabled = false
+        
+        UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
+            self.background?.frame.origin.x -= SharedUIManager.instance.notificationView_height
+            }, completion: {(completed:Bool) -> Void in
+                self.hideSwipe!.enabled = true
+        })
+    }
+    
+    
+    func hideRemoveBtn(sender:UISwipeGestureRecognizer) {
+        
+        delegate!.removeFromOtherViewsOpen!(self)
+        sender.enabled = false
+        
+        UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
+            self.background?.frame.origin.x += SharedUIManager.instance.notificationView_height
+            }, completion: {(completed:Bool) -> Void in
+                self.showSwipe!.enabled = true
+        })
+    }
+    
     
     override func transitionIn() {
         
@@ -217,8 +265,8 @@ class GiftView: BNView {
         model = nil
         image?.removeFromSuperview()
         image = nil
-        removeItButton?.removeFromSuperview()
-        removeItButton = nil
+        deleteItButton?.removeFromSuperview()
+        deleteItButton = nil
         titleLbl!.removeFromSuperview()
         titleLbl = nil
         messageLbl!.removeFromSuperview()
@@ -227,8 +275,8 @@ class GiftView: BNView {
         receivedLbl = nil
         actionBtn!.removeFromSuperview()
         actionBtn = nil
-        shareBtn!.removeFromSuperview()
-        shareBtn = nil
+        shareGiftBtn!.removeFromSuperview()
+        shareGiftBtn = nil
         expiredTitleLbl!.removeFromSuperview()
         expiredTitleLbl = nil
         expiredDateLbl!.removeFromSuperview()
@@ -236,32 +284,37 @@ class GiftView: BNView {
     }
 
     func removeBtnAction(sender:UIButton){
+        BNAppSharedManager.instance.updateGiftCounter()
+        BNAppSharedManager.instance.networkManager.sendRefusedGift((self.model as! BNGift))
         self.delegate!.resizeScrollOnRemoved!(self)
     }
     
     func updateActionBtnStatus(){
         switch (model as! BNGift).status! {
-        case .APPROVED:
-            actionBtn!.enabled = true
-            actionBtn!.setTitle(NSLocalizedString("APPROVED", comment: "APPROVED"), forState: UIControlState.Normal)
         case .CLAIMED:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("CLAIMED", comment: "CLAIMED"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("CLAIMED", comment: "CLAIMED")
         case .SENT:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("SENT", comment: "SENT"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("SENT", comment: "SENT")
         case .DELIVERED:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("DELIVERED", comment: "DELIVERED"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("DELIVERED", comment: "DELIVERED")
         default:
             actionBtn!.enabled = false
-            actionBtn!.setTitle(NSLocalizedString("SENT", comment: "SENT"), forState: UIControlState.Normal)
+            actionBtn!.titleLbl!.text = NSLocalizedString("SENT", comment: "SENT")
         }
     }
     
     func updateToClaimNow(){
-        actionBtn!.setTitle(NSLocalizedString("READY_TO_CLAIM", comment: "READY_TO_CLAIM"), forState: UIControlState.Normal)
+        actionBtn!.titleLbl!.text = NSLocalizedString("READY_TO_CLAIM", comment: "READY_TO_CLAIM")
         actionBtn!.enabled = true
+    }
+    
+    func actionBtnAction(sender:UIButton) {
+        BNAppSharedManager.instance.networkManager!.sendClaimedGift((model as! BNGift))
+        (model as! BNGift).status = BNGiftStatus.CLAIMED
+        updateActionBtnStatus()
     }
 }
 
@@ -269,4 +322,6 @@ class GiftView: BNView {
 //    optional func showElementView( view:ElementMiniView, element:BNElement )
 //    optional func showElementViewFromSite( view:ElementMiniView, element:BNElement )
     optional func resizeScrollOnRemoved(view:GiftView)
+    optional func hideOtherViewsOpen(view:GiftView)
+    optional func removeFromOtherViewsOpen(view:GiftView)
 }

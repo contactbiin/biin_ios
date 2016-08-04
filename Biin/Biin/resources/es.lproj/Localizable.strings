@@ -62,7 +62,7 @@ NotFollowTxt = "Lamentamos tu partida!";
 Profile = "Perfil";
 Home = "Inicio";
 Collections = "Mis Favoritos";
-Loyalty = "Puntos";
+LoyaltyWallet = "Mis Tarjetas";
 Notifications = "Notificaciones";
 InviteFriends = "Invitar Amigos";
 Settings = "Ajustes";
@@ -256,8 +256,14 @@ Waze = "Waze";
 
 Gifts = "Regalos";
 GiftShowSites = "Ver locales participantes";
-APPROVED = "Solicita en la tienda.";
+//APPROVED = "Solicita en la tienda.";
 CLAIMED = "Esperando aprovación";
 SENT = "Visita locales participantes y solicita este regalo!";
 DELIVERED = "Disfruta tu regalo";
 READY_TO_CLAIM = "Reclama ahora";
+GiftsExpires = "Expira:";
+
+SeeGift = "Ver regalo";
+ReadQRCode = "Leer Codigo";
+SeeConditions = "Ver condiciones";
+

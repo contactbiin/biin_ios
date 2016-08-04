@@ -62,7 +62,7 @@ NotFollowTxt = "We are sorry to see you go!";
 Profile = "Profile";
 Home = "Home";
 Collections = "My Favotires";
-Loyalty = "Loyalty";
+LoyaltyWallet = "Loyalty Wallet";
 Notifications = "Notifications";
 InviteFriends = "Invite Friends";
 Settings = "Settings";
@@ -261,8 +261,12 @@ Waze = "Waze";
 
 Gifts = "Gifts";
 GiftShowSites = "Show participant stores";
-APPROVED = "Pickup at the store";
 CLAIMED = "Waiting to be aproved";
 SENT = "Visit our store and request this gift!";
-DELIVERED = "Enjoy";
+DELIVERED = "Enjoy this gift!";
 READY_TO_CLAIM = "Clain now";
+GiftsExpires = "Expires:";
+
+SeeGift = "See gift";
+ReadQRCode = "Read QR Code";
+SeeConditions = "See conditions";

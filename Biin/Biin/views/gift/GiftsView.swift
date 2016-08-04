@@ -5,8 +5,6 @@
 
 import Foundation
 import UIKit
-import CoreLocation
-
 
 class GiftsView: BNView, GiftView_Delegate {
 
@@ -14,8 +12,10 @@ class GiftsView: BNView, GiftView_Delegate {
     var backBtn:BNUIButton_Back?
     
     var delegate:GiftsView_Delegate?
-    var elementContainers:Array <MainView_Container_Elements>?
+    //var elementContainers:Array <MainView_Container_Elements>?
     var scroll:BNScroll?
+    
+    weak var lastViewOpen:GiftView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,12 +54,13 @@ class GiftsView: BNView, GiftView_Delegate {
         self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
         
-        elementContainers = Array<MainView_Container_Elements>()
+        //elementContainers = Array<MainView_Container_Elements>()
         updateGifts()
     }
     
     func updateGifts(){
         
+        self.scroll!.clean()
         self.scroll!.leftSpace = 0
         
         if let biinie = BNAppSharedManager.instance.dataManager.biinie {
@@ -71,6 +72,15 @@ class GiftsView: BNView, GiftView_Delegate {
         }
         
         self.scroll!.setChildrenPosition()
+    }
+    
+    func proccessGiftDelivered(identifier:String?) {
+        for giftView in self.scroll!.children {
+            if (giftView.model as! BNGift).identifier! == identifier! {
+                (giftView as! GiftView).updateActionBtnStatus()
+                break
+            }
+        }
     }
     
     override func transitionIn() {
@@ -117,24 +127,22 @@ class GiftsView: BNView, GiftView_Delegate {
     override func refresh() { }
 
     override func clean(){
-        if elementContainers?.count > 0 {
-            
-            for elementContainer in elementContainers! {
-                elementContainer.clean()
-                elementContainer.removeFromSuperview()
-            }
-            
-            elementContainers!.removeAll(keepCapacity: false)
-        }
-        
-        elementContainers = nil
+
         scroll!.removeFromSuperview()
         fade!.removeFromSuperview()
     }
     
     func backBtnAction(sender:UIButton) {
+        
         delegate!.hideGiftsView!()
-        //delegate!.hideElementView!(elementMiniView)
+        
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
+        
+        BNAppSharedManager.instance.dataManager.biinie!.viewedAllGifts()
+        BNAppSharedManager.instance.updateGiftCounter()
+
     }
     
     func resizeScrollOnRemoved(view: GiftView) {
@@ -148,12 +156,27 @@ class GiftsView: BNView, GiftView_Delegate {
                     if site == siteIdentifier {
                         //Send local notification
                         (giftView as! GiftView).updateToClaimNow()
-                    } else {
-                        (giftView as! GiftView).updateActionBtnStatus()
+                        break
                     }
+                    //else {
+                      //  (giftView as! GiftView).updateActionBtnStatus()
+                    //}
                 }
             }
         }
+    }
+    
+    func hideOtherViewsOpen(view: GiftView) {
+        
+        if lastViewOpen != nil {
+            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        }
+        
+        lastViewOpen = view
+    }
+    
+    func removeFromOtherViewsOpen(view: GiftView) {
+        lastViewOpen = nil
     }
 }
 

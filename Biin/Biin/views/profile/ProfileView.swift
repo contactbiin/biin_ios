@@ -570,17 +570,17 @@ class ProfileView: BNView, UITextFieldDelegate {
 
     }
 
-    func categoryBtnAction(sender:BNUIButton_Category){
-        
-        sender.showSelected()
-        areCategoriesChanged = true
-        
-        if categoriesSelected[sender.categoryIdentifier!] == nil {
-            categoriesSelected[sender.categoryIdentifier!] = sender.categoryIdentifier!
-        } else {
-            categoriesSelected[sender.categoryIdentifier!] = nil
-        }
-    }
+//    func categoryBtnAction(sender:BNUIButton_Category){
+//        
+//        sender.showSelected()
+//        areCategoriesChanged = true
+//        
+//        if categoriesSelected[sender.categoryIdentifier!] == nil {
+//            categoriesSelected[sender.categoryIdentifier!] = sender.categoryIdentifier!
+//        } else {
+//            categoriesSelected[sender.categoryIdentifier!] = nil
+//        }
+//    }
     
     func tapped(sender:UIGestureRecognizer){
         endEditing(true)

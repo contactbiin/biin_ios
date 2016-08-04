@@ -206,9 +206,9 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
                 elementView_width = SharedUIManager.instance.miniView_width
             }
             
-            if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
-                isLoyaltyEnabled = true
-            }
+//            if self.site!.organization!.isLoyaltyEnabled && self.site!.organization!.loyalty!.isSubscribed {
+//                isLoyaltyEnabled = true
+//            }
             
             var elements = Array<ElementMiniView>()
 

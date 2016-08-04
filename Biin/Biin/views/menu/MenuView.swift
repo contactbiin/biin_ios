@@ -73,15 +73,16 @@ class MenuView:UIView {
         self.addSubview(collectionsBtn!)
         //collectionsBtn!.showDisable()
         
-        //ypos += (distance + buttonHeight)
-        loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Loyalty", comment: "Loyalty").uppercaseString, iconType: BNIconType.none)
-        loyaltyBtn!.addTarget(self, action: #selector(self.loyaltyBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(loyaltyBtn!)
-        
         ypos += (distance + buttonHeight)
         inviteFriendsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("InviteFriends", comment: "InviteFriends").uppercaseString, iconType: BNIconType.none)
         inviteFriendsBtn!.addTarget(self, action: #selector(self.inviteFriendsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(inviteFriendsBtn!)
+        
+        ypos += (distance + buttonHeight)
+        loyaltyBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("LoyaltyWallet", comment: "LoyaltyWallet").uppercaseString, iconType: BNIconType.none)
+        loyaltyBtn!.addTarget(self, action: #selector(self.loyaltyBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(loyaltyBtn!)
+        
         
         ypos += (distance + buttonHeight)
         giftsBtn = BNUIButton_Menu(frame: CGRectMake(40, ypos, buttonWidth, buttonHeight), text:NSLocalizedString("Gifts", comment: "Gifts").uppercaseString, iconType: BNIconType.none)
@@ -153,8 +154,7 @@ class MenuView:UIView {
     }
     
     func loyaltyBtnAction(sender:BNUIButton) {
-        //disableButton(3)
-        delegate!.menuView!(self, showLoyalty: true)
+        delegate!.menuView!(self, showLoyaltyWallet: true)
     }
 
     func developmentBtnAction(sender:BNUIButton) {
@@ -208,12 +208,12 @@ class MenuView:UIView {
     optional func menuView(menuView:MenuView!, showHome value:Bool)
     optional func menuView(menuView:MenuView!, showProfile value:Bool)
     optional func menuView(menuView:MenuView!, showCollections value:Bool)
-    optional func menuView(menuView:MenuView!, showLoyalty value:Bool)
     optional func menuView(menuView:MenuView!, showNotifications value:Bool)
     optional func menuView(menuView:MenuView!, showInviteFriends value:Bool)
     optional func menuView(menuView:MenuView!, showSettings value:Bool)
     optional func menuView(menuView:MenuView!, showSearch value:Bool)
     optional func menuView(menuView:MenuView!, showAbout value:Bool)
     optional func menuView(menuView:MenuView!, showGifts value:Bool)
+    optional func menuView(menuView:MenuView!, showLoyaltyWallet value:Bool)
     optional func menuView(menuView:MenuView!, showDevelopmentView value:Bool)
 }

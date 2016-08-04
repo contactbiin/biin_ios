@@ -139,15 +139,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if appManager.dataManager!.biinie!.token! == "" {
                 appManager.dataManager!.biinie!.token = refreshedToken
                 appManager.dataManager!.biinie!.needsTokenUpdate = true
-                //print("Token asignado: \(appManager.dataManager!.bnUser!.token!)")
+                print("Token asignado: \(appManager.dataManager!.biinie!.token!)")
                 
             } else {
                 if appManager.dataManager!.biinie!.token! != refreshedToken {
                     appManager.dataManager!.biinie!.token = refreshedToken
                     appManager.dataManager!.biinie!.needsTokenUpdate = true
-                    //print("User NEW Token: \(appManager.dataManager!.bnUser!.token!)")
+                    print("User NEW Token: \(appManager.dataManager!.biinie!.token!)")
                 } else {
-                    //print("User Token: \(appManager.dataManager!.bnUser!.token!)")
+                    print("User Token: \(appManager.dataManager!.biinie!.token!)")
                 }
             }
         } else  {
@@ -193,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         connectToFcm()
         
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 7
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -225,7 +225,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BNAppSharedManager.instance.notificationManager.lastNotice_identifier = (notification.userInfo!["UUID"] as? String)!
         BNAppSharedManager.instance.notificationManager.save()
         BNAppSharedManager.instance.isOpeningForLocalNotification = true
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+
     }
+    
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                      fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
@@ -237,7 +240,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //print("Message ID: \(userInfo["gcm.message_id"]!)")
         
         // Print full message.
-        //print("%@", userInfo)
+        print("%@", userInfo)
+        
+        var isGiftNotification = false
+        
+        if let data = userInfo["data"] {
+            
+            var jsonData = BNAppSharedManager.instance.networkManager!.epsNetwork!.parseJson(data as! String)
+            
+            let type = jsonData["type"] as? String
+            
+            if type == "gift" || type == "giftassigned" {
+                if (jsonData["gift"] as? NSDictionary) != nil {
+                    if let giftData = jsonData["gift"] as? NSDictionary {
+                        if BNParser.parseGift(giftData, biinie: appManager.dataManager.biinie) {
+                            isGiftNotification = true
+                            if appManager.IS_MAINVIEW_ON {
+                                appManager.mainViewController!.updateGiftsView()
+                            }
+                        }
+                    }
+                }
+            } else if type == "giftdelivered" {
+                let giftIdentifier = jsonData["giftIdentifier"] as? String
+                BNAppSharedManager.instance.proccessGiftDelivered(giftIdentifier)
+            }
+        }
+        
+        
+        //Parse notification data if needed.
+        if !isGiftNotification {
+            if let notification = userInfo["aps"] as? NSDictionary {
+                
+                if let alert = notification["alert"] as? NSDictionary {
+                    
+                    BNParser.parseNotification(alert, biinie: appManager.dataManager.biinie)
+                    if appManager.IS_MAINVIEW_ON {
+                        appManager.mainViewController!.updateNotificationsView()
+                    }
+                }
+            }
+        }
+        
+        completionHandler(UIBackgroundFetchResult.NoData)
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {

@@ -50,8 +50,8 @@ class BNElement:NSObject {
     var gallery:Array<UIImageView> = Array<UIImageView>()
 
     //Notification
-    var activateNotification = false
-    var notifications:Array<BNNotification>?
+    //var activateNotification = false
+    //var notifications:Array<BNNotification>?
     
     //Social interaction
     //var biinedCount:Int = 0       //How many time users have biined this element.
@@ -123,8 +123,8 @@ class BNElement:NSObject {
         if let value = self.claimedQuantity { clone.claimedQuantity = value }
         if let value = self.actualQuantity { clone.actualQuantity = value }
         clone.media = self.media
-        clone.activateNotification = self.activateNotification
-        if let value = self.notifications { clone.notifications = value }
+        //clone.activateNotification = self.activateNotification
+        //if let value = self.notifications { clone.notifications = value }
         clone.collectCount = self.collectCount
         clone.commentedCount = self.commentedCount
         clone.userShared = self.userShared

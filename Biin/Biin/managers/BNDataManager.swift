@@ -565,26 +565,30 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         BNAppSharedManager.instance.settings!.clear()
     }
     
-    func isGiftStored(identifier:String) ->Bool{
-        for gift in biinie!.gifts_store {
-            if gift == identifier {
-                return true
-            }
-        }
-        return false
-    }
+//    func isGiftStored(identifier:String) ->Bool{
+//        for gift in biinie!.gifts_store {
+//            if gift == identifier {
+//                return true
+//            }
+//        }
+//        return false
+//    }
 
     func didReceivedBiinieData(user: Biinie?) {
         
         if self.biinie != nil {
             
-            for gift in user!.gifts {
-                if !isGiftStored(gift.identifier!) {
-                    user!.newGiftCounter += 1
-                    user!.gifts_store.append(gift.identifier!)
-                }
-            }
+            //TODO: Temporal hack to show notifications.
+            //biinie!.gifts_store.removeAll()
             
+//            for gift in user!.gifts {
+//                if !isGiftStored(gift.identifier!) {
+//                    //user!.newGiftCounter += 1
+//                    user!.gifts_store.append(gift.identifier!)
+//                }
+//            }
+            
+            user!.notifications = self.biinie!.notifications
             user!.token = self.biinie!.token
             user!.needsTokenUpdate = self.biinie!.needsTokenUpdate
             self.biinie = user
@@ -642,6 +646,35 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     
     func receivedOrganization(organization: BNOrganization) {
         organizations[organization.identifier!] = organization
+        
+        //TODO: TEMPORAL, crear algunas loyaltyes
+        
+        
+        let loyalty = BNLoyalty()
+        loyalty.identifier = organization.identifier!
+        loyalty.organizationIdentifier = organization.identifier!
+        loyalty.loyaltyCard = BNLoyaltyCard()
+        loyalty.loyaltyCard!.title = "Tarjeta de cliente frecuente"
+        loyalty.loyaltyCard!.goal = "Obten un regalo gratis al completar 10 estrellitas"
+        loyalty.loyaltyCard!.rule = "Por la compra de 3750 o más recibe una estrella."
+        loyalty.loyaltyCard!.elementIdentifier = "8bf8a6cc-8542-4d89-b2b8-848d7cb4d02e"
+        loyalty.loyaltyCard!.startDate = NSDate()
+        loyalty.loyaltyCard!.endDate = NSDate()
+        
+        
+        var i = 0
+        while i < 10 {
+            i += 1
+            var slot = BNLoyaltyCard_Slot()
+            if i < 5 {
+                slot.isFilled = true
+            } else {
+                slot.isFilled  = false
+            }
+            loyalty.loyaltyCard!.slots.append(slot)
+        }
+        
+        biinie!.loyalties[organization.identifier!] = loyalty
     }
     
     func isSiteStored(identifier:String) -> Bool{

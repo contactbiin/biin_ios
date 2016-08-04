@@ -241,8 +241,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         mainView!.setNextState(BNGoto.Collected)
     }
     
-    func menuView(menuView: MenuView!, showLoyalty value: Bool) {
-//        mainView!.setNextState(7)
+    func menuView(menuView: MenuView!, showLoyaltyWallet value: Bool) {
+        mainView!.setNextState(BNGoto.LoyaltyWallet)
     }
     
     func menuView(menuView: MenuView!, showNotifications value: Bool) {
@@ -319,6 +319,14 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
                 })
             }
         }
+    }
+    
+    func updateGiftsView(){
+        mainView!.updateGiftsView()
+    }
+    
+    func updateNotificationsView(){
+        mainView!.updateNotificationsView()
     }
     
     //ProfileView_Delegate
@@ -567,7 +575,17 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         //print("User Logged Out")
+        
     }
+    
+    func updateGiftCounter(){
+        mainView!.updateGiftCounter()
+    }
+    
+    func updateNotificationCounter(){
+        mainView!.updateNotificationCounter()
+    }
+
     
     func returnUserData()
     {

@@ -166,14 +166,14 @@ class BNAppManager {
         dataManager.applyShareElement(element)
     }
     
-    func processNotification(notification:BNNotification){
-        areNewNotificationsPendingToShow = true
-        dataManager.biinie!.newNotificationCount! += 1
-        dataManager.biinie!.notificationIndex! = notification.identifier
-
-        //Notify main view to show circle
-        delegate!.manager!(showNotifications: true)
-    }
+//    func processNotification(notification:BNNotification){
+//        areNewNotificationsPendingToShow = true
+//        dataManager.biinie!.newNotificationCount! += 1
+//        dataManager.biinie!.notificationIndex! = notification.identifier
+//
+//        //Notify main view to show circle
+//        delegate!.manager!(showNotifications: true)
+//    }
     
     func runningInBackground()->Bool {
         let state = UIApplication.sharedApplication().applicationState
@@ -197,6 +197,23 @@ class BNAppManager {
 
         if notificationManager.currentNotification != nil && notificationManager.didSendNotificationOnAppDown {
             //mainViewController?.mainView?.showNotificationContext()
+        }
+    }
+    
+    //UI Mehtods
+    func updateGiftCounter(){
+        mainViewController!.updateGiftCounter()
+    }
+    
+    func updateNotificationCounter(){
+        mainViewController!.updateNotificationCounter()
+    }
+    
+    func proccessGiftDelivered(identifier:String?) {
+        dataManager.biinie!.proccessGiftDelivered(identifier)
+        
+        if IS_MAINVIEW_ON {
+            mainViewController!.mainView!.proccessGiftDelivered(identifier)
         }
     }
 }

@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class BNSite:BNObject, NSCoding {
+class BNSite:BNObject {
     
     //TODO: jsonUrl only for testing, remove later
     var jsonUrl:String?
@@ -90,10 +90,10 @@ class BNSite:BNObject, NSCoding {
     }
 
     required init?(coder aDecoder: NSCoder) {
-
+        super.init(coder: aDecoder)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    override func encodeWithCoder(aCoder: NSCoder) {
         
     }
     

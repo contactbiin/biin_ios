@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -31,6 +31,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var surveyState:SurveyState?
     var notificationsState:NotificationsState?
     var giftsState:GiftsState?
+    var loyaltyWalletState:LoyaltyWalletState?
+    var loyaltyCardState:LoyaltyCardState?
     
     var isShowingNotificationContext = false
     
@@ -75,6 +77,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         surveyState = SurveyState(context: self, view: nil)
         notificationsState = NotificationsState(context: self, view: nil)
         giftsState = GiftsState(context: self, view: nil)
+        loyaltyWalletState = LoyaltyWalletState(context: self, view: nil)
+        loyaltyCardState = LoyaltyCardState(context: self, view: nil)
         
         show()
 
@@ -247,6 +251,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.next(self.giftsState)
             self.bringSubviewToFront(state!.view!)
             break
+        case .LoyaltyWallet:
+            state!.view!.showFade()
+            self.loyaltyWalletState!.previous = state
+            state!.next(self.loyaltyWalletState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .LoyaltyCard:
+            state!.view?.showFade()
+            self.loyaltyCardState!.previous = state
+            state!.next(self.loyaltyCardState)
+            self.bringSubviewToFront(state!.view!)
+            break
         }
     }
 
@@ -319,6 +335,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isShowingInsiteView = true
             site_to_survey = site
             (mainViewContainerState!.view as! MainView_Container_All).showInSiteView(site)
+            //TODO: Enable all gift on site to be request.
+            (giftsState!.view as! GiftsView).updateGifts(site!.identifier!)
+            //TODO: Enable QR reader buttons on loyalty cards.
+            
         }
     }
     
@@ -506,8 +526,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideBrotherSiteView()      { setNextState(BNGoto.Previous) }
     func hideAllCollectedView()     { setNextState(BNGoto.Main) }
     func hideSurveyView()           { setNextState(BNGoto.Previous) }
-    func hideGiftsView()            { setNextState(BNGoto.Previous) }
-    
     
     func updateAllCollectedView() {
         (allCollectedState!.view as? AllCollectedView)!.refresh()
@@ -564,6 +582,24 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (surveyState!.view as! SurveyView).clean()
         surveyState!.view!.removeFromSuperview()
         surveyState!.view = nil
+        
+        (notificationsState!.view as! NotificationView).clean()
+        notificationsState!.view!.removeFromSuperview()
+        notificationsState!.view = nil
+
+        (giftsState!.view as! GiftsView).clean()
+        giftsState!.view!.removeFromSuperview()
+        giftsState!.view = nil
+        
+        (loyaltyWalletState!.view as! LoyaltyWalletView).clean()
+        loyaltyWalletState!.view!.removeFromSuperview()
+        loyaltyWalletState!.view = nil
+
+        (loyaltyCardState!.view as! LoyaltyCardView).clean()
+        loyaltyCardState!.view!.removeFromSuperview()
+        loyaltyCardState!.view = nil
+
+        
     }
     
     func show(){
@@ -645,10 +681,66 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         giftsState!.view = giftsView
         giftsView.delegate = self
         self.addSubview(giftsView)
+        
+        let loyaltyWalletView = LoyaltyWalletView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        loyaltyWalletState!.view = loyaltyWalletView
+        loyaltyWalletView.delegate = self
+        self.addSubview(loyaltyWalletView)
+        
+        let loyaltyCardView = LoyaltyCardView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        loyaltyCardState!.view = loyaltyCardView
+        loyaltyCardView.delegate = self
+        self.addSubview(loyaltyCardView)
+        
     }
     
     func updateProfileView(){
         (profileState!.view as! ProfileView).update()
+    }
+    
+    //GIFTS
+    func updateGiftsView() {
+        (giftsState!.view as! GiftsView).updateGifts()
+        updateGiftCounter()
+    }
+    
+    func updateGiftCounter() {
+        (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateGiftCounter()
+    }
+    
+    func hideGiftsView() {
+        setNextState(BNGoto.Previous)
+    }
+    
+    func proccessGiftDelivered(identifier:String?) {
+        (giftsState!.view as! GiftsView).proccessGiftDelivered(identifier)
+
+    }
+    
+    //NOTIFICATION
+    func updateNotificationsView(){
+        (notificationsState!.view as! NotificationsView).addNotifications()
+        (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateNotificationCounter()
+    }
+    
+    func updateNotificationCounter(){
+        (mainViewContainerState!.view as! MainView_Container_All).optionsBar!.updateNotificationCounter()
+    }
+    
+    //LOYALTIES
+    func hideLoyaltyWalletView() {
+        setNextState(BNGoto.Previous)
+    }
+    
+    func showLoyaltyCard(view: LoyaltyView) {
+        (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
+        setNextState(BNGoto.LoyaltyCard)
+    }
+    
+    
+    //LOYALTY CARD
+    func hideLoyaltyCardView(view: LoyaltyCardView) {
+        setNextState(BNGoto.Previous)
     }
 }
 
@@ -691,4 +783,6 @@ enum BNGoto {
     case Previous
     case Notifications
     case Gifts
+    case LoyaltyWallet
+    case LoyaltyCard
 }

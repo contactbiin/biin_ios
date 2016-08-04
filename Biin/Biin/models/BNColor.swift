@@ -22,7 +22,7 @@ extension UIColor {
     }
     
     class func appTextColor() -> UIColor {
-        return UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
+        return UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 1)
     }
     
     class func bnWhite() -> UIColor! {
@@ -291,6 +291,18 @@ extension UIColor {
     
     class func bnGradientColor2() -> UIColor {
         return UIColor(red: 255/255, green: 240/255, blue: 240/255, alpha: 1)
+    }
+    
+    class func bnOptionBarIconColor() -> UIColor! {
+        return UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1)
+    }
+    
+    class func bnShareGiftColor() -> UIColor! {
+        return UIColor(red: 106/255, green: 106/255, blue: 106/255, alpha: 1)
+    }
+    
+    class func bnGiftStoresColor() -> UIColor! {
+        return UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
     }
 }
 

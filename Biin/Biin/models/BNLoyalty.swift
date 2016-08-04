@@ -5,16 +5,17 @@
 
 import Foundation
 
-class BNLoyalty:NSObject {
+
+class BNLoyalty:BNObject {
     
-    var isSubscribed:Bool = false
-    var subscriptionDate:NSDate?
-    var points:Int = 0
-    var level:Int = 0
-    var achievements:Array<BNAchievement>?
-    var badges:Array<BNBadge>?
+    var organizationIdentifier:String?
+    var loyaltyCard:BNLoyaltyCard?
     
     override init() {
         super.init()
     }    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

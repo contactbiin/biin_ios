@@ -8,9 +8,12 @@ import UIKit
 
 class MainView_Container_OptionsBar: BNView {
 
-    var showMenuBtn:BNUIButton?
-    var showGiftsBtn:BNUIButton?
-    var showGiftsBtnBadge:BNBadgeView?
+    var showMenuBtn:BNUIButton_OptionBar?
+    var showGiftsBtn:BNUIButton_OptionBar?
+    var showGiftsBtn_Badge:BNBadgeView?
+    
+    var showNotificationsBtn:BNUIButton_OptionBar?
+    var showNotificationsBtn_Badge:BNBadgeView?
 //    var testBtn:UIButton?
     
     override init(frame: CGRect) {
@@ -26,7 +29,7 @@ class MainView_Container_OptionsBar: BNView {
         
 //        self.layer.masksToBounds = true
         
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark)) as UIVisualEffectView
         visualEffectView.frame = self.bounds
         self.addSubview(visualEffectView)
 
@@ -64,37 +67,49 @@ class MainView_Container_OptionsBar: BNView {
     //Instance Methods
     func addButtons(){
         
-        var xpos:CGFloat = 10
-        showMenuBtn = BNUIButton_Menu(frame: CGRectMake(xpos, 12, 60, 40), text: "", iconType: BNIconType.menuMedium)
+        var xpos:CGFloat = 20
+        let ypos:CGFloat = 12
+        showMenuBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: "Menu", iconType: BNIconType.menuMedium)
         showMenuBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showMenuBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
 
-        xpos += 65
-        showGiftsBtn = BNUIButton_Menu(frame: CGRectMake(xpos, 12, 60, 40), text: "", iconType: BNIconType.notificationMedium)
+        xpos += 75
+        showGiftsBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: "Gifts", iconType: BNIconType.gift)
         showGiftsBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showGiftsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showGiftsBtn!)
         
-        showGiftsBtnBadge = BNBadgeView(position: CGPoint(x:10, y: 0), size: 20)
-        showGiftsBtn!.addSubview(showGiftsBtnBadge!)
-        showGiftsBtnBadge!.update(7)
-        showGiftsBtnBadge!.frame.origin.y = -15
+        showGiftsBtn_Badge = BNBadgeView(position: CGPoint(x:15, y: -2), size: 20)
+        showGiftsBtn!.addSubview(showGiftsBtn_Badge!)
+        showGiftsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newGiftCounter)
+        showGiftsBtn_Badge!.resignFirstResponder()
         
+        xpos += 75
+        showNotificationsBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: "Notifications", iconType: BNIconType.notification)
+        showNotificationsBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showNotificationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addSubview(showNotificationsBtn!)
         
-//        testBtn = UIButton(frame: CGRectMake(200, 0, 60, 40))
-//        testBtn!.backgroundColor = UIColor.darkGrayColor()
-//        testBtn!.setTitle("test", forState: UIControlState.Normal)
-//        testBtn!.addTarget(father, action: Selector("testBtnAction:"), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.addSubview(testBtn!)
-//        
-//        testBtn!.enabled = false
-//        testBtn!.alpha = 0
+        showNotificationsBtn_Badge = BNBadgeView(position: CGPoint(x:15, y: -2), size: 20)
+        showNotificationsBtn!.addSubview(showNotificationsBtn_Badge!)
+        showNotificationsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newNotificationCount)
+
     }
     
     override func clean(){
         showMenuBtn?.removeFromSuperview()
-//        testBtn?.removeFromSuperview()
+        showMenuBtn = nil
+        showGiftsBtn?.removeFromSuperview()
+        showGiftsBtn = nil
+        showNotificationsBtn?.removeFromSuperview()
+        showNotificationsBtn = nil
     }
     
+    func updateGiftCounter() {
+        showGiftsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newGiftCounter)
+    }
+    
+    func updateNotificationCounter() {
+        showNotificationsBtn_Badge!.update(BNAppSharedManager.instance.dataManager!.biinie!.newNotificationCount)
+    }
 }
 
 @objc protocol MainView_Container_OptionsBar_Delegate:NSObjectProtocol {

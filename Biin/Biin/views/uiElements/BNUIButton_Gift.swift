@@ -20,7 +20,7 @@ class BNUIButton_Gift:BNUIButton {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, hasExpiration:Bool, color:UIColor?) {
+    convenience init(frame: CGRect, gift:BNGift?, color:UIColor?) {
         
         self.init(frame:frame)
         
@@ -29,31 +29,31 @@ class BNUIButton_Gift:BNUIButton {
         self.layer.cornerRadius  = 3
         self.layer.masksToBounds = true
         
-        let height:CGFloat = 10
+        let height:CGFloat = 14
         var ypos:CGFloat = ((frame.height - height) / 2)
         
-        if hasExpiration {
+        if gift!.hasExpirationDate {
             ypos = ((frame.height - (height + height + 5)) / 2)
         }
         
-        titleLbl = UILabel(frame: CGRect(x: 0, y:ypos, width: frame.width, height: height))
-        titleLbl!.text = "Recoje tu regalo en la tienda."
+        titleLbl = UILabel(frame: CGRect(x: 0, y:ypos, width: frame.width, height: (height + 2)))
+        //titleLbl!.text = "Recoje tu regalo en la tienda."
         titleLbl!.textColor = UIColor.whiteColor()
         titleLbl!.font = UIFont(name: "Lato-Light", size: height)
         titleLbl!.textAlignment = NSTextAlignment.Center
         self.addSubview(titleLbl!)
         
-        if hasExpiration {
+        if gift!.hasExpirationDate {
            
             let expiredTitle_Length = SharedUIManager.instance.getStringLength("Expira:", fontName: "Lato-Light", fontSize:height)
             
-            let expiredDate_Length = SharedUIManager.instance.getStringLength("Lunes, Junio 13", fontName: "Lato-Black", fontSize:height)
+            let expiredDate_Length = SharedUIManager.instance.getStringLength(gift!.expirationDate!.bnDisplayDateFormatt(), fontName: "Lato-Black", fontSize:height)
             
             var xpos:CGFloat = ((frame.width - (expiredTitle_Length + expiredDate_Length)) / 2)
             ypos += (height + 5)
             
             expiredTitleLbl = UILabel(frame: CGRect(x:xpos, y: ypos, width:(frame.width / 2), height:height))
-            expiredTitleLbl!.text = "Expira:"
+            expiredTitleLbl!.text = NSLocalizedString("GiftsExpires", comment: "GiftsExpires")
             expiredTitleLbl!.textColor = UIColor.whiteColor()
             expiredTitleLbl!.font = UIFont(name: "Lato-Light", size: height)
             expiredTitleLbl!.textAlignment = NSTextAlignment.Right
@@ -62,7 +62,7 @@ class BNUIButton_Gift:BNUIButton {
 
             xpos += (expiredTitle_Length + 2)
             expiredDateLbl = UILabel(frame: CGRect(x:xpos, y:ypos, width:(frame.width / 2), height:height))
-            expiredDateLbl!.text = "Lunes, Junio 13"
+            expiredDateLbl!.text = gift!.expirationDate!.bnDisplayDateFormatt()
             expiredDateLbl!.textColor = UIColor.whiteColor()
             expiredDateLbl!.font = UIFont(name: "Lato-Black", size:height)
             expiredDateLbl!.textAlignment = NSTextAlignment.Right
