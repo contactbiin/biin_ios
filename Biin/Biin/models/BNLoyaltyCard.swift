@@ -5,15 +5,18 @@
 
 import Foundation
 
-class BNLoyaltyCard:NSObject {
+class BNLoyaltyCard:BNObject {
     
     var title:String?
     var rule:String?
     var goal:String?
+    var conditions:String?
     
     var elementIdentifier:String?
     
-    var isEnabled = false
+    var isCompleted:Bool = false
+    var isBiinieEnrolled = false
+    var isUnavailable:Bool = false
     var startDate:NSDate?
     var endDate:NSDate?
     var slots:Array<BNLoyaltyCard_Slot> = Array<BNLoyaltyCard_Slot>()
@@ -21,6 +24,11 @@ class BNLoyaltyCard:NSObject {
     override init() {
         super.init()
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 }
 
 struct BNLoyaltyCard_Slot {

@@ -20,7 +20,9 @@ class LoyaltyView: BNView {
     var titleLbl:UILabel?
     var subTitleLbl:UILabel?
     var textLbl:UILabel?
-
+    var stars:Array<BNUIView_StarSmall>?
+    var enrolledBtn:UIButton?
+    
     var foreground:UIView?
     var background:UIView?
     var showSwipe:UISwipeGestureRecognizer?
@@ -125,18 +127,29 @@ class LoyaltyView: BNView {
         
         ypos += (textLbl!.frame.height + 10)
         
-        var star_xpos:CGFloat = xpos
-        for slot in loyalty!.loyaltyCard!.slots {
-            
-            if !slot.isFilled! {
-                decorationColor = UIColor.bnGrayLight()
+        if loyalty!.loyaltyCard!.isBiinieEnrolled {
+            stars = Array<BNUIView_StarSmall>()
+            var star_xpos:CGFloat = xpos
+            for slot in loyalty!.loyaltyCard!.slots {
+                
+                if !slot.isFilled! {
+                    decorationColor = UIColor.bnGrayLight()
+                }
+                
+                let star = BNUIView_StarSmall(frame:CGRect(x:star_xpos, y: ypos, width:16, height: 16), color: decorationColor!)
+                stars!.append(star)
+                background!.addSubview(star)
+                star_xpos += 17
             }
-            
-            let star = BNUIView_StarSmall(frame:CGRect(x:star_xpos, y: ypos, width:16, height: 16), color: decorationColor!)
-            background!.addSubview(star)
-            star_xpos += 17
+        } else {
+            enrolledBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width: width, height: 30))
+            enrolledBtn!.backgroundColor = decorationColor
+            enrolledBtn!.setTitle(NSLocalizedString("EnrollNow", comment: "EnrollNow"), forState: UIControlState.Normal)
+            enrolledBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 12)
+            enrolledBtn!.layer.cornerRadius = 3
+            enrolledBtn!.addTarget(self, action: #selector(self.enroledBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            background!.addSubview(enrolledBtn!)
         }
-        
         
         foreground = UIView(frame: frame)
         foreground!.backgroundColor = UIColor.blackColor()
@@ -167,6 +180,10 @@ class LoyaltyView: BNView {
             }, completion: {(completed:Bool) ->  Void in
                 self.delegate!.showLoyaltyCard!(self)
         })
+    }
+    
+    func enroledBtnAction(sender:UIButton) {
+        self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
     }
     
     func showRemoveBtn(sender:UISwipeGestureRecognizer) {
@@ -242,6 +259,47 @@ class LoyaltyView: BNView {
         
     }
     
+    func addStars(){
+
+        if enrolledBtn != nil {
+            enrolledBtn!.enabled = false
+            enrolledBtn!.alpha = 0
+        }
+        
+        let ypos:CGFloat = (textLbl!.frame.origin.y + textLbl!.frame.height + 10)
+        var xpos:CGFloat = (SharedUIManager.instance.loyaltyWalletView_imageSize + 10)
+
+        let organization = BNAppSharedManager.instance.dataManager.organizations[(model as! BNLoyalty).organizationIdentifier!]
+        var decorationColor:UIColor?
+        
+        var white:CGFloat = 0.0
+        var alpha:CGFloat = 0.0
+        _ =  organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+        
+        if white >= 0.9 {
+            decorationColor = organization!.secondaryColor
+        } else {
+            decorationColor = organization!.primaryColor
+        }
+        
+
+        stars = Array<BNUIView_StarSmall>()
+        
+        for slot in (model as! BNLoyalty).loyaltyCard!.slots {
+            
+            if !slot.isFilled! {
+                decorationColor = UIColor.bnGrayLight()
+            }
+            
+            let star = BNUIView_StarSmall(frame:CGRect(x:xpos, y: ypos, width:16, height: 16), color: decorationColor!)
+            stars!.append(star)
+            background!.addSubview(star)
+            xpos += 17
+        }
+        
+        self.bringSubviewToFront(foreground!)
+    }
+    
     override func clean(){
         delegate = nil
         model = nil
@@ -257,6 +315,18 @@ class LoyaltyView: BNView {
         textLbl = nil
         receivedLbl!.removeFromSuperview()
         receivedLbl = nil
+        foreground!.removeFromSuperview()
+        background!.removeFromSuperview()
+        
+        if enrolledBtn != nil {
+            enrolledBtn!.removeFromSuperview()
+        }
+        
+        if stars != nil {
+            for star in stars! {
+                star.removeFromSuperview()
+            }
+        }
     }
     
     func removeBtnAction(sender:UIButton){
@@ -269,6 +339,7 @@ class LoyaltyView: BNView {
 @objc protocol LoyaltyView_Delegate:NSObjectProtocol {
     //    optional func showElementView( view:ElementMiniView, element:BNElement )
     optional func showLoyaltyCard(view:LoyaltyView)
+    optional func showAlertView_ForLoyaltyCard(view:LoyaltyView, loyalty:BNLoyalty?)
     optional func resizeScrollOnRemoved(view:LoyaltyView)
     optional func hideOtherViewsOpen(view:LoyaltyView)
     optional func removeFromOtherViewsOpen(view:LoyaltyView)

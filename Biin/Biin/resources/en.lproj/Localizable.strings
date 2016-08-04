@@ -1,4 +1,4 @@
-/* 
+/*
 Localizable.strings
 biin
 Created by Esteban Padilla - English on 4/22/15.
@@ -74,7 +74,7 @@ LoginDesc = "Enter your email and password you previously use on biin.";
 ContinueBtn = "Continue";
 WelcomeDesc = "We are glad to see you here, if you are new, you can sign up with your email or login with Facebook.";
 StartDesc = "Excelent, now is time to discover and enjoy special rewards with Biin.";
-TresureChest = "Tressure Chest";
+TresureChest = "Treasure Chest";
 
 
 /* Categories */
@@ -270,3 +270,4 @@ GiftsExpires = "Expires:";
 SeeGift = "See gift";
 ReadQRCode = "Read QR Code";
 SeeConditions = "See conditions";
+EnrollNow = "Enroll Now";

@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate, AlertView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -33,6 +33,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var giftsState:GiftsState?
     var loyaltyWalletState:LoyaltyWalletState?
     var loyaltyCardState:LoyaltyCardState?
+    var alertState:AlertState?
     
     var isShowingNotificationContext = false
     
@@ -79,6 +80,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         giftsState = GiftsState(context: self, view: nil)
         loyaltyWalletState = LoyaltyWalletState(context: self, view: nil)
         loyaltyCardState = LoyaltyCardState(context: self, view: nil)
+        alertState = AlertState(context: self, view: nil)
         
         show()
 
@@ -261,6 +263,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.view?.showFade()
             self.loyaltyCardState!.previous = state
             state!.next(self.loyaltyCardState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .AlertView:
+            state!.view!.showFade()
+            self.alertState!.previous = state
+            state!.next(self.alertState)
             self.bringSubviewToFront(state!.view!)
             break
         }
@@ -702,6 +710,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltyCardView.delegate = self
         self.addSubview(loyaltyCardView)
         
+        let alertView = AlertView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        alertState!.view = alertView
+        alertView.delegate = self
+        self.addSubview(alertView)
     }
     
     func updateProfileView(){
@@ -748,9 +760,36 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     
+    func showAlertView_ForLoyaltyCard(view: LoyaltyView, loyalty:BNLoyalty?) {
+        let title = NSLocalizedString("TermOfUser", comment: "TermOfUser")
+        let text = loyalty!.loyaltyCard!.conditions!
+        (alertState!.view as! AlertView).updateAlertView(title, text: text, goto: BNGoto.LoyaltyCard, model:loyalty)
+        setNextState(BNGoto.AlertView)
+    }
+    
     //LOYALTY CARD
     func hideLoyaltyCardView(view: LoyaltyCardView) {
         setNextState(BNGoto.Previous)
+    }
+    
+    //ALERTVIEW
+    func hideOnCancelRequest(view: AlertView) {
+        setNextState(BNGoto.Previous)
+    }
+    
+    func hideOnOKRequest(view: AlertView, goto: BNGoto) {
+        switch goto {
+        case .LoyaltyCard:
+            (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
+            setNextState(BNGoto.LoyaltyCard)
+            loyaltyCardState!.previous = alertState!.previous
+            break
+        default:
+            setNextState(BNGoto.Previous)
+            break
+        }
+        
+        view.hideAlertFromMainView()
     }
 }
 
@@ -777,7 +816,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     optional func updateBiinsContainer(view:MainView,  update:Bool)
 }
 
-enum BNGoto {
+@objc enum BNGoto:Int {
     case Main
     case Site
     case BrotherSite
@@ -795,4 +834,5 @@ enum BNGoto {
     case Gifts
     case LoyaltyWallet
     case LoyaltyCard
+    case AlertView
 }
