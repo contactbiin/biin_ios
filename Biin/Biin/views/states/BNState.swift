@@ -51,4 +51,5 @@ enum BNStateType {
     case GiftsState
     case LoyaltyWallet
     case LoyaltyCardState
+    case AlertState
 }

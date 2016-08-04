@@ -256,7 +256,6 @@ Waze = "Waze";
 
 Gifts = "Regalos";
 GiftShowSites = "Ver locales participantes";
-//APPROVED = "Solicita en la tienda.";
 CLAIMED = "Esperando aprovación";
 SENT = "Visita locales participantes y solicita este regalo!";
 DELIVERED = "Disfruta tu regalo";
@@ -266,4 +265,5 @@ GiftsExpires = "Expira:";
 SeeGift = "Ver regalo";
 ReadQRCode = "Leer Codigo";
 SeeConditions = "Ver condiciones";
+EnrollNow = "Participá!";
 

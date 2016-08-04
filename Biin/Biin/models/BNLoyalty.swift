@@ -8,6 +8,7 @@ import Foundation
 
 class BNLoyalty:BNObject {
     
+    
     var organizationIdentifier:String?
     var loyaltyCard:BNLoyaltyCard?
     

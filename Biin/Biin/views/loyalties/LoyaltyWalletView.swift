@@ -150,10 +150,16 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     func showLoyaltyCard(view: LoyaltyView) {
         delegate!.showLoyaltyCard!(view)
     }
+    
+    func showAlertView_ForLoyaltyCard(view: LoyaltyView, loyalty:BNLoyalty?) {
+        self.delegate!.showAlertView_ForLoyaltyCard!(view, loyalty:loyalty)
+    }
 }
 
 
 @objc protocol LoyaltyWalletView_Delegate:NSObjectProtocol {
     optional func hideLoyaltyWalletView()
     optional func showLoyaltyCard(view:LoyaltyView)
+    optional func showAlertView_ForLoyaltyCard(view:LoyaltyView, loyalty:BNLoyalty?)
+
 }

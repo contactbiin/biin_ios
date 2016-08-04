@@ -175,6 +175,8 @@ class UIManager {
     var loyaltyCardView_StarPosition:CGPoint = CGPoint(x: 16.5, y: 16.5)
     var loyaltyCardView_LastSpace:CGFloat = 25
     
+    var alertView_Width:CGFloat = 280
+    
     func setDeviceVariables(){
         
         switch screenWidth {

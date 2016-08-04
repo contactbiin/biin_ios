@@ -657,10 +657,13 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         loyalty.loyaltyCard!.title = "Tarjeta de cliente frecuente"
         loyalty.loyaltyCard!.goal = "Obten un regalo gratis al completar 10 estrellitas"
         loyalty.loyaltyCard!.rule = "Por la compra de 3750 o más recibe una estrella."
-        loyalty.loyaltyCard!.elementIdentifier = "8bf8a6cc-8542-4d89-b2b8-848d7cb4d02e"
+        loyalty.loyaltyCard!.elementIdentifier = "8bf8a6cc-8542-4d89-b2b8-848d7cb4dloca02e"
+        loyalty.loyaltyCard!.conditions = "Al hacer tap en OK aceptas las condiciones de uso de la tarjeta de clientes frecuente de Tukasa."
         loyalty.loyaltyCard!.startDate = NSDate()
         loyalty.loyaltyCard!.endDate = NSDate()
-        
+        loyalty.loyaltyCard!.isCompleted = false
+        loyalty.loyaltyCard!.isUnavailable = false
+        loyalty.loyaltyCard!.isBiinieEnrolled = false
         
         var i = 0
         while i < 10 {
