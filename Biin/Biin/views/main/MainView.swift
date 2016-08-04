@@ -335,6 +335,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isShowingInsiteView = true
             site_to_survey = site
             (mainViewContainerState!.view as! MainView_Container_All).showInSiteView(site)
+            if let organization = BNAppSharedManager.instance.dataManager.organizations[site!.organizationIdentifier!] {
+                organization.isUserInSite = true
+            }
             //TODO: Enable all gift on site to be request.
             (giftsState!.view as! GiftsView).updateGifts(site!.identifier!)
             //TODO: Enable QR reader buttons on loyalty cards.
@@ -347,8 +350,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if isShowingInsiteView {
             isShowingInsiteView = false
             (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
+            
+            if let organization = BNAppSharedManager.instance.dataManager.organizations[site_to_survey!.organizationIdentifier!] {
+                organization.isUserInSite = false
+            }
+            
             showSurveyView()
         }
+        
+        
     }
     
     func showSurveyView() {

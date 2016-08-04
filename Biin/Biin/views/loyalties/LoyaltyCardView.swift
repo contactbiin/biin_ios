@@ -142,6 +142,7 @@ class LoyaltyCardView: BNView {
         readQRCodeBtn!.setTitle(NSLocalizedString("ReadQRCode", comment: "ReadQRCode"), forState: UIControlState.Normal)
         readQRCodeBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
         readQRCodeBtn!.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
+        readQRCodeBtn!.setTitleColor(UIColor.bnGrayLight(), forState: UIControlState.Disabled)
         backgroundFrame!.addSubview(readQRCodeBtn!)
         
         slots = Array<BNUIView_Star>()
@@ -331,22 +332,30 @@ class LoyaltyCardView: BNView {
         seeConditionsBtn!.frame.origin.y = ypos
         seeConditionsBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
 
-        
         ypos += ( seeConditionsBtn!.frame.height + 5)
         backgroundFrame!.frame = CGRect(x: backgroundFrame!.frame.origin.x, y: backgroundFrame!.frame.origin.y, width: backgroundFrame!.frame.width, height: ypos)
-        
+
         ypos += SharedUIManager.instance.loyaltyCardView_LastSpace
         readQRCodeBtn!.frame.origin.y = ypos
-        readQRCodeBtn!.icon!.color = decorationColor
         readQRCodeBtn!.setNeedsDisplay()
-        readQRCodeBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
-        ypos += (readQRCodeBtn!.frame.height + 25)
         
+        if organization != nil {
+            if organization!.isUserInSite {
+                readQRCodeBtn!.enabled = true
+                readQRCodeBtn!.icon!.color = decorationColor
+                readQRCodeBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
+
+            } else {
+                readQRCodeBtn!.enabled = false
+                readQRCodeBtn!.setTitleColor(UIColor.bnGrayLight(), forState: UIControlState.Normal)
+                readQRCodeBtn!.icon!.color = UIColor.bnGrayLight()
+            }
+        }
+        
+        ypos += (readQRCodeBtn!.frame.height + 25)
         scroll!.contentSize = CGSizeMake(screenWidth, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.pagingEnabled = false
-
-        
     }
 }
 

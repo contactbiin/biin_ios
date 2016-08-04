@@ -30,6 +30,8 @@ class BNOrganization:NSObject {
     var hasNPS = false
     
     var sites:Array<String> = Array<String>()
+    
+    var isUserInSite = false
 
     override init(){
         super.init()
