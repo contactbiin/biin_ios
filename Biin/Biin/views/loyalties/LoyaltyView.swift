@@ -63,10 +63,10 @@ class LoyaltyView: BNView {
             decorationColor = organization!.primaryColor
         }
         
-        
         deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width:100, height: frame.height), iconColor: UIColor.whiteColor())
         deleteItButton!.backgroundColor = UIColor.redColor()
         deleteItButton!.addTarget(self, action: #selector(self.removeBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        deleteItButton!.icon!.position = CGPoint(x: 40, y: 45)
         self.addSubview(deleteItButton!)
         
         ypos += deleteItButton!.frame.height
@@ -85,6 +85,8 @@ class LoyaltyView: BNView {
             image!.layer.masksToBounds = true
             requestImage()
         }
+        
+        
         
         xpos = (SharedUIManager.instance.loyaltyWalletView_imageSize + 10)
         ypos = 5
@@ -105,7 +107,6 @@ class LoyaltyView: BNView {
         titleLbl!.textAlignment = NSTextAlignment.Left
         background!.addSubview(titleLbl!)
         ypos += (titleLbl!.frame.height + 2)
-        
         
         subTitleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
         subTitleLbl!.text = (model as! BNLoyalty).loyaltyCard!.title!
@@ -160,8 +161,11 @@ class LoyaltyView: BNView {
     
     func handleTap(sender:UITapGestureRecognizer) {
         self.foreground!.alpha = 0.1
+        
         UIView.animateWithDuration(0.1, animations: {()-> Void in
-            self.foreground!.alpha = 0
+                self.foreground!.alpha = 0
+            }, completion: {(completed:Bool) ->  Void in
+                self.delegate!.showLoyaltyCard!(self)
         })
     }
     
@@ -264,7 +268,7 @@ class LoyaltyView: BNView {
 
 @objc protocol LoyaltyView_Delegate:NSObjectProtocol {
     //    optional func showElementView( view:ElementMiniView, element:BNElement )
-    //    optional func showElementViewFromSite( view:ElementMiniView, element:BNElement )
+    optional func showLoyaltyCard(view:LoyaltyView)
     optional func resizeScrollOnRemoved(view:LoyaltyView)
     optional func hideOtherViewsOpen(view:LoyaltyView)
     optional func removeFromOtherViewsOpen(view:LoyaltyView)

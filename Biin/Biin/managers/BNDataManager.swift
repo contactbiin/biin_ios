@@ -661,6 +661,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         loyalty.loyaltyCard!.startDate = NSDate()
         loyalty.loyaltyCard!.endDate = NSDate()
         
+        
         var i = 0
         while i < 10 {
             i += 1

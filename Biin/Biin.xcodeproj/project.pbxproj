@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B2CB7BC1D52E3590040D763 /* BNUIButton_ReadQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CB7BB1D52E3590040D763 /* BNUIButton_ReadQRCode.swift */; };
+		5B2CB7BE1D52E3A10040D763 /* BNIcon_ReadQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CB7BD1D52E3A10040D763 /* BNIcon_ReadQRCode.swift */; };
 		5B2EA50C1D287CF3001952EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2EA50B1D287CF3001952EC /* AppDelegate.swift */; };
 		5B2EA51E1D287D1F001952EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2EA51D1D287D1F001952EC /* Images.xcassets */; };
 		5B3FF41C1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41A1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift */; };
@@ -307,6 +309,8 @@
 
 /* Begin PBXFileReference section */
 		0C5827ADE30EF68CF2461053 /* Pods_Biin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B2CB7BB1D52E3590040D763 /* BNUIButton_ReadQRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_ReadQRCode.swift; sourceTree = "<group>"; };
+		5B2CB7BD1D52E3A10040D763 /* BNIcon_ReadQRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_ReadQRCode.swift; sourceTree = "<group>"; };
 		5B2EA5081D287CF3001952EC /* Biin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2EA50B1D287CF3001952EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B2EA5171D287CF3001952EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -982,6 +986,7 @@
 				5BCF6FDA1D3D72800033CCEA /* BNUIButton_Delete.swift */,
 				5BCF6FDE1D3D779D0033CCEA /* BNUIButton_ShareGift.swift */,
 				5BCF6FE41D3D8C740033CCEA /* BNUIButton_GiftStores.swift */,
+				5B2CB7BB1D52E3590040D763 /* BNUIButton_ReadQRCode.swift */,
 				5BD1F8081D28A00F0067164F /* BNUIButton_CloseAlert.swift */,
 				5BD1F80A1D28A00F0067164F /* BNUIButton_Contact.swift */,
 				5BD1F80B1D28A00F0067164F /* BNUIButton_Gender.swift */,
@@ -1052,6 +1057,7 @@
 				5BD1F85B1D28A00F0067164F /* BNIcon_MaleSmall.swift */,
 				5BD1F85C1D28A00F0067164F /* BNIcon_Menu.swift */,
 				5BAFF9951D36AB450033A66D /* BNIcon_Gift.swift */,
+				5B2CB7BD1D52E3A10040D763 /* BNIcon_ReadQRCode.swift */,
 				5BD1F85D1D28A00F0067164F /* BNIcon_MiniBiin.swift */,
 				5BD1F85E1D28A00F0067164F /* BNIcon_More.swift */,
 				5BD1F8621D28A00F0067164F /* BNIcon_Notification.swift */,
@@ -1612,6 +1618,7 @@
 				5BD1F8BA1D28A00F0067164F /* SiteMiniView_Header.swift in Sources */,
 				5BD1F91E1D28A00F0067164F /* BNIcon_Bluetooth.swift in Sources */,
 				5BEC1E961D287DCA00D7B931 /* BNLoyalty.swift in Sources */,
+				5B2CB7BC1D52E3590040D763 /* BNUIButton_ReadQRCode.swift in Sources */,
 				5BD1F8C81D28A00F0067164F /* AllCollectedState.swift in Sources */,
 				5BD1F9501D28A00F0067164F /* BNIcon_RedX.swift in Sources */,
 				5BD1F8D31D28A00F0067164F /* ErrorState.swift in Sources */,
@@ -1653,6 +1660,7 @@
 				5BEC1EF21D287DCA00D7B931 /* VersionCheckViewController.swift in Sources */,
 				5BCF6FE51D3D8C740033CCEA /* BNUIButton_GiftStores.swift in Sources */,
 				5BEC1EA71D287DCA00D7B931 /* BNRequest_Login_Facebook.swift in Sources */,
+				5B2CB7BE1D52E3A10040D763 /* BNIcon_ReadQRCode.swift in Sources */,
 				5BD1F8CF1D28A00F0067164F /* BrotherSiteState.swift in Sources */,
 				5BD1F9351D28A00F0067164F /* BNIcon_InformationMedium.swift in Sources */,
 				5BEC1EF01D287DCA00D7B931 /* SingupViewController.swift in Sources */,

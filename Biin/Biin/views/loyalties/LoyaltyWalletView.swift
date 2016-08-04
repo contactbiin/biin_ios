@@ -56,6 +56,8 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
         
         //elementContainers = Array<MainView_Container_Elements>()
         updateLoyalties()
+        
+        addFade()
     }
     
     func updateLoyalties(){
@@ -84,16 +86,12 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        //        if state!.stateType == BNStateType.MainViewContainerState
-        //            || state!.stateType == BNStateType.SiteState {
-        
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.frame.origin.x = SharedUIManager.instance.screenWidth
-        })
-        //        } else {
-        
-        //            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
-        //        }
+        if state!.stateType == BNStateType.MainViewContainerState {
+
+            UIView.animateWithDuration(0.25, animations: {()-> Void in
+                self.frame.origin.x = SharedUIManager.instance.screenWidth
+            })
+        }
     }
     
     override func setNextState(goto:BNGoto){
@@ -148,9 +146,14 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     func removeFromOtherViewsOpen(view: LoyaltyView) {
         lastViewOpen = nil
     }
+    
+    func showLoyaltyCard(view: LoyaltyView) {
+        delegate!.showLoyaltyCard!(view)
+    }
 }
 
 
 @objc protocol LoyaltyWalletView_Delegate:NSObjectProtocol {
     optional func hideLoyaltyWalletView()
+    optional func showLoyaltyCard(view:LoyaltyView)
 }

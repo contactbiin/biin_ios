@@ -582,6 +582,24 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         (surveyState!.view as! SurveyView).clean()
         surveyState!.view!.removeFromSuperview()
         surveyState!.view = nil
+        
+        (notificationsState!.view as! NotificationView).clean()
+        notificationsState!.view!.removeFromSuperview()
+        notificationsState!.view = nil
+
+        (giftsState!.view as! GiftsView).clean()
+        giftsState!.view!.removeFromSuperview()
+        giftsState!.view = nil
+        
+        (loyaltyWalletState!.view as! LoyaltyWalletView).clean()
+        loyaltyWalletState!.view!.removeFromSuperview()
+        loyaltyWalletState!.view = nil
+
+        (loyaltyCardState!.view as! LoyaltyCardView).clean()
+        loyaltyCardState!.view!.removeFromSuperview()
+        loyaltyCardState!.view = nil
+
+        
     }
     
     func show(){
@@ -669,12 +687,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltyWalletView.delegate = self
         self.addSubview(loyaltyWalletView)
         
+        let loyaltyCardView = LoyaltyCardView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        loyaltyCardState!.view = loyaltyCardView
+        loyaltyCardView.delegate = self
+        self.addSubview(loyaltyCardView)
+        
     }
     
     func updateProfileView(){
         (profileState!.view as! ProfileView).update()
     }
-    
     
     //GIFTS
     func updateGiftsView() {
@@ -710,7 +732,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Previous)
     }
     
+    func showLoyaltyCard(view: LoyaltyView) {
+        (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
+        setNextState(BNGoto.LoyaltyCard)
+    }
+    
+    
     //LOYALTY CARD
+    func hideLoyaltyCardView(view: LoyaltyCardView) {
+        setNextState(BNGoto.Previous)
+    }
 }
 
 
