@@ -759,7 +759,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.LoyaltyCard)
     }
     
-    
     func showAlertView_ForLoyaltyCard(view: LoyaltyView, loyalty:BNLoyalty?) {
         let title = NSLocalizedString("TermOfUser", comment: "TermOfUser")
         let text = loyalty!.loyaltyCard!.conditions!
@@ -782,6 +781,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         case .LoyaltyCard:
             (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
             setNextState(BNGoto.LoyaltyCard)
+            (loyaltyWalletState!.view as! LoyaltyWalletView).activateLastLoyaltyCardSeleced()
             loyaltyCardState!.previous = alertState!.previous
             break
         default:

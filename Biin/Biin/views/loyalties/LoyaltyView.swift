@@ -21,7 +21,7 @@ class LoyaltyView: BNView {
     var subTitleLbl:UILabel?
     var textLbl:UILabel?
     var stars:Array<BNUIView_StarSmall>?
-    var enrolledBtn:UIButton?
+    var enrolledLbl:UILabel?
     
     var foreground:UIView?
     var background:UIView?
@@ -142,13 +142,13 @@ class LoyaltyView: BNView {
                 star_xpos += 17
             }
         } else {
-            enrolledBtn = UIButton(frame: CGRect(x: xpos, y: (frame.height - 55), width: width, height: 50))
-            enrolledBtn!.backgroundColor = decorationColor
-            enrolledBtn!.setTitle(NSLocalizedString("EnrollNow", comment: "EnrollNow"), forState: UIControlState.Normal)
-            enrolledBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 12)
-            enrolledBtn!.layer.cornerRadius = 3
-            enrolledBtn!.addTarget(self, action: #selector(self.enroledBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            background!.addSubview(enrolledBtn!)
+            enrolledLbl = UILabel(frame: CGRect(x: xpos, y:(frame.height - 30), width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
+            enrolledLbl!.text = NSLocalizedString("EnrollNow", comment: "EnrollNow")
+            enrolledLbl!.textColor = UIColor.appTextColor()
+            enrolledLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
+            enrolledLbl!.textAlignment = NSTextAlignment.Left
+            background!.addSubview(enrolledLbl!)
+
         }
         
         foreground = UIView(frame: frame)
@@ -178,12 +178,17 @@ class LoyaltyView: BNView {
         UIView.animateWithDuration(0.1, animations: {()-> Void in
                 self.foreground!.alpha = 0
             }, completion: {(completed:Bool) ->  Void in
-                self.delegate!.showLoyaltyCard!(self)
+                
+                if (self.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled {
+                    self.delegate!.showLoyaltyCard!(self)
+                } else {
+                    self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
+                }
         })
     }
     
     func enroledBtnAction(sender:UIButton) {
-        self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
+        //self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
     }
     
     func showRemoveBtn(sender:UISwipeGestureRecognizer) {
@@ -261,9 +266,8 @@ class LoyaltyView: BNView {
     
     func addStars(){
 
-        if enrolledBtn != nil {
-            enrolledBtn!.enabled = false
-            enrolledBtn!.alpha = 0
+        if enrolledLbl != nil {
+            enrolledLbl!.alpha = 0
         }
         
         let ypos:CGFloat = (textLbl!.frame.origin.y + textLbl!.frame.height + 10)
@@ -281,7 +285,6 @@ class LoyaltyView: BNView {
         } else {
             decorationColor = organization!.primaryColor
         }
-        
 
         stars = Array<BNUIView_StarSmall>()
         
@@ -318,8 +321,8 @@ class LoyaltyView: BNView {
         foreground!.removeFromSuperview()
         background!.removeFromSuperview()
         
-        if enrolledBtn != nil {
-            enrolledBtn!.removeFromSuperview()
+        if enrolledLbl != nil {
+            enrolledLbl!.removeFromSuperview()
         }
         
         if stars != nil {

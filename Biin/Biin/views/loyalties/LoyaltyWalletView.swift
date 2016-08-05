@@ -16,6 +16,7 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     var scroll:BNScroll?
     
     weak var lastViewOpen:LoyaltyView?
+    weak var lastViewSelected:LoyaltyView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -152,7 +153,14 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     }
     
     func showAlertView_ForLoyaltyCard(view: LoyaltyView, loyalty:BNLoyalty?) {
+        lastViewSelected = view
         self.delegate!.showAlertView_ForLoyaltyCard!(view, loyalty:loyalty)
+    }
+    
+    func activateLastLoyaltyCardSeleced(){
+        if lastViewSelected != nil {
+            lastViewSelected!.addStars()
+        }
     }
 }
 

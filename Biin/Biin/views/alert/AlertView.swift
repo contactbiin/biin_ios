@@ -26,8 +26,8 @@ class AlertView: BNView {
         let height:CGFloat = 300
         
         backgroundView = UIView(frame: CGRectMake(0, 0, width, height))
-        backgroundView!.backgroundColor = UIColor.appBackground()
-        backgroundView!.layer.cornerRadius = 10
+        backgroundView!.backgroundColor = UIColor.whiteColor()
+        backgroundView!.layer.cornerRadius = 5
         backgroundView!.layer.masksToBounds = true
         self.addSubview(backgroundView!)
         
@@ -48,19 +48,18 @@ class AlertView: BNView {
         width = (width - 40)
         titleLbl = UILabel(frame: CGRectMake(20, 40, width, 20))
         titleLbl!.font = UIFont(name:"Lato-Black", size:18)
-        titleLbl!.textColor = UIColor.whiteColor()
+        titleLbl!.textColor = UIColor.appTextColor()
         titleLbl!.textAlignment = NSTextAlignment.Center
         titleLbl!.numberOfLines = 0
         backgroundView!.addSubview(titleLbl!)
         
         textLbl = UILabel(frame: CGRectMake(20, 60, width,18))
         textLbl!.font = UIFont(name:"Lato-Regular", size:16)
-        textLbl!.textColor = UIColor.whiteColor()
+        textLbl!.textColor = UIColor.appTextColor()
         textLbl!.textAlignment = NSTextAlignment.Center
         textLbl!.numberOfLines = 0
         backgroundView!.addSubview(textLbl!)
-        
-        
+    
         addFade()
     }
     
@@ -76,16 +75,7 @@ class AlertView: BNView {
     }
     
     override func transitionOut( state:BNState? ) {
-        
         state!.action()
-        
-//        UIView.animateWithDuration(0.25, animations: {()-> Void in
-//            self.frame.origin.x = SharedUIManager.instance.screenWidth
-//        })
-    }
-    
-    func hideView(sender:NSTimer){
-        self.frame.origin.x = SharedUIManager.instance.screenWidth
     }
     
     override func setNextState(goto:BNGoto){
@@ -146,7 +136,7 @@ class AlertView: BNView {
         titleLbl!.sizeToFit()
         titleLbl!.frame.origin.x = ((self.backgroundView!.frame.width - self.titleLbl!.frame.width) / 2)
         
-        ypos += (titleLbl!.frame.height + 40)
+        ypos += (titleLbl!.frame.height + 20)
         
         textLbl!.frame.origin.y = ypos
         textLbl!.text = text
