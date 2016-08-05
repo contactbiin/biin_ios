@@ -165,8 +165,8 @@ class UIManager {
     var notificationView_TitleSize:CGFloat = 18
     var notificationView_TextSize:CGFloat = 13
     
-    var loyaltyWalletView_height:CGFloat = 110
-    var loyaltyWalletView_imageSize:CGFloat = 100
+    var loyaltyWalletView_height:CGFloat = 150
+    var loyaltyWalletView_imageSize:CGFloat = 140
     var loyaltyWalletView_TitleSize:CGFloat = 20
     var loyaltyWalletView_SubTitleSize:CGFloat = 15
     var loyaltyWalletView_TextSize:CGFloat = 12

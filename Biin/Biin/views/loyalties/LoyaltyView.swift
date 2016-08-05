@@ -142,7 +142,7 @@ class LoyaltyView: BNView {
                 star_xpos += 17
             }
         } else {
-            enrolledBtn = UIButton(frame: CGRect(x: xpos, y: ypos, width: width, height: 30))
+            enrolledBtn = UIButton(frame: CGRect(x: xpos, y: (frame.height - 55), width: width, height: 50))
             enrolledBtn!.backgroundColor = decorationColor
             enrolledBtn!.setTitle(NSLocalizedString("EnrollNow", comment: "EnrollNow"), forState: UIControlState.Normal)
             enrolledBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 12)
