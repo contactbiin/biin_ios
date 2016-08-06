@@ -12,6 +12,7 @@
 		5B2CB7BE1D52E3A10040D763 /* BNIcon_ReadQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CB7BD1D52E3A10040D763 /* BNIcon_ReadQRCode.swift */; };
 		5B2EA50C1D287CF3001952EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2EA50B1D287CF3001952EC /* AppDelegate.swift */; };
 		5B2EA51E1D287D1F001952EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2EA51D1D287D1F001952EC /* Images.xcassets */; };
+		5B35838E1D55A89300D62C08 /* QRCodeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B35838D1D55A89300D62C08 /* QRCodeState.swift */; };
 		5B3FF41C1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41A1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift */; };
 		5B3FF41D1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41B1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift */; };
 		5B3FF41F1D3414F9007DF426 /* BNUIButton_Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */; };
@@ -319,6 +320,7 @@
 		5B2EA50B1D287CF3001952EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B2EA5171D287CF3001952EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B2EA51D1D287D1F001952EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5B35838D1D55A89300D62C08 /* QRCodeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeState.swift; sourceTree = "<group>"; };
 		5B3FF41A1D33EDE8007DF426 /* BNRequest_SendClaimedGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendClaimedGift.swift; sourceTree = "<group>"; };
 		5B3FF41B1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendRefusedGift.swift; sourceTree = "<group>"; };
 		5B3FF41E1D3414F9007DF426 /* BNUIButton_Gift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIButton_Gift.swift; sourceTree = "<group>"; };
@@ -977,6 +979,7 @@
 				5B49C7651D4AB01E0063EE91 /* LoyaltiesState.swift */,
 				5B49C7671D4AB02A0063EE91 /* LoyaltyCardState.swift */,
 				5B5F12541D53D80100C3AB6D /* AlertState.swift */,
+				5B35838D1D55A89300D62C08 /* QRCodeState.swift */,
 				5BD1F7F01D28A00F0067164F /* ProfileState.swift */,
 				5BD1F7F11D28A00F0067164F /* SearchState.swift */,
 				5BD1F7F31D28A00F0067164F /* SettingsState.swift */,
@@ -1730,6 +1733,7 @@
 				5BEC1E751D287DCA00D7B931 /* BNDataManager.swift in Sources */,
 				5BF5DDD91D4BECFA0033BA45 /* BNUIView_Star.swift in Sources */,
 				5BD1F9211D28A00F0067164F /* BNIcon_CloseSmall.swift in Sources */,
+				5B35838E1D55A89300D62C08 /* QRCodeState.swift in Sources */,
 				5BEC1EC41D287DCA00D7B931 /* BNRequest_SendSharedSite.swift in Sources */,
 				5BD1F8AF1D28A00F0067164F /* NotificationsView.swift in Sources */,
 				5BEC1E7D1D287DCA00D7B931 /* UIManager.swift in Sources */,

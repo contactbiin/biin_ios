@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate, AlertView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate, AlertView_Delegate, QRCodeReaderView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -34,6 +34,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var loyaltyWalletState:LoyaltyWalletState?
     var loyaltyCardState:LoyaltyCardState?
     var alertState:AlertState?
+    var qrCodeState:QRCodeState?
     
     var isShowingNotificationContext = false
     
@@ -84,6 +85,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltyWalletState = LoyaltyWalletState(context: self, view: nil)
         loyaltyCardState = LoyaltyCardState(context: self, view: nil)
         alertState = AlertState(context: self, view: nil)
+        qrCodeState = QRCodeState(context: self, view: nil)
         
         show()
 
@@ -271,6 +273,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             self.bringSubviewToFront(state!.view!)
             break
         case .LoyaltyCard:
+            self.isQRCodeReaderView = false
             state!.view?.showFade()
             self.loyaltyCardState!.previous = state
             state!.next(self.loyaltyCardState)
@@ -280,6 +283,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.view!.showFade()
             self.alertState!.previous = state
             state!.next(self.alertState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .QRCodeReader:
+            state!.view!.showFade()
+            self.qrCodeState!.previous = state
+            state!.next(self.qrCodeState)
             self.bringSubviewToFront(state!.view!)
             break
         }
@@ -725,6 +734,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         alertState!.view = alertView
         alertView.delegate = self
         self.addSubview(alertView)
+        
+        let qrCodeReaderView = QRCodeReaderView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        qrCodeState!.view = qrCodeReaderView
+        qrCodeReaderView.delegate = self
+        self.addSubview(qrCodeReaderView)
+        
     }
     
     func updateProfileView(){
@@ -784,7 +799,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func openQRCodeReaderView() {
         if !isQRCodeReaderView {
-            isShowingInsiteView = true
+            setNextState(BNGoto.QRCodeReader)
+            isQRCodeReaderView = true
             rootViewController!.addQRCodeReader()
         }
     }
@@ -810,6 +826,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         }
         
         view.hideAlertFromMainView()
+    }
+    
+    //QRCODE VIEW
+    func hideQRCodeReaderView(view: QRCodeReaderView) {
+        loyaltyCardState!.previous = alertState!.previous
+        setNextState(BNGoto.Previous)
     }
 }
 
@@ -855,4 +877,5 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     case LoyaltyWallet
     case LoyaltyCard
     case AlertView
+    case QRCodeReader
 }

@@ -77,10 +77,6 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         
         do {
             
-            videoPreviewFadeView = UIView(frame: self.view!.frame)
-            videoPreviewFadeView!.backgroundColor = UIColor.blackColor()
-            videoPreviewFadeView!.alpha = 0.5
-            self.view!.addSubview(videoPreviewFadeView!)
             
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
             avCaptureInput = try AVCaptureDeviceInput(device: captureDevice)
@@ -102,15 +98,14 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
             
             // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
             
-            let width = SharedUIManager.instance.alertView_Width
-            
-            videoPreviewView = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
+            let qrCodeReaderView:QRCodeReaderView = (mainView!.qrCodeState!.view as! QRCodeReaderView)
+            videoPreviewView = UIView(frame: CGRect(x: (qrCodeReaderView.backgroundView!.frame.origin.x + 5), y: (qrCodeReaderView.backgroundView!.frame.origin.y + 25), width:(qrCodeReaderView.backgroundView!.frame.width - 10), height: (qrCodeReaderView.backgroundView!.frame.height - 60)))
             videoPreviewView!.backgroundColor = UIColor.whiteColor()
             self.view!.addSubview(videoPreviewView!)
             
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-            videoPreviewLayer?.frame = CGRect(x: 5, y: 5, width: 190, height: 190)
+            videoPreviewLayer?.frame = CGRect(x: 0, y: 0, width: videoPreviewView!.frame.width, height: videoPreviewView!.frame.height)
             videoPreviewView!.layer.addSublayer(videoPreviewLayer!)
             
             // Start video capture
@@ -155,7 +150,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
             //        if metadataObj.type == AVMetadataObjectTypeQRCode {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj)
-            qrCodeFrameView?.frame = CGRect(x: (barCodeObject!.bounds.origin.x + videoPreviewView!.frame.origin.x + 5), y: (barCodeObject!.bounds.origin.y + videoPreviewView!.frame.origin.y + 5), width: barCodeObject!.bounds.width, height: barCodeObject!.bounds.height)
+            qrCodeFrameView?.frame = CGRect(x: (barCodeObject!.bounds.origin.x + videoPreviewView!.frame.origin.x), y: (barCodeObject!.bounds.origin.y + videoPreviewView!.frame.origin.y), width: barCodeObject!.bounds.width, height: barCodeObject!.bounds.height)
                 //barCodeObject!.bounds
             
             if metadataObj.stringValue != nil {

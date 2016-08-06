@@ -148,6 +148,8 @@ class LoyaltyCardView: BNView {
         scroll!.addSubview(readQRCodeBtn!)
         
         slots = Array<BNUIView_Star>()
+        
+        addFade()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -164,10 +166,13 @@ class LoyaltyCardView: BNView {
     override func transitionOut( state:BNState? ) {
         
         state!.action()
-        
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.frame.origin.x = SharedUIManager.instance.screenWidth
-        })
+
+        if state!.stateType != BNStateType.QRCodeState {
+            
+            UIView.animateWithDuration(0.25, animations: {()-> Void in
+                self.frame.origin.x = SharedUIManager.instance.screenWidth
+            })
+        }
     }
     
     func hideView(sender:NSTimer){

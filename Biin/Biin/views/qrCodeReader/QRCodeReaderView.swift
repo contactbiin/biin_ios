@@ -24,7 +24,7 @@ class QRCodeReaderView: BNView {
         
         var width:CGFloat = SharedUIManager.instance.alertView_Width
         let height:CGFloat = 300
-        let xpos:CGFloat = ((SharedUIManager.instance.screenWidth - self.backgroundView!.frame.width) / 2)
+        let xpos:CGFloat = ((SharedUIManager.instance.screenWidth - width) / 2)
         
         backgroundView = UIView(frame: CGRect(x: xpos, y: ((SharedUIManager.instance.screenHeight - height) / 2), width:width, height: height))
         backgroundView!.backgroundColor = UIColor.whiteColor()
@@ -53,6 +53,8 @@ class QRCodeReaderView: BNView {
         titleLbl!.textAlignment = NSTextAlignment.Center
         titleLbl!.numberOfLines = 0
         backgroundView!.addSubview(titleLbl!)
+        
+        addFade()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,6 +70,9 @@ class QRCodeReaderView: BNView {
     
     override func transitionOut( state:BNState? ) {
         state!.action()
+        UIView.animateWithDuration(0.25, animations: {()-> Void in
+            self.frame.origin.x = SharedUIManager.instance.screenWidth
+        })
     }
     
     override func setNextState(goto:BNGoto){
@@ -92,14 +97,20 @@ class QRCodeReaderView: BNView {
     
     //Instance Methods
     func cancelBtnAction(sender:UIButton) {
-        delegate!.hideOnCancelRequest!(self)
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.frame.origin.x = SharedUIManager.instance.screenWidth
-        })
+        delegate!.hideQRCodeReaderView!(self)
+        //delegate!.hideOnCancelRequest!(self)
+//        UIView.animateWithDuration(0.25, animations: {()-> Void in
+//            self.frame.origin.x = SharedUIManager.instance.screenWidth
+//        })
     }
     
     func okBtnAction(sender:UIButton) {
-        delegate!.hideOnOKRequest!(self, goto:self.goto!)
+        
+        delegate!.hideQRCodeReaderView!(self)
+        
+//        UIView.animateWithDuration(0.25, animations: {()-> Void in
+//            self.frame.origin.x = SharedUIManager.instance.screenWidth
+//        })
     }
     
     
@@ -134,6 +145,5 @@ class QRCodeReaderView: BNView {
 }
 
 @objc protocol QRCodeReaderView_Delegate:NSObjectProtocol {
-    optional func hideOnCancelRequest(view:QRCodeReaderView)
-    optional func hideOnOKRequest(view:QRCodeReaderView, goto:BNGoto)
+    optional func hideQRCodeReaderView(view:QRCodeReaderView)
 }
