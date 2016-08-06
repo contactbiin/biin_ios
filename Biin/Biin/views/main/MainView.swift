@@ -42,6 +42,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     var testButton:UIButton?
     
+    var isQRCodeReaderView = false
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -88,14 +91,22 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("test", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: #selector(self.testButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(testButton!)
+        self.addSubview(testButton!)
+        
+        
     }
     
     var isShowingInsiteView = false
     
     func testButtonAction(sender:UIButton) {
         
-
+        if !isShowingInsiteView {
+            isShowingInsiteView = true
+            rootViewController!.addQRCodeReader()
+        } else {
+            isShowingInsiteView = false
+            rootViewController!.removeQRCodeReader()
+        }
         
         
 //        BNAppSharedManager.instance.notificationManager.clear()
@@ -771,6 +782,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Previous)
     }
     
+    func openQRCodeReaderView() {
+        if !isQRCodeReaderView {
+            isShowingInsiteView = true
+            rootViewController!.addQRCodeReader()
+        }
+    }
+    
     //ALERTVIEW
     func hideOnCancelRequest(view: AlertView) {
         setNextState(BNGoto.Previous)
@@ -779,6 +797,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideOnOKRequest(view: AlertView, goto: BNGoto) {
         switch goto {
         case .LoyaltyCard:
+            (view.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled = true
+            //TODO: call enrollment request 
             (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
             setNextState(BNGoto.LoyaltyCard)
             (loyaltyWalletState!.view as! LoyaltyWalletView).activateLastLoyaltyCardSeleced()

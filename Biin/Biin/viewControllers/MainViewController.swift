@@ -7,8 +7,21 @@ import Foundation
 import UIKit
 import QuartzCore
 import FBSDKLoginKit
+import AVFoundation
 
-class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, DevelopmentViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate, FBSDKLoginButtonDelegate {
+class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, DevelopmentViewDelegate, BNNetworkManagerDelegate, ProfileView_Delegate, BNAppManager_Delegate, BNPositionManagerDelegate, UIDocumentInteractionControllerDelegate, FBSDKLoginButtonDelegate, AVCaptureMetadataOutputObjectsDelegate {
+    
+    var avCaptureInput:AVCaptureInput?
+    var captureSession:AVCaptureSession?
+    var videoPreviewFadeView:UIView?
+    var videoPreviewView:UIView?
+    var videoPreviewLayer:AVCaptureVideoPreviewLayer?
+    var qrCodeFrameView:UIView?
+    
+    // Added to support different barcodes
+    let supportedBarCodes = [AVMetadataObjectTypeQRCode, AVMetadataObjectTypeCode128Code, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeUPCECode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeAztecCode]
+    
+    
     
     var mainView:MainView?
     var mainViewDelegate:MainViewDelegate?
@@ -45,6 +58,110 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
         BNAppSharedManager.instance.positionManager.delegateView = self
         
         BNAppSharedManager.instance.positionManager!.startLocationService()
+    }
+    
+    func removeQRCodeReader() {
+        
+        qrCodeFrameView!.removeFromSuperview()
+        videoPreviewFadeView!.removeFromSuperview()
+        videoPreviewLayer!.removeFromSuperlayer()
+        captureSession!.removeInput(self.avCaptureInput!)
+        captureSession = nil
+        videoPreviewView!.removeFromSuperview()
+    }
+    
+    func addQRCodeReader(){
+        // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video
+        // as the media type parameter.
+        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        
+        do {
+            
+            videoPreviewFadeView = UIView(frame: self.view!.frame)
+            videoPreviewFadeView!.backgroundColor = UIColor.blackColor()
+            videoPreviewFadeView!.alpha = 0.5
+            self.view!.addSubview(videoPreviewFadeView!)
+            
+            // Get an instance of the AVCaptureDeviceInput class using the previous device object.
+            avCaptureInput = try AVCaptureDeviceInput(device: captureDevice)
+            
+            // Initialize the captureSession object.
+            captureSession = AVCaptureSession()
+            // Set the input device on the capture session.
+            captureSession?.addInput(avCaptureInput)
+            
+            // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
+            let captureMetadataOutput = AVCaptureMetadataOutput()
+            captureSession?.addOutput(captureMetadataOutput)
+            
+            // Set delegate and use the default dispatch queue to execute the call back
+            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+            
+            // Detect all the supported bar code
+            captureMetadataOutput.metadataObjectTypes = supportedBarCodes
+            
+            // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
+            
+            let width = SharedUIManager.instance.alertView_Width
+            
+            videoPreviewView = UIView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
+            videoPreviewView!.backgroundColor = UIColor.whiteColor()
+            self.view!.addSubview(videoPreviewView!)
+            
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            videoPreviewLayer?.frame = CGRect(x: 5, y: 5, width: 190, height: 190)
+            videoPreviewView!.layer.addSublayer(videoPreviewLayer!)
+            
+            // Start video capture
+            captureSession?.startRunning()
+            
+            // Move the message label to the top view
+            //view.bringSubviewToFront(messageLabel)
+            
+            // Initialize QR Code Frame to highlight the QR code
+            qrCodeFrameView = UIView()
+            
+            if let qrCodeFrameView = qrCodeFrameView {
+                qrCodeFrameView.layer.borderColor = UIColor.greenColor().CGColor
+                qrCodeFrameView.layer.borderWidth = 2
+                view.addSubview(qrCodeFrameView)
+                view.bringSubviewToFront(qrCodeFrameView)
+            }
+            
+        } catch {
+            // If any error occurs, simply print it out and don't continue any more.
+            print(error)
+            return
+        }
+    }
+    
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        
+        // Check if the metadataObjects array is not nil and it contains at least one object.
+        if metadataObjects == nil || metadataObjects.count == 0 {
+            qrCodeFrameView?.frame = CGRectZero
+            print("No barcode/QR code is detected")
+            return
+        }
+        
+        // Get the metadata object.
+        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+        
+        // Here we use filter method to check if the type of metadataObj is supported
+        // Instead of hardcoding the AVMetadataObjectTypeQRCode, we check if the type
+        // can be found in the array of supported bar codes.
+        if supportedBarCodes.contains(metadataObj.type) {
+            //        if metadataObj.type == AVMetadataObjectTypeQRCode {
+            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+            let barCodeObject = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj)
+            qrCodeFrameView?.frame = CGRect(x: (barCodeObject!.bounds.origin.x + videoPreviewView!.frame.origin.x + 5), y: (barCodeObject!.bounds.origin.y + videoPreviewView!.frame.origin.y + 5), width: barCodeObject!.bounds.width, height: barCodeObject!.bounds.height)
+                //barCodeObject!.bounds
+            
+            if metadataObj.stringValue != nil {
+                print("\(metadataObj.stringValue)")
+            }
+        }
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

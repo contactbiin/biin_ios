@@ -134,20 +134,20 @@ class LoyaltyCardView: BNView {
         seeConditionsBtn!.setTitleColor(UIColor.appTextColor(), forState: UIControlState.Selected)
         seeConditionsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 10)
         seeConditionsBtn!.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        seeConditionsBtn!.addTarget(self, action: #selector(self.openQRCodeReaderView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backgroundFrame!.addSubview(seeConditionsBtn!)
         
         width = 100
         xpos = ((screenWidth - width) / 2)
         readQRCodeBtn = BNUIButton_ReadQRCode(frame: CGRect(x: xpos, y: ypos, width: width, height: 70), iconColor: UIColor.blackColor())
+        readQRCodeBtn!.backgroundColor = UIColor.yellowColor()
         readQRCodeBtn!.setTitle(NSLocalizedString("ReadQRCode", comment: "ReadQRCode"), forState: UIControlState.Normal)
         readQRCodeBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
         readQRCodeBtn!.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
-        readQRCodeBtn!.setTitleColor(UIColor.bnGrayLight(), forState: UIControlState.Disabled)
-        backgroundFrame!.addSubview(readQRCodeBtn!)
+        readQRCodeBtn!.addTarget(self, action: #selector(self.openQRCodeReaderView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        scroll!.addSubview(readQRCodeBtn!)
         
         slots = Array<BNUIView_Star>()
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -195,6 +195,11 @@ class LoyaltyCardView: BNView {
     }
     
     //Instance Methods
+    func openQRCodeReaderView(sender:UIButton) {
+        delegate!.openQRCodeReaderView!()
+    }
+    
+    
     func backBtnAction(sender:UIButton) {
         delegate!.hideLoyaltyCardView!(self)
         //delegate!.hideElementView!(elementMiniView)
@@ -340,7 +345,7 @@ class LoyaltyCardView: BNView {
         readQRCodeBtn!.setNeedsDisplay()
         
         if organization != nil {
-            if organization!.isUserInSite {
+            if true { //organization!.isUserInSite {
                 readQRCodeBtn!.enabled = true
                 readQRCodeBtn!.icon!.color = decorationColor
                 readQRCodeBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
@@ -352,6 +357,8 @@ class LoyaltyCardView: BNView {
             }
         }
         
+        backgroundFrame!.bringSubviewToFront(readQRCodeBtn!)
+        
         ypos += (readQRCodeBtn!.frame.height + 25)
         scroll!.contentSize = CGSizeMake(screenWidth, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
@@ -361,4 +368,5 @@ class LoyaltyCardView: BNView {
 
 @objc protocol LoyaltyCardView_Delegate:NSObjectProtocol {
     optional func hideLoyaltyCardView(view:LoyaltyCardView)
+    optional func openQRCodeReaderView()
 }
