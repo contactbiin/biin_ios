@@ -800,8 +800,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func openQRCodeReaderView() {
         if !isQRCodeReaderView {
             setNextState(BNGoto.QRCodeReader)
-            isQRCodeReaderView = true
-            rootViewController!.addQRCodeReader()
         }
     }
     
@@ -830,8 +828,35 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     //QRCODE VIEW
     func hideQRCodeReaderView(view: QRCodeReaderView) {
-        loyaltyCardState!.previous = alertState!.previous
-        setNextState(BNGoto.Previous)
+        
+        if isQRCodeReaderView {
+            rootViewController!.removeQRCodeReader()
+            isQRCodeReaderView = false
+            loyaltyCardState!.previous = alertState!.previous
+            setNextState(BNGoto.Previous)
+        }
+    }
+    
+    func addStar() {
+        if isQRCodeReaderView {
+            rootViewController!.removeQRCodeReader()
+            isQRCodeReaderView = false
+            (loyaltyCardState!.view as! LoyaltyCardView).addStar()
+            (loyaltyWalletState!.view as! LoyaltyWalletView).updateLoyaltyStars()
+            loyaltyCardState!.previous = alertState!.previous
+            setNextState(BNGoto.Previous)
+        }
+    }
+    
+    func addQRCodeReader() {
+        if !isQRCodeReaderView {
+            isQRCodeReaderView = true
+            rootViewController!.addQRCodeReader()
+        }
+    }
+    
+    func showQRCodeReaded(qrCode:String){
+        (qrCodeState!.view as! QRCodeReaderView).showQRCodeReaded(qrCode)
     }
 }
 

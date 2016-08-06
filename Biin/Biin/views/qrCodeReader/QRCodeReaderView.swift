@@ -39,11 +39,12 @@ class QRCodeReaderView: BNView {
         backgroundView!.addSubview(cancelBtn!)
         
         okBtn = UIButton(frame: CGRect(x: 50, y: (height - 50), width: (width - 50), height:50))
-        okBtn!.backgroundColor = UIColor.bnBlue()
-        okBtn!.setTitle("OK", forState: UIControlState.Normal)
+        okBtn!.backgroundColor = UIColor.bnGray()
+        okBtn!.setTitle(NSLocalizedString("Reading", comment: "Reading"), forState: UIControlState.Normal)
         okBtn!.titleLabel!.font = UIFont(name:"Lato-Black", size:18)
         okBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         okBtn!.addTarget(self, action: #selector(self.okBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        okBtn!.userInteractionEnabled = false
         backgroundView!.addSubview(okBtn!)
         
         width = (width - 40)
@@ -63,15 +64,22 @@ class QRCodeReaderView: BNView {
     
     override func transitionIn() {
         
-        UIView.animateWithDuration(0.25, animations: {()->Void in
-            self.frame.origin.x = 0
+        UIView.animateWithDuration(0.25, animations: {() -> Void in
+                self.frame.origin.x = 0
+            }, completion: {(completed:Bool) -> Void in
+                self.delegate!.addQRCodeReader!()
         })
     }
     
     override func transitionOut( state:BNState? ) {
         state!.action()
+        
         UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.frame.origin.x = SharedUIManager.instance.screenWidth
+                self.frame.origin.x = SharedUIManager.instance.screenWidth
+            }, completion: {(completed:Bool) -> Void in
+                self.okBtn!.userInteractionEnabled = false
+                self.okBtn!.backgroundColor = UIColor.bnGray()
+                self.okBtn!.setTitle(NSLocalizedString("Reading", comment: "Reading"), forState: UIControlState.Normal)
         })
     }
     
@@ -105,8 +113,7 @@ class QRCodeReaderView: BNView {
     }
     
     func okBtnAction(sender:UIButton) {
-        
-        delegate!.hideQRCodeReaderView!(self)
+        delegate?.addStar!()
         
 //        UIView.animateWithDuration(0.25, animations: {()-> Void in
 //            self.frame.origin.x = SharedUIManager.instance.screenWidth
@@ -128,6 +135,7 @@ class QRCodeReaderView: BNView {
 
     func addQRCodeReader(){
         
+        
     }
     
     func removeQRCodeReader() {
@@ -142,8 +150,17 @@ class QRCodeReaderView: BNView {
         hideFade()
         self.frame.origin.x = SharedUIManager.instance.screenWidth
     }
+    
+    func showQRCodeReaded(qrCode:String){
+        //TODO called readQRCode request.
+        okBtn!.userInteractionEnabled = true
+        okBtn!.setTitle(NSLocalizedString("OK", comment: "OK"), forState: UIControlState.Normal)
+        okBtn!.backgroundColor = UIColor.bnBlue()
+    }
 }
 
 @objc protocol QRCodeReaderView_Delegate:NSObjectProtocol {
+    optional func addStar()
     optional func hideQRCodeReaderView(view:QRCodeReaderView)
+    optional func addQRCodeReader()
 }

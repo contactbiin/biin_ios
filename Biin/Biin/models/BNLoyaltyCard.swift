@@ -28,6 +28,16 @@ class BNLoyaltyCard:BNObject {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func addStar(){
+        
+        for i in (0..<slots.count) {
+            if !slots[i].isFilled! {
+                slots[i].isFilled = true
+                break
+            }
+        }
+    }
 
 }
 

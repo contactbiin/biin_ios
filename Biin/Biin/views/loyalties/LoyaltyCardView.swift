@@ -140,7 +140,6 @@ class LoyaltyCardView: BNView {
         width = 100
         xpos = ((screenWidth - width) / 2)
         readQRCodeBtn = BNUIButton_ReadQRCode(frame: CGRect(x: xpos, y: ypos, width: width, height: 70), iconColor: UIColor.blackColor())
-        readQRCodeBtn!.backgroundColor = UIColor.yellowColor()
         readQRCodeBtn!.setTitle(NSLocalizedString("ReadQRCode", comment: "ReadQRCode"), forState: UIControlState.Normal)
         readQRCodeBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
         readQRCodeBtn!.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
@@ -350,7 +349,7 @@ class LoyaltyCardView: BNView {
         readQRCodeBtn!.setNeedsDisplay()
         
         if organization != nil {
-            if true { //organization!.isUserInSite {
+            if organization!.isUserInSite {
                 readQRCodeBtn!.enabled = true
                 readQRCodeBtn!.icon!.color = decorationColor
                 readQRCodeBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
@@ -368,6 +367,15 @@ class LoyaltyCardView: BNView {
         scroll!.contentSize = CGSizeMake(screenWidth, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.pagingEnabled = false
+    }
+    
+    func addStar() {
+        (model as! BNLoyalty).addStar()
+        NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: #selector(self.addStar(_:)), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func addStar(sender:NSTimer) {
+        updateCard((self.model as! BNLoyalty))
     }
 }
 

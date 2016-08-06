@@ -17,6 +17,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     var videoPreviewView:UIView?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
+    var isQRCodeReaded = false
     
     // Added to support different barcodes
     let supportedBarCodes = [AVMetadataObjectTypeQRCode, AVMetadataObjectTypeCode128Code, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeUPCECode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeAztecCode]
@@ -62,12 +63,13 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     
     func removeQRCodeReader() {
         
-        qrCodeFrameView!.removeFromSuperview()
-        videoPreviewFadeView!.removeFromSuperview()
-        videoPreviewLayer!.removeFromSuperlayer()
-        captureSession!.removeInput(self.avCaptureInput!)
+        isQRCodeReaded = false
+        
+        qrCodeFrameView?.removeFromSuperview()
+        videoPreviewLayer?.removeFromSuperlayer()
+        captureSession?.removeInput(self.avCaptureInput!)
         captureSession = nil
-        videoPreviewView!.removeFromSuperview()
+        videoPreviewView?.removeFromSuperview()
     }
     
     func addQRCodeReader(){
@@ -133,6 +135,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         
+        
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRectZero
@@ -153,8 +156,21 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
             qrCodeFrameView?.frame = CGRect(x: (barCodeObject!.bounds.origin.x + videoPreviewView!.frame.origin.x), y: (barCodeObject!.bounds.origin.y + videoPreviewView!.frame.origin.y), width: barCodeObject!.bounds.width, height: barCodeObject!.bounds.height)
                 //barCodeObject!.bounds
             
+            if isQRCodeReaded {
+                return
+            }
+            
             if metadataObj.stringValue != nil {
-                print("\(metadataObj.stringValue)")
+                
+                let qrCore = metadataObj.stringValue
+                
+                if qrCore.containsString("biin") {
+                    isQRCodeReaded = true
+                    mainView!.showQRCodeReaded(qrCore)
+                    print("Biin code: \(metadataObj.stringValue)")
+                } else {
+                    print("Other qr code: \(metadataObj.stringValue)")
+                }
             }
         }
     }

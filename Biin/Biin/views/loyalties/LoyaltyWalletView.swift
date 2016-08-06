@@ -162,6 +162,10 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
             lastViewSelected!.addStars()
         }
     }
+    
+    func updateLoyaltyStars(){
+        lastViewSelected!.addStars()
+    }
 }
 
 
@@ -169,5 +173,4 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     optional func hideLoyaltyWalletView()
     optional func showLoyaltyCard(view:LoyaltyView)
     optional func showAlertView_ForLoyaltyCard(view:LoyaltyView, loyalty:BNLoyalty?)
-
 }

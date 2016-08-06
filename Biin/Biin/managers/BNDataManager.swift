@@ -669,11 +669,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         while i < 10 {
             i += 1
             var slot = BNLoyaltyCard_Slot()
-            if i < 5 {
-                slot.isFilled = true
-            } else {
+//            if i < 5 {
+//                slot.isFilled = true
+//            } else {
                 slot.isFilled  = false
-            }
+//            }
             loyalty.loyaltyCard!.slots.append(slot)
         }
         

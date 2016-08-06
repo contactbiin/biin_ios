@@ -264,6 +264,7 @@ GiftsExpires = "Expira:";
 
 SeeGift = "Ver regalo";
 ReadQRCode = "Leer Codigo";
+Reading = "Leyendo..";
 SeeConditions = "Ver condiciones";
 EnrollNow = "Participá!";
 

@@ -266,6 +266,14 @@ class LoyaltyView: BNView {
     
     func addStars(){
 
+        if stars != nil {
+            for star in stars! {
+                star.removeFromSuperview()
+            }
+            
+            stars!.removeAll()
+        }
+        
         if enrolledLbl != nil {
             enrolledLbl!.alpha = 0
         }
@@ -288,7 +296,9 @@ class LoyaltyView: BNView {
 
         stars = Array<BNUIView_StarSmall>()
         
-        for slot in (model as! BNLoyalty).loyaltyCard!.slots {
+        let loyaltyCard = (model as! BNLoyalty).loyaltyCard!
+        
+        for slot in loyaltyCard.slots {
             
             if !slot.isFilled! {
                 decorationColor = UIColor.bnGrayLight()
@@ -337,6 +347,7 @@ class LoyaltyView: BNView {
 //        BNAppSharedManager.instance.networkManager.sendRefusedGift((self.model as! BNGift))
         self.delegate!.resizeScrollOnRemoved!(self)
     }
+    
 }
 
 @objc protocol LoyaltyView_Delegate:NSObjectProtocol {
