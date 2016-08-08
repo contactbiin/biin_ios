@@ -18,7 +18,8 @@ enum BNRequestError
     case SendBiinie_Failed
     case SendBiinieActions //NOT IN USE
     case SendBiinieToken_Failed
-    
+    case SendBiinieOnEnterSite_Failed
+    case SendBiinieOnExitSite_Failed
     
     case InitialData_Failed
     case VersionCheck_NeedsUpdate
@@ -49,6 +50,8 @@ enum BNRequestType
     case SendBiinie_Update
     case SendBiinieActions
     case SendBiinieToken
+    case SendBiinieOnEnterSite
+    case SendBiinieOnExitSite
     
     case InitialData
     case VersionCheck
@@ -60,13 +63,11 @@ enum BNRequestType
     case SendLikedSite
     case SendSharedSite
 
-    
     case Sites
     case Image
     
     case SendSurvey
     case ServerError
-    
     
     case ElementsForCategory
     case ElementsForShowcase
@@ -74,6 +75,9 @@ enum BNRequestType
     case SendClaimedGift
     case SendRefusedGift
     
+    case SendLoyaltyCompleted
+    case SendLoyaltyEnroll
+    case SendLoyaltyStar
 }
 
 

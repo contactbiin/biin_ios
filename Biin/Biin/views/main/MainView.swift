@@ -102,13 +102,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func testButtonAction(sender:UIButton) {
         
-        if !isShowingInsiteView {
-            isShowingInsiteView = true
-            rootViewController!.addQRCodeReader()
-        } else {
-            isShowingInsiteView = false
-            rootViewController!.removeQRCodeReader()
-        }
+        let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"]
+        
+        BNAppSharedManager.instance.networkManager.sendBiinieOnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
         
         
 //        BNAppSharedManager.instance.notificationManager.clear()
@@ -363,6 +359,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isShowingInsiteView = true
             site_to_survey = site
             (mainViewContainerState!.view as! MainView_Container_All).showInSiteView(site)
+            
+            BNAppSharedManager.instance.networkManager.sendBiinieOnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
+            
             if let organization = BNAppSharedManager.instance.dataManager.organizations[site!.organizationIdentifier!] {
                 organization.isUserInSite = true
             }
@@ -378,6 +377,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if isShowingInsiteView {
             isShowingInsiteView = false
             (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
+            
+            BNAppSharedManager.instance.networkManager.sendBiinieOnExitSite(BNAppSharedManager.instance.dataManager.biinie, site: site_to_survey, time: NSDate())
             
             if let organization = BNAppSharedManager.instance.dataManager.organizations[site_to_survey!.organizationIdentifier!] {
                 organization.isUserInSite = false

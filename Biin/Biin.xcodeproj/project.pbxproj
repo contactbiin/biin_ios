@@ -201,6 +201,8 @@
 		5BD1F9651D28A00F0067164F /* UserOnboardingView_Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8821D28A00F0067164F /* UserOnboardingView_Categories.swift */; };
 		5BD1F9661D28A00F0067164F /* UserOnboardingView_Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F8831D28A00F0067164F /* UserOnboardingView_Slide.swift */; };
 		5BD1F9681D28A5C80067164F /* BNRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1F9671D28A5C80067164F /* BNRequestManager.swift */; };
+		5BD473831D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD473821D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift */; };
+		5BD473851D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD473841D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift */; };
 		5BD8A5461D2C2D0300EAB15A /* BNGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD8A5451D2C2D0300EAB15A /* BNGift.swift */; };
 		5BEC1E731D287DCA00D7B931 /* AnswersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CEC1D287DCA00D7B931 /* AnswersManager.swift */; };
 		5BEC1E741D287DCA00D7B931 /* BNAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CED1D287DCA00D7B931 /* BNAppManager.swift */; };
@@ -304,6 +306,9 @@
 		5BEC1EF21D287DCA00D7B931 /* VersionCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D7B1D287DCA00D7B931 /* VersionCheckViewController.swift */; };
 		5BEC1FD51D287DD400D7B931 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1FD31D287DD400D7B931 /* Default-568h.png */; };
 		5BEC1FD61D287DD400D7B931 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1FD41D287DD400D7B931 /* GoogleService-Info.plist */; };
+		5BF57FD11D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift */; };
+		5BF57FD21D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift */; };
+		5BF57FD31D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift */; };
 		5BF5DDD71D4BECD00033BA45 /* BNUIView_StarSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */; };
 		5BF5DDD91D4BECFA0033BA45 /* BNUIView_Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */; };
 		5BF5DDDB1D4BED3F0033BA45 /* BNIcon_StarSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDDA1D4BED3F0033BA45 /* BNIcon_StarSmall.swift */; };
@@ -510,6 +515,8 @@
 		5BD1F8821D28A00F0067164F /* UserOnboardingView_Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingView_Categories.swift; sourceTree = "<group>"; };
 		5BD1F8831D28A00F0067164F /* UserOnboardingView_Slide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserOnboardingView_Slide.swift; sourceTree = "<group>"; };
 		5BD1F9671D28A5C80067164F /* BNRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequestManager.swift; sourceTree = "<group>"; };
+		5BD473821D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinieOnEnterSite.swift; sourceTree = "<group>"; };
+		5BD473841D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinieOnExitSite.swift; sourceTree = "<group>"; };
 		5BD8A5451D2C2D0300EAB15A /* BNGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNGift.swift; sourceTree = "<group>"; };
 		5BEC1CEC1D287DCA00D7B931 /* AnswersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersManager.swift; sourceTree = "<group>"; };
 		5BEC1CED1D287DCA00D7B931 /* BNAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNAppManager.swift; sourceTree = "<group>"; };
@@ -614,6 +621,9 @@
 		5BEC1D7B1D287DCA00D7B931 /* VersionCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCheckViewController.swift; sourceTree = "<group>"; };
 		5BEC1FD31D287DD400D7B931 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h.png"; sourceTree = "<group>"; };
 		5BEC1FD41D287DD400D7B931 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyCompleted.swift; sourceTree = "<group>"; };
+		5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyEnroll.swift; sourceTree = "<group>"; };
+		5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyStar.swift; sourceTree = "<group>"; };
 		5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_StarSmall.swift; sourceTree = "<group>"; };
 		5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_Star.swift; sourceTree = "<group>"; };
 		5BF5DDDA1D4BED3F0033BA45 /* BNIcon_StarSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_StarSmall.swift; sourceTree = "<group>"; };
@@ -1176,6 +1186,7 @@
 		5BEC1D201D287DCA00D7B931 /* request */ = {
 			isa = PBXGroup;
 			children = (
+				5BF57FCD1D58D5AA00BF28CA /* loyalty */,
 				5B3FF4191D33EDE8007DF426 /* gift */,
 				5BEC1D211D287DCA00D7B931 /* biinie */,
 				5BEC1D2F1D287DCA00D7B931 /* BNRequest.swift */,
@@ -1202,6 +1213,8 @@
 				5BEC1D271D287DCA00D7B931 /* BNRequest_Register.swift */,
 				5BEC1D281D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift */,
 				5BEC1D291D287DCA00D7B931 /* BNRequest_SendBiinie.swift */,
+				5BD473841D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift */,
+				5BD473821D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift */,
 			);
 			path = biinie;
 			sourceTree = "<group>";
@@ -1312,6 +1325,16 @@
 				5BEC1D7B1D287DCA00D7B931 /* VersionCheckViewController.swift */,
 			);
 			path = viewControllers;
+			sourceTree = "<group>";
+		};
+		5BF57FCD1D58D5AA00BF28CA /* loyalty */ = {
+			isa = PBXGroup;
+			children = (
+				5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift */,
+				5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift */,
+				5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift */,
+			);
+			path = loyalty;
 			sourceTree = "<group>";
 		};
 		A42C5342ED62013E3B71CCAB /* Pods */ = {
@@ -1514,6 +1537,7 @@
 				5BD1F8E11D28A00F0067164F /* BNUIAlertView.swift in Sources */,
 				5BD1F9581D28A00F0067164F /* BNIcon_SiteEmailButton.swift in Sources */,
 				5BEC1E941D287DCA00D7B931 /* BNError.swift in Sources */,
+				5BF57FD31D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift in Sources */,
 				5BD1F8ED1D28A00F0067164F /* BNUIButton_CloseAlert.swift in Sources */,
 				5BD1F8FF1D28A00F0067164F /* BNUICircleLabel.swift in Sources */,
 				5BD1F8E71D28A00F0067164F /* BNUIButton_Back.swift in Sources */,
@@ -1559,6 +1583,7 @@
 				5BD1F8F01D28A00F0067164F /* BNUIButton_Gender.swift in Sources */,
 				5BD1F8B31D28A00F0067164F /* SettingsView.swift in Sources */,
 				5BD1F8E41D28A00F0067164F /* BNUIBiinView.swift in Sources */,
+				5BD473831D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift in Sources */,
 				5BEC1E9B1D287DCA00D7B931 /* BNOrganization.swift in Sources */,
 				5BD1F9461D28A00F0067164F /* BNIcon_Notification.swift in Sources */,
 				5BAFF9981D36B4CE0033A66D /* BNUIButton_OptionBar.swift in Sources */,
@@ -1584,6 +1609,7 @@
 				5B3FF41D1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift in Sources */,
 				5BD1F93B1D28A00F0067164F /* BNIcon_LikeIt_Big.swift in Sources */,
 				5BD1F90B1D28A00F0067164F /* BNUIPointView.swift in Sources */,
+				5BF57FD11D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift in Sources */,
 				5BD1F90D1D28A00F0067164F /* BNUIScrollView.swift in Sources */,
 				5BD1F8B81D28A00F0067164F /* AllSitesView.swift in Sources */,
 				5BEC1E921D287DCA00D7B931 /* BNElement.swift in Sources */,
@@ -1597,6 +1623,7 @@
 				5BD1F9131D28A00F0067164F /* BNUIView_PriceX.swift in Sources */,
 				5B3FF41F1D3414F9007DF426 /* BNUIButton_Gift.swift in Sources */,
 				5BEC1E881D287DCA00D7B931 /* BiinieAction.swift in Sources */,
+				5BD473851D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift in Sources */,
 				5BD1F8BE1D28A00F0067164F /* SiteView_Location.swift in Sources */,
 				5BEC1E951D287DCA00D7B931 /* BNLocalNotification.swift in Sources */,
 				5BD1F8991D28A00F0067164F /* NotBiinieErrorView.swift in Sources */,
@@ -1697,6 +1724,7 @@
 				5B7ACDD61D2F6485005465B8 /* BNBadgeView.swift in Sources */,
 				5BD1F8DC1D28A00F0067164F /* SiteState.swift in Sources */,
 				5BEC1EBF1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift in Sources */,
+				5BF57FD21D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift in Sources */,
 				5BD1F8B71D28A00F0067164F /* SignupView.swift in Sources */,
 				5BD1F88C1D28A00F0067164F /* CollectionsView_Collection.swift in Sources */,
 				5BEC1E8F1D287DCA00D7B931 /* BNCollection.swift in Sources */,

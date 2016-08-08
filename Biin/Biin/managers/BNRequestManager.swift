@@ -41,6 +41,8 @@ class BNRequestManager: NSObject {
         case .SendBiinie_Update: self.networkManager!.sendBiinie_Update_Completed()
         case .SendClaimedGift: self.networkManager!.sendClaimedGift_Completed()
         case .SendRefusedGift: self.networkManager!.sendRefusedGift_Completed()
+        case .SendBiinieOnEnterSite: self.networkManager!.sendBiinieOnEnterSite_Completed()
+        case .SendBiinieOnExitSite: self.networkManager!.sendBiinieOnExitSite_Completed()
         default:
             break
         }
@@ -89,6 +91,11 @@ class BNRequestManager: NSObject {
         case .DoNotShowError:
             request.clean()
             removeRequestFromQueue(request.identifier)
+            break
+        case .SendBiinieOnExitSite_Failed, .SendBiinieOnEnterSite_Failed:
+            request.clean()
+            removeRequestFromQueue(request.identifier)
+            break
         default:
             break
         }

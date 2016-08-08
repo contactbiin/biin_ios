@@ -105,6 +105,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         BNAppSharedManager.instance.dataManager!.biinie!.save()
     }
     
+    func sendBiinieOnEnterSite_Completed() {
+        
+    }
+    
+    func sendBiinieOnExitSite_Completed() {
+        
+    }
+    
     func login_Completed() {
         self.delegateVC!.didReceivedLoginValidation!(true)
     }
@@ -135,6 +143,14 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func sendBiinie_Failed() {
         self.delegateVC!.didReceivedUpdateConfirmation!(false)
+    }
+    
+    func sendBiinieOnEnterSite_Failed() {
+        
+    }
+    
+    func sendBiinieOnExitSite_Failed() {
+        
     }
     
     func addToQueue(request:BNRequest){
@@ -266,6 +282,16 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     func sendBiinieToken(biinie:Biinie?) {
         //PUT /mobile/biinies/<identifierbiinie>/registerfornotifications
         let request = BNRequest_SendBiinieToken(requestString:"\(rootURL)/mobile/biinies/\(biinie!.identifier!)/registerfornotifications", errorManager: self.errorManager!, networkManager: self, biinie: biinie)
+        addToQueue(request)
+    }
+    
+    func sendBiinieOnterSite(biinie:Biinie?, site:BNSite?, time:NSDate?) {
+        let request = BNRequest_SendBiinieOnEnterSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/onexitsite/\(site!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, time: time)
+        addToQueue(request)
+    }
+    
+    func sendBiinieOnExitSite(biinie:Biinie?, site:BNSite?, time:NSDate?) {
+        let request = BNRequest_SendBiinieOnExitSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/onexitsite/\(site!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, time: time)
         addToQueue(request)
     }
     
@@ -559,12 +585,18 @@ extension NSDate {
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         return formatter.stringFromDate(self)
     }
-    
+
     func bnDateFormattForActions() -> String {
         let formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(abbreviation: "UTC")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        return formatter.stringFromDate(self)
+    }
+    
+    func bnDateFormattForNotification() -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss ZZZ"
         return formatter.stringFromDate(self)
     }
     
