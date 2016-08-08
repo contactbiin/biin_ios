@@ -14,8 +14,7 @@ class BNNotice:NSObject, NSCoding {
     var name:String?
     var message:String?
 
-    //For reference
-    var siteIdentifier:String = ""
+    var siteIdentifier:String?
     
     //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
     var onMonday = false
@@ -52,8 +51,11 @@ class BNNotice:NSObject, NSCoding {
     required init?(coder aDecoder: NSCoder) {
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
         self.elementIdentifier  = aDecoder.decodeObjectForKey("elementIdentifier") as? String
+        self.siteIdentifier = aDecoder.decodeObjectForKey("siteIdentifier") as? String
+        
         self.name  = aDecoder.decodeObjectForKey("name") as? String
         self.message  = aDecoder.decodeObjectForKey("message") as? String
+        
         
 
         //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
@@ -80,6 +82,10 @@ class BNNotice:NSObject, NSCoding {
         
         if let elementIdentifier = self.elementIdentifier {
             aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
+        }
+        
+        if let siteIdentifier = self.siteIdentifier {
+            aCoder.encodeObject(siteIdentifier, forKey: "siteIdentifier")
         }
         
         if let name = self.name {

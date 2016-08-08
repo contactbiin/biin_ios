@@ -714,6 +714,14 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
             if commercialUUID == nil {
                 commercialUUID = site.proximityUUID
             }
+            
+            for notice in BNAppSharedManager.instance.notificationManager.localNotices {
+                if notice.major == site.major! {
+                    notice.siteIdentifier = site.identifier!
+                }
+            }
+            
+            BNAppSharedManager.instance.notificationManager.save()
      
           /*
             for biin in sites[site.identifier!]!.biins {

@@ -104,7 +104,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"]
         
-        BNAppSharedManager.instance.networkManager.sendBiinieOnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
+        BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
         
         
 //        BNAppSharedManager.instance.notificationManager.clear()
@@ -287,6 +287,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.next(self.qrCodeState)
             self.bringSubviewToFront(state!.view!)
             break
+        default:
+            break
         }
     }
 
@@ -360,7 +362,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             site_to_survey = site
             (mainViewContainerState!.view as! MainView_Container_All).showInSiteView(site)
             
-            BNAppSharedManager.instance.networkManager.sendBiinieOnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
+            BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
             
             if let organization = BNAppSharedManager.instance.dataManager.organizations[site!.organizationIdentifier!] {
                 organization.isUserInSite = true
@@ -451,13 +453,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                         isShowingElement = true
                         (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                         setNextState(BNGoto.Element)
-                        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier)
+                        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier!)
                         
                     }
                 }
             
                 if !isShowingElement {
-                    if let site = BNAppSharedManager.instance.dataManager.sites[notice.siteIdentifier] {
+                    if let site = BNAppSharedManager.instance.dataManager.sites[notice.siteIdentifier!] {
                         (siteState!.view as! SiteView).updateSiteData(site)
                         setNextState(BNGoto.Site)
                         
@@ -803,6 +805,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             setNextState(BNGoto.QRCodeReader)
         }
     }
+
+    func seeConditions(loyalty: BNLoyalty) {
+        let title = NSLocalizedString("TermOfUser", comment: "TermOfUser")
+        let text = loyalty.loyaltyCard!.conditions!
+        (alertState!.view as! AlertView).updateAlertView(title, text: text, goto: BNGoto.JustCloseAlert, model:loyalty)
+        setNextState(BNGoto.AlertView)
+    }
     
     //ALERTVIEW
     func hideOnCancelRequest(view: AlertView) {
@@ -811,6 +820,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func hideOnOKRequest(view: AlertView, goto: BNGoto) {
         switch goto {
+        case .JustCloseAlert:
+            //loyaltyCardState!.previous = alertState!.previous
+            setNextState(BNGoto.Previous)
+            break
         case .LoyaltyCard:
             (view.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled = true
             //TODO: call enrollment request 
@@ -902,6 +915,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     case Gifts
     case LoyaltyWallet
     case LoyaltyCard
+    case JustCloseAlert
     case AlertView
     case QRCodeReader
 }

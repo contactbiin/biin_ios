@@ -129,8 +129,6 @@ class AlertView: BNView {
         self.model = model
         self.goto = goto
         
-        
-        
         var ypos:CGFloat = titleLbl!.frame.origin.y
         titleLbl!.text = title
         titleLbl!.sizeToFit()
@@ -158,7 +156,14 @@ class AlertView: BNView {
     
     @objc private func hide(sender:NSTimer) {
         hideFade()
-        self.frame.origin.x = SharedUIManager.instance.screenWidth
+        
+        
+        UIView.animateWithDuration(0.25, animations: {() -> Void in
+            self.frame.origin.x = SharedUIManager.instance.screenWidth
+            }, completion: {(completed:Bool) -> Void in
+            self.hideFade()
+        })
+        
     }
 }
 

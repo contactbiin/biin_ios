@@ -134,7 +134,7 @@ class LoyaltyCardView: BNView {
         seeConditionsBtn!.setTitleColor(UIColor.appTextColor(), forState: UIControlState.Selected)
         seeConditionsBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 10)
         seeConditionsBtn!.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        seeConditionsBtn!.addTarget(self, action: #selector(self.openQRCodeReaderView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        seeConditionsBtn!.addTarget(self, action: #selector(self.seeConditionsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backgroundFrame!.addSubview(seeConditionsBtn!)
         
         width = 100
@@ -166,8 +166,9 @@ class LoyaltyCardView: BNView {
         
         state!.action()
 
-        if state!.stateType != BNStateType.QRCodeState {
-            
+        if state!.stateType != BNStateType.QRCodeState &&
+            state!.stateType != BNStateType.AlertState {
+        
             UIView.animateWithDuration(0.25, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
             })
@@ -201,6 +202,10 @@ class LoyaltyCardView: BNView {
     //Instance Methods
     func openQRCodeReaderView(sender:UIButton) {
         delegate!.openQRCodeReaderView!()
+    }
+    
+    func seeConditionsBtnAction(sender:UIButton) {
+        delegate!.seeConditions!((self.model as! BNLoyalty))
     }
     
     
@@ -382,4 +387,5 @@ class LoyaltyCardView: BNView {
 @objc protocol LoyaltyCardView_Delegate:NSObjectProtocol {
     optional func hideLoyaltyCardView(view:LoyaltyCardView)
     optional func openQRCodeReaderView()
+    optional func seeConditions(loyalty:BNLoyalty)
 }

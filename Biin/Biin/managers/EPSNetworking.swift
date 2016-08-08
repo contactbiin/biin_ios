@@ -162,6 +162,7 @@ class EPSNetworking:NSObject {
         
         let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
         print("HTTPBody: \(httpString)")
+        NSLog("BIIN: url:\(url), httpString:\(httpString)")
         
         self.getWithConnection(identifier, request:request, callback:{( data: String, error: NSError?) -> Void in
             

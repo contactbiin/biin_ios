@@ -135,7 +135,6 @@ class BNNotificationManager:NSObject, NSCoding {
 
         var isNoticeStored = false
         
-        
         for notice in notices {
             for localNotice in localNotices {
                 if localNotice.identifier! == notice.identifier! {
@@ -196,33 +195,31 @@ class BNNotificationManager:NSObject, NSCoding {
     
     func showNotice(major:Int) {
         
+        var site:BNSite?
         
-        let site = BNAppSharedManager.instance.dataManager.findSiteByMajor(major)
-        if site != nil {
+        if (BNAppSharedManager.instance.dataManager.findSiteByMajor(major) != nil) {
+            site = BNAppSharedManager.instance.dataManager.findSiteByMajor(major)
+        }
         
+        if site == nil {
             
-            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:site!.identifier!, by:site!.identifier!)
+            var identifier = ""
             
-            didSendNotificationOnAppDown = true
-            var siteNotices:Array<BNNotice> = Array<BNNotice>()
-            
-            for site_notice in site!.notices {
-                for notice in localNotices {
-
-                    if notice.identifier == site_notice {
-                        notice.siteIdentifier = site!.identifier!
-                        siteNotices.append(notice)
-                    }
+            for notice in localNotices {
+                if notice.major == major {
+                    identifier = notice.siteIdentifier!
+                    break
                 }
             }
-        
-            if siteNotices.count > 0 {
-                assingCurrentNoticeByDate(siteNotices)
-                sendCurrentNotice()
-            } else {
-                print("not notice available for site:\(site!.title!)")
-            }
+            
+            site = BNSite(identifier: identifier)
         }
+        
+        BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site , time: NSDate())
+        
+        
+        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:site!.identifier!, by:site!.identifier!)
+        
     }
     
     func assingCurrentNoticeByDate(siteNotices:Array<BNNotice>){
@@ -326,23 +323,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 localNotification.category = "Biin"
                 localNotification.applicationIconBadgeNumber = 1
                 lastNotice_identifier = currentNotice!.identifier!
-//                switch self.currentNotice!.notificationType! {
-//                case .EXTERNAL:
-//                    //localNotification.alertAction = "externalAction"
-//                    time = 1
-//                    break
-//                case .INTERNAL:
-//                    //localNotification.alertAction = "internalAction"
-//                    time = 1
-//                    break
-//                case .PRODUCT:
-//                    //localNotification.alertAction = "productAction"
-//                    time = 1
-//                    break
-//                default:
-//                    break
-//                }
-//                
+
                 localNotification.fireDate = NSDate(timeIntervalSinceNow: time)
                 UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
                 
@@ -360,7 +341,7 @@ class BNNotificationManager:NSObject, NSCoding {
                 clear()
                 save()
                 
-                BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotice!.identifier!, by:currentNotice!.siteIdentifier)
+                BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.BIIN_NOTIFIED, to:currentNotice!.identifier!, by:currentNotice!.siteIdentifier!)
                 
             } else {
                 //NSLog("BIIN - USER ALREADY NOTIFIED!")

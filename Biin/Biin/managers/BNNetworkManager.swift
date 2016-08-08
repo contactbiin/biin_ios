@@ -285,7 +285,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    func sendBiinieOnterSite(biinie:Biinie?, site:BNSite?, time:NSDate?) {
+    func sendBiinieOnEnterSite(biinie:Biinie?, site:BNSite?, time:NSDate?) {
         let request = BNRequest_SendBiinieOnEnterSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/onexitsite/\(site!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, time: time)
         addToQueue(request)
     }
