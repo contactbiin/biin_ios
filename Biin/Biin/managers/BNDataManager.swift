@@ -654,6 +654,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         loyalty.identifier = organization.identifier!
         loyalty.organizationIdentifier = organization.identifier!
         loyalty.loyaltyCard = BNLoyaltyCard()
+        loyalty.loyaltyCard!.identifier = organization.identifier
         loyalty.loyaltyCard!.title = "Tarjeta de cliente frecuente"
         loyalty.loyaltyCard!.goal = "Obten un regalo gratis al completar 10 estrellitas"
         loyalty.loyaltyCard!.rule = "Por la compra de 3750 o más recibe una estrella."
@@ -662,6 +663,7 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         loyalty.loyaltyCard!.startDate = NSDate()
         loyalty.loyaltyCard!.endDate = NSDate()
         loyalty.loyaltyCard!.isCompleted = false
+        loyalty.loyaltyCard!.isFull = false
         loyalty.loyaltyCard!.isUnavailable = false
         loyalty.loyaltyCard!.isBiinieEnrolled = false
         
@@ -669,11 +671,11 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         while i < 10 {
             i += 1
             var slot = BNLoyaltyCard_Slot()
-//            if i < 5 {
-//                slot.isFilled = true
-//            } else {
+            if i < 10 {
+                slot.isFilled = true
+            } else {
                 slot.isFilled  = false
-//            }
+            }
             loyalty.loyaltyCard!.slots.append(slot)
         }
         

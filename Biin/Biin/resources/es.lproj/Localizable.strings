@@ -267,4 +267,8 @@ ReadQRCode = "Leer Codigo";
 Reading = "Leyendo..";
 SeeConditions = "Ver condiciones";
 EnrollNow = "Participá!";
+Completed = "Completado!";
 
+Congratulations = "Felicidades!";
+CompletedCard = "Has obtenido todas las estrellas de nuestra tarjeta.";
+GiftInTreasureChest = "Pronto recibiras tu regalo en tu Baul de Tesoros.";

@@ -305,7 +305,26 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             addToQueue(request)
         }
     }
-        
+    
+    //LOYALTY
+    func sendLoyaltyCardEnrolled(biinie:Biinie?, loyalty:BNLoyalty?){
+        //get /mobile/biinies/:identifier/cards/enroll/:cardidentifier
+        let request = BNRequest_SendLoyaltyCardEnrolled(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/cards/enroll/\(loyalty!.loyaltyCard!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, loyalty: loyalty)
+        addToQueue(request)
+    }
+    
+    func sendLoyaltyCardAddStar(biinie:Biinie?, loyalty:BNLoyalty?){
+        //get /mobile/biinies/:identifier/cards/setStar/:cardidentifier
+        let request = BNRequest_SendLoyaltyCardAddStar(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/cards/setStar/\(loyalty!.loyaltyCard!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, loyalty: loyalty)
+        addToQueue(request)
+    }
+    
+    func sendLoyaltyCardCompleted(biinie:Biinie?, loyalty:BNLoyalty?){
+        //get /mobile/biinies/:identifier/cards/setCompleted/:cardidentifier
+        let request = BNRequest_SendLoyaltyCardCompleted(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/cards/setCompleted/\(loyalty!.loyaltyCard!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, loyalty: loyalty)
+        addToQueue(request)
+    }
+    
     func manager(manager: BNDataManager!, initialdata biinie: Biinie?) {
         
         if BNAppSharedManager.instance.positionManager.userCoordinates == nil {

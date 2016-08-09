@@ -272,3 +272,8 @@ ReadQRCode = "Read QR Code";
 Reading = "Reading...";
 SeeConditions = "See conditions";
 EnrollNow = "Enroll Now!";
+Completed = "Completed!";
+
+Congratulations = "Congratulations!";
+CompletedCard = "You have obtained all the stars of our card.";
+GiftInTreasureChest = "Soon you will receive your gift in your treasure chest.";

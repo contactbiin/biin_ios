@@ -21,7 +21,7 @@ class LoyaltyView: BNView {
     var subTitleLbl:UILabel?
     var textLbl:UILabel?
     var stars:Array<BNUIView_StarSmall>?
-    var enrolledLbl:UILabel?
+    var statusLbl:UILabel?
     
     var foreground:UIView?
     var background:UIView?
@@ -125,7 +125,7 @@ class LoyaltyView: BNView {
         textLbl!.textAlignment = NSTextAlignment.Left
         background!.addSubview(textLbl!)
         
-        ypos += (textLbl!.frame.height + 10)
+        ypos += (textLbl!.frame.height + 20)
         
         if loyalty!.loyaltyCard!.isBiinieEnrolled {
             stars = Array<BNUIView_StarSmall>()
@@ -141,13 +141,26 @@ class LoyaltyView: BNView {
                 background!.addSubview(star)
                 star_xpos += 17
             }
+            
+            star_xpos += 5
+            
+            if loyalty!.loyaltyCard!.isCompleted {
+                statusLbl = UILabel(frame: CGRect(x: star_xpos, y:ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
+                statusLbl!.text = NSLocalizedString("Completed", comment: "Completed")
+                statusLbl!.textColor = decorationColor
+                statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
+                statusLbl!.textAlignment = NSTextAlignment.Left
+                background!.addSubview(statusLbl!)
+            }
+            
+            
         } else {
-            enrolledLbl = UILabel(frame: CGRect(x: xpos, y:(frame.height - 30), width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
-            enrolledLbl!.text = NSLocalizedString("EnrollNow", comment: "EnrollNow")
-            enrolledLbl!.textColor = UIColor.appTextColor()
-            enrolledLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
-            enrolledLbl!.textAlignment = NSTextAlignment.Left
-            background!.addSubview(enrolledLbl!)
+            statusLbl = UILabel(frame: CGRect(x: xpos, y:(frame.height - 30), width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
+            statusLbl!.text = NSLocalizedString("EnrollNow", comment: "EnrollNow")
+            statusLbl!.textColor = UIColor.appTextColor()
+            statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
+            statusLbl!.textAlignment = NSTextAlignment.Left
+            background!.addSubview(statusLbl!)
 
         }
         
@@ -274,11 +287,11 @@ class LoyaltyView: BNView {
             stars!.removeAll()
         }
         
-        if enrolledLbl != nil {
-            enrolledLbl!.alpha = 0
+        if statusLbl != nil {
+            statusLbl!.alpha = 0
         }
         
-        let ypos:CGFloat = (textLbl!.frame.origin.y + textLbl!.frame.height + 10)
+        let ypos:CGFloat = (textLbl!.frame.origin.y + textLbl!.frame.height + 20)
         var xpos:CGFloat = (SharedUIManager.instance.loyaltyWalletView_imageSize + 10)
 
         let organization = BNAppSharedManager.instance.dataManager.organizations[(model as! BNLoyalty).organizationIdentifier!]
@@ -310,6 +323,27 @@ class LoyaltyView: BNView {
             xpos += 17
         }
         
+        xpos += 5
+
+        
+        if loyaltyCard.isFull {
+            if statusLbl != nil {
+                statusLbl!.alpha = 1
+                statusLbl!.frame.origin.x = xpos
+                statusLbl!.frame.origin.y = ypos
+                statusLbl!.text = NSLocalizedString("Completed", comment: "Completed")
+                statusLbl!.textColor = decorationColor
+            } else {
+            
+                statusLbl = UILabel(frame: CGRect(x: xpos, y:ypos, width: 100, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
+                statusLbl!.text = NSLocalizedString("Completed", comment: "Completed")
+                statusLbl!.textColor = decorationColor
+                statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
+                statusLbl!.textAlignment = NSTextAlignment.Left
+                background!.addSubview(statusLbl!)
+            }
+        }
+        
         self.bringSubviewToFront(foreground!)
     }
     
@@ -331,8 +365,8 @@ class LoyaltyView: BNView {
         foreground!.removeFromSuperview()
         background!.removeFromSuperview()
         
-        if enrolledLbl != nil {
-            enrolledLbl!.removeFromSuperview()
+        if statusLbl != nil {
+            statusLbl!.removeFromSuperview()
         }
         
         if stars != nil {

@@ -152,12 +152,10 @@ class AlertView: BNView {
     
     func hideAlertFromMainView(){
         NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: #selector(self.hide(_:)), userInfo: nil, repeats: false)
+        
     }
     
     @objc private func hide(sender:NSTimer) {
-        hideFade()
-        
-        
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             self.frame.origin.x = SharedUIManager.instance.screenWidth
             }, completion: {(completed:Bool) -> Void in

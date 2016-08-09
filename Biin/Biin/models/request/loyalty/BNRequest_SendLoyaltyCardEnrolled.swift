@@ -1,11 +1,11 @@
-//  BNRequest_SendLoyaltyStar.swift
+//  BNRequest_SendLoyaltyEnroll.swift
 //  biin
 //  Created by Alison Padilla on 9/3/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
 import Foundation
 
-class BNRequest_SendLoyaltyStar:BNRequest {
+class BNRequest_SendLoyaltyCardEnrolled:BNRequest {
     
     var isUpdate = false
     
@@ -13,18 +13,21 @@ class BNRequest_SendLoyaltyStar:BNRequest {
     
     deinit { }
     
-    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, biinie:Biinie?) {
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, biinie:Biinie?, loyalty:BNLoyalty?) {
         
         self.init()
         self.requestString = requestString
         self.dataIdentifier = ""
-        self.requestType = BNRequestType.SendLoyaltyStar
+        self.requestType = BNRequestType.SendLoyaltyEnroll
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.biinie  = biinie
+        self.loyalty = loyalty
     }
     
     override func run() {
+        
+        return
         
         isRunning = true
         attemps += 1

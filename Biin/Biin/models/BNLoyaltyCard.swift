@@ -20,6 +20,9 @@ class BNLoyaltyCard:BNObject {
     var startDate:NSDate?
     var endDate:NSDate?
     var slots:Array<BNLoyaltyCard_Slot> = Array<BNLoyaltyCard_Slot>()
+    //Only to user in app UI
+    var isFull:Bool = false
+    
     
     override init() {
         super.init()
@@ -34,6 +37,12 @@ class BNLoyaltyCard:BNObject {
         for i in (0..<slots.count) {
             if !slots[i].isFilled! {
                 slots[i].isFilled = true
+                
+                if i == (slots.count - 1) {
+                    isFull = true
+                    print("IS COMPLETED")
+                }
+                
                 break
             }
         }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-class BNRequest_SendLoyaltyCompleted:BNRequest {
+class BNRequest_SendLoyaltyCardCompleted:BNRequest {
     
     var isUpdate = false
     
@@ -13,7 +13,7 @@ class BNRequest_SendLoyaltyCompleted:BNRequest {
     
     deinit { }
     
-    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, biinie:Biinie?) {
+    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, biinie:Biinie?, loyalty:BNLoyalty?) {
         
         self.init()
         self.requestString = requestString
@@ -22,9 +22,16 @@ class BNRequest_SendLoyaltyCompleted:BNRequest {
         self.errorManager = errorManager
         self.networkManager = networkManager
         self.biinie  = biinie
+        self.loyalty = loyalty
     }
     
     override func run() {
+        
+        
+        //Let loyalty isCompleted flag on resposne
+        self.loyalty!.loyaltyCard!.isCompleted = true
+        
+        return
         
         isRunning = true
         attemps += 1

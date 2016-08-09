@@ -153,7 +153,7 @@ class UIManager {
     
     var mainView_TitleSize:CGFloat = 18
     var mainView_HeaderSize:CGFloat = 80
-    var mainView_StatusBarHeight:CGFloat = 25
+    var mainView_StatusBarHeight:CGFloat = 20
     var mainView_OptionsBarHeight:CGFloat = 60
     
     var giftView_height:CGFloat = 210
@@ -177,6 +177,10 @@ class UIManager {
     
     var alertView_Width:CGFloat = 280
     
+    var loyaltyCardView_Completed_TitleSize:CGFloat = 50
+    var loyaltyCardView_Completed_Text1Size:CGFloat = 22
+    var loyaltyCardView_Completed_Text2Size:CGFloat = 16
+    var loyaltyCardView_Completed_GiftPosition:CGPoint = CGPoint(x: 5, y: 5)
     func setDeviceVariables(){
         
         switch screenWidth {

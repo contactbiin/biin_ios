@@ -104,6 +104,7 @@ class BNRequest:NSObject {
     weak var site:BNSite?
     weak var biinie:Biinie?
     weak var gift:BNGift?
+    weak var loyalty:BNLoyalty?
     weak var image:BNUIImageView?
     weak var view:BNView?
     

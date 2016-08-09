@@ -306,9 +306,13 @@
 		5BEC1EF21D287DCA00D7B931 /* VersionCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D7B1D287DCA00D7B931 /* VersionCheckViewController.swift */; };
 		5BEC1FD51D287DD400D7B931 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1FD31D287DD400D7B931 /* Default-568h.png */; };
 		5BEC1FD61D287DD400D7B931 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BEC1FD41D287DD400D7B931 /* GoogleService-Info.plist */; };
-		5BF57FD11D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift */; };
-		5BF57FD21D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift */; };
-		5BF57FD31D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift */; };
+		5BED8AD91D5A4DC500BDDB69 /* LoyaltyCardView_Completed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED8AD81D5A4DC500BDDB69 /* LoyaltyCardView_Completed.swift */; };
+		5BED8ADB1D5A5D4500BDDB69 /* LoyaltyCardCompletedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED8ADA1D5A5D4500BDDB69 /* LoyaltyCardCompletedState.swift */; };
+		5BED8ADD1D5A824700BDDB69 /* BNUIView_Gift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED8ADC1D5A824700BDDB69 /* BNUIView_Gift.swift */; };
+		5BED8ADF1D5A82EE00BDDB69 /* BNIcon_BigGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED8ADE1D5A82EE00BDDB69 /* BNIcon_BigGift.swift */; };
+		5BF57FD11D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardCompleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardCompleted.swift */; };
+		5BF57FD21D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardEnrolled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardEnrolled.swift */; };
+		5BF57FD31D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardAddStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardAddStar.swift */; };
 		5BF5DDD71D4BECD00033BA45 /* BNUIView_StarSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */; };
 		5BF5DDD91D4BECFA0033BA45 /* BNUIView_Star.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */; };
 		5BF5DDDB1D4BED3F0033BA45 /* BNIcon_StarSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5DDDA1D4BED3F0033BA45 /* BNIcon_StarSmall.swift */; };
@@ -621,9 +625,13 @@
 		5BEC1D7B1D287DCA00D7B931 /* VersionCheckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCheckViewController.swift; sourceTree = "<group>"; };
 		5BEC1FD31D287DD400D7B931 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h.png"; sourceTree = "<group>"; };
 		5BEC1FD41D287DD400D7B931 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyCompleted.swift; sourceTree = "<group>"; };
-		5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyEnroll.swift; sourceTree = "<group>"; };
-		5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyStar.swift; sourceTree = "<group>"; };
+		5BED8AD81D5A4DC500BDDB69 /* LoyaltyCardView_Completed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltyCardView_Completed.swift; sourceTree = "<group>"; };
+		5BED8ADA1D5A5D4500BDDB69 /* LoyaltyCardCompletedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoyaltyCardCompletedState.swift; sourceTree = "<group>"; };
+		5BED8ADC1D5A824700BDDB69 /* BNUIView_Gift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_Gift.swift; sourceTree = "<group>"; };
+		5BED8ADE1D5A82EE00BDDB69 /* BNIcon_BigGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_BigGift.swift; sourceTree = "<group>"; };
+		5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardCompleted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyCardCompleted.swift; sourceTree = "<group>"; };
+		5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardEnrolled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyCardEnrolled.swift; sourceTree = "<group>"; };
+		5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardAddStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendLoyaltyCardAddStar.swift; sourceTree = "<group>"; };
 		5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_StarSmall.swift; sourceTree = "<group>"; };
 		5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNUIView_Star.swift; sourceTree = "<group>"; };
 		5BF5DDDA1D4BED3F0033BA45 /* BNIcon_StarSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_StarSmall.swift; sourceTree = "<group>"; };
@@ -861,6 +869,7 @@
 				5BD1F7B31D28A00E0067164F /* LoyaltyView.swift */,
 				5BD1F7B41D28A00E0067164F /* LoyaltyWalletView.swift */,
 				5B49C7631D4AA86B0063EE91 /* LoyaltyCardView.swift */,
+				5BED8AD81D5A4DC500BDDB69 /* LoyaltyCardView_Completed.swift */,
 			);
 			path = loyalties;
 			sourceTree = "<group>";
@@ -988,6 +997,7 @@
 				5BC48A301D2B0D7C00F191CE /* GiftsState.swift */,
 				5B49C7651D4AB01E0063EE91 /* LoyaltiesState.swift */,
 				5B49C7671D4AB02A0063EE91 /* LoyaltyCardState.swift */,
+				5BED8ADA1D5A5D4500BDDB69 /* LoyaltyCardCompletedState.swift */,
 				5B5F12541D53D80100C3AB6D /* AlertState.swift */,
 				5B35838D1D55A89300D62C08 /* QRCodeState.swift */,
 				5BD1F7F01D28A00F0067164F /* ProfileState.swift */,
@@ -1057,6 +1067,7 @@
 				5BD1F82E1D28A00F0067164F /* BNUIView_PriceX.swift */,
 				5BF5DDD61D4BECD00033BA45 /* BNUIView_StarSmall.swift */,
 				5BF5DDD81D4BECFA0033BA45 /* BNUIView_Star.swift */,
+				5BED8ADC1D5A824700BDDB69 /* BNUIView_Gift.swift */,
 				5BD1F82F1D28A00F0067164F /* BNUIWarningView.swift */,
 				5BD1F8301D28A00F0067164F /* BNUIWebView.swift */,
 				5B7ACDD51D2F6485005465B8 /* BNBadgeView.swift */,
@@ -1095,6 +1106,7 @@
 				5BD1F85B1D28A00F0067164F /* BNIcon_MaleSmall.swift */,
 				5BD1F85C1D28A00F0067164F /* BNIcon_Menu.swift */,
 				5BAFF9951D36AB450033A66D /* BNIcon_Gift.swift */,
+				5BED8ADE1D5A82EE00BDDB69 /* BNIcon_BigGift.swift */,
 				5B2CB7BD1D52E3A10040D763 /* BNIcon_ReadQRCode.swift */,
 				5BD1F85D1D28A00F0067164F /* BNIcon_MiniBiin.swift */,
 				5BD1F85E1D28A00F0067164F /* BNIcon_More.swift */,
@@ -1330,9 +1342,9 @@
 		5BF57FCD1D58D5AA00BF28CA /* loyalty */ = {
 			isa = PBXGroup;
 			children = (
-				5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift */,
-				5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift */,
-				5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift */,
+				5BF57FCE1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardCompleted.swift */,
+				5BF57FCF1D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardEnrolled.swift */,
+				5BF57FD01D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardAddStar.swift */,
 			);
 			path = loyalty;
 			sourceTree = "<group>";
@@ -1537,7 +1549,7 @@
 				5BD1F8E11D28A00F0067164F /* BNUIAlertView.swift in Sources */,
 				5BD1F9581D28A00F0067164F /* BNIcon_SiteEmailButton.swift in Sources */,
 				5BEC1E941D287DCA00D7B931 /* BNError.swift in Sources */,
-				5BF57FD31D58D5AA00BF28CA /* BNRequest_SendLoyaltyStar.swift in Sources */,
+				5BF57FD31D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardAddStar.swift in Sources */,
 				5BD1F8ED1D28A00F0067164F /* BNUIButton_CloseAlert.swift in Sources */,
 				5BD1F8FF1D28A00F0067164F /* BNUICircleLabel.swift in Sources */,
 				5BD1F8E71D28A00F0067164F /* BNUIButton_Back.swift in Sources */,
@@ -1561,6 +1573,7 @@
 				5BD1F93F1D28A00F0067164F /* BNIcon_MaleSmall.swift in Sources */,
 				5BEC1EF11D287DCA00D7B931 /* UserOnboardingViewController.swift in Sources */,
 				5B49C7621D4955970063EE91 /* BNLoyaltyCard.swift in Sources */,
+				5BED8ADF1D5A82EE00BDDB69 /* BNIcon_BigGift.swift in Sources */,
 				5BD1F91A1D28A00F0067164F /* BNIcon_Biin.swift in Sources */,
 				5BD1F89A1D28A00F0067164F /* ServerErrorView.swift in Sources */,
 				5BEC1E741D287DCA00D7B931 /* BNAppManager.swift in Sources */,
@@ -1569,7 +1582,9 @@
 				5BEC1E7C1D287DCA00D7B931 /* SimulatorUtility.swift in Sources */,
 				5BD1F8D71D28A00F0067164F /* ProfileState.swift in Sources */,
 				5BD1F8E21D28A00F0067164F /* BNUIAlertView_Header.swift in Sources */,
+				5BED8ADD1D5A824700BDDB69 /* BNUIView_Gift.swift in Sources */,
 				5BD1F8A01D28A00F0067164F /* InviteFriendsView.swift in Sources */,
+				5BED8AD91D5A4DC500BDDB69 /* LoyaltyCardView_Completed.swift in Sources */,
 				5BD1F9151D28A00F0067164F /* BNUIWebView.swift in Sources */,
 				5B49C7661D4AB01E0063EE91 /* LoyaltiesState.swift in Sources */,
 				5BD1F8FB1D28A00F0067164F /* BNUIButton_SitePhone.swift in Sources */,
@@ -1609,7 +1624,7 @@
 				5B3FF41D1D33EDE8007DF426 /* BNRequest_SendRefusedGift.swift in Sources */,
 				5BD1F93B1D28A00F0067164F /* BNIcon_LikeIt_Big.swift in Sources */,
 				5BD1F90B1D28A00F0067164F /* BNUIPointView.swift in Sources */,
-				5BF57FD11D58D5AA00BF28CA /* BNRequest_SendLoyaltyCompleted.swift in Sources */,
+				5BF57FD11D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardCompleted.swift in Sources */,
 				5BD1F90D1D28A00F0067164F /* BNUIScrollView.swift in Sources */,
 				5BD1F8B81D28A00F0067164F /* AllSitesView.swift in Sources */,
 				5BEC1E921D287DCA00D7B931 /* BNElement.swift in Sources */,
@@ -1668,6 +1683,7 @@
 				5BD1F8A61D28A00F0067164F /* LoyaltyWalletView.swift in Sources */,
 				5BD1F90F1D28A00F0067164F /* BNUITexfield.swift in Sources */,
 				5BEC1EA91D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift in Sources */,
+				5BED8ADB1D5A5D4500BDDB69 /* LoyaltyCardCompletedState.swift in Sources */,
 				5BD1F91D1D28A00F0067164F /* BNIcon_BiinSmall.swift in Sources */,
 				5BD1F94F1D28A00F0067164F /* BNIcon_ProfileMedium.swift in Sources */,
 				5BF5DDDB1D4BED3F0033BA45 /* BNIcon_StarSmall.swift in Sources */,
@@ -1724,7 +1740,7 @@
 				5B7ACDD61D2F6485005465B8 /* BNBadgeView.swift in Sources */,
 				5BD1F8DC1D28A00F0067164F /* SiteState.swift in Sources */,
 				5BEC1EBF1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift in Sources */,
-				5BF57FD21D58D5AA00BF28CA /* BNRequest_SendLoyaltyEnroll.swift in Sources */,
+				5BF57FD21D58D5AA00BF28CA /* BNRequest_SendLoyaltyCardEnrolled.swift in Sources */,
 				5BD1F8B71D28A00F0067164F /* SignupView.swift in Sources */,
 				5BD1F88C1D28A00F0067164F /* CollectionsView_Collection.swift in Sources */,
 				5BEC1E8F1D287DCA00D7B931 /* BNCollection.swift in Sources */,

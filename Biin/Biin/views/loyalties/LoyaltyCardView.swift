@@ -111,7 +111,6 @@ class LoyaltyCardView: BNView {
         backgroundFrame!.layer.cornerRadius = 3
         scroll!.addSubview(backgroundFrame!)
         
-        
         width = 150
         xpos = ((backgroundFrame!.frame.width - width) / 2)
         goalLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
@@ -167,7 +166,8 @@ class LoyaltyCardView: BNView {
         state!.action()
 
         if state!.stateType != BNStateType.QRCodeState &&
-            state!.stateType != BNStateType.AlertState {
+            state!.stateType != BNStateType.AlertState &&
+            state!.stateType != BNStateType.LoyaltyCardCompletedState {
         
             UIView.animateWithDuration(0.25, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
@@ -175,7 +175,12 @@ class LoyaltyCardView: BNView {
         }
     }
     
+    func hideViewWhenShowingCompleted(){
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
+    }
+    
     func hideView(sender:NSTimer){
+        hideFade()
         self.frame.origin.x = SharedUIManager.instance.screenWidth
     }
     
@@ -354,7 +359,7 @@ class LoyaltyCardView: BNView {
         readQRCodeBtn!.setNeedsDisplay()
         
         if organization != nil {
-            if organization!.isUserInSite {
+            if true {///organization!.isUserInSite {
                 readQRCodeBtn!.enabled = true
                 readQRCodeBtn!.icon!.color = decorationColor
                 readQRCodeBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
@@ -374,13 +379,27 @@ class LoyaltyCardView: BNView {
         scroll!.pagingEnabled = false
     }
     
+    
     func addStar() {
         (model as! BNLoyalty).addStar()
         NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: #selector(self.addStar(_:)), userInfo: nil, repeats: false)
     }
     
     @objc private func addStar(sender:NSTimer) {
+        
         updateCard((self.model as! BNLoyalty))
+        
+        if (model as! BNLoyalty).loyaltyCard!.isFull {
+            BNAppSharedManager.instance.networkManager.sendLoyaltyCardCompleted(BNAppSharedManager.instance.dataManager.biinie, loyalty: (model as! BNLoyalty))
+            NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: #selector(self.addCompletedView(_:)), userInfo: nil, repeats: false)
+        } else {
+        
+            BNAppSharedManager.instance.networkManager.sendLoyaltyCardAddStar(BNAppSharedManager.instance.dataManager.biinie, loyalty: (model as! BNLoyalty))
+        }
+    }
+    
+    @objc private func addCompletedView(sender:NSTimer) {
+        delegate!.showCompleted!((model as! BNLoyalty))
     }
 }
 
@@ -388,4 +407,5 @@ class LoyaltyCardView: BNView {
     optional func hideLoyaltyCardView(view:LoyaltyCardView)
     optional func openQRCodeReaderView()
     optional func seeConditions(loyalty:BNLoyalty)
+    optional func showCompleted(loyalty:BNLoyalty)
 }

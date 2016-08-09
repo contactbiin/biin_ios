@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate, AlertView_Delegate, QRCodeReaderView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate, LoyaltyCardView_Completed_Delegate, AlertView_Delegate, QRCodeReaderView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -33,6 +33,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var giftsState:GiftsState?
     var loyaltyWalletState:LoyaltyWalletState?
     var loyaltyCardState:LoyaltyCardState?
+    var loyaltyCardCompletedState:LoyaltyCardCompletedState?
     var alertState:AlertState?
     var qrCodeState:QRCodeState?
     
@@ -84,6 +85,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         giftsState = GiftsState(context: self, view: nil)
         loyaltyWalletState = LoyaltyWalletState(context: self, view: nil)
         loyaltyCardState = LoyaltyCardState(context: self, view: nil)
+        loyaltyCardCompletedState = LoyaltyCardCompletedState(context: self, view: nil)
         alertState = AlertState(context: self, view: nil)
         qrCodeState = QRCodeState(context: self, view: nil)
         
@@ -273,6 +275,18 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.view?.showFade()
             self.loyaltyCardState!.previous = state
             state!.next(self.loyaltyCardState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .LoyaltyCardCompleted_FromLoyaltyCard:
+            state!.view!.showFade()
+            self.loyaltyCardCompletedState!.previous = state!.previous
+            state!.next(self.loyaltyCardCompletedState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .LoyaltyCardCompleted_FromLoyaltyWallet:
+            state!.view!.showFade()
+            self.loyaltyCardCompletedState!.previous = state
+            state!.next(self.loyaltyCardCompletedState)
             self.bringSubviewToFront(state!.view!)
             break
         case .AlertView:
@@ -640,6 +654,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltyCardState!.view!.removeFromSuperview()
         loyaltyCardState!.view = nil
 
+        (loyaltyCardCompletedState!.view as! LoyaltyCardView_Completed).clean()
+        loyaltyCardCompletedState!.view!.removeFromSuperview()
+        loyaltyCardCompletedState!.view = nil
+        
+        (alertState!.view as! AlertView).clean()
+        alertState!.view!.removeFromSuperview()
+        alertState!.view = nil
         
     }
     
@@ -733,6 +754,11 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltyCardView.delegate = self
         self.addSubview(loyaltyCardView)
         
+        let loyaltyCardView_Completed = LoyaltyCardView_Completed(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        loyaltyCardCompletedState!.view = loyaltyCardView_Completed
+        loyaltyCardView_Completed.delegate = self
+        self.addSubview(loyaltyCardView_Completed)
+        
         let alertView = AlertView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
         alertState!.view = alertView
         alertView.delegate = self
@@ -784,8 +810,14 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showLoyaltyCard(view: LoyaltyView) {
-        (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
-        setNextState(BNGoto.LoyaltyCard)
+        
+        if (view.model as! BNLoyalty).loyaltyCard!.isCompleted {
+            (loyaltyCardCompletedState!.view as! LoyaltyCardView_Completed).updateLoyaltyCard((view.model as! BNLoyalty))
+            setNextState(BNGoto.LoyaltyCardCompleted_FromLoyaltyWallet)
+        } else {
+            (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
+            setNextState(BNGoto.LoyaltyCard)
+        }
     }
     
     func showAlertView_ForLoyaltyCard(view: LoyaltyView, loyalty:BNLoyalty?) {
@@ -811,6 +843,17 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         let text = loyalty.loyaltyCard!.conditions!
         (alertState!.view as! AlertView).updateAlertView(title, text: text, goto: BNGoto.JustCloseAlert, model:loyalty)
         setNextState(BNGoto.AlertView)
+    }
+    
+    func showCompleted(loyalty: BNLoyalty) {
+        (loyaltyCardCompletedState!.view as! LoyaltyCardView_Completed).updateLoyaltyCard(loyalty)
+        setNextState(BNGoto.LoyaltyCardCompleted_FromLoyaltyCard)
+        (loyaltyCardState!.view as! LoyaltyCardView).hideViewWhenShowingCompleted()
+    }
+    
+    //LOYALTY CARD COMPLETED
+    func hideLoyaltyCardView_Completed(view: LoyaltyCardView_Completed) {
+        setNextState(BNGoto.Previous)
     }
     
     //ALERTVIEW
@@ -915,6 +958,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     case Gifts
     case LoyaltyWallet
     case LoyaltyCard
+    case LoyaltyCardCompleted_FromLoyaltyCard
+    case LoyaltyCardCompleted_FromLoyaltyWallet
     case JustCloseAlert
     case AlertView
     case QRCodeReader
