@@ -52,5 +52,6 @@ enum BNIconType {
     case settingsMedium
     case x_small
     case gift
+    case loyaltyWallet
 
 }

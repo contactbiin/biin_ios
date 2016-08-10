@@ -262,6 +262,7 @@ DELIVERED = "Disfruta tu regalo";
 READY_TO_CLAIM = "Reclama ahora";
 GiftsExpires = "Expira:";
 
+Loyalties = "Tarjetas";
 SeeGift = "Ver regalo";
 ReadQRCode = "Leer Codigo";
 Reading = "Leyendo..";

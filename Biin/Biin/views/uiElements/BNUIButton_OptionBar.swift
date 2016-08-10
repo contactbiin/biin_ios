@@ -37,13 +37,16 @@ class BNUIButton_OptionBar:BNUIButton {
     override func createIcon(){
         switch iconType {
         case .menuMedium:
-            icon = BNIcon_Menu(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(4, 8))
+            icon = BNIcon_Menu(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(6, 9))
             break
         case .gift:
             icon = BNIcon_Gift(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(5, 1))
             break
         case .notification:
             icon = BNIcon_Notification(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(4, 5))
+            break
+        case .loyaltyWallet:
+            icon = BNIcon_LoyaltyWallet(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(4, 6))
             break
         case .none:
             break

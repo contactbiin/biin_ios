@@ -32,10 +32,13 @@ enum BNRequestError
     case SendClaimedGift_Failed
     case SendRefusedGift_Failed
     
-    
     case DoNotShowError
     case Internet_Failed
     case Server
+    
+    case SendLoyaltyCompleted_Failed
+    case SendLoyaltyEnroll_Failed
+    case SendLoyaltyStar_Failed
 }
 
 enum BNRequestType

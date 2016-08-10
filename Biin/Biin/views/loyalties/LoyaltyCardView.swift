@@ -393,7 +393,6 @@ class LoyaltyCardView: BNView {
             BNAppSharedManager.instance.networkManager.sendLoyaltyCardCompleted(BNAppSharedManager.instance.dataManager.biinie, loyalty: (model as! BNLoyalty))
             NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: #selector(self.addCompletedView(_:)), userInfo: nil, repeats: false)
         } else {
-        
             BNAppSharedManager.instance.networkManager.sendLoyaltyCardAddStar(BNAppSharedManager.instance.dataManager.biinie, loyalty: (model as! BNLoyalty))
         }
     }

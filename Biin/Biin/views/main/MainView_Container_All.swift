@@ -203,6 +203,10 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
         (father as! MainView).setNextState(BNGoto.Notifications)
     }
     
+    func showLoyalties(sender:BNUIButton) {
+        (father as! MainView).setNextState(BNGoto.LoyaltyWallet)
+    }
+    
     override func transitionIn() {
         
 //        UIView.animateWithDuration(0.5, animations: {()->Void in

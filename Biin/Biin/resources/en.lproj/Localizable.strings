@@ -267,6 +267,7 @@ DELIVERED = "Enjoy this gift!";
 READY_TO_CLAIM = "Clain now";
 GiftsExpires = "Expires:";
 
+Loyalties = "Loyalties";
 SeeGift = "See gift";
 ReadQRCode = "Read QR Code";
 Reading = "Reading...";

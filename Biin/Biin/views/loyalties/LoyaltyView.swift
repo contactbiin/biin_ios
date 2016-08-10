@@ -200,10 +200,6 @@ class LoyaltyView: BNView {
         })
     }
     
-    func enroledBtnAction(sender:UIButton) {
-        //self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
-    }
-    
     func showRemoveBtn(sender:UISwipeGestureRecognizer) {
         
         delegate!.hideOtherViewsOpen!(self)
@@ -385,7 +381,6 @@ class LoyaltyView: BNView {
 }
 
 @objc protocol LoyaltyView_Delegate:NSObjectProtocol {
-    //    optional func showElementView( view:ElementMiniView, element:BNElement )
     optional func showLoyaltyCard(view:LoyaltyView)
     optional func showAlertView_ForLoyaltyCard(view:LoyaltyView, loyalty:BNLoyalty?)
     optional func resizeScrollOnRemoved(view:LoyaltyView)

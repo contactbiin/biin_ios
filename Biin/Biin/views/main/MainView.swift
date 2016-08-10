@@ -868,8 +868,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             setNextState(BNGoto.Previous)
             break
         case .LoyaltyCard:
+            //TODO: call enrollment request
             (view.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled = true
-            //TODO: call enrollment request 
+            BNAppSharedManager.instance.networkManager.sendLoyaltyCardEnrolled(BNAppSharedManager.instance.dataManager.biinie, loyalty: (view.model as! BNLoyalty))
             (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
             setNextState(BNGoto.LoyaltyCard)
             (loyaltyWalletState!.view as! LoyaltyWalletView).activateLastLoyaltyCardSeleced()
