@@ -39,7 +39,7 @@ class BNRequest_Biinie: BNRequest {
                 if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
                 self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
-                
+                 
                 //var response:BNResponse?
                 
                 if let biinieData = data["data"] as? NSDictionary {

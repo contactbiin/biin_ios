@@ -221,6 +221,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.view!.showFade()
             self.elementState!.previous = state
             state!.next(self.elementState)
+            self.bringSubviewToFront(state!.view!)
             break
         case .ElementFromSite:
             state!.view!.showFade()
@@ -843,6 +844,16 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         let text = loyalty.loyaltyCard!.conditions!
         (alertState!.view as! AlertView).updateAlertView(title, text: text, goto: BNGoto.JustCloseAlert, model:loyalty)
         setNextState(BNGoto.AlertView)
+    }
+    
+    func seeGift(loyalty: BNLoyalty) {
+        
+        if let element = BNAppSharedManager.instance.dataManager.elements[loyalty.loyaltyCard!.elementIdentifier!] {
+            
+            (elementState!.view as! ElementView).updateElementData(element, showSiteBtn:true)
+            setNextState(BNGoto.Element)
+        
+        }
     }
     
     func showCompleted(loyalty: BNLoyalty) {

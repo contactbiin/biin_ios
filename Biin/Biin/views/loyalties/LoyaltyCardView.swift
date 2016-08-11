@@ -124,6 +124,7 @@ class LoyaltyCardView: BNView {
         seeGiftBtn = UIButton(frame: CGRect(x: 15, y: ypos, width: width, height: 16))
         seeGiftBtn!.setTitle(NSLocalizedString("SeeGift", comment: "SeeGift"), forState: UIControlState.Normal)
         seeGiftBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 14)
+        seeGiftBtn!.addTarget(self, action: #selector(self.seeGiftBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backgroundFrame!.addSubview(seeGiftBtn!)
 
         
@@ -167,7 +168,8 @@ class LoyaltyCardView: BNView {
 
         if state!.stateType != BNStateType.QRCodeState &&
             state!.stateType != BNStateType.AlertState &&
-            state!.stateType != BNStateType.LoyaltyCardCompletedState {
+            state!.stateType != BNStateType.LoyaltyCardCompletedState &&
+            state!.stateType != BNStateType.ElementState {
         
             UIView.animateWithDuration(0.25, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
@@ -211,6 +213,10 @@ class LoyaltyCardView: BNView {
     
     func seeConditionsBtnAction(sender:UIButton) {
         delegate!.seeConditions!((self.model as! BNLoyalty))
+    }
+    
+    func seeGiftBtnAction(sender:UIButton) {
+        delegate!.seeGift!((self.model as! BNLoyalty))
     }
     
     
@@ -406,5 +412,6 @@ class LoyaltyCardView: BNView {
     optional func hideLoyaltyCardView(view:LoyaltyCardView)
     optional func openQRCodeReaderView()
     optional func seeConditions(loyalty:BNLoyalty)
+    optional func seeGift(loyalty:BNLoyalty)
     optional func showCompleted(loyalty:BNLoyalty)
 }
