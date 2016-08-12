@@ -298,7 +298,7 @@ class LoyaltyCardView: BNView {
             requestImage()
         }
         
-        title!.text = organization!.name!.uppercaseString
+        title!.text = organization!.brand!.uppercaseString
         
         receivedLbl!.text = loyalty!.loyaltyCard!.startDate!.bnDisplayDateFormatt_by_Day().uppercaseString
         titleLbl!.text = loyalty!.loyaltyCard!.title!

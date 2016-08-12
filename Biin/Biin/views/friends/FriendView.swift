@@ -1,4 +1,4 @@
-//  LoyaltyView.swift
+//  FriendView.swift
 //  biin
 //  Created by Esteban Padilla on 7/4/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
@@ -7,9 +7,9 @@
 import Foundation
 import UIKit
 
-class LoyaltyView: BNView {
+class FriendView: BNView {
     
-    var delegate:LoyaltyView_Delegate?
+    var delegate:FriendView_Delegate?
     //    var gift:BNGift?
     var image:BNUIImageView?
     var imageRequested = false
@@ -40,11 +40,11 @@ class LoyaltyView: BNView {
         super.init(frame: frame, father:father )
     }
     
-    convenience init(frame:CGRect, father:BNView?, loyalty:BNLoyalty?){
+    convenience init(frame:CGRect, father:BNView?, biinie:Biinie?){
         
         self.init(frame: frame, father:father )
         
-        self.model = loyalty
+        self.model = biinie
         var xpos:CGFloat = 5
         var ypos:CGFloat = 0
         var width:CGFloat = 1
@@ -52,18 +52,20 @@ class LoyaltyView: BNView {
         self.backgroundColor = UIColor.whiteColor()
         self.layer.masksToBounds = true
         
-        let organization = BNAppSharedManager.instance.dataManager.organizations[(model as! BNLoyalty).organizationIdentifier!]
+//        let organization = BNAppSharedManager.instance.dataManager.organizations[(model as! BNLoyalty).organizationIdentifier!]
         var decorationColor:UIColor?
-        
-        var white:CGFloat = 0.0
-        var alpha:CGFloat = 0.0
-        _ =  organization!.primaryColor!.getWhite(&white, alpha: &alpha)
-        
-        if white >= 0.9 {
-            decorationColor = organization!.secondaryColor
-        } else {
-            decorationColor = organization!.primaryColor
-        }
+//        
+//        var white:CGFloat = 0.0
+//        var alpha:CGFloat = 0.0
+//        _ =  organization!.primaryColor!.getWhite(&white, alpha: &alpha)
+//        
+//        if white >= 0.9 {
+//            decorationColor = organization!.secondaryColor
+//        } else {
+//            decorationColor = organization!.primaryColor
+//        }
+
+        decorationColor = UIColor.appTextColor()
         
         deleteItButton = BNUIButton_Delete(frame: CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width:100, height: frame.height), iconColor: UIColor.whiteColor())
         deleteItButton!.backgroundColor = UIColor.redColor()
@@ -79,21 +81,21 @@ class LoyaltyView: BNView {
         background!.backgroundColor = UIColor.whiteColor()
         self.addSubview(background!)
         
-        if organization!.media.count > 0 {
-            self.imageUrl = organization!.media[0].url!
+        if true {
+//            self.imageUrl = organization!.media[0].url!
             image = BNUIImageView(frame: CGRectMake(xpos, ypos, SharedUIManager.instance.loyaltyWalletView_imageSize, SharedUIManager.instance.loyaltyWalletView_imageSize), color:UIColor.bnGrayLight())
             background!.addSubview(image!)
             image!.layer.cornerRadius = 3
             image!.layer.masksToBounds = true
             requestImage()
         }
-        
+
         
         
         xpos = (SharedUIManager.instance.loyaltyWalletView_imageSize + 10)
         ypos = 5
         receivedLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: frame.width, height: 8))
-        receivedLbl!.text = (model as! BNLoyalty).loyaltyCard!.startDate!.bnDisplayDateFormatt_by_Day().uppercaseString
+        receivedLbl!.text = "NONE"//(model as! BNLoyalty).loyaltyCard!.startDate!.bnDisplayDateFormatt_by_Day().uppercaseString
         receivedLbl!.textColor = UIColor.bnGray()
         receivedLbl!.font = UIFont(name: "Lato-Regular", size: 8)
         receivedLbl!.textAlignment = NSTextAlignment.Left
@@ -103,7 +105,7 @@ class LoyaltyView: BNView {
         width = (frame.width - (xpos + 5))
         
         titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_TitleSize))
-        titleLbl!.text = organization!.name!
+        titleLbl!.text = biinie!.facebook_id!
         titleLbl!.textColor = decorationColor
         titleLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_TitleSize)
         titleLbl!.textAlignment = NSTextAlignment.Left
@@ -111,7 +113,7 @@ class LoyaltyView: BNView {
         ypos += (titleLbl!.frame.height + 2)
         
         subTitleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
-        subTitleLbl!.text = (model as! BNLoyalty).loyaltyCard!.title!
+        subTitleLbl!.text = "HOLA"//(model as! BNLoyalty).loyaltyCard!.title!
         subTitleLbl!.textColor = UIColor.appTextColor()
         subTitleLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
         subTitleLbl!.textAlignment = NSTextAlignment.Left
@@ -119,51 +121,51 @@ class LoyaltyView: BNView {
         ypos += (subTitleLbl!.frame.height + 2)
         
         textLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width:width, height: SharedUIManager.instance.loyaltyWalletView_TextSize))
-        textLbl!.text = (model as! BNLoyalty).loyaltyCard!.rule!
+        textLbl!.text = "HOLA 2"//(model as! BNLoyalty).loyaltyCard!.rule!
         textLbl!.textColor = UIColor.bnGrayDark()
         textLbl!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.loyaltyWalletView_TextSize)
         textLbl!.textAlignment = NSTextAlignment.Left
         background!.addSubview(textLbl!)
         
         ypos += (textLbl!.frame.height + 20)
-        
-        if loyalty!.loyaltyCard!.isBiinieEnrolled {
-            stars = Array<BNUIView_StarSmall>()
-            var star_xpos:CGFloat = xpos
-            for slot in loyalty!.loyaltyCard!.slots {
-                
-                if !slot.isFilled! {
-                    decorationColor = UIColor.bnGrayLight()
-                }
-                
-                let star = BNUIView_StarSmall(frame:CGRect(x:star_xpos, y: ypos, width:16, height: 16), color: decorationColor!)
-                stars!.append(star)
-                background!.addSubview(star)
-                star_xpos += 17
-            }
-            
-            star_xpos += 5
-            
-            if loyalty!.loyaltyCard!.isCompleted {
-                statusLbl = UILabel(frame: CGRect(x: star_xpos, y:ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
-                statusLbl!.text = NSLocalizedString("Completed", comment: "Completed")
-                statusLbl!.textColor = decorationColor
-                statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
-                statusLbl!.textAlignment = NSTextAlignment.Left
-                background!.addSubview(statusLbl!)
-            }
-            
-            
-        } else {
-            statusLbl = UILabel(frame: CGRect(x: xpos, y:(frame.height - 30), width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
-            statusLbl!.text = NSLocalizedString("EnrollNow", comment: "EnrollNow")
-            statusLbl!.textColor = UIColor.appTextColor()
-            statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
-            statusLbl!.textAlignment = NSTextAlignment.Left
-            background!.addSubview(statusLbl!)
-
-        }
-        
+//        
+//        if loyalty!.loyaltyCard!.isBiinieEnrolled {
+//            stars = Array<BNUIView_StarSmall>()
+//            var star_xpos:CGFloat = xpos
+//            for slot in loyalty!.loyaltyCard!.slots {
+//                
+//                if !slot.isFilled! {
+//                    decorationColor = UIColor.bnGrayLight()
+//                }
+//                
+//                let star = BNUIView_StarSmall(frame:CGRect(x:star_xpos, y: ypos, width:16, height: 16), color: decorationColor!)
+//                stars!.append(star)
+//                background!.addSubview(star)
+//                star_xpos += 17
+//            }
+//            
+//            star_xpos += 5
+//            
+//            if loyalty!.loyaltyCard!.isCompleted {
+//                statusLbl = UILabel(frame: CGRect(x: star_xpos, y:ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
+//                statusLbl!.text = NSLocalizedString("Completed", comment: "Completed")
+//                statusLbl!.textColor = decorationColor
+//                statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
+//                statusLbl!.textAlignment = NSTextAlignment.Left
+//                background!.addSubview(statusLbl!)
+//            }
+//            
+//            
+//        } else {
+//            statusLbl = UILabel(frame: CGRect(x: xpos, y:(frame.height - 30), width: width, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
+//            statusLbl!.text = NSLocalizedString("EnrollNow", comment: "EnrollNow")
+//            statusLbl!.textColor = UIColor.appTextColor()
+//            statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
+//            statusLbl!.textAlignment = NSTextAlignment.Left
+//            background!.addSubview(statusLbl!)
+//
+//        }
+//        
         foreground = UIView(frame: frame)
         foreground!.backgroundColor = UIColor.blackColor()
         foreground!.alpha = 0
@@ -192,17 +194,19 @@ class LoyaltyView: BNView {
                 self.foreground!.alpha = 0
             }, completion: {(completed:Bool) ->  Void in
                 
-                if (self.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled {
-                    self.delegate!.showLoyaltyCard!(self)
-                } else {
-                    self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
-                }
+                self.delegate!.showAlertView_ToShareGift!()
+                
+                //if (self.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled {
+                    //self.delegate!.showLoyaltyCard!(self)
+                //} else {
+                    //self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
+                //}
         })
     }
     
     func showRemoveBtn(sender:UISwipeGestureRecognizer) {
         
-        delegate!.hideOtherViewsOpen!(self)
+//        delegate!.hideOtherViewsOpen!(self)
         sender.enabled = false
         
         UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
@@ -215,7 +219,7 @@ class LoyaltyView: BNView {
     
     func hideRemoveBtn(sender:UISwipeGestureRecognizer) {
         
-        delegate!.removeFromOtherViewsOpen!(self)
+//        delegate!.removeFromOtherViewsOpen!(self)
         sender.enabled = false
         
         UIView.animateWithDuration(0.25, delay: 0, usingSpringWithDamping: 0.75, initialSpringVelocity: 5.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
@@ -273,76 +277,6 @@ class LoyaltyView: BNView {
         
     }
     
-    func addStars(){
-
-        if stars != nil {
-            for star in stars! {
-                star.removeFromSuperview()
-            }
-            
-            stars!.removeAll()
-        }
-        
-        if statusLbl != nil {
-            statusLbl!.alpha = 0
-        }
-        
-        let ypos:CGFloat = (textLbl!.frame.origin.y + textLbl!.frame.height + 20)
-        var xpos:CGFloat = (SharedUIManager.instance.loyaltyWalletView_imageSize + 10)
-
-        let organization = BNAppSharedManager.instance.dataManager.organizations[(model as! BNLoyalty).organizationIdentifier!]
-        var decorationColor:UIColor?
-        
-        var white:CGFloat = 0.0
-        var alpha:CGFloat = 0.0
-        _ =  organization!.primaryColor!.getWhite(&white, alpha: &alpha)
-        
-        if white >= 0.9 {
-            decorationColor = organization!.secondaryColor
-        } else {
-            decorationColor = organization!.primaryColor
-        }
-
-        stars = Array<BNUIView_StarSmall>()
-        
-        let loyaltyCard = (model as! BNLoyalty).loyaltyCard!
-        
-        for slot in loyaltyCard.slots {
-            
-            if !slot.isFilled! {
-                decorationColor = UIColor.bnGrayLight()
-            }
-            
-            let star = BNUIView_StarSmall(frame:CGRect(x:xpos, y: ypos, width:16, height: 16), color: decorationColor!)
-            stars!.append(star)
-            background!.addSubview(star)
-            xpos += 17
-        }
-        
-        xpos += 5
-
-        
-        if loyaltyCard.isFull {
-            if statusLbl != nil {
-                statusLbl!.alpha = 1
-                statusLbl!.frame.origin.x = xpos
-                statusLbl!.frame.origin.y = ypos
-                statusLbl!.text = NSLocalizedString("Completed", comment: "Completed")
-                statusLbl!.textColor = decorationColor
-            } else {
-            
-                statusLbl = UILabel(frame: CGRect(x: xpos, y:ypos, width: 100, height:SharedUIManager.instance.loyaltyWalletView_SubTitleSize))
-                statusLbl!.text = NSLocalizedString("Completed", comment: "Completed")
-                statusLbl!.textColor = decorationColor
-                statusLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_SubTitleSize)
-                statusLbl!.textAlignment = NSTextAlignment.Left
-                background!.addSubview(statusLbl!)
-            }
-        }
-        
-        self.bringSubviewToFront(foreground!)
-    }
-    
     override func clean(){
         delegate = nil
         model = nil
@@ -373,17 +307,15 @@ class LoyaltyView: BNView {
     }
     
     func removeBtnAction(sender:UIButton){
-//        BNAppSharedManager.instance.updateGiftCounter()
-//        BNAppSharedManager.instance.networkManager.sendRefusedGift((self.model as! BNGift))
-        self.delegate!.resizeScrollOnRemoved!(self)
+//        self.delegate!.resizeScrollOnRemoved!(self)
     }
     
 }
 
-@objc protocol LoyaltyView_Delegate:NSObjectProtocol {
-    optional func showLoyaltyCard(view:LoyaltyView)
-    optional func showAlertView_ForLoyaltyCard(view:LoyaltyView, loyalty:BNLoyalty?)
-    optional func resizeScrollOnRemoved(view:LoyaltyView)
-    optional func hideOtherViewsOpen(view:LoyaltyView)
-    optional func removeFromOtherViewsOpen(view:LoyaltyView)
+@objc protocol FriendView_Delegate:NSObjectProtocol {
+//    optional func showLoyaltyCard(view:LoyaltyView)
+    optional func showAlertView_ToShareGift()
+//    optional func resizeScrollOnRemoved(view:LoyaltyView)
+//    optional func hideOtherViewsOpen(view:LoyaltyView)
+//    optional func removeFromOtherViewsOpen(view:LoyaltyView)
 }

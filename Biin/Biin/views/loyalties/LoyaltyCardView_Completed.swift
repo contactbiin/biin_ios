@@ -198,7 +198,7 @@ class LoyaltyCardView_Completed: BNView {
         }
     
         self.backgroundView!.backgroundColor = decorationColor
-        title!.text = organization!.name!.uppercaseString
+        title!.text = organization!.brand!.uppercaseString
     }
 }
 

@@ -150,16 +150,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Biin/views/main/MainView.swift"
-            timestampString = "492556720.020848"
+            filePath = "Biin/managers/BNParser.swift"
+            timestampString = "492715665.45828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "881"
-            endingLineNumber = "881"
-            landmarkName = "hideOnOKRequest(_:goto:)"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "parseOrganizations(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

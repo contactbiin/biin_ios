@@ -241,7 +241,7 @@ class BNParser {
                     
                     let organization = BNOrganization()
                     organization.identifier = identifier//BNParser.findString("identifier", dictionary: organizationData)
-                    organization.name = BNParser.findString("name", dictionary: organizationData)
+                    //organization.name = BNParser.findString("name", dictionary: organizationData)
                     organization.brand = BNParser.findString("brand", dictionary: organizationData)
                     organization.extraInfo = BNParser.findString("extraInfo", dictionary: organizationData)
                     organization.organizationDescription = BNParser.findString("description", dictionary: organizationData)
@@ -267,18 +267,54 @@ class BNParser {
                         }
                     }
                     
-//                    organization.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData)
-//                    
-//                    if organization.isLoyaltyEnabled {
-//                        let loyalty = BNLoyalty()
-//                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: organizationData)
-//                        loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
-//                        loyalty.points = BNParser.findInt("points", dictionary:loyaltyData!)!
-//                        loyalty.subscriptionDate = BNParser.findNSDate("subscriptionDate", dictionary:loyaltyData!)
-//                        loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
-//                        organization.loyalty = loyalty
-//                    }
-//                    
+                    organization.isLoyaltyEnabled = BNParser.findBool("isLoyaltyEnabled", dictionary: organizationData)
+
+                    if organization.isLoyaltyEnabled {
+                        
+                        let loyalty = BNLoyalty()
+                        let loyaltyCard = BNLoyaltyCard()
+                        loyalty.loyaltyCard = loyaltyCard
+                        loyalty.organizationIdentifier = organization.identifier
+                        
+                        let loyaltyData = BNParser.findNSDictionary("loyalty", dictionary: organizationData)
+                        let loyaltyCardData = BNParser.findNSDictionary("loyaltyCard", dictionary: loyaltyData!)
+                        loyaltyCard.identifier = BNParser.findString("identifier", dictionary: loyaltyCardData!)
+                        loyalty.identifier = loyaltyCard.identifier
+                        loyaltyCard.title = BNParser.findString("title", dictionary: loyaltyCardData!)
+                        loyaltyCard.rule = BNParser.findString("rule", dictionary: loyaltyCardData!)
+                        loyaltyCard.goal = BNParser.findString("goal", dictionary: loyaltyCardData!)
+                        loyaltyCard.isCompleted = BNParser.findBool("isCompleted", dictionary: loyaltyCardData!)
+                        loyaltyCard.isBiinieEnrolled = BNParser.findBool("isBiinieEnrolled", dictionary: loyaltyCardData!)
+                        loyaltyCard.isUnavailable = BNParser.findBool("isUnavailable", dictionary: loyaltyCardData!)
+                        loyaltyCard.elementIdentifier = BNParser.findString("elementIdentifier", dictionary: loyaltyCardData!)
+                        loyaltyCard.startDate = BNParser.findNSDateWithBiinFormat("startDate", dictionary: loyaltyCardData!)
+                        loyaltyCard.endDate = BNParser.findNSDateWithBiinFormat("endDate", dictionary: loyaltyCardData!)
+                        loyaltyCard.conditions = "\(NSLocalizedString("LoyaltyCardConditions", comment: "LoyaltyCardConditions")) \(organization.brand!)."
+                        
+                        
+                        let slots = BNParser.findInt("slots", dictionary: loyaltyCardData!)
+                        let usedSlots = BNParser.findInt("usedSlots", dictionary: loyaltyCardData!)
+                        
+                        var i = 0
+                        while i < slots {
+                            i += 1
+                            var slot = BNLoyaltyCard_Slot()
+                            if i < usedSlots {
+                                slot.isFilled = true
+                            } else {
+                                slot.isFilled  = false
+                            }
+                            
+                            loyaltyCard.slots.append(slot)
+                        }
+                        
+                        //loyalty.isSubscribed = BNParser.findBool("isSubscribed", dictionary: loyaltyData!)
+                        //loyalty.points = BNParser.findInt("points", dictionary:loyaltyData!)!
+                        //loyalty.subscriptionDate = BNParser.findNSDate("subscriptionDate", dictionary:loyaltyData!)
+                        //loyalty.level = BNParser.findInt("level", dictionary:loyaltyData!)!
+                        organization.loyalty = loyalty
+                    }
+
                     BNAppSharedManager.instance.dataManager.receivedOrganization(organization)
                 }
             }
@@ -699,6 +735,20 @@ class BNParser {
                 }
             }
         }
+    }
+    
+    class func parseFriends(friendData:NSDictionary) -> NSArray {
+        
+        var friendsList = Array<Biinie>()
+        if let friends = BNParser.findNSArray("facebookFriends", dictionary: friendData) {
+            for fr in (0..<friends.count) {
+                let biinie = Biinie()
+                biinie.facebook_id = friends[fr] as! String
+                friendsList.append(biinie)
+            }
+        }
+        
+        return friendsList
     }
     
     class func parseShowcases(showcasesData:NSArray){

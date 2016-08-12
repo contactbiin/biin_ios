@@ -48,7 +48,7 @@ class Biinie:BNObject {
     var notifications:[BNNotification] = [BNNotification]()
 
     //LOYALTIES
-    var loyalties = Dictionary<String, BNLoyalty>()
+    //var loyalties = Dictionary<String, BNLoyalty>()
     
     override init() {
         super.init()

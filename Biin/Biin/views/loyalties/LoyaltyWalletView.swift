@@ -66,13 +66,21 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
         self.scroll!.clean()
         self.scroll!.leftSpace = 0
         
-        if let biinie = BNAppSharedManager.instance.dataManager.biinie {
-            for (_, value) in biinie.loyalties {
-                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:value)
+        for (identifier, organization) in BNAppSharedManager.instance.dataManager.organizations {
+            if organization.isLoyaltyEnabled {
+                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:organization.loyalty)
                 loyaltyView.delegate = self
                 scroll!.addChild(loyaltyView)
             }
         }
+        
+//        if let biinie = BNAppSharedManager.instance.dataManager.biinie {
+//            for (_, value) in biinie.loyalties {
+//                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:value)
+//                loyaltyView.delegate = self
+//                scroll!.addChild(loyaltyView)
+//            }
+//        }
         
         self.scroll!.setChildrenPosition()
     }

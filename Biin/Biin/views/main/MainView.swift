@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate, LoyaltyCardView_Completed_Delegate, AlertView_Delegate, QRCodeReaderView_Delegate {
+class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Delegate, CollectionsView_Delegate, ElementMiniView_Delegate, AboutView_Delegate, ElementView_Delegate, HightlightView_Delegate, AllSitesView_Delegate, AllElementsView_Delegate, MainView_Container_Elements_Delegate, AllCollectedView_Delegate, InSiteView_Delegate, MainView_Container_NearSites_Delegate, SurveyView_Delegate, MainView_Container_FavoriteSites_Delegate, GiftsView_Delegate, NotificationsView_Delegate, LoyaltyWalletView_Delegate, LoyaltyCardView_Delegate, LoyaltyCardView_Completed_Delegate, AlertView_Delegate, QRCodeReaderView_Delegate, FriendsView_Delegate {
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
@@ -36,6 +36,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var loyaltyCardCompletedState:LoyaltyCardCompletedState?
     var alertState:AlertState?
     var qrCodeState:QRCodeState?
+    var friendsState:FriendsState?
     
     var isShowingNotificationContext = false
     
@@ -88,6 +89,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         loyaltyCardCompletedState = LoyaltyCardCompletedState(context: self, view: nil)
         alertState = AlertState(context: self, view: nil)
         qrCodeState = QRCodeState(context: self, view: nil)
+        friendsState = FriendsState(context: self, view: nil)
         
         show()
 
@@ -300,6 +302,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.view!.showFade()
             self.qrCodeState!.previous = state
             state!.next(self.qrCodeState)
+            self.bringSubviewToFront(state!.view!)
+            break
+        case .Friends:
+            state!.view!.showFade()
+            self.friendsState!.previous = state
+            state!.next(self.friendsState)
             self.bringSubviewToFront(state!.view!)
             break
         default:
@@ -663,6 +671,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         alertState!.view!.removeFromSuperview()
         alertState!.view = nil
         
+        (qrCodeState!.view as! QRCodeReaderView).clean()
+        qrCodeState!.view!.removeFromSuperview()
+        qrCodeState!.view = nil
+        
+        (friendsState!.view as! FriendsView).clean()
+        friendsState!.view!.removeFromSuperview()
+        friendsState!.view = nil
     }
     
     func show(){
@@ -770,6 +785,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         qrCodeReaderView.delegate = self
         self.addSubview(qrCodeReaderView)
         
+        let friendsView = FriendsView(frame: CGRectMake(SharedUIManager.instance.screenWidth, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: self)
+        friendsState!.view = friendsView
+        friendsView.delegate = self
+        self.addSubview(friendsView)
     }
     
     func updateProfileView(){
@@ -793,6 +812,10 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func proccessGiftDelivered(identifier:String?) {
         (giftsState!.view as! GiftsView).proccessGiftDelivered(identifier)
 
+    }
+    
+    func showFriendsView_ToShareGift(gift: BNGift?) {
+        setNextState(BNGoto.Friends)
     }
     
     //NOTIFICATION
@@ -927,6 +950,15 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func showQRCodeReaded(qrCode:String){
         (qrCodeState!.view as! QRCodeReaderView).showQRCodeReaded(qrCode)
     }
+    
+    //FRIENDS
+    func hideFriendsView() {
+        setNextState(BNGoto.Previous)
+    }
+    
+    func showAlertView_ForFriendsView(biinie: Biinie) {
+        
+    }
 }
 
 
@@ -975,4 +1007,5 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     case JustCloseAlert
     case AlertView
     case QRCodeReader
+    case Friends
 }

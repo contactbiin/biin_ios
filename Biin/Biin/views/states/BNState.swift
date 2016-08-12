@@ -54,4 +54,5 @@ enum BNStateType {
     case LoyaltyCardCompletedState
     case AlertState
     case QRCodeState
+    case FriendsState
 }

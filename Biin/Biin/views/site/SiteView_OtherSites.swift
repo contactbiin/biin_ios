@@ -46,7 +46,7 @@ class SiteView_OtherSites:BNView, UIScrollViewDelegate {
         //ypos += 18
         
         var titleTxt = NSLocalizedString("OtherPlaces1", comment: "OtherPlaces1")
-        titleTxt += self.site!.organization!.name!
+        titleTxt += self.site!.organization!.brand!
         titleTxt += NSLocalizedString("OtherPlaces2", comment: "OtherPlaces2")
         
         title = UILabel(frame: CGRectMake(15, ypos, (frame.width - 30), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))

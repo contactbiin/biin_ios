@@ -29,6 +29,8 @@ class BNRequest_SendLoyaltyCardEnrolled:BNRequest {
         
         //self.start = NSDate()
         
+        
+        
         isRunning = true
         attemps += 1
         
@@ -47,6 +49,10 @@ class BNRequest_SendLoyaltyCardEnrolled:BNRequest {
                     let result = BNParser.findBool("result", dictionary: data)
                     
                     if result {
+                        
+                        let identifier = BNParser.findString("identifier", dictionary: loyaltyData)
+                        self.loyalty!.identifier = identifier
+                        self.loyalty!.loyaltyCard!.identifier = identifier
                         
                         self.isCompleted = true
                         self.networkManager!.requestManager!.processCompletedRequest(self)

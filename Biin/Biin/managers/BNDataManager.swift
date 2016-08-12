@@ -649,37 +649,37 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         
         //TODO: TEMPORAL, crear algunas loyaltyes
         
-        
-        let loyalty = BNLoyalty()
-        loyalty.identifier = organization.identifier!
-        loyalty.organizationIdentifier = organization.identifier!
-        loyalty.loyaltyCard = BNLoyaltyCard()
-        loyalty.loyaltyCard!.identifier = organization.identifier
-        loyalty.loyaltyCard!.title = "Tarjeta de cliente frecuente"
-        loyalty.loyaltyCard!.goal = "Obten un regalo gratis al completar 10 estrellitas"
-        loyalty.loyaltyCard!.rule = "Por la compra de 3750 o más recibe una estrella."
-        loyalty.loyaltyCard!.elementIdentifier = "9aa7d7d9-3d45-46a3-9094-6ff939fa8f60"
-        loyalty.loyaltyCard!.conditions = "Al hacer tap en OK aceptas las condiciones de uso de la tarjeta de clientes frecuente de Tukasa."
-        loyalty.loyaltyCard!.startDate = NSDate()
-        loyalty.loyaltyCard!.endDate = NSDate()
-        loyalty.loyaltyCard!.isCompleted = false
-        loyalty.loyaltyCard!.isFull = false
-        loyalty.loyaltyCard!.isUnavailable = false
-        loyalty.loyaltyCard!.isBiinieEnrolled = false
-        
-        var i = 0
-        while i < 10 {
-            i += 1
-            var slot = BNLoyaltyCard_Slot()
-            if i < 10 {
-                slot.isFilled = true
-            } else {
-                slot.isFilled  = false
-            }
-            loyalty.loyaltyCard!.slots.append(slot)
-        }
-        
-        biinie!.loyalties[organization.identifier!] = loyalty
+//        
+//        let loyalty = BNLoyalty()
+//        loyalty.identifier = organization.identifier!
+//        loyalty.organizationIdentifier = organization.identifier!
+//        loyalty.loyaltyCard = BNLoyaltyCard()
+//        loyalty.loyaltyCard!.identifier = organization.identifier
+//        loyalty.loyaltyCard!.title = "Tarjeta de cliente frecuente"
+//        loyalty.loyaltyCard!.goal = "Obten un regalo gratis al completar 10 estrellitas"
+//        loyalty.loyaltyCard!.rule = "Por la compra de 3750 o más recibe una estrella."
+//        loyalty.loyaltyCard!.elementIdentifier = "9aa7d7d9-3d45-46a3-9094-6ff939fa8f60"
+//        loyalty.loyaltyCard!.conditions = "Al hacer tap en OK aceptas las condiciones de uso de la tarjeta de clientes frecuente de Tukasa."
+//        loyalty.loyaltyCard!.startDate = NSDate()
+//        loyalty.loyaltyCard!.endDate = NSDate()
+//        loyalty.loyaltyCard!.isCompleted = false
+//        loyalty.loyaltyCard!.isFull = false
+//        loyalty.loyaltyCard!.isUnavailable = false
+//        loyalty.loyaltyCard!.isBiinieEnrolled = false
+//        
+//        var i = 0
+//        while i < 10 {
+//            i += 1
+//            var slot = BNLoyaltyCard_Slot()
+//            if i < 10 {
+//                slot.isFilled = true
+//            } else {
+//                slot.isFilled  = false
+//            }
+//            loyalty.loyaltyCard!.slots.append(slot)
+//        }
+//        
+//        biinie!.loyalties[organization.identifier!] = loyalty
     }
     
     func isSiteStored(identifier:String) -> Bool{

@@ -103,7 +103,7 @@ class LoyaltyView: BNView {
         width = (frame.width - (xpos + 5))
         
         titleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: width, height:SharedUIManager.instance.loyaltyWalletView_TitleSize))
-        titleLbl!.text = organization!.name!
+        titleLbl!.text = organization!.brand!
         titleLbl!.textColor = decorationColor
         titleLbl!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.loyaltyWalletView_TitleSize)
         titleLbl!.textAlignment = NSTextAlignment.Left

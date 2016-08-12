@@ -60,7 +60,7 @@ class BNRequest_Biinie: BNRequest {
                         self.biinie!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
                         self.biinie!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
                         self.biinie!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
-                        //var friends = BNParser.findNSArray("friends", dictionary: biinieData)
+                        self.biinie!.friends = BNParser.parseFriends(biinieData) as! Array<Biinie>//BNParser.findNSArray("facebookFriends", dictionary: biinieData)
                         
                         
                         let giftsData = BNParser.findNSArray("gifts", dictionary: biinieData)

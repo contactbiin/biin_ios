@@ -20,9 +20,9 @@ class BNLoyaltyCard:BNObject {
     var startDate:NSDate?
     var endDate:NSDate?
     var slots:Array<BNLoyaltyCard_Slot> = Array<BNLoyaltyCard_Slot>()
+    
     //Only to user in app UI
     var isFull:Bool = false
-    
     
     override init() {
         super.init()

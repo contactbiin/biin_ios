@@ -56,6 +56,8 @@ class GiftsView: BNView, GiftView_Delegate {
         
         //elementContainers = Array<MainView_Container_Elements>()
         updateGifts()
+        
+        addFade()
     }
     
     func updateGifts(){
@@ -93,12 +95,12 @@ class GiftsView: BNView, GiftView_Delegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        //        if state!.stateType == BNStateType.MainViewContainerState
-        //            || state!.stateType == BNStateType.SiteState {
+        if state!.stateType != BNStateType.FriendsState {
         
-        UIView.animateWithDuration(0.25, animations: {()-> Void in
-            self.frame.origin.x = SharedUIManager.instance.screenWidth
-        })
+            UIView.animateWithDuration(0.25, animations: {()-> Void in
+                self.frame.origin.x = SharedUIManager.instance.screenWidth
+            })
+        }
         //        } else {
         
         //            NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(self.hideView(_:)), userInfo: nil, repeats: false)
@@ -178,9 +180,16 @@ class GiftsView: BNView, GiftView_Delegate {
     func removeFromOtherViewsOpen(view: GiftView) {
         lastViewOpen = nil
     }
+    
+    func showFriendsView_ToShareGift(gift: BNGift?) {
+        lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+        delegate!.showFriendsView_ToShareGift!(gift)
+    }
 }
 
 
 @objc protocol GiftsView_Delegate:NSObjectProtocol {
     optional func hideGiftsView()
+    optional func showFriendsView_ToShareGift(gift:BNGift?)
+
 }

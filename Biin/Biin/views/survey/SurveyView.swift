@@ -313,7 +313,7 @@ class SurveyView: BNView, UITextViewDelegate {
             
             organizationName!.frame = CGRectMake(0, 0, SharedUIManager.instance.screenWidth, 30)
             organizationName!.alpha = 1
-            organizationName!.text = site!.organization!.name!
+            organizationName!.text = site!.organization!.brand!
             organizationName!.numberOfLines = 0
             organizationName!.textAlignment = NSTextAlignment.Center
             organizationName!.sizeToFit()

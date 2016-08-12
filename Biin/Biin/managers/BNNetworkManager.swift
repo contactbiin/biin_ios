@@ -595,7 +595,12 @@ extension NSDate {
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         let d = formatter.dateFromString(dateString_yyyyMMddZ)
-        self.init(timeInterval:0, sinceDate:d!)
+        
+        if dateString_yyyyMMddZ != "" {
+            self.init(timeInterval:0, sinceDate:d!)
+        } else {
+            self.init()
+        }
     }
     
     func bnDateFormatt()->String{

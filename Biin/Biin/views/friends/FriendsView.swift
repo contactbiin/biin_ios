@@ -1,4 +1,4 @@
-//  LoyaltyWalletView.swift
+//  FriendsView.swift
 //  biin
 //  Created by Esteban Padilla on 2/20/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
@@ -6,12 +6,12 @@
 import Foundation
 import UIKit
 
-class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
+class FriendsView: BNView, FriendView_Delegate{
     
     var title:UILabel?
     var backBtn:BNUIButton_Back?
     
-    var delegate:LoyaltyWalletView_Delegate?
+    var delegate:FriendsView_Delegate?
     //var elementContainers:Array <MainView_Container_Elements>?
     var scroll:BNScroll?
     
@@ -39,7 +39,7 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
         var ypos:CGFloat = 27
         title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
         title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
-        let titleText = NSLocalizedString("LoyaltyWallet", comment: "LoyaltyWallet").uppercaseString
+        let titleText = NSLocalizedString("Friends", comment: "Friends").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
@@ -55,22 +55,24 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
         self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
         
-        //elementContainers = Array<MainView_Container_Elements>()
-        updateLoyalties()
+        updateFriends()
         
         addFade()
     }
     
-    func updateLoyalties(){
+    func updateFriends(){
         
         self.scroll!.clean()
         self.scroll!.leftSpace = 0
         
         if let biinie = BNAppSharedManager.instance.dataManager.biinie {
-            for (_, value) in biinie.loyalties {
-                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:value)
-                loyaltyView.delegate = self
-                scroll!.addChild(loyaltyView)
+            for value in biinie.friends {
+                
+                let friendViev = FriendView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height), father: self, biinie: value)
+//                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:value)
+                friendViev.delegate = self
+                //loyaltyView.delegate = self
+                scroll!.addChild(friendViev)
             }
         }
         
@@ -87,7 +89,7 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     override func transitionOut( state:BNState? ) {
         state!.action()
         
-        if state!.stateType == BNStateType.MainViewContainerState {
+        if state!.stateType == BNStateType.GiftsState {
 
             UIView.animateWithDuration(0.25, animations: {()-> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
@@ -124,11 +126,12 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     
     func backBtnAction(sender:UIButton) {
         
-        delegate!.hideLoyaltyWalletView!()
+        //delegate!.hideLoyaltyWalletView!()
+        delegate!.hideFriendsView!()
         
-        if lastViewOpen != nil {
-            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
-        }
+//        if lastViewOpen != nil {
+//            lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
+//        }
     }
     
     func resizeScrollOnRemoved(view: LoyaltyView) {
@@ -149,12 +152,16 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     }
     
     func showLoyaltyCard(view: LoyaltyView) {
-        delegate!.showLoyaltyCard!(view)
+        //delegate!.showLoyaltyCard!(view)
+    }
+    
+    func showAlertView_ToShareGift() {
+        print("SHARE GIFT")
     }
     
     func showAlertView_ForLoyaltyCard(view: LoyaltyView, loyalty:BNLoyalty?) {
         lastViewSelected = view
-        self.delegate!.showAlertView_ForLoyaltyCard!(view, loyalty:loyalty)
+        //self.delegate!.showAlertView_ForLoyaltyCard!(view, loyalty:loyalty)
     }
     
     func activateLastLoyaltyCardSeleced(){
@@ -169,8 +176,7 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
 }
 
 
-@objc protocol LoyaltyWalletView_Delegate:NSObjectProtocol {
-    optional func hideLoyaltyWalletView()
-    optional func showLoyaltyCard(view:LoyaltyView)
-    optional func showAlertView_ForLoyaltyCard(view:LoyaltyView, loyalty:BNLoyalty?)
+@objc protocol FriendsView_Delegate:NSObjectProtocol {
+    optional func hideFriendsView()
+    optional func showAlertView_ForFriendsView(biinie:Biinie)
 }

@@ -267,9 +267,14 @@ SeeGift = "Ver regalo";
 ReadQRCode = "Leer Codigo";
 Reading = "Leyendo..";
 SeeConditions = "Ver condiciones";
+LoyaltyCardConditions = "Al hacer tap en OK aceptas las condiciones de uso de la tarjeta de clientes frecuente de";
 EnrollNow = "Participá!";
 Completed = "Completado!";
 
 Congratulations = "Felicidades!";
 CompletedCard = "Has obtenido todas las estrellas de nuestra tarjeta.";
 GiftInTreasureChest = "Pronto recibiras tu regalo en tu Baul de Tesoros.";
+
+
+
+Friends = "Mis Amigos";

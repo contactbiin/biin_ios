@@ -14,7 +14,7 @@ class BNOrganization:NSObject {
     var title:String?
     var subTitle:String?
     
-    var name:String?
+    //var name:String?
     var brand:String?
     var organizationDescription:String?
     var extraInfo:String?

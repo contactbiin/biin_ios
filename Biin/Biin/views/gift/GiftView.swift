@@ -79,6 +79,7 @@ class GiftView: BNView {
         
         shareGiftBtn = BNUIButton_ShareGift(frame:CGRect(x: (SharedUIManager.instance.screenWidth - SharedUIManager.instance.notificationView_height), y: ypos, width: SharedUIManager.instance.notificationView_height, height: (frame.height / 3)), iconColor: UIColor.whiteColor())
         shareGiftBtn!.backgroundColor = UIColor.bnShareGiftColor()
+        shareGiftBtn!.addTarget(self, action: #selector(self.shareGiftBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(shareGiftBtn!)
 
         ypos += shareGiftBtn!.frame.height
@@ -289,6 +290,10 @@ class GiftView: BNView {
         self.delegate!.resizeScrollOnRemoved!(self)
     }
     
+    func shareGiftBtnAction(sender:UIButton) {
+        delegate!.showFriendsView_ToShareGift!((self.model as! BNGift))
+    }
+    
     func updateActionBtnStatus(){
         switch (model as! BNGift).status! {
         case .CLAIMED:
@@ -324,4 +329,5 @@ class GiftView: BNView {
     optional func resizeScrollOnRemoved(view:GiftView)
     optional func hideOtherViewsOpen(view:GiftView)
     optional func removeFromOtherViewsOpen(view:GiftView)
+    optional func showFriendsView_ToShareGift(gift:BNGift?)
 }
