@@ -38,14 +38,7 @@ class BNAppManager {
     var IS_BLUETOOTH_ENABLED = false
     var IS_MAINVIEW_ON = false
     var isOpeningForLocalNotification = false
-    
-//    var elementColorIndex = 0
-//    var elementColors:Array<UIColor> = Array<UIColor>()
-    
-    var biinieCategoriesBckup = Dictionary<String, BNCategory>()
-    
     let biinCacheImagesFolder = "/BiinCacheImages"
-    
     
     init(){
         
@@ -62,7 +55,7 @@ class BNAppManager {
         positionManager = BNPositionManager(errorManager:errorManager)
         networkManager = BNNetworkManager(errorManager:errorManager)
         positionManager.delegateNM = networkManager
-//
+
         // Try loading a saved version first
         if let savedNotificationManager = BNNotificationManager.loadSaved() {
             notificationManager = savedNotificationManager
@@ -71,7 +64,7 @@ class BNAppManager {
             notificationManager = BNNotificationManager()
             notificationManager.save()
         }
-//
+
         networkManager.delegateDM = dataManager
         dataManager.delegateNM = networkManager
         dataManager.delegatePM = positionManager
@@ -112,7 +105,7 @@ class BNAppManager {
                 
                     if positionManager.checkBluetoothServicesStatus() {
                         BNAppSharedManager.instance.IS_BLUETOOTH_ENABLED = true
-                        continueAfterIntialChecking()
+                        //continueAfterIntialChecking()
                     } else {
                         
                         if BNAppSharedManager.instance.dataManager.isUserLoaded {
@@ -193,7 +186,7 @@ class BNAppManager {
     
     func show(){
         
-        mainViewController?.mainView!.show()
+        mainViewController?.mainView!.createAndAddView()
 
         if notificationManager.currentNotification != nil && notificationManager.didSendNotificationOnAppDown {
             //mainViewController?.mainView?.showNotificationContext()

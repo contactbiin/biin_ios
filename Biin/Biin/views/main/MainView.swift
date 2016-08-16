@@ -11,7 +11,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     var delegate:MainViewDelegate?
     var rootViewController:MainViewController?
-    //var fade:UIView?
     var userControl:ControlView?
     
     //states
@@ -46,7 +45,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     var testButton:UIButton?
     
     var isQRCodeReaderView = false
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,15 +89,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         qrCodeState = QRCodeState(context: self, view: nil)
         friendsState = FriendsState(context: self, view: nil)
         
-        show()
+        createAndAddView()
 
         testButton = UIButton(frame: CGRectMake(10, 100, 100, 50))
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("test", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: #selector(self.testButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(testButton!)
-        
-        
+        //self.addSubview(testButton!)
     }
     
     var isShowingInsiteView = false
@@ -167,7 +163,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     override func setNextState(goto:BNGoto){
 
         delegate!.mainView!(self, hideMenuOnChange: false, index:0)
-//        state!.view!.showFade()
         
         if isShowingNotificationContext {
             isShowingNotificationContext = false
@@ -206,12 +201,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             SharedAnswersManager.instance.logContentView_Profile()
             break
         case .Collected:
-            
             self.allCollectedState!.view!.refresh()
             SharedAnswersManager.instance.logContentView_Collected()
-//            isShowingAllCollectedView = true
             state!.next(self.allCollectedState)
-            
             break
         case .About:
             state!.view!.showFade()
@@ -241,7 +233,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             state!.view!.showFade()
             self.allFavoriteSitesState!.previous = state
             state!.next(self.allFavoriteSitesState)
-//            SharedAnswersManager.instance.logContentView_AllSites()
             break
         case .AllElements:
             state!.view!.showFade()
@@ -359,16 +350,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Previous)
     }
     
-    //func hideErrorView(view: ErrorView) {
-        //setNextState(lastOption)
-        
-        //For testing
-//        var vc = LoadingViewController()
-//        vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-//        self.rootViewController!.presentViewController(vc, animated: true, completion: nil)
-//        BNAppSharedManager.instance.dataManager.requestDataForNewPosition()
-    //}
-    
     override func refresh() {
         NSLog("BIIN - Mainview refresh()")
         mainViewContainerState!.view!.refresh()
@@ -390,9 +371,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             if let organization = BNAppSharedManager.instance.dataManager.organizations[site!.organizationIdentifier!] {
                 organization.isUserInSite = true
             }
-            //TODO: Enable all gift on site to be request.
+            
             (giftsState!.view as! GiftsView).updateGifts(site!.identifier!)
-            //TODO: Enable QR reader buttons on loyalty cards.
             
         }
     }
@@ -400,7 +380,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideInSiteView(){
         
         if isShowingInsiteView {
+            
             isShowingInsiteView = false
+            
             (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
             
             BNAppSharedManager.instance.networkManager.sendBiinieOnExitSite(BNAppSharedManager.instance.dataManager.biinie, site: site_to_survey, time: NSDate())
@@ -419,13 +401,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if site_to_survey != nil {
             if site_to_survey!.organization!.hasNPS {
                 if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
-                    
                     NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.showSurveyOnTimer(_:)), userInfo: nil, repeats: false)
-                } else {
-                    //print("site: \(site_to_survey!.title!) is already survyed today")
                 }
-            } else {
-                //print("NPS not available")
             }
         }
     }
@@ -434,19 +411,13 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if site_to_survey != nil {
             if site_to_survey!.organization!.hasNPS {
                 if !BNAppSharedManager.instance.notificationManager.is_site_surveyed(site_to_survey!.identifier) {
-                    
                     state!.view!.showFade()
                     (self.surveyState!.view as! SurveyView).updateSiteData(site_to_survey)
                     self.surveyState!.previous = state
                     state!.next(self.surveyState)
                     isReadyToShowSurvey = false
                     self.bringSubviewToFront(state!.view!)
-
-                } else {
-                    print("site: \(site_to_survey!.title!) is already survyed today")
                 }
-            } else {
-                print("NPS not available")
             }
         }
     }
@@ -458,9 +429,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
     
     func showNotificationContext() {
-
-        print("BIIN - showNotificationContext")
-        
+    
         if !isShowingNotificationContext {
             
             isShowingNotificationContext = true
@@ -680,7 +649,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         friendsState!.view = nil
     }
     
-    func show(){
+    func createAndAddView(){
         
         let mainViewContainer = MainView_Container_All(frame: CGRectMake(0, 0, frame.width, frame.height), father: self)
         self.addSubview(mainViewContainer)
@@ -898,11 +867,9 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     func hideOnOKRequest(view: AlertView, goto: BNGoto) {
         switch goto {
         case .JustCloseAlert:
-            //loyaltyCardState!.previous = alertState!.previous
             setNextState(BNGoto.Previous)
             break
         case .LoyaltyCard:
-            //TODO: call enrollment request
             (view.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled = true
             BNAppSharedManager.instance.networkManager.sendLoyaltyCardEnrolled(BNAppSharedManager.instance.dataManager.biinie, loyalty: (view.model as! BNLoyalty))
             (loyaltyCardState!.view as! LoyaltyCardView).updateLoyaltyCard((view.model as! BNLoyalty))
@@ -924,7 +891,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         if isQRCodeReaderView {
             rootViewController!.removeQRCodeReader()
             isQRCodeReaderView = false
-            loyaltyCardState!.previous = alertState!.previous
             setNextState(BNGoto.Previous)
         }
     }
@@ -935,7 +901,6 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             isQRCodeReaderView = false
             (loyaltyCardState!.view as! LoyaltyCardView).addStar()
             (loyaltyWalletState!.view as! LoyaltyWalletView).updateLoyaltyStars()
-            loyaltyCardState!.previous = alertState!.previous
             setNextState(BNGoto.Previous)
         }
     }
@@ -947,8 +912,8 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         }
     }
     
-    func showQRCodeReaded(qrCode:String){
-        (qrCodeState!.view as! QRCodeReaderView).showQRCodeReaded(qrCode)
+    func showQRCodeReaded(){
+        (qrCodeState!.view as! QRCodeReaderView).showQRCodeReaded()
     }
     
     //FRIENDS
@@ -961,16 +926,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     }
 }
 
-
 @objc protocol MainViewDelegate:NSObjectProtocol {
-    
-    //Methods to conform on BNNetworkManager in
-    
-    
-    ///Request a region's data.
-    ///
-    ///- parameter BNDataManager: that store all data.
-    ///- parameter Region's: identifier requesting the data.
     optional func mainView(mainView:MainView!, hideMenu value:Bool)
     optional func mainView(mainView:MainView!, hideMenuOnChange value:Bool, index:Int)
     optional func mainView(mainView:MainView!, showMenu value:Bool)

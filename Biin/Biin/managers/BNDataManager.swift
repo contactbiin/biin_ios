@@ -8,8 +8,6 @@ import UIKit
 
 class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegate {
 
-    //var viewController:BNMain_ViewController? //temporal
-    
     var errorManager:BNErrorManager
     var delegatePM:BNDataManagerDelegate?
     var delegateNM:BNDataManagerDelegate?
@@ -18,7 +16,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var biinie:Biinie?
     var isUserLoaded = false
     
-    //var regions = Dictionary<String, BNRegion>()
     var nearbySites = Array<String>()
     var favoritesSites = Array<String>()
     var favoritesElements = Array<BNElementRelationShip>()
@@ -26,29 +23,17 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
     var sites = Dictionary<String, BNSite>()
     var sites_ordered = Array<BNSite>()
     var organizations = Dictionary<String, BNOrganization>()
-    //var sites_OnBackground = Dictionary<String, BNSite>()
     var showcases = Dictionary<String, BNShowcase>()
-//    var elements_by_id = Dictionary<String, BNElement>() //list of virtual elements by _id (clones by _id)
     var elements = Dictionary<String, BNElement>()//List of element with data, not by _id
     var highlights = Array<BNElementRelationShip>()//list of hightlight element
-    //var availableBiins = Array<String>()//list of biins detected
-    //var elementsBiined = Dictionary<String, String>()
-    
-    //var notifications = Array<BNNotification>()
-    
-    //var showcasesIdentifiersToRequest:Dictionary<String, String> = Dictionary<String, String>()
-    //var sharedBiins = Dictionary<String, BNBiin>()
     
     var categories:Array<BNCategory>?/// = Dictionary<String, BNCategory>()
-    //var sections:Array<BNSection> = Array<BNSection>()
-    
-    //var currentRegionIdentifier:String?
-    
-    //var timer:NSTimer?
     
     var commercialUUID:NSUUID?
     var privacyPolicy:String?
     var termOfService:String?
+    
+    var qrCode:String?
     
     init(errorManager:BNErrorManager){
         

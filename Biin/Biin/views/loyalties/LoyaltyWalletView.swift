@@ -66,7 +66,7 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
         self.scroll!.clean()
         self.scroll!.leftSpace = 0
         
-        for (identifier, organization) in BNAppSharedManager.instance.dataManager.organizations {
+        for (_, organization) in BNAppSharedManager.instance.dataManager.organizations {
             if organization.isLoyaltyEnabled {
                 let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:organization.loyalty)
                 loyaltyView.delegate = self
@@ -157,6 +157,7 @@ class LoyaltyWalletView: BNView, LoyaltyView_Delegate {
     }
     
     func showLoyaltyCard(view: LoyaltyView) {
+        lastViewSelected = view
         delegate!.showLoyaltyCard!(view)
     }
     

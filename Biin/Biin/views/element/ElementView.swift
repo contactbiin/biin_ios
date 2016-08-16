@@ -12,7 +12,7 @@ class ElementView: BNView, UIWebViewDelegate {
     var element:BNElement?
     
     var backBtn:BNUIButton_Back?
-    var backBtn_Bg:UIVisualEffectView?
+    var backBtn_Bg:UIView? //UIVisualEffectView?
     
     var scroll:UIScrollView?
     
@@ -70,8 +70,9 @@ class ElementView: BNView, UIWebViewDelegate {
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
+        let scrollHeight:CGFloat = (screenHeight - (SharedUIManager.instance.mainView_StatusBarHeight + SharedUIManager.instance.mainView_HeaderSize))
         
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)))
+        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.mainView_HeaderSize, screenWidth, scrollHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -83,18 +84,21 @@ class ElementView: BNView, UIWebViewDelegate {
         scroll!.addSubview(imagesScrollView!)
         
         
-        backBtn_Bg = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        backBtn_Bg!.frame = CGRectMake(0, 0, screenWidth, 35)
+        backBtn_Bg = UIView(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.mainView_HeaderSize))//UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
+        backBtn_Bg!.backgroundColor = UIColor.appBackground()
+//        backBtn_Bg!.frame = CGRectMake(0, 0, screenWidth, SharedUIManager.instance.mainView_HeaderSize)
         self.addSubview(backBtn_Bg!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(backBtn!)
-        
-        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-        fade!.backgroundColor = UIColor.blackColor()
-        fade!.alpha = 0
-        self.addSubview(fade!)
+//        
+//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+//        fade!.backgroundColor = UIColor.blackColor()
+//        fade!.alpha = 0
+//        self.addSubview(fade!)
+//        
+//        addFade()
         
         animationView = BiinItAnimationView(frame:CGRectMake(0, 35, screenWidth, 0))
         self.addSubview(animationView!)
@@ -143,7 +147,7 @@ class ElementView: BNView, UIWebViewDelegate {
         
         //Like button
         //buttonSpace += 35
-        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25), isBig: true)
         likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
 
@@ -325,7 +329,7 @@ class ElementView: BNView, UIWebViewDelegate {
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
             
-            updateBackBtn()
+            //updateBackBtn()
             updateLikeItBtn()
             updateShareBtn()
                         

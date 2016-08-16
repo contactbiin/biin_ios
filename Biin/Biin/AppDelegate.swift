@@ -20,12 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appManager = BNAppSharedManager.instance
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
-        
-        print("\(launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey])")
         
         setDeviceType(window!.screen.bounds.width, screenHeight: window!.screen.bounds.height)
         
@@ -38,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.networkManager.setRootURLForRequest()
         appManager.IS_APP_READY_FOR_NEW_DATA_REQUEST = false
         appManager.IS_APP_REQUESTING_NEW_DATA = false
-        
         
         switch application.applicationState {
         case .Active:
@@ -54,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appManager.IS_APP_DOWN = true
             break
         }
-
         
         // path to documents directory
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
@@ -72,25 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         }
-//        else
-//        {
-//            
-//            let selectedImage = UIImage(named:"loading1.jpg")
-//            let imageData = UIImagePNGRepresentation(selectedImage!)
-//            
-//            let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent("loading1.jpg")
-//            
-//            if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
-//                
-//                if !imageData!.writeToFile(imagePath, atomically: false) {
-//                } else {
-//                    NSUserDefaults.standardUserDefaults().setObject(imagePath, forKey: "loading1.jpg")
-//                }
-//                
-//            } else {
-//                
-//            }
-//        }
         
         //Setup notifications
         setupNotificationSettings()
@@ -111,7 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appManager.networkManager!.checkVersion()
         
         return true
-        
     }
     
     
@@ -150,10 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print("User Token: \(appManager.dataManager!.biinie!.token!)")
                 }
             }
-        } else  {
-            //print("not token available")
         }
-
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
@@ -314,11 +287,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func handleModifyListNotification() {
-    }
+    func handleModifyListNotification() { }
     
-    func handleDeleteListNotification() {
-    }
+    func handleDeleteListNotification() { }
     
     func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
         
@@ -327,10 +298,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         session.getTasksWithCompletionHandler { (dataTasks, uploadTaks, downloadTaks) -> Void in
             
         }
-        
     }
-    
-
-
 }
 

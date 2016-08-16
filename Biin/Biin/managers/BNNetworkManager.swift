@@ -315,7 +315,7 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     
     func sendLoyaltyCardAddStar(biinie:Biinie?, loyalty:BNLoyalty?){
         //get /mobile/biinies/:identifier/cards/setStar/:cardidentifier
-        let request = BNRequest_SendLoyaltyCardAddStar(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/cards/setStar/\(loyalty!.loyaltyCard!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, loyalty: loyalty)
+        let request = BNRequest_SendLoyaltyCardAddStar(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/cards/setStar/\(loyalty!.loyaltyCard!.identifier!)/\(BNAppSharedManager.instance.dataManager.qrCode!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, loyalty: loyalty)
         addToQueue(request)
     }
     

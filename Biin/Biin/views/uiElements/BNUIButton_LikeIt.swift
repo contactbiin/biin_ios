@@ -10,22 +10,37 @@ import QuartzCore
 
 class BNUIButton_LikeIt:BNUIButton {
     
+    var isBig = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))//BNIcon_LikeIt_Empty(color: UIColor.biinColor(), position: CGPointMake(4, 5))
+        icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
+    }
+    
+    convenience init(frame: CGRect, isBig:Bool) {
+        self.init(frame: frame)
+        self.isBig = isBig
+        
+        if isBig {
+            icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
+        } 
     }
     
     func changedIcon(value:Bool) {
         let color = icon!.color
         icon = nil
-        if value {
-            icon = BNIcon_LikeIt_Full(color: color!, position: CGPointMake(4, 5))
+        if isBig {
+            icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
         } else {
-            icon = BNIcon_LikeIt_Empty(color: color!, position: CGPointMake(4, 5))
+            if value {
+                icon = BNIcon_LikeIt_Full(color: color!, position: CGPointMake(4, 5))
+            } else {
+                icon = BNIcon_LikeIt_Empty(color: color!, position: CGPointMake(4, 5))
+            }
         }
         setNeedsDisplay()
     }

@@ -41,8 +41,8 @@ class BNRequest_SendLoyaltyCardAddStar:BNRequest {
                 
                 //var response:BNResponse?
                 
-                if let biinieData = data["data"] as? NSDictionary {
-                    
+//                if let biinieData = data["data"] as? NSDictionary {
+                
                     //let status = BNParser.findInt("status", dictionary: data)
                     let result = BNParser.findBool("result", dictionary: data)
                     
@@ -62,10 +62,10 @@ class BNRequest_SendLoyaltyCardAddStar:BNRequest {
                      print("BNRequest_Biinie [\(timeInterval)] - \(self.requestString)")
                      */
                     
-                } else  {
-                    self.requestError = BNRequestError.Server
-                    self.networkManager!.requestManager!.processFailedRequest(self, error: error)
-                }
+//                } else  {
+//                    self.requestError = BNRequestError.Server
+//                    self.networkManager!.requestManager!.processFailedRequest(self, error: error)
+//                }
             }
         })
     }

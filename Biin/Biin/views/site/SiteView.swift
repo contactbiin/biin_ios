@@ -12,7 +12,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     var delegate:SiteView_Delegate?
     weak var site:BNSite?
     var backBtn:BNUIButton_Back?
-    var backBtn_Bg:UIVisualEffectView?
+    var backBtn_Bg:UIView?
 
     var imagesScrollView:BNUIScrollView?
     var header:SiteView_Header?
@@ -66,10 +66,9 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        let scrollHeight:CGFloat = (screenHeight - 20)
-        //Add here any other heights for site view.
+        let scrollHeight:CGFloat = (screenHeight - (SharedUIManager.instance.mainView_StatusBarHeight + SharedUIManager.instance.mainView_HeaderSize))
         
-        scroll = UIScrollView(frame: CGRectMake(0, 0, screenWidth, scrollHeight))
+        scroll = UIScrollView(frame: CGRectMake(0, SharedUIManager.instance.mainView_HeaderSize, screenWidth, scrollHeight))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -90,11 +89,11 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         header = SiteView_Header(frame: CGRectMake(0, (screenWidth), screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
         scroll!.addSubview(header!)
         
-        backBtn_Bg = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
-        backBtn_Bg!.frame = CGRectMake(0, 0, screenWidth, 35)
+        backBtn_Bg = UIView(frame: CGRectMake(0, 0, screenWidth, SharedUIManager.instance.mainView_HeaderSize))
+        backBtn_Bg!.backgroundColor = UIColor.appBackground()
         self.addSubview(backBtn_Bg!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(backBtn!)
 
@@ -252,10 +251,10 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
             imagesScrollView!.updateImages(site!.media, isElement:false)
             updateShowcasesAndLocation(site)
 
-            backBtn!.icon!.color = iconColor
-            backBtn!.layer.borderColor = decorationColor!.CGColor
-            backBtn!.layer.backgroundColor = decorationColor!.CGColor
-            backBtn!.setNeedsDisplay()
+//            backBtn!.icon!.color = iconColor
+//            backBtn!.layer.borderColor = decorationColor!.CGColor
+//            backBtn!.layer.backgroundColor = decorationColor!.CGColor
+//            backBtn!.setNeedsDisplay()
             
             shareItButton!.icon!.color = UIColor.grayColor()
             shareItButton!.setNeedsDisplay()

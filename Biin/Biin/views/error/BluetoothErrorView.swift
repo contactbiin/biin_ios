@@ -106,7 +106,7 @@ class BluetoothErrorView: BNView {
         vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
         BNAppSharedManager.instance.errorManager.currentViewController!.presentViewController(vc, animated: true, completion: nil)
         
-        BNAppSharedManager.instance.continueAfterIntialChecking()
+        //BNAppSharedManager.instance.continueAfterIntialChecking()
 
 
     }

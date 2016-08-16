@@ -151,8 +151,9 @@ class QRCodeReaderView: BNView {
         self.frame.origin.x = SharedUIManager.instance.screenWidth
     }
     
-    func showQRCodeReaded(qrCode:String){
+    func showQRCodeReaded(){
         //TODO called readQRCode request.
+        
         okBtn!.userInteractionEnabled = true
         okBtn!.setTitle(NSLocalizedString("OK", comment: "OK"), forState: UIControlState.Normal)
         okBtn!.backgroundColor = UIColor.bnBlue()

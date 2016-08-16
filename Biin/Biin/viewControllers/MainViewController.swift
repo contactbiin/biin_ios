@@ -166,7 +166,8 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
                 
                 if qrCore.containsString("biin") {
                     isQRCodeReaded = true
-                    mainView!.showQRCodeReaded(qrCore)
+                    mainView!.showQRCodeReaded()
+                    BNAppSharedManager.instance.dataManager.qrCode = qrCore
                     print("Biin code: \(metadataObj.stringValue)")
                 } else {
                     print("Other qr code: \(metadataObj.stringValue)")
@@ -665,7 +666,7 @@ class MainViewController:UIViewController, MenuViewDelegate, MainViewDelegate, D
     
     func show(){
         
-        self.mainView!.show()
+        self.mainView!.createAndAddView()
     }
     
     func enableCollectionBtnOnMenu(){

@@ -743,7 +743,7 @@ class BNParser {
         if let friends = BNParser.findNSArray("facebookFriends", dictionary: friendData) {
             for fr in (0..<friends.count) {
                 let biinie = Biinie()
-                biinie.facebook_id = friends[fr] as! String
+                biinie.facebook_id = friends[fr] as? String
                 friendsList.append(biinie)
             }
         }

@@ -163,5 +163,69 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biin/models/request/loyalty/BNRequest_SendLoyaltyCardAddStar.swift"
+            timestampString = "492728660.419829"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "run()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Biin.BNRequest_SendLoyaltyCardAddStar.run () -&gt; ()"
+                  moduleName = "Biin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Esteban/Development/biin_ios/Biin/Biin/models/request/loyalty/BNRequest_SendLoyaltyCardAddStar.swift"
+                  timestampString = "492729188.503862"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "296">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Biin.BNRequest_SendLoyaltyCardAddStar.(run () -&gt; ()).(closure #1)"
+                  moduleName = "Biin"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Esteban/Development/biin_ios/Biin/Biin/models/request/loyalty/BNRequest_SendLoyaltyCardAddStar.swift"
+                  timestampString = "492729188.503958"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Biin/models/request/loyalty/BNRequest_SendLoyaltyCardAddStar.swift"
+            timestampString = "492729032.001328"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "run()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
