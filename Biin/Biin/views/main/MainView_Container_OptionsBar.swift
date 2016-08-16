@@ -72,17 +72,17 @@ class MainView_Container_OptionsBar: BNView {
         var xpos:CGFloat = 20
         let ypos:CGFloat = 12
         
-        showMenuBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: "Menu", iconType: BNIconType.menuMedium)
+        showMenuBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 31), text: "Menu", iconType: BNIconType.menuMedium)
         showMenuBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showMenuBtnActon(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showMenuBtn!)
 
         xpos += 75
-        showLoyaltiesBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: NSLocalizedString("Loyalties", comment: "Loyalties"), iconType: BNIconType.loyaltyWallet)
+        showLoyaltiesBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 31), text: NSLocalizedString("Loyalties", comment: "Loyalties"), iconType: BNIconType.loyaltyWallet)
         showLoyaltiesBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showLoyalties(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showLoyaltiesBtn!)
         
         xpos += 75
-        showGiftsBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: NSLocalizedString("Gifts", comment: "Gifts"), iconType: BNIconType.gift)
+        showGiftsBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 31), text: NSLocalizedString("Gifts", comment: "Gifts"), iconType: BNIconType.gift)
         showGiftsBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showGiftsBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showGiftsBtn!)
         
@@ -92,7 +92,7 @@ class MainView_Container_OptionsBar: BNView {
         showGiftsBtn_Badge!.userInteractionEnabled = false
         
         xpos += 75
-        showNotificationsBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 30), text: NSLocalizedString("Notifications", comment: "Notifications"), iconType: BNIconType.notification)
+        showNotificationsBtn = BNUIButton_OptionBar(frame: CGRectMake(xpos, ypos, 30, 31), text: NSLocalizedString("Notifications", comment: "Notifications"), iconType: BNIconType.notification)
         showNotificationsBtn!.addTarget(father, action:#selector((father as! MainView_Container_All).showNotificationBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(showNotificationsBtn!)
         

@@ -46,7 +46,7 @@ class BNUIButton_OptionBar:BNUIButton {
             icon = BNIcon_Notification(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(4, 5))
             break
         case .loyaltyWallet:
-            icon = BNIcon_LoyaltyWallet(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(4, 6))
+            icon = BNIcon_LoyaltyWallet(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(1, 3))
             break
         case .none:
             break

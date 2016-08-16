@@ -23,22 +23,30 @@ class BNIcon_LoyaltyWallet:BNIcon {
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         
+        
+        
+        //// Oval Drawing
+        let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 0, y: 3.4, width: 3.8, height: 3.8))
+        color!.setFill()
+        ovalPath.fill()
+        color!.setStroke()
+        ovalPath.lineWidth = 1
+        ovalPath.stroke()
+        
+        
+        //// Oval 2 Drawing
+        let oval2Path = UIBezierPath(ovalInRect: CGRect(x: 25.2, y: 3.4, width: 3.8, height: 3.8))
+        color!.setFill()
+        oval2Path.fill()
+        color!.setStroke()
+        oval2Path.lineWidth = 1
+        oval2Path.stroke()
+        
+        
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPoint(x: 0.24, y: 1.04))
-        bezierPath.addLineToPoint(CGPoint(x: 12.45, y: 4.29))
-        bezierPath.addCurveToPoint(CGPoint(x: 14.45, y: 6.88), controlPoint1: CGPoint(x: 13.55, y: 4.6), controlPoint2: CGPoint(x: 14.45, y: 5.74))
-        bezierPath.addLineToPoint(CGPoint(x: 14.45, y: 18.42))
-        bezierPath.addCurveToPoint(CGPoint(x: 12.45, y: 20.01), controlPoint1: CGPoint(x: 14.45, y: 19.56), controlPoint2: CGPoint(x: 13.55, y: 20.29))
-        bezierPath.addLineToPoint(CGPoint(x: 2, y: 17.49))
-        bezierPath.addCurveToPoint(CGPoint(x: 0, y: 14.93), controlPoint1: CGPoint(x: 0.9, y: 17.21), controlPoint2: CGPoint(x: 0, y: 16.07))
-        bezierPath.addLineToPoint(CGPoint(x: 0, y: 2.07))
-        bezierPath.addCurveToPoint(CGPoint(x: 2.07, y: 0), controlPoint1: CGPoint(x: 0, y: 0.93), controlPoint2: CGPoint(x: 0.93, y: 0))
-        bezierPath.addLineToPoint(CGPoint(x: 17.93, y: 0))
-        bezierPath.addCurveToPoint(CGPoint(x: 20, y: 2.07), controlPoint1: CGPoint(x: 19.07, y: 0), controlPoint2: CGPoint(x: 20, y: 0.93))
-        bezierPath.addLineToPoint(CGPoint(x: 20, y: 13.13))
-        bezierPath.addCurveToPoint(CGPoint(x: 17.93, y: 15.21), controlPoint1: CGPoint(x: 20, y: 14.27), controlPoint2: CGPoint(x: 19.07, y: 15.21))
-        bezierPath.addLineToPoint(CGPoint(x: 14.48, y: 15.21))
+        bezierPath.moveToPoint(CGPoint(x: 4.49, y: 23.5))
+        bezierPath.addLineToPoint(CGPoint(x: 24.5, y: 23.5))
         bezierPath.lineCapStyle = .Round;
         
         bezierPath.lineJoinStyle = .Round;
@@ -47,10 +55,18 @@ class BNIcon_LoyaltyWallet:BNIcon {
         bezierPath.lineWidth = 1
         bezierPath.stroke()
         
+        
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
-        bezier2Path.moveToPoint(CGPoint(x: 6.76, y: 2.77))
-        bezier2Path.addLineToPoint(CGPoint(x: 16.48, y: 2.77))
+        bezier2Path.moveToPoint(CGPoint(x: 4.5, y: 21.51))
+        bezier2Path.addLineToPoint(CGPoint(x: 2.03, y: 7.26))
+        bezier2Path.addCurveToPoint(CGPoint(x: 8.56, y: 13.67), controlPoint1: CGPoint(x: 2.03, y: 7.26), controlPoint2: CGPoint(x: 3.48, y: 13.67))
+        bezier2Path.addCurveToPoint(CGPoint(x: 14.5, y: 4.84), controlPoint1: CGPoint(x: 13.63, y: 13.67), controlPoint2: CGPoint(x: 14.5, y: 4.84))
+        bezier2Path.addCurveToPoint(CGPoint(x: 21.03, y: 13.67), controlPoint1: CGPoint(x: 14.5, y: 4.84), controlPoint2: CGPoint(x: 15.95, y: 13.67))
+        bezier2Path.addCurveToPoint(CGPoint(x: 26.97, y: 7.26), controlPoint1: CGPoint(x: 26.1, y: 13.67), controlPoint2: CGPoint(x: 26.97, y: 7.26))
+        bezier2Path.addLineToPoint(CGPoint(x: 24.51, y: 21.51))
+        bezier2Path.addLineToPoint(CGPoint(x: 4.5, y: 21.51))
+        bezier2Path.closePath()
         bezier2Path.lineCapStyle = .Round;
         
         bezier2Path.lineJoinStyle = .Round;
@@ -59,24 +75,16 @@ class BNIcon_LoyaltyWallet:BNIcon {
         bezier2Path.lineWidth = 1
         bezier2Path.stroke()
         
-        //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 9.9, y: 10, width: 3, height: 3))
+        
+        //// Oval 3 Drawing
+        let oval3Path = UIBezierPath(ovalInRect: CGRect(x: 12.3, y: 0, width: 4.4, height: 4.4))
+        color!.setFill()
+        oval3Path.fill()
         color!.setStroke()
-        ovalPath.lineWidth = 1
-        ovalPath.stroke()
+        oval3Path.lineWidth = 1
+        oval3Path.stroke()
         
         
-        //// Bezier 3 Drawing
-        let bezier3Path = UIBezierPath()
-        bezier3Path.moveToPoint(CGPoint(x: 14.45, y: 7.6))
-        bezier3Path.addLineToPoint(CGPoint(x: 16.48, y: 7.6))
-        bezier3Path.lineCapStyle = .Round;
-        
-        bezier3Path.lineJoinStyle = .Round;
-        
-        color!.setStroke()
-        bezier3Path.lineWidth = 1
-        bezier3Path.stroke()
         
         CGContextRestoreGState(context)
     }
