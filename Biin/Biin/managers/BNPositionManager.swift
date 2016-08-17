@@ -870,10 +870,10 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
         //Get all beacon from regions
         for (_, value): (AnyObject, AnyObject) in self.rangedRegions {
             self.myBeacons += value as! Array<CLBeacon>
-            //print(" \(value)")
+            print(" \(value)")
         }
         
-        //print("\(self.myBeacons.count)")
+        print("\(self.myBeacons.count)")
         
         self.myBeacons = self.myBeacons.sort{ $0.rssi > $1.rssi  }
         
@@ -1001,35 +1001,35 @@ class BNPositionManager:NSObject, CLLocationManagerDelegate, BNDataManagerDelega
 
                 if site.major == beacon.major.integerValue {
                     
-                    for biin in site.biins {
-                        //if biin.minor == beacon.minor.integerValue {
-
-                            switch biin.biinType {
-                            case .EXTERNO:
-                                site.isUserInside = false
-                                break
-                            case .INTERNO:
-                                site.isUserInside = true
-                                break
-                            case .PRODUCT:
-                                site.isUserInside = true
-                                break
-                            default:
-                                break
-                            }
-                            
-                            if site.isUserInside {
+//                    for biin in site.biins {
+//                        //if biin.minor == beacon.minor.integerValue {
+//
+//                            switch biin.biinType {
+//                            case .EXTERNO:
+//                                site.isUserInside = false
+//                                break
+//                            case .INTERNO:
+//                                site.isUserInside = true
+//                                break
+//                            case .PRODUCT:
+//                                site.isUserInside = true
+//                                break
+//                            default:
+//                                break
+//                            }
+                    
+                            if !site.isUserInside {
                                 //print("User is inside: \(site.title!)")
                                 currentSite = site
                                 self.delegateView!.showInSiteView!(currentSite)
-                                BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to:biin.identifier!, by:site.identifier!)
+                                BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN, to:"\(beacon.major.integerValue)", by:site.identifier!)
                                 
                             } else {
                                 //print("User is outside or entering: \(site.title!)")
                             }
                             
                         //}
-                    }
+                    //}
                     
                     return
                 }

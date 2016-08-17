@@ -244,9 +244,7 @@ class LoyaltyCardView: BNView {
         scroll!.removeFromSuperview()
     }
     
-    func show() {
-        
-    }
+    func show() { }
     
     func requestImage(){
         
@@ -369,7 +367,6 @@ class LoyaltyCardView: BNView {
                 readQRCodeBtn!.enabled = true
                 readQRCodeBtn!.icon!.color = decorationColor
                 readQRCodeBtn!.setTitleColor(decorationColor, forState: UIControlState.Normal)
-
             } else {
                 readQRCodeBtn!.enabled = false
                 readQRCodeBtn!.setTitleColor(UIColor.bnGrayLight(), forState: UIControlState.Normal)
@@ -384,7 +381,6 @@ class LoyaltyCardView: BNView {
         scroll!.setContentOffset(CGPointZero, animated: false)
         scroll!.pagingEnabled = false
     }
-    
     
     func addStar() {
         (model as! BNLoyalty).addStar()
