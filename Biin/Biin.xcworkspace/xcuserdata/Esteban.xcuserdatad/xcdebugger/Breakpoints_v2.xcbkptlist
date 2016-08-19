@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Biin/managers/BNNotificationManager.swift"
-            timestampString = "492383146.417156"
+            timestampString = "493327488.224199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "813"
-            endingLineNumber = "813"
+            startingLineNumber = "840"
+            endingLineNumber = "840"
             landmarkName = "is_site_surveyed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -224,22 +224,6 @@
             startingLineNumber = "49"
             endingLineNumber = "49"
             landmarkName = "run()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Biin/managers/BNPositionManager.swift"
-            timestampString = "493062649.832285"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "929"
-            endingLineNumber = "929"
-            landmarkName = "locationManager(_:didRangeBeacons:inRegion:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

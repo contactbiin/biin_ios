@@ -10,6 +10,8 @@ import  UIKit
 
 class BNUIImageView:UIImageView {
     
+    
+    var useCache = true
 //    var loadingIndicator:UIActivityIndicatorView?
     var loadingIndicator:BNActivityIndicator?
 //    override init() {

@@ -130,7 +130,36 @@ class BNNotificationManager:NSObject, NSCoding {
     
     
     
-    //NOTCES
+    //NOTICES
+    
+    func addNotice(notice:BNNotice) {
+        var isNoticeStored = false
+        
+        
+        for localNotice in localNotices {
+            if localNotice.identifier! == notice.identifier! {
+                
+                localNotice.siteIdentifier = notice.siteIdentifier!
+                isNoticeStored = true
+                
+                if localNotice.fireDate == nil {
+                    localNotice.fireDate = NSDate(timeIntervalSince1970: 0)
+                }
+            }
+        }
+        
+        if !isNoticeStored {
+            if notice.fireDate == nil {
+                notice.fireDate = NSDate(timeIntervalSince1970: 0)
+            }
+            
+            localNotices.append(notice)
+        }
+    
+        save()
+
+    }
+    
     func addNotices(notices:Array<BNNotice>){
 
         var isNoticeStored = false
@@ -195,14 +224,14 @@ class BNNotificationManager:NSObject, NSCoding {
     
     func showNotice(major:Int) {
         
-        var site:BNSite?
+//        var site:BNSite?
         
-        if (BNAppSharedManager.instance.dataManager.findSiteByMajor(major) != nil) {
-            site = BNAppSharedManager.instance.dataManager.findSiteByMajor(major)
-        }
+//        if (BNAppSharedManager.instance.dataManager.findSiteByMajor(major) != nil) {
+//            site = BNAppSharedManager.instance.dataManager.findSiteByMajor(major)
+//        }
         
-        if site == nil {
-            
+//        if site != nil {
+        
             var identifier = ""
             
             for notice in localNotices {
@@ -212,14 +241,12 @@ class BNNotificationManager:NSObject, NSCoding {
                 }
             }
             
-            site = BNSite(identifier: identifier)
-        }
+//            site = BNSite(identifier: identifier)
         
-        BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site , time: NSDate())
-        
-        
-        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:site!.identifier!, by:site!.identifier!)
-        
+            BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, siteIdentifier: identifier , time: NSDate())
+            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_BIIN_REGION, to:identifier, by:identifier)
+            
+//        }
     }
     
     func assingCurrentNoticeByDate(siteNotices:Array<BNNotice>){

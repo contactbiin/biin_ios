@@ -261,6 +261,7 @@ class EPSNetworking:NSObject {
     
     func getImage(urlString:NSString, image:BNUIImageView, callback:(NSError?) -> Void) {
  
+        
         if let cacheImage = findImageInBiinChacheLocalFolder(urlString as String, image:image) {
 
             image.image = cacheImage
@@ -270,70 +271,38 @@ class EPSNetworking:NSObject {
             callback(nil)
         } else {
         
-        // Jump in to a background thread to get the image for this item
-//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            
+            ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
+            
+            let url: NSURL = NSURL(string: urlString as String)!
+            
+            // Download an NSData representation of the image at the URL
+            let request: NSURLRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 25)
 
-            
-                ShareEPSNetworking.requestingImages.append(RequetingImage(image: image, imageUrl: urlString as String))
-                
-                let url: NSURL = NSURL(string: urlString as String)!
-                
-                // Download an NSData representation of the image at the URL
-                let request: NSURLRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 25)
+        
+        
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+            let session = NSURLSession.sharedSession()
+            let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
 
-            
-            
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            
-                let session = NSURLSession.sharedSession()
-                let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
 
-                    dispatch_async(dispatch_get_main_queue(), {
-
-                        
-                        
-                        if (error != nil) {
-                            
-                            callback(error)
-                        } else {
-                            //Send image to be store in image dictionary
-                            
-                            let imageDownload = UIImage(data: data!)!
-                            
-                            ShareEPSNetworking.cacheImages[urlString as String] = self.optimizeImageForRender(imageDownload.CGImage!)
-                            
-                            
-                            self.sentImages(urlString as String)
-                            
-                            
-                            self.saveImageInBiinChacheLocalFolder(urlString as String, image:imageDownload)
-                            
-                            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                            
-                            
-                            callback(nil)
-                        }
-                    })
-                }
-            
-                dataTask.resume()
-            
-                /*
-                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                        
+                    
+                    
                     if (error != nil) {
-
+                        
                         callback(error)
                     } else {
                         //Send image to be store in image dictionary
-
+                        
                         let imageDownload = UIImage(data: data!)!
                         
                         ShareEPSNetworking.cacheImages[urlString as String] = self.optimizeImageForRender(imageDownload.CGImage!)
-
+                        
                         
                         self.sentImages(urlString as String)
-
+                        
                         
                         self.saveImageInBiinChacheLocalFolder(urlString as String, image:imageDownload)
                         
@@ -343,10 +312,9 @@ class EPSNetworking:NSObject {
                         callback(nil)
                     }
                 })
-*/
-//            }
-
-//        })
+            }
+        
+            dataTask.resume()
         }
 
     }
@@ -387,7 +355,11 @@ class EPSNetworking:NSObject {
     }
     
     func findImageInBiinChacheLocalFolder(urlString:String, image:BNUIImageView) -> UIImage? {
-        //NEW
+        
+        if !image.useCache {
+            return nil
+        }
+        
         // path to documents directory
         let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first
 
@@ -398,17 +370,10 @@ class EPSNetworking:NSObject {
         //let imageData = UIImagePNGRepresentation(selectedImage)
         //let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, .UserDomainMask, true).first as! String
         
-        
-        
-        
-        
         let index2 = urlString.rangeOfString("/", options: .BackwardsSearch)?.endIndex
         let substring2 = urlString.substringFromIndex(index2!)
         
         let imagePath = biinCacheImagesFolder.stringByAppendingPathComponent(substring2)
-        
-
-        
         
         if NSFileManager.defaultManager().fileExistsAtPath(imagePath) == false {
             

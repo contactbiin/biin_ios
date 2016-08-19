@@ -454,6 +454,7 @@ class BNParser {
                 if !BNAppSharedManager.instance.dataManager.isSiteStored(identifier!) {
                     
                     
+                    
                     let site = BNSite()
                     site.identifier = identifier//BNParser.findString("identifier", dictionary: siteData)
                     site.organizationIdentifier = BNParser.findString("organizationIdentifier", dictionary: siteData)
@@ -479,7 +480,11 @@ class BNParser {
                     site.siteSchedule = BNParser.findString("siteSchedule", dictionary: siteData)
                     
                     
-                    
+                    let notice = BNNotice()
+                    notice.identifier = site.identifier!
+                    notice.siteIdentifier = site.identifier!
+                    notice.major = site.major!
+                    BNAppSharedManager.instance.notificationManager.addNotice(notice)
                     //print("site:\(site.identifier!), name:\(site.title!), location:\(site.city!), major:\(site.major!)")
                     
                     
@@ -737,14 +742,19 @@ class BNParser {
         }
     }
     
-    class func parseFriends(friendData:NSDictionary) -> NSArray {
+    class func parseFriends(friendsData:NSDictionary) -> NSArray {
         
         var friendsList = Array<Biinie>()
-        if let friends = BNParser.findNSArray("facebookFriends", dictionary: friendData) {
+        if let friends = BNParser.findNSArray("facebookFriends", dictionary: friendsData) {
             for fr in (0..<friends.count) {
-                let biinie = Biinie()
-                biinie.facebook_id = friends[fr] as? String
-                friendsList.append(biinie)
+                
+                if let friendData = friends[fr] as? NSDictionary {
+                    let biinie = Biinie()
+                    biinie.facebook_id = BNParser.findString("facebookId", dictionary: friendData)
+                    biinie.biinName = BNParser.findString("name", dictionary: friendData)
+                    biinie.facebookAvatarUrl = findString("url", dictionary: friendData)
+                    friendsList.append(biinie)
+                }
             }
         }
         

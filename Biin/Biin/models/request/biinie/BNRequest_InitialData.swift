@@ -84,9 +84,9 @@ class BNRequest_InitialData: BNRequest {
                             BNParser.parseFavorites(favoritesData)
                         }
                         
-                        if let noticesData = BNParser.findNSArray("notices", dictionary: initialData) {
-                            BNParser.parseNotices(noticesData)
-                        }
+//                        if let noticesData = BNParser.findNSArray("notices", dictionary: initialData) {
+//                            BNParser.parseNotices(noticesData)
+//                        }
                     }
                 
                     //new request management

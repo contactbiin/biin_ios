@@ -181,6 +181,11 @@ class UIManager {
     var loyaltyCardView_Completed_Text1Size:CGFloat = 22
     var loyaltyCardView_Completed_Text2Size:CGFloat = 16
     var loyaltyCardView_Completed_GiftPosition:CGPoint = CGPoint(x: 5, y: 5)
+    
+    var friendView_height:CGFloat = 80
+    var friendView_imageSize:CGFloat = 70
+    
+    
     func setDeviceVariables(){
         
         switch screenWidth {

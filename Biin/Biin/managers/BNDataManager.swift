@@ -932,13 +932,6 @@ class BNDataManager:NSObject, BNNetworkManagerDelegate, BNPositionManagerDelegat
         BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.ENTER_ELEMENT_VIEW, to:element!.identifier!, by:element!.showcase!.site!.identifier!)
         
         elements[element!.identifier!]?.userViewed = element!.userViewed
-        /*
-        for (identifier, clone) in elements_by_id {
-            if element!.identifier! == identifier {
-                clone.userViewed = element!.userViewed
-            }
-        }
-         */
     }
     
     func requestElementsForShowcase(showcase: BNShowcase?, view: BNView?) {

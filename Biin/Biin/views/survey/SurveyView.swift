@@ -44,7 +44,7 @@ class SurveyView: BNView, UITextViewDelegate {
         
         super.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.appBackground()
         
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
@@ -55,33 +55,28 @@ class SurveyView: BNView, UITextViewDelegate {
             siteAvatarSize = 80
         }
         
-        
-        var ypos:CGFloat = 10
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
         let titleText = NSLocalizedString("SurveyTitle", comment: "SurveyTitle").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.font = UIFont(name:"Lato-Regular", size:13)
-        title!.textColor = UIColor.blackColor()
+        title!.textColor = UIColor.whiteColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-//        backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
-//        backBtn!.layer.cornerRadius  = 17.5
-//        backBtn!.layer.borderWidth = 1
-        self.layer.masksToBounds = true
+        backBtn!.icon!.color = UIColor.whiteColor()
         self.addSubview(backBtn!)
         
-        let line = UIView(frame: CGRectMake(0, 35, screenWidth, 1))
+        
+        ypos = SharedUIManager.instance.mainView_HeaderSize
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 1))
         line.backgroundColor = UIColor.lightGrayColor()
         self.addSubview(line)
         
-        ypos = 75
 //        brandNameLbl = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 20), 40))
 //        self.addSubview(brandNameLbl!)
         
@@ -94,18 +89,21 @@ class SurveyView: BNView, UITextViewDelegate {
         
         
         siteAvatar = BNUIImageView(frame: CGRectMake(((screenWidth - siteAvatarSize) / 2), ypos, siteAvatarSize, siteAvatarSize), color:UIColor.whiteColor())
+        siteAvatar!.layer.cornerRadius = 3
+        siteAvatar!.layer.masksToBounds = true
         self.addSubview(siteAvatar!)
 
         ypos += (siteAvatarSize + 5)
         organizationName = UILabel(frame: CGRectMake(0, ypos, screenWidth, 30))
         organizationName!.text = "Org name here"
         organizationName!.font = UIFont(name:"Lato-Regular", size:28)
-        organizationName!.textColor = UIColor.blackColor()
+        organizationName!.textColor = UIColor.whiteColor()
         organizationName!.textAlignment = NSTextAlignment.Center
         self.addSubview(organizationName!)
         
         ypos += (organizationName!.frame.height + 10)
         surveyQuestionLbl = UILabel(frame: CGRectMake(30, ypos, (screenWidth - 60), 28))
+        surveyQuestionLbl!.textColor = UIColor.whiteColor()
         self.addSubview(surveyQuestionLbl!)
         
 //        surveyQuestionLbl!.sizeToFit()
@@ -119,6 +117,7 @@ class SurveyView: BNView, UITextViewDelegate {
 //        self.addSubview(surveyAnswerLbl!)
         
         textFieldView = UIView(frame: CGRectMake(5, 0, (screenWidth - 10), 90))
+        textFieldView!.backgroundColor = UIColor.appBackground()
         textFieldView!.layer.borderWidth = 1
         textFieldView!.layer.borderColor = UIColor.bnGray().CGColor
         self.addSubview(textFieldView!)
@@ -126,7 +125,8 @@ class SurveyView: BNView, UITextViewDelegate {
         commentTxt = UITextView(frame: CGRectMake(10, 10, (screenWidth - 30), 70))
         commentTxt!.font = UIFont(name: "Lato-Light", size:15)
         commentTxt!.text = NSLocalizedString("Optional", comment: "Optional")
-        commentTxt!.textColor = UIColor.lightGrayColor()
+        commentTxt!.textColor = UIColor.whiteColor()
+        commentTxt!.backgroundColor = UIColor.appBackground()
         commentTxt!.keyboardAppearance = UIKeyboardAppearance.Light
         commentTxt!.returnKeyType = UIReturnKeyType.Done
         commentTxt!.delegate = self
@@ -177,7 +177,7 @@ class SurveyView: BNView, UITextViewDelegate {
             button.layer.borderColor = color.CGColor
             button.layer.borderWidth = 1.5
             button.layer.cornerRadius = buttonWidth / 2
-            button.backgroundColor = UIColor.darkGrayColor()
+            button.backgroundColor = UIColor.appBackground()
             button.addTarget(self, action: #selector(self.surveyAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             buttons.append(button)
             self.addSubview(button)
@@ -188,14 +188,14 @@ class SurveyView: BNView, UITextViewDelegate {
         not_likely = UILabel(frame: CGRectMake(10, 0, screenWidth, 20))
         not_likely!.text = NSLocalizedString("not_likely", comment: "not_likely")
         not_likely!.font = UIFont(name:"Lato-Regular", size:13)
-        not_likely!.textColor = UIColor.blackColor()
+        not_likely!.textColor = UIColor.whiteColor()
         not_likely!.textAlignment = NSTextAlignment.Left
         self.addSubview(not_likely!)
 
         likely = UILabel(frame: CGRectMake(0, 0, (screenWidth - 10), 20))
         likely!.text = NSLocalizedString("likely", comment: "likely")
         likely!.font = UIFont(name:"Lato-Regular", size:13)
-        likely!.textColor = UIColor.blackColor()
+        likely!.textColor = UIColor.whiteColor()
         likely!.textAlignment = NSTextAlignment.Right
         self.addSubview(likely!)
         
@@ -240,11 +240,11 @@ class SurveyView: BNView, UITextViewDelegate {
         self.rating = Int(sender.titleForState(UIControlState.Normal)!)!
         let color = getButtonColor(CGFloat(self.rating))
         sender.backgroundColor = color
-        sender.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        sender.setTitleColor(UIColor.appBackground(), forState: UIControlState.Normal)
         continueBtn!.enabled = true
         
         if previousButton != nil {
-            previousButton!.backgroundColor = UIColor.darkGrayColor()
+            previousButton!.backgroundColor = UIColor.appBackground()
             previousButton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             previousButton = sender
         } else {
@@ -323,6 +323,7 @@ class SurveyView: BNView, UITextViewDelegate {
                 BNAppSharedManager.instance.networkManager.requestImageData(site!.organization!.media[0].url!, image: siteAvatar)
                 siteAvatar!.cover!.backgroundColor = site!.organization!.media[0].vibrantColor!
                 
+                
             } else {
                 siteAvatar!.image =  UIImage(contentsOfFile: "noImage.jpg")
                 siteAvatar!.showAfterDownload()
@@ -341,7 +342,7 @@ class SurveyView: BNView, UITextViewDelegate {
         }
         
         commentTxt!.text = NSLocalizedString("Optional", comment: "Optional")
-        commentTxt!.textColor = UIColor.lightGrayColor()
+        commentTxt!.textColor = UIColor.whiteColor()
 //        commentTxt!.becomeFirstResponder()
         
         self.site = site
@@ -386,7 +387,7 @@ class SurveyView: BNView, UITextViewDelegate {
             buttons[i].alpha = 1
             previousButton = nil
             buttons[i].frame.origin.y = surveyQuestionLbl!.frame.origin.y + surveyQuestionLbl!.frame.height + 20
-            buttons[i].backgroundColor = UIColor.darkGrayColor()
+            buttons[i].backgroundColor = UIColor.appBackground()
             buttons[i].setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         }
         

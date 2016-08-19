@@ -95,7 +95,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         testButton!.backgroundColor = UIColor.bnOrange()
         testButton!.setTitle("test", forState: UIControlState.Normal)
         testButton!.addTarget(self, action: #selector(self.testButtonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        //self.addSubview(testButton!)
+        self.addSubview(testButton!)
     }
     
     var isShowingInsiteView = false
@@ -104,7 +104,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         
         let site = BNAppSharedManager.instance.dataManager.sites["bb26d8e1-0ff4-40a3-b468-0903e6629c0e"]
         
-        BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
+        BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, siteIdentifier:site?.identifier!, time: NSDate())
         
         
 //        BNAppSharedManager.instance.notificationManager.clear()
@@ -366,7 +366,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             site_to_survey = site
             (mainViewContainerState!.view as! MainView_Container_All).showInSiteView(site)
             
-            BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, site: site, time: NSDate())
+            BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, siteIdentifier: site!.identifier!, time: NSDate())
             
             if let organization = BNAppSharedManager.instance.dataManager.organizations[site!.organizationIdentifier!] {
                 organization.isUserInSite = true
@@ -385,7 +385,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
             
             (mainViewContainerState!.view as! MainView_Container_All).hideInSiteView()
             
-            BNAppSharedManager.instance.networkManager.sendBiinieOnExitSite(BNAppSharedManager.instance.dataManager.biinie, site: site_to_survey, time: NSDate())
+            BNAppSharedManager.instance.networkManager.sendBiinieOnExitSite(BNAppSharedManager.instance.dataManager.biinie, siteIdentifier: site_to_survey!.identifier!, time: NSDate())
             
             if let organization = BNAppSharedManager.instance.dataManager.organizations[site_to_survey!.organizationIdentifier!] {
                 organization.isUserInSite = false
@@ -443,7 +443,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
                     if let element = BNAppSharedManager.instance.dataManager.elements[notice.elementIdentifier!] {
 
                         isShowingElement = true
-                        (elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
+                        //(elementState!.view as! ElementView).updateElementData(element, showSiteBtn: true)
                         setNextState(BNGoto.Element)
                         BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did:BiinieActionType.NOTIFICATION_OPENED , to:notice.identifier!, by:notice.siteIdentifier!)
                         

@@ -285,13 +285,13 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
         addToQueue(request)
     }
     
-    func sendBiinieOnEnterSite(biinie:Biinie?, site:BNSite?, time:NSDate?) {
-        let request = BNRequest_SendBiinieOnEnterSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/onexitsite/\(site!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, time: time)
+    func sendBiinieOnEnterSite(biinie:Biinie?, siteIdentifier:String?, time:NSDate?) {
+        let request = BNRequest_SendBiinieOnEnterSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/onentersite/\(siteIdentifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, time: time)
         addToQueue(request)
     }
     
-    func sendBiinieOnExitSite(biinie:Biinie?, site:BNSite?, time:NSDate?) {
-        let request = BNRequest_SendBiinieOnExitSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/onexitsite/\(site!.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, time: time)
+    func sendBiinieOnExitSite(biinie:Biinie?, siteIdentifier:String?, time:NSDate?) {
+        let request = BNRequest_SendBiinieOnExitSite(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/onexitsite/\(siteIdentifier!)", errorManager: self.errorManager, networkManager: self, biinie: biinie, time: time)
         addToQueue(request)
     }
     
@@ -412,7 +412,9 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
             let request = BNRequest_Image(requestString: stringUrl, errorManager: self.errorManager!, networkManager: self, image:image)
             addToQueue(request)
         } else {
+            
             epsNetwork!.getImageInCache(stringUrl, image: image)
+            
         }
     }
     

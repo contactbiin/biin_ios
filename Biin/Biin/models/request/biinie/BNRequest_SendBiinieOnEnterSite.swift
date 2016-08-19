@@ -34,7 +34,6 @@ class BNRequest_SendBiinieOnEnterSite:BNRequest {
         var model = Dictionary<String, Dictionary <String, AnyObject>>()
         var modelContent = Dictionary<String, AnyObject>()
         modelContent["timeClient"] = self.time!.bnDateFormattForNotification()
-        
         model["model"] = modelContent
         
         var htttpBody:NSData?

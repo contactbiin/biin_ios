@@ -68,7 +68,7 @@ class FriendsView: BNView, FriendView_Delegate{
         if let biinie = BNAppSharedManager.instance.dataManager.biinie {
             for value in biinie.friends {
                 
-                let friendViev = FriendView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height), father: self, biinie: value)
+                let friendViev = FriendView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.friendView_height), father: self, biinie: value)
 //                let loyaltyView = LoyaltyView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.loyaltyWalletView_height) , father: self, loyalty:value)
                 friendViev.delegate = self
                 //loyaltyView.delegate = self
