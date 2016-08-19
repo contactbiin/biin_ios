@@ -16,7 +16,7 @@ class BNUIButton_SiteLocation:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_SiteLocationButton(color: UIColor.grayColor(), position: CGPointMake(11, 8))
+        icon = BNIcon_SiteLocationButton(color: UIColor.whiteColor(), position: CGPointMake(11, 8))
     }
     
 }

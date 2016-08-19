@@ -260,10 +260,7 @@ class EPSNetworking:NSObject {
     }
     
     func getImage(urlString:NSString, image:BNUIImageView, callback:(NSError?) -> Void) {
-
-
-        
-
+ 
         if let cacheImage = findImageInBiinChacheLocalFolder(urlString as String, image:image) {
 
             image.image = cacheImage
@@ -271,7 +268,7 @@ class EPSNetworking:NSObject {
 
             self.sentImages(urlString as String)
             callback(nil)
-        }else {
+        } else {
         
         // Jump in to a background thread to get the image for this item
 //        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {

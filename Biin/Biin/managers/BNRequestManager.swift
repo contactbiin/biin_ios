@@ -87,6 +87,8 @@ class BNRequestManager: NSObject {
         case .SendClaimedGift_Failed:
             break
         case .SendRefusedGift_Failed:
+            request.clean()
+            removeRequestFromQueue(request.identifier)
             break
         case .DoNotShowError:
             request.clean()

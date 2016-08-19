@@ -16,7 +16,7 @@ class BNUIButton_SitePhone:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_SitePhoneButton(color: UIColor.grayColor(), position: CGPointMake(10, 8))
+        icon = BNIcon_SitePhoneButton(color: UIColor.whiteColor(), position: CGPointMake(10, 8))
     }
     
 }

@@ -64,6 +64,7 @@ Home = "Inicio";
 Collections = "Mis Favoritos";
 LoyaltyWallet = "Mis Tarjetas";
 Notifications = "Notificaciones";
+NothingToShow = "Nada que mostrar en este momento!";
 InviteFriends = "Invitar Amigos";
 Settings = "Ajustes";
 Search = "Buscar";

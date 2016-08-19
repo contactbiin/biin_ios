@@ -18,7 +18,7 @@ class BNUIButton_LikeIt:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
+        icon = BNIcon_LikeIt_Big_Empty(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
     }
     
     convenience init(frame: CGRect, isBig:Bool) {
@@ -26,7 +26,7 @@ class BNUIButton_LikeIt:BNUIButton {
         self.isBig = isBig
         
         if isBig {
-            icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
+            icon = BNIcon_LikeIt_Big_Empty(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
         } 
     }
     
@@ -34,7 +34,11 @@ class BNUIButton_LikeIt:BNUIButton {
         let color = icon!.color
         icon = nil
         if isBig {
-            icon = BNIcon_LikeIt_Big(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
+            if value {
+                icon = BNIcon_LikeIt_Big_Full(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
+            } else {
+                icon = BNIcon_LikeIt_Big_Empty(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
+            }
         } else {
             if value {
                 icon = BNIcon_LikeIt_Full(color: color!, position: CGPointMake(4, 5))

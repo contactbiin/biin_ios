@@ -183,7 +183,7 @@
 		5B569C531D5CE26500602D54 /* BNIcon_JoinGameIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B8A1D5CE26400602D54 /* BNIcon_JoinGameIcon.swift */; };
 		5B569C541D5CE26500602D54 /* BNIcon_LeftArrowMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B8B1D5CE26400602D54 /* BNIcon_LeftArrowMedium.swift */; };
 		5B569C551D5CE26500602D54 /* BNIcon_LeftArrowSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B8C1D5CE26400602D54 /* BNIcon_LeftArrowSmall.swift */; };
-		5B569C561D5CE26500602D54 /* BNIcon_LikeIt_Big.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B8D1D5CE26400602D54 /* BNIcon_LikeIt_Big.swift */; };
+		5B569C561D5CE26500602D54 /* BNIcon_LikeIt_Big_Full.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B8D1D5CE26400602D54 /* BNIcon_LikeIt_Big_Full.swift */; };
 		5B569C571D5CE26500602D54 /* BNIcon_LikeIt_Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B8E1D5CE26400602D54 /* BNIcon_LikeIt_Empty.swift */; };
 		5B569C581D5CE26500602D54 /* BNIcon_LikeIt_Full.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B8F1D5CE26400602D54 /* BNIcon_LikeIt_Full.swift */; };
 		5B569C591D5CE26500602D54 /* BNIcon_LoyaltyWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B569B901D5CE26400602D54 /* BNIcon_LoyaltyWallet.swift */; };
@@ -217,6 +217,7 @@
 		5BD473831D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD473821D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift */; };
 		5BD473851D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD473841D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift */; };
 		5BD8A5461D2C2D0300EAB15A /* BNGift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD8A5451D2C2D0300EAB15A /* BNGift.swift */; };
+		5BDF48B41D66287A006D4523 /* BNIcon_LikeIt_Big_Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF48B31D66287A006D4523 /* BNIcon_LikeIt_Big_Empty.swift */; };
 		5BEC1E731D287DCA00D7B931 /* AnswersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CEC1D287DCA00D7B931 /* AnswersManager.swift */; };
 		5BEC1E741D287DCA00D7B931 /* BNAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CED1D287DCA00D7B931 /* BNAppManager.swift */; };
 		5BEC1E751D287DCA00D7B931 /* BNDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1CEE1D287DCA00D7B931 /* BNDataManager.swift */; };
@@ -505,7 +506,7 @@
 		5B569B8A1D5CE26400602D54 /* BNIcon_JoinGameIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_JoinGameIcon.swift; sourceTree = "<group>"; };
 		5B569B8B1D5CE26400602D54 /* BNIcon_LeftArrowMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LeftArrowMedium.swift; sourceTree = "<group>"; };
 		5B569B8C1D5CE26400602D54 /* BNIcon_LeftArrowSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LeftArrowSmall.swift; sourceTree = "<group>"; };
-		5B569B8D1D5CE26400602D54 /* BNIcon_LikeIt_Big.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LikeIt_Big.swift; sourceTree = "<group>"; };
+		5B569B8D1D5CE26400602D54 /* BNIcon_LikeIt_Big_Full.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LikeIt_Big_Full.swift; sourceTree = "<group>"; };
 		5B569B8E1D5CE26400602D54 /* BNIcon_LikeIt_Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LikeIt_Empty.swift; sourceTree = "<group>"; };
 		5B569B8F1D5CE26400602D54 /* BNIcon_LikeIt_Full.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LikeIt_Full.swift; sourceTree = "<group>"; };
 		5B569B901D5CE26400602D54 /* BNIcon_LoyaltyWallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LoyaltyWallet.swift; sourceTree = "<group>"; };
@@ -540,6 +541,7 @@
 		5BD473821D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinieOnEnterSite.swift; sourceTree = "<group>"; };
 		5BD473841D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinieOnExitSite.swift; sourceTree = "<group>"; };
 		5BD8A5451D2C2D0300EAB15A /* BNGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNGift.swift; sourceTree = "<group>"; };
+		5BDF48B31D66287A006D4523 /* BNIcon_LikeIt_Big_Empty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNIcon_LikeIt_Big_Empty.swift; sourceTree = "<group>"; };
 		5BEC1CEC1D287DCA00D7B931 /* AnswersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersManager.swift; sourceTree = "<group>"; };
 		5BEC1CED1D287DCA00D7B931 /* BNAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNAppManager.swift; sourceTree = "<group>"; };
 		5BEC1CEE1D287DCA00D7B931 /* BNDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNDataManager.swift; sourceTree = "<group>"; };
@@ -1131,7 +1133,8 @@
 				5B569B8A1D5CE26400602D54 /* BNIcon_JoinGameIcon.swift */,
 				5B569B8B1D5CE26400602D54 /* BNIcon_LeftArrowMedium.swift */,
 				5B569B8C1D5CE26400602D54 /* BNIcon_LeftArrowSmall.swift */,
-				5B569B8D1D5CE26400602D54 /* BNIcon_LikeIt_Big.swift */,
+				5B569B8D1D5CE26400602D54 /* BNIcon_LikeIt_Big_Full.swift */,
+				5BDF48B31D66287A006D4523 /* BNIcon_LikeIt_Big_Empty.swift */,
 				5B569B8E1D5CE26400602D54 /* BNIcon_LikeIt_Empty.swift */,
 				5B569B8F1D5CE26400602D54 /* BNIcon_LikeIt_Full.swift */,
 				5B569B901D5CE26400602D54 /* BNIcon_LoyaltyWallet.swift */,
@@ -1573,6 +1576,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B569C3F1D5CE26500602D54 /* BNIcon.swift in Sources */,
+				5BDF48B41D66287A006D4523 /* BNIcon_LikeIt_Big_Empty.swift in Sources */,
 				5BEC1E9E1D287DCA00D7B931 /* BNSection.swift in Sources */,
 				5BEC1E781D287DCA00D7B931 /* BNNotificationManager.swift in Sources */,
 				5BEC1E941D287DCA00D7B931 /* BNError.swift in Sources */,
@@ -1759,7 +1763,7 @@
 				5B569BCD1D5CE26500602D54 /* LoyaltyCardView_Completed.swift in Sources */,
 				5B569BFF1D5CE26500602D54 /* LoyaltiesState.swift in Sources */,
 				5B569BF21D5CE26500602D54 /* AlertState.swift in Sources */,
-				5B569C561D5CE26500602D54 /* BNIcon_LikeIt_Big.swift in Sources */,
+				5B569C561D5CE26500602D54 /* BNIcon_LikeIt_Big_Full.swift in Sources */,
 				5BEC1EA21D287DCA00D7B931 /* BNSticker.swift in Sources */,
 				5B569C021D5CE26500602D54 /* MainViewContainerState.swift in Sources */,
 				5B569BDB1D5CE26500602D54 /* ProfileView.swift in Sources */,

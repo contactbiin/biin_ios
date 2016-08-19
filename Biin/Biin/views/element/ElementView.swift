@@ -100,7 +100,7 @@ class ElementView: BNView, UIWebViewDelegate {
 //        
 //        addFade()
         
-        animationView = BiinItAnimationView(frame:CGRectMake(0, 35, screenWidth, 0))
+        animationView = BiinItAnimationView(frame:CGRectMake(0, SharedUIManager.instance.mainView_HeaderSize, screenWidth, 0))
         self.addSubview(animationView!)
 
         self.textPrice1 = UILabel(frame: CGRectMake(0, 0, 0, 0))
@@ -142,17 +142,17 @@ class ElementView: BNView, UIWebViewDelegate {
         butonContainer = UIView(frame: CGRectMake(0, screenWidth, screenWidth, 30))
         scroll!.addSubview(butonContainer!)
         
-        var buttonSpace:CGFloat = 45
-        let ypos:CGFloat = 5//screenWidth + 2
+        var buttonSpace:CGFloat = 65
+        let ypos:CGFloat = 25//screenWidth + 2
         
         //Like button
         //buttonSpace += 35
-        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25), isBig: true)
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 40, 40), isBig: true)
         likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
 
-        buttonSpace += 35
-        shareItButton = BNUIButton_ShareIt(frame: CGRectMake(buttonSpace,  ypos, 25, 25))
+        buttonSpace += 65
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake(buttonSpace,  ypos, 40, 40))
         shareItButton!.addTarget(self, action: #selector(self.shareit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
@@ -160,7 +160,7 @@ class ElementView: BNView, UIWebViewDelegate {
         showSiteBtn!.setTitle("More from Site name.", forState: UIControlState.Normal)
         showSiteBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 12)
         showSiteBtn!.titleLabel!.textAlignment = NSTextAlignment.Right
-        showSiteBtn!.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+        showSiteBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         showSiteBtn!.addTarget(self, action: #selector(self.showSiteBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(showSiteBtn!)
         
@@ -281,8 +281,7 @@ class ElementView: BNView, UIWebViewDelegate {
                 self.showSiteBtn!.enabled = true
                 
                 //weak var site = BNAppSharedManager.instance.dataManager.sites[self.element!.showcase!.site!.identifier!]
-                var showSiteBtnText = NSLocalizedString("MoreFrom", comment: "MoreFrom")
-                showSiteBtnText += " \(self.element!.showcase!.site!.title!)"
+                let showSiteBtnText = "\(NSLocalizedString("MoreFrom", comment: "MoreFrom")) \(self.element!.showcase!.site!.title!)"
                 
                 let textLenght = SharedUIManager.instance.getStringLength(showSiteBtnText, fontName: "Lato-Regular", fontSize: 12)
                 
@@ -313,7 +312,6 @@ class ElementView: BNView, UIWebViewDelegate {
             var alpha:CGFloat = 0.0
             _ = self.element!.showcase!.site!.organization!.secondaryColor!.getWhite(&white, alpha: &alpha)
             
-            
             if white >= 0.95 {
                 //print("Is white")
                 textColor = self.element!.showcase!.site!.organization!.primaryColor
@@ -323,15 +321,12 @@ class ElementView: BNView, UIWebViewDelegate {
                 bgColor = self.element!.showcase!.site!.organization!.primaryColor
             }
             
-            
-
-            
             animationView!.updateAnimationView(textColor, textColor: UIColor.whiteColor())
             butonContainer!.backgroundColor = UIColor.clearColor()//self.element!.media[0].vibrantColor
             
             //updateBackBtn()
             updateLikeItBtn()
-            updateShareBtn()
+            //updateShareBtn()
                         
             ypos = SharedUIManager.instance.screenWidth
 
@@ -581,7 +576,7 @@ class ElementView: BNView, UIWebViewDelegate {
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(self.element!.userLiked)
-        likeItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
+        //likeItButton!.icon!.color = UIColor.grayColor()//self.iconColor!
     }
     
     func updateShareBtn() {

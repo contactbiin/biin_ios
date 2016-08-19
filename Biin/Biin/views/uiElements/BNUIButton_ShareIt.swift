@@ -16,7 +16,7 @@ class BNUIButton_ShareIt:BNUIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_ShareItButton(color: UIColor.biinColor(), position: CGPointMake(5, 5))
+        icon = BNIcon_ShareItButton(color: UIColor.whiteColor(), position: CGPointMake(2, 2))
     }
     
     

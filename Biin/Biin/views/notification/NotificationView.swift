@@ -217,7 +217,6 @@ class NotificationView: BNView {
     
     func removeBtnAction(sender:UIButton){
         self.delegate!.resizeScrollOnRemoved!(self.model!.identifier!)
-        BNAppSharedManager.instance.dataManager.biinie!.removeNotification(self.model!.identifier!)
         BNAppSharedManager.instance.updateNotificationCounter()
     }
     

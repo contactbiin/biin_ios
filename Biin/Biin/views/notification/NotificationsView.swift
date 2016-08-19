@@ -10,6 +10,7 @@ class NotificationsView: BNView, NotificationView_Delegate {
     
     var delegate:NotificationsView_Delegate?
     var title:UILabel?
+    var text:UILabel?
     var backBtn:BNUIButton_Back?
 //    var fade:UIView?
     
@@ -48,6 +49,14 @@ class NotificationsView: BNView, NotificationView_Delegate {
         ypos = SharedUIManager.instance.mainView_HeaderSize
         self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
+
+        ypos = ( screenHeight / 2 )
+        text = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 10), (SharedUIManager.instance.mainView_TitleSize + 3)))
+        text!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
+        text!.text = NSLocalizedString("NothingToShow", comment: "NothingToShow")
+        text!.textColor = UIColor.whiteColor()
+        text!.textAlignment = NSTextAlignment.Center
+        self.addSubview(text!)
         
         addNotifications()
     }
@@ -129,95 +138,37 @@ class NotificationsView: BNView, NotificationView_Delegate {
         
         //BNAppSharedManager.instance.notificationManager.notifications = sorted(BNAppSharedManager.instance.notificationManager.notifications){ $0.identifier > $1.identifier }
         
-        for value in BNAppSharedManager.instance.dataManager.biinie!.notifications {
-            
-                let notificationView = NotificationView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.notificationView_height), father: self, notification:value )
-                notificationView.delegate = self
-                self.scroll!.addChild(notificationView)
+        
+        if BNAppSharedManager.instance.dataManager.biinie!.notifications.count > 0 {
+            self.text!.alpha = 0
+            for value in BNAppSharedManager.instance.dataManager.biinie!.notifications {
+                
+                    let notificationView = NotificationView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.notificationView_height), father: self, notification:value )
+                    notificationView.delegate = self
+                    self.scroll!.addChild(notificationView)
 
+            }
+            self.scroll!.setChildrenPosition()
+        } else {
+            self.text!.alpha = 1
         }
-        self.scroll!.setChildrenPosition()
 
         
     }
     
     
     func resizeScrollOnRemoved(identifier: String) {
-        
         self.scroll!.removeChildByIdentifier(identifier)
-
         
-        //BNAppSharedManager.instance.notificationManager.removeNotification(identifier)
-        /*
-        var startPosition = 0
-        for i in (0..<notifications.count){
-//        for var i = 0; i < notifications.count; i++ {
-            if notifications[i].notification!.identifier == identifier {
-                startPosition = i
-                notifications[i].removeFromSuperview()
-                notifications.removeAtIndex(i)
-            }
+        BNAppSharedManager.instance.dataManager.biinie!.removeNotification(identifier)
+        
+        if BNAppSharedManager.instance.dataManager.biinie!.notifications.count > 0 {
+            self.text!.alpha = 0
+        } else {
+            self.text!.alpha = 1
         }
-        
-        //var width:CGFloat = (SharedUIManager.instance.screenWidth - 10)
-        let height:CGFloat = 65
-        var ypos:CGFloat = (height * CGFloat(startPosition)) + 5
-        
-        for i in (startPosition..<notifications.count){
-//        for var i = startPosition; i < notifications.count; i++ {
-            UIView.animateWithDuration(0.2, animations: {()->Void in
-                self.notifications[i].frame.origin.y = ypos
-            })
-            
-            ypos += height
-        }
-        
-        ypos += 5
-//        scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
-*/
     }
     
-    
-    //func resizeScrollOnRemoved(identifier:Int) {
-       /*
-        var startPosition = 0
-        
-        for var i = 0; i < elements!.count; i++ {
-            if elements![i].header!.elementPosition! == view.header!.elementPosition! {
-                startPosition = i
-                elements!.removeAtIndex(i)
-            }
-        }
-        
-        var width:CGFloat = (SharedUIManager.instance.miniView_width + spacer)
-        var xpos:CGFloat = (width * CGFloat(startPosition)) + spacer
-        
-        for var i = startPosition; i < elements!.count; i++ {
-            UIView.animateWithDuration(0.2, animations: {()->Void in
-                self.elements![i].frame.origin.x = xpos
-            })
-            
-            xpos += SharedUIManager.instance.miniView_width + spacer
-        }
-        
-        xpos += spacer
-        */
-        //        if site!.loyalty!.isSubscribed {
-        //            //Add game view
-        //            gameView = SiteView_Showcase_Game(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!, animatedCircleColor: UIColor.biinColor())
-        //            scroll!.addSubview(gameView!)
-        //            xpos += SharedUIManager.instance.screenWidth
-        //        } else  {
-        //            joinView = SiteView_Showcase_Join(frame: CGRectMake(xpos, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.miniView_height + 10), father: self, showcase: showcase!)
-        //            scroll!.addSubview(joinView!)
-        //            xpos += SharedUIManager.instance.screenWidth
-        //        }
-        
-//        scroll!.contentSize = CGSizeMake(xpos, 0)
-
-        
-    //}
-
     func hideOtherViewsOpen(view: NotificationView) {
         
         if lastViewOpen != nil {

@@ -83,7 +83,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         imagesScrollView = BNUIScrollView(frame: CGRectMake(0, 0, screenWidth, screenWidth))
         scroll!.addSubview(imagesScrollView!)
         
-        animationView = BiinItAnimationView(frame:CGRectMake(0, 35, screenWidth, 0))
+        animationView = BiinItAnimationView(frame:CGRectMake(0, SharedUIManager.instance.mainView_HeaderSize, screenWidth, 0))
         self.addSubview(animationView!)
         
         header = SiteView_Header(frame: CGRectMake(0, (screenWidth), screenWidth, SharedUIManager.instance.siteView_headerHeight), father: self)
@@ -107,16 +107,16 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         self.addSubview(locationView!)
         locationView!.isInSiteView = true
         
-        var buttonSpace:CGFloat = 45
-        let ypos:CGFloat = 5
+        var buttonSpace:CGFloat = 65
+        let ypos:CGFloat = 25
 
-        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 25, 25))
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(buttonSpace, ypos, 40, 40), isBig: true)
         likeItButton!.addTarget(self, action: #selector(self.likeit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(likeItButton!)
         
         //Share button
-        buttonSpace += 35
-        shareItButton = BNUIButton_ShareIt(frame: CGRectMake( buttonSpace, ypos, 25, 25))
+        buttonSpace += 65
+        shareItButton = BNUIButton_ShareIt(frame: CGRectMake( buttonSpace, ypos, 40, 40))
         shareItButton!.addTarget(self, action: #selector(self.shareit(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         backBtn_Bg!.addSubview(shareItButton!)
         
@@ -156,7 +156,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
         buttonContainer!.addSubview(emailBtn!)
         
         let buttonContainerWidth:CGFloat = (xpos + buttonWidth)
-        buttonContainer!.frame = CGRectMake((screenWidth - buttonContainerWidth), 0, buttonContainerWidth, 35)
+        buttonContainer!.frame = CGRectMake((screenWidth - buttonContainerWidth), 22, buttonContainerWidth, 35)
         
         surverView = SiteView_Survey(frame: CGRectMake(0, 0, screenWidth, 300), father: self)
         self.scroll!.addSubview(surverView!)
@@ -256,8 +256,8 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
 //            backBtn!.layer.backgroundColor = decorationColor!.CGColor
 //            backBtn!.setNeedsDisplay()
             
-            shareItButton!.icon!.color = UIColor.grayColor()
-            shareItButton!.setNeedsDisplay()
+           // shareItButton!.icon!.color = UIColor.grayColor()
+            //shareItButton!.setNeedsDisplay()
 
             if site!.organization!.hasNPS {
                 surverView!.updateSiteData(self.site)
@@ -491,7 +491,7 @@ class SiteView:BNView, UIScrollViewDelegate, MFMailComposeViewControllerDelegate
     
     func updateLikeItBtn() {
         likeItButton!.changedIcon(site!.userLiked)
-        likeItButton!.icon!.color = UIColor.grayColor()
+//        likeItButton!.icon!.color = UIColor.grayColor()
         likeItButton!.setNeedsDisplay()
         
     }

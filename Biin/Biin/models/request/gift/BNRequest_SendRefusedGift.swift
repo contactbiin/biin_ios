@@ -33,7 +33,7 @@ class BNRequest_SendRefusedGift: BNRequest {
         var model = Dictionary<String, Dictionary <String, String>>()
         
         var modelContent = Dictionary<String, String>()
-        modelContent["giftIdentifier"] = self.gift!.identifier!
+        modelContent["giftIdentifier"] = self.gift?.identifier!
         model["model"] = modelContent
         
         var htttpBody:NSData?
@@ -48,7 +48,7 @@ class BNRequest_SendRefusedGift: BNRequest {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
             
             if (error != nil) {
-                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                if self.attemps == self.attempsLimit { self.requestError = BNRequestError.SendRefusedGift_Failed }
                 self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
                 self.isCompleted = true

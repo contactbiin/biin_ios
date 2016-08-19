@@ -71,7 +71,7 @@ class SiteView_Showcase:BNView, UIScrollViewDelegate {
 //        }
         
         let textColor = UIColor.whiteColor()
-        self.backgroundColor = UIColor.bnGrayLight()
+        self.backgroundColor = UIColor.appBackground()
         
        //!.colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
         self.showcase = showcase//BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]

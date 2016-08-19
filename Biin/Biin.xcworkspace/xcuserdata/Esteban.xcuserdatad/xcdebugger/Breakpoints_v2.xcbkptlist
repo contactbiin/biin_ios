@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Biin/views/notification/NotificationsView.swift"
-            timestampString = "491427735.809163"
+            timestampString = "493313095.592149"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "addNotifications()"
             landmarkType = "5">
          </BreakpointContent>

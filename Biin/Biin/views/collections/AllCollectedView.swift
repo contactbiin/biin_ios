@@ -36,7 +36,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         
         self.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.appBackground()
         
 //        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
 //        visualEffectView.frame = self.bounds
@@ -45,28 +45,23 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
         
-        var ypos:CGFloat = 10
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
         let titleText = NSLocalizedString("Collections", comment: "title").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.font = UIFont(name:"Lato-Regular", size:13)
-        title!.textColor = UIColor.blackColor()
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
+        title!.textColor = UIColor.whiteColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
-//        backBtn!.layer.cornerRadius  = 17.5
-//        backBtn!.layer.borderWidth = 1
-//        backBtn!.layer.masksToBounds = true
+        backBtn!.icon!.color = UIColor.whiteColor()
         self.addSubview(backBtn!)
         
-        ypos = 35
+        ypos = SharedUIManager.instance.mainView_HeaderSize
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.darkGrayColor()
         
@@ -79,10 +74,6 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         
         addedElementsIdentifiers = Dictionary<String, BNElement>()
         
-//        fade = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
-//        fade!.backgroundColor = UIColor.blackColor()
-//        fade!.alpha = 0
-        
         likedElementsBtn = UIButton(frame: CGRectMake(0, (screenHeight - 80), ((screenWidth / 2) - 2), 60))
         likedElementsBtn!.setTitle("Products", forState: UIControlState.Normal)
         likedElementsBtn!.backgroundColor = UIColor.redColor()
@@ -91,11 +82,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         likedSitesBtn = UIButton(frame: CGRectMake((screenWidth / 2), (screenHeight - 80), (screenWidth / 2), 60))
         likedSitesBtn!.setTitle("Sites", forState: UIControlState.Normal)
         likedSitesBtn!.backgroundColor = UIColor.blueColor()
-        //self.addSubview(likedSitesBtn!)
-        
-        addFade()
+    
         updateCollectedElements()
-//        self.addSubview(fade!)
+        addFade()
     }
     
     required init?(coder aDecoder: NSCoder) {
