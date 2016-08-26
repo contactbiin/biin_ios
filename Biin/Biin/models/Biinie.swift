@@ -47,6 +47,10 @@ class Biinie:BNObject {
     var notifications_store:[String] = [String]()
     var notifications:[BNNotification] = [BNNotification]()
 
+    //SHARING GIFT
+    weak var giftToShare:BNGift?
+    weak var friendToShareGift:Biinie?
+    
     //LOYALTIES
     //var loyalties = Dictionary<String, BNLoyalty>()
     

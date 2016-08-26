@@ -32,7 +32,7 @@ class AllSitesView: BNView {
         
         self.init(frame: frame, father:father )
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.appBackground()
         
 //        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)) as UIVisualEffectView
 //        visualEffectView.frame = self.bounds
@@ -42,22 +42,20 @@ class AllSitesView: BNView {
         let screenHeight = SharedUIManager.instance.screenHeight
         
         
-        var ypos:CGFloat = 10
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
-        title!.font = UIFont(name:"Lato-Regular", size:13)
-        title!.textColor = UIColor.blackColor()
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
+        title!.textColor = UIColor.whiteColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.whiteColor()//site!.media[0].vibrantDarkColor!
-        backBtn!.layer.borderColor = UIColor.darkGrayColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.darkGrayColor().CGColor
+        backBtn!.icon!.color = UIColor.whiteColor()
         self.addSubview(backBtn!)
         
-        ypos = 35
+        ypos = SharedUIManager.instance.mainView_HeaderSize
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.darkGrayColor()
         

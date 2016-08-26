@@ -52,32 +52,26 @@ class LoginView:UIView, UITextFieldDelegate {
         self.addSubview(line)
         
         
-        var ypos:CGFloat = 10
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(50, ypos, (screenWidth - 100), (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
         let titleText = NSLocalizedString("LoginTitle", comment: "LoginTitle").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.font = UIFont(name:"Lato-Regular", size:13)
         title!.textColor = UIColor.darkGrayColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.whiteColor()
-//        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.biinOrange().CGColor
-//        backBtn!.layer.cornerRadius  = 17.5
-//        backBtn!.layer.borderWidth = 1
+        backBtn!.icon!.color = UIColor.biinOrange()
         backBtn!.layer.masksToBounds = true
         self.addSubview(backBtn!)
-
-
         
-        ypos += SharedUIManager.instance.signupView_ypos_1
-  
+        ypos = SharedUIManager.instance.mainView_HeaderSize
+
         let textBg = UIView(frame: CGRectMake(0, ypos, screenWidth, 100))
         textBg.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.05)
         self.addSubview(textBg)

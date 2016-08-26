@@ -159,9 +159,8 @@ class FriendsView: BNView, FriendView_Delegate{
         print("SHARE GIFT")
     }
     
-    func showAlertView_ForLoyaltyCard(view: LoyaltyView, loyalty:BNLoyalty?) {
-        lastViewSelected = view
-        //self.delegate!.showAlertView_ForLoyaltyCard!(view, loyalty:loyalty)
+    func showAlertView_ToSharedGift(friend: Biinie?) {
+        delegate!.showAlertView_ToSharedGift!(friend)
     }
     
     func activateLastLoyaltyCardSeleced(){
@@ -178,5 +177,5 @@ class FriendsView: BNView, FriendView_Delegate{
 
 @objc protocol FriendsView_Delegate:NSObjectProtocol {
     optional func hideFriendsView()
-    optional func showAlertView_ForFriendsView(biinie:Biinie)
+    optional func showAlertView_ToSharedGift(friend:Biinie?)
 }

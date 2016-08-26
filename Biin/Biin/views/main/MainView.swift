@@ -785,6 +785,7 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
     
     func showFriendsView_ToShareGift(gift: BNGift?) {
         setNextState(BNGoto.Friends)
+        BNAppSharedManager.instance.dataManager.biinie!.giftToShare = gift
     }
     
     //NOTIFICATION
@@ -921,8 +922,12 @@ class MainView:BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_Del
         setNextState(BNGoto.Previous)
     }
     
-    func showAlertView_ForFriendsView(biinie: Biinie) {
-        
+    func showAlertView_ToSharedGift(friend: Biinie?) {
+        BNAppSharedManager.instance.dataManager.biinie!.friendToShareGift = friend
+        let title = "\(NSLocalizedString("SendGift", comment: "SendGift"))"
+        let text = "\(NSLocalizedString("SendGiftToFriend", comment: "SendGiftToFriend")) \(friend!.biinName!)"
+        (alertState!.view as? AlertView)?.updateAlertView(title, text: text, goto: BNGoto.Gifts, model: nil)
+        setNextState(BNGoto.AlertView)
     }
 }
 

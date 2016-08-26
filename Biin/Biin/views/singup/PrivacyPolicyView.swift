@@ -37,25 +37,25 @@ class PrivacyPolicyView:UIView, UIWebViewDelegate {
         line.backgroundColor = UIColor.appButtonColor_Disable()
         self.addSubview(line)
         
-        var ypos:CGFloat = 10
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(50, ypos, (screenWidth - 100), (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
         let titleText = NSLocalizedString("PrivacyPolicy", comment: "PrivacyPolicy").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.font = UIFont(name:"Lato-Regular", size:13)
         title!.textColor = UIColor.darkGrayColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.whiteColor()
-        backBtn!.layer.backgroundColor = UIColor.biinOrange().CGColor
-        backBtn!.layer.masksToBounds = true
+        backBtn!.icon!.color = UIColor.biinOrange()
         self.addSubview(backBtn!)
         
-        scroll = UIScrollView(frame: CGRectMake(0, 36, screenWidth, (screenHeight - 35)))
+        ypos = SharedUIManager.instance.mainView_HeaderSize
+        
+        scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - 35)))
         scroll!.showsHorizontalScrollIndicator = false
         scroll!.showsVerticalScrollIndicator = false
         scroll!.scrollsToTop = false
@@ -104,7 +104,7 @@ class PrivacyPolicyView:UIView, UIWebViewDelegate {
             webView = nil
         }
         
-        webView = UIWebView(frame:CGRectMake(0, 35, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - (35 + 90))))
+        webView = UIWebView(frame:CGRectMake(0, SharedUIManager.instance.mainView_HeaderSize, SharedUIManager.instance.screenWidth, (SharedUIManager.instance.screenHeight - (SharedUIManager.instance.mainView_HeaderSize + 90))))
         webView!.delegate = self
         
         let idioma = NSLocalizedString("Yes", comment: "Yes")

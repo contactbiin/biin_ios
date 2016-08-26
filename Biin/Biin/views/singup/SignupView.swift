@@ -54,29 +54,24 @@ class SignupView:UIView, UITextFieldDelegate {
 //        line.layer.shadowOpacity = 0.15
         self.addSubview(line)
         
-        var ypos:CGFloat = 10
-        title = UILabel(frame: CGRectMake(6, ypos, screenWidth, 16))
+        var ypos:CGFloat = 27
+        title = UILabel(frame: CGRectMake(50, ypos, (screenWidth - 100), (SharedUIManager.instance.mainView_TitleSize + 3)))
+        title!.font = UIFont(name:"Lato-Black", size:SharedUIManager.instance.mainView_TitleSize)
         let titleText = NSLocalizedString("SignUpTitle", comment: "SignUpTitle").uppercaseString
         let attributedString = NSMutableAttributedString(string:titleText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(3), range: NSRange(location: 0, length:(titleText.characters.count)))
         title!.attributedText = attributedString
-        title!.font = UIFont(name:"Lato-Regular", size:13)
         title!.textColor = UIColor.darkGrayColor()
         title!.textAlignment = NSTextAlignment.Center
         self.addSubview(title!)
         
         
-        backBtn = BNUIButton_Back(frame: CGRectMake(0, 0, 35, 35))
+        backBtn = BNUIButton_Back(frame: CGRectMake(5,15, 50, 50))
         backBtn!.addTarget(self, action: #selector(self.backBtnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        backBtn!.icon!.color = UIColor.whiteColor()
-//        backBtn!.layer.borderColor = UIColor.whiteColor().CGColor
-        backBtn!.layer.backgroundColor = UIColor.biinOrange().CGColor
-//        backBtn!.layer.cornerRadius  = 17.5
-//        backBtn!.layer.borderWidth = 1
-        backBtn!.layer.masksToBounds = true
+        backBtn!.icon!.color = UIColor.biinOrange()
         self.addSubview(backBtn!)
         
-        ypos += SharedUIManager.instance.loginView_ypos_1
+        ypos = SharedUIManager.instance.mainView_HeaderSize
 
         firstNameTxt = BNUITexfield_Top(frame: CGRectMake(5, ypos, (screenWidth - 10), 45), placeHolderText:NSLocalizedString("Name", comment: "Name"))
         firstNameTxt!.textField!.delegate = self

@@ -276,6 +276,6 @@ Congratulations = "Felicidades!";
 CompletedCard = "Has obtenido todas las estrellas de nuestra tarjeta.";
 GiftInTreasureChest = "Pronto recibiras tu regalo en tu Baul de Tesoros.";
 
-
-
 Friends = "Mis Amigos";
+SendGift = "Comparte tu regalo!";
+SendGiftToFriend = "Estás seguro de compartir este regalo con";

@@ -424,12 +424,12 @@ class BNNetworkManager:NSObject, BNDataManagerDelegate, BNErrorManagerDelegate, 
     }
     
     func sendRefusedGift(gift:BNGift?){
-        
-//        var refusedGift:BNGift?
-//        refusedGift = BNGift()
-//        refusedGift!.identifier = gift!.identifier
-//        
         let request = BNRequest_SendRefusedGift(requestString: "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.biinie!.identifier!)/gifts/refuse", errorManager: self.errorManager!, networkManager: self, gift: gift)
+        addToQueue(request)
+    }
+    
+    func sendSharedGift(gift:BNGift?, friend:Biinie?) {
+        let request = BNRequest_SendSharedGift(requestString: "\(rootURL)/mobile/biinies/\(BNAppSharedManager.instance.dataManager.biinie!.identifier!)/gifts/share", errorManager: self.errorManager!, networkManager: self, gift: gift, friend: friend)
         addToQueue(request)
     }
     

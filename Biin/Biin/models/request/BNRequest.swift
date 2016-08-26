@@ -31,6 +31,7 @@ enum BNRequestError
     
     case SendClaimedGift_Failed
     case SendRefusedGift_Failed
+    case SendSharedGift_Failed
     
     case DoNotShowError
     case Internet_Failed
@@ -77,6 +78,7 @@ enum BNRequestType
     
     case SendClaimedGift
     case SendRefusedGift
+    case SendSharedGift
     
     case SendLoyaltyCompleted
     case SendLoyaltyEnroll
@@ -106,6 +108,7 @@ class BNRequest:NSObject {
     weak var organization:BNOrganization?
     weak var site:BNSite?
     weak var biinie:Biinie?
+    weak var friend:Biinie?
     weak var gift:BNGift?
     weak var loyalty:BNLoyalty?
     weak var image:BNUIImageView?

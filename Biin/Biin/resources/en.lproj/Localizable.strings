@@ -282,3 +282,5 @@ CompletedCard = "You have obtained all the stars of our card.";
 GiftInTreasureChest = "Soon you will receive your gift in your treasure chest.";
 
 Friends = "My Friends";
+SendGift = "Sharing your gift!";
+SendGiftToFriend = "Are you sure to share your gift with";

@@ -90,14 +90,7 @@ class FriendView: BNView {
         UIView.animateWithDuration(0.1, animations: {()-> Void in
                 self.foreground!.alpha = 0
             }, completion: {(completed:Bool) ->  Void in
-                
-                self.delegate!.showAlertView_ToShareGift!()
-                
-                //if (self.model as! BNLoyalty).loyaltyCard!.isBiinieEnrolled {
-                    //self.delegate!.showLoyaltyCard!(self)
-                //} else {
-                    //self.delegate!.showAlertView_ForLoyaltyCard!(self, loyalty:(self.model as! BNLoyalty))
-                //}
+                self.delegate!.showAlertView_ToSharedGift!((self.model as? Biinie))
         })
     }
     
@@ -167,7 +160,7 @@ class FriendView: BNView {
 
 @objc protocol FriendView_Delegate:NSObjectProtocol {
 //    optional func showLoyaltyCard(view:LoyaltyView)
-    optional func showAlertView_ToShareGift()
+    optional func showAlertView_ToSharedGift(friend:Biinie?)
 //    optional func resizeScrollOnRemoved(view:LoyaltyView)
 //    optional func hideOtherViewsOpen(view:LoyaltyView)
 //    optional func removeFromOtherViewsOpen(view:LoyaltyView)
