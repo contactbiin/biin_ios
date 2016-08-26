@@ -6,24 +6,24 @@
 import Foundation
 import UIKit
 
-class BNUIView_Gift:UIView {
-    
-    var icon:BNIcon_BigGift?
-    
+class BNUIView_Gift: UIView {
+
+    var icon: BNIcon_BigGift?
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    convenience init(frame: CGRect, color:UIColor?) {
-        self.init(frame:frame)
+
+    convenience init(frame: CGRect, color: UIColor?) {
+        self.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
-        icon = BNIcon_BigGift(color:color!, position:SharedUIManager.instance.loyaltyCardView_Completed_GiftPosition)
+        icon = BNIcon_BigGift(color: color!, position: SharedUIManager.instance.loyaltyCardView_Completed_GiftPosition)
     }
-    
+
     override func drawRect(rect: CGRect) {
         icon?.drawCanvas()
     }

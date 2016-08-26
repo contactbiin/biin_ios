@@ -6,24 +6,23 @@
 //  Use this class to store information about the notification received on the app.
 import Foundation
 
-struct BNNotificationData
-{
+struct BNNotificationData {
     static var notificationCounter = 1
 }
 
-class BNNotification:BNObject {
+class BNNotification: BNObject {
 
-    var title:String?
-    var text:String?
-    var notificationType:BNNotificationType?
-    var receivedDate:NSDate?
+    var title: String?
+    var text: String?
+    var notificationType: BNNotificationType?
+    var receivedDate: NSDate?
     var isViewed = false
-    
-    override init(){
+
+    override init() {
         super.init()
     }
-    
-    convenience init(title:String, text:String, notificationType:BNNotificationType, receivedDate:NSDate){
+
+    convenience init(title: String, text: String, notificationType: BNNotificationType, receivedDate: NSDate) {
         self.init()
         self.identifier = NSUUID().UUIDString
         self.title = title
@@ -32,21 +31,21 @@ class BNNotification:BNObject {
         self.receivedDate = receivedDate
         //let timestamp = NSDateFormatter.localizedStringFromDate(time, dateStyle: .MediumStyle, timeStyle: .MediumStyle)
     }
-    
+
     deinit {
-        
+
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
-        
+
         super.init(coder: aDecoder)
-        
+
         self.identifier = aDecoder.decodeObjectForKey("identifier") as? String
         self.title = aDecoder.decodeObjectForKey("title") as? String
         self.text = aDecoder.decodeObjectForKey("text") as? String
-        
+
         let value = aDecoder.decodeIntegerForKey("notificationType")
-     
+
         switch value {
         case 0:
             self.notificationType = BNNotificationType.NONE
@@ -65,51 +64,51 @@ class BNNotification:BNObject {
         default:
             self.notificationType = BNNotificationType.NONE
         }
-        
+
         self.receivedDate = aDecoder.decodeObjectForKey("receivedDate") as? NSDate
         self.isViewed = aDecoder.decodeBoolForKey("isViewed")
     }
-    
+
     override func encodeWithCoder(aCoder: NSCoder) {
-        
+
         if let identifier = self.identifier {
             aCoder.encodeObject(identifier, forKey: "identifier")
         }
-        
+
         if let title = self.title {
             aCoder.encodeObject(title, forKey: "title")
         }
-        
+
         if let text = self.text {
             aCoder.encodeObject(text, forKey: "text")
         }
-        
+
         if let notificationType = self.notificationType {
             aCoder.encodeInteger(notificationType.hashValue, forKey: "notificationType")
         }
-        
+
         if let receivedDate = self.receivedDate {
             aCoder.encodeObject(receivedDate, forKey: "receivedDate")
         }
-        
+
         aCoder.encodeBool(isViewed, forKey: "isViewed")
     }
-    
+
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.identifier!)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey: self.identifier!)
     }
-    
+
     func clear() {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(self.identifier!)
     }
-    
-    class func loadSaved(key:String) -> BNNotification? {
-        
+
+    class func loadSaved(key: String) -> BNNotification? {
+
         if let data = NSUserDefaults.standardUserDefaults().objectForKey(key) as? NSData {
             return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNNotification
         }
-        
+
         return nil
     }
 }

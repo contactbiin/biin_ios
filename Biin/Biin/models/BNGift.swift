@@ -5,32 +5,32 @@
 import Foundation
 import UIKit
 
-class BNGift:BNObject {
-    
-    var elementIdentifier:String?
-    var organizationIdentifier:String?
-    
-    var name:String?
-    var message:String?
-    
+class BNGift: BNObject {
+
+    var elementIdentifier: String?
+    var organizationIdentifier: String?
+
+    var name: String?
+    var message: String?
+
     var hasExpirationDate = false
-    var expirationDate:NSDate?
-    var receivedDate:NSDate?
-    
-    var sites:Array<String>?
-    
-    var status:BNGiftStatus?
-    var media:Array<BNMedia>?
-    
-    var primaryColor:UIColor?
-    var secondaryColor:UIColor?
-    
+    var expirationDate: NSDate?
+    var receivedDate: NSDate?
+
+    var sites: Array<String>?
+
+    var status: BNGiftStatus?
+    var media: Array<BNMedia>?
+
+    var primaryColor: UIColor?
+    var secondaryColor: UIColor?
+
     override init() {
         super.init()
         sites = Array<String>()
         media = Array<BNMedia>()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -7,14 +7,14 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_ProfileMedium:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_ProfileMedium: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -22,9 +22,7 @@ class BNIcon_ProfileMedium:BNIcon {
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+
         //// Bezier 6 Drawing
         let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(17.35, 26.6))
@@ -41,43 +39,38 @@ class BNIcon_ProfileMedium:BNIcon {
         color!.setStroke()
         bezier6Path.lineWidth = 2
         bezier6Path.stroke()
-        
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(20.1, 13.98))
         bezier2Path.addCurveToPoint(CGPointMake(13.2, 20.8), controlPoint1: CGPointMake(20.1, 17.66), controlPoint2: CGPointMake(17, 20.8))
         bezier2Path.addCurveToPoint(CGPointMake(6.3, 13.98), controlPoint1: CGPointMake(9.4, 20.8), controlPoint2: CGPointMake(6.3, 17.66))
-        bezier2Path.lineCapStyle = CGLineCap.Round;
-        
-        bezier2Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier2Path.lineCapStyle = CGLineCap.Round
+
+        bezier2Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setStroke()
         bezier2Path.lineWidth = 2
         bezier2Path.stroke()
-        
-        
+
         //// Bezier 4 Drawing
         let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(18.99, 9.51))
         bezier4Path.addCurveToPoint(CGPointMake(15.38, 9.51), controlPoint1: CGPointMake(18.99, 8.52), controlPoint2: CGPointMake(15.38, 8.52))
-        bezier4Path.lineCapStyle = CGLineCap.Round;
-        
-        bezier4Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier4Path.lineCapStyle = CGLineCap.Round
+
+        bezier4Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setStroke()
         bezier4Path.lineWidth = 2
         bezier4Path.stroke()
-        
-        
+
         //// Oval 2 Drawing
         let oval2Path = UIBezierPath(ovalInRect: CGRectMake(7.5, 7.4, 3.2, 3.2))
         color!.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

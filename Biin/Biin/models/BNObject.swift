@@ -7,23 +7,22 @@ import Foundation
 import UIKit
 
 class BNObject: NSObject, NSCoding {
-    
-    var identifier:String?
-    
+
+    var identifier: String?
+
     override init() {
         super.init()
     }
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
-        
+
     }
-    
+
     func encodeWithCoder(aCoder: NSCoder) {
-    
+
     }
-    
+
     deinit {
-        
+
     }
 }

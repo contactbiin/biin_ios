@@ -7,22 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_SiteEmailButton:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_SiteEmailButton: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Bezier Drawing
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 17.78, y: 0.24))
         bezierPath.addCurveToPoint(CGPoint(x: 16.81, y: 0.04), controlPoint1: CGPoint(x: 17.57, y: 0.04), controlPoint2: CGPoint(x: 17.13, y: -0.06))
@@ -37,12 +37,12 @@ class BNIcon_SiteEmailButton:BNIcon {
         bezierPath.addLineToPoint(CGPoint(x: 17.88, y: 1.08))
         bezierPath.addCurveToPoint(CGPoint(x: 17.78, y: 0.24), controlPoint1: CGPoint(x: 18.1, y: 0.86), controlPoint2: CGPoint(x: 17.99, y: 0.45))
         bezierPath.closePath()
-        bezierPath.miterLimit = 4;
-        
+        bezierPath.miterLimit = 4
+
         color!.setStroke()
         bezierPath.lineWidth = 1
         bezierPath.stroke()
-        
+
         CGContextRestoreGState(context)
 
     }

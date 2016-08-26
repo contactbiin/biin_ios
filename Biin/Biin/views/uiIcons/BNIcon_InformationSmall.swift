@@ -7,25 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_InformationSmall:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_InformationSmall: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
-        
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(20, 9.82))
@@ -34,28 +31,26 @@ class BNIcon_InformationSmall:BNIcon {
         bezier2Path.addCurveToPoint(CGPointMake(10, 0), controlPoint1: CGPointMake(-0.09, 4.68), controlPoint2: CGPointMake(4.46, 0.09))
         bezier2Path.addCurveToPoint(CGPointMake(20, 9.82), controlPoint1: CGPointMake(15.5, -0.09), controlPoint2: CGPointMake(19.91, 4.32))
         bezier2Path.closePath()
-        bezier2Path.lineCapStyle = CGLineCap.Round;
-        
-        bezier2Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier2Path.lineCapStyle = CGLineCap.Round
+
+        bezier2Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setStroke()
         bezier2Path.lineWidth = 1
         bezier2Path.stroke()
-        
-        
+
         //// Bezier 4 Drawing
         let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(10, 11.37))
         bezier4Path.addLineToPoint(CGPointMake(10, 5))
-        bezier4Path.lineCapStyle = CGLineCap.Round;
-        
-        bezier4Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier4Path.lineCapStyle = CGLineCap.Round
+
+        bezier4Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setStroke()
         bezier4Path.lineWidth = 1
         bezier4Path.stroke()
-        
-        
+
         //// Group 2
         //// Bezier 6 Drawing
         let bezier6Path = UIBezierPath()
@@ -68,8 +63,8 @@ class BNIcon_InformationSmall:BNIcon {
         bezier6Path.addCurveToPoint(CGPointMake(10, 14), controlPoint1: CGPointMake(11, 14.44), controlPoint2: CGPointMake(10.53, 14))
         bezier6Path.addLineToPoint(CGPointMake(10, 14))
         bezier6Path.closePath()
-        bezier6Path.miterLimit = 4;
-        
+        bezier6Path.miterLimit = 4
+
         color!.setFill()
         bezier6Path.fill()
 

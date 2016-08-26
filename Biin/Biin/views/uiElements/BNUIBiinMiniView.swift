@@ -6,31 +6,31 @@
 import Foundation
 import UIKit
 
-class BNUIBiinMiniView:UIView {
-    
-    var icon:BNIcon?
-    
+class BNUIBiinMiniView: UIView {
+
+    var icon: BNIcon?
+
     //    override init() {
     //        super.init()
     //    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         //self.backgroundColor = UIColor.clearColor()
         //icon = BNIcon_MiniBiin(color: UIColor.appMainColor(), position: CGPoint(x: 5, y: 5))
     }
-    
-    convenience init(frame: CGRect, color:UIColor) {
+
+    convenience init(frame: CGRect, color: UIColor) {
         self.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
         icon = BNIcon_MiniBiin(color: color, position: CGPoint(x: 5, y: 5))
     }
-    
-    override func drawRect(rect:CGRect){
+
+    override func drawRect(rect: CGRect) {
         icon?.drawCanvas()
     }
 }

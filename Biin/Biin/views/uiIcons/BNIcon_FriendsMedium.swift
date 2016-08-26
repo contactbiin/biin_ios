@@ -7,29 +7,28 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_FriendsMedium:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_FriendsMedium: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
- 
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         //// Oval 2 Drawing
         let oval2Path = UIBezierPath(ovalInRect: CGRectMake(2, 0, 7.6, 7.6))
         color!.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
-        
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(6.08, 10.17))
@@ -44,15 +43,13 @@ class BNIcon_FriendsMedium:BNIcon {
         color!.setStroke()
         bezier2Path.lineWidth = 2
         bezier2Path.stroke()
-        
-        
+
         //// Oval 4 Drawing
         let oval4Path = UIBezierPath(ovalInRect: CGRectMake(17.6, 0, 7.8, 7.8))
         color!.setStroke()
         oval4Path.lineWidth = 2
         oval4Path.stroke()
-        
-        
+
         //// Bezier 4 Drawing
         let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(27.4, 9.8))
@@ -66,9 +63,7 @@ class BNIcon_FriendsMedium:BNIcon {
         color!.setStroke()
         bezier4Path.lineWidth = 2
         bezier4Path.stroke()
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

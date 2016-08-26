@@ -6,29 +6,29 @@
 import Foundation
 
 class BNRequestManager: NSObject {
-    
-    var errorManager:BNErrorManager?
-    var networkManager:BNNetworkManager?
-    
+
+    var errorManager: BNErrorManager?
+    var networkManager: BNNetworkManager?
+
     var queue = Dictionary<Int, BNRequest>()
-    
-    init(networkManager:BNNetworkManager, errorManager:BNErrorManager) {
+
+    init(networkManager: BNNetworkManager, errorManager: BNErrorManager) {
         super.init()
         self.networkManager = networkManager
         self.errorManager = errorManager
     }
-    
-    func resume(){
+
+    func resume() {
         run()
     }
-    
-    func processRequest(request:BNRequest) {
+
+    func processRequest(request: BNRequest) {
         addRequestToQueue(request)
         run()
     }
-    
-    func processCompletedRequest(request:BNRequest) {
-        
+
+    func processCompletedRequest(request: BNRequest) {
+
         switch request.requestType {
         case .InitialData: self.networkManager!.initialData_Completed()
         case .VersionCheck: self.networkManager!.versionCheck_Completed()
@@ -46,12 +46,12 @@ class BNRequestManager: NSObject {
         default:
             break
         }
-        
+
         request.clean()
         removeRequestFromQueue(request.identifier)
     }
-    
-    func processFailedRequest(request:BNRequest, error:NSError?){
+
+    func processFailedRequest(request: BNRequest, error: NSError?) {
         switch request.requestError {
         case .None:
             if request.attemps < request.attempsLimit {
@@ -83,7 +83,7 @@ class BNRequestManager: NSObject {
         case .Internet_Failed:
             request.reset()
             self.networkManager!.internet_Failed()
-        break
+            break
         case .SendClaimedGift_Failed:
             break
         case .SendRefusedGift_Failed, .SendSharedGift_Failed:
@@ -102,32 +102,32 @@ class BNRequestManager: NSObject {
             break
         }
     }
-    
-    private func stop(){
+
+    private func stop() {
         if queue.count == 0 {
-            
+
         }
     }
-    
-    private func run(){
+
+    private func run() {
         for (_, request) in queue {
             if !request.isRunning {
                 request.run()
             }
         }
     }
-    
-    private func addRequestToQueue(request:BNRequest){
+
+    private func addRequestToQueue(request: BNRequest) {
         queue[request.identifier] = request
         self.run()
     }
-    
-    private func removeRequestFromQueue(identifier:Int) {
+
+    private func removeRequestFromQueue(identifier: Int) {
         queue.removeValueForKey(identifier)
         self.stop()
     }
-    
-    func isQueued(url:String) -> Bool {
+
+    func isQueued(url: String) -> Bool {
         for (_, request) in queue {
             if request.requestString == url {
                 return true

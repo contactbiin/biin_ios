@@ -6,25 +6,25 @@
 import Foundation
 import UIKit
 
-class BNMedia:NSObject {
+class BNMedia: NSObject {
 
-    var mediaType:BNMediaType?
-    var url:String?
-    var vibrantColor:UIColor?
-    var vibrantDarkColor:UIColor?
-    var vibrantLightColor:UIColor?
-    
-    override init(){
+    var mediaType: BNMediaType?
+    var url: String?
+    var vibrantColor: UIColor?
+    var vibrantDarkColor: UIColor?
+    var vibrantLightColor: UIColor?
+
+    override init() {
         super.init()
     }
-    
-    convenience init(mediaType:BNMediaType, url:String){
+
+    convenience init(mediaType: BNMediaType, url: String) {
         self.init()
         self.url = url
         self.mediaType = mediaType
     }
-    
-    convenience init(mediaType:BNMediaType, url:String,  vibrantColor:UIColor, vibrantDarkColor:UIColor, vibrantLightColor:UIColor){
+
+    convenience init(mediaType: BNMediaType, url: String, vibrantColor: UIColor, vibrantDarkColor: UIColor, vibrantLightColor: UIColor) {
         self.init()
         self.url = url
         self.mediaType = mediaType
@@ -32,9 +32,9 @@ class BNMedia:NSObject {
         self.vibrantDarkColor = vibrantDarkColor
         self.vibrantLightColor = vibrantLightColor
     }
-    
+
     deinit {
-        
+
     }
 }
 

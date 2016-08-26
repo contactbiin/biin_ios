@@ -8,25 +8,25 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_Close:BNUIButton {
-    
+class BNUIButton_Close: BNUIButton {
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    convenience init(frame:CGRect, iconColor:UIColor){
+
+    convenience init(frame: CGRect, iconColor: UIColor) {
         self.init(frame: frame)
-        
-//        self.layer.borderColor = iconColor.CGColor
-//        self.layer.borderWidth = 1
-//        self.layer.cornerRadius = self.frame.width / 2
-//        self.layer.masksToBounds = true
-        
-        icon = BNIcon_CloseSmall(color:iconColor, position: CGPoint(x: 5, y: 5))
+
+        //        self.layer.borderColor = iconColor.CGColor
+        //        self.layer.borderWidth = 1
+        //        self.layer.cornerRadius = self.frame.width / 2
+        //        self.layer.masksToBounds = true
+
+        icon = BNIcon_CloseSmall(color: iconColor, position: CGPoint(x: 5, y: 5))
     }
 }
 

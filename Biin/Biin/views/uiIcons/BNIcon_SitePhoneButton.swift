@@ -7,22 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_SitePhoneButton:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_SitePhoneButton: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Bezier Drawing
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 14.65, y: 11.02))
         bezierPath.addCurveToPoint(CGPoint(x: 13.19, y: 10.37), controlPoint1: CGPoint(x: 14.28, y: 10.62), controlPoint2: CGPoint(x: 13.73, y: 10.37))
@@ -43,12 +43,12 @@ class BNIcon_SitePhoneButton:BNIcon {
         bezierPath.addCurveToPoint(CGPoint(x: 16.39, y: 13), controlPoint1: CGPoint(x: 17.2, y: 15.19), controlPoint2: CGPoint(x: 17.2, y: 13.82))
         bezierPath.addLineToPoint(CGPoint(x: 14.65, y: 11.02))
         bezierPath.closePath()
-        bezierPath.miterLimit = 4;
-        
+        bezierPath.miterLimit = 4
+
         color!.setStroke()
         bezierPath.lineWidth = 1
         bezierPath.stroke()
-        
+
         CGContextRestoreGState(context)
     }
 }

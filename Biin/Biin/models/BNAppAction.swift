@@ -5,23 +5,23 @@
 
 import Foundation
 
-class BNAppAction:NSObject {
-    
-    var identifier:String?
-    var actionType:BnAppActionType?
-    
+class BNAppAction: NSObject {
+
+    var identifier: String?
+    var actionType: BnAppActionType?
+
     override init() {
         super.init()
     }
-    
-    convenience init (identifier:String, actionType:BnAppActionType){
+
+    convenience init(identifier: String, actionType: BnAppActionType) {
         self.init()
         self.identifier = identifier
         self.actionType = actionType
     }
-    
+
     deinit {
-        
+
     }
 }
 

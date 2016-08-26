@@ -6,51 +6,51 @@
 import Foundation
 
 class BNRequest_Login: BNRequest {
-    override init(){
+    override init() {
         super.init()
     }
-    
-    deinit{
-        
+
+    deinit {
+
     }
-    
-    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?){
+
+    convenience init(requestString: String, errorManager: BNErrorManager?, networkManager: BNNetworkManager?) {
         self.init()
         self.requestString = requestString
         self.dataIdentifier = ""
         self.requestType = BNRequestType.Login
         self.errorManager = errorManager
         self.networkManager = networkManager
-        
+
     }
-    
+
     override func run() {
-        
+
         isRunning = true
         attemps += 1
-        
-        self.networkManager!.epsNetwork!.getJson(self.identifier, url:requestString, callback: {
+
+        self.networkManager!.epsNetwork!.getJson(self.identifier, url: requestString, callback: {
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
-            
+
             if (error != nil) {
                 if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
                 self.networkManager!.requestManager!.processFailedRequest(self, error: error)
             } else {
-                
+
                 if let loginData = data["data"] as? NSDictionary {
-                    
+
                     let result = BNParser.findBool("result", dictionary: data)
 
                     if result {
-                        
+
                         let identifier = BNParser.findString("identifier", dictionary: loginData)
-                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier:identifier)
-                        
+                        self.networkManager!.delegateDM!.manager!(self.networkManager!, didReceivedUserIdentifier: identifier)
+
                         self.isCompleted = true
                         self.networkManager!.requestManager!.processCompletedRequest(self)
-                        
+
                     } else {
-                        
+
                         self.requestError = BNRequestError.Login_Failed
                         self.networkManager!.requestManager!.processFailedRequest(self, error: nil)
                     }

@@ -11,19 +11,19 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_Back_SignupView:BNUIButton {
-    
-//    override init() {
-//        super.init()
-//    }
-    
+class BNUIButton_Back_SignupView: BNUIButton {
+
+    //    override init() {
+    //        super.init()
+    //    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_LeftArrowMedium(color: UIColor.appTextColor(), position: CGPoint(x:5, y: 2))
+        icon = BNIcon_LeftArrowMedium(color: UIColor.appTextColor(), position: CGPoint(x: 5, y: 2))
     }
 }
 

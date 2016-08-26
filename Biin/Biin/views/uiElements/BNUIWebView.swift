@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 class BNUIWebView: UIWebView {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

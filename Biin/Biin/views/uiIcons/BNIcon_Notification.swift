@@ -7,22 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_Notification:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_Notification: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Group 2
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 19.83, y: 15.69))
@@ -36,28 +36,27 @@ class BNIcon_Notification:BNIcon {
         bezierPath.addLineToPoint(CGPoint(x: 23, y: 18.4))
         bezierPath.addCurveToPoint(CGPoint(x: 19.83, y: 15.69), controlPoint1: CGPoint(x: 21.41, y: 18.01), controlPoint2: CGPoint(x: 19.83, y: 17.32))
         bezierPath.closePath()
-        bezierPath.lineCapStyle = .Round;
-        
-        bezierPath.lineJoinStyle = .Round;
-        
+        bezierPath.lineCapStyle = .Round
+
+        bezierPath.lineJoinStyle = .Round
+
         color!.setStroke()
         bezierPath.lineWidth = 1
         bezierPath.stroke()
-        
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPoint(x: 14.28, y: 18.4))
         bezier2Path.addCurveToPoint(CGPoint(x: 11.5, y: 21.5), controlPoint1: CGPoint(x: 14.28, y: 20.03), controlPoint2: CGPoint(x: 13.17, y: 21.5))
         bezier2Path.addCurveToPoint(CGPoint(x: 8.72, y: 18.4), controlPoint1: CGPoint(x: 9.83, y: 21.5), controlPoint2: CGPoint(x: 8.72, y: 20.03))
-        bezier2Path.lineCapStyle = .Round;
-        
-        bezier2Path.lineJoinStyle = .Round;
-        
+        bezier2Path.lineCapStyle = .Round
+
+        bezier2Path.lineJoinStyle = .Round
+
         color!.setStroke()
         bezier2Path.lineWidth = 1
         bezier2Path.stroke()
-        
+
         CGContextRestoreGState(context)
     }
 }

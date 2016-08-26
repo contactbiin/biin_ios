@@ -5,20 +5,19 @@
 
 import Foundation
 
-class BNError:NSObject
-{
-    var code:String = ""
-    var title:String = ""
-    var errorDescription:String = ""
-    var proximityUUID:String = ""
-    var region:String = ""
-    var errorType:BNErrorType?
-    
+class BNError: NSObject {
+    var code: String = ""
+    var title: String = ""
+    var errorDescription: String = ""
+    var proximityUUID: String = ""
+    var region: String = ""
+    var errorType: BNErrorType?
+
     override init() {
         super.init()
     }
-    
-    convenience init(code:String, title:String, errorDescription:String, proximityUUID:String, region:String, errorType:BNErrorType){
+
+    convenience init(code: String, title: String, errorDescription: String, proximityUUID: String, region: String, errorType: BNErrorType) {
         self.init()
         self.code = code
         self.title = title
@@ -27,15 +26,13 @@ class BNError:NSObject
         self.region = region
         self.errorType = errorType
     }
-    
+
     deinit {
-        
+
     }
 }
 
-
-enum BNErrorType
-{
+enum BNErrorType {
     case none
     case nilShowcase
 }

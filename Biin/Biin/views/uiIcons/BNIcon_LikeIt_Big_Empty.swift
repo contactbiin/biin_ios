@@ -7,22 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_LikeIt_Big_Empty:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_LikeIt_Big_Empty: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Bezier Drawing
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 18.59, y: 0))
         bezierPath.addCurveToPoint(CGPoint(x: 12.75, y: 3.12), controlPoint1: CGPoint(x: 16.13, y: 0), controlPoint2: CGPoint(x: 13.97, y: 1.25))
@@ -35,14 +35,14 @@ class BNIcon_LikeIt_Big_Empty:BNIcon {
         bezierPath.addCurveToPoint(CGPoint(x: 18.59, y: 0), controlPoint1: CGPoint(x: 25.5, y: 2.98), controlPoint2: CGPoint(x: 22.41, y: 0))
         bezierPath.addLineToPoint(CGPoint(x: 18.59, y: 0))
         bezierPath.closePath()
-        bezierPath.lineCapStyle = .Round;
-        
-        bezierPath.lineJoinStyle = .Round;
-        
+        bezierPath.lineCapStyle = .Round
+
+        bezierPath.lineJoinStyle = .Round
+
         color!.setStroke()
         bezierPath.lineWidth = 3
         bezierPath.stroke()
-        
+
         CGContextRestoreGState(context)
     }
 }

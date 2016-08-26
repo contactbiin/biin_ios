@@ -7,22 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_JoinGameIcon:BNIcon {
-    
-    init(color:UIColor, scale:CGFloat, position:CGPoint, stroke:CGFloat, isFilled:Bool){
+class BNIcon_JoinGameIcon: BNIcon {
+
+    init(color: UIColor, scale: CGFloat, position: CGPoint, stroke: CGFloat, isFilled: Bool) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Group 3
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(48.5, 81.6))
@@ -35,16 +35,16 @@ class BNIcon_JoinGameIcon:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(81.6, 48.6))
         bezier2Path.addCurveToPoint(CGPointMake(48.5, 81.6), controlPoint1: CGPointMake(81.5, 66.8), controlPoint2: CGPointMake(66.8, 81.6))
         bezier2Path.closePath()
-        bezier2Path.miterLimit = 4;
-        
-        bezier2Path.lineCapStyle = CGLineCap.Round;
-        
-        bezier2Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier2Path.miterLimit = 4
+
+        bezier2Path.lineCapStyle = CGLineCap.Round
+
+        bezier2Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setStroke()
         bezier2Path.lineWidth = 3
         bezier2Path.stroke()
-        
+
         //// Group 2
         //// Oval 2 Drawing
         let oval2Path = UIBezierPath(ovalInRect: CGRectMake(17.7, 27.3, 6.4, 6.4))
@@ -53,8 +53,7 @@ class BNIcon_JoinGameIcon:BNIcon {
         color!.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
-        
-        
+
         //// Oval 4 Drawing
         let oval4Path = UIBezierPath(ovalInRect: CGRectMake(57.5, 27.3, 6.4, 6.4))
         color!.setFill()
@@ -62,21 +61,21 @@ class BNIcon_JoinGameIcon:BNIcon {
         color!.setStroke()
         oval4Path.lineWidth = 2
         oval4Path.stroke()
-        
+
         //// Bezier 6 Drawing
         let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(24.9, 59.9))
         bezier6Path.addLineToPoint(CGPointMake(56.7, 59.9))
-        bezier6Path.lineCapStyle = CGLineCap.Round;
-        
-        bezier6Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier6Path.lineCapStyle = CGLineCap.Round
+
+        bezier6Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setFill()
         bezier6Path.fill()
         color!.setStroke()
         bezier6Path.lineWidth = 2
         bezier6Path.stroke()
-        
+
         //// Bezier 8 Drawing
         let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(24.9, 56.7))
@@ -88,16 +87,16 @@ class BNIcon_JoinGameIcon:BNIcon {
         bezier8Path.addLineToPoint(CGPointMake(56.7, 56.7))
         bezier8Path.addLineToPoint(CGPointMake(24.9, 56.7))
         bezier8Path.closePath()
-        bezier8Path.lineCapStyle = CGLineCap.Round;
-        
-        bezier8Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier8Path.lineCapStyle = CGLineCap.Round
+
+        bezier8Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setFill()
         bezier8Path.fill()
         color!.setStroke()
         bezier8Path.lineWidth = 2
         bezier8Path.stroke()
-        
+
         //// Oval 6 Drawing
         let oval6Path = UIBezierPath(ovalInRect: CGRectMake(36.8, 21.7, 8, 8))
         color!.setFill()
@@ -105,7 +104,7 @@ class BNIcon_JoinGameIcon:BNIcon {
         color!.setStroke()
         oval6Path.lineWidth = 2
         oval6Path.stroke()
-        
+
         CGContextRestoreGState(context)
     }
 }

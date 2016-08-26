@@ -6,43 +6,43 @@
 import Foundation
 import UIKit
 
-class BNOrganization:NSObject {
-    
-    var identifier:String?
+class BNOrganization: NSObject {
+
+    var identifier: String?
 
     //Details
-    var title:String?
-    var subTitle:String?
-    
-    //var name:String?
-    var brand:String?
-    var organizationDescription:String?
-    var extraInfo:String?
-    
-    var isLoyaltyEnabled:Bool = false
-    var loyalty:BNLoyalty?
+    var title: String?
+    var subTitle: String?
 
-    var primaryColor:UIColor?
-    var secondaryColor:UIColor?
-    
-    var media:Array<BNMedia> = Array<BNMedia>()
-    
+    //var name:String?
+    var brand: String?
+    var organizationDescription: String?
+    var extraInfo: String?
+
+    var isLoyaltyEnabled: Bool = false
+    var loyalty: BNLoyalty?
+
+    var primaryColor: UIColor?
+    var secondaryColor: UIColor?
+
+    var media: Array<BNMedia> = Array<BNMedia>()
+
     var hasNPS = false
-    
-    var sites:Array<String> = Array<String>()
-    
+
+    var sites: Array<String> = Array<String>()
+
     var isUserInSite = false
 
-    override init(){
+    override init() {
         super.init()
     }
-    
-    convenience init(identifier:String){
+
+    convenience init(identifier: String) {
         self.init()
         self.identifier = identifier
     }
-    
-    deinit{
-        
+
+    deinit {
+
     }
 }

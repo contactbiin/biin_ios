@@ -8,16 +8,16 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_Information:BNUIButton {
-    
-//    override init() {
-//        super.init()
-//    }
-    
+class BNUIButton_Information: BNUIButton {
+
+    //    override init() {
+    //        super.init()
+    //    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_InformationSmall(color: UIColor.appButtonColor(), position: CGPointMake(3, 3))

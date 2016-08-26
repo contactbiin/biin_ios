@@ -5,16 +5,16 @@
 
 import Foundation
 
-class BNLocalNotification:NSObject, NSCoding {
+class BNLocalNotification: NSObject, NSCoding {
 
-    var object_id:String?
-    var objectIdentifier:String?
-    var notificationText:String?
-    var notificationType:BNLocalNotificationType?
-    var siteIdentifier:String?
-    var biinIdentifier:String?
+    var object_id: String?
+    var objectIdentifier: String?
+    var notificationText: String?
+    var notificationType: BNLocalNotificationType?
+    var siteIdentifier: String?
+    var biinIdentifier: String?
     //var elementIdentifier:String?
-    
+
     //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
     var onMonday = false
     var onTuesday = false
@@ -23,23 +23,23 @@ class BNLocalNotification:NSObject, NSCoding {
     var onFriday = false
     var onSaturday = false
     var onSunday = false
-    
-    var hasTimeOptions = false
-    
-    var endTime:Float = 0.0
-    var startTime:Float = 0.0
-    var isUserNotified = false
-    
-    var minor:Int = 0
-    var major:Int = 0
 
-    var fireDate:NSDate?
-    
+    var hasTimeOptions = false
+
+    var endTime: Float = 0.0
+    var startTime: Float = 0.0
+    var isUserNotified = false
+
+    var minor: Int = 0
+    var major: Int = 0
+
+    var fireDate: NSDate?
+
     override init() {
         super.init()
     }
-    
-    convenience init( object_id:String, objectIdentifier:String, notificationText:String, notificationType:BNLocalNotificationType, siteIdentifier:String, biinIdentifier:String, elementIdentifier:String ) {
+
+    convenience init(object_id: String, objectIdentifier: String, notificationText: String, notificationType: BNLocalNotificationType, siteIdentifier: String, biinIdentifier: String, elementIdentifier: String) {
         self.init()
         self.object_id = object_id
         self.objectIdentifier = objectIdentifier
@@ -49,21 +49,21 @@ class BNLocalNotification:NSObject, NSCoding {
         self.biinIdentifier = biinIdentifier
         //self.elementIdentifier = elementIdentifier
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        self.object_id  = aDecoder.decodeObjectForKey("object_id") as? String
 
-        if let object_identifier  = aDecoder.decodeObjectForKey("objectIdentifier") as? String {
-            self.objectIdentifier  = object_identifier
+    required init?(coder aDecoder: NSCoder) {
+        self.object_id = aDecoder.decodeObjectForKey("object_id") as? String
+
+        if let object_identifier = aDecoder.decodeObjectForKey("objectIdentifier") as? String {
+            self.objectIdentifier = object_identifier
         } else {
             self.objectIdentifier = ""
         }
-        
+
         self.notificationText = aDecoder.decodeObjectForKey("notificationText") as? String
         self.siteIdentifier = aDecoder.decodeObjectForKey("siteIdentifier") as? String
         self.biinIdentifier = aDecoder.decodeObjectForKey("biinIdentifier") as? String
         //self.elementIdentifier = aDecoder.decodeObjectForKey("elementIdentifier") as? String
-        
+
         let value = aDecoder.decodeIntForKey("notificationType")
         switch value {
         case 0:
@@ -77,7 +77,7 @@ class BNLocalNotification:NSObject, NSCoding {
         default:
             break
         }
-        
+
         //TEMPORAL: USE TO GET NOTIFICATION WHILE APP IS DOWN
         self.onMonday = aDecoder.decodeBoolForKey("onMonday")
         self.onTuesday = aDecoder.decodeBoolForKey("onTuesday")
@@ -93,37 +93,37 @@ class BNLocalNotification:NSObject, NSCoding {
         self.major = aDecoder.decodeIntegerForKey("major")
         self.minor = aDecoder.decodeIntegerForKey("minor")
         self.fireDate = aDecoder.decodeObjectForKey("fireDate") as? NSDate
-}
-    
+    }
+
     func encodeWithCoder(aCoder: NSCoder) {
         if let object_id = self.object_id {
             aCoder.encodeObject(object_id, forKey: "object_id")
         }
-        
+
         if let objectIdentifier = self.objectIdentifier {
             aCoder.encodeObject(objectIdentifier, forKey: "objectIdentifier")
         }
-        
+
         if let notificationText = self.notificationText {
             aCoder.encodeObject(notificationText, forKey: "notificationText")
         }
-        
+
         if let notificationType = self.notificationType?.hashValue {
             aCoder.encodeInteger(notificationType, forKey: "notificationType")
         }
-        
+
         if let siteIdentifier = self.siteIdentifier {
             aCoder.encodeObject(siteIdentifier, forKey: "siteIdentifier")
         }
-        
+
         if let biinIdentifier = self.biinIdentifier {
             aCoder.encodeObject(biinIdentifier, forKey: "biinIdentifier")
         }
-        
-//        if let elementIdentifier = self.elementIdentifier {
-//            aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
-//        }
-        
+
+        //        if let elementIdentifier = self.elementIdentifier {
+        //            aCoder.encodeObject(elementIdentifier, forKey: "elementIdentifier")
+        //        }
+
         aCoder.encodeBool(self.onMonday, forKey: "onMonday")
         aCoder.encodeBool(self.onTuesday, forKey: "onTuesday")
         aCoder.encodeBool(self.onWednesday, forKey: "onWednesday")
@@ -137,27 +137,27 @@ class BNLocalNotification:NSObject, NSCoding {
         aCoder.encodeFloat(self.endTime, forKey: "endTime")
         aCoder.encodeInteger(self.major, forKey: "major")
         aCoder.encodeInteger(self.minor, forKey: "minor")
-        
+
         if let fireDate = self.fireDate {
             aCoder.encodeObject(fireDate, forKey: "fireDate")
         }
     }
-    
+
     deinit {
-        
+
     }
-    
+
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
-        NSUserDefaults.standardUserDefaults().setObject(data, forKey:self.object_id!)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey: self.object_id!)
     }
-    
+
     func clear() {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(self.object_id!)
     }
-    
-    class func loadSaved(objectIdentifier:String) -> BNLocalNotification? {
-        
+
+    class func loadSaved(objectIdentifier: String) -> BNLocalNotification? {
+
         if let data = NSUserDefaults.standardUserDefaults().objectForKey(objectIdentifier) as? NSData {
             return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BNLocalNotification
         }

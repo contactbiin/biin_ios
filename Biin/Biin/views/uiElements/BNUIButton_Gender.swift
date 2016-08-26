@@ -8,27 +8,27 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_Gender:BNUIButton {
-    
-//    override init() {
-//        super.init()
-//    }
-    
+class BNUIButton_Gender: BNUIButton {
+
+    //    override init() {
+    //        super.init()
+    //    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    convenience init(frame: CGRect, iconType:BNIconType) {
-        self.init(frame:frame)
+
+    convenience init(frame: CGRect, iconType: BNIconType) {
+        self.init(frame: frame)
 
         self.backgroundColor = UIColor.appButtonColor()
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
-        
+
         switch iconType {
         case .femaleSmall:
             icon = BNIcon_FemaleSmall(color: UIColor.appMainColor(), position: CGPoint(x: 10, y: 6))
@@ -40,12 +40,12 @@ class BNUIButton_Gender:BNUIButton {
             break
         }
     }
-    
+
     override func showSelected() {
         self.backgroundColor = UIColor.darkGrayColor()
     }
-    
+
     override func showEnable() {
-        self.backgroundColor = UIColor.appButtonColor() 
+        self.backgroundColor = UIColor.appButtonColor()
     }
 }

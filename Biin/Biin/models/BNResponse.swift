@@ -5,24 +5,23 @@
 
 import Foundation
 
-class BNResponse:NSObject
-{
-    var code:Int?
-    var responseDescription:String?
-    var type:BNResponse_Type?
-    
+class BNResponse: NSObject {
+    var code: Int?
+    var responseDescription: String?
+    var type: BNResponse_Type?
+
     override init() {
         super.init()
     }
-    
-    convenience init(code:Int, type:BNResponse_Type){
+
+    convenience init(code: Int, type: BNResponse_Type) {
         self.init()
         self.code = code
         self.type = type
         addResponseDescription()
     }
-    
-    func addResponseDescription(){
+
+    func addResponseDescription() {
         switch code! {
         case 0:
             responseDescription = NSLocalizedString("Cool", comment: "Cool")//"La solicitud fue exitosa"
@@ -63,9 +62,9 @@ class BNResponse:NSObject
             break
         }
     }
-    
+
     deinit {
-        
+
     }
 }
 

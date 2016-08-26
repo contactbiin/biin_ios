@@ -7,28 +7,26 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_BiinItLargeButton:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_BiinItLargeButton: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Color Declarations
         //let fillColor = UIColor(red: 0.278, green: 0.776, blue: 0.949, alpha: 1.000)
         let strokeColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        
+
         //// biinitLarge.svg Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(48.5, 81.6))
@@ -41,16 +39,15 @@ class BNIcon_BiinItLargeButton:BNIcon {
         bezierPath.addLineToPoint(CGPointMake(81.6, 48.6))
         bezierPath.addCurveToPoint(CGPointMake(48.5, 81.6), controlPoint1: CGPointMake(81.5, 66.8), controlPoint2: CGPointMake(66.8, 81.6))
         bezierPath.closePath()
-        bezierPath.miterLimit = 4;
-        
+        bezierPath.miterLimit = 4
+
         color!.setFill()
         bezierPath.fill()
-        
-        
+
         //// Bezier 2 Drawing
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, (position.x + 20), (position.y + 25))
-        
+
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(28.55, 0))
         bezier2Path.addCurveToPoint(CGPointMake(20.07, 3.97), controlPoint1: CGPointMake(25.16, 0), controlPoint2: CGPointMake(22.05, 1.56))
@@ -63,11 +60,9 @@ class BNIcon_BiinItLargeButton:BNIcon {
         strokeColor.setStroke()
         bezier2Path.lineWidth = 4.84
         bezier2Path.stroke()
-        
+
         CGContextRestoreGState(context)
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

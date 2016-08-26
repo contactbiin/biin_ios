@@ -8,15 +8,15 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_SiteLocation:BNUIButton {
-    
+class BNUIButton_SiteLocation: BNUIButton {
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_SiteLocationButton(color: UIColor.whiteColor(), position: CGPointMake(11, 8))
     }
-    
+
 }

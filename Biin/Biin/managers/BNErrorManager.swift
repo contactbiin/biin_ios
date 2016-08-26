@@ -6,34 +6,16 @@
 import Foundation
 import UIKit
 
-class BNErrorManager:NSObject, UIAlertViewDelegate
-{
-    var delegateNM:BNErrorManagerDelegate?
-    var currentViewController:UIViewController?
-    var isAlertOn:Bool = false
-    
-    override init(){
+class BNErrorManager: NSObject, UIAlertViewDelegate {
+    var delegateNM: BNErrorManagerDelegate?
+    var currentViewController: UIViewController?
+    var isAlertOn: Bool = false
+
+    override init() {
         super.init()
     }
-    
-    func showAlert(error:NSError?) {
-        if !self.isAlertOn {
-            
-            let vc = ErrorViewController()
-            vc.addInternet_ErrorView()
-            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-            currentViewController!.presentViewController(vc, animated: true, completion: nil)
-            BNAppSharedManager.instance.errorManager.currentViewController = vc
-            
-            
-            let bnError = BNError(code: "\(error!.code)", title: error!.description, errorDescription: error!.localizedDescription, proximityUUID: "none", region: "none", errorType:BNErrorType.none)
-            delegateNM!.manager!(self, saveError: bnError)
-            
-            isAlertOn = true
-        }
-    }
-    
-    func showAlertOnStart(error:NSError?) {
+
+    func showAlert(error: NSError?) {
         if !self.isAlertOn {
 
             let vc = ErrorViewController()
@@ -41,70 +23,81 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
             BNAppSharedManager.instance.errorManager.currentViewController = vc
-        
+
+            let bnError = BNError(code: "\(error!.code)", title: error!.description, errorDescription: error!.localizedDescription, proximityUUID: "none", region: "none", errorType: BNErrorType.none)
+            delegateNM!.manager!(self, saveError: bnError)
+
+            isAlertOn = true
+        }
+    }
+
+    func showAlertOnStart(error: NSError?) {
+        if !self.isAlertOn {
+
+            let vc = ErrorViewController()
+            vc.addInternet_ErrorView()
+            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            currentViewController!.presentViewController(vc, animated: true, completion: nil)
+            BNAppSharedManager.instance.errorManager.currentViewController = vc
+
             //var bnError = BNError(code: "\(error!.code)", title: error!.description, errorDescription: error!.localizedDescription, proximityUUID: "none", region: "none", errorType:BNErrorType.none)
             //delegateNM!.manager!(self, saveError: bnError)
-            
+
             isAlertOn = true
         }
     }
-    
 
-    func showLocationServiceError(){
+    func showLocationServiceError() {
         if !self.isAlertOn {
-            
+
             isAlertOn = true
-            
+
             let vc = ErrorViewController()
             vc.addLocation_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
             currentViewController!.presentViewController(vc, animated: true, completion: nil)
             BNAppSharedManager.instance.errorManager.currentViewController = vc
-            
-            
+
         }
     }
-    
-    
-    
-    
-    func showInternetError(){
+
+    func showInternetError() {
 
         if !self.isAlertOn {
             isAlertOn = true
-//            let vc = ErrorViewController()
-//            vc.addInternet_ErrorView()
-//            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-//            currentViewController!.presentViewController(vc, animated: true, completion: nil)
+            //            let vc = ErrorViewController()
+            //            vc.addInternet_ErrorView()
+            //            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+            //            currentViewController!.presentViewController(vc, animated: true, completion: nil)
             let internetErrorView = InternetErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
             BNAppSharedManager.instance.errorManager.currentViewController!.view.addSubview(internetErrorView)
-            
+
         }
     }
-    
-    func showVersionError(){
-        
+
+    func showVersionError() {
+
         if !self.isAlertOn {
             isAlertOn = true
-            
+
             /*
-            let vc = ErrorViewController()
-            vc.addVersion_ErrorView()
-            vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
-            currentViewController!.presentViewController(vc, animated: true, completion: nil)
-            BNAppSharedManager.instance.errorManager.currentViewController = vc
-            */
-            
+             let vc = ErrorViewController()
+             vc.addVersion_ErrorView()
+             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
+             currentViewController!.presentViewController(vc, animated: true, completion: nil)
+             BNAppSharedManager.instance.errorManager.currentViewController = vc
+             */
+
             let versionErrorView = VersionErrorView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight), father: nil)
             BNAppSharedManager.instance.errorManager.currentViewController!.view.addSubview(versionErrorView)
-            
+
         }
     }
-    
-    func showServerError(){
-        
+
+    func showServerError() {
+
         if !self.isAlertOn {
-            
+
             isAlertOn = true
             let vc = ErrorViewController()
             vc.addServer_ErrorView()
@@ -114,13 +107,12 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
         }
     }
 
-    
-    func showHardwareNotSupportedError(){
-        
+    func showHardwareNotSupportedError() {
+
         if !self.isAlertOn {
-            
+
             isAlertOn = true
-            
+
             let vc = ErrorViewController()
             vc.addHardware_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
@@ -128,14 +120,13 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             BNAppSharedManager.instance.errorManager.currentViewController = vc
         }
     }
-    
-    
-    func showBluetoothError(){
-        
+
+    func showBluetoothError() {
+
         if !self.isAlertOn {
-            
+
             isAlertOn = true
-            
+
             let vc = ErrorViewController()
             vc.addBluetooth_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
@@ -143,15 +134,13 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
             BNAppSharedManager.instance.errorManager.currentViewController = vc
         }
     }
-    
-    
-    
-    func showNotBiinieError(){
-        
+
+    func showNotBiinieError() {
+
         if !self.isAlertOn {
-            
+
             isAlertOn = true
-            
+
             let vc = ErrorViewController()
             vc.addNotBiinie_ErrorView()
             vc.modalPresentationStyle = UIModalPresentationStyle.CurrentContext
@@ -160,14 +149,13 @@ class BNErrorManager:NSObject, UIAlertViewDelegate
         }
     }
 
-    
     // before animation and hiding view
-//    func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
-//        isAlertOn = false
-//    }
+    //    func alertView(alertView: UIAlertView, willDismissWithButtonIndex buttonIndex: Int) {
+    //        isAlertOn = false
+    //    }
 
 }
 
-@objc protocol BNErrorManagerDelegate:NSObjectProtocol {
-    optional func manager(manager:BNErrorManager!, saveError error:BNError)
+@objc protocol BNErrorManagerDelegate: NSObjectProtocol {
+    optional func manager(manager: BNErrorManager!, saveError error: BNError)
 }

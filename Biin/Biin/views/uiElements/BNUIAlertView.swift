@@ -3,100 +3,99 @@
 //  Created by Esteban Padilla on 2/11/15.
 //  Copyright (c) 2015 Esteban Padilla. All rights reserved.
 
-
 import Foundation
 import UIKit
 
-class BNUIAlertView:UIView {
-    
-    var header:BNUIAlertView_Header?
+class BNUIAlertView: UIView {
+
+    var header: BNUIAlertView_Header?
     var isOn = false
-    var text:String = ""
-    var type:BNUIAlertView_Type = BNUIAlertView_Type.None
-    var fade:UIView?
-    
+    var text: String = ""
+    var type: BNUIAlertView_Type = BNUIAlertView_Type.None
+    var fade: UIView?
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
     }
-    
-    convenience init(frame: CGRect, type:BNUIAlertView_Type) {
-        self.init(frame:frame)
-        
+
+    convenience init(frame: CGRect, type: BNUIAlertView_Type) {
+        self.init(frame: frame)
+
         self.type = type
         addText()
-        
+
         fade = UIView(frame: CGRectMake(0, 0, SharedUIManager.instance.screenWidth, SharedUIManager.instance.screenHeight))
         fade!.backgroundColor = UIColor.blackColor()
         fade!.alpha = 0
         self.addSubview(fade!)
-    
-        self.header = BNUIAlertView_Header(frame: CGRectMake(0, -120, frame.width, 120), type:type, text:self.text, father: self)
+
+        self.header = BNUIAlertView_Header(frame: CGRectMake(0, -120, frame.width, 120), type: type, text: self.text, father: self)
         self.addSubview(header!)
     }
-    
-    override func drawRect(rect:CGRect){
+
+    override func drawRect(rect: CGRect) {
 
     }
-    
-    func show(){
+
+    func show() {
         isOn = true
-        UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
-                self.header!.frame = CGRectMake(self.frame.origin.x, -60, self.frame.width, self.frame.height)
-                self.fade!.alpha = 0.5
-            }, completion: {(completed:Bool)-> Void in
-        
-        })
-    }
-    
-    func showAndHide(){
-        isOn = true
-        UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
+        UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
             self.header!.frame = CGRectMake(self.frame.origin.x, -60, self.frame.width, self.frame.height)
             self.fade!.alpha = 0.5
-            }, completion: {(completed:Bool)-> Void in
+            }, completion: { (completed: Bool) -> Void in
 
-                self.isOn = false
-                UIView.animateWithDuration(0.2, delay: 1.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
-                    self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
-                    self.fade!.alpha = 0
-                    }, completion: {(completed:Bool)-> Void in
-                        self.removeFromSuperview()
-                })
-                
         })
     }
-    
-    func hide(){
+
+    func showAndHide() {
+        isOn = true
+        UIView.animateWithDuration(0.2, delay: 0.2, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
+            self.header!.frame = CGRectMake(self.frame.origin.x, -60, self.frame.width, self.frame.height)
+            self.fade!.alpha = 0.5
+            }, completion: { (completed: Bool) -> Void in
+
+                self.isOn = false
+                UIView.animateWithDuration(0.2, delay: 1.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
+                    self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
+                    self.fade!.alpha = 0
+                    }, completion: { (completed: Bool) -> Void in
+                        self.removeFromSuperview()
+                })
+
+        })
+    }
+
+    func hide() {
         isOn = false
-        UIView.animateWithDuration(0.2, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: {()->Void in
-                self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
-                self.fade!.alpha = 0
-            }, completion: {(completed:Bool)-> Void in
+        UIView.animateWithDuration(0.2, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, options: UIViewAnimationOptions.TransitionNone, animations: { () -> Void in
+            self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
+            self.fade!.alpha = 0
+            }, completion: { (completed: Bool) -> Void in
                 self.removeFromSuperview()
         })
     }
-    
-    func hideWithCallback(callback:() -> Void) {
+
+    func hideWithCallback(callback: () -> Void) {
         isOn = false
-        
-        UIView.animateWithDuration(0.2, delay: 1.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: {() -> Void in
-                self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
-            }, completion: {(completed:Bool)->Void in
+
+        UIView.animateWithDuration(0.2, delay: 1.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            self.header!.frame = CGRectMake(self.frame.origin.x, -120, self.frame.width, self.frame.height)
+            }, completion: { (completed: Bool) -> Void in
                 callback()
                 self.removeFromSuperview()
         })
     }
-    
-    func closeBtnAction(sender:BNUIButton_CloseAlert){
+
+    func closeBtnAction(sender: BNUIButton_CloseAlert) {
         hide()
     }
-    
-    func addText(){
+
+    func addText() {
         switch self.type {
         case .Cool:
             self.text = NSLocalizedString("Cool", comment: "Cool")

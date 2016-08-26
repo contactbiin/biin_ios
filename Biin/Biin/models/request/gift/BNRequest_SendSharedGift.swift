@@ -6,16 +6,16 @@
 import Foundation
 
 class BNRequest_SendSharedGift: BNRequest {
-    
-    override init(){
+
+    override init() {
         super.init()
     }
-    
-    deinit{
-        
+
+    deinit {
+
     }
-    
-    convenience init(requestString:String, errorManager:BNErrorManager?, networkManager:BNNetworkManager?, gift:BNGift? , friend:Biinie?){
+
+    convenience init(requestString: String, errorManager: BNErrorManager?, networkManager: BNNetworkManager?, gift: BNGift?, friend: Biinie?) {
         self.init()
         self.requestString = requestString
         self.dataIdentifier = dataIdentifier
@@ -25,30 +25,30 @@ class BNRequest_SendSharedGift: BNRequest {
         self.gift = gift
         self.friend = friend
     }
-    
+
     override func run() {
-        
+
         isRunning = true
         attemps += 1
-        
-        var model = Dictionary<String, Dictionary <String, String>>()
-        
+
+        var model = Dictionary<String, Dictionary<String, String>>()
+
         var modelContent = Dictionary<String, String>()
-        modelContent["biinieReciever"] = self.friend!.identifier!
+        modelContent["biinieReciever"] = self.friend!.facebook_id!
         modelContent["giftIdentifier"] = self.gift?.identifier!
         model["model"] = modelContent
-        
-        var htttpBody:NSData?
+
+        var htttpBody: NSData?
         do {
-            htttpBody = try NSJSONSerialization.dataWithJSONObject(model, options:[])
+            htttpBody = try NSJSONSerialization.dataWithJSONObject(model, options: [])
         } catch _ as NSError {
             htttpBody = nil
         }
-        
-        self.networkManager!.epsNetwork!.post(self.identifier, url:self.requestString, htttpBody:htttpBody, callback: {
-            
+
+        self.networkManager!.epsNetwork!.post(self.identifier, url: self.requestString, htttpBody: htttpBody, callback: {
+
             (data: Dictionary<String, AnyObject>, error: NSError?) -> Void in
-            
+
             if (error != nil) {
                 if self.attemps == self.attempsLimit { self.requestError = BNRequestError.SendSharedGift_Failed }
                 self.networkManager!.requestManager!.processFailedRequest(self, error: error)

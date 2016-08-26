@@ -5,20 +5,19 @@
 
 import Foundation
 
-class BNRegion : NSObject
-{
-    var identifier:String?
-    var radious:Int?
-    var latitude:Float?
-    var longitude:Float?
+class BNRegion: NSObject {
+    var identifier: String?
+    var radious: Int?
+    var latitude: Float?
+    var longitude: Float?
     var sites = Dictionary<String, BNSite>()
-    
-    override init(){
+
+    override init() {
         super.init()
     }
-    
-    deinit{
-        
+
+    deinit {
+
     }
-    
+
 }

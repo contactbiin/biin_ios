@@ -8,18 +8,18 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_GiftStores:BNUIButton {
-    
+class BNUIButton_GiftStores: BNUIButton {
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    convenience init(frame:CGRect, iconColor:UIColor){
+
+    convenience init(frame: CGRect, iconColor: UIColor) {
         self.init(frame: frame)
-        icon = BNIcon_GiftStores(color:iconColor, position: CGPoint(x: 5, y: 5))
+        icon = BNIcon_GiftStores(color: iconColor, position: CGPoint(x: 5, y: 5))
     }
 }

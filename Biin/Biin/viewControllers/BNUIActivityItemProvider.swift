@@ -11,9 +11,9 @@ class BNUIActivityItemProvider: UIActivityItemProvider {
     override init(placeholderItem: AnyObject) {
         super.init(placeholderItem: placeholderItem)
     }
-    
-    override func activityViewController(activityViewController: UIActivityViewController, itemForActivityType activityType: String) -> AnyObject?  {
+
+    override func activityViewController(activityViewController: UIActivityViewController, itemForActivityType activityType: String) -> AnyObject? {
         return nil
     }
-    
+
 }

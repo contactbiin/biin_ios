@@ -6,22 +6,22 @@
 import Foundation
 import UIKit
 
-class SiteState:BNState {
-    
-    override init(context:BNView, view:BNView?){
-        super.init(context:context, view: view)
+class SiteState: BNState {
+
+    override init(context: BNView, view: BNView?) {
+        super.init(context: context, view: view)
         self.stateType = BNStateType.SiteState
     }
-    
+
     override func action() {
         view!.transitionIn()
     }
-    
-    override func next( state:BNState? ) {
+
+    override func next(state: BNState?) {
         context!.state = state
-        view!.transitionOut( context!.state )
+        view!.transitionOut(context!.state)
     }
-    
+
     override func gotoPrevious() {
         context!.state = previous
     }

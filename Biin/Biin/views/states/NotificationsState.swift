@@ -6,19 +6,19 @@
 import Foundation
 import UIKit
 
-class NotificationsState:BNState {
-    
-    override init(context:BNView, view:BNView?){
-        super.init(context:context, view: view)
+class NotificationsState: BNState {
+
+    override init(context: BNView, view: BNView?) {
+        super.init(context: context, view: view)
         self.stateType = BNStateType.Notifications
     }
-    
+
     override func action() {
         view!.transitionIn()
     }
-    
-    override func next( state:BNState? ) {
+
+    override func next(state: BNState?) {
         context!.state = state
-        view!.transitionOut( context!.state )
+        view!.transitionOut(context!.state)
     }
 }

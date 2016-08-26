@@ -7,18 +7,18 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_SettingsMedium:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_SettingsMedium: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-    
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
@@ -28,8 +28,7 @@ class BNIcon_SettingsMedium:BNIcon {
         color!.setStroke()
         oval2Path.lineWidth = 2
         oval2Path.stroke()
-        
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(24.33, 13.38))
@@ -60,14 +59,12 @@ class BNIcon_SettingsMedium:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(24.2, 15.68))
         bezier2Path.addCurveToPoint(CGPointMake(24.33, 13.38), controlPoint1: CGPointMake(24.2, 15), controlPoint2: CGPointMake(24.33, 14.19))
         bezier2Path.closePath()
-        bezier2Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier2Path.lineJoinStyle = CGLineJoin.Round
+
         color!.setStroke()
         bezier2Path.lineWidth = 2
         bezier2Path.stroke()
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

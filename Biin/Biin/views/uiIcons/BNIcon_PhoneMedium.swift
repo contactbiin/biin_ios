@@ -7,22 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_PhoneMedium:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_PhoneMedium: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-    
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(17.96, 17.68))
@@ -44,12 +44,11 @@ class BNIcon_PhoneMedium:BNIcon {
         bezier2Path.addCurveToPoint(CGPointMake(20.09, 20.06), controlPoint1: CGPointMake(21.09, 22.71), controlPoint2: CGPointMake(21.09, 21.06))
         bezier2Path.addLineToPoint(CGPointMake(17.96, 17.68))
         bezier2Path.closePath()
-        bezier2Path.miterLimit = 4;
-        
+        bezier2Path.miterLimit = 4
+
         color!.setFill()
         bezier2Path.fill()
-        
-        
+
         //// Bezier 4 Drawing
         let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(12.57, 0))
@@ -60,12 +59,11 @@ class BNIcon_PhoneMedium:BNIcon {
         bezier4Path.addCurveToPoint(CGPointMake(25.1, 13.03), controlPoint1: CGPointMake(24.94, 13.46), controlPoint2: CGPointMake(25.1, 13.29))
         bezier4Path.addCurveToPoint(CGPointMake(12.57, 0), controlPoint1: CGPointMake(25.1, 5.86), controlPoint2: CGPointMake(19.47, 0))
         bezier4Path.closePath()
-        bezier4Path.miterLimit = 4;
-        
+        bezier4Path.miterLimit = 4
+
         color!.setFill()
         bezier4Path.fill()
-        
-        
+
         //// Bezier 6 Drawing
         let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(12.57, 5.25))
@@ -76,11 +74,11 @@ class BNIcon_PhoneMedium:BNIcon {
         bezier6Path.addCurveToPoint(CGPointMake(12.16, 4.82), controlPoint1: CGPointMake(12.32, 4.39), controlPoint2: CGPointMake(12.16, 4.56))
         bezier6Path.addCurveToPoint(CGPointMake(12.57, 5.25), controlPoint1: CGPointMake(12.16, 5.08), controlPoint2: CGPointMake(12.32, 5.25))
         bezier6Path.closePath()
-        bezier6Path.miterLimit = 4;
-        
+        bezier6Path.miterLimit = 4
+
         color!.setFill()
         bezier6Path.fill()
-        
+
         //// Bezier 8 Drawing
         let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(12.57, 9.64))
@@ -91,11 +89,11 @@ class BNIcon_PhoneMedium:BNIcon {
         bezier8Path.addCurveToPoint(CGPointMake(12.16, 9.21), controlPoint1: CGPointMake(12.32, 8.77), controlPoint2: CGPointMake(12.16, 8.95))
         bezier8Path.addCurveToPoint(CGPointMake(12.57, 9.64), controlPoint1: CGPointMake(12.16, 9.47), controlPoint2: CGPointMake(12.32, 9.64))
         bezier8Path.closePath()
-        bezier8Path.miterLimit = 4;
-        
+        bezier8Path.miterLimit = 4
+
         color!.setFill()
         bezier8Path.fill()
-        
+
         CGContextRestoreGState(context)
     }
 }

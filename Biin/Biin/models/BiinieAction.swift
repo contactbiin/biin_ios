@@ -8,19 +8,19 @@
 
 import Foundation
 
-class BiinieAction:NSObject, NSCoding {
+class BiinieAction: NSObject, NSCoding {
 
-    var key:String?
-    var at:NSDate?
-    var did:BiinieActionType?
-    var to:String?
-    var by:String?
-    
+    var key: String?
+    var at: NSDate?
+    var did: BiinieActionType?
+    var to: String?
+    var by: String?
+
     override init() {
         super.init()
     }
-    
-    convenience init(at:NSDate, did:BiinieActionType, to:String, by:String, actionCounter:Int) {
+
+    convenience init(at: NSDate, did: BiinieActionType, to: String, by: String, actionCounter: Int) {
         self.init()
         self.key = "key\(actionCounter)"
         self.at = at
@@ -28,18 +28,18 @@ class BiinieAction:NSObject, NSCoding {
         self.to = to
         self.by = by
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         self.key = aDecoder.decodeObjectForKey("key") as? String
-        self.at  = aDecoder.decodeObjectForKey("at") as? NSDate
-        self.to  = aDecoder.decodeObjectForKey("to") as? String
-        
+        self.at = aDecoder.decodeObjectForKey("at") as? NSDate
+        self.to = aDecoder.decodeObjectForKey("to") as? String
+
         if let by_store = aDecoder.decodeObjectForKey("by") as? String {
             self.by = by_store
         } else {
             self.by = ""
         }
-        
+
         let value = aDecoder.decodeIntForKey("did")
         switch value {
         case 0:
@@ -94,49 +94,49 @@ class BiinieAction:NSObject, NSCoding {
             break
         }
     }
-    
+
     func encodeWithCoder(aCoder: NSCoder) {
-        
+
         if let key = self.key {
             aCoder.encodeObject(key, forKey: "key")
         }
-        
+
         if let at = self.at {
             aCoder.encodeObject(at, forKey: "at")
         }
-        
+
         if let did = self.did?.hashValue {
             aCoder.encodeInteger(did, forKey: "did")
         }
-        
+
         if let to = self.to {
             aCoder.encodeObject(to, forKey: "to")
         }
-        
+
         if let by = self.by {
             aCoder.encodeObject(by, forKey: "by")
         }
     }
-    
+
     deinit {
-        
+
     }
-    
+
     func save() {
         let data = NSKeyedArchiver.archivedDataWithRootObject(self)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: self.key!)
     }
-    
+
     func clear() {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(self.key!)
     }
-    
-    class func loadSaved(key:String) -> BiinieAction? {
-        
+
+    class func loadSaved(key: String) -> BiinieAction? {
+
         if let data = NSUserDefaults.standardUserDefaults().objectForKey(key) as? NSData {
             return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? BiinieAction
         }
-        
+
         return nil
     }
 }
@@ -147,7 +147,7 @@ enum BiinieActionType {
     case EXIT_BIIN_REGION //2
     case BIIN_NOTIFIED // 3
     case NOTIFICATION_OPENED //4
-    
+
     case ENTER_ELEMENT_VIEW  //5
     case EXIT_ELEMENT_VIEW  //6
     case LIKE_ELEMENT//7
@@ -155,7 +155,7 @@ enum BiinieActionType {
     case COLLECTED_ELEMENT // 9
     case UNCOLLECTED_ELEMENT // 10
     case SHARE_ELEMENT//11
-    
+
     case ENTER_SITE_VIEW  //12
     case EXIT_SITE_VIEW  //13
     case LIKE_SITE//14
@@ -163,12 +163,12 @@ enum BiinieActionType {
     case FOLLOW_SITE//16
     case UNFOLLOW_SITE//17
     case SHARE_SITE//18
-    
+
     case ENTER_BIIN//19
     case EXIT_BIIN//20
-    
+
     case OPEN_APP//21
     case CLOSE_APP//22
-    
+
     case BEACON_BATTERY//23
 }

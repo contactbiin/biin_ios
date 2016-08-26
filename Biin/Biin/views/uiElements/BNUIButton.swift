@@ -5,43 +5,43 @@
 
 import Foundation
 import UIKit
-class BNUIButton:UIButton {
+class BNUIButton: UIButton {
 
-    var color:UIColor?
-    var icon:BNIcon?
-    var iconType:BNIconType = BNIconType.none
+    var color: UIColor?
+    var icon: BNIcon?
+    var iconType: BNIconType = BNIconType.none
     var isButtonSelected = false
-    
+
     //override init() {
-     //   super.init()
+    //   super.init()
     //}
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addTarget(self, action: #selector(self.showPressed(_:)), forControlEvents: UIControlEvents.TouchDown)
-        
+
     }
-    
-//    convenience init(position:CGPoint, iconType:BNIconType) {
-//        
-//        self.init(frame:CGRectMake(position.x, position.y, 40, 40))
-//        
-//        self.iconType = iconType
-//        createIcon()
-//        
-//        self.layer.cornerRadius  = 3
-//        self.layer.masksToBounds = true
-//    }
-    
+
+    //    convenience init(position:CGPoint, iconType:BNIconType) {
+    //
+    //        self.init(frame:CGRectMake(position.x, position.y, 40, 40))
+    //
+    //        self.iconType = iconType
+    //        createIcon()
+    //
+    //        self.layer.cornerRadius  = 3
+    //        self.layer.masksToBounds = true
+    //    }
+
     override func drawRect(rect: CGRect) {
         icon?.drawCanvas()
     }
-    
-    func createIcon(){
+
+    func createIcon() {
         switch iconType {
         case .searchMedium:
             icon = BNIcon_SearchMedium(color: UIColor.appIconColor(), position: CGPointMake(9, 8))
@@ -50,21 +50,21 @@ class BNUIButton:UIButton {
             break
         }
     }
-    
-    func showPressed(sender:BNUIButton){
-        
+
+    func showPressed(sender: BNUIButton) {
+
     }
-    
-    func showSelected(){
+
+    func showSelected() {
         self.backgroundColor = UIColor.bnGrayLight()
     }
-    
-    func showEnable(){
+
+    func showEnable() {
         self.enabled = true
         self.backgroundColor = UIColor.darkGrayColor()
     }
-    
-    func showDisable(){
+
+    func showDisable() {
         self.enabled = false
         self.backgroundColor = UIColor.appBackground()
     }

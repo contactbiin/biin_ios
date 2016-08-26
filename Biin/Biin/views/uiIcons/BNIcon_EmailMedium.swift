@@ -7,22 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_EmailMedium:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_EmailMedium: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(24.27, 9.47))
@@ -40,12 +40,11 @@ class BNIcon_EmailMedium:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(16.66, 17.26))
         bezier2Path.addLineToPoint(CGPointMake(24.27, 9.47))
         bezier2Path.closePath()
-        bezier2Path.miterLimit = 4;
-        
+        bezier2Path.miterLimit = 4
+
         color!.setFill()
         bezier2Path.fill()
-        
-        
+
         //// Bezier 4 Drawing
         let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(24.31, 0.48))
@@ -55,12 +54,11 @@ class BNIcon_EmailMedium:BNIcon {
         bezier4Path.addLineToPoint(CGPointMake(13.3, 9.66))
         bezier4Path.addLineToPoint(CGPointMake(24.31, 0.48))
         bezier4Path.closePath()
-        bezier4Path.miterLimit = 4;
-        
+        bezier4Path.miterLimit = 4
+
         color!.setFill()
         bezier4Path.fill()
-        
-        
+
         //// Bezier 6 Drawing
         let bezier6Path = UIBezierPath()
         bezier6Path.moveToPoint(CGPointMake(18.01, 17.31))
@@ -71,12 +69,11 @@ class BNIcon_EmailMedium:BNIcon {
         bezier6Path.addLineToPoint(CGPointMake(21.61, 13.61))
         bezier6Path.addLineToPoint(CGPointMake(18.01, 17.31))
         bezier6Path.closePath()
-        bezier6Path.miterLimit = 4;
-        
+        bezier6Path.miterLimit = 4
+
         color!.setFill()
         bezier6Path.fill()
-        
-        
+
         //// Bezier 8 Drawing
         let bezier8Path = UIBezierPath()
         bezier8Path.moveToPoint(CGPointMake(27.86, 13.85))
@@ -89,12 +86,11 @@ class BNIcon_EmailMedium:BNIcon {
         bezier8Path.addCurveToPoint(CGPointMake(28, 14.18), controlPoint1: CGPointMake(27.95, 14.42), controlPoint2: CGPointMake(28, 14.33))
         bezier8Path.addCurveToPoint(CGPointMake(27.86, 13.85), controlPoint1: CGPointMake(28, 14.09), controlPoint2: CGPointMake(27.95, 13.94))
         bezier8Path.closePath()
-        bezier8Path.miterLimit = 4;
-        
+        bezier8Path.miterLimit = 4
+
         color!.setFill()
         bezier8Path.fill()
-        
-        
+
         //// Bezier 10 Drawing
         let bezier10Path = UIBezierPath()
         bezier10Path.moveToPoint(CGPointMake(14.14, 24.38))
@@ -105,13 +101,11 @@ class BNIcon_EmailMedium:BNIcon {
         bezier10Path.addLineToPoint(CGPointMake(15.26, 20.38))
         bezier10Path.addLineToPoint(CGPointMake(14.14, 24.38))
         bezier10Path.closePath()
-        bezier10Path.miterLimit = 4;
-        
+        bezier10Path.miterLimit = 4
+
         color!.setFill()
         bezier10Path.fill()
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

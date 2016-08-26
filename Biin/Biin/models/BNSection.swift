@@ -10,21 +10,21 @@ struct BNSectionDetails {
     var showcase = "", biin = "", site = ""
 }
 
-class BNSection:NSObject {
-    
-    var identifier:String?
-    var data:Array<BNSectionDetails> = Array<BNSectionDetails>()
-    
-    override init(){
+class BNSection: NSObject {
+
+    var identifier: String?
+    var data: Array<BNSectionDetails> = Array<BNSectionDetails>()
+
+    override init() {
         super.init()
     }
-    
-    convenience init(identifier:String) {
+
+    convenience init(identifier: String) {
         self.init()
         self.identifier = identifier
     }
-    
+
     deinit {
-        
+
     }
 }

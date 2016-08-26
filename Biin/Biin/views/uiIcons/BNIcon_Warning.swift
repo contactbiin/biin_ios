@@ -7,57 +7,52 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_Warning:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_Warning: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
-    convenience init(color:UIColor, position:CGPoint, scale:CGFloat) {
-        self.init(color:color, position:position)
+
+    convenience init(color: UIColor, position: CGPoint, scale: CGFloat) {
+        self.init(color: color, position: position)
         self.scale = scale
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
-        
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
         CGContextScaleCTM(context, scale, scale)
-        
-        
-        
+
         //// ball Drawing
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, 44, 44)
         CGContextRotateCTM(context, 44.85 * CGFloat(M_PI) / 180)
-        
+
         let ballPath = UIBezierPath(ovalInRect: CGRectMake(-30.93, -31.3, 61.86, 62.6))
         color!.setStroke()
         ballPath.lineWidth = 2.5
         ballPath.stroke()
-        
+
         CGContextRestoreGState(context)
-        
-        
+
         //// stick Drawing
         let stickPath = UIBezierPath()
         stickPath.moveToPoint(CGPointMake(43.98, 48.24))
         stickPath.addLineToPoint(CGPointMake(43.98, 28.44))
-        stickPath.lineCapStyle = CGLineCap.Round;
-        
-        stickPath.lineJoinStyle = CGLineJoin.Round;
-        
+        stickPath.lineCapStyle = CGLineCap.Round
+
+        stickPath.lineJoinStyle = CGLineJoin.Round
+
         color!.setStroke()
         stickPath.lineWidth = 4
         stickPath.stroke()
-        
-        
+
         //// point Drawing
         let pointPath = UIBezierPath()
         pointPath.moveToPoint(CGPointMake(43.98, 55.28))
@@ -69,15 +64,13 @@ class BNIcon_Warning:BNIcon {
         pointPath.addCurveToPoint(CGPointMake(43.98, 55.28), controlPoint1: CGPointMake(46.81, 56.51), controlPoint2: CGPointMake(45.54, 55.28))
         pointPath.addLineToPoint(CGPointMake(43.98, 55.28))
         pointPath.closePath()
-        pointPath.miterLimit = 4;
-        
+        pointPath.miterLimit = 4
+
         color!.setFill()
         pointPath.fill()
-        
-        
-        
+
         CGContextRestoreGState(context)
-        
+
     }
 }
 

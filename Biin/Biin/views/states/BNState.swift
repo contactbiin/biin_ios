@@ -6,27 +6,27 @@
 import Foundation
 import UIKit
 
-class BNState {
+class BNState:NSObject {
 
-    var context:BNView?
-    var view:BNView?
-    var stateType:BNStateType?
-    var previous:BNState?
-    
-    init(context:BNView, view:BNView?){
+    var context: BNView?
+    var view: BNView?
+    var stateType: BNStateType?
+    var previous: BNState?
+
+    init(context: BNView, view: BNView?) {
         self.context = context
         self.view = view
     }
-    
+
     func action() {
 
     }
-    
-    func next( state:BNState? ) {
+
+    func next(state: BNState?) {
 
     }
-    
-    func gotoPrevious() { }
+
+    func gotoPrevious() {}
 }
 
 enum BNStateType {

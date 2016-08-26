@@ -6,90 +6,90 @@
 import Foundation
 import UIKit
 
-class BNElement:NSObject {
-    
+class BNElement: NSObject {
+
     //Nutshell
     //var _id:String?
-    var identifier:String?
-    var position:Int?
-    var title:String?
-    var subTitle:String?
-    var nutshellDescriptionTitle:String?
-    var nutshellDescription:String?
+    var identifier: String?
+    var position: Int?
+    var title: String?
+    var subTitle: String?
+    var nutshellDescriptionTitle: String?
+    var nutshellDescription: String?
 
     //Hightlights - Price
     var isTaxIncludedInPrice = false
     var hasFromPrice = false
-    var fromPrice:String?
-    var hasListPrice:Bool = false
-    var listPrice:String?
+    var fromPrice: String?
+    var hasListPrice: Bool = false
+    var listPrice: String?
     var hasDiscount = false
-    var discount:String?
+    var discount: String?
     var hasPrice = false //after discount applied
-    var price:String? //after discount applied
+    var price: String? //after discount applied
     var hasSaving = false
-    var savings:String?
-    var currency:String?
-    
+    var savings: String?
+    var currency: String?
+
     //Hightlights - Limited Time
     var hasTimming = false
-    var initialDate:NSDate?
-    var expirationDate:NSDate?
-    
+    var initialDate: NSDate?
+    var expirationDate: NSDate?
+
     //Hightlights - Quantity
     var hasQuantity = false
-    var quantity:String?
-    var reservedQuantity:String?
-    var claimedQuantity:String?
-    var actualQuantity:String?
-    var stars:Float = 0
+    var quantity: String?
+    var reservedQuantity: String?
+    var claimedQuantity: String?
+    var actualQuantity: String?
+    var stars: Float = 0
     var useWhiteText = false
-    
+
     //Gallery
-    var media:Array<BNMedia> = Array<BNMedia>()
-    var gallery:Array<UIImageView> = Array<UIImageView>()
+    var media: Array<BNMedia> = Array<BNMedia>()
+    var gallery: Array<UIImageView> = Array<UIImageView>()
 
     //Notification
     //var activateNotification = false
     //var notifications:Array<BNNotification>?
-    
+
     //Social interaction
     //var biinedCount:Int = 0       //How many time users have biined this element.
-    var collectCount:Int = 0   //How many time users have collect this element.
-    var commentedCount:Int = 0    //How many time users have commented this element.
-    
+    var collectCount: Int = 0   //How many time users have collect this element.
+    var commentedCount: Int = 0    //How many time users have commented this element.
+
     //var userBiined = false
     var userCommented = false
     var userViewed = false
     var userShared = false
     var userCollected = false
     var userLiked = false
-    
+
     //Download management
     var isDownloadCompleted = false
-    var isHighlight:Bool = false
-//    var siteIdentifier:String?
-    var categoriesIdentifiers:Array<String>?
-    var showcase:BNShowcase?
-    
-    var detailsHtml:String?
-    
+    var isHighlight: Bool = false
+    //    var siteIdentifier:String?
+    var categoriesIdentifiers: Array<String>?
+    var showcase: BNShowcase?
+
+    var detailsHtml: String?
+
     var hasCallToAction = false
-    var callToActionURL:String?
-    var callToActionTitle:String?
+    var callToActionURL: String?
+    var callToActionTitle: String?
     var isRemovedFromShowcase = false
-    
+
     //var biinieProximity:Float? //same as the site where it belongs
-    
+
     override init() {
         super.init()
     }
-    
+
     deinit {
-        
+
     }
-    
-    func clone()->BNElement {
+
+    func clone() -> BNElement {
         let clone = BNElement()
 
         //if let value = self._id { clone._id = value }
@@ -134,7 +134,7 @@ class BNElement:NSObject {
         clone.userLiked = self.userLiked
         clone.isHighlight = self.isHighlight
         clone.isRemovedFromShowcase = self.isRemovedFromShowcase
-//        if let value = self.siteIdentifier { clone.siteIdentifier = value }
+        //        if let value = self.siteIdentifier { clone.siteIdentifier = value }
         if let value = self.showcase { clone.showcase = value }
         clone.stars = self.stars
         clone.useWhiteText = self.useWhiteText

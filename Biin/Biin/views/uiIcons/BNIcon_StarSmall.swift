@@ -7,23 +7,22 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_StarSmall:BNIcon {
-    
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_StarSmall: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Group 2
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
+
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 7.5, y: 0))
@@ -40,7 +39,7 @@ class BNIcon_StarSmall:BNIcon {
         bezierPath.closePath()
         self.color!.setFill()
         bezierPath.fill()
-        
+
         CGContextRestoreGState(context)
     }
 }

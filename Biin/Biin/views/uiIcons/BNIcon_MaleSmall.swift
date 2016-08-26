@@ -10,31 +10,28 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_MaleSmall:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_MaleSmall: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-    
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+
         //// head Drawing
         let headPath = UIBezierPath(ovalInRect: CGRectMake(2, 0, 5.8, 5.8))
         color!.setStroke()
         headPath.lineWidth = 1.5
         headPath.stroke()
-        
-        
+
         //// body Drawing
         let bodyPath = UIBezierPath()
         bodyPath.moveToPoint(CGPointMake(9.8, 6.77))
@@ -48,9 +45,7 @@ class BNIcon_MaleSmall:BNIcon {
         color!.setStroke()
         bodyPath.lineWidth = 1.5
         bodyPath.stroke()
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

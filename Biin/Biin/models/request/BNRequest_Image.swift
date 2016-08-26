@@ -9,12 +9,12 @@ class BNRequest_Image: BNRequest {
     override init() {
         super.init()
     }
-    
-    deinit{
-        
+
+    deinit {
+
     }
-    
-    convenience init(requestString:String, errorManager:BNErrorManager, networkManager:BNNetworkManager, image:BNUIImageView) {
+
+    convenience init(requestString: String, errorManager: BNErrorManager, networkManager: BNNetworkManager, image: BNUIImageView) {
         self.init()
         //self.identifier = BNRequestData.requestCounter++
         self.requestString = requestString
@@ -24,23 +24,23 @@ class BNRequest_Image: BNRequest {
         self.networkManager = networkManager
         self.image = image
     }
-    
+
     override func run() {
-        
+
         isRunning = true
         attemps += 1
-        
+
         if image != nil {
-            
-            self.networkManager!.epsNetwork!.getImage(requestString, image:self.image!, callback:{(error: NSError?) -> Void in
-                
-                if (error != nil)  {
+
+            self.networkManager!.epsNetwork!.getImage(requestString, image: self.image!, callback: { (error: NSError?) -> Void in
+
+                if (error != nil) {
                     if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
                     self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 } else {
                     self.isCompleted = true
                     self.networkManager!.requestManager!.processCompletedRequest(self)
-                    
+
                 }
             })
         }

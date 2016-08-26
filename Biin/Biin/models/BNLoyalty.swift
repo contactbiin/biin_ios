@@ -5,22 +5,20 @@
 
 import Foundation
 
+class BNLoyalty: BNObject {
 
-class BNLoyalty:BNObject {
-    
-    
-    var organizationIdentifier:String?
-    var loyaltyCard:BNLoyaltyCard?
-    
+    var organizationIdentifier: String?
+    var loyaltyCard: BNLoyaltyCard?
+
     override init() {
         super.init()
-    }    
-    
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func addStar(){
+
+    func addStar() {
         loyaltyCard?.addStar()
     }
 }

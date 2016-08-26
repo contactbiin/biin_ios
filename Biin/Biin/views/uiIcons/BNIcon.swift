@@ -8,16 +8,16 @@ import UIKit
 import QuartzCore
 
 class BNIcon {
-    
-    var color:UIColor?
-    var position:CGPoint = CGPoint.zero
-    var width:CGFloat = 0
-    var strokeWidth:CGFloat = 0
-    var scale:CGFloat = 1
-    
-    init(){ }
-    
-    func drawCanvas() { }
+
+    var color: UIColor?
+    var position: CGPoint = CGPoint.zero
+    var width: CGFloat = 0
+    var strokeWidth: CGFloat = 0
+    var scale: CGFloat = 1
+
+    init() {}
+
+    func drawCanvas() {}
     func iconPath() -> UIBezierPath { return UIBezierPath() }
 }
 

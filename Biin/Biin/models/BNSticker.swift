@@ -6,26 +6,25 @@
 import Foundation
 import UIKit
 
-class BNSticker:NSObject {
+class BNSticker: NSObject {
 
-    var type:BNStickerType = .NONE
-    var color:UIColor?
-    
-    override init(){
+    var type: BNStickerType = .NONE
+    var color: UIColor?
+
+    override init() {
         super.init()
     }
-    
-    convenience init(type:BNStickerType, color:UIColor) {
+
+    convenience init(type: BNStickerType, color: UIColor) {
         self.init()
         self.type = type
         self.color = color
     }
-    
+
     deinit {
-        
+
     }
 }
-
 
 enum BNStickerType {
     case NONE

@@ -7,14 +7,14 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_GamesMedium:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_GamesMedium: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -22,9 +22,7 @@ class BNIcon_GamesMedium:BNIcon {
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(35.4, 11.9))
@@ -115,13 +113,11 @@ class BNIcon_GamesMedium:BNIcon {
         bezier2Path.addLineToPoint(CGPointMake(25.2, 9.52))
         bezier2Path.addLineToPoint(CGPointMake(25.2, 11.9))
         bezier2Path.closePath()
-        bezier2Path.miterLimit = 4;
-        
+        bezier2Path.miterLimit = 4
+
         color!.setFill()
         bezier2Path.fill()
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

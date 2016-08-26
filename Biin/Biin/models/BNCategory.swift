@@ -7,82 +7,82 @@ import Foundation
 import UIKit
 
 struct BNCategorySiteDetails {
-    init(){ }
-    var identifier:String?
-    var json:String?
-    var biinieProximity:Float?
+    init() {}
+    var identifier: String?
+    var json: String?
+    var biinieProximity: Float?
 }
 
-class BNCategory:NSObject {
-    
-    var identifier:String?
-    var name:String?
+class BNCategory: NSObject {
+
+    var identifier: String?
+    var name: String?
     //var categoryType:BNCategoryType?
-    var sitesDetails:Array<BNCategorySiteDetails> = Array<BNCategorySiteDetails>()
+    var sitesDetails: Array<BNCategorySiteDetails> = Array<BNCategorySiteDetails>()
     var isDownloaded = false
     var isUserCategory = false
     var hasSites = false
-    var elements:Array<BNElementRelationShip> = Array<BNElementRelationShip>()
-//    var elements:Dictionary<String, BNElement> = Dictionary<String, BNElement>()
-//    var elements:Array<BNElement> = Array<BNElement>()
+    var elements: Array<BNElementRelationShip> = Array<BNElementRelationShip>()
+    //    var elements:Dictionary<String, BNElement> = Dictionary<String, BNElement>()
+    //    var elements:Array<BNElement> = Array<BNElement>()
     var priority = 1
-    var backgroundColor:UIColor?
-    
-    override init(){
+    var backgroundColor: UIColor?
+
+    override init() {
         super.init()
     }
-    
-    convenience init(identifier:String) {
+
+    convenience init(identifier: String) {
         self.init()
         self.identifier = identifier
         //addIconType()
     }
-    
-    convenience init(identifier:String, name:String) {
+
+    convenience init(identifier: String, name: String) {
         self.init()
         self.identifier = identifier
         self.name = name
         //addIconType()
     }
-    
-    deinit { }
 
-    func addIconType(){
-//        if identifier == "category1" {
-//            categoryType = BNCategoryType.personalcare
-//        } else if identifier == "category2" {
-//            categoryType = BNCategoryType.vacations
-//        } else if identifier == "category3" {
-//            categoryType = BNCategoryType.shoes
-//        } else if identifier == "category4" {
-//            categoryType = BNCategoryType.game
-//        } else if identifier == "category5" {
-//            categoryType = BNCategoryType.outdoors
-//        } else if identifier == "category6" {
-//            categoryType = BNCategoryType.health
-//        } else if identifier == "category7" {
-//            categoryType = BNCategoryType.food
-//        } else if identifier == "category8" {
-//            categoryType = BNCategoryType.sports
-//        } else if identifier == "category9" {
-//            categoryType = BNCategoryType.education
-//        } else if identifier == "category10" {
-//            categoryType = BNCategoryType.fashion
-//        } else if identifier == "category11" {
-//            categoryType = BNCategoryType.music
-//        } else if identifier == "category12" {
-//            categoryType = BNCategoryType.movies
-//        } else if identifier == "category13" {
-//            categoryType = BNCategoryType.technology
-//        } else if identifier == "category14" {
-//            categoryType = BNCategoryType.entertaiment
-//        } else if identifier == "category15" {
-//            categoryType = BNCategoryType.travel
-//        } else if identifier == "general"{
-//            categoryType = BNCategoryType.general
-//        } else {
-//            categoryType = BNCategoryType.none
-//        }
+    deinit {}
+
+    func addIconType() {
+        //        if identifier == "category1" {
+        //            categoryType = BNCategoryType.personalcare
+        //        } else if identifier == "category2" {
+        //            categoryType = BNCategoryType.vacations
+        //        } else if identifier == "category3" {
+        //            categoryType = BNCategoryType.shoes
+        //        } else if identifier == "category4" {
+        //            categoryType = BNCategoryType.game
+        //        } else if identifier == "category5" {
+        //            categoryType = BNCategoryType.outdoors
+        //        } else if identifier == "category6" {
+        //            categoryType = BNCategoryType.health
+        //        } else if identifier == "category7" {
+        //            categoryType = BNCategoryType.food
+        //        } else if identifier == "category8" {
+        //            categoryType = BNCategoryType.sports
+        //        } else if identifier == "category9" {
+        //            categoryType = BNCategoryType.education
+        //        } else if identifier == "category10" {
+        //            categoryType = BNCategoryType.fashion
+        //        } else if identifier == "category11" {
+        //            categoryType = BNCategoryType.music
+        //        } else if identifier == "category12" {
+        //            categoryType = BNCategoryType.movies
+        //        } else if identifier == "category13" {
+        //            categoryType = BNCategoryType.technology
+        //        } else if identifier == "category14" {
+        //            categoryType = BNCategoryType.entertaiment
+        //        } else if identifier == "category15" {
+        //            categoryType = BNCategoryType.travel
+        //        } else if identifier == "general"{
+        //            categoryType = BNCategoryType.general
+        //        } else {
+        //            categoryType = BNCategoryType.none
+        //        }
     }
 }
 

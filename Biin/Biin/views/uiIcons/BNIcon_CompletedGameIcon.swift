@@ -7,29 +7,27 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_CompletedGameIcon:BNIcon {
-    
-    init(color:UIColor, scale:CGFloat, position:CGPoint, stroke:CGFloat, isFilled:Bool){
+class BNIcon_CompletedGameIcon: BNIcon {
+
+    init(color: UIColor, scale: CGFloat, position: CGPoint, stroke: CGFloat, isFilled: Bool) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
-        
+
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Color Declarations
         let colorWhite = UIColor.whiteColor()
         //let color0 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        
+
         //// Group
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, position.x, position.y)
-        
-        
-        
+
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(39.56, 66.6))
@@ -47,8 +45,7 @@ class BNIcon_CompletedGameIcon:BNIcon {
         colorWhite.setStroke()
         bezier2Path.lineWidth = 2
         bezier2Path.stroke()
-        
-        
+
         //// Bezier 4 Drawing
         let bezier4Path = UIBezierPath()
         bezier4Path.moveToPoint(CGPointMake(45.1, 18.67))
@@ -59,14 +56,12 @@ class BNIcon_CompletedGameIcon:BNIcon {
         bezier4Path.addLineToPoint(CGPointMake(49.93, 23.49))
         bezier4Path.addLineToPoint(CGPointMake(45.1, 18.67))
         bezier4Path.closePath()
-        bezier4Path.lineJoinStyle = CGLineJoin.Round;
-        
+        bezier4Path.lineJoinStyle = CGLineJoin.Round
+
         colorWhite.setStroke()
         bezier4Path.lineWidth = 2
         bezier4Path.stroke()
-        
-        
-        
+
         CGContextRestoreGState(context)
     }
 }

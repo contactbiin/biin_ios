@@ -8,24 +8,24 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_OptionBar:BNUIButton {
-    
-    var label:UILabel?
-    
+class BNUIButton_OptionBar: BNUIButton {
+
+    var label: UILabel?
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
-    convenience init(frame:CGRect, text:String, iconType:BNIconType){
-        self.init(frame:frame)
-        
+
+    convenience init(frame: CGRect, text: String, iconType: BNIconType) {
+        self.init(frame: frame)
+
         self.iconType = iconType
         createIcon()
-        
+
         label = UILabel(frame: CGRectMake((-10), (frame.height - 2), (frame.width + 20), 10))
         label!.text = text
         label!.textColor = UIColor.bnOptionBarIconColor()
@@ -33,8 +33,8 @@ class BNUIButton_OptionBar:BNUIButton {
         label!.textAlignment = NSTextAlignment.Center
         self.addSubview(label!)
     }
-    
-    override func createIcon(){
+
+    override func createIcon() {
         switch iconType {
         case .menuMedium:
             icon = BNIcon_Menu(color: UIColor.bnOptionBarIconColor(), position: CGPointMake(6, 9))
@@ -54,19 +54,19 @@ class BNUIButton_OptionBar:BNUIButton {
             break
         }
     }
-    
+
     override func showSelected() {
         //self.icon!.color = UIColor.biinColor()
         setNeedsDisplay()
     }
-    
+
     override func showEnable() {
         //self.icon!.color = UIColor.appButtonColor()
         label!.textColor = UIColor.whiteColor()
         self.enabled = true
         setNeedsDisplay()
     }
-    
+
     override func showDisable() {
         //icon!.color = UIColor.appButtonColor_Disable()
         label!.textColor = UIColor.blackColor()

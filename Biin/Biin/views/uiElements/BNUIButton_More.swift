@@ -8,19 +8,19 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_More:BNUIButton {
-    
+class BNUIButton_More: BNUIButton {
+
     //    override init() {
     //        super.init()
     //    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon = BNIcon_More(color: UIColor.appTextColor(), position: CGPoint(x:(frame.width / 2), y: ((frame.height / 2) - 5.5)))
+        icon = BNIcon_More(color: UIColor.appTextColor(), position: CGPoint(x: (frame.width / 2), y: ((frame.height / 2) - 5.5)))
     }
 }
 

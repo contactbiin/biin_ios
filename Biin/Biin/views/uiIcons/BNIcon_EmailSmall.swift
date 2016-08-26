@@ -7,15 +7,15 @@ import Foundation
 import QuartzCore
 import UIKit
 
-class BNIcon_EmailSmall:BNIcon {
-    
-    init(color:UIColor, position:CGPoint){
+class BNIcon_EmailSmall: BNIcon {
+
+    init(color: UIColor, position: CGPoint) {
         super.init()
         super.color = color
         super.position = position
     }
-    
+
     override func drawCanvas() {
-        
+
     }
 }

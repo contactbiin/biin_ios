@@ -8,12 +8,12 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_Back:BNUIButton {
-    
+class BNUIButton_Back: BNUIButton {
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         icon = BNIcon_LeftArrowSmall(color: UIColor.appTitleColor(), position: CGPointMake(13, 11.5))

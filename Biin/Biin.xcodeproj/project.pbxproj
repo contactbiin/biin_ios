@@ -1523,7 +1523,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 395290815646a41ff6986014f02c140206579f96 e969912a7587c550b941ce163b355d2581986aabaeb9a0810371dba550b7b24a";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 395290815646a41ff6986014f02c140206579f96 e969912a7587c550b941ce163b355d2581986aabaeb9a0810371dba550b7b24a\n";
 			showEnvVarsInLog = 0;
 		};
 		8EFB25DD37416E4C888B7125 /* [CP] Copy Pods Resources */ = {

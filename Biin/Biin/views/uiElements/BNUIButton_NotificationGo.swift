@@ -8,16 +8,16 @@ import UIKit
 import CoreGraphics
 import QuartzCore
 
-class BNUIButton_NotificationGo:BNUIButton {
-    
-//    override init() {
-//        super.init()
-//    }
-    
+class BNUIButton_NotificationGo: BNUIButton {
+
+    //    override init() {
+    //        super.init()
+    //    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.appButtonColor()
