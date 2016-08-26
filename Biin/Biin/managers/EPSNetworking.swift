@@ -274,18 +274,22 @@ class EPSNetworking: NSObject {
 
                         callback(error)
                     } else {
+                        
                         //Send image to be store in image dictionary
+                        if data != nil {
+                        
+                            let imageDownload = UIImage(data: data!)!
 
-                        let imageDownload = UIImage(data: data!)!
+                            ShareEPSNetworking.cacheImages[urlString as String] = self.optimizeImageForRender(imageDownload.CGImage!)
 
-                        ShareEPSNetworking.cacheImages[urlString as String] = self.optimizeImageForRender(imageDownload.CGImage!)
+                            self.sentImages(urlString as String)
 
-                        self.sentImages(urlString as String)
+                            self.saveImageInBiinChacheLocalFolder(urlString as String, image: imageDownload)
 
-                        self.saveImageInBiinChacheLocalFolder(urlString as String, image: imageDownload)
+                            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
 
-                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-
+                        }
+                        
                         callback(nil)
                     }
                 })

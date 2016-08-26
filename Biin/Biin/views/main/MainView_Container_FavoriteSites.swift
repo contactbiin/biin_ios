@@ -120,14 +120,14 @@ class MainView_Container_FavoriteSites: BNView {
         for i in (0 ..< favoritesSites.count) {
             if let site = BNAppSharedManager.instance.dataManager.sites[favoritesSites[i]] {
                 if site.userLiked {
-                    if !isSiteAdded(site.identifier!) {
+                    if !isSiteAdded(site) {
                         let miniSiteHeight: CGFloat = SharedUIManager.instance.siteMiniView_imageheight + SharedUIManager.instance.siteMiniView_headerHeight
                         let miniSiteView = SiteMiniView(frame: CGRectMake(0, ypos, siteView_width, miniSiteHeight), father: self, site: site)
                         miniSiteView.isPositionedInFather = true
                         miniSiteView.isReadyToRemoveFromFather = false
                         miniSiteView.delegate = father?.father! as! MainView
                         sites.append(miniSiteView)
-
+                        self.scroll!.addChild(miniSiteView)
                         //xpos += siteView_width + 1
                     }
                 }
@@ -144,7 +144,8 @@ class MainView_Container_FavoriteSites: BNView {
             moreSitesBtn!.alpha = 0
         }
 
-        self.scroll!.addMoreChildren(sites)
+        self.scroll!.setChildrenPosition()
+        //self.scroll!.addMoreChildren(sites)
     }
 
     func addSite(site: BNSite?) {
@@ -190,9 +191,9 @@ class MainView_Container_FavoriteSites: BNView {
         addAllSites()
     }
 
-    func isSiteAdded(identifier: String) -> Bool {
+    func isSiteAdded(site: BNSite?) -> Bool {
         for view in scroll!.children {
-            if view.model!.identifier! == identifier {
+            if view.model!.identifier! == site!.identifier! || (view.model as? BNSite)?.organization!.identifier! == site!.organization!.identifier! {
                 return true
             }
         }
