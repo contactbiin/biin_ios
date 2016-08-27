@@ -310,7 +310,7 @@ class Biinie: BNObject {
             }
         }
 
-        if newGift?.status == BNGiftStatus.SENT {
+        if newGift?.status == BNGiftStatus.SENT || newGift?.status == BNGiftStatus.SHARED {
             self.newGiftCounter += 1
         }
 
