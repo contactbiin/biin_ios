@@ -262,6 +262,7 @@ SENT = "Visita locales participantes y solicita este regalo!";
 DELIVERED = "Disfruta tu regalo";
 READY_TO_CLAIM = "Reclama ahora";
 GiftsExpires = "Expira:";
+GiftStores = "Locales disponibles";
 
 Loyalties = "Tarjetas";
 SeeGift = "Ver regalo";

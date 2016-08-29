@@ -86,7 +86,7 @@ class Biinie: BNObject {
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
-        
+
         if let notifications_old_store = aDecoder.decodeObjectForKey("notifications_store") {
             self.notifications_store = notifications_old_store as! [String]
         }

@@ -786,8 +786,16 @@ class MainView: BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_De
     }
 
     func showGiftStores(gift: BNGift?) {
-        let title = "Sites"
-        let text = "titulo"
+        
+        let title = NSLocalizedString("GiftStores", comment: "GiftStores")
+        var text = ""
+        
+        for siteIdentifier in gift!.sites! {
+            if let site = BNAppSharedManager.instance.dataManager.sites[siteIdentifier] {
+                text += "\(site.city!), "
+            }
+        }
+        
         (alertState!.view as? AlertView)?.updateAlertView(title, text: text, goto: BNGoto.JustCloseAlert, model: nil)
         setNextState(BNGoto.AlertView)
     }

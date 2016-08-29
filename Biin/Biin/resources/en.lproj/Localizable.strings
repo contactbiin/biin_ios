@@ -267,6 +267,7 @@ SENT = "Visit our store and request this gift!";
 DELIVERED = "Enjoy this gift!";
 READY_TO_CLAIM = "Clain now";
 GiftsExpires = "Expires:";
+GiftStores = "Available Sites";
 
 Loyalties = "Loyalties";
 SeeGift = "See gift";
@@ -276,6 +277,7 @@ SeeConditions = "See conditions";
 LoyaltyCardConditions = "By doing tap OK you accept the terms of use of the loyalty customers program of";
 EnrollNow = "Enroll Now!";
 Completed = "Completed!";
+
 
 Congratulations = "Congratulations!";
 CompletedCard = "You have obtained all the stars of our card.";
