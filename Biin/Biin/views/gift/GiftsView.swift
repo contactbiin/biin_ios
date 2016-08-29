@@ -113,7 +113,8 @@ class GiftsView: BNView, GiftView_Delegate {
     override func transitionOut(state: BNState?) {
         state!.action()
 
-        if state!.stateType != BNStateType.FriendsState {
+        if state!.stateType != BNStateType.FriendsState &&
+            state!.stateType != BNStateType.AlertState {
 
             UIView.animateWithDuration(0.25, animations: { () -> Void in
                 self.frame.origin.x = SharedUIManager.instance.screenWidth
@@ -171,8 +172,6 @@ class GiftsView: BNView, GiftView_Delegate {
 
         BNAppSharedManager.instance.dataManager.biinie!.removeGift(view.model!.identifier!)
 
-        let biini = BNAppSharedManager.instance.dataManager.biinie
-
         if BNAppSharedManager.instance.dataManager.biinie!.gifts.count > 0 {
             self.text!.alpha = 0
         } else {
@@ -214,10 +213,15 @@ class GiftsView: BNView, GiftView_Delegate {
         lastViewOpen!.hideRemoveBtn(UISwipeGestureRecognizer())
         delegate!.showFriendsView_ToShareGift!(gift)
     }
+    
+    func showGiftStores(gift: BNGift?) {
+        delegate!.showGiftStores!(gift)
+    }
 }
 
 @objc protocol GiftsView_Delegate: NSObjectProtocol {
     optional func hideGiftsView()
     optional func showFriendsView_ToShareGift(gift: BNGift?)
+    optional func showGiftStores(gift: BNGift?)
 
 }

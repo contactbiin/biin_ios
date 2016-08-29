@@ -37,7 +37,7 @@ class MenuView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.backgroundColor = UIColor.darkGrayColor()
+        self.backgroundColor = UIColor.appBackground()
         //        self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
 

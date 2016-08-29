@@ -785,6 +785,13 @@ class MainView: BNView, SiteMiniView_Delegate, SiteView_Delegate, ProfileView_De
         BNAppSharedManager.instance.dataManager.biinie!.giftToShare = gift
     }
 
+    func showGiftStores(gift: BNGift?) {
+        let title = "Sites"
+        let text = "titulo"
+        (alertState!.view as? AlertView)?.updateAlertView(title, text: text, goto: BNGoto.JustCloseAlert, model: nil)
+        setNextState(BNGoto.AlertView)
+    }
+    
     //NOTIFICATION
     func updateNotificationsView() {
         (notificationsState!.view as! NotificationsView).addNotifications()

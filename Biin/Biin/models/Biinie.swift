@@ -19,7 +19,6 @@ class Biinie: BNObject {
     var friends = Array<Biinie>()
     var token: String?
     var needsTokenUpdate = false
-    //    var imgUrl:String?
 
     var biins: Int?
     var following: Int?
@@ -51,12 +50,8 @@ class Biinie: BNObject {
     weak var giftToShare: BNGift?
     weak var friendToShareGift: Biinie?
 
-    //LOYALTIES
-    //var loyalties = Dictionary<String, BNLoyalty>()
-
     override init() {
         super.init()
-
         self.newNotificationCount = 0
         facebookAvatarUrl = ""
         facebook_id = ""
@@ -73,18 +68,12 @@ class Biinie: BNObject {
 
     convenience init(identifier: String, firstName: String, lastName: String, email: String, gender: String) {
         self.init(identifier: identifier, firstName: firstName, lastName: lastName, email: email)
-
         self.gender = gender
     }
 
     required init?(coder aDecoder: NSCoder) {
 
         super.init(coder: aDecoder)
-        //
-        //        if let facebook_id_stored = aDecoder.decodeObjectForKey("facebook_id") {
-        //            self.facebook_id = facebook_id_stored as? String
-        //        }
-        //
         self.facebook_id = aDecoder.decodeObjectForKey("facebook_id") as? String
         self.facebookAvatarUrl = aDecoder.decodeObjectForKey("facebookAvatarUrl") as? String
         self.identifier  = aDecoder.decodeObjectForKey("identifier") as? String
@@ -97,11 +86,7 @@ class Biinie: BNObject {
         self.actions =  aDecoder.decodeObjectForKey("actions") as! [BiinieAction]
         self.gender  = aDecoder.decodeObjectForKey("gender") as? String
         self.actionCounter = aDecoder.decodeIntegerForKey("actionCounter")
-
-        //        if let gifts_old_store = aDecoder.decodeObjectForKey("gifts_store") {
-        //            self.gifts_store = gifts_old_store as! [String]
-        //        }
-        //
+        
         if let notifications_old_store = aDecoder.decodeObjectForKey("notifications_store") {
             self.notifications_store = notifications_old_store as! [String]
         }

@@ -296,7 +296,7 @@ class BNParser {
                         while i < slots {
                             i += 1
                             var slot = BNLoyaltyCard_Slot()
-                            if i < usedSlots {
+                            if i <= usedSlots {
                                 slot.isFilled = true
                             } else {
                                 slot.isFilled = false
