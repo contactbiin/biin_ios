@@ -29,6 +29,8 @@ class BNRequest_SendBiinieToken: BNRequest {
         self.biinie = biinie
     }
 
+    
+    
     override func run() {
 
         //self.start = NSDate()

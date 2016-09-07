@@ -206,18 +206,21 @@ class BNNetworkManager: NSObject, BNDataManagerDelegate, BNErrorManagerDelegate,
      @param password:Biinie password.
      */
     func login_Facebook(email: String) {
+        /*
         let url: NSString = "\(rootURL)/mobile/biinies/auth/thirdparty/facebook/\(email)"
         let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let request = BNRequest_Login_Facebook(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
+         */
     }
 
     /**
      Enable biinie to register.
      @param user:Biinie data.
      */
-    func register(user: Biinie) {
+    //func register(user: Biinie) {
 
+        /*
         var date: String?
 
         if user.birthDate != nil {
@@ -225,18 +228,26 @@ class BNNetworkManager: NSObject, BNDataManagerDelegate, BNErrorManagerDelegate,
         } else {
             date = "none"
         }
+        
+        
 
         let url: NSString = "\(rootURL)/mobile/biinies/\(SharedUIManager.instance.fixEmptySpace(user.firstName!))/\(user.lastName!)/\(user.email!)/\(user.password!)/\(user.gender!)/\(date!)"
 
         let urlStr = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         let request = BNRequest_Register(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
-    }
+        */
+        
+//        let request = BNRequest_SendBiinie(requestString: "\(rootURL)/mobile/biinies/\(user.identifier!)", errorManager: self.errorManager, networkManager: self, biinie: user)
+//        addToQueue(request)
+//        
+//    }
 
     /**
      Enable biinie to register using Facebook.
      @param user:Biinie data.
      */
+    /*
     func register_with_Facebook(user: Biinie) {
 
         var date: String?
@@ -257,6 +268,7 @@ class BNNetworkManager: NSObject, BNDataManagerDelegate, BNErrorManagerDelegate,
         let request = BNRequest_Register_with_Facebook(requestString: "\(urlStr)", errorManager: self.errorManager!, networkManager: self)
         addToQueue(request)
     }
+     */
 
     /**
      Request all biinie data

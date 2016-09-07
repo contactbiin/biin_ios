@@ -711,7 +711,7 @@ class MainViewController: UIViewController, MenuViewDelegate, MainViewDelegate, 
                 // Process error
                 print("Error: \(error)")
             } else {
-                //print("fetched user: \(result)")
+                print("fetched user: \(result)")
                 if let first_name = result.valueForKey("first_name") {
                     BNAppSharedManager.instance.dataManager.biinie!.firstName = first_name as? String
                 }

@@ -216,19 +216,21 @@ class SignupView: UIView, UITextFieldDelegate {
             let lastName = lastNameTxt!.textField!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             let email = emailTxt!.textField!.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
-            newUser!.identifier = emailTxt!.textField!.text!
+            
+            newUser!.identifier = "none"//emailTxt!.textField!.text!
+            newUser!.facebook_id = ""
             newUser!.firstName = firstName
             newUser!.lastName = lastName
             newUser!.email = email
             newUser!.gender = genderStr
             newUser!.password = passwordTxt!.textField!.text
-
+            newUser!.isEmailVerified = false
             newUser!.token = BNAppSharedManager.instance.dataManager.biinie!.token
             newUser!.needsTokenUpdate = BNAppSharedManager.instance.dataManager.biinie!.needsTokenUpdate
 
             BNAppSharedManager.instance.dataManager.biinie = newUser
-
-            BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.biinie!)
+            BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.biinie!)
+//            BNAppSharedManager.instance.networkManager.register(BNAppSharedManager.instance.dataManager.biinie!)
             delegate!.showProgress!(self)
             self.endEditing(true)
             SharedAnswersManager.instance.logSignUp("Email")

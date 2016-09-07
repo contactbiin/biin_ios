@@ -211,7 +211,8 @@ class SingupViewController: UIViewController, UIPopoverPresentationControllerDel
 
         if self.isSigningUpWithFacebook {
             self.showProgressView()
-            BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.biinie!)
+         BNAppSharedManager.instance.networkManager.sendBiinie(BNAppSharedManager.instance.dataManager.biinie!)
+            //BNAppSharedManager.instance.networkManager.login_Facebook(BNAppSharedManager.instance.dataManager.biinie!.email!)
             SharedAnswersManager.instance.logSignUp("Facebook")
         } else {
 
@@ -433,7 +434,7 @@ class SingupViewController: UIViewController, UIPopoverPresentationControllerDel
 
         let graphRequest: FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id,first_name,last_name,gender,picture,email,birthday,friends"])
 
-        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
 
             if ((error) != nil) {
                 // Process error
@@ -497,8 +498,8 @@ class SingupViewController: UIViewController, UIPopoverPresentationControllerDel
                 BNAppSharedManager.instance.dataManager.biinie = user
 
                 if self.isBiinieAlreadyInFacebook {
-                    BNAppSharedManager.instance.networkManager.login_Facebook(user.email!)
-                    SharedAnswersManager.instance.logSignUp("Facebook")
+                    //BNAppSharedManager.instance.networkManager.login_Facebook(user.email!)
+                    //SharedAnswersManager.instance.logSignUp("Facebook")
                 } else {
 
                     if (self.alert?.isOn != nil) {

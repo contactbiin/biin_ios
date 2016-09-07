@@ -259,9 +259,6 @@
 		5BEC1EA31D287DCA00D7B931 /* BNRequest_Biinie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D221D287DCA00D7B931 /* BNRequest_Biinie.swift */; };
 		5BEC1EA51D287DCA00D7B931 /* BNRequest_InitialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D241D287DCA00D7B931 /* BNRequest_InitialData.swift */; };
 		5BEC1EA61D287DCA00D7B931 /* BNRequest_Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D251D287DCA00D7B931 /* BNRequest_Login.swift */; };
-		5BEC1EA71D287DCA00D7B931 /* BNRequest_Login_Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D261D287DCA00D7B931 /* BNRequest_Login_Facebook.swift */; };
-		5BEC1EA81D287DCA00D7B931 /* BNRequest_Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D271D287DCA00D7B931 /* BNRequest_Register.swift */; };
-		5BEC1EA91D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D281D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift */; };
 		5BEC1EAA1D287DCA00D7B931 /* BNRequest_SendBiinie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D291D287DCA00D7B931 /* BNRequest_SendBiinie.swift */; };
 		5BEC1EAB1D287DCA00D7B931 /* BNRequest_SendBiinieActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D2A1D287DCA00D7B931 /* BNRequest_SendBiinieActions.swift */; };
 		5BEC1EAE1D287DCA00D7B931 /* BNRequest_SendBiinieToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC1D2D1D287DCA00D7B931 /* BNRequest_SendBiinieToken.swift */; };
@@ -584,9 +581,6 @@
 		5BEC1D221D287DCA00D7B931 /* BNRequest_Biinie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Biinie.swift; sourceTree = "<group>"; };
 		5BEC1D241D287DCA00D7B931 /* BNRequest_InitialData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_InitialData.swift; sourceTree = "<group>"; };
 		5BEC1D251D287DCA00D7B931 /* BNRequest_Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Login.swift; sourceTree = "<group>"; };
-		5BEC1D261D287DCA00D7B931 /* BNRequest_Login_Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Login_Facebook.swift; sourceTree = "<group>"; };
-		5BEC1D271D287DCA00D7B931 /* BNRequest_Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Register.swift; sourceTree = "<group>"; };
-		5BEC1D281D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_Register_with_Facebook.swift; sourceTree = "<group>"; };
 		5BEC1D291D287DCA00D7B931 /* BNRequest_SendBiinie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinie.swift; sourceTree = "<group>"; };
 		5BEC1D2A1D287DCA00D7B931 /* BNRequest_SendBiinieActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinieActions.swift; sourceTree = "<group>"; };
 		5BEC1D2D1D287DCA00D7B931 /* BNRequest_SendBiinieToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BNRequest_SendBiinieToken.swift; sourceTree = "<group>"; };
@@ -1258,9 +1252,6 @@
 				5BEC1D2D1D287DCA00D7B931 /* BNRequest_SendBiinieToken.swift */,
 				5BEC1D2A1D287DCA00D7B931 /* BNRequest_SendBiinieActions.swift */,
 				5BEC1D251D287DCA00D7B931 /* BNRequest_Login.swift */,
-				5BEC1D261D287DCA00D7B931 /* BNRequest_Login_Facebook.swift */,
-				5BEC1D271D287DCA00D7B931 /* BNRequest_Register.swift */,
-				5BEC1D281D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift */,
 				5BEC1D291D287DCA00D7B931 /* BNRequest_SendBiinie.swift */,
 				5BD473841D58F8D900C0C130 /* BNRequest_SendBiinieOnExitSite.swift */,
 				5BD473821D58E36D00C0C130 /* BNRequest_SendBiinieOnEnterSite.swift */,
@@ -1760,7 +1751,6 @@
 				5B569BEC1D5CE26500602D54 /* SiteView_OtherSites.swift in Sources */,
 				5B569BCB1D5CE26500602D54 /* BiinLogoView.swift in Sources */,
 				5B569C311D5CE26500602D54 /* BNUIImageView.swift in Sources */,
-				5BEC1EA91D287DCA00D7B931 /* BNRequest_Register_with_Facebook.swift in Sources */,
 				5B569BD11D5CE26500602D54 /* MainView_Container_All.swift in Sources */,
 				5B569C4B1D5CE26500602D54 /* BNIcon_FriendsMedium.swift in Sources */,
 				5BEC1E961D287DCA00D7B931 /* BNLoyalty.swift in Sources */,
@@ -1798,7 +1788,6 @@
 				5B569BC01D5CE26500602D54 /* ServerErrorView.swift in Sources */,
 				5BEC1EF21D287DCA00D7B931 /* VersionCheckViewController.swift in Sources */,
 				5B569C1E1D5CE26500602D54 /* BNUIButton_Information.swift in Sources */,
-				5BEC1EA71D287DCA00D7B931 /* BNRequest_Login_Facebook.swift in Sources */,
 				5B569C271D5CE26500602D54 /* BNUIButton_ShareGift.swift in Sources */,
 				5BEC1EF01D287DCA00D7B931 /* SingupViewController.swift in Sources */,
 				5BEC1EBF1D287DCA00D7B931 /* BNRequest_SendSharedElement.swift in Sources */,
@@ -1815,7 +1804,6 @@
 				5B569BC81D5CE26500602D54 /* BNActivityIndicator.swift in Sources */,
 				5B569C131D5CE26500602D54 /* BNUIButton.swift in Sources */,
 				5BEC1E761D287DCA00D7B931 /* BNErrorManager.swift in Sources */,
-				5BEC1EA81D287DCA00D7B931 /* BNRequest_Register.swift in Sources */,
 				5B569C5C1D5CE26500602D54 /* BNIcon_MiniBiin.swift in Sources */,
 				5BEC1EEF1D287DCA00D7B931 /* MainViewController.swift in Sources */,
 				5B569C3A1D5CE26500602D54 /* BNUIView_PriceX.swift in Sources */,

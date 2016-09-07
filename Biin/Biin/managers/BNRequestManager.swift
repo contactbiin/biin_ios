@@ -61,7 +61,7 @@ class BNRequestManager: NSObject {
             break
         case .InitialData_Failed: self.networkManager!.initialData_Failed()
         case .VersionCheck_NeedsUpdate: self.networkManager!.versionCheck_Failed()
-        case .Biinie_Failed: break
+        case .Biinie_Failed: self.networkManager!.biinie_NotRegistered()
         case .Biinie_NotRegistered: self.networkManager!.biinie_NotRegistered()
         case .SendBiinieToken_Failed: self.networkManager!.sendBiinieToken_Failed()
         case .SendBiinie_Failed: self.networkManager!.sendBiinie_Failed()

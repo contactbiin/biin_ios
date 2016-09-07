@@ -112,15 +112,15 @@ import FirebaseMessaging
             if appManager.dataManager!.biinie!.token! == "" {
                 appManager.dataManager!.biinie!.token = refreshedToken
                 appManager.dataManager!.biinie!.needsTokenUpdate = true
-                print("Token asignado: \(appManager.dataManager!.biinie!.token!)")
+                //print("Token asignado: \(appManager.dataManager!.biinie!.token!)")
 
             } else {
                 if appManager.dataManager!.biinie!.token! != refreshedToken {
                     appManager.dataManager!.biinie!.token = refreshedToken
                     appManager.dataManager!.biinie!.needsTokenUpdate = true
-                    print("User NEW Token: \(appManager.dataManager!.biinie!.token!)")
+                    //print("User NEW Token: \(appManager.dataManager!.biinie!.token!)")
                 } else {
-                    print("User Token: \(appManager.dataManager!.biinie!.token!)")
+                    //print("User Token: \(appManager.dataManager!.biinie!.token!)")
                 }
             }
         }
@@ -142,7 +142,7 @@ import FirebaseMessaging
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
         FIRMessaging.messaging().disconnect()
-        print("Disconnected from FCM.")
+        //print("Disconnected from FCM.")
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

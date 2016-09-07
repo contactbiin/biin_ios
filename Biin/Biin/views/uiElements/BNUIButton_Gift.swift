@@ -45,28 +45,29 @@ class BNUIButton_Gift: BNUIButton {
 
         if gift!.hasExpirationDate {
 
-            let expiredTitle_Length = SharedUIManager.instance.getStringLength("Expira:", fontName: "Lato-Light", fontSize: height)
+//            let expiredTitle_Length = SharedUIManager.instance.getStringLength("Expira:", fontName: "Lato-Light", fontSize: height)
 
-            let expiredDate_Length = SharedUIManager.instance.getStringLength(gift!.expirationDate!.bnDisplayDateFormatt(), fontName: "Lato-Black", fontSize: height)
+//            let expiredDate_Length = SharedUIManager.instance.getStringLength(gift!.expirationDate!.bnDisplayDateFormatt(), fontName: "Lato-Black", fontSize: height)
 
-            var xpos: CGFloat = ((frame.width - (expiredTitle_Length + expiredDate_Length)) / 2)
+            var xpos: CGFloat = ( frame.width / 2 )
+            
             ypos += (height + 5)
 
-            expiredTitleLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: (frame.width / 2), height: height))
+            expiredTitleLbl = UILabel(frame: CGRect(x: 0, y: ypos, width: (frame.width / 2), height: height))
             expiredTitleLbl!.text = NSLocalizedString("GiftsExpires", comment: "GiftsExpires")
             expiredTitleLbl!.textColor = UIColor.whiteColor()
             expiredTitleLbl!.font = UIFont(name: "Lato-Light", size: height)
             expiredTitleLbl!.textAlignment = NSTextAlignment.Right
-            expiredTitleLbl!.sizeToFit()
+            //expiredTitleLbl!.sizeToFit()
             self.addSubview(expiredTitleLbl!)
 
-            xpos += (expiredTitle_Length + 2)
+            //xpos += (expiredTitle_Length + 5)
             expiredDateLbl = UILabel(frame: CGRect(x: xpos, y: ypos, width: (frame.width / 2), height: height))
-            expiredDateLbl!.text = gift!.expirationDate!.bnDisplayDateFormatt()
+            expiredDateLbl!.text = " \(gift!.expirationDate!.bnDisplayDateFormatt())"
             expiredDateLbl!.textColor = UIColor.whiteColor()
             expiredDateLbl!.font = UIFont(name: "Lato-Black", size: height)
-            expiredDateLbl!.textAlignment = NSTextAlignment.Right
-            expiredDateLbl!.sizeToFit()
+            expiredDateLbl!.textAlignment = NSTextAlignment.Left
+            //expiredDateLbl!.sizeToFit()
             self.addSubview(expiredDateLbl!)
         }
     }
