@@ -342,7 +342,7 @@ class BNNotificationManager: NSObject, NSCoding {
                 localNotification.soundName = "notification.wav"
                 localNotification.userInfo = ["UUID": currentNotice!.identifier!,]
                 localNotification.category = "Biin"
-                localNotification.applicationIconBadgeNumber = 1
+                
                 lastNotice_identifier = currentNotice!.identifier!
 
                 localNotification.fireDate = NSDate(timeIntervalSinceNow: time)

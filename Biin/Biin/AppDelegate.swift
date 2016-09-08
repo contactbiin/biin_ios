@@ -84,7 +84,7 @@ import FirebaseMessaging
         FIRApp.configure()
 
         appManager.networkManager!.checkVersion()
-
+        
         return true
     }
 
@@ -107,20 +107,20 @@ import FirebaseMessaging
 
         if let refreshedToken = FIRInstanceID.instanceID().token() {
 
-            //print("Current Token:\(refreshedToken)")
+            print("Current Token:\(refreshedToken)")
 
             if appManager.dataManager!.biinie!.token! == "" {
                 appManager.dataManager!.biinie!.token = refreshedToken
                 appManager.dataManager!.biinie!.needsTokenUpdate = true
-                //print("Token asignado: \(appManager.dataManager!.biinie!.token!)")
+                print("Token asignado: \(appManager.dataManager!.biinie!.token!)")
 
             } else {
                 if appManager.dataManager!.biinie!.token! != refreshedToken {
                     appManager.dataManager!.biinie!.token = refreshedToken
                     appManager.dataManager!.biinie!.needsTokenUpdate = true
-                    //print("User NEW Token: \(appManager.dataManager!.biinie!.token!)")
+                    print("User NEW Token: \(appManager.dataManager!.biinie!.token!)")
                 } else {
-                    //print("User Token: \(appManager.dataManager!.biinie!.token!)")
+                    print("User Token: \(appManager.dataManager!.biinie!.token!)")
                 }
             }
         }
@@ -139,6 +139,7 @@ import FirebaseMessaging
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        appManager.IS_APP_INBACKGROUND = true
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
         FIRMessaging.messaging().disconnect()
@@ -147,19 +148,28 @@ import FirebaseMessaging
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        appManager.IS_APP_UP = true
-        appManager.positionManager.start_BEACON_RANGING()
+//        appManager.IS_APP_UP = true
+//        appManager.positionManager.start_BEACON_RANGING()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
-        appManager.IS_APP_UP = true
-
-        if BNAppSharedManager.instance.isOpeningForLocalNotification || BNAppSharedManager.instance.notificationManager.lastNotice_identifier != "" {
-            BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
-            BNAppSharedManager.instance.isOpeningForLocalNotification = false
+        if appManager.IS_APP_INBACKGROUND {
+            appManager.networkManager.requestBiinieGifts(appManager.dataManager, biinie: appManager.dataManager.biinie)
         }
+        
+        appManager.IS_APP_INBACKGROUND = false
+        appManager.IS_APP_UP = true
+        appManager.positionManager.start_BEACON_RANGING()
+        
+        
+        //appManager.IS_APP_UP = true
+
+//        if BNAppSharedManager.instance.isOpeningForLocalNotification || BNAppSharedManager.instance.notificationManager.lastNotice_identifier != "" {
+//            BNAppSharedManager.instance.mainViewController?.mainView?.showNotificationContext()
+//            BNAppSharedManager.instance.isOpeningForLocalNotification = false
+//        }
 
         connectToFcm()
 
@@ -168,6 +178,7 @@ import FirebaseMessaging
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        appManager.IS_APP_INBACKGROUND = false
         appManager.IS_APP_UP = false
         appManager.positionManager.start_SITES_MONITORING()
         appManager.dataManager.biinie!.addAction(NSDate(), did: BiinieActionType.CLOSE_APP, to: "biin_ios", by: "")
@@ -191,10 +202,10 @@ import FirebaseMessaging
 
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         // Do something serious in a real app.
-        BNAppSharedManager.instance.notificationManager.lastNotice_identifier = (notification.userInfo!["UUID"] as? String)!
-        BNAppSharedManager.instance.notificationManager.save()
-        BNAppSharedManager.instance.isOpeningForLocalNotification = true
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+        //BNAppSharedManager.instance.notificationManager.lastNotice_identifier = (notification.userInfo!["UUID"] as? String)!
+        //BNAppSharedManager.instance.notificationManager.save()
+        //BNAppSharedManager.instance.isOpeningForLocalNotification = true
+        //UIApplication.sharedApplication().applicationIconBadgeNumber = 1
 
     }
 

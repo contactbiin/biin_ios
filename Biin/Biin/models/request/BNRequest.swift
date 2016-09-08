@@ -14,6 +14,7 @@ enum BNRequestError {
     case Register_Failed
     case Register_Facebook_Failed
     case Biinie_Failed
+    case BiinieGifts_Failed
     case SendBiinie_Failed
     case SendBiinieActions //NOT IN USE
     case SendBiinieToken_Failed
@@ -48,6 +49,7 @@ enum BNRequestType {
     case Register
     case Register_Facebook
     case Biinie
+    case BiinieGifts
     case SendBiinie
     case SendBiinie_Update
     case SendBiinieActions

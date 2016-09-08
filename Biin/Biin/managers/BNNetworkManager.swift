@@ -83,6 +83,11 @@ class BNNetworkManager: NSObject, BNDataManagerDelegate, BNErrorManagerDelegate,
         self.delegateDM!.didReceivedBiinieData!(biinie)
     }
 
+    func biinieGift_Completed(biinie: Biinie?) {
+        print("update biinie gift")
+        (BNAppSharedManager.instance.mainViewController?.mainView!.giftsState!.view! as? GiftsView)!.updateGifts()
+    }
+    
     func biinie_Failed() {}
 
     func biinie_NotRegistered() {
@@ -278,7 +283,16 @@ class BNNetworkManager: NSObject, BNDataManagerDelegate, BNErrorManagerDelegate,
         let request = BNRequest_Biinie(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)", errorManager: self.errorManager!, networkManager: self, biinie: biinie)
         addToQueue(request)
     }
-
+    
+    /**
+     Request all biinie gifts.
+     @param biinie:Biinie object.
+     */
+    func requestBiinieGifts(manager: BNDataManager?, biinie: Biinie?) {
+        let request = BNRequest_BiinieGifts(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)", errorManager: self.errorManager!, networkManager: self, biinie: biinie)
+        addToQueue(request)
+    }
+    
     /**
      Send biinie data.
      @param user:Biinie data.

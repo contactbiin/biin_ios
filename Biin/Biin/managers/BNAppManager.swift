@@ -30,6 +30,7 @@ class BNAppManager {
 
     weak var appDelegate: AppDelegate?
 
+    var IS_APP_INBACKGROUND = false
     var IS_APP_UP = false
     var IS_APP_DOWN = false
     var IS_APP_READY_FOR_NEW_DATA_REQUEST = false
