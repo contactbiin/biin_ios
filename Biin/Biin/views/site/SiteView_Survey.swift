@@ -15,7 +15,8 @@ class SiteView_Survey: BNView, UITextViewDelegate {
 
     var rating: Int = 5
     var continueBtn: UIButton?
-
+    var isContinueBtnShowing = false
+    
     var commentTxt: UITextView?
     var isSurveyDone = false
 
@@ -174,8 +175,9 @@ class SiteView_Survey: BNView, UITextViewDelegate {
         sender.backgroundColor = color
         sender.layer.borderColor = color.CGColor
         sender.setTitleColor(UIColor.bnSitesColor(), forState: UIControlState.Normal)
-        continueBtn!.enabled = true
-
+        
+        showContinueBtn()
+        
         if previousButton != nil {
             previousButton!.layer.borderColor = UIColor.whiteColor().CGColor
             previousButton!.backgroundColor = UIColor.bnSitesColor()
@@ -184,6 +186,21 @@ class SiteView_Survey: BNView, UITextViewDelegate {
         } else {
             previousButton = sender
         }
+    }
+    
+    func showContinueBtn() {
+        
+        if isContinueBtnShowing { return }
+        
+        
+        continueBtn!.setTitle(NSLocalizedString("ContinueBtn", comment: "ContinueBtn"), forState: UIControlState.Normal)
+        continueBtn!.alpha = 1
+        continueBtn!.enabled = true
+        isContinueBtnShowing = true
+        
+        UIView.animateWithDuration(0.25, animations: {() -> Void in
+            self.continueBtn!.frame.origin.y -= 60
+        })
     }
 
     func updateSiteData(site: BNSite?) {
@@ -217,12 +234,13 @@ class SiteView_Survey: BNView, UITextViewDelegate {
 
             self.rating = 8
 
+            isContinueBtnShowing = false
             continueBtn!.enabled = false
-            continueBtn!.alpha = 1
-            continueBtn!.frame.origin.y = (self.frame.height - 55)
-            continueBtn!.setTitle(NSLocalizedString("Continue", comment: "Continue"), forState: UIControlState.Normal)
-            continueBtn!.backgroundColor = UIColor.bnGrayLight()
-            continueBtn!.setTitleColor(UIColor.bnSitesColor(), forState: UIControlState.Disabled)
+            continueBtn!.alpha = 0
+            continueBtn!.frame.origin.y = (self.frame.height + 5)
+            continueBtn!.setTitle(NSLocalizedString("SelectOntToContinue", comment: "SelectOntToContinue"), forState: UIControlState.Normal)
+            continueBtn!.backgroundColor = UIColor.whiteColor()
+            continueBtn!.setTitleColor(UIColor.appBackground(), forState: UIControlState.Normal)
 
         } else {
 

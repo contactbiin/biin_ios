@@ -90,20 +90,22 @@ class SingupViewController: UIViewController, UIPopoverPresentationControllerDel
             returnUserData()
         } else {
             facebookBtn = FBSDKLoginButton()
+            
             self.view.addSubview(facebookBtn!)
             facebookBtn!.frame = CGRectMake(5, ypos, (screenWidth - 10), 60)
             facebookBtn!.readPermissions = ["public_profile", "email", "user_friends", "user_birthday"]
             facebookBtn!.layer.cornerRadius = 2
             facebookBtn!.delegate = self
-            facebookBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
+            facebookBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 18)
             ypos += 65
         }
 
         singupBtn = UIButton(frame: CGRectMake(5, ypos, (screenWidth - 10), 60))
-        singupBtn!.backgroundColor = UIColor.biinOrange()
+        singupBtn!.backgroundColor = UIColor.whiteColor()
+        singupBtn!.setTitleColor(UIColor.appBackground(), forState: UIControlState.Normal)
         singupBtn!.layer.cornerRadius = 2
         singupBtn!.setTitle(NSLocalizedString("ImNewHere", comment: "ImNewHere"), forState: UIControlState.Normal)
-        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 15)
+        singupBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 18)
         singupBtn!.addTarget(self, action: #selector(self.showSignUp(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(singupBtn!)
 

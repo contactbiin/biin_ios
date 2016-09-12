@@ -40,6 +40,8 @@ enum BNRequestError {
     case SendLoyaltyCompleted_Failed
     case SendLoyaltyEnroll_Failed
     case SendLoyaltyStar_Failed
+    
+    case Image_Failed
 }
 
 enum BNRequestType {

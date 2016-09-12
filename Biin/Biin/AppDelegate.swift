@@ -163,6 +163,10 @@ import FirebaseMessaging
         appManager.IS_APP_UP = true
         appManager.positionManager.start_BEACON_RANGING()
         
+        if appManager.dataManager.biinie != nil {
+            appManager.networkManager.sendBiinieActions(appManager.dataManager.biinie!)
+        }
+
         
         //appManager.IS_APP_UP = true
 

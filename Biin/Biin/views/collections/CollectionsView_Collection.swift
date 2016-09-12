@@ -49,7 +49,7 @@ class CollectionsView_Collection: BNView, UIScrollViewDelegate, ElementMiniView_
 
         self.collection = collection
 
-        self.backgroundColor = UIColor.appMainColor()
+        self.backgroundColor = UIColor.appBackground()
         //self.showcase = BNAppSharedManager.instance.dataManager.showcases[showcase!.identifier!]
         //TODO: Add all showcase data here
 

@@ -163,7 +163,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         ypos += 30
         line = UIView(frame: CGRectMake(5, (ypos), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appBackground()
-        self.addSubview(line)
+        //self.addSubview(line)
 
         let lastNameLbl = UILabel(frame: CGRectMake(0, (ypos + 8), ((screenWidth / 2) + 10), labelHeight))
         lastNameLbl.font = UIFont(name: "Lato-Regular", size: fontSize)
@@ -181,7 +181,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         ypos += 30
         line = UIView(frame: CGRectMake(5, (ypos), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appBackground()
-        self.addSubview(line)
+        //self.addSubview(line)
 
         let userNameLbl = UILabel(frame: CGRectMake(0, (ypos + 8), ((screenWidth / 2) + 10), labelHeight))
         userNameLbl.font = UIFont(name: "Lato-Regular", size: fontSize)
@@ -200,7 +200,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         ypos += 30
         line = UIView(frame: CGRectMake(5, (ypos), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appBackground()
-        self.addSubview(line)
+        //self.addSubview(line)
 
         let emailLbl = UILabel(frame: CGRectMake(0, (ypos + 8), ((screenWidth / 2) + 10), labelHeight))
         emailLbl.font = UIFont(name: "Lato-Regular", size: fontSize)
@@ -218,7 +218,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         ypos += 30
         line = UIView(frame: CGRectMake(5, (ypos), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appBackground()
-        self.addSubview(line)
+        //self.addSubview(line)
 
         let emailVerifyLbl = UILabel(frame: CGRectMake(0, (ypos + 8), ((screenWidth / 2) + 10), labelHeight))
         emailVerifyLbl.font = UIFont(name: "Lato-Regular", size: fontSize)
@@ -244,7 +244,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         ypos += 30
         line = UIView(frame: CGRectMake(5, (ypos), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appBackground()
-        self.addSubview(line)
+        //self.addSubview(line)
 
         let birthDateLbl = UILabel(frame: CGRectMake(0, (ypos + 8), ((screenWidth / 2) + 10), labelHeight))
         birthDateLbl.font = UIFont(name: "Lato-Regular", size: fontSize)
@@ -264,7 +264,7 @@ class ProfileView: BNView, UITextFieldDelegate {
         ypos += 30
         line = UIView(frame: CGRectMake(5, (ypos), (screenWidth - 10), 0.5))
         line.backgroundColor = UIColor.appBackground()
-        self.addSubview(line)
+        //self.addSubview(line)
 
         genderLbl = UILabel(frame: CGRectMake(0, (ypos + 13), ((screenWidth / 2) + 10), labelHeight))
         genderLbl!.font = UIFont(name: "Lato-Regular", size: fontSize)
@@ -398,17 +398,19 @@ class ProfileView: BNView, UITextFieldDelegate {
         loginView.frame = CGRectMake(5, (self.frame.height - 140), (screenWidth - 10), 60)
         loginView.readPermissions = ["public_profile", "email", "user_friends", "user_birthday"]
         loginView.layer.cornerRadius = 2
+        loginView.titleLabel!.font = UIFont(name: "Lato-Black", size: 18)
         //            loginView.layer.shadowColor = UIColor.blackColor().CGColor
         //            loginView.layer.shadowOffset = CGSize(width: 0, height: 0)
         //            loginView.layer.shadowOpacity = 0.25
         loginView.delegate = (self.father as! MainView).rootViewController!
-        loginView
+        
         //        }
 
         saveBtn = UIButton(frame: CGRectMake(5, (self.frame.height - 75), (screenWidth - 10), 50))
-        saveBtn!.titleLabel!.font = UIFont(name: "Lato-Regular", size: 16)
+        saveBtn!.titleLabel!.font = UIFont(name: "Lato-Black", size: 18)
         saveBtn!.setTitle(NSLocalizedString("Save", comment: "Save"), forState: UIControlState.Normal)
-        saveBtn!.backgroundColor = UIColor.biinOrange()
+        saveBtn!.setTitleColor(UIColor.appBackground(), forState: UIControlState.Normal)
+        saveBtn!.backgroundColor = UIColor.whiteColor()
         saveBtn!.layer.cornerRadius = 2
         //        saveBtn!.layer.shadowColor = UIColor.blackColor().CGColor
         //        saveBtn!.layer.shadowOffset = CGSize(width: 0, height: 0)

@@ -28,7 +28,7 @@ class MainView_Container_Highlights: BNView, UIScrollViewDelegate {
     override init(frame: CGRect, father: BNView?) {
 
         super.init(frame: frame, father: father)
-        self.backgroundColor = UIColor.darkGrayColor()
+        self.backgroundColor = UIColor.appBackground()
 
         title = UILabel(frame: CGRectMake(10, 16, (frame.width - 20), (SharedUIManager.instance.siteView_showcase_titleSize + 4)))
         title!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.siteView_showcase_titleSize)

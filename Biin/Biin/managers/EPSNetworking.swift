@@ -178,7 +178,7 @@ class EPSNetworking: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
 
         let httpString = NSString(data: request.HTTPBody!, encoding: NSUTF8StringEncoding)
-        //print("\(httpString)")
+        print("\(httpString)")
         //NSLog("BIIN - HTTPBody: \(httpString!)")
 
         self.getWithConnection(identifier, request: request, callback: { (data: String, error: NSError?) -> Void in

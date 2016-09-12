@@ -73,6 +73,7 @@ SignUpTitle = "Sign up";
 LoginTitle = "Log in";
 LoginDesc = "Enter your email and password you previously use on biin.";
 ContinueBtn = "Continue";
+SelectOntToContinue = "Rate us before continuing!";
 WelcomeDesc = "We are glad to see you here, if you are new, you can sign up with your email or login with Facebook.";
 StartDesc = "Excelent, now is time to discover and enjoy special rewards with Biin.";
 TresureChest = "Treasure Chest";

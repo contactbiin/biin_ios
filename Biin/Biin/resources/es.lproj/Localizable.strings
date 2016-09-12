@@ -73,6 +73,7 @@ SignUpTitle = "Registrate en Biin";
 LoginTitle = "Inicia sesión en Biin";
 LoginDesc = "Inicia la sesión con tu correo y contraseña";
 ContinueBtn = "Continuar";
+SelectOntToContinue = "Damos un puntaje para continuar";
 WelcomeDesc = "Estamos felices que estés aqui, si es tu primera vez puedes crear una cuenta nueva o inicia sesión con Facebook.";
 StartDesc = "Excelente, ahora es tiempo de empezar a descubrir y beneficiarte con Biin.";
 TresureChest = "Baul de regalos";

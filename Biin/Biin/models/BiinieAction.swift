@@ -90,6 +90,10 @@ class BiinieAction: NSObject, NSCoding {
             self.did = .CLOSE_APP
         case 23:
             self.did = .BEACON_BATTERY
+        case 24:
+            self.did = .ON_ENTER_SITE
+        case 25:
+            self.did = .ON_EXIT_SITE
         default:
             break
         }
@@ -171,4 +175,7 @@ enum BiinieActionType {
     case CLOSE_APP//22
 
     case BEACON_BATTERY//23
+    
+    case ON_ENTER_SITE //24
+    case ON_EXIT_SITE //25
 }

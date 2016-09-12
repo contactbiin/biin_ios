@@ -43,7 +43,7 @@ class MainView_Container_All: BNView, MainView_Delegate_HighlightsContainer, Mai
         let screenWidth = SharedUIManager.instance.screenWidth
         let screenHeight = SharedUIManager.instance.screenHeight
 
-        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: 45, color: UIColor.darkGrayColor(), delegate: nil)
+        self.scroll = BNScroll(frame: CGRectMake(0, 0, screenWidth, (screenHeight - 20)), father: self, direction: BNScroll_Direction.VERTICAL, space: 0, extraSpace: SharedUIManager.instance.mainView_OptionsBarHeight, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
 
         inSiteView = InSiteView(frame: CGRectMake(0, -80, screenWidth, SharedUIManager.instance.inSiteView_Height), father: self)

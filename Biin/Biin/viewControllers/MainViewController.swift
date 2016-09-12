@@ -48,7 +48,7 @@ class MainViewController: UIViewController, MenuViewDelegate, MainViewDelegate, 
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         self.setNeedsStatusBarAppearanceUpdate()
 
-        self.view.backgroundColor = UIColor.blackColor()
+        self.view.backgroundColor = UIColor.appBackground()
         self.view.layer.masksToBounds = true
         self.becomeFirstResponder()
 
@@ -246,10 +246,10 @@ class MainViewController: UIViewController, MenuViewDelegate, MainViewDelegate, 
             //            showDevelopmentBtn!.setTitle("Show Dev", forState: UIControlState.Normal)
             //            self.view!.addSubview(showDevelopmentBtn!)
         }
-
-        if BNAppSharedManager.instance.dataManager.biinie != nil {
-            BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.biinie!)
-        }
+//
+//        if BNAppSharedManager.instance.dataManager.biinie != nil {
+//            BNAppSharedManager.instance.networkManager.sendBiinieActions(BNAppSharedManager.instance.dataManager.biinie!)
+//        }
     }
 
     func showDevelopmentView() {

@@ -99,6 +99,10 @@ class BNRequestManager: NSObject {
             request.clean()
             removeRequestFromQueue(request.identifier)
             break
+        case .Image_Failed:
+            request.clean()
+            removeRequestFromQueue(request.identifier)
+            break
         default:
             break
         }

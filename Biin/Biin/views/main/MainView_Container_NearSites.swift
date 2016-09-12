@@ -26,7 +26,7 @@ class MainView_Container_NearSites: BNView {
 
         let screenWidth = SharedUIManager.instance.screenWidth
 
-        self.backgroundColor = UIColor.bnSitesColor()
+        self.backgroundColor = UIColor.appBackground()
 
         moreSitesBtn = BNUIButton_More(frame: CGRectMake((screenWidth - SharedUIManager.instance.sitesContainer_headerHeight), 0, SharedUIManager.instance.sitesContainer_headerHeight, SharedUIManager.instance.sitesContainer_headerHeight))
         moreSitesBtn!.icon!.color = UIColor.whiteColor()

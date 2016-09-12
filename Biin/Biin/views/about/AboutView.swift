@@ -42,7 +42,7 @@ class AboutView: BNView {
 
         ypos = SharedUIManager.instance.mainView_HeaderSize
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
-        line.backgroundColor = UIColor.lightGrayColor()
+        line.backgroundColor = UIColor.darkGrayColor()
 
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - ypos)))
         scroll!.backgroundColor = UIColor.clearColor()

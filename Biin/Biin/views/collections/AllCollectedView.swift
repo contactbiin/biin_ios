@@ -64,9 +64,9 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         ypos = SharedUIManager.instance.mainView_HeaderSize
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.darkGrayColor()
-
+        
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
-        scroll!.backgroundColor = UIColor.bnCategoriesColor()
+        scroll!.backgroundColor = UIColor.appBackground()
         scroll!.bounces = false
         scroll!.pagingEnabled = false
         self.addSubview(scroll!)

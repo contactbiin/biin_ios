@@ -42,8 +42,8 @@ class MainView_Container_Elements: BNView {
         var textColor: UIColor?
         //        switch colorIndex {
         //        case 0:
-        self.backgroundColor = UIColor.bnCategoriesColor()
-        category.backgroundColor = UIColor.bnCategoriesColor()
+        self.backgroundColor = UIColor.appBackground()
+        category.backgroundColor = UIColor.appBackground()
         textColor = UIColor.whiteColor()
         //        case 1:
         //            self.backgroundColor = UIColor.darkGrayColor()

@@ -52,9 +52,13 @@ class GiftsView: BNView, GiftView_Delegate {
         self.addSubview(backBtn!)
 
         ypos = SharedUIManager.instance.mainView_HeaderSize
+        let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
+        line.backgroundColor = UIColor.darkGrayColor()
+        
         self.scroll = BNScroll(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (SharedUIManager.instance.mainView_HeaderSize + SharedUIManager.instance.mainView_StatusBarHeight))), father: self, direction: BNScroll_Direction.VERTICAL, space: 2, extraSpace: 0, color: UIColor.appBackground(), delegate: nil)
         self.addSubview(scroll!)
-
+        self.addSubview(line)
+        
         ypos = (screenHeight / 2)
         text = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 10), (SharedUIManager.instance.mainView_TitleSize + 3)))
         text!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.mainView_TitleSize)

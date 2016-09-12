@@ -323,6 +323,9 @@ class BNNetworkManager: NSObject, BNDataManagerDelegate, BNErrorManagerDelegate,
      @param user:Biinie data.
      */
     func sendBiinieActions(biinie: Biinie?) {
+        
+        print("sendBiinieActions")
+        
         if biinie!.actions.count > 0 {
             let request = BNRequest_SendBiinieActions(requestString: "\(rootURL)/mobile/biinies/\(biinie!.identifier!)/history", errorManager: self.errorManager, networkManager: self, biinie: biinie)
             addToQueue(request)

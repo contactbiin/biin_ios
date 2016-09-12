@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Biin/views/notification/NotificationsView.swift"
-            timestampString = "493313095.592149"
+            timestampString = "495403222.155614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "addNotifications()"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Biin/managers/BNNotificationManager.swift"
-            timestampString = "493327488.224199"
+            timestampString = "495399175.637865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "840"
-            endingLineNumber = "840">
+            startingLineNumber = "842"
+            endingLineNumber = "842">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -167,13 +167,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Biin/AppDelegate.swift"
-            timestampString = "495052641.302642"
+            filePath = "Biin/managers/BNNetworkManager.swift"
+            timestampString = "495400778.484828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "application(_:didReceiveLocalNotification:)"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "internet_Failed()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

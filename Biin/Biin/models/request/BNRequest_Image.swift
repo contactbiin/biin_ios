@@ -35,7 +35,7 @@ class BNRequest_Image: BNRequest {
             self.networkManager!.epsNetwork!.getImage(requestString, image: self.image!, callback: { (error: NSError?) -> Void in
 
                 if (error != nil) {
-                    if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Internet_Failed }
+                    if self.attemps == self.attempsLimit { self.requestError = BNRequestError.Image_Failed }
                     self.networkManager!.requestManager!.processFailedRequest(self, error: error)
                 } else {
                     self.isCompleted = true

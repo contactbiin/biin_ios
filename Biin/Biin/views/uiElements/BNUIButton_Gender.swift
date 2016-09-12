@@ -31,10 +31,10 @@ class BNUIButton_Gender: BNUIButton {
 
         switch iconType {
         case .femaleSmall:
-            icon = BNIcon_FemaleSmall(color: UIColor.appMainColor(), position: CGPoint(x: 10, y: 6))
+            icon = BNIcon_FemaleSmall(color: UIColor.appBackground(), position: CGPoint(x: 10, y: 6))
             break
         case .maleSmall:
-            icon = BNIcon_MaleSmall(color: UIColor.appMainColor(), position: CGPoint(x: 10, y: 6))
+            icon = BNIcon_MaleSmall(color: UIColor.appBackground(), position: CGPoint(x: 10, y: 6))
             break
         default:
             break
@@ -42,7 +42,7 @@ class BNUIButton_Gender: BNUIButton {
     }
 
     override func showSelected() {
-        self.backgroundColor = UIColor.biinOrange()
+        self.backgroundColor = UIColor.whiteColor()
     }
 
     override func showEnable() {

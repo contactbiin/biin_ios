@@ -219,6 +219,7 @@ class BNNotificationManager: NSObject, NSCoding {
 
     func showNotice(major: Int) {
 
+        
         //        var site:BNSite?
 
         //        if (BNAppSharedManager.instance.dataManager.findSiteByMajor(major) != nil) {
@@ -227,21 +228,22 @@ class BNNotificationManager: NSObject, NSCoding {
 
         //        if site != nil {
 
-        var identifier = ""
-
-        for notice in localNotices {
-            if notice.major == major {
-                identifier = notice.siteIdentifier!
-                break
-            }
-        }
+//        var identifier = ""
+//
+//        for notice in localNotices {
+//            if notice.major == major {
+//                identifier = notice.siteIdentifier!
+//                break
+//            }
+//        }
 
         //            site = BNSite(identifier: identifier)
-
-        BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, siteIdentifier: identifier, time: NSDate())
-        BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did: BiinieActionType.ENTER_BIIN_REGION, to: identifier, by: identifier)
-
-        //        }
+    
+        if let site = BNAppSharedManager.instance.dataManager.findSiteByMajor(major) {
+            print("ON_ENTER_SITE: major: \(major), site:\(site.identifier!)")
+            BNAppSharedManager.instance.networkManager.sendBiinieOnEnterSite(BNAppSharedManager.instance.dataManager.biinie, siteIdentifier: site.identifier!, time: NSDate())
+            BNAppSharedManager.instance.dataManager.biinie!.addAction(NSDate(), did: BiinieActionType.ON_ENTER_SITE, to: site.identifier!, by: site.identifier!)
+        }
     }
 
     func assingCurrentNoticeByDate(siteNotices: Array<BNNotice>) {
