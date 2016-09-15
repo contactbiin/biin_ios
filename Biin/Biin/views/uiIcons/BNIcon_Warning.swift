@@ -25,21 +25,21 @@ class BNIcon_Warning: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
+        CGContextScaleCTM(context!, scale, scale)
 
         //// ball Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 44, 44)
-        CGContextRotateCTM(context, 44.85 * CGFloat(M_PI) / 180)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, 44, 44)
+        CGContextRotateCTM(context!, 44.85 * CGFloat(M_PI) / 180)
 
         let ballPath = UIBezierPath(ovalInRect: CGRectMake(-30.93, -31.3, 61.86, 62.6))
         color!.setStroke()
         ballPath.lineWidth = 2.5
         ballPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
         //// stick Drawing
         let stickPath = UIBezierPath()
@@ -69,7 +69,7 @@ class BNIcon_Warning: BNIcon {
         color!.setFill()
         pointPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
     }
 }

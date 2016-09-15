@@ -327,6 +327,7 @@
 
 /* Begin PBXFileReference section */
 		0C5827ADE30EF68CF2461053 /* Pods_Biin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Biin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B2708511D8B0E4200085AB0 /* Biin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Biin.entitlements; sourceTree = "<group>"; };
 		5B2EA5081D287CF3001952EC /* Biin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Biin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2EA50B1D287CF3001952EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B2EA5171D287CF3001952EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -683,6 +684,7 @@
 		5B2EA50A1D287CF3001952EC /* Biin */ = {
 			isa = PBXGroup;
 			children = (
+				5B2708511D8B0E4200085AB0 /* Biin.entitlements */,
 				5B2EA50B1D287CF3001952EC /* AppDelegate.swift */,
 				5B2EA5171D287CF3001952EC /* Info.plist */,
 				5BEC1FD41D287DD400D7B931 /* GoogleService-Info.plist */,
@@ -1434,6 +1436,11 @@
 					5B2EA5071D287CF3001952EC = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 2N3N9R25N2;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1955,11 +1962,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_ENTITLEMENTS = Biin/Biin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2N3N9R25N2;
 				INFOPLIST_FILE = Biin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.biin.biin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -1969,11 +1979,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_ENTITLEMENTS = Biin/Biin.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2N3N9R25N2;
 				INFOPLIST_FILE = Biin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.biin.biin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

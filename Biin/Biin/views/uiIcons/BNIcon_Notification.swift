@@ -20,8 +20,8 @@ class BNIcon_Notification: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group 2
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
@@ -57,6 +57,6 @@ class BNIcon_Notification: BNIcon {
         bezier2Path.lineWidth = 1
         bezier2Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

@@ -588,14 +588,14 @@ class MainViewController: UIViewController, MenuViewDelegate, MainViewDelegate, 
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        let imageData = UIImageJPEGRepresentation(image, 1)
+        let imageData = UIImageJPEGRepresentation(image!, 1)
         let relativePath = "image_\(NSDate.timeIntervalSinceReferenceDate()).jpg"
         let path = self.documentsPathForFileName(relativePath)
         imageData!.writeToFile(path, atomically: true)
         NSUserDefaults.standardUserDefaults().setObject(relativePath, forKey: "path")
         NSUserDefaults.standardUserDefaults().synchronize()
 
-        return image
+        return image!
     }
 
     func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {

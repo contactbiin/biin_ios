@@ -59,7 +59,7 @@ class BNActivityIndicator: UIView {
         // We want to animate the strokeEnd property of the circleLayer
         let strokeStart = CABasicAnimation(keyPath: "strokeStart")
         strokeStart.setValue("ani1", forKey: "animationID")
-        strokeStart.delegate = self
+        //strokeStart.delegate = self
         // Set the animation duration appropriately
         strokeStart.duration = 0.5
 
@@ -106,7 +106,7 @@ class BNActivityIndicator: UIView {
         // We want to animate the strokeEnd property of the circleLayer
         let strokeStart = CABasicAnimation(keyPath: "strokeStart")
         strokeStart.setValue("ani2", forKey: "animationID")
-        strokeStart.delegate = self
+        //strokeStart.delegate = self
         // Set the animation duration appropriately
         strokeStart.duration = 1
 
@@ -148,7 +148,7 @@ class BNActivityIndicator: UIView {
 
     }
 
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 
         if isStarted {
             if let animationID: AnyObject = anim.valueForKey("animationID") {

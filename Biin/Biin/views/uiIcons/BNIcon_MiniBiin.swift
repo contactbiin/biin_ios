@@ -20,8 +20,8 @@ class BNIcon_MiniBiin: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -88,7 +88,7 @@ class BNIcon_MiniBiin: BNIcon {
         color!.setFill()
         oval4Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
     }
 }

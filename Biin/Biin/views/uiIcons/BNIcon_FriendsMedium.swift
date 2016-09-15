@@ -20,8 +20,8 @@ class BNIcon_FriendsMedium: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Oval 2 Drawing
         let oval2Path = UIBezierPath(ovalInRect: CGRectMake(2, 0, 7.6, 7.6))
@@ -64,6 +64,6 @@ class BNIcon_FriendsMedium: BNIcon {
         bezier4Path.lineWidth = 2
         bezier4Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

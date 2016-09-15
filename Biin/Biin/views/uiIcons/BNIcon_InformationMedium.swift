@@ -23,8 +23,8 @@ class BNIcon_InformationMedium: BNIcon {
         let color0 = UIColor(red: 0.678, green: 0.687, blue: 0.696, alpha: 1.000)
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -72,6 +72,6 @@ class BNIcon_InformationMedium: BNIcon {
         bezier6Path.fill()
 
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

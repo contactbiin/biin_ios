@@ -20,8 +20,8 @@ class BNIcon_JoinGameIcon: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group 3
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -105,6 +105,6 @@ class BNIcon_JoinGameIcon: BNIcon {
         oval6Path.lineWidth = 2
         oval6Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

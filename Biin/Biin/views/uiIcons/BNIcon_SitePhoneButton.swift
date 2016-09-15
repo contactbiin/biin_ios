@@ -20,8 +20,8 @@ class BNIcon_SitePhoneButton: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Bezier Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 14.65, y: 11.02))
@@ -49,6 +49,6 @@ class BNIcon_SitePhoneButton: BNIcon {
         bezierPath.lineWidth = 1
         bezierPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

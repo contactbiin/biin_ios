@@ -10,6 +10,7 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
 
     var delegate: AllCollectedView_Delegate?
     var title: UILabel?
+    var text: UILabel?
     var backBtn: BNUIButton_Back?
     var scroll: UIScrollView?
     var showcase: BNShowcase?
@@ -65,13 +66,22 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
         let line = UIView(frame: CGRectMake(0, ypos, screenWidth, 0.5))
         line.backgroundColor = UIColor.darkGrayColor()
         
+        
+        ypos = (screenHeight / 2)
+        text = UILabel(frame: CGRectMake(10, ypos, (screenWidth - 10), (SharedUIManager.instance.mainView_TitleSize + 3)))
+        text!.font = UIFont(name: "Lato-Black", size: SharedUIManager.instance.mainView_TitleSize)
+        text!.text = NSLocalizedString("NothingToShow", comment: "NothingToShow")
+        text!.textColor = UIColor.whiteColor()
+        text!.textAlignment = NSTextAlignment.Center
+        
         scroll = UIScrollView(frame: CGRectMake(0, ypos, screenWidth, (screenHeight - (ypos + 20))))
         scroll!.backgroundColor = UIColor.appBackground()
         scroll!.bounces = false
         scroll!.pagingEnabled = false
         self.addSubview(scroll!)
         self.addSubview(line)
-
+        self.addSubview(text!)
+        
         addedElementsIdentifiers = Dictionary<String, BNElement>()
 
         likedElementsBtn = UIButton(frame: CGRectMake(0, (screenHeight - 80), ((screenWidth / 2) - 2), 60))
@@ -136,8 +146,6 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
 
     func updateCollectedElements() {
 
-        //print("updateCollectedElements")
-
         if elements != nil {
             addedElementsIdentifiers!.removeAll(keepCapacity: false)
             for view in elements! {
@@ -147,84 +155,44 @@ class AllCollectedView: BNView, ElementMiniView_Delegate {
             elements = Array<ElementMiniView>()
             addedElementsIdentifiers = Dictionary<String, BNElement>()
         }
-
-        //self.showcase = nil
-        //showcase = BNShowcase()
-
-        /*
-         for (_, collection) in BNAppSharedManager.instance.dataManager.bnUser!.collections! {
-         for (_,element) in collection.elements {
-         if addedElementsIdentifiers![element._id!] == nil {
-         self.showcase!.elements.append(element)
-         addedElementsIdentifiers![element._id!] = element
-         }
-         }
-         }
-         */
-
+        
         let xpos: CGFloat = 0
         var ypos: CGFloat = 0
         _ = 0
+        
         let miniViewHeight: CGFloat = SharedUIManager.instance.miniView_height
-
-        //        var elementView_width:CGFloat = 0
-
-        //        if BNAppSharedManager.instance.dataManager.favoritesElements.count == 1 {
-        //            elementView_width = SharedUIManager.instance.screenWidth
-        //        } else {
-        //            elementView_width = ((SharedUIManager.instance.screenWidth - 1) / 2)
-        //        }
-
         let elementView_width: CGFloat = SharedUIManager.instance.screenWidth
 
-        for elementRelationShip in BNAppSharedManager.instance.dataManager.favoritesElements {
+        if BNAppSharedManager.instance.dataManager.favoritesElements.count > 0 {
+            self.text!.alpha = 0
+            
+            for elementRelationShip in BNAppSharedManager.instance.dataManager.favoritesElements {
 
-            if let element = BNAppSharedManager.instance.dataManager.elements[elementRelationShip.identifier] {
-                if let showcase = BNAppSharedManager.instance.dataManager.showcases[elementRelationShip.showcase] {
-                    if let site = BNAppSharedManager.instance.dataManager.sites[elementRelationShip.site] {
-                        element.showcase = showcase
-                        showcase.site = site
+                if let element = BNAppSharedManager.instance.dataManager.elements[elementRelationShip.identifier] {
+                    if let showcase = BNAppSharedManager.instance.dataManager.showcases[elementRelationShip.showcase] {
+                        if let site = BNAppSharedManager.instance.dataManager.sites[elementRelationShip.site] {
+                            element.showcase = showcase
+                            showcase.site = site
 
-                        let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: true, isNumberVisible: false, showlocation: false)
+                            let elementView = ElementMiniView(frame: CGRectMake(xpos, ypos, elementView_width, miniViewHeight), father: self, element: element, elementPosition: 0, showRemoveBtn: true, isNumberVisible: false, showlocation: false)
 
-                        elementView.requestImage()
-                        elementView.delegate = father! as! MainView
-                        elementView.delegateAllCollectedView = self
-                        scroll!.addSubview(elementView)
-                        elements!.append(elementView)
-
-                        //                        xpos += elementView_width + spacer
-                        //                        colunmCounter += 1
-
-                        //                        if colunmCounter == 2 {
-                        //                            colunmCounter = 0
-                        //                            xpos = 0
-                        ypos += (miniViewHeight + 1)
-                        //                        }
+                            elementView.requestImage()
+                            elementView.delegate = father! as! MainView
+                            elementView.delegateAllCollectedView = self
+                            scroll!.addSubview(elementView)
+                            elements!.append(elementView)
+                            ypos += (miniViewHeight + 1)
+                        }
                     }
                 }
             }
+        } else {
+            self.text!.alpha = 1
         }
-
-        //        if colunmCounter == 1 {
-        //            ypos += elements![0].frame.height
-        //        }
 
         scroll!.contentSize = CGSizeMake(SharedUIManager.instance.screenWidth, ypos)
         scroll!.setContentOffset(CGPointZero, animated: false)
     }
-
-    //    override func showFade(){
-    //        UIView.animateWithDuration(0.2, animations: {()-> Void in
-    //            self.fade!.alpha = 0.5
-    //        })
-    //    }
-    //
-    //    func hideFade(){
-    //        UIView.animateWithDuration(0.5, animations: {()-> Void in
-    //            self.fade!.alpha = 0
-    //        })
-    //    }
 
     override func refresh() {
         updateCollectedElements()

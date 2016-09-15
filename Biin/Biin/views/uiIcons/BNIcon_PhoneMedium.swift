@@ -20,8 +20,8 @@ class BNIcon_PhoneMedium: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -94,6 +94,6 @@ class BNIcon_PhoneMedium: BNIcon {
         color!.setFill()
         bezier8Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

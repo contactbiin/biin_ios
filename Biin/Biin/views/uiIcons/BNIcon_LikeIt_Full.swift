@@ -21,8 +21,8 @@ class BNIcon_LikeIt_Full: BNIcon {
 
         //// Group 2
         //// Bezier Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(8.75, 15.5))
@@ -39,7 +39,7 @@ class BNIcon_LikeIt_Full: BNIcon {
         bezierPath.lineWidth = 1
         bezierPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
     }
 }

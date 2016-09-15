@@ -20,8 +20,8 @@ class BNIcon_ShareItButton: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group 2
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
@@ -63,7 +63,7 @@ class BNIcon_ShareItButton: BNIcon {
         oval3Path.lineWidth = 3
         oval3Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }
 

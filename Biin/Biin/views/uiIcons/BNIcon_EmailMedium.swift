@@ -20,8 +20,8 @@ class BNIcon_EmailMedium: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -106,6 +106,6 @@ class BNIcon_EmailMedium: BNIcon {
         color!.setFill()
         bezier10Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

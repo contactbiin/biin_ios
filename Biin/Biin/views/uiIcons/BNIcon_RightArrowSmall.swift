@@ -20,8 +20,8 @@ class BNIcon_RightArrowSmall: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
@@ -43,6 +43,6 @@ class BNIcon_RightArrowSmall: BNIcon {
         bezier2Path.lineWidth = 1
         bezier2Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

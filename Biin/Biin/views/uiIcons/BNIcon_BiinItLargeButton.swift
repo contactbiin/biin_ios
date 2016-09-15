@@ -24,8 +24,8 @@ class BNIcon_BiinItLargeButton: BNIcon {
         let strokeColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// biinitLarge.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
@@ -45,8 +45,8 @@ class BNIcon_BiinItLargeButton: BNIcon {
         bezierPath.fill()
 
         //// Bezier 2 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, (position.x + 20), (position.y + 25))
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, (position.x + 20), (position.y + 25))
 
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(28.55, 0))
@@ -61,8 +61,8 @@ class BNIcon_BiinItLargeButton: BNIcon {
         bezier2Path.lineWidth = 4.84
         bezier2Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
-        CGContextRestoreGState(context)
+        //CGContextRestoreGState(context!)
     }
 }

@@ -412,15 +412,15 @@ class EPSNetworking: NSObject {
         let colorSpace = CGImageGetColorSpace(cgImage)
         let bitmapInfo = CGImageGetBitmapInfo(cgImage)
 
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo.rawValue)
+        if let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow, colorSpace!, bitmapInfo.rawValue) {
+            CGContextSetInterpolationQuality(context, CGInterpolationQuality.High)
+        
+            CGContextDrawImage(context, CGRect(origin: CGPointZero, size: CGSize(width: CGFloat(width), height: CGFloat(height))), cgImage)
 
-        CGContextSetInterpolationQuality(context, CGInterpolationQuality.High)
-
-        CGContextDrawImage(context, CGRect(origin: CGPointZero, size: CGSize(width: CGFloat(width), height: CGFloat(height))), cgImage)
-
-        let scaledImage = CGBitmapContextCreateImage(context).flatMap { UIImage(CGImage: $0) }
-
-        return scaledImage//UIImage(contentsOfFile:imagePath)
+            let scaledImage = CGBitmapContextCreateImage(context).flatMap { UIImage(CGImage: $0) }
+            return scaledImage//UIImage(contentsOfFile:imagePath)
+        }
+        return nil
     }
 
     func saveImageInBiinChacheLocalFolder(urlString: String, image: UIImage) {

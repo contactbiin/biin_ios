@@ -27,9 +27,9 @@ class BNIcon_Bluetooth: BNIcon {
         //// Color Declarations
 
         //// bluetooth.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
+        CGContextScaleCTM(context!, scale, scale)
 
         //// Group 2
         //// Bezier Drawing
@@ -66,6 +66,6 @@ class BNIcon_Bluetooth: BNIcon {
         ovalPath.lineWidth = 4
         ovalPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

@@ -60,9 +60,9 @@ class BNIcon_Percentage: BNIcon {
         bezierPath.fill()
 
         //// Text Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, textPosition!.x, textPosition!.y)
-        CGContextRotateCTM(context, 45 * CGFloat(M_PI) / 180)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, textPosition!.x, textPosition!.y)
+        CGContextRotateCTM(context!, 45 * CGFloat(M_PI) / 180)
 
         let textRect = CGRectMake(0, -15.02, textWidth, 29.68)
         let textTextContent = NSString(string: self.text!)
@@ -72,11 +72,11 @@ class BNIcon_Percentage: BNIcon {
         let textFontAttributes = [NSFontAttributeName: UIFont(name: "Lato-Black", size: self.textSize)!, NSForegroundColorAttributeName: self.textcolor!, NSParagraphStyleAttributeName: textStyle]
 
         let textTextHeight: CGFloat = textTextContent.boundingRectWithSize(CGSizeMake(textRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, textRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, textRect)
         textTextContent.drawInRect(CGRectMake(textRect.minX, textRect.minY + (textRect.height - textTextHeight) / 2, textRect.width, textTextHeight), withAttributes: textFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

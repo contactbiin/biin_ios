@@ -47,14 +47,13 @@ class MainView_Container_FavoriteSites: BNView {
         title!.textColor = UIColor.whiteColor()
         self.addSubview(title!)
 
-        var ypos: CGFloat = 100
-        let xpos: CGFloat = ((frame.width / 2) - 40)
+        var ypos: CGFloat = 150
+        let xpos: CGFloat = ((frame.width / 2) - 15)
 
-        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(xpos, ypos, 86, 86))
-        likeItButton!.addHeartBeatAnimation()
+        likeItButton = BNUIButton_LikeIt(frame: CGRectMake(xpos, ypos, 30, 30))
         self.addSubview(likeItButton!)
 
-        ypos = ypos + 90
+        ypos = ypos + 40
 
         addFavoritePlacesLbl = UILabel(frame: CGRectMake(50, ypos, (frame.width - 100), 30))
         addFavoritePlacesLbl!.font = UIFont(name: "Lato-Regular", size: SharedUIManager.instance.siteView_showcase_titleSize)

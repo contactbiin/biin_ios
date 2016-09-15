@@ -28,9 +28,9 @@ class BNIcon_Biin: BNIcon {
         //let strokeColor = UIColor(red: 0.103, green: 0.092, blue: 0.095, alpha: 1.000)
 
         //// biinLogo.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
+        CGContextScaleCTM(context!, scale, scale)
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
@@ -113,7 +113,7 @@ class BNIcon_Biin: BNIcon {
         bezier6Path.lineWidth = 8
         bezier6Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
     }
 }

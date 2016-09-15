@@ -21,8 +21,8 @@ class BNIcon_Menu: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// menu.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// line1 Drawing
         let line1Path = UIBezierPath()
@@ -31,7 +31,7 @@ class BNIcon_Menu: BNIcon {
         line1Path.lineCapStyle = .Round
 
         color!.setStroke()
-        line1Path.lineWidth = 1.5
+        line1Path.lineWidth = 2
         line1Path.stroke()
 
         //// line2 Drawing
@@ -41,7 +41,7 @@ class BNIcon_Menu: BNIcon {
         line2Path.lineCapStyle = .Round
 
         color!.setStroke()
-        line2Path.lineWidth = 1.5
+        line2Path.lineWidth = 2
         line2Path.stroke()
 
         //// line3 Drawing
@@ -51,9 +51,9 @@ class BNIcon_Menu: BNIcon {
         line3Path.lineCapStyle = .Round
 
         color!.setStroke()
-        line3Path.lineWidth = 1.5
+        line3Path.lineWidth = 2
         line3Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

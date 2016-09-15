@@ -20,8 +20,8 @@ class BNIcon_SiteEmailButton: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Bezier Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 17.78, y: 0.24))
@@ -43,7 +43,7 @@ class BNIcon_SiteEmailButton: BNIcon {
         bezierPath.lineWidth = 1
         bezierPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
     }
 }

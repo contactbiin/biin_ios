@@ -20,8 +20,8 @@ class BNIcon_FemaleSmall: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// head Drawing
         let headPath = UIBezierPath(ovalInRect: CGRectMake(2, -0, 5.6, 5.6))
@@ -44,6 +44,6 @@ class BNIcon_FemaleSmall: BNIcon {
         bodyPath.lineWidth = 1.5
         bodyPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

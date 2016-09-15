@@ -112,7 +112,7 @@
             startingLineNumber = "128"
             endingLineNumber = "128"
             landmarkName = "addNotifications()"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -157,8 +157,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "213"
             endingLineNumber = "213"
-            landmarkName = "login_Facebook(_:)"
-            landmarkType = "5">
+            landmarkName = "login_Facebook(email:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -174,7 +174,7 @@
             startingLineNumber = "65"
             endingLineNumber = "65"
             landmarkName = "internet_Failed()"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

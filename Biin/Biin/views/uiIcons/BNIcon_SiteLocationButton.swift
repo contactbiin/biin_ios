@@ -20,8 +20,8 @@ class BNIcon_SiteLocationButton: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Bezier Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 7.5, y: 0))
@@ -42,7 +42,7 @@ class BNIcon_SiteLocationButton: BNIcon {
         bezierPath.lineWidth = 1
         bezierPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }
 

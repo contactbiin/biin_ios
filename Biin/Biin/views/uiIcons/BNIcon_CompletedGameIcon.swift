@@ -25,8 +25,8 @@ class BNIcon_CompletedGameIcon: BNIcon {
         //let color0 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
@@ -62,6 +62,6 @@ class BNIcon_CompletedGameIcon: BNIcon {
         bezier4Path.lineWidth = 2
         bezier4Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

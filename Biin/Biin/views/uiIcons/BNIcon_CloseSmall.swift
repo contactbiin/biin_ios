@@ -19,8 +19,8 @@ class BNIcon_CloseSmall: BNIcon {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPoint(x: -0, y: 12))
@@ -29,11 +29,11 @@ class BNIcon_CloseSmall: BNIcon {
         bezier2Path.lineWidth = 5
         bezier2Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
         //// Bezier Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 12, y: 12))
@@ -42,6 +42,6 @@ class BNIcon_CloseSmall: BNIcon {
         bezierPath.lineWidth = 5
         bezierPath.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

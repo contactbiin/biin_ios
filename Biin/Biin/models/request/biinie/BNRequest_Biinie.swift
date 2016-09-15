@@ -29,7 +29,8 @@ class BNRequest_Biinie: BNRequest {
     override func run() {
 
         //self.start = NSDate()
-
+        print("\(self.requestString)")
+        
         isRunning = true
         attemps += 1
 
@@ -58,7 +59,7 @@ class BNRequest_Biinie: BNRequest {
                         //                        self.user!.imgUrl = BNParser.findString("imgUrl", dictionary: biinieData)
                         self.biinie!.gender = BNParser.findString("gender", dictionary: biinieData)
                         self.biinie!.isEmailVerified = BNParser.findBool("isEmailVerified", dictionary: biinieData)
-                        self.biinie!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
+                        //self.biinie!.birthDate = BNParser.findNSDate("birthDate", dictionary: biinieData)
                         self.biinie!.facebookAvatarUrl = BNParser.findString("facebookAvatarUrl", dictionary: biinieData)
                         self.biinie!.friends = BNParser.parseFriends(biinieData) as! Array<Biinie>//BNParser.findNSArray("facebookFriends", dictionary: biinieData)
 

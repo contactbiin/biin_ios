@@ -20,8 +20,8 @@ class BNIcon_Star: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group 2
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
@@ -40,6 +40,6 @@ class BNIcon_Star: BNIcon {
         color!.setFill()
         bezierPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

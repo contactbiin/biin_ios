@@ -378,14 +378,14 @@ class HighlightView: BNView {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        _ = UIImageJPEGRepresentation(image, 1)
+        _ = UIImageJPEGRepresentation(image!, 1)
         //let relativePath = "image_\(NSDate.timeIntervalSinceReferenceDate()).jpg"
         //let path = BNAppSharedManager.instance.mainViewController!.documentsPathForFileName(relativePath)
         //imageData!.writeToFile(path, atomically: true)
         // NSUserDefaults.standardUserDefaults().setObject(relativePath, forKey: "path")
         // NSUserDefaults.standardUserDefaults().synchronize()
 
-        return image
+        return image!
     }
 
     override func clean() {

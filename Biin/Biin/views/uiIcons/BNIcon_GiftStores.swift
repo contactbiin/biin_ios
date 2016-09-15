@@ -21,8 +21,8 @@ class BNIcon_GiftStores: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// giftStores.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPoint(x: 22.7, y: 18.6))
@@ -135,6 +135,6 @@ class BNIcon_GiftStores: BNIcon {
         bezier7Path.lineWidth = 1
         bezier7Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

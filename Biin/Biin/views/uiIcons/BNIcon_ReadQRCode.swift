@@ -21,8 +21,8 @@ class BNIcon_ReadQRCode: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// qrCode.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Rectangle Drawing
         let rectanglePath = UIBezierPath(rect: CGRect(x: 3, y: 3, width: 11, height: 11))
@@ -128,6 +128,6 @@ class BNIcon_ReadQRCode: BNIcon {
         bezier4Path.lineWidth = 2
         bezier4Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

@@ -20,8 +20,8 @@ class BNIcon_ShareGift: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// share.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
@@ -147,6 +147,6 @@ class BNIcon_ShareGift: BNIcon {
         bezier8Path.lineWidth = 1
         bezier8Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }

@@ -20,8 +20,8 @@ class BNIcon_LoyaltyWallet: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group 2
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Oval Drawing
         let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 0, y: 3.4, width: 3.8, height: 3.8))
@@ -78,7 +78,7 @@ class BNIcon_LoyaltyWallet: BNIcon {
         oval3Path.lineWidth = 1
         oval3Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }
 

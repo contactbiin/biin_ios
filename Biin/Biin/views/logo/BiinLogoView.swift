@@ -107,9 +107,9 @@ class BiinLogoView: UIButton {
             layer.lineCap = kCALineCapRound
             layer.masksToBounds = true
 
-            let strokingPath = CGPathCreateCopyByStrokingPath(layer.path, nil, 6, .Round, .Miter, 6)
+            let strokingPath = CGPathCreateCopyByStrokingPath(layer.path!, nil, 6, .Round, .Miter, 6)
 
-            layer.bounds = CGPathGetPathBoundingBox(strokingPath)
+            layer.bounds = CGPathGetPathBoundingBox(strokingPath!)
 
             layer.actions = [
                 "strokeStart": NSNull(),
@@ -173,7 +173,7 @@ class BiinLogoView: UIButton {
 
             let strokeEnd = CABasicAnimation(keyPath: "strokeEnd")
             strokeEnd.setValue("b_end", forKey: "animationID")
-            strokeEnd.delegate = self
+            //strokeEnd.delegate = self
             strokeEnd.toValue = menuStrokeEnd
             strokeEnd.duration = 0.75
             strokeEnd.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
@@ -182,7 +182,7 @@ class BiinLogoView: UIButton {
         }
     }
 
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 
         if let animationID: AnyObject = anim.valueForKey("animationID") {
 
@@ -208,7 +208,7 @@ class BiinLogoView: UIButton {
         //        self.letter_i1.ocb_applyAnimation(strokeStart)
 
         let strokeEnd = CABasicAnimation(keyPath: "strokeEnd")
-        strokeEnd.delegate = self
+        //strokeEnd.delegate = self
         strokeEnd.setValue("i1_end", forKey: "animationID")
         strokeEnd.toValue = menuStrokeEnd
         strokeEnd.duration = 0.5
@@ -225,7 +225,7 @@ class BiinLogoView: UIButton {
         //        self.letter_i2.ocb_applyAnimation(strokeStart)
 
         let strokeEnd = CABasicAnimation(keyPath: "strokeEnd")
-        strokeEnd.delegate = self
+        //strokeEnd.delegate = self
         strokeEnd.setValue("i2_end", forKey: "animationID")
         strokeEnd.toValue = menuStrokeEnd
         strokeEnd.duration = 0.4
@@ -242,7 +242,7 @@ class BiinLogoView: UIButton {
         //        self.letter_n.ocb_applyAnimation(strokeStart)
 
         let strokeEnd = CABasicAnimation(keyPath: "strokeEnd")
-        strokeEnd.delegate = self
+        //strokeEnd.delegate = self
         strokeEnd.setValue("n_end", forKey: "animationID")
         strokeEnd.toValue = menuStrokeEnd
         strokeEnd.duration = 0.5

@@ -274,9 +274,10 @@ class LoyaltyCardView: BNView {
         self.model = loyalty
 
         weak var organization = BNAppSharedManager.instance.dataManager.organizations[loyalty!.organizationIdentifier!]
-
+        
+        var ypos: CGFloat = 0
+        let screenWidth: CGFloat = SharedUIManager.instance.screenWidth
         var decorationColor: UIColor?
-
         var white: CGFloat = 0.0
         var alpha: CGFloat = 0.0
         _ = organization!.primaryColor!.getWhite(&white, alpha: &alpha)
@@ -296,9 +297,16 @@ class LoyaltyCardView: BNView {
         title!.text = organization!.brand!.uppercaseString
 
         receivedLbl!.text = loyalty!.loyaltyCard!.startDate!.bnDisplayDateFormatt_by_Day().uppercaseString
+
         titleLbl!.text = loyalty!.loyaltyCard!.title!
         titleLbl!.textColor = decorationColor
+        titleLbl!.frame = CGRect(x: titleLbl!.frame.origin.x, y: titleLbl!.frame.origin.y, width: (screenWidth - (titleLbl!.frame.origin.x + 20)), height: 0)
+        titleLbl!.numberOfLines = 0
+        titleLbl!.sizeToFit()
+        
+        ypos = (titleLbl!.frame.origin.y + titleLbl!.frame.height + 2)
         ruleLbl!.text = loyalty!.loyaltyCard!.rule!
+        ruleLbl!.frame = CGRect(x: ruleLbl!.frame.origin.x, y: ypos, width: (screenWidth - (ruleLbl!.frame.origin.x + 20)), height: 0)
         ruleLbl!.numberOfLines = 0
         ruleLbl!.sizeToFit()
 
@@ -308,14 +316,12 @@ class LoyaltyCardView: BNView {
 
         self.slots!.removeAll()
 
-        let screenWidth: CGFloat = SharedUIManager.instance.screenWidth
-
         let slotWidth: CGFloat = SharedUIManager.instance.loyaltyCardView_SlotWidth
         let slotSpace: CGFloat = 10
         var counter: Int = 0
         let xposSpace: CGFloat = (((screenWidth - ((slotWidth * 4) + (slotSpace * 3))) / 2) - 5)
         var xpos: CGFloat = xposSpace
-        var ypos: CGFloat = xposSpace
+        ypos = xposSpace
 
         for slot in loyalty!.loyaltyCard!.slots {
 
@@ -341,8 +347,13 @@ class LoyaltyCardView: BNView {
 
         ypos += 80
         goalLbl!.frame.origin.y = ypos
+        goalLbl!.frame = CGRect(x: 0, y: ypos, width: (screenWidth - 100), height: 0)
         goalLbl!.text = loyalty!.loyaltyCard!.goal!
         goalLbl!.sizeToFit()
+        xpos = ((screenWidth - goalLbl!.frame.width) / 2)
+        goalLbl!.frame.origin.x = xpos
+        
+        
 
         ypos += (goalLbl!.frame.height + 5)
         seeGiftBtn!.frame.origin.y = ypos
@@ -360,6 +371,9 @@ class LoyaltyCardView: BNView {
         readQRCodeBtn!.setNeedsDisplay()
 
         if organization != nil {
+            
+            print("TODO: remove comments")
+            
             if true { ///organization!.isUserInSite {
                 readQRCodeBtn!.enabled = true
                 readQRCodeBtn!.icon!.color = decorationColor

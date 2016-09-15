@@ -21,8 +21,8 @@ class BNIcon_Gift: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// gift.svg Group
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Rectangle Drawing
         let rectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 8.17, width: 20.8, height: 5))
@@ -84,7 +84,7 @@ class BNIcon_Gift: BNIcon {
         bezier4Path.lineWidth = 1
         bezier4Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
     }
 }

@@ -20,8 +20,8 @@ class BNIcon_Delete: BNIcon {
         let context = UIGraphicsGetCurrentContext()
 
         //// Group 2
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, position.x, position.y)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, position.x, position.y)
 
         //// Rectangle Drawing
         let rectanglePath = UIBezierPath(rect: CGRect(x: 2.6, y: 2.6, width: 13.7, height: 16.3))
@@ -83,6 +83,6 @@ class BNIcon_Delete: BNIcon {
         bezier4Path.lineWidth = 1
         bezier4Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 }
